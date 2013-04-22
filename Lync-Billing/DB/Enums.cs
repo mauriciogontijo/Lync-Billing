@@ -11,6 +11,8 @@ namespace Lync_Billing.Libs
     {
         public static enum Gateways
         {
+            [Description("gateways")]
+            TableName,
             [Description("gateway_id")]
             GatewayID,
             [Description("gateway_name")]
@@ -19,6 +21,8 @@ namespace Lync_Billing.Libs
 
         public static enum Pools 
         {
+            [Description("pools")]
+            TableName,
             [Description("pool_id")]
             PoolID,
             [Description("pool_name")]
@@ -27,6 +31,8 @@ namespace Lync_Billing.Libs
 
         public static enum Users 
         {
+            [Description("users")]
+            TableName,
             [Description("employee_id")]
             employeeID,
             [Description("username")]
@@ -41,7 +47,8 @@ namespace Lync_Billing.Libs
 
         public static enum PhoneCalls 
         {
-           
+            [Description("phone_calls")]
+            TableName,
             [Description("phone_call_id")]
             PhoneCallID,
             [Description("date_of_call")]
@@ -81,6 +88,17 @@ namespace Lync_Billing.Libs
             [Description("bill_it")]
             BillIt
             
+
+        }
+
+        public static enum Rates
+        {
+            [Description("rates_table_name")]
+            TableName,
+            [Description("fixed_line_rate")]
+            FixedLineRate,
+            [Description("mobile_line_rate")]
+            MobileLineRate,
 
         }
 
