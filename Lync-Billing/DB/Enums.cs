@@ -93,8 +93,6 @@ namespace Lync_Billing.Libs
 
         public static enum Rates
         {
-            [Description("rates_table_name")]
-            TableName,
             [Description("fixed_line_rate")]
             FixedLineRate,
             [Description("mobile_line_rate")]
