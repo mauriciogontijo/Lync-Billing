@@ -87,9 +87,7 @@ namespace Lync_Billing.Libs
             Payed,
             [Description("bill_it")]
             BillIt
-            
-
-        }
+     }
 
         public static enum Rates
         {
@@ -97,17 +95,16 @@ namespace Lync_Billing.Libs
             FixedLineRate,
             [Description("mobile_line_rate")]
             MobileLineRate,
-
         }
 
-        public static string GetEnumDescription(Enum value)
+        public static string GetDescription(Enum value)
         {
-            FieldInfo fi = value.GetType().GetField(value.ToString());
+            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
 
-            DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            DescriptionAttribute[] descAttributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-            if (attributes != null && attributes.Length > 0)
-                return attributes[0].Description;
+            if (descAttributes != null && descAttributes.Length > 0)
+                return descAttributes[0].Description;
             else
                 return value.ToString();
         }
@@ -116,10 +113,8 @@ namespace Lync_Billing.Libs
         {
             Type enumType = typeof(T);
 
-            // Can't use generic type constraints on value types,
-            // so have to do check like this
             if (enumType.BaseType != typeof(Enum))
-                throw new ArgumentException("T must be of type System.Enum");
+                throw new ArgumentException("T is not of System.Enum Type");
 
             Array enumValArray = Enum.GetValues(enumType);
             List<T> enumValList = new List<T>(enumValArray.Length);
