@@ -20,10 +20,11 @@ namespace Lync_Billing.Libs
             return new OleDbConnection(connectionString);
         }
 
-        public DataTable selectFrom(string tableName,List<string> columns,string whereStatemnet)
+        public DataTable SELECT(string tableName, List<string> columns, string whereStatemnet, int limits, bool allFields = false)
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
+            string selectQuery = string.Empty;
             
             StringBuilder constructedFields = new StringBuilder();
             
@@ -32,14 +33,25 @@ namespace Lync_Billing.Libs
             foreach(string field in columns)
             {
                 constructedFields.Append(field+",");
-
             }
             
             constructedFields.Remove(constructedFields.Length-1,1);
             constructedFields.Append(")");
 
-            string selectQuery = string.Format("select from '{2}' where '{3}'", tableName, constructedFields.ToString(), whereStatemnet);
-
+            if (limits == 0)
+            {
+                if (allFields == false)
+                    selectQuery = string.Format("SELECT '{1}' FROM  '{2}' WHERE '{3}'", constructedFields.ToString(), tableName, whereStatemnet);
+                else
+                    selectQuery = string.Format("SELECT * FROM  '{1}' WHERE '{2}'", tableName, whereStatemnet);
+            }
+            else
+            {
+                if(allFields == false)
+                    selectQuery = string.Format("SELECT TOP({1}) '{2}' FROM '{3}' WHERE '{4}'", limits, constructedFields.ToString(), tableName, whereStatemnet);
+                else
+                    selectQuery = string.Format("SELECT TOP({1}) * FROM '{2}' WHERE '{3}'", limits, tableName, whereStatemnet);
+            }
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(selectQuery, conn);
 
