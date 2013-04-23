@@ -29,5 +29,27 @@ namespace Lync_Billing.DB
         public bool Dispute { set; get; }
         public bool Payed { set; get; }
         public bool BillIt { set; get; }
+
+        public int INSERT()
+        {
+            return 0;
+        }
+
+        public List<PhoneCall> SELECT()
+        {
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();
+
+            return phoneCalls;
+        }
+
+        public void UPDATE()
+        {
+
+        }
+
+        public void DELETE()
+        {
+
+        }
     }
 }

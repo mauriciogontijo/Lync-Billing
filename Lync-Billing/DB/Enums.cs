@@ -42,7 +42,9 @@ namespace Lync_Billing.Libs
             [Description("gateway_id")]
             GatewayID,
             [Description("role_id")]
-            RoleID
+            RoleID,
+            [Description("upn")]
+            UPN
         }
 
         public static enum PhoneCalls 
@@ -91,10 +93,16 @@ namespace Lync_Billing.Libs
 
         public static enum Rates
         {
+            [Description("gateway_name")]
+            GatewayName,
             [Description("fixed_line_rate")]
             FixedLineRate,
             [Description("mobile_line_rate")]
             MobileLineRate,
+            [Description("starting_date")]
+            StartingDate,
+            [Description("ending_date")]
+            EndingDate
         }
 
         public static string GetDescription(Enum value)

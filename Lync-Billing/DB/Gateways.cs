@@ -14,6 +14,27 @@ namespace Lync_Billing.DB
         public int GatewayID { set; get; }
         public string GatewayName { set; get; }
 
+        public int INSERT()
+        {
+            return 0;
+        }
+
+        public List<Gateways> SELECT()
+        {
+            List<Gateways> gateways = new List<Gateways>();
+
+            return gateways;
+        }
+
+        public void UPDATE()
+        {
+
+        }
+
+        public void DELETE()
+        {
+
+        }
     }
 
    
