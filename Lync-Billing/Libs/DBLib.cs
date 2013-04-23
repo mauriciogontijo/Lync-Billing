@@ -20,7 +20,7 @@ namespace Lync_Billing.Libs
             return new OleDbConnection(connectionString);
         }
 
-        public DataTable SELECT(string tableName, Dictionary<string, object> columnsValues, int limits, bool allFields = false)
+        public DataTable SELECT(string tableName, Dictionary<string, object> columnsValues, int limits, bool allRows = false)
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
@@ -47,14 +47,14 @@ namespace Lync_Billing.Libs
            
             if (limits == 0)
             {
-                if ( allFields == false )
+                if (allRows == false)
                     selectQuery = string.Format("SELECT '{1}' FROM  ['{2}'] WHERE '{3}'", fields.ToString(), tableName, whereStatement.ToString());
                 else
                     selectQuery = string.Format("SELECT * FROM ['{1}'] WHERE '{2}'", tableName, whereStatement.ToString());
             }
             else
             {
-                if( allFields == false )
+                if (allRows == false)
                     selectQuery = string.Format("SELECT TOP({1}) ['{2}'] FROM '{3}' WHERE '{4}'", limits, fields.ToString(), tableName, whereStatement.ToString());
                 else
                     selectQuery = string.Format("SELECT TOP({1}) * FROM ['{2}'] WHERE '{3}'", limits, tableName, whereStatement.ToString());
