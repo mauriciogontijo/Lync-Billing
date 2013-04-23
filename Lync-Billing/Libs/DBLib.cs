@@ -20,34 +20,44 @@ namespace Lync_Billing.Libs
             return new OleDbConnection(connectionString);
         }
 
-        public DataTable SELECT(string tableName, List<string> columns, string whereStatemnet, int limits, bool allFields = false)
+        public DataTable SELECT(string tableName, Dictionary<string, object> columnsValues, int limits, bool allFields = false)
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
             string selectQuery = string.Empty;
-            
-            StringBuilder constructedFields = new StringBuilder();
-            
-            foreach(string field in columns)
-            {
-                constructedFields.Append("[" + field +"],");
-            }
-            
-            constructedFields.Remove(constructedFields.Length-1,1);
 
+            StringBuilder fields = new StringBuilder();
+            StringBuilder whereStatement = new StringBuilder();
+            
+            foreach(KeyValuePair<string,object>  pair in columnsValues)
+            {
+                fields.Append("[" + pair.Key +"],");
+
+                Type valueType = pair.Value.GetType();
+
+                if (valueType == typeof(int) || valueType == typeof(Double))
+                    whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                else
+                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
+                
+            }
+
+            fields.Remove(fields.Length - 1, 1);
+            whereStatement.Remove(whereStatement.Length - 1, 5);
+           
             if (limits == 0)
             {
                 if ( allFields == false )
-                    selectQuery = string.Format("SELECT '{1}' FROM  ['{2}'] WHERE '{3}'", constructedFields.ToString(), tableName, whereStatemnet);
+                    selectQuery = string.Format("SELECT '{1}' FROM  ['{2}'] WHERE '{3}'", fields.ToString(), tableName, whereStatement.ToString());
                 else
-                    selectQuery = string.Format("SELECT * FROM ['{1}'] WHERE '{2}'", tableName, whereStatemnet);
+                    selectQuery = string.Format("SELECT * FROM ['{1}'] WHERE '{2}'", tableName, whereStatement.ToString());
             }
             else
             {
                 if( allFields == false )
-                    selectQuery = string.Format("SELECT TOP({1}) ['{2}'] FROM '{3}' WHERE '{4}'", limits, constructedFields.ToString(), tableName, whereStatemnet);
+                    selectQuery = string.Format("SELECT TOP({1}) ['{2}'] FROM '{3}' WHERE '{4}'", limits, fields.ToString(), tableName, whereStatement.ToString());
                 else
-                    selectQuery = string.Format("SELECT TOP({1}) * FROM ['{2}'] WHERE '{3}'", limits, tableName, whereStatemnet);
+                    selectQuery = string.Format("SELECT TOP({1}) * FROM ['{2}'] WHERE '{3}'", limits, tableName, whereStatement.ToString());
             }
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(selectQuery, conn);
@@ -64,11 +74,13 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
-        public int INSERT(string tableName, Dictionary<string, object> columnsValues, string whereStatement) 
+        public int INSERT(string tableName, Dictionary<string, object> columnsValues, Dictionary<string,object> wherePart) 
         {
             StringBuilder fields = new StringBuilder(); fields.Append("(");
             StringBuilder values = new StringBuilder(); values.Append("(");
+            StringBuilder whereStatement = new StringBuilder();
 
+            //Fields and values
             foreach (KeyValuePair<string, object> pair in columnsValues)
             {
                 fields.Append("[" + pair.Key + "],");
@@ -83,6 +95,21 @@ namespace Lync_Billing.Libs
 
             fields.Remove(fields.Length - 1, 1).Append(")");
             values.Remove(values.Length - 1, 1).Append(")");
+
+
+            //Where Statement
+
+            foreach (KeyValuePair<string, object> pair in wherePart) 
+            {
+                Type valueType = pair.Value.GetType();
+
+                if (valueType == typeof(int) || valueType == typeof(Double))
+                    whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                else
+                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
+        
+            }
+            whereStatement.Remove(whereStatement.Length - 1, 5);
 
             string insertQuery = string.Format("INSERT INTO ['{1}'] '{2}' VALUES '{3}' WHERE '{4}'; SELECT SCOPE_IDENTITY();", tableName, fields, values, whereStatement);
 
@@ -101,10 +128,11 @@ namespace Lync_Billing.Libs
             return recordID;
         }
 
-        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues, string whereStatement)
+        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues, Dictionary<string,object> wherePart)
         {
 
             StringBuilder fieldsValues = new StringBuilder();
+            StringBuilder whereStatement = new StringBuilder();
             
 
             foreach (KeyValuePair<string, object> pair in columnsValues)
@@ -119,6 +147,18 @@ namespace Lync_Billing.Libs
             }
             
             fieldsValues.Remove(fieldsValues.Length - 1, 1).Append(")");
+
+            foreach (KeyValuePair<string, object> pair in wherePart)
+            {
+                Type valueType = pair.Value.GetType();
+
+                if (valueType == typeof(int) || valueType == typeof(Double))
+                    whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                else
+                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
+
+            }
+            whereStatement.Remove(whereStatement.Length - 1, 5);
 
             string insertQuery = string.Format("UPDATE  ['{1}'] SET '{2}' WHERE '{3}'", tableName, fieldsValues, whereStatement);
 
@@ -136,8 +176,22 @@ namespace Lync_Billing.Libs
 
         }
 
-        public bool DELETE(string tableName, string whereStatement) 
+        public bool DELETE(string tableName, Dictionary<string, object> wherePart) 
         {
+            StringBuilder whereStatement = new StringBuilder();
+
+            foreach (KeyValuePair<string, object> pair in wherePart)
+            {
+                Type valueType = pair.Value.GetType();
+
+                if (valueType == typeof(int) || valueType == typeof(Double))
+                    whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                else
+                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
+
+            }
+            whereStatement.Remove(whereStatement.Length - 1, 5);
+
             string deleteQuery = string.Format("DELETE FROM ['{1}'] WHERE '{2}'", tableName, whereStatement);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
