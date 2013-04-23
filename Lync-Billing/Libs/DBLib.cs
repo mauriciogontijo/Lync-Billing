@@ -28,29 +28,26 @@ namespace Lync_Billing.Libs
             
             StringBuilder constructedFields = new StringBuilder();
             
-            constructedFields.Append("(");
-
             foreach(string field in columns)
             {
-                constructedFields.Append(field+",");
+                constructedFields.Append("[" + field +"],");
             }
             
             constructedFields.Remove(constructedFields.Length-1,1);
-            constructedFields.Append(")");
 
             if (limits == 0)
             {
-                if (allFields == false)
-                    selectQuery = string.Format("SELECT '{1}' FROM  '{2}' WHERE '{3}'", constructedFields.ToString(), tableName, whereStatemnet);
+                if ( allFields == false )
+                    selectQuery = string.Format("SELECT '{1}' FROM  ['{2}'] WHERE '{3}'", constructedFields.ToString(), tableName, whereStatemnet);
                 else
-                    selectQuery = string.Format("SELECT * FROM  '{1}' WHERE '{2}'", tableName, whereStatemnet);
+                    selectQuery = string.Format("SELECT * FROM ['{1}'] WHERE '{2}'", tableName, whereStatemnet);
             }
             else
             {
-                if(allFields == false)
-                    selectQuery = string.Format("SELECT TOP({1}) '{2}' FROM '{3}' WHERE '{4}'", limits, constructedFields.ToString(), tableName, whereStatemnet);
+                if( allFields == false )
+                    selectQuery = string.Format("SELECT TOP({1}) ['{2}'] FROM '{3}' WHERE '{4}'", limits, constructedFields.ToString(), tableName, whereStatemnet);
                 else
-                    selectQuery = string.Format("SELECT TOP({1}) * FROM '{2}' WHERE '{3}'", limits, tableName, whereStatemnet);
+                    selectQuery = string.Format("SELECT TOP({1}) * FROM ['{2}'] WHERE '{3}'", limits, tableName, whereStatemnet);
             }
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(selectQuery, conn);
@@ -74,7 +71,7 @@ namespace Lync_Billing.Libs
 
             foreach (KeyValuePair<string, object> pair in columnsValues)
             {
-                fields.Append(pair.Key + ",");
+                fields.Append("[" + pair.Key + "],");
 
                 Type valueType = pair.Value.GetType();
 
@@ -87,7 +84,7 @@ namespace Lync_Billing.Libs
             fields.Remove(fields.Length - 1, 1).Append(")");
             values.Remove(values.Length - 1, 1).Append(")");
 
-            string insertQuery = string.Format("INSERT INTO '{1}' '{2}' VALUES '{3}' WHERE '{4}'; SELECT SCOPE_IDENTITY();", tableName, fields, values, whereStatement);
+            string insertQuery = string.Format("INSERT INTO ['{1}'] '{2}' VALUES '{3}' WHERE '{4}'; SELECT SCOPE_IDENTITY();", tableName, fields, values, whereStatement);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(insertQuery, conn);
@@ -116,14 +113,14 @@ namespace Lync_Billing.Libs
                 Type valueType = pair.Value.GetType();
 
                 if (valueType == typeof(int) || valueType == typeof(Double))
-                    fieldsValues.Append(pair.Key + "=" + pair.Value + ",");              
+                    fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");              
                 else
                     fieldsValues.Append(pair.Key + "=" + "'" + pair.Value  + "'" + ",");  
             }
             
             fieldsValues.Remove(fieldsValues.Length - 1, 1).Append(")");
 
-            string insertQuery = string.Format("UPDATE  '{1}' SET '{2}' WHERE '{3}'", tableName, fieldsValues, whereStatement);
+            string insertQuery = string.Format("UPDATE  ['{1}'] SET '{2}' WHERE '{3}'", tableName, fieldsValues, whereStatement);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(insertQuery, conn);
@@ -141,7 +138,7 @@ namespace Lync_Billing.Libs
 
         public bool DELETE(string tableName, string whereStatement) 
         {
-            string deleteQuery = string.Format("DELETE FROM '{1}' WHERE '{2}'", tableName, whereStatement);
+            string deleteQuery = string.Format("DELETE FROM ['{1}'] WHERE '{2}'", tableName, whereStatement);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(deleteQuery, conn);
