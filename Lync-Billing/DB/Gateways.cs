@@ -9,7 +9,9 @@ using Lync_Billing.Libs;
 
 namespace Lync_Billing.DB
 {
-    
+    /// <remarks>
+    /// TODO: Validate if gateway has been used by other tables since there is no direct relation between tables related to gateways
+    /// </remarks>
     public class Gateways
     {
         public DBLib DBRoutines = new DBLib();
