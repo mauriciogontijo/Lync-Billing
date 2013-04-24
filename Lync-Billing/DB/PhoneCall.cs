@@ -130,31 +130,31 @@ namespace Lync_Billing.DB
                 wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.PhoneCallID), phoneCall.PhoneCallID);
 
                 //Set Part
-                if (phoneCall.BillIt != null)
+                if ((phoneCall.BillIt).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.BillIt), phoneCall.BillIt);
 
-                if (phoneCall.Cost != null)
+                if ((phoneCall.Cost).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Cost), phoneCall.Cost);
 
                 if (phoneCall.DateOfCall != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.DateOfCall), phoneCall.DateOfCall);
 
-                if (phoneCall.Dispute != null)
+                if ((phoneCall.Dispute).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Dispute), phoneCall.Dispute);
 
                 if (phoneCall.ModifiedOn != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.ModifiedOn), phoneCall.ModifiedOn);
 
-                if (phoneCall.IsPersonal != null)
+                if ((phoneCall.IsPersonal).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.IsPersonal), phoneCall.IsPersonal);
 
-                if (phoneCall.Payed != null)
+                if ((phoneCall.Payed).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Payed), phoneCall.Payed);
 
-                if (phoneCall.Rate != null)
+                if ((phoneCall.Rate).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Rate), phoneCall.Rate);
 
-                if (phoneCall.Duration != null)
+                if ((phoneCall.Duration).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Duration), phoneCall.Duration);
 
                 if (phoneCall.DstCountry != null)
