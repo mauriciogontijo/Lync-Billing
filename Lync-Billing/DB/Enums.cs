@@ -5,11 +5,11 @@ using System.Web;
 using System.Reflection;
 using System.ComponentModel;
 
-namespace Lync_Billing.Libs
+namespace Lync_Billing.DB
 {
-    public class Enums
+    public static class Enums
     {
-        public static enum Gateways
+        public enum Gateways
         {
             [Description("gateways")]
             TableName,
@@ -19,7 +19,7 @@ namespace Lync_Billing.Libs
             GatewayName
         }
 
-        public static enum Pools 
+        public enum Pools 
         {
             [Description("pools")]
             TableName,
@@ -29,7 +29,7 @@ namespace Lync_Billing.Libs
             PoolName
         }
 
-        public static enum Users 
+        public enum Users 
         {
             [Description("users")]
             TableName,
@@ -47,14 +47,14 @@ namespace Lync_Billing.Libs
             UPN
         }
 
-        public static enum PhoneCalls 
+        public enum PhoneCalls 
         {
             [Description("phone_calls")]
             TableName,
             [Description("phone_call_id")]
             PhoneCallID,
             [Description("date_of_call")]
-            CalledOn,
+            DateOfCall,
             [Description("sip_account")]
             SipAccount,
             [Description("src_number")]
@@ -74,7 +74,7 @@ namespace Lync_Billing.Libs
             [Description("duration")]
             Duration,
             [Description("rate")]
-            rate,
+            Rate,
             [Description("cost")]
             Cost,
             [Description("updated_on")]
@@ -91,7 +91,7 @@ namespace Lync_Billing.Libs
             BillIt
      }
 
-        public static enum Rates
+        public enum Rates
         {
             [Description("gateway_name")]
             GatewayName,
