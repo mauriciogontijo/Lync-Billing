@@ -117,12 +117,15 @@ namespace Lync_Billing.DB
             bool status = false;
 
             DataTable dt = new DataTable();
-            Dictionary<string, object> setPart = new Dictionary<string, object>();
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            Dictionary<string, object> setPart;
+            Dictionary<string, object> wherePart;
 
           
             foreach (PhoneCall phoneCall in phoneCalls)
             {
+                setPart = new Dictionary<string, object>();
+                wherePart = new Dictionary<string, object>();
+
                 //Where Part
                 wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.PhoneCallID), phoneCall.PhoneCallID);
 
@@ -139,32 +142,32 @@ namespace Lync_Billing.DB
                 if (phoneCall.Dispute != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Dispute), phoneCall.Dispute);
 
-                if (phoneCall.DstCountry != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.DstCountry), phoneCall.DstCountry);
-
-                if (phoneCall.DstNumber != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.DstNumber), phoneCall.DstNumber);
-
-                if (phoneCall.Duration != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Duration), phoneCall.Duration);
-
-                if (phoneCall.Gateway != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Gateway), phoneCall.Gateway);
+                if (phoneCall.ModifiedOn != null)
+                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.ModifiedOn), phoneCall.ModifiedOn);
 
                 if (phoneCall.IsPersonal != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.IsPersonal), phoneCall.IsPersonal);
-
-                if (phoneCall.ModifiedBy != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.ModifiedBy), phoneCall.ModifiedBy);
-
-                if (phoneCall.ModifiedOn != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.ModifiedOn), phoneCall.ModifiedOn);
 
                 if (phoneCall.Payed != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Payed), phoneCall.Payed);
 
                 if (phoneCall.Rate != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Rate), phoneCall.Rate);
+
+                if (phoneCall.Duration != null)
+                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Duration), phoneCall.Duration);
+
+                if (phoneCall.DstCountry != null)
+                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.DstCountry), phoneCall.DstCountry);
+
+                if (phoneCall.DstNumber != null)
+                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.DstNumber), phoneCall.DstNumber);
+
+                if (phoneCall.Gateway != null)
+                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Gateway), phoneCall.Gateway);
+
+                if (phoneCall.ModifiedBy != null)
+                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.ModifiedBy), phoneCall.ModifiedBy);
 
                 if (phoneCall.SipAccount != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.SipAccount), phoneCall.SipAccount);
