@@ -76,7 +76,11 @@ namespace Lync_Billing.Libs
                 dr = comm.ExecuteReader();
                 dt.Load(dr);
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) 
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx; 
+            }
             finally { conn.Close(); }
 
             return dt;
@@ -115,7 +119,11 @@ namespace Lync_Billing.Libs
                 conn.Open();
                 recordID = (int)comm.ExecuteScalar();
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) 
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx; 
+            }
             finally { conn.Close(); }
 
             return recordID;
@@ -164,7 +172,11 @@ namespace Lync_Billing.Libs
                 comm.ExecuteNonQuery();
                 return true;
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) 
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx; 
+            }
             finally { conn.Close(); }
 
         }
@@ -196,7 +208,11 @@ namespace Lync_Billing.Libs
                 comm.ExecuteNonQuery();
                 return true;
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) 
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx; 
+            }
             finally { conn.Close(); }
         }
 
