@@ -163,9 +163,6 @@ namespace Lync_Billing.DB
                 if (phoneCall.Payed != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Payed), phoneCall.Payed);
 
-                if (phoneCall.PhoneCallID != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.PhoneCallID), phoneCall.PhoneCallID);
-
                 if (phoneCall.Rate != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.Rate), phoneCall.Rate);
 
