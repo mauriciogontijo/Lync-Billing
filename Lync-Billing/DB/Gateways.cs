@@ -41,9 +41,22 @@ namespace Lync_Billing.DB
             return gateways;
         }
 
-        public int InsertGateway() 
+        public int InsertGateway(List<Gateways> gateways) 
         {
-            return 0;
+            int rowID = 0;
+            Dictionary<string, object> columnsValues;
+
+            foreach (Gateways gateway in gateways)
+            {
+                 columnsValues = new Dictionary<string, object>();
+                //Set Part
+                if (gateway.GatewayName != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
+
+                //Execute Insert
+                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Gateways.TableName), columnsValues);
+            }
+            return rowID;
         }
 
         public bool UpdateGateway(List<Gateways> gateways) 
@@ -74,12 +87,30 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeleteGateway() 
+        public bool DeleteGateway(List<Gateways> gateways) 
         {
-            return false;
+            bool status = false;
+            Dictionary<string, object> wherePart;
+            
+            foreach (Gateways gateway in gateways) 
+            {
+                wherePart = new Dictionary<string, object>();
+
+
+                if (gateway.GatewayID != null)
+                    wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayID), gateway.GatewayID);
+
+                if (gateway.GatewayName != null)
+                    wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
+
+                status = DBRoutines.DELETE(Enums.GetDescription(Enums.Gateways.TableName), wherePart);
+
+                if (status == false)
+                {
+                    //throw error message
+                }
+            }
+            return status;
         }
-
     }
-
-   
 }
