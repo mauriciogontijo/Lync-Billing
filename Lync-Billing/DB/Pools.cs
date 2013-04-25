@@ -17,11 +17,10 @@ namespace Lync_Billing.DB
         public int InsertPool(List<Pools> pools)
         {
             int rowID = 0;
-            Dictionary<string, object> columnsValues;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>();
 
             foreach (Pools pool in pools)
             {
-                columnsValues = new Dictionary<string, object>();
                 //Set Part
                 if (pool.PoolFQDN != null)
                     columnsValues.Add(Enums.GetDescription(Enums.Pools.PoolFQDN), pool.PoolFQDN);
@@ -34,6 +33,7 @@ namespace Lync_Billing.DB
 
         public List<Pools> GetPools(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
         {
+            Pools pool;
             DataTable dt = new DataTable();
             List<Pools> pools = new List<Pools>();
 
@@ -41,7 +41,7 @@ namespace Lync_Billing.DB
 
             foreach (DataRow row in dt.Rows)
             {
-                Pools pool = new Pools();
+                pool = new Pools();
 
                 foreach (DataColumn column in dt.Columns)
                 {
@@ -60,14 +60,11 @@ namespace Lync_Billing.DB
         {
             bool status = false;
 
-            Dictionary<string, object> setPart;
-            Dictionary<string, object> wherePart;
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
             foreach (Pools pool in pools)
             {
-                setPart = new Dictionary<string, object>();
-                wherePart = new Dictionary<string, object>();
-
                 //Where Part
                 wherePart.Add(Enums.GetDescription(Enums.Pools.PoolID), pool.PoolID);
 
@@ -89,13 +86,10 @@ namespace Lync_Billing.DB
         public bool DeletePools(List<Pools> pools)
         {
             bool status = false;
-            Dictionary<string, object> wherePart;
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
             foreach (Pools pool in pools)
             {
-                wherePart = new Dictionary<string, object>();
-
-
                 if ((pool.PoolID).ToString() != null)
                     wherePart.Add(Enums.GetDescription(Enums.Pools.PoolID), pool.PoolID);
 
