@@ -15,7 +15,7 @@ namespace Lync_Billing.DB
         public string UPN { get; set; }
         public List<int> PoolIDs { get; set; }
         public List<int> GatewayIDs { get; set; }
-        public string RoleID { get; set; }
+        public bool IsNormalUser { get; set; }
 
         private List<Users> GetUsers(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits) 
         {
