@@ -8,11 +8,10 @@ namespace Lync_Billing.DB
 {
     public class Rates
     {
+        public int RateID { get; set; }
         public string GatewayName { get; set; }
         public string FixedlineRate { get; set; }
         public string MobileLineRate { get; set; }
-        public DateTime StartingDate { get; set; }
-        public DateTime EndingDate { get; set; }
 
         public string GetRatesTableName(string gatewayName) 
         {
