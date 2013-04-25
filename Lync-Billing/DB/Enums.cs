@@ -9,35 +9,7 @@ namespace Lync_Billing.DB
 {
     public static class Enums
     {
-        public enum Gateways
-        {
-            [Description("Gateways")]
-            TableName,
-            [Description("GatewayID")]
-            GatewayID,
-            [Description("GatewayName")]
-            GatewayName,
-            [Description("GatewayLocation")]
-            GatewayCountry,
-            [Description("GatewayLocation")]
-            GatewayLocation,
-            [Description("GatewayUPN")]
-            GatewayUPN,
-            [Description("PoolFQDN")]
-            PoolFQDN,
-            [Description("RatesTableID")]
-            RatesTableID
-        }
-
-        public enum Pools 
-        {
-            [Description("Pools")]
-            TableName,
-            [Description("PoolID")]
-            PoolID,
-            [Description("PoolFQDN")]
-            PoolFQDN
-        }
+       
 
         public enum Roles 
         {
@@ -73,7 +45,80 @@ namespace Lync_Billing.DB
             UPN
         }
 
-        public enum PhoneCalls 
+        public enum Sites
+        {
+            [Description("Sites")]
+            TableName,
+            [Description("SiteName")]
+            SiteName,
+            [Description("CountryName")]
+            CountryName,
+            [Description("SiteLocation")]
+            SiteLocation,
+            [Description("Currency")]
+            Currency,
+            [Description("Domain")]
+            Domain
+        }
+
+        public enum Pools
+        {
+            [Description("Pools")]
+            TableName,
+            [Description("PoolID")]
+            PoolID,
+            [Description("PoolFQDN")]
+            PoolFQDN
+        }
+
+        public enum Gateways
+        {
+            [Description("Gateways")]
+            TableName,
+            [Description("GatewayID")]
+            GatewayID,
+            [Description("GatewayName")]
+            GatewayName,
+            [Description("GatewayLocation")]
+            GatewayCountry,
+            [Description("GatewayLocation")]
+            GatewayLocation,
+            [Description("GatewayUPN")]
+            GatewayUPN,
+            [Description("PoolFQDN")]
+            PoolFQDN,
+            [Description("RatesTableID")]
+            RatesTableID
+        }
+        public enum Rates
+        {
+            [Description("RateID")]
+            RateID,
+            [Description("GatewayName")]
+            GatewayName,
+            [Description("FixedLineRate")]
+            FixedLineRate,
+            [Description("MobileLineRate")]
+            MobileLineRate,
+        }
+
+        public enum GatewayRates
+        {
+            [Description("GatewaysRates")]
+            tableName,
+            [Description("RateID")]
+            RateID,
+            [Description("GatewayID")]
+            GatewayID,
+            [Description("StartingDate")]
+            StartingDate,
+            [Description("EndingDate")]
+            EndingDate,
+            [Description("Currency")]
+            Currency
+        }
+
+        public enum PhoneCalls
         {
             [Description("PhoneCalls")]
             TableName,
@@ -125,41 +170,9 @@ namespace Lync_Billing.DB
             UI_Dispute,
             [Description("ui_IsInvoiced")]
             UI_IsInvoiced
-     }
-
-        public enum Rates
-        {
-            [Description("RateID")]
-            RateID,
-            [Description("GatewayName")]
-            GatewayName,
-            [Description("FixedLineRate")]
-            FixedLineRate,
-            [Description("MobileLineRate")]
-            MobileLineRate,
-            [Description("StartingDate")]
-            StartingDate,
-            [Description("EndingDate")]
-            EndingDate,
-            [Description("Currency")]
-            Currency
         }
 
-        public enum Sites
-        {
-            [Description("Sites")]
-            TableName,
-            [Description("SiteName")]
-            SiteName,
-            [Description("CountryName")]
-            CountryName,
-            [Description("SiteLocation")]
-            SiteLocation,
-            [Description("Currency")]
-            Currency,
-            [Description("Domain")]
-            Domain
-       }
+       
 
         public static string GetDescription(Enum value)
         {
