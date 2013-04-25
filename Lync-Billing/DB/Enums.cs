@@ -11,7 +11,7 @@ namespace Lync_Billing.DB
     {
         public enum Gateways
         {
-            [Description("gateways")]
+            [Description("Gateways")]
             TableName,
             [Description("GatewayID")]
             GatewayID,
@@ -24,7 +24,9 @@ namespace Lync_Billing.DB
             [Description("GatewayUPN")]
             GatewayUPN,
             [Description("PoolFQDN")]
-            PoolFQDN
+            PoolFQDN,
+            [Description("RatesTableID")]
+            RatesTableID
         }
 
         public enum Pools 
@@ -37,14 +39,30 @@ namespace Lync_Billing.DB
             PoolFQDN
         }
 
+        public enum Roles 
+        {
+            [Description("Roles")]
+            TableName,
+            [Description("RoleID")]
+            RoleID,
+            [Description("RoleName")]
+            RoleName,
+            [Description("RoleDescription")]
+            RoleDescription
+        }
+
         public enum Users 
         {
-            [Description("users")]
+            [Description("Users")]
             TableName,
-            [Description("employeeID")]
-            employeeID,
-            [Description("UserName")]
-            UserName,
+            [Description("EmployeeID")]
+            EmployeeID,
+            [Description("LoginName")]
+            LoginName,
+            [Description("EmailAddress")]
+            EmailAddress,
+            [Description("PhoneNumber")]
+            PhoneNumber,
             [Description("PoolID")]
             PoolID,
             [Description("GatewayID")]
@@ -57,7 +75,7 @@ namespace Lync_Billing.DB
 
         public enum PhoneCalls 
         {
-            [Description("phoneCalls")]
+            [Description("PhoneCalls")]
             TableName,
             [Description("SessionIdTime")]
             SessionIdTime,
@@ -111,8 +129,6 @@ namespace Lync_Billing.DB
 
         public enum Rates
         {
-            [Description("Rates")]
-            TableName,
             [Description("RateID")]
             RateID,
             [Description("GatewayName")]

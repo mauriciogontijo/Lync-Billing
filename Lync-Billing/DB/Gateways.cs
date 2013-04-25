@@ -21,6 +21,7 @@ namespace Lync_Billing.DB
         public string GatewayCountry { set; get; }
         public string GatewayUPN { set; get; }
         public string PoolFQDN { set; get; }
+        public int RatesTableID { set; get; }
 
         public List<Gateways> GetGateways(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits) 
         {
@@ -53,6 +54,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Gateways.PoolFQDN))
                         gateway.PoolFQDN = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Gateways.RatesTableID))
+                        gateway.RatesTableID = (int)row[column.ColumnName];
                 }
                  gateways.Add(gateway);
              }
@@ -83,6 +87,9 @@ namespace Lync_Billing.DB
 
                 if (gateway.PoolFQDN != null)
                     columnsValues.Add(Enums.GetDescription(Enums.Gateways.PoolFQDN), gateway.PoolFQDN);
+
+                if (gateway.RatesTableID != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.RatesTableID), gateway.RatesTableID);
 
                 //Execute Insert
                 rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Gateways.TableName), columnsValues);
@@ -117,6 +124,9 @@ namespace Lync_Billing.DB
 
                 if (gateway.PoolFQDN != null)
                     setPart.Add(Enums.GetDescription(Enums.Gateways.PoolFQDN), gateway.PoolFQDN);
+
+                if (gateway.RatesTableID != null)
+                    setPart.Add(Enums.GetDescription(Enums.Gateways.RatesTableID), gateway.RatesTableID);
 
                 //Execute Update
                 status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Gateways.TableName), setPart, wherePart);
@@ -154,6 +164,9 @@ namespace Lync_Billing.DB
 
                 if (gateway.PoolFQDN != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.PoolFQDN), gateway.PoolFQDN);
+
+                if (gateway.RatesTableID != null)
+                    wherePart.Add(Enums.GetDescription(Enums.Gateways.RatesTableID), gateway.RatesTableID);
 
                 status = DBRoutines.DELETE(Enums.GetDescription(Enums.Gateways.TableName), wherePart);
 
