@@ -15,26 +15,33 @@ namespace Lync_Billing.DB
         public List<int> GatewayIDs { get; set; }
         public string RoleID { get; set; }
 
-        public int INSERT() 
+        private int GetUsers() 
         {
+
             return 0;
         }
 
-        public List<Users> SELECT() 
+        private List<Users> InsertUsers() 
         {
             List<Users> users = new List<Users>();
 
             return users;
         }
 
-        public void UPDATE()
+        private bool UpdateUsers()
         {
+            bool status = false;
 
+
+            return status;
         }
 
-        public void DELETE() 
+        private bool DeleteUsers() 
         {
+            bool status = false;
 
+
+            return status;
         }
 
     }

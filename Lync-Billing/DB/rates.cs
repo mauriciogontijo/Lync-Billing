@@ -13,26 +13,26 @@ namespace Lync_Billing.DB
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
 
-        public int INSERT()
+        private int GetRates()
         {
+
             return 0;
         }
 
-        public List<Rates> SELECT()
+        private List<Users> InsertRates()
         {
-            List<Rates> rates = new List<Rates>();
+            List<Users> users = new List<Users>();
 
-            return rates;
+            return users;
         }
 
-        public void UPDATE()
+        private bool UpdateRates()
         {
+            bool status = false;
 
+
+            return status;
         }
-
-        public void DELETE()
-        {
-
-        }
+        
     }
 }
