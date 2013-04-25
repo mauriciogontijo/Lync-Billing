@@ -20,6 +20,7 @@ namespace Lync_Billing.DB
         public string GatewayLocation { set; get; }
         public string GatewayCountry { set; get; }
         public string GatewayUPN { set; get; }
+        public string PoolFQDN { set; get; }
 
         public List<Gateways> GetGateways(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits) 
         {
@@ -48,6 +49,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Gateways.GatewayUPN))
                         gateway.GatewayUPN = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Gateways.PoolFQDN))
+                        gateway.PoolFQDN = (string)row[column.ColumnName];
                 }
                  gateways.Add(gateway);
              }
@@ -76,6 +80,9 @@ namespace Lync_Billing.DB
                 if (gateway.GatewayUPN != null)
                     columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayUPN), gateway.GatewayUPN);
 
+                if (gateway.PoolFQDN != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.PoolFQDN), gateway.PoolFQDN);
+
                 //Execute Insert
                 rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Gateways.TableName), columnsValues);
             }
@@ -98,14 +105,17 @@ namespace Lync_Billing.DB
                 if (gateway.GatewayName != null)
                     setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
 
-                if (gateway.GatewayName != null)
+                if (gateway.GatewayCountry != null)
                     setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayCountry), gateway.GatewayCountry);
 
-                if (gateway.GatewayName != null)
+                if (gateway.GatewayLocation != null)
                     setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
 
                 if (gateway.GatewayName != null)
                     setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayUPN), gateway.GatewayUPN);
+
+                if (gateway.PoolFQDN != null)
+                    setPart.Add(Enums.GetDescription(Enums.Gateways.PoolFQDN), gateway.PoolFQDN);
 
                 //Execute Update
                 status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Gateways.TableName), setPart, wherePart);
@@ -134,14 +144,17 @@ namespace Lync_Billing.DB
                 if (gateway.GatewayName != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
 
-                if (gateway.GatewayName != null)
+                if (gateway.GatewayCountry != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayCountry), gateway.GatewayCountry);
 
-                if (gateway.GatewayName != null)
+                if (gateway.GatewayLocation != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
 
-                if (gateway.GatewayName != null)
+                if (gateway.GatewayUPN != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayUPN), gateway.GatewayUPN);
+
+                if (gateway.PoolFQDN != null)
+                    wherePart.Add(Enums.GetDescription(Enums.Gateways.PoolFQDN), gateway.PoolFQDN);
 
                 status = DBRoutines.DELETE(Enums.GetDescription(Enums.Gateways.TableName), wherePart);
 
