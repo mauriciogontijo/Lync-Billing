@@ -9,6 +9,49 @@ namespace Lync_Billing.DB
 {
     public static class Enums
     {
+        public enum Sites
+        {
+            [Description("Sites")]
+            TableName,
+            [Description("SiteName")]
+            SiteName,
+            [Description("CountryName")]
+            CountryName,
+            [Description("SiteLocation")]
+            SiteLocation,
+            [Description("Currency")]
+            Currency,
+            [Description("Domain")]
+            Domain
+        }
+        public enum Pools
+        {
+            [Description("Pools")]
+            TableName,
+            [Description("PoolID")]
+            PoolID,
+            [Description("PoolFQDN")]
+            PoolFQDN
+        }
+        public enum Gateways
+        {
+            [Description("Gateways")]
+            TableName,
+            [Description("GatewayID")]
+            GatewayID,
+            [Description("GatewayName")]
+            GatewayName,
+            [Description("GatewayLocation")]
+            GatewayCountry,
+            [Description("GatewayLocation")]
+            GatewayLocation,
+            [Description("GatewayUPN")]
+            GatewayUPN,
+            [Description("PoolFQDN")]
+            PoolFQDN,
+            [Description("RatesTableID")]
+            RatesTableID
+        }
         public enum Roles 
         {
             [Description("Roles")]
@@ -36,66 +79,27 @@ namespace Lync_Billing.DB
             PoolID,
             [Description("GatewayID")]
             GatewayID,
-            [Description("RoleID")]
-            RoleID,
+            [Description("IsNormalUsers")]
+            IsNormalUsers,
             [Description("UPN")]
             UPN
         }
-        public enum Sites
+        public enum RolesPerUsers 
         {
-            [Description("Sites")]
+            [Description("RolesPerUsers")]
             TableName,
-            [Description("SiteName")]
-            SiteName,
-            [Description("CountryName")]
-            CountryName,
-            [Description("SiteLocation")]
-            SiteLocation,
-            [Description("Currency")]
-            Currency,
-            [Description("Domain")]
-            Domain,
-            [Description("SiteAdminID")]
-            SiteAdminID,
-            [Description("SiteAccountantID")]
-            SiteAccountantID
-
-        }
-        public enum Pools
-        {
-            [Description("Pools")]
-            TableName,
+            [Description("EmployeeID")]
+            EmployeeID,
+            [Description("RoleID")]
+            RoleID,
+            [Description("SiteID")]
+            SiteID,
             [Description("PoolID")]
             PoolID,
-            [Description("PoolFQDN")]
-            PoolFQDN,
-            [Description("PoolAdminID")]
-            PoolAdminID,
-            [Description("PoolAccountantID")]
-             PoolAccountantID
-        }
-        public enum Gateways
-        {
-            [Description("Gateways")]
-            TableName,
             [Description("GatewayID")]
             GatewayID,
-            [Description("GatewayName")]
-            GatewayName,
-            [Description("GatewayLocation")]
-            GatewayCountry,
-            [Description("GatewayLocation")]
-            GatewayLocation,
-            [Description("GatewayUPN")]
-            GatewayUPN,
-            [Description("PoolFQDN")]
-            PoolFQDN,
-            [Description("RatesTableID")]
-            RatesTableID,
-            [Description("GatewayAdminID")]
-            GatewayAdminID,
-            [Description("GatewayAccountantID")]
-            GatewayAccountantID
+            [Description("Notes")]
+            Notes
         }
         public enum Rates
         {
@@ -106,7 +110,7 @@ namespace Lync_Billing.DB
             [Description("FixedLineRate")]
             FixedLineRate,
             [Description("MobileLineRate")]
-            MobileLineRate,
+            MobileLineRate
         }
         public enum RatesPerGateways
         {
