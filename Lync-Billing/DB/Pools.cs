@@ -13,9 +13,22 @@ namespace Lync_Billing.DB
         public int PoolID { set; get; }
         public string PoolName { set; get; }
 
-        public int INSERT()
+        public int InsertPool(List<Pools> pools)
         {
-            return 0;
+            int rowID = 0;
+            Dictionary<string, object> columnsValues;
+
+            foreach (Pools pool in pools)
+            {
+                columnsValues = new Dictionary<string, object>();
+                //Set Part
+                if (pool.PoolName != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.Pools.PoolName), pool.PoolName);
+
+                //Execute Insert
+                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Pools.TableName), columnsValues);
+            }
+            return rowID;
         }
 
         public List<Pools> GetPools(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
@@ -23,7 +36,7 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             List<Pools> pools = new List<Pools>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Gateways.TableName), columns, wherePart, limits, allFields);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Pools.TableName), columns, wherePart, limits, allFields);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -42,14 +55,57 @@ namespace Lync_Billing.DB
             return pools;
         }
 
-        public void UPDATE()
+        public bool UpdatePools(List<Pools> pools)
         {
+            bool status = false;
 
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+
+            foreach (Pools pool in pools)
+            {
+                //Where Part
+                wherePart.Add(Enums.GetDescription(Enums.Pools.PoolID), pool.PoolID);
+
+                //Set Part
+                if (pool.PoolName != null)
+                    setPart.Add(Enums.GetDescription(Enums.Pools.PoolName), pool.PoolName);
+
+                //Execute Update
+                status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Pools.TableName), setPart, wherePart);
+
+                if (status == false)
+                {
+                    //throw error message
+                }
+            }
+            return true;
         }
 
-        public void DELETE()
+        public bool DeletePools(List<Pools> pools)
         {
-           
+            bool status = false;
+            Dictionary<string, object> wherePart;
+
+            foreach (Pools pool in pools)
+            {
+                wherePart = new Dictionary<string, object>();
+
+
+                if ((pool.PoolID).ToString() != null)
+                    wherePart.Add(Enums.GetDescription(Enums.Pools.PoolID), pool.PoolID);
+
+                if (pool.PoolName != null)
+                    wherePart.Add(Enums.GetDescription(Enums.Pools.PoolName), pool.PoolName);
+
+                status = DBRoutines.DELETE(Enums.GetDescription(Enums.Pools.TableName), wherePart);
+
+                if (status == false)
+                {
+                    //throw error message
+                }
+            }
+            return status;
         }
     }
 }
