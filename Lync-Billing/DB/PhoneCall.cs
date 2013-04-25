@@ -43,6 +43,7 @@ namespace Lync_Billing.DB
 
         public List<PhoneCall> GetPhoneCalls(List<string> columns,Dictionary<string,object> wherePart,bool allFields,int limits)
         {
+            PhoneCall phoneCall;
             DataTable dt = new DataTable();
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
@@ -50,7 +51,7 @@ namespace Lync_Billing.DB
            
             foreach(DataRow row in dt.Rows)
             {
-                PhoneCall phoneCall = new PhoneCall();
+                phoneCall = new PhoneCall();
                
                 foreach(DataColumn column in dt.Columns)
                 {
@@ -155,7 +156,7 @@ namespace Lync_Billing.DB
                 if ((phoneCall.UI_UpdatedByUser).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser), phoneCall.UI_UpdatedByUser);
 
-                if (phoneCall.UI_IsPersonal != null)
+                if ((phoneCall.UI_IsPersonal).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_IsPersonal), phoneCall.UI_IsPersonal);
 
                 if ((phoneCall.UI_Dispute).ToString() != null)
