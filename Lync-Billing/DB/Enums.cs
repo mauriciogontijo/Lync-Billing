@@ -9,8 +9,6 @@ namespace Lync_Billing.DB
 {
     public static class Enums
     {
-       
-
         public enum Roles 
         {
             [Description("Roles")]
@@ -22,7 +20,6 @@ namespace Lync_Billing.DB
             [Description("RoleDescription")]
             RoleDescription
         }
-
         public enum Users 
         {
             [Description("Users")]
@@ -44,7 +41,6 @@ namespace Lync_Billing.DB
             [Description("UPN")]
             UPN
         }
-
         public enum Sites
         {
             [Description("Sites")]
@@ -58,9 +54,13 @@ namespace Lync_Billing.DB
             [Description("Currency")]
             Currency,
             [Description("Domain")]
-            Domain
-        }
+            Domain,
+            [Description("SiteAdminID")]
+            SiteAdminID,
+            [Description("SiteAccountantID")]
+            SiteAccountantID
 
+        }
         public enum Pools
         {
             [Description("Pools")]
@@ -68,9 +68,12 @@ namespace Lync_Billing.DB
             [Description("PoolID")]
             PoolID,
             [Description("PoolFQDN")]
-            PoolFQDN
+            PoolFQDN,
+            [Description("PoolAdminID")]
+            PoolAdminID,
+            [Description("PoolAccountantID")]
+             PoolAccountantID
         }
-
         public enum Gateways
         {
             [Description("Gateways")]
@@ -88,7 +91,11 @@ namespace Lync_Billing.DB
             [Description("PoolFQDN")]
             PoolFQDN,
             [Description("RatesTableID")]
-            RatesTableID
+            RatesTableID,
+            [Description("GatewayAdminID")]
+            GatewayAdminID,
+            [Description("GatewayAccountantID")]
+            GatewayAccountantID
         }
         public enum Rates
         {
@@ -101,11 +108,10 @@ namespace Lync_Billing.DB
             [Description("MobileLineRate")]
             MobileLineRate,
         }
-
-        public enum GatewayRates
+        public enum RatesPerGateways
         {
-            [Description("GatewaysRates")]
-            tableName,
+            [Description("RatesPerGateways")]
+            RatesPerGateways,
             [Description("RateID")]
             RateID,
             [Description("GatewayID")]
@@ -117,7 +123,6 @@ namespace Lync_Billing.DB
             [Description("Currency")]
             Currency
         }
-
         public enum PhoneCalls
         {
             [Description("PhoneCalls")]
@@ -171,8 +176,6 @@ namespace Lync_Billing.DB
             [Description("ui_IsInvoiced")]
             UI_IsInvoiced
         }
-
-       
 
         public static string GetDescription(Enum value)
         {
