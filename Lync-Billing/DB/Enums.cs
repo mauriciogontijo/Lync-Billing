@@ -33,8 +33,8 @@ namespace Lync_Billing.DB
             TableName,
             [Description("PoolID")]
             PoolID,
-            [Description("PoolName")]
-            PoolName
+            [Description("PoolFQDN")]
+            PoolFQDN
         }
 
         public enum Users 
