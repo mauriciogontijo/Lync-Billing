@@ -21,7 +21,7 @@ namespace Lync_Billing.DB
             GatewayCountry,
             [Description("gateway_location")]
             GatewayLocation,
-            [Description("gateway_location")]
+            [Description("gateway_upn")]
             GatewayUPN
         }
 
