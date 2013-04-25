@@ -55,7 +55,7 @@ namespace Lync_Billing.DB
             return gateways;
         }
 
-        public int InsertGateway(List<Gateways> gateways) 
+        public int InsertGateways(List<Gateways> gateways) 
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues;
@@ -82,11 +82,10 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdateGateway(List<Gateways> gateways) 
+        public bool UpdateGateways(List<Gateways> gateways) 
         {
             bool status = false;
 
-            DataTable dt = new DataTable();
             Dictionary<string, object> setPart = new Dictionary<string, object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
@@ -119,7 +118,7 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeleteGateway(List<Gateways> gateways) 
+        public bool DeleteGateways(List<Gateways> gateways) 
         {
             bool status = false;
             Dictionary<string, object> wherePart;
@@ -129,7 +128,7 @@ namespace Lync_Billing.DB
                 wherePart = new Dictionary<string, object>();
 
 
-                if (gateway.GatewayID != null)
+                if ((gateway.GatewayID).ToString() != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayID), gateway.GatewayID);
 
                 if (gateway.GatewayName != null)

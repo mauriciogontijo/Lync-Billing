@@ -110,7 +110,7 @@ namespace Lync_Billing.DB
             [Description("ending_date")]
             EndingDate,
             [Description("currency")]
-            EndingDate
+            Currency
         }
 
         public static string GetDescription(Enum value)
