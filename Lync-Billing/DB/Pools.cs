@@ -11,7 +11,8 @@ namespace Lync_Billing.DB
     {
         public DBLib DBRoutines = new DBLib();
         public int PoolID { set; get; }
-        public string PoolName { set; get; }
+        public string PoolFQDN { set; get; }
+
 
         public int InsertPool(List<Pools> pools)
         {
@@ -22,8 +23,8 @@ namespace Lync_Billing.DB
             {
                 columnsValues = new Dictionary<string, object>();
                 //Set Part
-                if (pool.PoolName != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.Pools.PoolName), pool.PoolName);
+                if (pool.PoolFQDN != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.Pools.PoolFQDN), pool.PoolFQDN);
 
                 //Execute Insert
                 rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Pools.TableName), columnsValues);
@@ -47,8 +48,8 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.Pools.PoolID))
                         pool.PoolID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Pools.PoolName))
-                        pool.PoolName = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.Pools.PoolFQDN))
+                        pool.PoolFQDN = (string)row[column.ColumnName];
                 }
                 pools.Add(pool);
             }
@@ -59,17 +60,20 @@ namespace Lync_Billing.DB
         {
             bool status = false;
 
-            Dictionary<string, object> setPart = new Dictionary<string, object>();
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            Dictionary<string, object> setPart;
+            Dictionary<string, object> wherePart;
 
             foreach (Pools pool in pools)
             {
+                setPart = new Dictionary<string, object>();
+                wherePart = new Dictionary<string, object>();
+
                 //Where Part
                 wherePart.Add(Enums.GetDescription(Enums.Pools.PoolID), pool.PoolID);
 
                 //Set Part
-                if (pool.PoolName != null)
-                    setPart.Add(Enums.GetDescription(Enums.Pools.PoolName), pool.PoolName);
+                if (pool.PoolFQDN != null)
+                    setPart.Add(Enums.GetDescription(Enums.Pools.PoolFQDN), pool.PoolFQDN);
 
                 //Execute Update
                 status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Pools.TableName), setPart, wherePart);
@@ -95,8 +99,8 @@ namespace Lync_Billing.DB
                 if ((pool.PoolID).ToString() != null)
                     wherePart.Add(Enums.GetDescription(Enums.Pools.PoolID), pool.PoolID);
 
-                if (pool.PoolName != null)
-                    wherePart.Add(Enums.GetDescription(Enums.Pools.PoolName), pool.PoolName);
+                if (pool.PoolFQDN != null)
+                    wherePart.Add(Enums.GetDescription(Enums.Pools.PoolFQDN), pool.PoolFQDN);
 
                 status = DBRoutines.DELETE(Enums.GetDescription(Enums.Pools.TableName), wherePart);
 
