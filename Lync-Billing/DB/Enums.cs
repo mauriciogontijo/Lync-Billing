@@ -13,25 +13,25 @@ namespace Lync_Billing.DB
         {
             [Description("gateways")]
             TableName,
-            [Description("gateway_id")]
+            [Description("GatewayID")]
             GatewayID,
-            [Description("gateway_name")]
+            [Description("GatewayName")]
             GatewayName,
-            [Description("gateway_country")]
+            [Description("GatewayLocation")]
             GatewayCountry,
-            [Description("gateway_location")]
+            [Description("GatewayLocation")]
             GatewayLocation,
-            [Description("gateway_upn")]
+            [Description("GatewayUPN")]
             GatewayUPN
         }
 
         public enum Pools 
         {
-            [Description("pools")]
+            [Description("Pools")]
             TableName,
-            [Description("pool_id")]
+            [Description("PoolID")]
             PoolID,
-            [Description("pool_name")]
+            [Description("PoolName")]
             PoolName
         }
 
@@ -39,79 +39,109 @@ namespace Lync_Billing.DB
         {
             [Description("users")]
             TableName,
-            [Description("employee_id")]
+            [Description("employeeID")]
             employeeID,
-            [Description("username")]
-            userName,
-            [Description("pool_id")]
+            [Description("UserName")]
+            UserName,
+            [Description("PoolID")]
             PoolID,
-            [Description("gateway_id")]
+            [Description("GatewayID")]
             GatewayID,
-            [Description("role_id")]
+            [Description("RoleID")]
             RoleID,
-            [Description("upn")]
+            [Description("UPN")]
             UPN
         }
 
         public enum PhoneCalls 
         {
-            [Description("phone_calls")]
+            [Description("phoneCalls")]
             TableName,
-            [Description("phone_call_id")]
-            PhoneCallID,
-            [Description("date_of_call")]
-            DateOfCall,
-            [Description("sip_account")]
-            SipAccount,
-            [Description("src_number")]
-            SrcNumber,
-            [Description("dst_number")]
-            DstNumber,
-            [Description("dst_country")]
-            DstCountry,
-            [Description("type_of_service")]
-            TypeOfService,
-            [Description("gateway")]
-            Gateway,
-            [Description("updated_by")]
-            UpdatedBy,
-            [Description("modified_by")]
-            ModifiedBy,
-            [Description("duration")]
+            [Description("SessionIdTime")]
+            SessionIdTime,
+            [Description("SessionIdSeq")]
+            SessionIdSeq,
+            [Description("ResponseTime")]
+            ResponseTime,
+            [Description("SessionEndTime")]
+            SessionEndTime,
+            [Description("SourceUserUri")]
+            SourceUserUri,
+            [Description("SourceNumberUri")]
+            SourceNumberUri,
+            [Description("DestinationNumberUri")]
+            DestinationNumberUri,
+            [Description("FromMediationServer")]
+            FromMediationServer,
+            [Description("ToMediationServer")]
+            ToMediationServer,
+            [Description("FromGateway")]
+            FromGateway,
+            [Description("ToGateway")]
+            ToGateway,
+            [Description("SourceUserEdgeServer")]
+            SourceUserEdgeServer,
+            [Description("DestinationUserEdgeServer")]
+            DestinationUserEdgeServer,
+            [Description("ServerFQDN")]
+            ServerFQDN,
+            [Description("PoolFQDN")]
+            PoolFQDN,
+            [Description("Duration")]
             Duration,
-            [Description("rate")]
-            Rate,
-            [Description("cost")]
-            Cost,
-            [Description("updated_on")]
-            UpdateOn,
-            [Description("modified_on")]
-            ModifiedOn,
-            [Description("is_personal")]
-            IsPersonal,
-            [Description("dispute")]
-            Dispute,
-            [Description("payed")]
-            Payed,
-            [Description("bill_it")]
-            BillIt
+            [Description("marker_CallToCountry")]
+            Marker_CallToCountry,
+            [Description("marker_CallType")]
+            Marker_CallType,
+            [Description("marker_CallCost")]
+            Marker_CallCost,
+            [Description("ui_MarkedOn")]
+            UI_MarkedOn,
+            [Description("ui_UpdatedByUser")]
+            UI_UpdatedByUser,
+            [Description("ui_IsPersonal")]
+            UI_IsPersonal,
+            [Description("ui_Dispute")]
+            UI_Dispute,
+            [Description("ui_IsInvoiced")]
+            UI_IsInvoiced
      }
 
         public enum Rates
         {
-            [Description("gateway_name")]
+            [Description("Rates")]
+            TableName,
+            [Description("RateID")]
+            RateID,
+            [Description("GatewayName")]
             GatewayName,
-            [Description("fixed_line_rate")]
+            [Description("FixedLineRate")]
             FixedLineRate,
-            [Description("mobile_line_rate")]
+            [Description("MobileLineRate")]
             MobileLineRate,
-            [Description("starting_date")]
+            [Description("StartingDate")]
             StartingDate,
-            [Description("ending_date")]
+            [Description("EndingDate")]
             EndingDate,
-            [Description("currency")]
+            [Description("Currency")]
             Currency
         }
+
+        public enum Sites
+        {
+            [Description("Sites")]
+            TableName,
+            [Description("SiteName")]
+            SiteName,
+            [Description("CountryName")]
+            CountryName,
+            [Description("SiteLocation")]
+            SiteLocation,
+            [Description("Currency")]
+            Currency,
+            [Description("Domain")]
+            Domain
+       }
 
         public static string GetDescription(Enum value)
         {
