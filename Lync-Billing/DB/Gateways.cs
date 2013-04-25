@@ -24,6 +24,7 @@ namespace Lync_Billing.DB
 
         public List<Gateways> GetGateways(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits) 
         {
+            Gateways gateway;
             DataTable dt = new DataTable();
             List<Gateways> gateways = new List<Gateways>();
 
@@ -31,7 +32,7 @@ namespace Lync_Billing.DB
 
              foreach(DataRow row in dt.Rows)
             {
-                Gateways gateway = new Gateways();
+                gateway = new Gateways();
                
                 foreach(DataColumn column in dt.Columns)
                 {
