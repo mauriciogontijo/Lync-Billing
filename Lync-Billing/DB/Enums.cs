@@ -22,7 +22,9 @@ namespace Lync_Billing.DB
             [Description("GatewayLocation")]
             GatewayLocation,
             [Description("GatewayUPN")]
-            GatewayUPN
+            GatewayUPN,
+            [Description("PoolFQDN")]
+            PoolFQDN
         }
 
         public enum Pools 
