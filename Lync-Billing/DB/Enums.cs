@@ -39,18 +39,40 @@ namespace Lync_Billing.DB
             TableName,
             [Description("GatewayID")]
             GatewayID,
-            [Description("GatewayName")]
-            GatewayName,
-            [Description("GatewayLocation")]
+            [Description("GatewayFQDN")]
+            GatewayFQDN,
+            [Description("GatewayCountry")]
             GatewayCountry,
             [Description("GatewayLocation")]
             GatewayLocation,
-            [Description("GatewayUPN")]
-            GatewayUPN,
-            [Description("PoolFQDN")]
-            PoolFQDN,
-            [Description("RatesTableID")]
-            RatesTableID
+            [Description("PoolID")]
+            PoolID
+        }
+        public enum Rates
+        {
+            [Description("RateID")]
+            RateID,
+            [Description("GatewayName")]
+            GatewayName,
+            [Description("FixedLineRate")]
+            FixedLineRate,
+            [Description("MobileLineRate")]
+            MobileLineRate
+        }
+        public enum RatesPerGateways
+        {
+            [Description("RatesPerGateways")]
+            RatesPerGateways,
+            [Description("RateID")]
+            RateID,
+            [Description("GatewayID")]
+            GatewayID,
+            [Description("StartingDate")]
+            StartingDate,
+            [Description("EndingDate")]
+            EndingDate,
+            [Description("Currency")]
+            Currency
         }
         public enum Roles 
         {
@@ -100,33 +122,7 @@ namespace Lync_Billing.DB
             GatewayID,
             [Description("Notes")]
             Notes
-        }
-        public enum Rates
-        {
-            [Description("RateID")]
-            RateID,
-            [Description("GatewayName")]
-            GatewayName,
-            [Description("FixedLineRate")]
-            FixedLineRate,
-            [Description("MobileLineRate")]
-            MobileLineRate
-        }
-        public enum RatesPerGateways
-        {
-            [Description("RatesPerGateways")]
-            RatesPerGateways,
-            [Description("RateID")]
-            RateID,
-            [Description("GatewayID")]
-            GatewayID,
-            [Description("StartingDate")]
-            StartingDate,
-            [Description("EndingDate")]
-            EndingDate,
-            [Description("Currency")]
-            Currency
-        }
+        }  
         public enum PhoneCalls
         {
             [Description("PhoneCalls")]
