@@ -136,15 +136,12 @@ namespace Lync_Billing.DB
             bool status = false;
 
             DataTable dt = new DataTable();
-            Dictionary<string, object> setPart;
-            Dictionary<string, object> wherePart;
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
           
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                setPart = new Dictionary<string, object>();
-                wherePart = new Dictionary<string, object>();
-
                 //Where Part
                 wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), phoneCall.SessionIdTime);
                 wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq), phoneCall.SessionIdSeq);
@@ -174,7 +171,6 @@ namespace Lync_Billing.DB
                     //throw error message
                 }
             }
-
             //throw success message
             return status;
         }
