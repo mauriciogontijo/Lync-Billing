@@ -22,6 +22,8 @@ namespace Lync_Billing.DB
         public string GatewayUPN { set; get; }
         public string PoolFQDN { set; get; }
         public int RatesTableID { set; get; }
+        public int GatewayAdminID { set; get; }
+        public int GatewayAccountantID { set; get; }
 
         public List<Gateways> GetGateways(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits) 
         {
@@ -57,6 +59,12 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Gateways.RatesTableID))
                         gateway.RatesTableID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Gateways.GatewayAdminID))
+                        gateway.GatewayAdminID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Gateways.GatewayAccountantID))
+                        gateway.GatewayAccountantID = (int)row[column.ColumnName];
                 }
                  gateways.Add(gateway);
              }
@@ -88,8 +96,14 @@ namespace Lync_Billing.DB
                 if (gateway.PoolFQDN != null)
                     columnsValues.Add(Enums.GetDescription(Enums.Gateways.PoolFQDN), gateway.PoolFQDN);
 
-                if (gateway.RatesTableID != null)
+                if (gateway.RatesTableID.ToString() != null)
                     columnsValues.Add(Enums.GetDescription(Enums.Gateways.RatesTableID), gateway.RatesTableID);
+
+                if (gateway.GatewayAdminID.ToString() != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayAdminID), gateway.GatewayAdminID);
+
+                if (gateway.GatewayAccountantID.ToString() != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayAccountantID), gateway.GatewayAccountantID);
 
                 //Execute Insert
                 rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Gateways.TableName), columnsValues);
@@ -125,7 +139,7 @@ namespace Lync_Billing.DB
                 if (gateway.PoolFQDN != null)
                     setPart.Add(Enums.GetDescription(Enums.Gateways.PoolFQDN), gateway.PoolFQDN);
 
-                if (gateway.RatesTableID != null)
+                if (gateway.RatesTableID.ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.Gateways.RatesTableID), gateway.RatesTableID);
 
                 //Execute Update
@@ -165,7 +179,7 @@ namespace Lync_Billing.DB
                 if (gateway.PoolFQDN != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.PoolFQDN), gateway.PoolFQDN);
 
-                if (gateway.RatesTableID != null)
+                if (gateway.RatesTableID.ToString() != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.RatesTableID), gateway.RatesTableID);
 
                 status = DBRoutines.DELETE(Enums.GetDescription(Enums.Gateways.TableName), wherePart);
