@@ -16,7 +16,13 @@ namespace Lync_Billing.DB
             [Description("gateway_id")]
             GatewayID,
             [Description("gateway_name")]
-            GatewayName
+            GatewayName,
+            [Description("gateway_country")]
+            GatewayCountry,
+            [Description("gateway_location")]
+            GatewayLocation,
+            [Description("gateway_location")]
+            GatewayUPN
         }
 
         public enum Pools 
@@ -102,6 +108,8 @@ namespace Lync_Billing.DB
             [Description("starting_date")]
             StartingDate,
             [Description("ending_date")]
+            EndingDate,
+            [Description("currency")]
             EndingDate
         }
 
