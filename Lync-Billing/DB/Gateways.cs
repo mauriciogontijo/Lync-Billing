@@ -63,11 +63,11 @@ namespace Lync_Billing.DB
         public int InsertGateways(List<Gateways> gateways) 
         {
             int rowID = 0;
-            Dictionary<string, object> columnsValues;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>();;
 
             foreach (Gateways gateway in gateways)
             {
-                 columnsValues = new Dictionary<string, object>();
+                 
                 //Set Part
                 if (gateway.GatewayName != null)
                     columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
@@ -132,12 +132,10 @@ namespace Lync_Billing.DB
         public bool DeleteGateways(List<Gateways> gateways) 
         {
             bool status = false;
-            Dictionary<string, object> wherePart;
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
             
             foreach (Gateways gateway in gateways) 
             {
-                wherePart = new Dictionary<string, object>();
-
 
                 if ((gateway.GatewayID).ToString() != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayID), gateway.GatewayID);
