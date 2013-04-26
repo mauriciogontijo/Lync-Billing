@@ -4,16 +4,24 @@ using System.Linq;
 using System.Web;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
+using System.DirectoryServices.AccountManagement;
 
 namespace Lync_Billing.Libs
 {
     public class AdLib
     {
+        //WEB.CONF AD RELATED FIELDS
+        private static string LocalGCUri = System.Configuration.ConfigurationManager.AppSettings["LocalDomainURI"];
+        private static string LocalGCUsername = System.Configuration.ConfigurationManager.AppSettings["LocalDomainUser"];
+        private static string LocalGCPassword = System.Configuration.ConfigurationManager.AppSettings["LocalDomainPassword"];
+        private static string ResourceGCUri = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainURI"];
+        private static string ResourceGCUsername = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainUser"];
+        private static string ResourceGCPassword = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainPassword"];
 
         //INIT LOCAL GC
-        static DirectoryEntry forestlocal = new DirectoryEntry(@"GC://10.1.0.224", @"CCG-RESOURCE\LyncBilling", @"Saddam123!");
+        private static DirectoryEntry forestlocal = new DirectoryEntry(LocalGCUri, LocalGCUsername, LocalGCPassword);
         //INIT RESOURCE GC
-        static DirectoryEntry forestResource = new DirectoryEntry(@"GC://10.1.0.230", @"CCG-LOCAL\sghaida", @"=25_ar;p5");
+        private static DirectoryEntry forestResource = new DirectoryEntry(ResourceGCUri, ResourceGCUsername, ResourceGCPassword);
 
         //INIT LOCAL SEARCHER
         DirectorySearcher localSearcher = new DirectorySearcher(forestResource);
@@ -29,6 +37,45 @@ namespace Lync_Billing.Libs
             userInfo.PoolName = (string)resourceForestPoolResult.Properties["dnshostname"][0];
 
             return userInfo;
+        }
+
+        public bool AuthenticateUser(string EmailAddress, string password)
+        {
+            ADUserInfo userInfo = getUserAttributes(EmailAddress);
+            if (userInfo == null)
+                return false;
+
+            DirectoryEntry directoryEntry = new DirectoryEntry(@"GC://10.1.0.230", userInfo.SamAccountName, password);
+            string localFilter = string.Format(@"(&(objectClass=user)(objectCategory=person)(mail={0}))", EmailAddress);
+
+            DirectorySearcher localSearcher = new DirectorySearcher(directoryEntry);
+            localSearcher.PropertiesToLoad.Add("mail");
+            // localSearcher.Filter = localFilter;
+
+            SearchResult result = localSearcher.FindOne();
+
+
+            if (result != null)
+                return true;
+            else
+                return false;
+        }
+
+        public Dictionary<string, string> GetLocalDomainController()
+        {
+            Dictionary<string, string> domainControllerInfo = new Dictionary<string, string>();
+            Forest obj = System.DirectoryServices.ActiveDirectory.Forest.GetCurrentForest();
+            DomainCollection collection = obj.Domains;
+            foreach (Domain domain in collection)
+            {
+                DomainControllerCollection domainControllers = domain.FindAllDiscoverableDomainControllers();
+                foreach (DomainController domainController in domainControllers)
+                {
+                    if (!domainControllerInfo.ContainsKey(domain.Name))
+                        domainControllerInfo.Add(domain.Name, domainController.IPAddress);
+                }
+            }
+            return domainControllerInfo;
         }
 
         public ADUserInfo getUserAttributes(string mailAddress)
