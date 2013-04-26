@@ -13,16 +13,14 @@ namespace Lync_Billing.DB
         {
             [Description("Sites")]
             TableName,
-            [Description("SiteName")]
+            [Description("SiteID")]
+            SiteID,
+            [Description("SiteUPN")]
             SiteName,
             [Description("CountryName")]
             CountryName,
             [Description("SiteLocation")]
             SiteLocation,
-            [Description("Currency")]
-            Currency,
-            [Description("Domain")]
-            Domain
         }
         public enum Pools
         {
@@ -71,6 +69,8 @@ namespace Lync_Billing.DB
             StartingDate,
             [Description("EndingDate")]
             EndingDate,
+            [Description("ProviderName")]
+            ProviderName,
             [Description("Currency")]
             Currency
         }
@@ -99,8 +99,6 @@ namespace Lync_Billing.DB
             PhoneNumber,
             [Description("PoolID")]
             PoolID,
-            [Description("GatewayID")]
-            GatewayID,
             [Description("IsNormalUsers")]
             IsNormalUsers,
             [Description("UPN")]
@@ -110,6 +108,8 @@ namespace Lync_Billing.DB
         {
             [Description("RolesPerUsers")]
             TableName,
+            [Description("RolePerUserID")]
+            RolePerUserID,
             [Description("EmployeeID")]
             EmployeeID,
             [Description("RoleID")]
