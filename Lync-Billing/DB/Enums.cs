@@ -17,12 +17,13 @@ namespace Lync_Billing.DB
             SiteID,
             [Description("SiteName")]
             SiteName,
+            [Description("SiteLocation")]
+            SiteLocation,
             [Description("SiteUPN")]
             SiteName,
             [Description("CountryCode")]
-            CountryCode,
-            [Description("SiteLocation")]
-            SiteLocation,
+            CountryCode
+           
         }
         public enum Pools
         {
@@ -41,10 +42,10 @@ namespace Lync_Billing.DB
             GatewayID,
             [Description("GatewayFQDN")]
             GatewayFQDN,
-            [Description("GatewayCountry")]
-            GatewayCountry,
             [Description("GatewayLocation")]
             GatewayLocation,
+            [Description("CountryCode")]
+            CountryCode,
             [Description("PoolFQDN")]
             PoolFQDN
         }
