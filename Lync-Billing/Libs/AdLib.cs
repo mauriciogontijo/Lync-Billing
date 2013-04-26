@@ -17,16 +17,16 @@ namespace Lync_Billing.Libs
         private static string ResourceGCUri = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainURI"];
         private static string ResourceGCUsername = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainUser"];
         private static string ResourceGCPassword = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainPassword"];
+        private static string ADSearchFilter = System.Configuration.ConfigurationManager.AppSettings["ADSearchFilter"];
 
         //INIT LOCAL GC
         private static DirectoryEntry forestlocal = new DirectoryEntry(LocalGCUri, LocalGCUsername, LocalGCPassword);
         //INIT RESOURCE GC
         private static DirectoryEntry forestResource = new DirectoryEntry(ResourceGCUri, ResourceGCUsername, ResourceGCPassword);
-
         //INIT LOCAL SEARCHER
-        DirectorySearcher localSearcher = new DirectorySearcher(forestResource);
+        private DirectorySearcher localSearcher = new DirectorySearcher(forestResource);
         //INIT RESOURCE SEARCHER
-        DirectorySearcher resourceSearcher = new DirectorySearcher(forestlocal);
+        private DirectorySearcher resourceSearcher = new DirectorySearcher(forestlocal);
 
         public ADUserInfo setLyncPool(ADUserInfo userInfo)
         {
@@ -84,8 +84,8 @@ namespace Lync_Billing.Libs
 
 
 
-            string localFilter = string.Format(@"(&(objectClass=user)(objectCategory=person)(mail={0}))", mailAddress);
-            string resourceFilter = string.Format(@"(&(objectClass=user)(objectCategory=person)(mail={0}))", mailAddress);
+            string localFilter = string.Format(ADSearchFilter, mailAddress);
+            string resourceFilter = string.Format(ADSearchFilter, mailAddress);
 
             localSearcher.Filter = localFilter;
             resourceSearcher.Filter = resourceFilter;
