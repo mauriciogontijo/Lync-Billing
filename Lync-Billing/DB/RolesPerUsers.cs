@@ -47,5 +47,12 @@ namespace Lync_Billing.DB
 
             return status;
         }
+
+        public bool ValidateRole(int employeeID, string RoleName)
+        {
+
+            return false;
+        }
+
     }
 }
