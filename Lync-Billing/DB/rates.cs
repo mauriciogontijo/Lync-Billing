@@ -21,20 +21,20 @@ namespace Lync_Billing.DB
             return RatesTableName.ToString();
         }
 
-        private int GetRates(string ratesTableName, List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
-        {
-
-            return 0;
-        }
-
-        private List<Users> InsertRates(string ratesTableName, List<Rates> rates)
+        public List<Users> GetRates(string ratesTableName, List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
         {
             List<Users> users = new List<Users>();
 
             return users;
+            
         }
 
-        private bool UpdateRates(string ratesTableName, List<Rates> rates)
+        public  int InsertRates(string ratesTableName, List<Rates> rates)
+        {
+            return 0;
+        }
+
+        public bool UpdateRates(string ratesTableName, List<Rates> rates)
         {
             bool status = false;
 
