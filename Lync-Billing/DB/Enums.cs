@@ -64,7 +64,7 @@ namespace Lync_Billing.DB
         {
             [Description("GatewaysRates")]
             TableName,
-            [Description("RatesPerGatewaysID")]
+            [Description("GatewaysRatesID")]
             RatesPerGatewaysID,
             [Description("GatewayID")]
             GatewayID,
@@ -116,8 +116,8 @@ namespace Lync_Billing.DB
         {
             [Description("UsersRoles")]
             TableName,
-            [Description("RolePerUserID")]
-            RolePerUserID,
+            [Description("UsersRolesID")]
+            UsersRoles,
             [Description("EmployeeID")]
             EmployeeID,
             [Description("RoleID")]
