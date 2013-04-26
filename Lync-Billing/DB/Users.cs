@@ -17,7 +17,7 @@ namespace Lync_Billing.DB
         public string UserUPN { get; set; }
         public bool IsNormalUser { get; set; }
 
-        private List<Users> GetUsers(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits) 
+        public List<Users> GetUsers(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits) 
         {
             List<Users> users = new List<Users>();
 
@@ -25,14 +25,14 @@ namespace Lync_Billing.DB
             
         }
 
-        private int InsertUsers(List<Users> users) 
+        public int InsertUsers(List<Users> users) 
         {
             
 
             return 0;
         }
 
-        private bool UpdateUsers(List<Users> users)
+        public bool UpdateUsers(List<Users> users)
         {
             bool status = false;
 
