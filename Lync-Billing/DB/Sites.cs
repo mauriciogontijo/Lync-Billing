@@ -11,8 +11,10 @@ namespace Lync_Billing.DB
         public DBLib DBRoutines = new DBLib();
         
         public int SiteID { get; set; }
+        public string SiteName { get; set; }
         public string SiteUPN { get; set; }
         public string CountryCode { get; set; }
+        public string SiteName { get; set; }
         public string SiteLocation { get; set; }
 
         public  List<Sites> GetSites(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
