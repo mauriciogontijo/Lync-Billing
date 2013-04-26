@@ -12,9 +12,9 @@ namespace Lync_Billing.DB
         public string LoginName { get; set; }
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
-        public string UPN { get; set; }
-        public List<int> PoolIDs { get; set; }
-        public List<int> GatewayIDs { get; set; }
+        public string SiteName { get; set; }
+        public string PoolFQDN { get; set; }
+        public string UserUPN { get; set; }
         public bool IsNormalUser { get; set; }
 
         private List<Users> GetUsers(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits) 
