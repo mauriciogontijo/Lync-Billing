@@ -64,18 +64,20 @@ namespace Lync_Billing.DB
         {
             [Description("RatesPerGateways")]
             RatesPerGateways,
-            [Description("RateID")]
-            RateID,
+            [Description("RatesPerGatewaysID")]
+            RatesPerGatewaysID,
             [Description("GatewayID")]
             GatewayID,
+            [Description("RatesTableName")]
+            RatesTableName,
             [Description("StartingDate")]
             StartingDate,
             [Description("EndingDate")]
             EndingDate,
             [Description("ProviderName")]
             ProviderName,
-            [Description("Currency")]
-            Currency
+            [Description("CurrencyCode")]
+            CurrencyCode
         }
         public enum Roles 
         {

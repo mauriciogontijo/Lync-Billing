@@ -12,7 +12,7 @@ namespace Lync_Billing.DB
 
         public int RatesPerGatewaysID { set; get; }
         public int GatewayID { set; get; }
-        public int RatesPerGatewaysID { set; get; }
+        public string RatesTaleName { set; get; }
         public DateTime StartingDate { set; get; }
         public DateTime EndingDate { set; get; }
         public string ProviderName { set; get; }
