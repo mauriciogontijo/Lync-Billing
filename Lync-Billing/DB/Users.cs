@@ -8,7 +8,7 @@ namespace Lync_Billing.DB
     public class Users
     {
         
-        public string EmployeeID { get; set; }
+        public int EmployeeID { get; set; }
         public string LoginName { get; set; }
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
