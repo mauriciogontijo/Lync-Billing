@@ -23,13 +23,13 @@ namespace Lync_Billing.DB
             return sites;
         }
 
-        public int InsertSite(List<Rates> rates)
+        public int InsertSites(List<Rates> rates)
         {
 
             return 0;
         }
 
-        public bool UpdateRates(List<Rates> rates)
+        public bool UpdateSites(List<Rates> rates)
         {
             bool status = false;
 
