@@ -15,13 +15,12 @@ namespace Lync_Billing.DB
     public class Gateways
     {
         public DBLib DBRoutines = new DBLib();
+        
         public int GatewayID { set; get; }
         public string GatewayFQDN { set; get; }
         public string GatewayLocation { set; get; }
-        public string GatewayCountry { set; get; }
-        public string GatewayUPN { set; get; }
+        public string CountryCode { set; get; }
         public string PoolFQDN { set; get; }
-        public int RatesTableID { set; get; }
 
         public List<Gateways> GetGateways(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits) 
         {
@@ -43,11 +42,11 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.Gateways.GatewayFQDN))
                         gateway.GatewayFQDN = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Gateways.GatewayCountry))
-                        gateway.GatewayCountry = (string)row[column.ColumnName];
-
                     if (column.ColumnName == Enums.GetDescription(Enums.Gateways.GatewayLocation))
-                        gateway.GatewayCountry = (string)row[column.ColumnName];
+                        gateway.GatewayLocation = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Gateways.CountryCode))
+                        gateway.CountryCode = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Gateways.PoolFQDN))
                         gateway.PoolFQDN = (string)row[column.ColumnName];
@@ -70,13 +69,13 @@ namespace Lync_Billing.DB
                 if (gateway.GatewayFQDN != null)
                     columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayFQDN), gateway.GatewayFQDN);
 
-                if (gateway.GatewayCountry != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayCountry), gateway.GatewayCountry);
+                if (gateway.CountryCode != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
 
                 if (gateway.GatewayLocation != null)
                     columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
 
-                if (gateway.RatesTableID.ToString() != null)
+                if (gateway.PoolFQDN != null)
                     columnsValues.Add(Enums.GetDescription(Enums.Gateways.PoolFQDN), gateway.PoolFQDN);
 
                 //Execute Insert
@@ -101,8 +100,8 @@ namespace Lync_Billing.DB
                 if (gateway.GatewayFQDN != null)
                     setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayFQDN), gateway.GatewayFQDN);
 
-                if (gateway.GatewayCountry != null)
-                    setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayCountry), gateway.GatewayCountry);
+                if (gateway.CountryCode != null)
+                    setPart.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
 
                 if (gateway.GatewayLocation != null)
                     setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
@@ -135,8 +134,8 @@ namespace Lync_Billing.DB
                 if (gateway.GatewayFQDN != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayFQDN), gateway.GatewayFQDN);
 
-                if (gateway.GatewayCountry != null)
-                    wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayCountry), gateway.GatewayCountry);
+                if (gateway.CountryCode != null)
+                    wherePart.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
 
                 if (gateway.GatewayLocation != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
