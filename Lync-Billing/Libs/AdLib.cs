@@ -28,6 +28,11 @@ namespace Lync_Billing.Libs
         //INIT RESOURCE SEARCHER
         private DirectorySearcher resourceSearcher = new DirectorySearcher(forestlocal);
 
+        /// <summary>
+        /// Get Lync Server Pool FQDN
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         public ADUserInfo setLyncPool(ADUserInfo userInfo)
         {
             string poolFilter = string.Format(@"(distinguishedName={0})", userInfo.PrimaryHomeServerDN);
@@ -39,6 +44,12 @@ namespace Lync_Billing.Libs
             return userInfo;
         }
 
+        /// <summary>
+        /// Authenticate user 
+        /// </summary>
+        /// <param name="EmailAddress">Email Address </param>
+        /// <param name="password">Domain Controller Password</param>
+        /// <returns></returns>
         public bool AuthenticateUser(string EmailAddress, string password)
         {
             ADUserInfo userInfo = getUserAttributes(EmailAddress);
@@ -61,6 +72,10 @@ namespace Lync_Billing.Libs
                 return false;
         }
 
+        /// <summary>
+        /// Get a list of all Domain Controllers IP Address and DNS Suffixes
+        /// </summary>
+        /// <returns></returns>
         public Dictionary<string, string> GetLocalDomainController()
         {
             Dictionary<string, string> domainControllerInfo = new Dictionary<string, string>();
@@ -78,6 +93,13 @@ namespace Lync_Billing.Libs
             return domainControllerInfo;
         }
 
+        /// <summary>
+        /// Get All User Related Attributes from Active Directory by Quering two forests 
+        /// 1. for User Related Information
+        /// 2. Sip Related Information
+        /// </summary>
+        /// <param name="mailAddress"></param>
+        /// <returns></returns>
         public ADUserInfo getUserAttributes(string mailAddress)
         {
             ADUserInfo userInfo = new ADUserInfo();
