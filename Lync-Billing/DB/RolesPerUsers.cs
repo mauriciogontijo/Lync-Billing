@@ -25,14 +25,14 @@ namespace Lync_Billing.DB
             return rolesPerUsers;
         }
 
-        public int InsertRoles(List<RolesPerUsers> rolesPerUsers)
+        public int InsertRolesPerUsers(List<RolesPerUsers> rolesPerUsers)
         {
 
 
             return 0;
         }
 
-        public bool UpdateRoles(List<RolesPerUsers> rolesPerUsers)
+        public bool UpdateRolesPerUsers(List<RolesPerUsers> rolesPerUsers)
         {
             bool status = false;
 
@@ -40,7 +40,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public bool DeleteRoles(List<RolesPerUsers> rolesPerUsers)
+        public bool DeleteRolesPerUsers(List<RolesPerUsers> rolesPerUsers)
         {
             bool status = false;
 
@@ -48,7 +48,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public bool ValidateRole(int employeeID, string RoleName)
+        public bool ValidateRolePerUsers(int employeeID, string RoleName)
         {
 
             return false;

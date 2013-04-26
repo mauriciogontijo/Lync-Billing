@@ -18,7 +18,35 @@ namespace Lync_Billing.DB
         public string ProviderName { set; get; }
         public string CurrencyCode { set; get; }
 
+        public List<RatesPerGateways> GetRolesPerUsers(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
+        {
+            List<RatesPerGateways> ratesPerGateways = new List<RatesPerGateways>();
 
+            return ratesPerGateways;
+        }
+
+        public int InsertRolesPerGateways(List<RatesPerGateways> ratesPerGateways)
+        {
+
+
+            return 0;
+        }
+
+        public bool UpdateRolesPerGateways(List<RatesPerGateways> ratesPerGateways)
+        {
+            bool status = false;
+
+
+            return status;
+        }
+
+        public bool DeleteRolesPerGateways(List<RatesPerGateways> ratesPerGateways)
+        {
+            bool status = false;
+
+
+            return status;
+        }
 
     }
 }
