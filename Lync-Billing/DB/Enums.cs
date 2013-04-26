@@ -103,6 +103,8 @@ namespace Lync_Billing.DB
             SiteName,
             [Description("PoolFQDN")]
             PoolID,
+            [Description("UserUPN")]
+            UserUPN,
             [Description("IsNormalUsers")]
             IsNormalUsers
           
