@@ -17,5 +17,8 @@ namespace Lync_Billing.DB
         public DateTime EndingDate { set; get; }
         public string ProviderName { set; get; }
         public string CurrencyCode { set; get; }
+
+
+
     }
 }
