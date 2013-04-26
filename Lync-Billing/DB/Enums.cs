@@ -15,6 +15,8 @@ namespace Lync_Billing.DB
             TableName,
             [Description("SiteID")]
             SiteID,
+            [Description("SiteName")]
+            SiteName,
             [Description("SiteUPN")]
             SiteName,
             [Description("CountryCode")]
@@ -43,8 +45,8 @@ namespace Lync_Billing.DB
             GatewayCountry,
             [Description("GatewayLocation")]
             GatewayLocation,
-            [Description("PoolID")]
-            PoolID
+            [Description("PoolFQDN")]
+            PoolFQDN
         }
         public enum Rates
         {
@@ -97,12 +99,13 @@ namespace Lync_Billing.DB
             EmailAddress,
             [Description("PhoneNumber")]
             PhoneNumber,
-            [Description("PoolID")]
+            [Description("SiteName")]
+            SiteName,
+            [Description("PoolFQDN")]
             PoolID,
             [Description("IsNormalUsers")]
-            IsNormalUsers,
-            [Description("UPN")]
-            UPN
+            IsNormalUsers
+          
         }
         public enum RolesPerUsers 
         {
