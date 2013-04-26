@@ -60,10 +60,10 @@ namespace Lync_Billing.DB
             [Description("MobileLineRate")]
             MobileLineRate
         }
-        public enum RatesPerGateways
+        public enum GatewaysRates
         {
-            [Description("RatesPerGateways")]
-            RatesPerGateways,
+            [Description("GatewaysRates")]
+            TableName,
             [Description("RatesPerGatewaysID")]
             RatesPerGatewaysID,
             [Description("GatewayID")]
@@ -112,9 +112,9 @@ namespace Lync_Billing.DB
             IsNormalUsers
           
         }
-        public enum RolesPerUsers 
+        public enum UsersRoles 
         {
-            [Description("RolesPerUsers")]
+            [Description("UsersRoles")]
             TableName,
             [Description("RolePerUserID")]
             RolePerUserID,
