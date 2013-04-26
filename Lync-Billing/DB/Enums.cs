@@ -17,8 +17,8 @@ namespace Lync_Billing.DB
             SiteID,
             [Description("SiteUPN")]
             SiteName,
-            [Description("CountryName")]
-            CountryName,
+            [Description("CountryCode")]
+            CountryCode,
             [Description("SiteLocation")]
             SiteLocation,
         }
