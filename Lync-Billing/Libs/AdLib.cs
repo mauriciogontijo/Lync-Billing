@@ -20,13 +20,13 @@ namespace Lync_Billing.Libs
         private static string ADSearchFilter = System.Configuration.ConfigurationManager.AppSettings["ADSearchFilter"];
 
         //INIT LOCAL GC
-        private static DirectoryEntry forestlocal = new DirectoryEntry(LocalGCUri, LocalGCUsername, LocalGCPassword);
-        //INIT RESOURCE GC
         private static DirectoryEntry forestResource = new DirectoryEntry(ResourceGCUri, ResourceGCUsername, ResourceGCPassword);
+        //INIT RESOURCE GC
+        private static DirectoryEntry forestlocal = new DirectoryEntry(LocalGCUri, LocalGCUsername, LocalGCPassword);
         //INIT LOCAL SEARCHER
-        private DirectorySearcher localSearcher = new DirectorySearcher(forestResource);
+        private DirectorySearcher localSearcher = new DirectorySearcher(forestlocal);
         //INIT RESOURCE SEARCHER
-        private DirectorySearcher resourceSearcher = new DirectorySearcher(forestlocal);
+        private DirectorySearcher resourceSearcher = new DirectorySearcher(forestResource);
 
         /// <summary>
         /// Get Lync Server Pool FQDN
