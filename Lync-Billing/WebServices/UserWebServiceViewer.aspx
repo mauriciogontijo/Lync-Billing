@@ -1,11 +1,22 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserWebServiceViewer.aspx.cs" Inherits="Lync_Billing.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+   
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" >
+            <Services>
+                <asp:ServiceReference Path="~/WebServices/UsersWebServices.asmx" />
+            </Services>
+        </asp:ScriptManager>
+
+          <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
 
     <script type="text/javascript">
         /*
@@ -14,8 +25,7 @@
         * @param: void
         * @return: void
         */
-        function ajaxSignin()
-        {
+        function ajaxSignin() {
             //Get the contents of the emailAddress textbox.
             var emailAddress = document.getElementById('emailAddress').value;
 
@@ -24,6 +34,7 @@
 
             //Call the authentication AJAX server-side function, and pass the required data to it.
             Lync_Billing.WebServices.UsersWebServices.authenticateUser(emailAddress, password, onComplete);
+            
         }
 
         /*
@@ -32,8 +43,7 @@
         * @param: the results from the .NET AJAX function
         * @return: void
         */
-        function onComplete(results)
-        {
+        function onComplete(results) {
             if (results != null) {
                 document.getElementById('status').innerHTML = results;
             } else {
@@ -46,15 +56,6 @@
             height: 244px;
         }
     </style>
-</head>
-
-<body>
-    <form id="form1" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" >
-            <Services>
-                <asp:ServiceReference Path="~/WebServices/UsersWebServices.asmx" />
-            </Services>
-        </asp:ScriptManager>
 
         <div>
             <b>Email:</b>&nbsp;&nbsp;<asp:TextBox ID="emailAddress" runat="server"></asp:TextBox><br />
@@ -69,5 +70,8 @@
             <label id="status"></label>
         </div>
     </form>
+
+   
+
 </body>
 </html>
