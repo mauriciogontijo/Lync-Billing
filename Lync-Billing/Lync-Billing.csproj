@@ -46,6 +46,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SharpSvn">
+      <HintPath>..\packages\SharpSvn.1.7-x64.1.7009.2261\lib\net20\SharpSvn.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpSvn.UI">
+      <HintPath>..\packages\SharpSvn.1.7-x64.1.7009.2261\lib\net20\SharpSvn.UI.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
