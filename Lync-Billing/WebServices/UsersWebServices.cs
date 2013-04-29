@@ -13,6 +13,7 @@ namespace Lync_Billing.WebServices
 
     public class UsersWebServices : System.Web.Services.WebService
     {
+        public UsersWebServices() { }
 
         [WebMethod]
         public bool authenticateUser(string emailAddress, string password) 
