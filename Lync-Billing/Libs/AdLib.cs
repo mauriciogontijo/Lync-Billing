@@ -128,10 +128,12 @@ namespace Lync_Billing.Libs
                 userInfo.EmployeeID = (string)localForestResult.Properties["employeeid"][0];
                 userInfo.Department = (string)localForestResult.Properties["department"][0];
                 userInfo.BusinessPhone = (string)localForestResult.Properties["telephonenumber"][0];
+                userInfo.physicalDeliveryOfficeName = (string)localForestResult.Properties["physicalDeliveryOfficeName"][0];
 
                 userInfo.SipAccount = (string)resourceForestResult.Properties["msrtcsip-primaryuseraddress"][0];
                 userInfo.Telephone = (string)resourceForestResult.Properties["msrtcsip-line"][0];
                 userInfo.PrimaryHomeServerDN = ((string)resourceForestResult.Properties["msrtcsip-primaryhomeserver"][0]).Replace("CN=Lc Services,CN=Microsoft,", "");
+               
             }
             return userInfo;
         }
@@ -212,7 +214,7 @@ namespace Lync_Billing.Libs
         public string SipAccount { set; get; }
         public string PrimaryHomeServerDN { get; set; }
         public string PoolName { set; get; }
-        public string GatewayName { set; get; }
+        public string physicalDeliveryOfficeName { set; get; }
     }
 
 }
