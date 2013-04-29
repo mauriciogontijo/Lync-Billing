@@ -15,16 +15,32 @@
                 </Services>
             </asp:ScriptManager>
 
-              <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+            <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
 
             <script type="text/javascript">
-                /*
-                * The onClick AJAX Sing-in event.
-                * It calls the authentication method from the server-side in an asynchronous manner.
-                * @param: void
-                * @return: void
-                */
-                function ajaxSignin() {
+                window.myObject = {};
+                window.myObject['getUserData'] = {};
+
+                //getUserAttrs Function
+                function getUserAttrs()
+                {
+                    //Get the contents of the emailAddress textbox.
+                    var emailAddress = document.getElementById('emailAddress').value || "";
+                    debugger;
+                    Lync_Billing.WebServices.UserWebService.GetUserAttributes(
+                        emailAddress,
+                        function (onSuccessData) {
+                            window.myObject['getUserData'] = onSuccessData;
+                            console.log(onSuccessData['BusinessPhone']);
+                        },
+                        function (onFailData) { }
+                    );
+                }
+
+
+                //ajaxSigin Function
+                function ajaxSignin()
+                {
                     //Get the contents of the emailAddress textbox.
                     var emailAddress = document.getElementById('emailAddress').value || "";
 
@@ -37,19 +53,18 @@
                         Lync_Billing.WebServices.UserWebService.authenticateUser(
                             emailAddress,
                             password,
-                            function () { console.log('success') },
-                            function () { console.log('fail') }
+                            onComplete('success'),
+                            onComplete('fail')
                         );
                     }
+
+                    return false;
                 }
 
-                /*
-                * WebService AJAX Callback function.
-                * It writes the contents of the .NET AJAX function results inside a label beneath the login tools.
-                * @param: the results from the .NET AJAX function
-                * @return: void
-                */
-                function onComplete(results) {
+
+                //onComplete Function
+                function onComplete(results)
+                {
                     if (results != null) {
                         document.getElementById('status').innerHTML = results;
                     } else {
@@ -66,13 +81,12 @@
             <div>
                 <b>Email:</b>&nbsp;&nbsp;<asp:TextBox ID="emailAddress" runat="server"></asp:TextBox><br />
                 <b>Password:</b>&nbsp;&nbsp;<asp:TextBox ID="password" runat="server"></asp:TextBox>
+                <br /><br />
+                <input type="button" id="ajaxSignin_btn" value="Signin" onclick="ajaxSignin();" />
+                <br /><br />
+                <input type="button" id="getUserAttrs_btn" value="Get User Attributes" onclick="getUserAttrs();" />
 
                 <br /><br />
-
-                <input type="button" id="submit" value="Signin" onclick="ajaxSignin();" />
-
-                <br /><br />
-
                 <label id="status"></label>
             </div>
         </form>
