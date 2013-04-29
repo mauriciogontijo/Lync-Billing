@@ -10,7 +10,7 @@
             var password = document.getElementById('emailAddress').value;
 
             //Call the authentication AJAX server-side function, and pass the required data to it.
-            Lync_Billing.WebServices.UsersWebServices.authenticateUser(emailAddress, password, onComplete);
+            Lync_Billing.WebServices.UserWebService.authenticateUser(emailAddress, password, onComplete);
 
         }
 
@@ -34,7 +34,7 @@
     <form id="form1" runat="server">
         <asp:scriptmanager ID="ScriptManager1" runat="server" ScriptMode="Debug" >
             <Services>
-               <asp:ServiceReference Path="~/WebServices/UsersWebServices.asmx"/>
+               <asp:ServiceReference Path="~/WebServices/UserWebService.asmx"/>
             </Services>
            
         </asp:scriptmanager>
