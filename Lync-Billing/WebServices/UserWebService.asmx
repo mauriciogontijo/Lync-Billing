@@ -31,6 +31,14 @@ namespace Lync_Billing.WebServices
 
             return status;
         }
+
+        [WebMethod]
+        public ADUserInfo GetUserAttributes(string emailAddress) 
+        {
+            AdLib adConnector = new AdLib();
+           
+            return adConnector.getUserAttributes(emailAddress);
+        }
     }
 }
 
