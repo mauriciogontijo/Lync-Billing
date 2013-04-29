@@ -1,5 +1,4 @@
-﻿<%@ Import Namespace="Lync_Billing.WebServices" %>
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserWebServiceViewer.aspx.cs" Inherits="Lync_Billing.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserWebServiceViewer.aspx.cs" Inherits="Lync_Billing.WebForm1" %>
 
 <!DOCTYPE html>
 
@@ -24,7 +23,7 @@
             var password = document.getElementById('emailAddress').value;
 
             //Call the authentication AJAX server-side function, and pass the required data to it.
-            UsersWebServices.authenticateUser(emailAddress, password, onComplete);
+            Lync_Billing.WebServices.UsersWebServices.authenticateUser(emailAddress, password, onComplete);
         }
 
         /*
