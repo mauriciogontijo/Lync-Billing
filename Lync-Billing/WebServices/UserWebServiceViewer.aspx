@@ -1,22 +1,13 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-   
-</head>
-
 <body>
     <form id="form1" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" >
+        <asp:scriptmanager ID="ScriptManager1" runat="server" ScriptMode="Debug" ValidateRequestMode="Enabled" ViewStateMode="Enabled" EmptyPageUrl="~/WebServices/UserWebServiceViewer.aspx" EnablePageMethods="True">
             <Services>
-                <asp:ServiceReference Path="~/WebServices/UsersWebServices.asmx" />
+               <asp:ServiceReference Path="~/WebServices/UserWebServiceViewer.asmx" InlineScript="false" />
             </Services>
-        </asp:ScriptManager>
+        </asp:scriptmanager>
 
-          <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+         <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
 
     <script type="text/javascript">
         /*
@@ -34,7 +25,7 @@
 
             //Call the authentication AJAX server-side function, and pass the required data to it.
             Lync_Billing.WebServices.UsersWebServices.authenticateUser(emailAddress, password, onComplete);
-            
+
         }
 
         /*
@@ -69,9 +60,5 @@
 
             <label id="status"></label>
         </div>
-    </form>
-
-   
-
+   </form>
 </body>
-</html>
