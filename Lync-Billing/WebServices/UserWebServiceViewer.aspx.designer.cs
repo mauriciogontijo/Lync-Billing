@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lync_Billing {
+namespace Lync_Billing.WebServices {
     
     
-    public partial class WebForm1 {
+    public partial class UserWebServiceViewer {
         
         /// <summary>
         /// form1 control.

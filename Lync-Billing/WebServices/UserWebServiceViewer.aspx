@@ -1,21 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
-<body>
-    <form id="form1" runat="server">
-        <asp:scriptmanager ID="ScriptManager1" runat="server" ScriptMode="Debug" ValidateRequestMode="Enabled" ViewStateMode="Enabled" EmptyPageUrl="~/WebServices/UserWebServiceViewer.aspx" EnablePageMethods="True">
-            <Services>
-               <asp:ServiceReference Path="~/WebServices/UserWebServiceViewer.asmx" InlineScript="false" />
-            </Services>
-        </asp:scriptmanager>
-
-         <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
-
-    <script type="text/javascript">
-        /*
-        * The onClick AJAX Sing-in event.
-        * It calls the authentication method from the server-side in an asynchronous manner.
-        * @param: void
-        * @return: void
-        */
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserWebServiceViewer.aspx.cs" Inherits="Lync_Billing.WebServices.UserWebServiceViewer" %>
+<html>
+<head>
+    <script type="text/javascript" >
         function ajaxSignin() {
             //Get the contents of the emailAddress textbox.
             var emailAddress = document.getElementById('emailAddress').value;
@@ -41,13 +27,25 @@
                 document.getElementById('status').innerHTML = "No data were returned!";
             }
         }
+
     </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:scriptmanager ID="ScriptManager1" runat="server" ScriptMode="Debug" >
+            <Services>
+               <asp:ServiceReference Path="~/WebServices/UsersWebServices.asmx"/>
+            </Services>
+           
+        </asp:scriptmanager>
+
+         <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    
     <style type="text/css">
         #form1 {
             height: 244px;
         }
     </style>
-
         <div>
             <b>Email:</b>&nbsp;&nbsp;<asp:TextBox ID="emailAddress" runat="server"></asp:TextBox><br />
             <b>Password:</b>&nbsp;&nbsp;<asp:TextBox ID="password" runat="server"></asp:TextBox>
@@ -62,3 +60,4 @@
         </div>
    </form>
 </body>
+    </html>
