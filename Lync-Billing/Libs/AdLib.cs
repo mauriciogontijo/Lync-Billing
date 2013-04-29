@@ -56,8 +56,8 @@ namespace Lync_Billing.Libs
             if (userInfo == null)
                 return false;
 
-            DirectoryEntry directoryEntry = new DirectoryEntry(@"GC://10.1.0.230", userInfo.SamAccountName, password);
-            string localFilter = string.Format(@"(&(objectClass=user)(objectCategory=person)(mail={0}))", EmailAddress);
+            DirectoryEntry directoryEntry = new DirectoryEntry(LocalGCUri, userInfo.SamAccountName, password);
+            string localFilter = string.Format(ADSearchFilter, EmailAddress);
 
             DirectorySearcher localSearcher = new DirectorySearcher(directoryEntry);
             localSearcher.PropertiesToLoad.Add("mail");
@@ -135,6 +135,64 @@ namespace Lync_Billing.Libs
             }
             return userInfo;
         }
+
+        /// <summary>
+        /// Get AD Domain NetBios Name
+        /// </summary>
+        /// <param name="dnsDomainName">DNS Suffix Name</param>
+        /// <returns></returns>
+        public string GetNetbiosDomainName(string dnsDomainName)
+        {
+            string netbiosDomainName = string.Empty;
+
+            DirectoryEntry rootDSE = new DirectoryEntry(string.Format("LDAP://{0}/RootDSE", dnsDomainName));
+
+            string configurationNamingContext = rootDSE.Properties["configurationNamingContext"][0].ToString();
+
+            DirectoryEntry searchRoot = new DirectoryEntry("LDAP://cn=Partitions," + configurationNamingContext);
+
+            DirectorySearcher searcher = new DirectorySearcher(searchRoot);
+            searcher.SearchScope = SearchScope.OneLevel;
+            // searcher.PropertiesToLoad.Add("netbiosname");
+            searcher.Filter = string.Format("(&(objectcategory=Crossref)(dnsRoot={0})(netBIOSName=*))", dnsDomainName);
+
+            SearchResult result = searcher.FindOne();
+
+            if (result != null)
+            {
+                netbiosDomainName = result.Properties["netbiosname"][0].ToString();
+            }
+
+            return netbiosDomainName;
+        }
+
+        /// <summary>
+        /// Get DNS Name from AD Netbios Name
+        /// </summary>
+        /// <param name="netBiosName">AD Netbios Name</param>
+        /// <returns></returns>
+        public string GetFqdnFromNetBiosName(string netBiosName)
+        {
+            string FQDN = string.Empty;
+
+            DirectoryEntry rootDSE = new DirectoryEntry(string.Format("LDAP://{0}/RootDSE", netBiosName));
+
+            string configurationNamingContext = rootDSE.Properties["configurationNamingContext"][0].ToString();
+
+            DirectoryEntry searchRoot = new DirectoryEntry("LDAP://cn=Partitions," + configurationNamingContext);
+
+            DirectorySearcher searcher = new DirectorySearcher(searchRoot);
+            searcher.SearchScope = SearchScope.OneLevel;
+            //searcher.PropertiesToLoad.Add("dnsroot");
+            searcher.Filter = string.Format("(&(objectcategory=Crossref)(netbiosname={0}))", netBiosName);
+
+            SearchResult result = searcher.FindOne();
+            if (result != null)
+                FQDN = result.Properties["dnsroot"][0].ToString();
+
+            return FQDN;
+        }
+    
     }
 
     public class ADUserInfo
