@@ -1,4 +1,4 @@
-﻿<%@ WebService Language="C#" CodeBehind="UserWebService.asmx.cs" Class="Lync_Billing.WebServices.UserWebService" %>
+﻿<%@ WebService Language="C#"  Class="Lync_Billing.WebServices.UserWebService" %>
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Lync_Billing.WebServices
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-    // [System.Web.Script.Services.ScriptService]
+    [System.Web.Script.Services.ScriptService]
     public class UserWebService : System.Web.Services.WebService
     {
         public UserWebService() { }
