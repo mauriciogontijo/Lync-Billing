@@ -19,6 +19,7 @@
 
             <script type="text/javascript">
                 window.myObject = {};
+                window.myObject['authUser'] = {};
                 window.myObject['getUserData'] = {};
 
                 //getUserAttrs Function
@@ -26,12 +27,10 @@
                 {
                     //Get the contents of the emailAddress textbox.
                     var emailAddress = document.getElementById('emailAddress').value || "";
-                    debugger;
                     Lync_Billing.WebServices.UserWebService.GetUserAttributes(
                         emailAddress,
                         function (onSuccessData) {
                             window.myObject['getUserData'] = onSuccessData;
-                            console.log(onSuccessData['BusinessPhone']);
                         },
                         function (onFailData) { }
                     );
@@ -53,8 +52,10 @@
                         Lync_Billing.WebServices.UserWebService.authenticateUser(
                             emailAddress,
                             password,
-                            onComplete('success'),
-                            onComplete('fail')
+                            function (onSuccessData) {
+                                window.myObject['authUser'] = onSuccessData;
+                            },
+                            function (onFailData) { }
                         );
                     }
 
