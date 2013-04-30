@@ -11,7 +11,7 @@
         <form id="form1" runat="server">
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" >
                 <Services>
-                    <asp:ServiceReference Path="~/WebServices/UserWebService.asmx" />
+                    <asp:ServiceReference Path="~/Libs/BillingAPI.asmx" />
                 </Services>
             </asp:ScriptManager>
 
