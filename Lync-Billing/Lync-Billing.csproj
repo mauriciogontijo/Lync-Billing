@@ -76,8 +76,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="WebServices\UserWebService.asmx" />
-    <Content Include="WebServices\UserWebServiceViewer.aspx" />
+    <Content Include="Libs\BillingAPI.asmx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB\Gateways.cs" />
@@ -93,13 +92,6 @@
     <Compile Include="Libs\DBLib.cs" />
     <Compile Include="DB\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebServices\UserWebServiceViewer.aspx.cs">
-      <DependentUpon>UserWebServiceViewer.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebServices\UserWebServiceViewer.aspx.designer.cs">
-      <DependentUpon>UserWebServiceViewer.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -110,7 +102,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UI\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
