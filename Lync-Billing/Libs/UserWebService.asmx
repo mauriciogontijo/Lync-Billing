@@ -1,11 +1,10 @@
-﻿<%@ WebService Language="C#"  Class="Lync_Billing.WebServices.UserWebService" %>
+﻿<%@ WebService Language="C#"  Class="Lync_Billing.Libs.BillingAPI" %>
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using Lync_Billing.Libs;
 
 namespace Lync_Billing.Libs
 {
