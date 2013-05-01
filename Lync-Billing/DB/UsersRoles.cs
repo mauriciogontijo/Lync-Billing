@@ -141,11 +141,28 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public bool ValidateUsersRoles(int employeeID, string RoleName)
+        public bool ValidateUsersRoles(string SipAccount, int RoleID)
         {
 
-            return false;
-        }
+            DataTable dt = new DataTable();
 
+            List<UsersRoles> roles = new List<UsersRoles>();
+            List<string> columns = new List<string>();
+            
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+           
+            columns.Add(Enums.GetDescription(Enums.UsersRoles.RoleID));
+            
+            wherePart.Add(Enums.GetDescription(Enums.UsersRoles.SipAccount), SipAccount);
+            wherePart.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), RoleID);
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), columns, wherePart, 0);
+
+            if(dt.Rows.Count > 0)
+                return true;
+            else
+                return false;
+        }
     }
+
 }
