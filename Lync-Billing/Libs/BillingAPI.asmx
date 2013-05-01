@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using Lync_Billing.DB;
 
 namespace Lync_Billing.Libs
 {
@@ -37,6 +38,19 @@ namespace Lync_Billing.Libs
             AdLib adConnector = new AdLib();
            
             return adConnector.getUserAttributes(emailAddress);
+        }
+
+        [WebMethod]
+        public List<UserRole> GetUserRoles(string sipAccount)
+        {
+            return Employee.GetUserRoles(sipAccount);
+        }
+
+        [WebMethod]
+        public bool ValidateUsersRoles(string SipAccount, int RoleID)
+        {
+            UserRole userRole = new UserRole();
+            return userRole.ValidateUsersRoles(SipAccount, RoleID);
         }
     }
 }
