@@ -79,15 +79,10 @@ namespace Lync_Billing.DB
         public bool DeletePool(Pools pool)
         {
             bool status = false;
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-           
-            if ((pool.PoolID).ToString() != null)
-                wherePart.Add(Enums.GetDescription(Enums.Pools.PoolID), pool.PoolID);
-
-            if (pool.PoolFQDN != null)
-                wherePart.Add(Enums.GetDescription(Enums.Pools.PoolFQDN), pool.PoolFQDN);
-
-            status = DBRoutines.DELETE(Enums.GetDescription(Enums.Pools.TableName), wherePart);
+            status = DBRoutines.DELETE(
+                Enums.GetDescription(Enums.Pools.TableName),
+                Enums.GetDescription(Enums.Pools.PoolID),
+                pool.PoolID);
 
             if (status == false)
             {
