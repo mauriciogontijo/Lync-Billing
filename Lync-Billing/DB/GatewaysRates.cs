@@ -61,84 +61,77 @@ namespace Lync_Billing.DB
             return gatewayRates;
         }
 
-        public int InsertGatewaysRates(List<GatewaysRates> gatewayRates)
+        public int InsertGatewayRate(GatewaysRates gatewayRate)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
 
-            foreach (GatewaysRates gatewaysRates in gatewayRates)
-            {
-
                 //Set Part
-                if ((gatewaysRates.GatewayID).ToString() != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.GatewayID), gatewaysRates.GatewayID);
+            if ((gatewayRate.GatewayID).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.GatewayID), gatewayRate.GatewayID);
 
-                if (gatewaysRates.RatesTableName != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.RatesTableName), gatewaysRates.RatesTableName);
+            if (gatewayRate.RatesTableName != null)
+                columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.RatesTableName), gatewayRate.RatesTableName);
 
-                if (gatewaysRates.StartingDate != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.StartingDate), gatewaysRates.StartingDate);
+            if (gatewayRate.StartingDate != null)
+                columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.StartingDate), gatewayRate.StartingDate);
 
-                if (gatewaysRates.EndingDate != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.EndingDate), gatewaysRates.EndingDate);
+            if (gatewayRate.EndingDate != null)
+                columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.EndingDate), gatewayRate.EndingDate);
 
-                if (gatewaysRates.ProviderName != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.ProviderName), gatewaysRates.ProviderName);
+            if (gatewayRate.ProviderName != null)
+                columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.ProviderName), gatewayRate.ProviderName);
 
-                if (gatewaysRates.CurrencyCode != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.CurrencyCode), gatewaysRates.CurrencyCode);
+            if (gatewayRate.CurrencyCode != null)
+                columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.CurrencyCode), gatewayRate.CurrencyCode);
 
-                //Execute Insert
-                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.GatewaysRates.TableName), columnsValues);
-            }
+            //Execute Insert
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.GatewaysRates.TableName), columnsValues);
+
             return rowID;
         }
 
-        public bool UpdateGatewaysRates(List<GatewaysRates> gatewayRates)
+        public bool UpdateGatewayRate(GatewaysRates gatewayRate)
         {
             bool status = false;
 
             Dictionary<string, object> setPart = new Dictionary<string, object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
-            foreach (GatewaysRates gatewaysRates in gatewayRates)
+            //Where Part
+            setPart.Add(Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID), gatewayRate.GatewaysRatesID);
+
+            //Set Part
+
+            if ((gatewayRate.GatewayID).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.GatewaysRates.GatewayID), gatewayRate.GatewayID);
+
+            if (gatewayRate.RatesTableName != null)
+                setPart.Add(Enums.GetDescription(Enums.GatewaysRates.RatesTableName), gatewayRate.RatesTableName);
+
+            if (gatewayRate.StartingDate != null)
+                setPart.Add(Enums.GetDescription(Enums.GatewaysRates.StartingDate), gatewayRate.StartingDate);
+
+            if (gatewayRate.EndingDate != null)
+                setPart.Add(Enums.GetDescription(Enums.GatewaysRates.EndingDate), gatewayRate.EndingDate);
+
+            if (gatewayRate.ProviderName != null)
+                setPart.Add(Enums.GetDescription(Enums.GatewaysRates.ProviderName), gatewayRate.ProviderName);
+
+            if (gatewayRate.CurrencyCode != null)
+                setPart.Add(Enums.GetDescription(Enums.GatewaysRates.CurrencyCode), gatewayRate.CurrencyCode);
+
+            //Execute Update
+            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.UsersRoles.TableName), setPart, wherePart);
+
+            if (status == false)
             {
-
-                //Where Part
-                setPart.Add(Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID), gatewaysRates.GatewaysRatesID);
-
-                //Set Part
-
-                if ((gatewaysRates.GatewayID).ToString() != null)
-                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.GatewayID), gatewaysRates.GatewayID);
-
-                if (gatewaysRates.RatesTableName != null)
-                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.RatesTableName), gatewaysRates.RatesTableName);
-
-                if (gatewaysRates.StartingDate != null)
-                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.StartingDate), gatewaysRates.StartingDate);
-
-                if (gatewaysRates.EndingDate != null)
-                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.EndingDate), gatewaysRates.EndingDate);
-
-                if (gatewaysRates.ProviderName != null)
-                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.ProviderName), gatewaysRates.ProviderName);
-
-                if (gatewaysRates.CurrencyCode != null)
-                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.CurrencyCode), gatewaysRates.CurrencyCode);
-
-                //Execute Update
-                status = DBRoutines.UPDATE(Enums.GetDescription(Enums.UsersRoles.TableName), setPart, wherePart);
-
-                if (status == false)
-                {
-                    //throw error message
-                }
+                //throw error message
             }
             return true;
         }
 
-        public bool DeleteFromGatewaysRates(List<GatewaysRates> ratesPerGateways)
+        public bool DeleteGatewayRate(List<GatewaysRates> ratesPerGateways)
         {
             bool status = false;
 
