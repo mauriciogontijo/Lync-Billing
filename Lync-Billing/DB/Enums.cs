@@ -7,8 +7,14 @@ using System.ComponentModel;
 
 namespace Lync_Billing.DB
 {
+    /// <summary>
+    /// A class Holds all Billing Database fields name
+    /// </summary>
     public static class Enums
     {
+        /// <summary>
+        /// Sites Database table fields Names
+        /// </summary>
         public enum Sites
         {
             [Description("Sites")]
@@ -23,6 +29,10 @@ namespace Lync_Billing.DB
             CountryCode
            
         }
+
+        /// <summary>
+        /// Pools Database table fields Names
+        /// </summary>
         public enum Pools
         {
             [Description("Pools")]
@@ -32,6 +42,10 @@ namespace Lync_Billing.DB
             [Description("PoolFQDN")]
             PoolFQDN
         }
+
+        /// <summary>
+        /// GatewaysDetails Database table fields Names
+        /// </summary>
         public enum GatewaysDetails
         {
             [Description("GatewaysDetails")]
@@ -45,6 +59,10 @@ namespace Lync_Billing.DB
             [Description("CountryCode")]
             CountryCode
         }
+
+        /// <summary>
+        /// Rates Database table fields Names
+        /// </summary>
         public enum Rates
         {
             [Description("RateID")]
@@ -56,6 +74,10 @@ namespace Lync_Billing.DB
             [Description("MobileLineRate")]
             MobileLineRate
         }
+
+        /// <summary>
+        /// GatewaysRates Database table fields Names
+        /// </summary>
         public enum GatewaysRates
         {
             [Description("GatewaysRates")]
@@ -75,6 +97,10 @@ namespace Lync_Billing.DB
             [Description("CurrencyCode")]
             CurrencyCode
         }
+
+        /// <summary>
+        /// Roles Database table fields Names
+        /// </summary>
         public enum Roles 
         {
             [Description("Roles")]
@@ -86,6 +112,10 @@ namespace Lync_Billing.DB
             [Description("RoleDescription")]
             RoleDescription
         }
+
+        /// <summary>
+        /// UsersRoles Database table fields Names
+        /// </summary>
         public enum UsersRoles 
         {
             [Description("UsersRoles")]
@@ -104,7 +134,11 @@ namespace Lync_Billing.DB
             GatewayID,
             [Description("Notes")]
             Notes
-        }  
+        }
+
+        /// <summary>
+        /// PhoneCalls Database table fields Names
+        /// </summary>
         public enum PhoneCalls
         {
             [Description("PhoneCalls")]
@@ -159,6 +193,11 @@ namespace Lync_Billing.DB
             UI_IsInvoiced
         }
 
+        /// <summary>
+        /// Gets the Name of DB table Field
+        /// </summary>
+        /// <param name="value">Enum Name</param>
+        /// <returns>Field Description</returns>
         public static string GetDescription(Enum value)
         {
             FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
@@ -170,7 +209,7 @@ namespace Lync_Billing.DB
             else
                 return value.ToString();
         }
-
+        
         public static IEnumerable<T> EnumToList<T>()
         {
             Type enumType = typeof(T);
