@@ -22,6 +22,7 @@ namespace Lync_Billing.DB
         public string CountryCode { set; get; }
       
 
+
         public List<GatewayDetail> GetGatewaysDetails(List<string> columns, Dictionary<string, object> wherePart, int limits) 
         {
             GatewayDetail gateway;
