@@ -23,14 +23,14 @@ namespace Lync_Billing.DB
 
         }
 
-        public int InsertRoles(List<Roles> roles)
+        public int InsertRole(Roles role)
         {
 
 
             return 0;
         }
 
-        public bool UpdateRoles(List<Roles> roles)
+        public bool UpdateRole(Roles role)
         {
             bool status = false;
 
@@ -38,7 +38,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public bool DeleteRoles(List<Roles> roles)
+        public bool DeleteRole(Roles role)
         {
             bool status = false;
 
