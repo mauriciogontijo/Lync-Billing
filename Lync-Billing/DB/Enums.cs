@@ -32,9 +32,9 @@ namespace Lync_Billing.DB
             [Description("PoolFQDN")]
             PoolFQDN
         }
-        public enum Gateways
+        public enum GatewaysDetails
         {
-            [Description("Gateways")]
+            [Description("GatewaysDetails")]
             TableName,
             [Description("GatewayID")]
             GatewayID,
