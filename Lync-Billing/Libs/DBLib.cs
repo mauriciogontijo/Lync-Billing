@@ -20,6 +20,38 @@ namespace Lync_Billing.Libs
             return new OleDbConnection(connectionString);
         }
 
+        public DataTable SELECT(string tableName, string whereField, object whereValue) 
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            StringBuilder selectedfields = new StringBuilder();
+
+            if (whereValue.GetType().Equals(typeof(int)) || whereValue.GetType().Equals(typeof(double)))
+                selectQuery = string.Format("SELECT * FROM  ['{2}'] WHERE '{3}'={4}", tableName, whereField,whereValue);
+            else
+                selectQuery = string.Format("SELECT * FROM  ['{2}'] WHERE '{3}'='{4}'", tableName, whereField, whereValue);
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
         public DataTable SELECT(string tableName,List <string> fields, Dictionary<string, object> whereClause, int limits)
         {
             DataTable dt = new DataTable();
