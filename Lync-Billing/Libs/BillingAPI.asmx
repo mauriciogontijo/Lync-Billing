@@ -20,7 +20,7 @@ namespace Lync_Billing.Libs
     public class BillingAPI : System.Web.Services.WebService
     {
         public BillingAPI() { }
-
+        
         [WebMethod]
         public bool authenticateUser(string emailAddress, string password)
         {
