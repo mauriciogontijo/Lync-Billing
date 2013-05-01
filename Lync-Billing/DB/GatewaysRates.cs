@@ -61,19 +61,76 @@ namespace Lync_Billing.DB
             return gatewayRates;
         }
 
-        public int InsertGatewaysRates(List<GatewaysRates> ratesPerGateways)
+        public int InsertGatewaysRates(List<GatewaysRates> gatewayRates)
         {
+            int rowID = 0;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
 
+            foreach (GatewaysRates gatewaysRates in gatewayRates)
+            {
 
-            return 0;
+                //Set Part
+                if (gatewaysRates.GatewayID != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.GatewayID), gatewaysRates.GatewayID);
+
+                if (gatewaysRates.RatesTableName != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.RatesTableName), gatewaysRates.RatesTableName);
+
+                if (gatewaysRates.StartingDate != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.StartingDate), gatewaysRates.StartingDate);
+
+                if (gatewaysRates.EndingDate != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.EndingDate), gatewaysRates.EndingDate);
+
+                if (gatewaysRates.ProviderName != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.ProviderName), gatewaysRates.ProviderName);
+
+                if (gatewaysRates.CurrencyCode != null)
+                    columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.CurrencyCode), gatewaysRates.CurrencyCode);
+
+                //Execute Insert
+                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.GatewaysRates.TableName), columnsValues);
+            }
+            return rowID;
         }
 
-        public bool UpdateGatewaysRates(List<GatewaysRates> ratesPerGateways)
+        public bool UpdateGatewaysRates(List<GatewaysRates> gatewayRates,int ID)
         {
             bool status = false;
 
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
 
-            return status;
+            foreach (GatewaysRates gatewaysRates in gatewayRates)
+            {
+
+                //Set Part
+                if (gatewaysRates.GatewayID != null)
+                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.GatewayID), gatewaysRates.GatewayID);
+
+                if (gatewaysRates.RatesTableName != null)
+                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.RatesTableName), gatewaysRates.RatesTableName);
+
+                if (gatewaysRates.StartingDate != null)
+                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.StartingDate), gatewaysRates.StartingDate);
+
+                if (gatewaysRates.EndingDate != null)
+                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.EndingDate), gatewaysRates.EndingDate);
+
+                if (gatewaysRates.ProviderName != null)
+                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.ProviderName), gatewaysRates.ProviderName);
+
+                if (gatewaysRates.CurrencyCode != null)
+                    setPart.Add(Enums.GetDescription(Enums.GatewaysRates.CurrencyCode), gatewaysRates.CurrencyCode);
+
+                //Execute Update
+                status = DBRoutines.UPDATE(Enums.GetDescription(Enums.UsersRoles.TableName), setPart, Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID), ID);
+
+                if (status == false)
+                {
+                    //throw error message
+                }
+            }
+            return true;
         }
 
         public bool DeleteFromGatewaysRates(List<GatewaysRates> ratesPerGateways)
