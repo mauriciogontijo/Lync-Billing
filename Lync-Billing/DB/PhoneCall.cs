@@ -131,46 +131,43 @@ namespace Lync_Billing.DB
             return phoneCalls;
         }
 
-        public bool UpdateCalls(List<PhoneCall> phoneCalls) 
+        public bool UpdateCall(PhoneCall phoneCall) 
         {
             bool status = false;
 
             DataTable dt = new DataTable();
             Dictionary<string, object> setPart = new Dictionary<string, object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            
+            //Where Part
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), phoneCall.SessionIdTime);
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq), phoneCall.SessionIdSeq);
 
-          
-            foreach (PhoneCall phoneCall in phoneCalls)
-            {
-                //Where Part
-                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), phoneCall.SessionIdTime);
-                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq), phoneCall.SessionIdSeq);
+            //Set Part
+            if ((phoneCall.UI_MarkedOn).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn), phoneCall.UI_MarkedOn);
 
-                //Set Part
-                if ((phoneCall.UI_MarkedOn).ToString() != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn), phoneCall.UI_MarkedOn);
+            if ((phoneCall.UI_UpdatedByUser).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser), phoneCall.UI_UpdatedByUser);
 
-                if ((phoneCall.UI_UpdatedByUser).ToString() != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser), phoneCall.UI_UpdatedByUser);
+            if ((phoneCall.UI_IsPersonal).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_IsPersonal), phoneCall.UI_IsPersonal);
 
-                if ((phoneCall.UI_IsPersonal).ToString() != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_IsPersonal), phoneCall.UI_IsPersonal);
+            if ((phoneCall.UI_Dispute).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_Dispute), phoneCall.UI_Dispute);
 
-                if ((phoneCall.UI_Dispute).ToString() != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_Dispute), phoneCall.UI_Dispute);
-
-                if ((phoneCall.UI_IsInvoiced).ToString() != null)
-                    setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_IsInvoiced), phoneCall.UI_IsInvoiced);
+            if ((phoneCall.UI_IsInvoiced).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_IsInvoiced), phoneCall.UI_IsInvoiced);
                
 
-                //Execute Update
-                status = DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneCalls.TableName), setPart, wherePart);
+            //Execute Update
+            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneCalls.TableName), setPart, wherePart);
 
-                if (status == false)
-                {
-                    //throw error message
-                }
+            if (status == false)
+            {
+                //throw error message
             }
+           
             //throw success message
             return status;
         }
