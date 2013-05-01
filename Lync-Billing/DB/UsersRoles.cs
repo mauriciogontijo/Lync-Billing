@@ -69,19 +69,19 @@ namespace Lync_Billing.DB
             {
 
                 //Set Part
-                if (userRole.SiteID != null)
+                if ((userRole.SiteID).ToString() != null)
                     columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.SiteID), userRole.SiteID);
 
-                if (userRole.PoolID != null)
+                if ((userRole.PoolID).ToString() != null)
                     columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.PoolID), userRole.PoolID);
 
-                if (userRole.GatewayID != null)
+                if ((userRole.GatewayID).ToString() != null)
                     columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.GatewayID), userRole.GatewayID);
 
                 if (userRole.SipAccount != null)
                     columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.SipAccount), userRole.SipAccount);
 
-                if (userRole.RoleID != null)
+                if ((userRole.RoleID).ToString() != null)
                     columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), userRole.RoleID);
 
                 if (userRole.Notes != null)
@@ -103,19 +103,19 @@ namespace Lync_Billing.DB
             {
               
                 //Set Part
-                if (userRole.SiteID != null)
+                if ((userRole.SiteID).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.UsersRoles.SiteID), userRole.SiteID);
 
-                if (userRole.PoolID != null)
+                if ((userRole.PoolID).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.UsersRoles.PoolID), userRole.PoolID);
 
-                if (userRole.GatewayID != null)
+                if ((userRole.GatewayID).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.UsersRoles.GatewayID), userRole.GatewayID);
 
                 if (userRole.SipAccount != null)
                     setPart.Add(Enums.GetDescription(Enums.UsersRoles.SipAccount), userRole.SipAccount);
 
-                if (userRole.RoleID != null)
+                if ((userRole.RoleID).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), userRole.RoleID);
 
                 if (userRole.Notes != null)
