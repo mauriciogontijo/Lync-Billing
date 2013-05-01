@@ -48,9 +48,20 @@ namespace Lync_Billing.DB
 
         public int InsertRole(Roles role)
         {
+            int rowID = 0;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
 
+            //Set Part
+            if ((role.RoleName).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Roles.RoleName), role.RoleName);
 
-            return 0;
+            if ((role.RoleDescription).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Roles.RoleDescription), role.RoleDescription);
+
+            //Execute Insert
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Roles.TableName), columnsValues);
+
+            return rowID;
         }
 
         public bool UpdateRole(Roles role)
