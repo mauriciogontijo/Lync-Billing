@@ -29,12 +29,12 @@ namespace Lync_Billing.DB
             
         }
 
-        public  int InsertRates(string ratesTableName, List<Rates> rates)
+        public  int InsertRate(string ratesTableName, List<Rates> rates)
         {
             return 0;
         }
 
-        public bool UpdateRates(string ratesTableName, List<Rates> rates)
+        public bool UpdateRate(string ratesTableName, List<Rates> rates)
         {
             bool status = false;
 
