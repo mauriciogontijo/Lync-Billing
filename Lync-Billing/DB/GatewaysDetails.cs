@@ -81,11 +81,6 @@ namespace Lync_Billing.DB
             bool status = false;
 
             Dictionary<string, object> setPart = new Dictionary<string, object>();
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-
-           
-            //Where Part
-            wherePart.Add(Enums.GetDescription(Enums.GatewaysDetails.GatewaysDetailsID), gatewayDetails.GatewaysDetailsID);
 
             //Set Part
             if (gatewayDetails.GatewayName != null)
@@ -112,24 +107,14 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeleteGatewayDetails(GatewaysDetails gateway) 
+        public bool DeleteGatewayDetails(GatewaysDetails gatewayDetails) 
         {
             bool status = false;
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-
-            if ((gateway.GatewaysDetailsID).ToString() != null)
-                wherePart.Add(Enums.GetDescription(Enums.GatewaysDetails.GatewaysDetailsID), gateway.GatewaysDetailsID);
-
-            if (gateway.GatewayName != null)
-                wherePart.Add(Enums.GetDescription(Enums.GatewaysDetails.GatewayName), gateway.GatewayName);
-
-            if (gateway.CountryCode != null)
-                wherePart.Add(Enums.GetDescription(Enums.GatewaysDetails.CountryCode), gateway.CountryCode);
-
-            if (gateway.GatewayLocation != null)
-                wherePart.Add(Enums.GetDescription(Enums.GatewaysDetails.GatewayLocation), gateway.GatewayLocation);
-
-            status = DBRoutines.DELETE(Enums.GetDescription(Enums.GatewaysDetails.TableName), wherePart);
+           
+            status = DBRoutines.DELETE(
+                Enums.GetDescription(Enums.GatewaysDetails.TableName), 
+                Enums.GetDescription(Enums.GatewaysDetails.GatewaysDetailsID),
+                gatewayDetails.GatewaysDetailsID);
 
             if (status == false)
             {
