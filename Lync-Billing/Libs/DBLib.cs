@@ -138,6 +138,44 @@ namespace Lync_Billing.Libs
             return recordID;
         }
 
+        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues,string idFieldName, int ID) 
+        {
+            StringBuilder fieldsValues = new StringBuilder();
+
+            foreach (KeyValuePair<string, object> pair in columnsValues)
+            {
+
+                Type valueType = pair.Value.GetType();
+
+                if (valueType == typeof(int) || valueType == typeof(Double))
+                    fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");
+                else
+                    fieldsValues.Append(pair.Key + "=" + "'" + pair.Value + "'" + ",");
+            }
+
+            fieldsValues.Remove(fieldsValues.Length - 1, 1).Append(")");
+
+            string insertQuery = string.Format("UPDATE  ['{1}'] SET '{2}' WHERE '{3}'={4}", tableName, fieldsValues, idFieldName,ID);
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(insertQuery, conn);
+
+            try
+            {
+                conn.Open();
+                comm.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return false;
+        }
+        
         public bool UPDATE(string tableName, Dictionary<string, object> columnsValues, Dictionary<string,object> wherePart)
         {
 
@@ -190,6 +228,27 @@ namespace Lync_Billing.Libs
 
         }
 
+        public bool DELETE(string tableName, string idFieldName, int ID) 
+        {
+             string deleteQuery = string.Format("DELETE FROM ['{1}'] WHERE '{2}={3}'", tableName, idFieldName,ID);
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(deleteQuery, conn);
+
+            try
+            {
+                conn.Open();
+                comm.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx; 
+            }
+            finally { conn.Close(); }
+        }
+        
         public bool DELETE(string tableName, Dictionary<string, object> wherePart) 
         {
             StringBuilder whereStatement = new StringBuilder();
@@ -224,6 +283,7 @@ namespace Lync_Billing.Libs
             }
             finally { conn.Close(); }
         }
+
 
    }
 }
