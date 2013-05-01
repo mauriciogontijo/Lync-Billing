@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using Lync_Billing.Libs;
+using System.Data;
 
 namespace Lync_Billing.DB
 {
     public class Rates
     {
         public int RateID { get; set; }
+        public string CountryCode { get; set; }
         public string FixedLineRate { get; set; }
         public string MobileLineRate { get; set; }
 
@@ -23,11 +25,37 @@ namespace Lync_Billing.DB
             return RatesTableName.ToString();
         }
 
-        public List<Users> GetRates(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        public List<Rates> GetRates(List<string> columns, Dictionary<string, object> wherePart, int limits, string RatesTableName)
         {
-            List<Users> users = new List<Users>();
+            List<Rates> rates = new List<Rates>();
+            DataTable dt = new DataTable();
+            Rates rate;
+            
 
-            return users;
+            dt = DBRoutines.SELECT(RatesTableName, columns, wherePart, limits);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                rate = new Rates();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.RateID))
+                        rate.RateID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.CountryCode))
+                        rate.CountryCode = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.FixedLineRate))
+                        rate.FixedLineRate = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.MobileLineRate))
+                        rate.MobileLineRate = (string)row[column.ColumnName];
+                }
+                rates.Add(rate);
+            }
+
+            return rates;
             
         }
 
@@ -37,6 +65,9 @@ namespace Lync_Billing.DB
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
 
             //Set Part
+            if ((rate.CountryCode).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Rates.CountryCode), rate.CountryCode);
+
             if ((rate.FixedLineRate).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Rates.FixedLineRate), rate.FixedLineRate);
 
