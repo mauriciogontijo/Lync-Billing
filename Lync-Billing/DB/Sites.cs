@@ -111,7 +111,5 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        
-
     }
 }
