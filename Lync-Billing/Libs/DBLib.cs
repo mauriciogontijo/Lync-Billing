@@ -172,8 +172,7 @@ namespace Lync_Billing.Libs
                 throw argEx;
             }
             finally { conn.Close(); }
-
-            return false;
+           
         }
         
         public bool UPDATE(string tableName, Dictionary<string, object> columnsValues, Dictionary<string,object> wherePart)
