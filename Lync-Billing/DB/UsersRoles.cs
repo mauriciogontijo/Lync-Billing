@@ -9,9 +9,9 @@ namespace Lync_Billing.DB
     public class UsersRoles
     {
         public DBLib DBRoutines = new DBLib();
-        
-        public int RolePerUserID { set; get; }
-        public int SipAccount { get; set; }
+
+        public int UsersRolesID { set; get; }
+        public string SipAccount { get; set; }
         public int RoleID { get; set; }
         public int SiteID { get; set; }
         public int PoolID { get; set; }
