@@ -101,8 +101,8 @@ namespace Lync_Billing.DB
             bool status = false;
 
             status = DBRoutines.DELETE(
-                Enums.GetDescription(Enums.UsersRoles.TableName), 
-                Enums.GetDescription(Enums.UsersRoles.UsersRolesID), );
+                Enums.GetDescription(Enums.Roles.TableName), 
+                Enums.GetDescription(Enums.Roles.RoleID), );
 
             return status;
         }
