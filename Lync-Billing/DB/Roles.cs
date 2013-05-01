@@ -16,13 +16,17 @@ namespace Lync_Billing.DB
         public string RoleName { get; set; }
         public string RoleDescription { get; set; }
 
-        public List<Roles> GetRoles(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
+        public List<Roles> GetRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Roles role;
             DataTable dt = new DataTable();
             List<Roles> Roles = new List<Roles>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysDetails.TableName), columns, wherePart, limits);
+            dt = DBRoutines.SELECT(
+                Enums.GetDescription(Enums.GatewaysDetails.TableName), 
+                columns,
+                wherePart, 
+                limits);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -68,6 +72,26 @@ namespace Lync_Billing.DB
         {
             bool status = false;
 
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+
+            //Set Part
+            if ((role.RoleName).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Roles.RoleName), role.RoleName);
+
+            if (role.RoleDescription != null)
+                setPart.Add(Enums.GetDescription(Enums.Roles.RoleDescription), role.RoleDescription);
+
+            //Execute Update
+            status = DBRoutines.UPDATE(
+                Enums.GetDescription(Enums.UsersRoles.TableName), 
+                setPart, 
+                Enums.GetDescription(Enums.UsersRoles.UsersRolesID),
+                role.RoleID);
+
+            if (status == false)
+            {
+                //throw error message
+            }
 
             return status;
         }
@@ -76,6 +100,9 @@ namespace Lync_Billing.DB
         {
             bool status = false;
 
+            status = DBRoutines.DELETE(
+                Enums.GetDescription(Enums.UsersRoles.TableName), 
+                Enums.GetDescription(Enums.UsersRoles.UsersRolesID), );
 
             return status;
         }

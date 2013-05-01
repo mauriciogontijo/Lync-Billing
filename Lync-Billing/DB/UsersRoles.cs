@@ -126,11 +126,14 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeleteFromUsersRole(int ID)
+        public bool DeleteFromUsersRole(UsersRoles userRole)
         {
             bool status = false;
 
-            status = DBRoutines.DELETE(Enums.GetDescription(Enums.UsersRoles.TableName), Enums.GetDescription(Enums.UsersRoles.UsersRolesID), ID);
+            status = DBRoutines.DELETE(
+                Enums.GetDescription(Enums.UsersRoles.TableName), 
+                Enums.GetDescription(Enums.UsersRoles.UsersRolesID), 
+                userRole.UsersRolesID);
           
             return status;
         }
