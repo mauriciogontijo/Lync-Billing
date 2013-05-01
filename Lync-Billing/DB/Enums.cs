@@ -88,32 +88,6 @@ namespace Lync_Billing.DB
             [Description("RoleDescription")]
             RoleDescription
         }
-        public enum Users 
-        {
-            [Description("Users")]
-            TableName,
-            [Description("EmployeeID")]
-            EmployeeID,
-            [Description("LoginName")]
-            LoginName,
-            [Description("SipAccount")]
-            SipAccount,
-            [Description("EmailAddress")]
-            EmailAddress,
-            [Description("PhoneNumber")]
-            PhoneNumber,
-            [Description("Office")]
-            SiteName,
-            [Description("Department")]
-            Department,
-            [Description("PoolFQDN")]
-            PoolID,
-            [Description("UPN")]
-            UserUPN,
-            [Description("IsNormalUsers")]
-            IsNormalUsers
-          
-        }
         public enum UsersRoles 
         {
             [Description("UsersRoles")]
