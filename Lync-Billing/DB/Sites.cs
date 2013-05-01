@@ -12,7 +12,6 @@ namespace Lync_Billing.DB
         
         public int SiteID { get; set; }
         public string SiteName { get; set; }
-        public string SiteUPN { get; set; }
         public string CountryCode { get; set; }
         public string SiteLocation { get; set; }
 
@@ -23,13 +22,13 @@ namespace Lync_Billing.DB
             return sites;
         }
 
-        public int InsertSites(List<Rates> rates)
+        public int InsertSite(Rates rate)
         {
 
             return 0;
         }
 
-        public bool UpdateSites(List<Rates> rates)
+        public bool UpdateSite(Rates rate)
         {
             bool status = false;
 
@@ -37,7 +36,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public bool DeleteSites(List<Rates> rates) 
+        public bool DeleteSite(Rates rate)
         {
             bool status = false;
 
