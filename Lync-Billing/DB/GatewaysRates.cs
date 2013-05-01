@@ -96,10 +96,6 @@ namespace Lync_Billing.DB
             bool status = false;
 
             Dictionary<string, object> setPart = new Dictionary<string, object>();
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-
-            //Where Part
-            setPart.Add(Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID), gatewayRate.GatewaysRatesID);
 
             //Set Part
 
@@ -122,7 +118,10 @@ namespace Lync_Billing.DB
                 setPart.Add(Enums.GetDescription(Enums.GatewaysRates.CurrencyCode), gatewayRate.CurrencyCode);
 
             //Execute Update
-            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.UsersRoles.TableName), setPart, wherePart);
+            status = DBRoutines.UPDATE(
+                Enums.GetDescription(Enums.UsersRoles.TableName), 
+                setPart, Enums.GetDescription(Enums.UsersRoles.UsersRolesID),
+                gatewayRate.GatewaysRatesID);
 
             if (status == false)
             {
