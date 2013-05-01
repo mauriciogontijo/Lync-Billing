@@ -25,14 +25,14 @@ namespace Lync_Billing.DB
             return RatesTableName.ToString();
         }
 
-        public List<Rates> GetRates(List<string> columns, Dictionary<string, object> wherePart, int limits, string RatesTableName)
+        public List<Rates> GetRates(List<string> columns, Dictionary<string, object> wherePart, int limits, string ratesTableName)
         {
             List<Rates> rates = new List<Rates>();
             DataTable dt = new DataTable();
             Rates rate;
             
 
-            dt = DBRoutines.SELECT(RatesTableName, columns, wherePart, limits);
+            dt = DBRoutines.SELECT(ratesTableName, columns, wherePart, limits);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -80,10 +80,40 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdateRate(Rates rates)
+        public bool UpdatetRate(Rates rate, string ratesTableName)
         {
             bool status = false;
 
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+
+            //Set Part
+            if ((rate.CountryCode).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Rates.CountryCode), rate.CountryCode);
+
+            if ((rate.FixedLineRate).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Rates.FixedLineRate), rate.FixedLineRate);
+
+            if (rate.MobileLineRate != null)
+                setPart.Add(Enums.GetDescription(Enums.Rates.MobileLineRate), rate.MobileLineRate);
+
+            //Execute Update
+            status = DBRoutines.UPDATE(
+                ratesTableName,
+                setPart,
+                Enums.GetDescription(Enums.Rates.RateID),
+                rate.RateID);
+
+            return status;
+        }
+
+        public bool DeleteRate(Rates rate,string ratesTableName)
+        {
+             bool status = false;
+
+            status = DBRoutines.DELETE(
+                ratesTableName, 
+                Enums.GetDescription(Enums.Rates.RateID),
+                rate.RateID);
 
             return status;
         }
