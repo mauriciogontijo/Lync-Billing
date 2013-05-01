@@ -16,12 +16,26 @@ namespace Lync_Billing.DB
         public string CountryCode { get; set; }
         public string SiteLocation { get; set; }
 
+        public Site getSite(int ID)
+        {
+            Site site = new Site() ;
+            DataTable dt = new DataTable();
+            List<Site> sites = new List<Site>();
+            
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            wherePart.Add(Enums.GetDescription(Enums.Sites.SiteID), ID);
+
+            dt = DBRoutines.SELECT( Enums.GetDescription(Enums.Sites.TableName), null, wherePart, 0);
+
+            return site;
+        }
+
         public List<Site> GetSites(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Site site;
             DataTable dt = new DataTable();
             List<Site> sites = new List<Site>();
-
+          
             dt = DBRoutines.SELECT(
                 Enums.GetDescription(Enums.Sites.TableName),
                 columns,
