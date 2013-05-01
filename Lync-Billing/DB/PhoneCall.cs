@@ -131,7 +131,7 @@ namespace Lync_Billing.DB
             return phoneCalls;
         }
 
-        public bool UpdateCall(PhoneCall phoneCall) 
+        public bool UpdatePhoneCall(PhoneCall phoneCall) 
         {
             bool status = false;
 
