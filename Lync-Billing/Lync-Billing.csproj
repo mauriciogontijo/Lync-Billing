@@ -80,7 +80,7 @@
     <Content Include="Libs\BillingAPI.asmx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DB\Gateways.cs" />
+    <Compile Include="DB\GatewaysDetails.cs" />
     <Compile Include="DB\PhoneCall.cs" />
     <Compile Include="DB\Pools.cs" />
     <Compile Include="DB\Rates.cs" />
