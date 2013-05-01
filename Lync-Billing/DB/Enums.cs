@@ -98,15 +98,19 @@ namespace Lync_Billing.DB
             EmployeeID,
             [Description("LoginName")]
             LoginName,
+            [Description("SipAccount")]
+            EmailAddress,
             [Description("EmailAddress")]
             EmailAddress,
             [Description("PhoneNumber")]
             PhoneNumber,
-            [Description("SiteName")]
+            [Description("Office")]
+            SiteName,
+            [Description("Department")]
             SiteName,
             [Description("PoolFQDN")]
             PoolID,
-            [Description("UserUPN")]
+            [Description("UPN")]
             UserUPN,
             [Description("IsNormalUsers")]
             IsNormalUsers
