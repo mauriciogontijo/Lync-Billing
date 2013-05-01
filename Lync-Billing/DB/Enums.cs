@@ -49,6 +49,8 @@ namespace Lync_Billing.DB
         {
             [Description("RateID")]
             RateID,
+            [Description("CountryCode")]
+            CountryCode,
             [Description("FixedLineRate")]
             FixedLineRate,
             [Description("MobileLineRate")]
