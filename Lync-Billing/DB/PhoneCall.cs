@@ -41,13 +41,13 @@ namespace Lync_Billing.DB
 
 
 
-        public List<PhoneCall> GetPhoneCalls(List<string> columns,Dictionary<string,object> wherePart,bool allFields,int limits)
+        public List<PhoneCall> GetPhoneCalls(List<string> columns,Dictionary<string,object> wherePart, int limits)
         {
             PhoneCall phoneCall;
             DataTable dt = new DataTable();
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits, allFields);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
            
             foreach(DataRow row in dt.Rows)
             {

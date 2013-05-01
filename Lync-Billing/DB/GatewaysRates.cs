@@ -19,13 +19,13 @@ namespace Lync_Billing.DB
         public string ProviderName { set; get; }
         public string CurrencyCode { set; get; }
 
-        public List<GatewaysRates> GetGatewaysRates(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
+        public List<GatewaysRates> GetGatewaysRates(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             GatewaysRates gatewayRate;
             DataTable dt = new DataTable();
             List<GatewaysRates> gatewayRates = new List<GatewaysRates>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), columns, wherePart, limits, allFields);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), columns, wherePart, limits);
 
             foreach (DataRow row in dt.Rows)
             {

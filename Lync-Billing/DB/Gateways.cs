@@ -22,13 +22,13 @@ namespace Lync_Billing.DB
         public string CountryCode { set; get; }
       
 
-        public List<Gateways> GetGateways(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits) 
+        public List<Gateways> GetGateways(List<string> columns, Dictionary<string, object> wherePart, int limits) 
         {
             Gateways gateway;
             DataTable dt = new DataTable();
             List<Gateways> gateways = new List<Gateways>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Gateways.TableName), columns, wherePart, limits, allFields);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Gateways.TableName), columns, wherePart, limits);
 
              foreach(DataRow row in dt.Rows)
             {

@@ -19,13 +19,13 @@ namespace Lync_Billing.DB
         public int GatewayID { get; set; }
         public string Notes { get; set; }
 
-        public List<UsersRoles> GetUsersRoles(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
+        public List<UsersRoles> GetUsersRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             UsersRoles userRole;
             DataTable dt = new DataTable();
             List<UsersRoles> roles = new List<UsersRoles>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), columns, wherePart, limits, allFields);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), columns, wherePart, limits);
 
             foreach (DataRow row in dt.Rows)
             {

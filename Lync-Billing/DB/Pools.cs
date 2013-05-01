@@ -13,13 +13,13 @@ namespace Lync_Billing.DB
         public int PoolID { set; get; }
         public string PoolFQDN { set; get; }
        
-        public List<Pools> GetPools(List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
+        public List<Pools> GetPools(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Pools pool;
             DataTable dt = new DataTable();
             List<Pools> pools = new List<Pools>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Pools.TableName), columns, wherePart, limits, allFields);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Pools.TableName), columns, wherePart, limits);
 
             foreach (DataRow row in dt.Rows)
             {
