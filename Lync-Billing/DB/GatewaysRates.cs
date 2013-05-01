@@ -131,13 +131,5 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeleteGatewayRate(List<GatewaysRates> ratesPerGateways)
-        {
-            bool status = false;
-
-
-            return status;
-        }
-
     }
 }
