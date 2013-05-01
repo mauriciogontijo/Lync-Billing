@@ -26,7 +26,23 @@ namespace Lync_Billing.DB
             wherePart.Add(Enums.GetDescription(Enums.Sites.SiteID), ID);
 
             dt = DBRoutines.SELECT( Enums.GetDescription(Enums.Sites.TableName), null, wherePart, 0);
+            
+            DataRow row = dt.Rows[0];
 
+            foreach (DataColumn column in dt.Columns)
+            {
+                if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID))
+                    site.SiteID = (int)row[column.ColumnName];
+
+                if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
+                    site.SiteName = (string)row[column.ColumnName];
+
+                if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteLocation))
+                    site.SiteLocation = (string)row[column.ColumnName];
+
+                if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
+                    site.CountryCode = (string)row[column.ColumnName];
+            }
             return site;
         }
 
