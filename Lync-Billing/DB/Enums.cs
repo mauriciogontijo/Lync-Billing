@@ -40,14 +40,12 @@ namespace Lync_Billing.DB
             TableName,
             [Description("GatewayID")]
             GatewayID,
-            [Description("GatewayFQDN")]
+            [Description("GatewayName")]
             GatewayFQDN,
             [Description("GatewayLocation")]
             GatewayLocation,
             [Description("CountryCode")]
-            CountryCode,
-            [Description("PoolFQDN")]
-            PoolFQDN
+            CountryCode
         }
         public enum Rates
         {
