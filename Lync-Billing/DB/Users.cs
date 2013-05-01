@@ -14,7 +14,10 @@ namespace Lync_Billing.DB
             return adConnector.getUserAttributes(emailAddress);
         }
 
-        public int getUserRole(string emailAddress) { }
+        public int getUserRole(string emailAddress) 
+        {
+
+        }
        
     }
 }
