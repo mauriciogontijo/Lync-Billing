@@ -17,14 +17,14 @@ namespace Lync_Billing.DB
             return adConnector.getUserAttributes(emailAddress);
         }
 
-        public List<UsersRoles> GetUserRoles(string emailAddress)
+        public List<UsersRoles> GetUserRoles(string sipAccount)
         {
             UsersRoles userRole;
             DataTable dt = new DataTable();
             List<UsersRoles> roles = new List<UsersRoles>();
 
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            wherePart.Add("SipAccount", emailAddress);
+            wherePart.Add("SipAccount", sipAccount);
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), null, wherePart, 0, true);
 
