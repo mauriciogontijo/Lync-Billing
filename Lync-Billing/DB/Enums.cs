@@ -63,7 +63,7 @@ namespace Lync_Billing.DB
             [Description("GatewaysRates")]
             TableName,
             [Description("GatewaysRatesID")]
-            RatesPerGatewaysID,
+            GatewaysRatesID,
             [Description("GatewayID")]
             GatewayID,
             [Description("RatesTableName")]
