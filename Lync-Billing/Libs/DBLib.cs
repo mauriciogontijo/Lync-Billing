@@ -20,7 +20,7 @@ namespace Lync_Billing.Libs
             return new OleDbConnection(connectionString);
         }
 
-        public DataTable SELECT(string tableName,List <string> fields, Dictionary<string, object> whereClause, int limits, bool allFields = false)
+        public DataTable SELECT(string tableName,List <string> fields, Dictionary<string, object> whereClause, int limits)
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
@@ -29,7 +29,7 @@ namespace Lync_Billing.Libs
             StringBuilder selectedfields = new StringBuilder();
             StringBuilder whereStatement = new StringBuilder();
 
-            if (allFields == false)
+            if (!fields.Equals(null))
             {
                 foreach (string fieldName in fields)
                 {
