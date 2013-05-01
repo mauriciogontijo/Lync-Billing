@@ -83,9 +83,9 @@ namespace Lync_Billing.DB
 
             //Execute Update
             status = DBRoutines.UPDATE(
-                Enums.GetDescription(Enums.UsersRoles.TableName), 
-                setPart, 
-                Enums.GetDescription(Enums.UsersRoles.UsersRolesID),
+                Enums.GetDescription(Enums.Roles.TableName), 
+                setPart,
+                Enums.GetDescription(Enums.Roles.RoleID),
                 role.RoleID);
 
             if (status == false)
