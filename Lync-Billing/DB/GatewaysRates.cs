@@ -94,16 +94,21 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdateGatewaysRates(List<GatewaysRates> gatewayRates,int ID)
+        public bool UpdateGatewaysRates(List<GatewaysRates> gatewayRates)
         {
             bool status = false;
 
             Dictionary<string, object> setPart = new Dictionary<string, object>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
             foreach (GatewaysRates gatewaysRates in gatewayRates)
             {
 
+                //Where Part
+                setPart.Add(Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID), gatewaysRates.GatewaysRatesID);
+
                 //Set Part
+
                 if (gatewaysRates.GatewayID != null)
                     setPart.Add(Enums.GetDescription(Enums.GatewaysRates.GatewayID), gatewaysRates.GatewayID);
 
@@ -123,7 +128,7 @@ namespace Lync_Billing.DB
                     setPart.Add(Enums.GetDescription(Enums.GatewaysRates.CurrencyCode), gatewaysRates.CurrencyCode);
 
                 //Execute Update
-                status = DBRoutines.UPDATE(Enums.GetDescription(Enums.UsersRoles.TableName), setPart, Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID), ID);
+                status = DBRoutines.UPDATE(Enums.GetDescription(Enums.UsersRoles.TableName), setPart, wherePart);
 
                 if (status == false)
                 {
