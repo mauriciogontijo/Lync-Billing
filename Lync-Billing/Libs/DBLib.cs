@@ -42,29 +42,38 @@ namespace Lync_Billing.Libs
                 selectedfields.Append("*");
             }
 
-            foreach (KeyValuePair<string, object> pair in whereClause)
-            {
-                Type valueType = pair.Value.GetType();
 
-                if (valueType == typeof(int) || valueType == typeof(Double))
-                {
-                    whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
-                }
-                else
-                {
-                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
-                }
+           if(whereClause != null)
+           {
+               whereStatement.Append("WHERE ");
+               foreach (KeyValuePair<string, object> pair in whereClause)
+               {
+                   Type valueType = pair.Value.GetType();
+                   if (valueType == typeof(int) || valueType == typeof(Double))
+                   {
+                       whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                   }
+                   else
+                   {
+                       whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
+                   }
+               }
+               whereStatement.Remove(whereStatement.Length - 1, 5);
             }
-
-            whereStatement.Remove(whereStatement.Length - 1, 5);
 
             if (limits == 0)
             {
-                selectQuery = string.Format("SELECT '{1}' FROM  ['{2}'] WHERE '{3}'", selectedfields.ToString(), tableName, whereStatement.ToString());
+                if (whereClause !=null)
+                    selectQuery = string.Format("SELECT '{1}' FROM  ['{2}'] WHERE '{3}'", selectedfields.ToString(), tableName, whereStatement.ToString());
+                else
+                    selectQuery = string.Format("SELECT '{1}' FROM  ['{2}']", selectedfields.ToString(), tableName);
             }
             else
             {
-                selectQuery = string.Format("SELECT TOP({1}) '{2}' FROM ['{3}'] WHERE '{4}'", limits, selectedfields.ToString(), tableName, whereStatement.ToString());
+                if (whereClause != null)
+                    selectQuery = string.Format("SELECT TOP({1}) '{2}' FROM ['{3}'] WHERE '{4}'", limits, selectedfields.ToString(), tableName, whereStatement.ToString());
+                else
+                    selectQuery = string.Format("SELECT TOP({1}) '{2}' FROM ['{3}']", limits, selectedfields.ToString(), tableName);
             }
                     
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
