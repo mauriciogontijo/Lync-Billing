@@ -60,79 +60,73 @@ namespace Lync_Billing.DB
             return roles;
         }
 
-        public int InsertUsersRoles(List<UsersRoles> usersRoles)
+        public int InsertUserRole(UsersRoles userRole)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
+          
+            //Set Part
+            if ((userRole.SiteID).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.SiteID), userRole.SiteID);
 
-            foreach (UsersRoles userRole in usersRoles)
-            {
+            if ((userRole.PoolID).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.PoolID), userRole.PoolID);
 
-                //Set Part
-                if ((userRole.SiteID).ToString() != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.SiteID), userRole.SiteID);
+            if ((userRole.GatewayID).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.GatewayID), userRole.GatewayID);
 
-                if ((userRole.PoolID).ToString() != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.PoolID), userRole.PoolID);
+            if (userRole.SipAccount != null)
+                columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.SipAccount), userRole.SipAccount);
 
-                if ((userRole.GatewayID).ToString() != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.GatewayID), userRole.GatewayID);
+            if ((userRole.RoleID).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), userRole.RoleID);
 
-                if (userRole.SipAccount != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.SipAccount), userRole.SipAccount);
+            if (userRole.Notes != null)
+                columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.Notes), userRole.Notes);
 
-                if ((userRole.RoleID).ToString() != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), userRole.RoleID);
-
-                if (userRole.Notes != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.Notes), userRole.Notes);
-
-                //Execute Insert
-                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.UsersRoles.TableName), columnsValues);
-            }
+            //Execute Insert
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.UsersRoles.TableName), columnsValues);
+          
             return rowID;
         }
 
-        public bool UpdateUsersRoles(List<UsersRoles> usersRoles,int ID)
+        public bool UpdateUsersRole(UsersRoles userRole)
         {
             bool status = false;
 
             Dictionary<string, object> setPart = new Dictionary<string, object>();
-          
-            foreach (UsersRoles userRole in usersRoles)
-            {
               
-                //Set Part
-                if ((userRole.SiteID).ToString() != null)
-                    setPart.Add(Enums.GetDescription(Enums.UsersRoles.SiteID), userRole.SiteID);
+            //Set Part
+            if ((userRole.SiteID).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.UsersRoles.SiteID), userRole.SiteID);
 
-                if ((userRole.PoolID).ToString() != null)
-                    setPart.Add(Enums.GetDescription(Enums.UsersRoles.PoolID), userRole.PoolID);
+            if ((userRole.PoolID).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.UsersRoles.PoolID), userRole.PoolID);
 
-                if ((userRole.GatewayID).ToString() != null)
-                    setPart.Add(Enums.GetDescription(Enums.UsersRoles.GatewayID), userRole.GatewayID);
+            if ((userRole.GatewayID).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.UsersRoles.GatewayID), userRole.GatewayID);
 
-                if (userRole.SipAccount != null)
-                    setPart.Add(Enums.GetDescription(Enums.UsersRoles.SipAccount), userRole.SipAccount);
+            if (userRole.SipAccount != null)
+                setPart.Add(Enums.GetDescription(Enums.UsersRoles.SipAccount), userRole.SipAccount);
 
-                if ((userRole.RoleID).ToString() != null)
-                    setPart.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), userRole.RoleID);
+            if ((userRole.RoleID).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), userRole.RoleID);
 
-                if (userRole.Notes != null)
-                    setPart.Add(Enums.GetDescription(Enums.UsersRoles.Notes), userRole.Notes);
+            if (userRole.Notes != null)
+                setPart.Add(Enums.GetDescription(Enums.UsersRoles.Notes), userRole.Notes);
 
-                //Execute Update
-                status = DBRoutines.UPDATE(Enums.GetDescription(Enums.UsersRoles.TableName), setPart, Enums.GetDescription(Enums.UsersRoles.UsersRolesID),ID);
+            //Execute Update
+            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.UsersRoles.TableName), setPart, Enums.GetDescription(Enums.UsersRoles.UsersRolesID), userRole.UsersRolesID);
 
-                if (status == false)
-                {
-                    //throw error message
-                }
+            if (status == false)
+            {
+                //throw error message
             }
+            
             return true;
         }
 
-        public bool DeleteFromUsersRoles(int ID)
+        public bool DeleteFromUsersRole(int ID)
         {
             bool status = false;
 
