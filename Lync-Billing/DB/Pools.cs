@@ -57,17 +57,17 @@ namespace Lync_Billing.DB
             bool status = false;
 
             Dictionary<string, object> setPart = new Dictionary<string, object>();
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-         
-            //Where Part
-            wherePart.Add(Enums.GetDescription(Enums.Pools.PoolID), pool.PoolID);
 
             //Set Part
             if (pool.PoolFQDN != null)
                 setPart.Add(Enums.GetDescription(Enums.Pools.PoolFQDN), pool.PoolFQDN);
 
             //Execute Update
-            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Pools.TableName), setPart, wherePart);
+            status = DBRoutines.UPDATE(
+                Enums.GetDescription(Enums.Pools.TableName), 
+                setPart, 
+                Enums.GetDescription(Enums.Pools.PoolID),
+                pool.PoolID);
 
             if (status == false)
             {
