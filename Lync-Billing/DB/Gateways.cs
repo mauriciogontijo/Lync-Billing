@@ -65,7 +65,7 @@ namespace Lync_Billing.DB
                  
                 //Set Part
                 if (gateway.GatewayName != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayFQDN), gateway.GatewayName);
+                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
 
                 if (gateway.CountryCode != null)
                     columnsValues.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
@@ -93,7 +93,7 @@ namespace Lync_Billing.DB
 
                 //Set Part
                 if (gateway.GatewayName != null)
-                    setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayFQDN), gateway.GatewayName);
+                    setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
 
                 if (gateway.CountryCode != null)
                     setPart.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
@@ -124,7 +124,7 @@ namespace Lync_Billing.DB
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayID), gateway.GatewayID);
 
                 if (gateway.GatewayName != null)
-                    wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayFQDN), gateway.GatewayName);
+                    wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
 
                 if (gateway.CountryCode != null)
                     wherePart.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);

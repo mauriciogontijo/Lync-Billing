@@ -41,7 +41,7 @@ namespace Lync_Billing.DB
             [Description("GatewayID")]
             GatewayID,
             [Description("GatewayName")]
-            GatewayFQDN,
+            GatewayName,
             [Description("GatewayLocation")]
             GatewayLocation,
             [Description("CountryCode")]
@@ -97,7 +97,7 @@ namespace Lync_Billing.DB
             [Description("LoginName")]
             LoginName,
             [Description("SipAccount")]
-            EmailAddress,
+            SipAccount,
             [Description("EmailAddress")]
             EmailAddress,
             [Description("PhoneNumber")]
@@ -105,7 +105,7 @@ namespace Lync_Billing.DB
             [Description("Office")]
             SiteName,
             [Description("Department")]
-            SiteName,
+            Department,
             [Description("PoolFQDN")]
             PoolID,
             [Description("UPN")]
