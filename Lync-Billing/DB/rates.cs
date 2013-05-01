@@ -21,7 +21,7 @@ namespace Lync_Billing.DB
             return RatesTableName.ToString();
         }
 
-        public List<Users> GetRates(string ratesTableName, List<string> columns, Dictionary<string, object> wherePart, bool allFields, int limits)
+        public List<Users> GetRates(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             List<Users> users = new List<Users>();
 
