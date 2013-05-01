@@ -80,15 +80,15 @@
     <Content Include="Libs\BillingAPI.asmx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DB\GatewaysDetails.cs" />
+    <Compile Include="DB\GatewayDetail.cs" />
     <Compile Include="DB\PhoneCall.cs" />
-    <Compile Include="DB\Pools.cs" />
-    <Compile Include="DB\Rates.cs" />
-    <Compile Include="DB\GatewaysRates.cs" />
-    <Compile Include="DB\Roles.cs" />
-    <Compile Include="DB\UsersRoles.cs" />
-    <Compile Include="DB\Sites.cs" />
-    <Compile Include="DB\Users.cs" />
+    <Compile Include="DB\Pool.cs" />
+    <Compile Include="DB\Rate.cs" />
+    <Compile Include="DB\GatewayRate.cs" />
+    <Compile Include="DB\Role.cs" />
+    <Compile Include="DB\UserRole.cs" />
+    <Compile Include="DB\Site.cs" />
+    <Compile Include="DB\User.cs" />
     <Compile Include="Libs\ADLib.cs" />
     <Compile Include="Libs\DBLib.cs" />
     <Compile Include="DB\Enums.cs" />
