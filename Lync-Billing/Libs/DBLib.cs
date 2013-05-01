@@ -6,6 +6,7 @@ using System.Data.OleDb;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Configuration;
 
 
 namespace Lync_Billing.Libs
@@ -13,7 +14,8 @@ namespace Lync_Billing.Libs
     
     public class DBLib
     {
-        public static string ConnectionString_Lync = @"Provider=SQLOLEDB.1;Data Source=10.1.60.55;Persist Security Info=True;Password='=25_ar;p1100';User ID=sa;Initial Catalog=LyncBilling";
+        //public static string ConnectionString_Lync = @"Provider=SQLOLEDB.1;Data Source=10.1.60.55;Persist Security Info=True;Password='=25_ar;p1100';User ID=sa;Initial Catalog=LyncBilling";
+        public static string ConnectionString_Lync = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString.ToString();
 
         private OleDbConnection DBInitializeConnection(string connectionString) 
         {
