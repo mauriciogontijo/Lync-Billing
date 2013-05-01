@@ -70,7 +70,7 @@ namespace Lync_Billing.DB
             {
 
                 //Set Part
-                if (gatewaysRates.GatewayID != null)
+                if ((gatewaysRates.GatewayID).ToString() != null)
                     columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.GatewayID), gatewaysRates.GatewayID);
 
                 if (gatewaysRates.RatesTableName != null)
@@ -109,7 +109,7 @@ namespace Lync_Billing.DB
 
                 //Set Part
 
-                if (gatewaysRates.GatewayID != null)
+                if ((gatewaysRates.GatewayID).ToString() != null)
                     setPart.Add(Enums.GetDescription(Enums.GatewaysRates.GatewayID), gatewaysRates.GatewayID);
 
                 if (gatewaysRates.RatesTableName != null)

@@ -108,7 +108,7 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeleteGateways(Gateways gateway) 
+        public bool DeleteGateway(Gateways gateway) 
         {
             bool status = false;
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
