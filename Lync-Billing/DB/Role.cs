@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Lync_Billing.Libs;
+using System.Data;
+
+
+namespace Lync_Billing.DB
+{
+    public class Role
+    {
+        public DBLib DBRoutines = new DBLib();
+
+        public int RoleID { get; set; }
+        public string RoleName { get; set; }
+        public string RoleDescription { get; set; }
+
+        public List<Role> GetRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        {
+            Role role;
+            DataTable dt = new DataTable();
+            List<Role> Roles = new List<Role>();
+
+            dt = DBRoutines.SELECT(
+                Enums.GetDescription(Enums.GatewaysDetails.TableName), 
+                columns,
+                wherePart, 
+                limits);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                role = new Role();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Roles.RoleID))
+                        role.RoleID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Roles.RoleName))
+                        role.RoleName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Roles.RoleDescription))
+                        role.RoleDescription = (string)row[column.ColumnName];
+                }
+                Roles.Add(role);
+            }
+
+            return Roles;
+
+        }
+
+        public int InsertRole(Role role)
+        {
+            int rowID = 0;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
+
+            //Set Part
+            if ((role.RoleName).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Roles.RoleName), role.RoleName);
+
+            if ((role.RoleDescription).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Roles.RoleDescription), role.RoleDescription);
+
+            //Execute Insert
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Roles.TableName), columnsValues);
+
+            return rowID;
+        }
+
+        public bool UpdateRole(Role role)
+        {
+            bool status = false;
+
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+
+            //Set Part
+            if ((role.RoleName).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Roles.RoleName), role.RoleName);
+
+            if (role.RoleDescription != null)
+                setPart.Add(Enums.GetDescription(Enums.Roles.RoleDescription), role.RoleDescription);
+
+            //Execute Update
+            status = DBRoutines.UPDATE(
+                Enums.GetDescription(Enums.Roles.TableName), 
+                setPart,
+                Enums.GetDescription(Enums.Roles.RoleID),
+                role.RoleID);
+
+            if (status == false)
+            {
+                //throw error message
+            }
+
+            return status;
+        }
+
+        public bool DeleteRole(Role role)
+        {
+            bool status = false;
+
+            status = DBRoutines.DELETE(
+                Enums.GetDescription(Enums.Roles.TableName), 
+                Enums.GetDescription(Enums.Roles.RoleID), role.RoleID);
+
+            return status;
+        }
+
+    }
+}
