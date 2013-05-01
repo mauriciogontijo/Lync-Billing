@@ -11,12 +11,22 @@ namespace Lync_Billing.DB
     {
         public static DBLib DBRoutines = new DBLib();
 
+        /// <summary>
+        /// Get All Related User Information From Active Directory
+        /// </summary>
+        /// <param name="emailAddress">User Email Address</param>
+        /// <returns>Onject Holds all related user information</returns>
         public static ADUserInfo GetUserInfo(string emailAddress)
         {
             AdLib adConnector = new AdLib();
             return adConnector.getUserAttributes(emailAddress);
         }
 
+        /// <summary>
+        /// Get User Role
+        /// </summary>
+        /// <param name="sipAccount">User Sip Account</param>
+        /// <returns>List of all User Roles</returns>
         public static List<UserRole> GetUserRoles(string sipAccount)
         {
             UserRole userRole;
