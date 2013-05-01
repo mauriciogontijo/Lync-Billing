@@ -55,89 +55,81 @@ namespace Lync_Billing.DB
             return gateways;
         }
 
-        public int InsertGateways(List<Gateways> gateways) 
+        public int InsertGateway(Gateways gateway) 
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>();;
+           
+            //Set Part
+            if (gateway.GatewayName != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
 
-            foreach (Gateways gateway in gateways)
-            {
-                 
-                //Set Part
-                if (gateway.GatewayName != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
+            if (gateway.CountryCode != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
 
-                if (gateway.CountryCode != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
+            if (gateway.GatewayLocation != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
 
-                if (gateway.GatewayLocation != null)
-                    columnsValues.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
-
-                //Execute Insert
-                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Gateways.TableName), columnsValues);
-            }
+            //Execute Insert
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Gateways.TableName), columnsValues);
+           
             return rowID;
         }
 
-        public bool UpdateGateways(List<Gateways> gateways) 
+        public bool UpdateGateway(Gateways gateway) 
         {
             bool status = false;
 
             Dictionary<string, object> setPart = new Dictionary<string, object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
-            foreach (Gateways gateway in gateways)
+           
+            //Where Part
+            wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayID), gateway.GatewayID);
+
+            //Set Part
+            if (gateway.GatewayName != null)
+                setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
+
+            if (gateway.CountryCode != null)
+                setPart.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
+
+            if (gateway.GatewayLocation != null)
+                setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
+
+            //Execute Update
+            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Gateways.TableName), setPart, wherePart);
+
+            if (status == false)
             {
-                //Where Part
-                wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayID), gateway.GatewayID);
-
-                //Set Part
-                if (gateway.GatewayName != null)
-                    setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
-
-                if (gateway.CountryCode != null)
-                    setPart.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
-
-                if (gateway.GatewayLocation != null)
-                    setPart.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
-
-                //Execute Update
-                status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Gateways.TableName), setPart, wherePart);
-
-                 if (status == false)
-                {
-                    //throw error message
-                }
+                //throw error message
             }
+            
             return true;
         }
 
-        public bool DeleteGateways(List<Gateways> gateways) 
+        public bool DeleteGateways(Gateways gateway) 
         {
             bool status = false;
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            
-            foreach (Gateways gateway in gateways) 
-            {
 
-                if ((gateway.GatewayID).ToString() != null)
-                    wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayID), gateway.GatewayID);
+            if ((gateway.GatewayID).ToString() != null)
+                wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayID), gateway.GatewayID);
 
-                if (gateway.GatewayName != null)
-                    wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
+            if (gateway.GatewayName != null)
+                wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayName), gateway.GatewayName);
 
-                if (gateway.CountryCode != null)
-                    wherePart.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
+            if (gateway.CountryCode != null)
+                wherePart.Add(Enums.GetDescription(Enums.Gateways.CountryCode), gateway.CountryCode);
 
-                if (gateway.GatewayLocation != null)
-                    wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
+            if (gateway.GatewayLocation != null)
+                wherePart.Add(Enums.GetDescription(Enums.Gateways.GatewayLocation), gateway.GatewayLocation);
                
-                status = DBRoutines.DELETE(Enums.GetDescription(Enums.Gateways.TableName), wherePart);
+            status = DBRoutines.DELETE(Enums.GetDescription(Enums.Gateways.TableName), wherePart);
 
-                if (status == false)
-                {
-                    //throw error message
-                }
+            if (status == false)
+            {
+                //throw error message
             }
             return status;
         }
