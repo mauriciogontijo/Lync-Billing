@@ -12,7 +12,7 @@ namespace Lync_Billing.Libs
 {
     public class JsonTranslator
     {
-        public static string JsonSerializer<T>(T t) 
+        public static string Serialize<T>(T t) 
         {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
             MemoryStream ms = new MemoryStream();
@@ -25,7 +25,7 @@ namespace Lync_Billing.Libs
             return jsonString;
         }
 
-        public static T JsonDeserialize<T>(string jsonString)
+        public static T Deserialize<T>(string jsonString)
         {
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
             MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
@@ -35,7 +35,7 @@ namespace Lync_Billing.Libs
         }
 
 
-        private static string ConvertJsonDateToDateString(Match m)
+        private static string JsonDateToDateString(Match m)
         {
             string result = string.Empty;
             DateTime dt = new DateTime(1970, 1, 1);
@@ -45,7 +45,7 @@ namespace Lync_Billing.Libs
             return result;
         }
         
-        private static string ConvertDateStringToJsonDate(Match m)
+        private static string DateStringToJsonDate(Match m)
         {
             string result = string.Empty;
             DateTime dt = DateTime.Parse(m.Groups[0].Value);
