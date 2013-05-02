@@ -22,11 +22,24 @@ namespace Lync_Billing.Libs
             string jsonString = Encoding.UTF8.GetString(ms.ToArray());
            
             ms.Close();
+
+            //Replace Json Date String                                         
+            string pattern = @"\\/Date\((\d+)\+\d+\)\\/";
+            MatchEvaluator Evaluator = new MatchEvaluator(JsonDateToDateString);
+            Regex regex = new Regex(pattern);
+            jsonString = regex.Replace(jsonString, Evaluator);
+            
             return jsonString;
         }
 
         public static T Deserialize<T>(string jsonString)
         {
+            //Convert "yyyy-MM-dd HH:mm:ss" String as "\/Date(1319266795390+0800)\/"
+            string pattern = @"\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}";
+            MatchEvaluator Evaluator = new MatchEvaluator(DateStringToJsonDate);
+            Regex regex = new Regex(pattern);
+            jsonString = regex.Replace(jsonString, Evaluator);
+
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
             MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
 
