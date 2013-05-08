@@ -16,11 +16,10 @@ namespace Lync_Billing.Libs
         {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
             MemoryStream ms = new MemoryStream();
-
+           
             serializer.WriteObject(ms, t);
-           
             string jsonString = Encoding.UTF8.GetString(ms.ToArray());
-           
+            
             ms.Close();
 
             //Replace Json Date String                                         
