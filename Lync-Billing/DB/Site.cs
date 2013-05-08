@@ -14,7 +14,6 @@ namespace Lync_Billing.DB
         public int SiteID { get; set; }
         public string SiteName { get; set; }
         public string CountryCode { get; set; }
-        public string SiteLocation { get; set; }
 
         public Site getSite(int ID)
         {
@@ -69,10 +68,7 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName) && row[column.ColumnName] != System.DBNull.Value)
                         site.SiteName = (string)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteLocation) && row[column.ColumnName] != System.DBNull.Value)
-                        site.SiteLocation = (string)row[column.ColumnName];
-
+                   
                     if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode) && row[column.ColumnName] != System.DBNull.Value)
                         site.CountryCode = (string)row[column.ColumnName];
                 }
@@ -91,10 +87,7 @@ namespace Lync_Billing.DB
             //Set Part
             if ((site.SiteName).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Sites.SiteName), site.SiteName);
-
-            if ((site.SiteLocation).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Sites.SiteLocation), site.SiteLocation);
-
+          
             if ((site.CountryCode).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
 
@@ -113,9 +106,6 @@ namespace Lync_Billing.DB
             //Set Part
             if ((site.SiteName).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.Sites.SiteName), site.SiteName);
-
-            if (site.SiteLocation != null)
-                setPart.Add(Enums.GetDescription(Enums.Sites.SiteLocation), site.SiteLocation);
 
             if (site.CountryCode != null)
                 setPart.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
