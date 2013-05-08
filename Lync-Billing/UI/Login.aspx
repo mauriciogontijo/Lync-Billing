@@ -29,7 +29,12 @@
         <script type="text/javascript">
             window.BillingAPI = { 'lib': {}, 'data': {} };
             window.BillingAPI.lib = Lync_Billing.Libs.BillingAPI;
-            window.BillingAPI.data = { 'authUser': {}, 'getUserData': {}, 'getJsonUserData': {} };
+            window.BillingAPI.data = {
+                'authUser': {},
+                'getUserData': {},
+                'getJsonUserData': {},
+                'getUserPhoneCalls': {}
+            };
 
             //getUserAttrs Function
             function getUserAttrs() {
@@ -113,6 +118,29 @@
                     document.getElementById('status').innerHTML = "No data were returned!";
                 }
             }
+
+
+            //dummy functions
+            //GetPhoneCalls
+            function getUserPhoneCalls() {
+                //GetPhoneCalls(object jsonColumns, object jsonWhereStatement, int limits)
+                //Get the contents of the emailAddress textbox.
+                var emailAddress = document.getElementById('emailAddress').value || "";
+                var whereSt = JSON.stringify({ 'SourceUserUri': emailAddress });
+
+                BillingAPI['lib'].GetPhoneCalls(
+                    null,
+                    whereSt,
+                    10,
+                    function (onSuccessData) {
+                        BillingAPI['data']['getUserPhoneCalls'] = $.parseJSON(onSuccessData);
+                    },
+                    function (onFailData) { }
+                );
+
+                return false;
+            }
+
         </script>
     </form>
 </body>
