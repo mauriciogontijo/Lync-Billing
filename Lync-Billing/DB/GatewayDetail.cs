@@ -58,10 +58,10 @@ namespace Lync_Billing.DB
             Dictionary<string, object> columnsValues = new Dictionary<string, object>();;
            
             //Set Part
-            if (gatewayDetails.SiteID != null)
+            if (gatewayDetails.SiteID.ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.GatewaysDetails.SiteID), gatewayDetails.SiteID);
 
-            if (gatewayDetails.PoolID != null)
+            if (gatewayDetails.PoolID.ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.GatewaysDetails.PoolID), gatewayDetails.PoolID);
 
             //Execute Insert
@@ -77,10 +77,10 @@ namespace Lync_Billing.DB
             Dictionary<string, object> setPart = new Dictionary<string, object>();
 
             //Set Part
-            if (gatewayDetails.SiteID != null)
+            if (gatewayDetails.SiteID.ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.GatewaysDetails.SiteID), gatewayDetails.SiteID);
 
-            if (gatewayDetails.PoolID != null)
+            if (gatewayDetails.PoolID.ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.GatewaysDetails.PoolID), gatewayDetails.PoolID);
 
             //Execute Update

@@ -36,9 +36,6 @@ namespace Lync_Billing.DB
                 if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
                     site.SiteName = (string)row[column.ColumnName];
 
-                if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteLocation))
-                    site.SiteLocation = (string)row[column.ColumnName];
-
                 if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
                     site.CountryCode = (string)row[column.ColumnName];
             }
