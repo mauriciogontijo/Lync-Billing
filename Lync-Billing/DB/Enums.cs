@@ -50,14 +50,12 @@ namespace Lync_Billing.DB
         {
             [Description("GatewaysDetails")]
             TableName,
-            [Description("GatewaysDetailsID")]
-            GatewaysDetailsID,
+            [Description("GatewayID")]
+            GatewayID,
             [Description("GatewayName")]
             GatewayName,
-            [Description("GatewayLocation")]
-            GatewayLocation,
-            [Description("CountryCode")]
-            CountryCode
+            [Description("SiteID")]
+            SiteID
         }
 
         /// <summary>
