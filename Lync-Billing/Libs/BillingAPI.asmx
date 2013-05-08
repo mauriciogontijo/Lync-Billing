@@ -39,6 +39,13 @@ namespace Lync_Billing.Libs
            
             return adConnector.getUserAttributes(emailAddress);
         }
+        
+        [WebMethod]
+        public string GetJsonUserAttributes(string mailAddress)
+        {
+            ADUserInfo userInfo = GetUserAttributes(mailAddress);
+            return JsonTranslator.Serialize<ADUserInfo>(userInfo);
+        }
 
         [WebMethod]
         public List<UserRole> GetUserRoles(string sipAccount)
