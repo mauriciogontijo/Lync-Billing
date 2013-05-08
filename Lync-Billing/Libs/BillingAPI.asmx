@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using Lync_Billing.DB;
+using System.Web.Script.Serialization;
 
 namespace Lync_Billing.Libs
 {
@@ -41,10 +42,10 @@ namespace Lync_Billing.Libs
         }
         
         [WebMethod]
-        public string GetJsonUserAttributes(string mailAddress)
+        public object GetJsonUserAttributes(string mailAddress)
         {
             ADUserInfo userInfo = GetUserAttributes(mailAddress);
-            return JsonTranslator.Serialize<ADUserInfo>(userInfo);
+           return JsonTranslator.Serialize<ADUserInfo>(userInfo);
         }
 
         [WebMethod]
