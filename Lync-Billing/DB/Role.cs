@@ -34,13 +34,13 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Roles.RoleID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Roles.RoleID) && row[column.ColumnName] != System.DBNull.Value)
                         role.RoleID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Roles.RoleName))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Roles.RoleName) && row[column.ColumnName] != System.DBNull.Value)
                         role.RoleName = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Roles.RoleDescription))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Roles.RoleDescription) && row[column.ColumnName] != System.DBNull.Value)
                         role.RoleDescription = (string)row[column.ColumnName];
                 }
                 Roles.Add(role);

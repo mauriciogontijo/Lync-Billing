@@ -27,10 +27,10 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Pools.PoolID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Pools.PoolID) && row[column.ColumnName] != System.DBNull.Value)
                         pool.PoolID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Pools.PoolFQDN))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Pools.PoolFQDN) && row[column.ColumnName] != System.DBNull.Value)
                         pool.PoolFQDN = (string)row[column.ColumnName];
                 }
                 pools.Add(pool);

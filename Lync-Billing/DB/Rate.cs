@@ -40,16 +40,16 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.RateID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.RateID) && row[column.ColumnName] != System.DBNull.Value)
                         rate.RateID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.CountryCode))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.CountryCode) && row[column.ColumnName] != System.DBNull.Value)
                         rate.CountryCode = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.FixedLineRate))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.FixedLineRate) && row[column.ColumnName] != System.DBNull.Value)
                         rate.FixedLineRate = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.MobileLineRate))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.MobileLineRate) && row[column.ColumnName] != System.DBNull.Value)
                         rate.MobileLineRate = (string)row[column.ColumnName];
                 }
                 rates.Add(rate);
