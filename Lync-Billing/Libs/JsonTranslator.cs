@@ -28,7 +28,7 @@ namespace Lync_Billing.Libs
             MatchEvaluator Evaluator = new MatchEvaluator(JsonDateToDateString);
             Regex regex = new Regex(pattern);
             jsonString = regex.Replace(jsonString, Evaluator);
-            
+             
             return jsonString;
         }
 
