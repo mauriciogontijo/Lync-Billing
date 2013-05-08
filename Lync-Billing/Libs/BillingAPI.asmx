@@ -62,7 +62,7 @@ namespace Lync_Billing.Libs
         }
 
         [WebMethod]
-        public List<PhoneCall> GetPhoneCalls(object jsonColumns, object jsonWhereStatement, int limits) 
+        public object GetPhoneCalls(object jsonColumns, object jsonWhereStatement, int limits) 
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             List<string> columns = new List<string>();
@@ -77,10 +77,11 @@ namespace Lync_Billing.Libs
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
             PhoneCall phoneCall = new PhoneCall();
+            phoneCalls = phoneCall.GetPhoneCalls(columns, whereStatement, limits);
 
-            return phoneCall.GetPhoneCalls(columns, whereStatement, limits);
+            return serializer.Serialize(phoneCalls);
         }
-
+        
         [WebMethod]
         public string JsonSerializer<T>(T t) 
         {
