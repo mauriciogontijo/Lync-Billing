@@ -64,16 +64,16 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID) && row[column.ColumnName] != System.DBNull.Value)
                         site.SiteID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName) && row[column.ColumnName] != System.DBNull.Value)
                         site.SiteName = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteLocation))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteLocation) && row[column.ColumnName] != System.DBNull.Value)
                         site.SiteLocation = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode) && row[column.ColumnName] != System.DBNull.Value)
                         site.CountryCode = (string)row[column.ColumnName];
                 }
                 sites.Add(site);
