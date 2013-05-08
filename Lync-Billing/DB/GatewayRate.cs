@@ -34,25 +34,25 @@ namespace Lync_Billing.DB
                 foreach (DataColumn column in dt.Columns)
                 {
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID) && row[column.ColumnName] != System.DBNull.Value)
                         gatewayRate.GatewaysRatesID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.GatewayID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
                         gatewayRate.GatewayID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.RatesTableName))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.RatesTableName) && row[column.ColumnName] != System.DBNull.Value)
                         gatewayRate.RatesTableName = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.StartingDate))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.StartingDate) && row[column.ColumnName] != System.DBNull.Value)
                         gatewayRate.StartingDate = (DateTime)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.EndingDate))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.EndingDate) && row[column.ColumnName] != System.DBNull.Value)
                         gatewayRate.EndingDate = (DateTime)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.ProviderName))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.ProviderName) && row[column.ColumnName] != System.DBNull.Value)
                         gatewayRate.ProviderName = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.CurrencyCode))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.CurrencyCode) && row[column.ColumnName] != System.DBNull.Value)
                         gatewayRate.CurrencyCode = (string)row[column.ColumnName];
 
                 }
