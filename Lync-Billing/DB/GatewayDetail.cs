@@ -17,7 +17,6 @@ namespace Lync_Billing.DB
         public DBLib DBRoutines = new DBLib();
 
         public int GatewayID { set; get; }
-        public string GatewayName { set; get; }
         public int SiteID { set; get; }
         public int PoolID { set; get; }
       
@@ -40,9 +39,6 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
                         gateway.GatewayID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewayName) && row[column.ColumnName] != System.DBNull.Value)
-                        gateway.GatewayName = (string)row[column.ColumnName];
-
                     if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.SiteID) && row[column.ColumnName] != System.DBNull.Value)
                         gateway.SiteID = (int)row[column.ColumnName];
 
@@ -62,9 +58,6 @@ namespace Lync_Billing.DB
             Dictionary<string, object> columnsValues = new Dictionary<string, object>();;
            
             //Set Part
-            if (gatewayDetails.GatewayName != null)
-                columnsValues.Add(Enums.GetDescription(Enums.GatewaysDetails.GatewayName), gatewayDetails.GatewayName);
-
             if (gatewayDetails.SiteID != null)
                 columnsValues.Add(Enums.GetDescription(Enums.GatewaysDetails.SiteID), gatewayDetails.SiteID);
 
@@ -84,9 +77,6 @@ namespace Lync_Billing.DB
             Dictionary<string, object> setPart = new Dictionary<string, object>();
 
             //Set Part
-            if (gatewayDetails.GatewayName != null)
-                setPart.Add(Enums.GetDescription(Enums.GatewaysDetails.GatewayName), gatewayDetails.GatewayName);
-
             if (gatewayDetails.SiteID != null)
                 setPart.Add(Enums.GetDescription(Enums.GatewaysDetails.SiteID), gatewayDetails.SiteID);
 
