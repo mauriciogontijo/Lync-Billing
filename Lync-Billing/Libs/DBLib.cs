@@ -127,7 +127,7 @@ namespace Lync_Billing.Libs
                 if (whereClause != null)
                     selectQuery = string.Format("SELECT TOP({0}) {1} FROM [{2}] {3}", limits, selectedfields.ToString(), tableName, whereStatement.ToString());
                 else
-                    selectQuery = string.Format("SELECT TOP({0}) '{1}' FROM ['{2}']", limits, selectedfields.ToString(), tableName);
+                    selectQuery = string.Format("SELECT TOP({0}) {1} FROM [{2}]", limits, selectedfields.ToString(), tableName);
             }
                     
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
@@ -177,7 +177,7 @@ namespace Lync_Billing.Libs
             fields.Remove(fields.Length - 1, 1).Append(")");
             values.Remove(values.Length - 1, 1).Append(")");
 
-            string insertQuery = string.Format("INSERT INTO ['{1}'] '{2}' VALUES '{3}'; SELECT SCOPE_IDENTITY();", tableName, fields, values);
+            string insertQuery = string.Format("INSERT INTO [{0}] {1} VALUES {2}; SELECT SCOPE_IDENTITY();", tableName, fields, values);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(insertQuery, conn);
@@ -223,7 +223,7 @@ namespace Lync_Billing.Libs
 
             fieldsValues.Remove(fieldsValues.Length - 1, 1).Append(")");
 
-            string insertQuery = string.Format("UPDATE  ['{1}'] SET '{2}' WHERE '{3}'={4}", tableName, fieldsValues, idFieldName,ID);
+            string insertQuery = string.Format("UPDATE  [{0}] SET {1} WHERE [{2}]={3}", tableName, fieldsValues, idFieldName,ID);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(insertQuery, conn);
@@ -280,9 +280,9 @@ namespace Lync_Billing.Libs
                     whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
 
             }
-            whereStatement.Remove(whereStatement.Length - 1, 5);
+            whereStatement.Remove(whereStatement.Length - 5, 5);
 
-            string insertQuery = string.Format("UPDATE  ['{1}'] SET '{2}' WHERE '{3}'", tableName, fieldsValues, whereStatement);
+            string insertQuery = string.Format("UPDATE  [{0}] SET {1} WHERE {2}", tableName, fieldsValues, whereStatement);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(insertQuery, conn);
@@ -311,7 +311,7 @@ namespace Lync_Billing.Libs
         /// <returns>True if Row has been deleted. </returns>
         public bool DELETE(string tableName, string idFieldName, int ID) 
         {
-            string deleteQuery = string.Format("DELETE FROM ['{1}'] WHERE '{2}={3}'", tableName, idFieldName,ID);
+            string deleteQuery = string.Format("DELETE FROM [{0}] WHERE [{1}]={2}", tableName, idFieldName,ID);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(deleteQuery, conn);
@@ -350,9 +350,9 @@ namespace Lync_Billing.Libs
                     whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
 
             }
-            whereStatement.Remove(whereStatement.Length - 1, 5);
+            whereStatement.Remove(whereStatement.Length - 5, 5);
 
-            string deleteQuery = string.Format("DELETE FROM ['{1}'] WHERE '{2}'", tableName, whereStatement);
+            string deleteQuery = string.Format("DELETE FROM [{0}] WHERE {1}", tableName, whereStatement);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(deleteQuery, conn);
