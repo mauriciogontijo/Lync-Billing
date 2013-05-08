@@ -62,6 +62,26 @@ namespace Lync_Billing.Libs
         }
 
         [WebMethod]
+        public List<PhoneCall> GetPhoneCalls(object jsonColumns, object jsonWhereStatement, int limits) 
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            List<string> columns = new List<string>();
+            Dictionary<string, object> whereStatement = new Dictionary<string,object>();
+            
+            if(jsonColumns != null)
+                columns = JsonDeserializer<List<string>>(jsonColumns.ToString());
+            
+            if(jsonWhereStatement != null)
+                whereStatement = serializer.Deserialize<Dictionary<string,object>>(jsonWhereStatement.ToString());
+
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();
+
+            PhoneCall phoneCall = new PhoneCall();
+
+            return phoneCall.GetPhoneCalls(columns, whereStatement, limits);
+        }
+
+        [WebMethod]
         public string JsonSerializer<T>(T t) 
         {
             return JsonTranslator.Serialize<T>(t);
