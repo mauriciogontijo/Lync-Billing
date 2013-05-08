@@ -52,6 +52,18 @@ namespace Lync_Billing.Libs
             UserRole userRole = new UserRole();
             return userRole.ValidateUsersRoles(SipAccount, RoleID);
         }
+
+        [WebMethod]
+        public string JsonSerializer<T>(T t) 
+        {
+            return JsonTranslator.Serialize<T>(t);
+        }
+
+        [WebMethod]
+        public T JsonDeserializer<T>(string JsonString) 
+        {
+            return (T)JsonTranslator.Deserialize<T>(JsonString);
+        } 
     }
 }
 
