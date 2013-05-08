@@ -37,16 +37,16 @@ namespace Lync_Billing.DB
                
                 foreach(DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewaysDetailsID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewaysDetailsID) && row[column.ColumnName] != System.DBNull.Value)
                         gateway.GatewaysDetailsID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewayName))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewayName) && row[column.ColumnName] != System.DBNull.Value)
                         gateway.GatewayName = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewayLocation))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewayLocation) && row[column.ColumnName] != System.DBNull.Value)
                         gateway.GatewayLocation = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.CountryCode))
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.CountryCode) && row[column.ColumnName] != System.DBNull.Value)
                         gateway.CountryCode = (string)row[column.ColumnName];
 
                 }
