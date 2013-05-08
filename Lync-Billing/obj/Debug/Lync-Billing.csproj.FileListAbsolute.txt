@@ -1,0 +1,7 @@
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\bin\Lync_Billing.dll
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\bin\Lync_Billing.pdb
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\bin\Newtonsoft.Json.dll
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\bin\Newtonsoft.Json.xml
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\obj\Debug\Lync_Billing.dll
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\obj\Debug\Lync_Billing.pdb
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\obj\Debug\Lync-Billing.csprojResolveAssemblyReference.cache
