@@ -9,7 +9,7 @@ namespace Lync_Billing.DB
 {
     public class PhoneCall
     {
-        public DBLib DBRoutines = new DBLib();
+        private DBLib DBRoutines = new DBLib();
 
         public DateTime SessionIdTime { set; get; }
         public int SessionIdSeq { get; set; }
