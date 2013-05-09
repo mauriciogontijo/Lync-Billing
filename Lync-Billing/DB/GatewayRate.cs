@@ -9,7 +9,7 @@ namespace Lync_Billing.DB
 {
     public class GatewayRate
     {
-        public DBLib DBRoutines = new DBLib();
+        private static DBLib DBRoutines = new DBLib();
 
         public int GatewaysRatesID { set; get; }
         public int GatewayID { set; get; }
@@ -19,7 +19,7 @@ namespace Lync_Billing.DB
         public string ProviderName { set; get; }
         public string CurrencyCode { set; get; }
 
-        public List<GatewayRate> GetGatewaysRates(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        public static List<GatewayRate> GetGatewaysRates(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             GatewayRate gatewayRate;
             DataTable dt = new DataTable();
@@ -61,7 +61,7 @@ namespace Lync_Billing.DB
             return gatewayRates;
         }
 
-        public int InsertGatewayRate(GatewayRate gatewayRate)
+        public static int InsertGatewayRate(GatewayRate gatewayRate)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -91,7 +91,7 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdateGatewayRate(GatewayRate gatewayRate)
+        public static bool UpdateGatewayRate(GatewayRate gatewayRate)
         {
             bool status = false;
 

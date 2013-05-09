@@ -9,11 +9,12 @@ namespace Lync_Billing.DB
 {
     public class Pool
     {
-        public DBLib DBRoutines = new DBLib();
+        private static DBLib DBRoutines = new DBLib();
+
         public int PoolID { set; get; }
         public string PoolFQDN { set; get; }
-       
-        public List<Pool> GetPools(List<string> columns, Dictionary<string, object> wherePart, int limits)
+
+        public static List<Pool> GetPools(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Pool pool;
             DataTable dt = new DataTable();
@@ -38,7 +39,7 @@ namespace Lync_Billing.DB
             return pools;
         }
 
-        public int InsertPool(Pool pool)
+        public static int InsertPool(Pool pool)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>();
@@ -52,7 +53,7 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdatePool(Pool pool)
+        public static bool UpdatePool(Pool pool)
         {
             bool status = false;
 
@@ -76,7 +77,7 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeletePool(Pool pool)
+        public static bool DeletePool(Pool pool)
         {
             bool status = false;
             status = DBRoutines.DELETE(

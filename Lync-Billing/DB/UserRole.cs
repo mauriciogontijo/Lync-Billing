@@ -9,7 +9,7 @@ namespace Lync_Billing.DB
 {
     public class UserRole
     {
-        public DBLib DBRoutines = new DBLib();
+        private static DBLib DBRoutines = new DBLib();
 
         public int UsersRolesID { set; get; }
         public string SipAccount { get; set; }
@@ -19,7 +19,7 @@ namespace Lync_Billing.DB
         public int GatewayID { get; set; }
         public string Notes { get; set; }
 
-        public List<UserRole> GetUsersRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        public static List<UserRole> GetUsersRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             UserRole userRole;
             DataTable dt = new DataTable();
@@ -60,7 +60,7 @@ namespace Lync_Billing.DB
             return roles;
         }
 
-        public int InsertUserRole(UserRole userRole)
+        public static int InsertUserRole(UserRole userRole)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -90,7 +90,7 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdateUsersRole(UserRole userRole)
+        public static bool UpdateUsersRole(UserRole userRole)
         {
             bool status = false;
 
@@ -126,7 +126,7 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeleteFromUsersRole(UserRole userRole)
+        public static bool DeleteFromUsersRole(UserRole userRole)
         {
             bool status = false;
 
@@ -138,7 +138,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public bool ValidateUsersRoles(string SipAccount, int RoleID)
+        public static bool ValidateUsersRoles(string SipAccount, int RoleID)
         {
 
             DataTable dt = new DataTable();

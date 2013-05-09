@@ -9,13 +9,13 @@ namespace Lync_Billing.DB
 {
     public class Site
     {
-        public DBLib DBRoutines = new DBLib();
+        private static DBLib DBRoutines = new DBLib();
         
         public int SiteID { get; set; }
         public string SiteName { get; set; }
         public string CountryCode { get; set; }
 
-        public Site getSite(int ID)
+        public static Site getSite(int ID)
         {
             Site site = new Site() ;
             DataTable dt = new DataTable();
@@ -42,7 +42,7 @@ namespace Lync_Billing.DB
             return site;
         }
 
-        public List<Site> GetSites(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        public static List<Site> GetSites(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Site site;
             DataTable dt = new DataTable();
@@ -76,7 +76,7 @@ namespace Lync_Billing.DB
 
         }
 
-        public int InsertSite(Site site)
+        public static int InsertSite(Site site)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -94,7 +94,7 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdateSite(Site site)
+        public static bool UpdateSite(Site site)
         {
             bool status = false;
 
@@ -117,7 +117,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public bool DeleteSite(Site site)
+        public static bool DeleteSite(Site site)
         {
             bool status = false;
 

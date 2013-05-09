@@ -9,7 +9,7 @@ namespace Lync_Billing.DB
 {
     public class PhoneCall
     {
-        private DBLib DBRoutines = new DBLib();
+        private static DBLib DBRoutines = new DBLib();
 
         public DateTime SessionIdTime { set; get; }
         public int SessionIdSeq { get; set; }
@@ -39,7 +39,7 @@ namespace Lync_Billing.DB
         public bool UI_Dispute { set; get; }
         public bool UI_IsInvoiced { set; get; }
 
-        public List<PhoneCall> GetPhoneCalls(List<string> columns,Dictionary<string,object> wherePart, int limits)
+        public static List<PhoneCall> GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             PhoneCall phoneCall;
             DataTable dt = new DataTable();
@@ -129,7 +129,7 @@ namespace Lync_Billing.DB
             return phoneCalls;
         }
 
-        public bool UpdatePhoneCall(PhoneCall phoneCall) 
+        public static bool UpdatePhoneCall(PhoneCall phoneCall) 
         {
             bool status = false;
 

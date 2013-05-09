@@ -14,7 +14,7 @@ namespace Lync_Billing.DB
     /// </remarks>
     public class GatewayDetail
     {
-        public DBLib DBRoutines = new DBLib();
+        private static DBLib DBRoutines = new DBLib();
 
         public int GatewayID { set; get; }
         public int SiteID { set; get; }

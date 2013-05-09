@@ -10,13 +10,13 @@ namespace Lync_Billing.DB
 {
     public class Role
     {
-        public DBLib DBRoutines = new DBLib();
+        private static DBLib DBRoutines = new DBLib();
 
         public int RoleID { get; set; }
         public string RoleName { get; set; }
         public string RoleDescription { get; set; }
 
-        public List<Role> GetRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        public static List<Role> GetRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Role role;
             DataTable dt = new DataTable();
@@ -50,7 +50,7 @@ namespace Lync_Billing.DB
 
         }
 
-        public int InsertRole(Role role)
+        public static int InsertRole(Role role)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -68,7 +68,7 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdateRole(Role role)
+        public static bool UpdateRole(Role role)
         {
             bool status = false;
 
@@ -96,7 +96,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public bool DeleteRole(Role role)
+        public static bool DeleteRole(Role role)
         {
             bool status = false;
 

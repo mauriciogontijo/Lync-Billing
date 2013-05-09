@@ -15,7 +15,7 @@ namespace Lync_Billing.DB
         public string SipAccount { get; set; }
         public string SiteName { get; set; }
 
-        public List<Users> GetUsers(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        public static List<Users> GetUsers(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Users user = new Users();
             DataTable dt = new DataTable();
@@ -49,7 +49,7 @@ namespace Lync_Billing.DB
 
         }
 
-        public int InsertUser(Users user)
+        public static int InsertUser(Users user)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -70,7 +70,7 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdateUser(Users user)
+        public static bool UpdateUser(Users user)
         {
             bool status = false;
 
@@ -96,7 +96,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public bool DeleteUser(Users user)
+        public static bool DeleteUser(Users user)
         {
             bool status = false;
 

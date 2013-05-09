@@ -15,9 +15,9 @@ namespace Lync_Billing.DB
         public string FixedLineRate { get; set; }
         public string MobileLineRate { get; set; }
 
-        public DBLib DBRoutines = new DBLib();
+        private static  DBLib DBRoutines = new DBLib();
 
-        public string GetRatesTableName(string gatewayName,DateTime startingDate) 
+        public static string GetRatesTableName(string gatewayName,DateTime startingDate) 
         {
             StringBuilder RatesTableName = new StringBuilder();
             RatesTableName.Append("Rates_" + gatewayName + "_" + startingDate.Date.ToString("yyyymmdd"));
@@ -25,7 +25,7 @@ namespace Lync_Billing.DB
             return RatesTableName.ToString();
         }
 
-        public List<Rate> GetRates(List<string> columns, Dictionary<string, object> wherePart, int limits, string ratesTableName)
+        public static List<Rate> GetRates(List<string> columns, Dictionary<string, object> wherePart, int limits, string ratesTableName)
         {
             List<Rate> rates = new List<Rate>();
             DataTable dt = new DataTable();
@@ -59,7 +59,7 @@ namespace Lync_Billing.DB
             
         }
 
-        public  int InsertRate(Rate rate)
+        public  static int InsertRate(Rate rate)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -80,7 +80,7 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdatetRate(Rate rate, string ratesTableName)
+        public static bool UpdatetRate(Rate rate, string ratesTableName)
         {
             bool status = false;
 
@@ -106,7 +106,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public bool DeleteRate(Rate rate,string ratesTableName)
+        public static bool DeleteRate(Rate rate,string ratesTableName)
         {
              bool status = false;
 
