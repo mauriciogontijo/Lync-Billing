@@ -69,7 +69,7 @@ namespace Lync_Billing.Libs
             Dictionary<string, object> whereStatement = new Dictionary<string,object>();
             
             if(jsonColumns != null)
-                columns = JsonDeserializer<List<string>>(jsonColumns.ToString());
+                columns = serializer.Deserialize<List<string>>(jsonColumns.ToString());
             
             if(jsonWhereStatement != null)
                 whereStatement = serializer.Deserialize<Dictionary<string,object>>(jsonWhereStatement.ToString());
@@ -81,18 +81,6 @@ namespace Lync_Billing.Libs
 
             return serializer.Serialize(phoneCalls);
         }
-        
-        [WebMethod]
-        public string JsonSerializer<T>(T t) 
-        {
-            return JsonTranslator.Serialize<T>(t);
-        }
-
-        [WebMethod]
-        public T JsonDeserializer<T>(string JsonString) 
-        {
-            return (T)JsonTranslator.Deserialize<T>(JsonString);
-        } 
     }
 }
 
