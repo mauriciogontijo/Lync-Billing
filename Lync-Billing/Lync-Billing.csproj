@@ -101,6 +101,7 @@
     <Compile Include="DB\Rate.cs" />
     <Compile Include="DB\GatewayRate.cs" />
     <Compile Include="DB\Role.cs" />
+    <Compile Include="DB\UserSession.cs" />
     <Compile Include="DB\UserRole.cs" />
     <Compile Include="DB\Site.cs" />
     <Compile Include="DB\Users.cs" />
