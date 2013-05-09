@@ -73,6 +73,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="UI\ContentPage_Login.aspx" />
     <Content Include="UI\css\black-layout.css" />
     <Content Include="UI\css\diagnostics-v1.css" />
@@ -104,6 +105,9 @@
     <Compile Include="DB\UserRole.cs" />
     <Compile Include="DB\Site.cs" />
     <Compile Include="DB\Users.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Libs\ADLib.cs" />
     <Compile Include="Libs\DBLib.cs" />
     <Compile Include="DB\Enums.cs" />
