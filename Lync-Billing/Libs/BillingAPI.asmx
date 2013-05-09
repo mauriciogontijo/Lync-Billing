@@ -47,8 +47,7 @@ namespace Lync_Billing.Libs
         [WebMethod]
         public object GetJsonUserAttributes(string mailAddress)
         {
-           AdLib adConnector = new AdLib();
-           ADUserInfo userInfo = adConnector.getUserAttributes(mailAddress);
+           ADUserInfo userInfo = Users.GetUserInfo(mailAddress);
            return serializer.Serialize(userInfo);
         }
 
