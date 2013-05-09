@@ -88,7 +88,7 @@
     <Compile Include="DB\Role.cs" />
     <Compile Include="DB\UserRole.cs" />
     <Compile Include="DB\Site.cs" />
-    <Compile Include="DB\Employee.cs" />
+    <Compile Include="DB\Users.cs" />
     <Compile Include="Libs\ADLib.cs" />
     <Compile Include="Libs\DBLib.cs" />
     <Compile Include="DB\Enums.cs" />
