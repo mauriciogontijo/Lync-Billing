@@ -33,14 +33,14 @@ namespace Lync_Billing.Libs
         /// <param name="password">Domain Password</param>
         /// <returns></returns>
         [WebMethod]
-        public bool authenticateUser(string emailAddress, string password)
+        public object authenticateUser(string emailAddress, string password)
         {
             bool status = false;
 
             AdLib adConnector = new AdLib();
             status = adConnector.AuthenticateUser(emailAddress, password);
 
-            return status;
+            return serializer.Serialize(status);
         }
         
         /// <summary>
@@ -61,10 +61,10 @@ namespace Lync_Billing.Libs
         /// <param name="jsonUserInfo">Users Object in JSON Format</param>
         /// <returns></returns>
         [WebMethod]
-        public int InsertUser(object jsonUserInfo)
+        public object InsertUser(object jsonUserInfo)
         {
             Users userInfo = serializer.Deserialize<Users>(jsonUserInfo.ToString());
-            return Users.InsertUser(userInfo);
+            return serializer.Serialize(Users.InsertUser(userInfo));
         }
 
         /// <summary>

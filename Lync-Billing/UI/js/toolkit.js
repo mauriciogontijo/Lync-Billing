@@ -9,4 +9,4 @@ obj = function () {
 
 }
 
-window.billing_main = b;
+window.billing_main = obj;

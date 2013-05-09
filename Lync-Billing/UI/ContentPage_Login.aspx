@@ -32,7 +32,7 @@
               	</div>
 
               	<div class="placeholding-input">
-					<input type="button" id='signin_btn' tabindex="4" value="Sign in" />
+					<input type="button" id='signin_btn' tabindex="4" value="Sign in" /> <!--onclick="authenticateUser(); getUserAttrs(); getUsers(); return false;" />-->
 				</div>
 			</div>
 		</div>
@@ -47,25 +47,96 @@
         }
 
         BillingAPI.lib = Lync_Billing.Libs.BillingAPI;
-        BillingAPI.data = { 'authUser': {}, 'JsonUserData': {} };
+        BillingAPI.data = { 'AuthUserStatus': false, 'UserData': {}, 'Users': [], 'InsertUserStatus': {} };
 
+
+        function authenticateUser() {
+            //debugger;
+            var email = $('#signin-email').val();
+            var password = $('#signin-password').val();
+
+            if (email != '' && password != '') {
+                BillingAPI['lib'].authenticateUser(email, password, function (onSuccessData) { BillingAPI['data']['AuthUserStatus'] = $.parseJSON(onSuccessData); }, function (onFailData) { });
+            }
+        }
+
+        function getUserAttrs() {
+            //debugger;
+            var email = $('#signin-email').val();
+
+            BillingAPI['lib'].GetUserAttributes(
+                email,
+                function (onSuccessData) { BillingAPI['data']['UserData'] = $.parseJSON(onSuccessData); },
+                function (onFailData) { }
+            );
+
+            console.log('finished getUserAttrs API Call | ' + BillingAPI['data']['UserData']['SipAccount']);
+        }
+
+        function getUsers() {
+            //debugger;
+            var email = $('#signin-email').val();
+            var jsonWhereSt = JSON.stringify({ 'SipAccount': email });
+
+            BillingAPI['lib'].GetUsers(
+                null,
+                jsonWhereSt,
+                1,
+                function (onSuccessData) { BillingAPI['data']['Users'] = $.parseJSON(onSuccessData); },
+                function (onFailData) { }
+            );
+
+            console.log('finished getUsers API Call | ' + BillingAPI['data']['Users'].length);
+        }
+
+        function onAuthSuccess(onSuccessData) {
+            BillingAPI['data']['AuthUserStatus'] = $.parseJSON(onSuccessData);
+            console.log("authentication status: " + BillingAPI['data']['AuthUserStatus'] + " | " + typeof BillingAPI['data']['AuthUserStatus']);
+        }
+
+
+        //DOCUMENT READY - EVENTS BIND
         $(document).ready(function () {
-            $('#signin_btn').click(function (e) {
+            $('#signin_btn').mousedown(function (e) {
                 e.preventDefault();
-                var email = $('#signin-email').val();
-                var password = $('#signin-password').val();
 
-                if (email != '' && password != '') {
-                    BillingAPI['lib'].authenticateUser(email, password, function(onSuccessData){BillingAPI['data']['authUser']=onSuccessData;}, function(onFailData){});
+                authenticateUser();
+                getUserAttrs();
+                getUsers();
+
+                return false;
+            });
+
+            $('#signin_btn').mouseup(function (e) {
+                debugger;
+                if (BillingAPI['data']['AuthUserStatus'] == true) {
+                    if (BillingAPI['data']['Users'].length > 0) {
+                        //do nothing
+                    }
+                    else if (BillingAPI['data']['UserData'].hasOwnProperty('SipAccount')) {
+                        var currentUserData = BillingAPI['data']['UserData'];
+                        var userInfo = JSON.stringify({
+                            'SipAccount': currentUserData.SipAccount.substring(4, currentUserData.SipAccount.length - 1),
+                            'SiteName': currentUserData.physicalDeliveryOfficeName,
+                            'UserID': currentUserData.EmployeeID
+                        });
+
+                        console.log('User was not found. Record to be inserted is: ' + userInfo.toString());
+                        BillingAPI['lib'].InsertUser(
+                            userInfo,
+                            function (onSuccessData) {
+                                var data = $.parseJSON(onSuccessData);
+                                BillingAPI['data']['InsertUserStatus'] = data;
+                                console.log('InsertUser API Call was successful | returned data: ' + data);
+                            }
+                        );
+                    }
+                    else {
+                        console.log('User data could not be retrieved!');
+                    }
                 }
             });
         });
-
-        function getJsonUserAttrs() {
-            var email = $('#signin-email').val();
-            BillingAPI['lib'].GetJsonUserAttributes(email, function(onSuccessData){BillingAPI['data']['JsonUserData']=$.parseJSON(onSuccessData);}, function(onFailData){});
-            return false;
-        }
     </script>
     <!-- End of Billing WebServices Javascript -->
 </asp:Content>
