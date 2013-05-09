@@ -8,6 +8,8 @@ namespace Lync_Billing.DB
 {
     public class Session
     {
+        public static List<Session> sessions = new List<Session>();
+       
         public int EmployeeID { get; set; }
         public string DisplayName { get; set; }
         public string EmailAddress { get; set; }
@@ -20,6 +22,24 @@ namespace Lync_Billing.DB
         public int Duration { get; set; }
 
         public List<UserRole> userRoles { get; set; }
+    
+        public static void AddUserSession(Session userSession)
+        {
+            if (!sessions.Contains(userSession))
+                sessions.Add(userSession);
+        }
+
+        public static void RemoveUserSession(string emailAddress) 
+        {
+            foreach(Session session in sessions)
+            {
+                if (session.EmailAddress == emailAddress)
+                {
+                    sessions.Remove(session);
+                    break;
+                }
+            }
+        }
     }
 
     
