@@ -63,7 +63,7 @@ namespace Lync_Billing.DB
                 columnsValues.Add(Enums.GetDescription(Enums.Roles.RoleDescription), role.RoleDescription);
 
             //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Roles.TableName), columnsValues);
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Roles.TableName), columnsValues, Enums.GetDescription(Enums.Roles.RoleID));
 
             return rowID;
         }

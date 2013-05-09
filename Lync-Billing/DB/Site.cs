@@ -89,7 +89,7 @@ namespace Lync_Billing.DB
                 columnsValues.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
 
             //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Sites.TableName), columnsValues);
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Sites.TableName), columnsValues, Enums.GetDescription(Enums.Sites.SiteID));
 
             return rowID;
         }

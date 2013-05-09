@@ -48,7 +48,7 @@ namespace Lync_Billing.DB
             if (pool.PoolFQDN != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Pools.PoolFQDN), pool.PoolFQDN);
             //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Pools.TableName), columnsValues);
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Pools.TableName), columnsValues,Enums.GetDescription(Enums.Pools.PoolID));
 
             return rowID;
         }

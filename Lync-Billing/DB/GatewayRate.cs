@@ -86,7 +86,7 @@ namespace Lync_Billing.DB
                 columnsValues.Add(Enums.GetDescription(Enums.GatewaysRates.CurrencyCode), gatewayRate.CurrencyCode);
 
             //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.GatewaysRates.TableName), columnsValues);
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.GatewaysRates.TableName), columnsValues, Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID));
 
             return rowID;
         }

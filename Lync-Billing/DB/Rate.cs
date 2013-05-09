@@ -75,7 +75,7 @@ namespace Lync_Billing.DB
                 columnsValues.Add(Enums.GetDescription(Enums.Rates.MobileLineRate), rate.MobileLineRate);
 
             //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.UsersRoles.TableName), columnsValues);
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.UsersRoles.TableName), columnsValues, Enums.GetDescription(Enums.Rates.RateID));
 
             return rowID;
         }
