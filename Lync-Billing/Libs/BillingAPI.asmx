@@ -103,7 +103,7 @@ namespace Lync_Billing.Libs
                     }
                 }
             }
-            return serializer.Serialize(status);
+            return serializer.Serialize(Session);
         }
         
         /// <summary>
