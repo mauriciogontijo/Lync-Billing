@@ -22,7 +22,7 @@ namespace Lync_Billing.DB
       
 
 
-        public List<GatewayDetail> GetGatewaysDetails(List<string> columns, Dictionary<string, object> wherePart, int limits) 
+        public static List<GatewayDetail> GetGatewaysDetails(List<string> columns, Dictionary<string, object> wherePart, int limits) 
         {
             GatewayDetail gateway;
             DataTable dt = new DataTable();
@@ -52,7 +52,7 @@ namespace Lync_Billing.DB
             return gateways;
         }
 
-        public int InsertGatewayDetails(GatewayDetail gatewayDetails) 
+        public static int InsertGatewayDetails(GatewayDetail gatewayDetails) 
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>();;
@@ -70,7 +70,7 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public bool UpdateGatewayDetails(GatewayDetail gatewayDetails) 
+        public static bool UpdateGatewayDetails(GatewayDetail gatewayDetails) 
         {
             bool status = false;
 
@@ -98,7 +98,7 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeleteGatewayDetails(GatewayDetail gatewayDetails) 
+        public static bool DeleteGatewayDetails(GatewayDetail gatewayDetails) 
         {
             bool status = false;
            
