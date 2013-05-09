@@ -101,6 +101,8 @@ namespace Lync_Billing.DB
         {
             [Description("Users")]
             TableName,
+            [Description("UserID")]
+            UserID,
             [Description("SipAccount")]
             SipAccount,
             [Description("SiteName")]

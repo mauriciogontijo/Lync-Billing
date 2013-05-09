@@ -11,8 +11,102 @@ namespace Lync_Billing.DB
     {
         public static DBLib DBRoutines = new DBLib();
 
+        public int UserID { get; set; }
         public string SipAccount { get; set; }
         public string SiteName { get; set; }
+
+        public List<Users> GetUsers(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        {
+            Users user = new Users();
+            DataTable dt = new DataTable();
+            List<Users> users = new List<Users>();
+
+            dt = DBRoutines.SELECT(
+                Enums.GetDescription(Enums.Users.TableName),
+                columns,
+                wherePart,
+                limits);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                user = new Users();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.UserID))
+                        user.UserID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
+                        user.SipAccount = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SiteName))
+                        user.SiteName = (string)row[column.ColumnName];
+                }
+                users.Add(user);
+            }
+
+            return users;
+
+        }
+
+        public int InsertUser(Users user)
+        {
+            int rowID = 0;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
+
+            //Set Part
+            if ((user.UserID).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Users.UserID), user.UserID);
+
+            if ((user.SipAccount).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Users.SipAccount), user.SipAccount);
+
+            if ((user.SiteName).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Users.SiteName), user.SiteName);
+
+            //Execute Insert
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Users.TableName), columnsValues);
+
+            return rowID;
+        }
+
+        public bool UpdateUser(Users user)
+        {
+            bool status = false;
+
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+            //Set Part
+             if ((user.UserID).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Users.UserID), user.UserID);
+            
+            if ((user.SipAccount).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Users.SipAccount), user.SipAccount);
+
+            if (user.SiteName != null)
+                setPart.Add(Enums.GetDescription(Enums.Users.SiteName), user.SiteName);
+
+            //Execute Update
+            status = DBRoutines.UPDATE(
+                Enums.GetDescription(Enums.Users.TableName),
+                setPart,
+                Enums.GetDescription(Enums.Users.UserID), 
+                user.UserID);
+                
+
+            return status;
+        }
+
+        public bool DeleteUser(Users user)
+        {
+            bool status = false;
+
+            status = DBRoutines.DELETE(
+                Enums.GetDescription(Enums.Users.TableName),
+                Enums.GetDescription(Enums.Users.UserID), user.UserID);
+
+            return status;
+        }
+
 
         /// <summary>
         /// Get All Related User Information From Active Directory
@@ -53,8 +147,8 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.SipAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.SiteID = (int)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.SipAccount = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.PoolID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.PoolID = (int)row[column.ColumnName];
