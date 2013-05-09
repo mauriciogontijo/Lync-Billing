@@ -122,7 +122,7 @@
                         });
 
                         console.log('User was not found. Record to be inserted is: ' + userInfo.toString());
-                        BillingAPI['lib'].InsertUser(
+                         BillingAPI['lib'].InsertUser(
                             userInfo,
                             function (onSuccessData) {
                                 var data = $.parseJSON(onSuccessData);
