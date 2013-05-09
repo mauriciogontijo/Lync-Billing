@@ -22,6 +22,10 @@ namespace Lync_Billing.Libs
     {
         public BillingAPI() { }
         JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+
+        #region Users Related
+        
         /// <summary>
         /// Authenticate user based on Email Address and Password
         /// </summary>
@@ -45,23 +49,70 @@ namespace Lync_Billing.Libs
         /// <param name="mailAddress"></param>
         /// <returns></returns>
         [WebMethod]
-        public object GetJsonUserAttributes(string mailAddress)
+        public object GetUserAttributes(string mailAddress)
         {
            ADUserInfo userInfo = Users.GetUserInfo(mailAddress);
            return serializer.Serialize(userInfo);
         }
 
+        /// <summary>
+        /// Insert Users in Users Table only if Users are not there
+        /// </summary>
+        /// <param name="jsonUserInfo">Users Object in JSON Format</param>
+        /// <returns></returns>
+        [WebMethod]
+        public int InsertUser(object jsonUserInfo)
+        {
+            Users userInfo = serializer.Deserialize<Users>(jsonUserInfo.ToString());
+            return Users.InsertUser(userInfo);
+        }
+
+        /// <summary>
+        /// Get Users from Users Table 
+        /// </summary>
+        /// <param name="jsonColumns">Columns to be populated as a list of strings</param>
+        /// <param name="jsonWhereStatement">SQL Condition </param>
+        /// <param name="limits">Number of rows</param>
+        /// <returns>serialized List of Users</returns>
+        [WebMethod]
+        public object GetUsers(object jsonColumns, object jsonWhereStatement, int limits)
+        {
+            List<string> columns = new List<string>();
+            Dictionary<string, object> whereStatement = new Dictionary<string, object>();
+
+            if (jsonColumns != null)
+                columns = serializer.Deserialize<List<string>>(jsonColumns.ToString());
+
+            if (jsonWhereStatement != null)
+                whereStatement = serializer.Deserialize<Dictionary<string, object>>(jsonWhereStatement.ToString());
+
+            return serializer.Serialize(Users.GetUsers(columns, whereStatement, limits));
+        }
+
+        /// <summary>
+        /// Get User Roles
+        /// </summary>
+        /// <param name="sipAccount">Sip Account name</param>
+        /// <returns>serialized List of UsersRoles </returns>
         [WebMethod]
         public object GetUserRoles(string sipAccount)
         {
             return  serializer.Serialize(Users.GetUserRoles(sipAccount));
         }
 
+        /// <summary>
+        /// Validate User Role
+        /// </summary>
+        /// <param name="SipAccount">Sip Account</param>
+        /// <param name="RoleID">Role ID</param>
+        /// <returns></returns>
         [WebMethod]
         public bool ValidateUsersRoles(string SipAccount, int RoleID)
         {
             return UserRole.ValidateUsersRoles(SipAccount, RoleID);
         }
+        
+        #endregion
 
         /// <summary>
         /// Get User/s Phone calls
@@ -84,28 +135,8 @@ namespace Lync_Billing.Libs
 
             return serializer.Serialize(PhoneCall.GetPhoneCalls(columns, whereStatement, limits));
         }
-
-        [WebMethod]
-        public int InsertUser(object jsonUserInfo) 
-        {
-            Users userInfo = serializer.Deserialize<Users>(jsonUserInfo.ToString());
-            return Users.InsertUser(userInfo);
-        }
-
-        [WebMethod]
-        public object GetUsers(object jsonColumns, object jsonWhereStatement, int limits) 
-        {
-            List<string> columns = new List<string>();
-            Dictionary<string, object> whereStatement = new Dictionary<string, object>();
-
-            if (jsonColumns != null)
-                columns = serializer.Deserialize<List<string>>(jsonColumns.ToString());
-
-            if (jsonWhereStatement != null)
-                whereStatement = serializer.Deserialize<Dictionary<string, object>>(jsonWhereStatement.ToString());
-
-            return serializer.Serialize(Users.GetUsers(columns, whereStatement, limits));
-        }
+        
+       
     }
 }
 
