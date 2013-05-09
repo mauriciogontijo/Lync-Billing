@@ -34,7 +34,7 @@ namespace Lync_Billing.Libs
         /// </summary>
         /// <param name="emailAddress">Email Address</param>
         /// <param name="password">Domain Password</param>
-        /// <returns></returns>
+        /// <returns>User session if authenticated or null if not</returns>
         [WebMethod]
         public object authenticateUser(string emailAddress, string password)
         {
