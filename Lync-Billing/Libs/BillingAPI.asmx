@@ -36,10 +36,45 @@ namespace Lync_Billing.Libs
         public object authenticateUser(string emailAddress, string password)
         {
             bool status = false;
-
             AdLib adConnector = new AdLib();
+            ADUserInfo userInfo = new ADUserInfo();
+            
             status = adConnector.AuthenticateUser(emailAddress, password);
 
+            if (status == true) 
+            {
+                userInfo = Users.GetUserInfo(emailAddress);
+                if (!userInfo.Equals(null))
+                {
+                    List<string> columns = new List<string>();
+                    Dictionary<string, object> whereStatement = new Dictionary<string, object>();
+                    
+                    whereStatement.Add("SipAccount", userInfo.SipAccount);
+                    List<Users> ListOfUsers =  Users.GetUsers(columns, whereStatement, 1);
+
+                    if (ListOfUsers.Count > 0)
+                    {
+                        Users CurrentUser = ListOfUsers[0];
+                        if (CurrentUser.SipAccount == userInfo.SipAccount.Replace("sip:", "") && CurrentUser.UserID.ToString() == userInfo.EmployeeID && CurrentUser.SiteName == userInfo.physicalDeliveryOfficeName)
+                        {
+                            List<UserRole> UserRoles = Users.GetUserRoles(CurrentUser.SipAccount);
+
+                            UserSession CurrentSession = new UserSession();
+                            CurrentSession.EmailAddress = userInfo.EmailAddress;
+                            CurrentSession.SipAccount = CurrentUser.SipAccount;
+                            CurrentSession.UserRoles = UserRoles;
+                            CurrentSession.SiteName = CurrentUser.SiteName;
+                            CurrentSession.EmployeeID = CurrentUser.UserID;
+                            CurrentSession.ActiveRoleName = "USER";
+                            CurrentSession.DisplayName = userInfo.DisplayName;
+                            CurrentSession.TelephoneNumber = userInfo.Telephone;
+                            Session.Add(
+                            UserSession.AddUserSession(CurrentSession);
+                        }
+                    }
+                }
+            }
+            
             return serializer.Serialize(status);
         }
         
@@ -141,8 +176,6 @@ namespace Lync_Billing.Libs
 
             return serializer.Serialize(PhoneCall.GetPhoneCalls(columns, whereStatement, limits));
         }
-        
-       
     }
 }
 
