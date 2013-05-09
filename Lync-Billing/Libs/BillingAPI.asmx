@@ -28,6 +28,9 @@ namespace Lync_Billing.Libs
         
         /// <summary>
         /// Authenticate user based on Email Address and Password
+        /// If Success Get User Information
+        /// If sucess Validate part of user information from Users Table
+        /// Fill the session accross the way
         /// </summary>
         /// <param name="emailAddress">Email Address</param>
         /// <param name="password">Domain Password</param>
@@ -44,36 +47,62 @@ namespace Lync_Billing.Libs
             if (status == true) 
             {
                 userInfo = Users.GetUserInfo(emailAddress);
+                
+                // User Information was found in active directory
                 if (!userInfo.Equals(null))
                 {
+                    Session.Add("EmailAddress", userInfo.EmailAddress);
+                    Session.Add("DisplayName", userInfo.DisplayName);
+                    Session.Add("TelephoneNumber", userInfo.Telephone);
+                    
                     List<string> columns = new List<string>();
                     Dictionary<string, object> whereStatement = new Dictionary<string, object>();
                     
                     whereStatement.Add("SipAccount", userInfo.SipAccount);
+                   
                     List<Users> ListOfUsers =  Users.GetUsers(columns, whereStatement, 1);
+                    List<UserRole> userRoles;
 
+                    //User Exists in Users Table
                     if (ListOfUsers.Count > 0)
                     {
-                        Users CurrentUser = ListOfUsers[0];
-                        
-                        if (CurrentUser.SipAccount == userInfo.SipAccount.Replace("sip:", "") && 
-                            CurrentUser.UserID.ToString() == userInfo.EmployeeID && 
-                            CurrentUser.SiteName == userInfo.physicalDeliveryOfficeName)
+                        userRoles = Users.GetUserRoles((ListOfUsers[0]).SipAccount);
+
+                        Session.Add("ActiveRoleName", "USER");
+
+                        if (userRoles.Count > 0)
+                            Session.Add("UserRoles", userRoles);
+                        else
+                            Session.Add("UserRoles", null);
+                        //If user information from Active directory doesnt match the one in Users Table : update user table 
+                        if ((ListOfUsers[0]).SipAccount != userInfo.SipAccount.Replace("sip:", "") ||
+                            (ListOfUsers[0]).UserID.ToString() != userInfo.EmployeeID ||
+                            (ListOfUsers[0]).SiteName != userInfo.physicalDeliveryOfficeName)
                         {
-                            List<UserRole> UserRoles = Users.GetUserRoles(CurrentUser.SipAccount);
-                            Session.Add("EmailAddress", userInfo.EmailAddress);
-                            Session.Add("SipAccount", CurrentUser.SipAccount);
-                            Session.Add("UserRoles", UserRoles);
-                            Session.Add("SiteName", CurrentUser.SiteName);
-                            Session.Add("EmployeeID", CurrentUser.UserID);
-                            Session.Add("ActiveRoleName", "USER");
-                            Session.Add("DisplayName", userInfo.DisplayName);
-                            Session.Add("TelephoneNumber", userInfo.Telephone);
+                            Users user = new Users();
+                            user.SiteName = userInfo.physicalDeliveryOfficeName;
+                            user.UserID = Convert.ToInt32(userInfo.EmployeeID);
+                            user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
+
+                            Users.UpdateUser(user);
                         }
+
+                        Session.Add("SiteName", userInfo.physicalDeliveryOfficeName);
+                        Session.Add("EmployeeID", userInfo.EmployeeID);
+                        Session.Add("SipAccount", userInfo.SipAccount.Replace("sip:", ""));
+                    }
+                    else 
+                    {
+                        // If user not found in Users tables that means this is his first login : insert his information into Users table
+                        Users user = new Users();
+                        user.SiteName = userInfo.physicalDeliveryOfficeName;
+                        user.UserID = Convert.ToInt32(userInfo.EmployeeID);
+                        user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
+
+                        Users.InsertUser(user);
                     }
                 }
             }
-            
             return serializer.Serialize(status);
         }
         
