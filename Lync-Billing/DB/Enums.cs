@@ -95,6 +95,19 @@ namespace Lync_Billing.DB
         }
 
         /// <summary>
+        /// Users Database table Fields Names
+        /// </summary>
+        public enum Users 
+        {
+            [Description("Users")]
+            TableName,
+            [Description("SipAccount")]
+            SipAccount,
+            [Description("SiteName")]
+            SiteName
+        }
+
+        /// <summary>
         /// Roles Database table fields Names
         /// </summary>
         public enum Roles 
