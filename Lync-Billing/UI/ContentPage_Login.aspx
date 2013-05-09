@@ -116,7 +116,7 @@
                     else if (BillingAPI['data']['UserData'].hasOwnProperty('SipAccount')) {
                         var currentUserData = BillingAPI['data']['UserData'];
                         var userInfo = JSON.stringify({
-                            'SipAccount': currentUserData.SipAccount.substring(4, currentUserData.SipAccount.length - 1),
+                            'SipAccount': currentUserData.SipAccount.substring(4, currentUserData.SipAccount.length),
                             'SiteName': currentUserData.physicalDeliveryOfficeName,
                             'UserID': currentUserData.EmployeeID
                         });
