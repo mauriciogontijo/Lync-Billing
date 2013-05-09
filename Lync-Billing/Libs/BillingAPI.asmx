@@ -55,21 +55,20 @@ namespace Lync_Billing.Libs
                     if (ListOfUsers.Count > 0)
                     {
                         Users CurrentUser = ListOfUsers[0];
-                        if (CurrentUser.SipAccount == userInfo.SipAccount.Replace("sip:", "") && CurrentUser.UserID.ToString() == userInfo.EmployeeID && CurrentUser.SiteName == userInfo.physicalDeliveryOfficeName)
+                        
+                        if (CurrentUser.SipAccount == userInfo.SipAccount.Replace("sip:", "") && 
+                            CurrentUser.UserID.ToString() == userInfo.EmployeeID && 
+                            CurrentUser.SiteName == userInfo.physicalDeliveryOfficeName)
                         {
                             List<UserRole> UserRoles = Users.GetUserRoles(CurrentUser.SipAccount);
-
-                            UserSession CurrentSession = new UserSession();
-                            CurrentSession.EmailAddress = userInfo.EmailAddress;
-                            CurrentSession.SipAccount = CurrentUser.SipAccount;
-                            CurrentSession.UserRoles = UserRoles;
-                            CurrentSession.SiteName = CurrentUser.SiteName;
-                            CurrentSession.EmployeeID = CurrentUser.UserID;
-                            CurrentSession.ActiveRoleName = "USER";
-                            CurrentSession.DisplayName = userInfo.DisplayName;
-                            CurrentSession.TelephoneNumber = userInfo.Telephone;
-                            Session.Add(
-                            UserSession.AddUserSession(CurrentSession);
+                            Session.Add("EmailAddress", userInfo.EmailAddress);
+                            Session.Add("SipAccount", CurrentUser.SipAccount);
+                            Session.Add("UserRoles", UserRoles);
+                            Session.Add("SiteName", CurrentUser.SiteName);
+                            Session.Add("EmployeeID", CurrentUser.UserID);
+                            Session.Add("ActiveRoleName", "USER");
+                            Session.Add("DisplayName", userInfo.DisplayName);
+                            Session.Add("TelephoneNumber", userInfo.Telephone);
                         }
                     }
                 }
