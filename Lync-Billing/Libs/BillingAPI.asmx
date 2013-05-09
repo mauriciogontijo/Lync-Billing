@@ -21,7 +21,13 @@ namespace Lync_Billing.Libs
     public class BillingAPI : System.Web.Services.WebService
     {
         public BillingAPI() { }
-        
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        /// <summary>
+        /// Authenticate user based on Email Address and Password
+        /// </summary>
+        /// <param name="emailAddress">Email Address</param>
+        /// <param name="password">Domain Password</param>
+        /// <returns></returns>
         [WebMethod]
         public bool authenticateUser(string emailAddress, string password)
         {
@@ -32,26 +38,24 @@ namespace Lync_Billing.Libs
 
             return status;
         }
-
-        [WebMethod]
-        public ADUserInfo GetUserAttributes(string emailAddress) 
-        {
-            AdLib adConnector = new AdLib();
-           
-            return adConnector.getUserAttributes(emailAddress);
-        }
         
+        /// <summary>
+        /// JGet User Related information from Active Directory
+        /// </summary>
+        /// <param name="mailAddress"></param>
+        /// <returns></returns>
         [WebMethod]
         public object GetJsonUserAttributes(string mailAddress)
         {
-            ADUserInfo userInfo = GetUserAttributes(mailAddress);
-           return JsonTranslator.Serialize<ADUserInfo>(userInfo);
+           AdLib adConnector = new AdLib();
+           ADUserInfo userInfo = adConnector.getUserAttributes(mailAddress);
+           return serializer.Serialize(userInfo);
         }
 
         [WebMethod]
-        public List<UserRole> GetUserRoles(string sipAccount)
+        public object GetUserRoles(string sipAccount)
         {
-            return Employee.GetUserRoles(sipAccount);
+            return  serializer.Serialize(Users.GetUserRoles(sipAccount));
         }
 
         [WebMethod]
@@ -64,7 +68,6 @@ namespace Lync_Billing.Libs
         [WebMethod]
         public object GetPhoneCalls(object jsonColumns, object jsonWhereStatement, int limits) 
         {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
             List<string> columns = new List<string>();
             Dictionary<string, object> whereStatement = new Dictionary<string,object>();
             
