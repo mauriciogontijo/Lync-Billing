@@ -111,6 +111,12 @@ namespace Lync_Billing.Libs
         {
             return UserRole.ValidateUsersRoles(SipAccount, RoleID);
         }
+
+        [WebMethod]
+        public bool UpdateUser(object jsonUser) 
+        {
+            return Users.UpdateUser(serializer.Deserialize<Users>(jsonUser.ToString()));
+        }
         
         #endregion
 
