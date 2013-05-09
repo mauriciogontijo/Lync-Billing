@@ -53,7 +53,9 @@ namespace Lync_Billing.DB
             [Description("SiteID")]
             SiteID,
             [Description("PoolID")]
-            PoolID
+            PoolID,
+            [Description("Description")]
+            Description
         }
 
         /// <summary>
