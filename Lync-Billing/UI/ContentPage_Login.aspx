@@ -108,7 +108,7 @@
             });
 
             $('#signin_btn').mouseup(function (e) {
-                debugger;
+                //debugger;
                 if (BillingAPI['data']['AuthUserStatus'] == true) {
                     if (BillingAPI['data']['Users'].length > 0) {
                         //do nothing
