@@ -1,0 +1,15 @@
+div#header-container {
+	background: #0B486B; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3B8686', endColorstr='#0B486B'); /* for IE */
+}
+
+.block-header {
+	background: #79BD9A; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#79BD9A'); /* for IE */
+}
+
+.block-body {
+    border-left: 1px solid #CECFCE !important;
+	border-right: 1px solid #CECFCE !important;
+	border-bottom: 1px solid #CECFCE !important;
+}

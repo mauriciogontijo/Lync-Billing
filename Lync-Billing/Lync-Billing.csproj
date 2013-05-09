@@ -73,7 +73,22 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="UI\Login.aspx" />
+    <Content Include="UI\ContentPage_Login.aspx" />
+    <Content Include="UI\css\black-layout.css" />
+    <Content Include="UI\css\diagnostics-v1.css" />
+    <Content Include="UI\css\diagnostics-v2.css" />
+    <Content Include="UI\css\green-layout-ie-8.css" />
+    <Content Include="UI\css\green-layout.css" />
+    <Content Include="UI\css\reset.css" />
+    <Content Include="UI\css\toolkit.css" />
+    <Content Include="UI\images\mybills.png" />
+    <Content Include="UI\images\navbar-bg.gif" />
+    <Content Include="UI\images\phonecalls.png" />
+    <Content Include="UI\images\settings.png" />
+    <Content Include="UI\js\jquery-1.9.1.min.js" />
+    <Content Include="UI\js\stacktrace.js" />
+    <Content Include="UI\api_tests.aspx" />
+    <Content Include="UI\js\toolkit.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -94,16 +109,30 @@
     <Compile Include="DB\Enums.cs" />
     <Compile Include="Libs\JsonTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="UI\api_tests.aspx.cs">
+      <DependentUpon>api_tests.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\api_tests.aspx.designer.cs">
+      <DependentUpon>api_tests.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ContentPage_Login.aspx.cs">
+      <DependentUpon>ContentPage_Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="UI\ContentPage_Login.aspx.designer.cs">
+      <DependentUpon>ContentPage_Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MasterPage.Master.cs">
+      <DependentUpon>MasterPage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\MasterPage.Master.designer.cs">
+      <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="UI\MasterPage.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -111,11 +140,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\css\" />
-    <Folder Include="UI\images\" />
-    <Folder Include="UI\js\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

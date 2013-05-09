@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Lync_Billing.UI.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="api_tests.aspx.cs" Inherits="Lync_Billing.UI.api_tests" %>
 
 <!DOCTYPE html>
 
@@ -22,7 +22,8 @@
             <input type="button" id="signin" value="Signin" onclick="ajaxSignin();" /><br />
             <input type="button" id="getUser" value="Get User Data" onclick="getUserAttrs();" /><br />
             <input type="button" id="getJsonUser" value="Get JSON User Data" onclick="getJsonUserAttrs();" /><br /><br />
-            <input type="button" id="sendJson" value="Send JSON Data" onclick="sendJsonInput();" /><br />
+            <input type="button" id="sendJson" value="Send JSON Data" onclick="sendJsonInput();" /><br /><br />
+            <input type="button" id="getPhoneCalls" value="Get User Phone Calls" onclick="getUserPhoneCalls();" /><br />
         </div>
 
 
@@ -31,9 +32,9 @@
             window.BillingAPI.lib = Lync_Billing.Libs.BillingAPI;
             window.BillingAPI.data = {
                 'authUser': {},
-                'getUserData': {},
-                'getJsonUserData': {},
-                'getUserPhoneCalls': {}
+                'UserData': {},
+                'JsonUserData': {},
+                'UserPhoneCalls': {}
             };
 
             //getUserAttrs Function
@@ -43,7 +44,7 @@
                 BillingAPI['lib'].GetUserAttributes(
                     emailAddress,
                     function (onSuccessData) {
-                        BillingAPI['data']['getUserData'] = onSuccessData;
+                        BillingAPI['data']['UserData'] = onSuccessData;
                     },
                     function (onFailData) { }
                 );
@@ -59,7 +60,7 @@
                     emailAddress,
                     function (onSuccessData) {
                         //BillingAPI['data']['getJsonUserData'] = jQuery.parseJSON(onSuccessData);
-                        BillingAPI['data']['getJsonUserData'] = onSuccessData;
+                        BillingAPI['data']['JsonUserData'] = onSuccessData;
                     },
                     function (onFailData) { }
                 );
@@ -133,7 +134,7 @@
                     whereSt,
                     10,
                     function (onSuccessData) {
-                        BillingAPI['data']['getUserPhoneCalls'] = $.parseJSON(onSuccessData);
+                        BillingAPI['data']['UserPhoneCalls'] = $.parseJSON(onSuccessData);
                     },
                     function (onFailData) { }
                 );
