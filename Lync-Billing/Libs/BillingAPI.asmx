@@ -61,10 +61,16 @@ namespace Lync_Billing.Libs
         [WebMethod]
         public bool ValidateUsersRoles(string SipAccount, int RoleID)
         {
-            UserRole userRole = new UserRole();
-            return userRole.ValidateUsersRoles(SipAccount, RoleID);
+            return UserRole.ValidateUsersRoles(SipAccount, RoleID);
         }
 
+        /// <summary>
+        /// Get User/s Phone calls
+        /// </summary>
+        /// <param name="jsonColumns">Columns to be populated from DB</param>
+        /// <param name="jsonWhereStatement">Conditions </param>
+        /// <param name="limits">Number of rows</param>
+        /// <returns></returns>
         [WebMethod]
         public object GetPhoneCalls(object jsonColumns, object jsonWhereStatement, int limits) 
         {
@@ -77,12 +83,29 @@ namespace Lync_Billing.Libs
             if(jsonWhereStatement != null)
                 whereStatement = serializer.Deserialize<Dictionary<string,object>>(jsonWhereStatement.ToString());
 
-            List<PhoneCall> phoneCalls = new List<PhoneCall>();
+            return serializer.Serialize(PhoneCall.GetPhoneCalls(columns, whereStatement, limits));
+        }
 
-            PhoneCall phoneCall = new PhoneCall();
-            phoneCalls = phoneCall.GetPhoneCalls(columns, whereStatement, limits);
+        [WebMethod]
+        public int InsertUser(object jsonUserInfo) 
+        {
+            Users userInfo = serializer.Deserialize<Users>(jsonUserInfo.ToString());
+            return Users.InsertUser(userInfo);
+        }
 
-            return serializer.Serialize(phoneCalls);
+        [WebMethod]
+        public object GetUsers(object jsonColumns, object jsonWhereStatement, int limits) 
+        {
+            List<string> columns = new List<string>();
+            Dictionary<string, object> whereStatement = new Dictionary<string, object>();
+
+            if (jsonColumns != null)
+                columns = serializer.Deserialize<List<string>>(jsonColumns.ToString());
+
+            if (jsonWhereStatement != null)
+                whereStatement = serializer.Deserialize<Dictionary<string, object>>(jsonWhereStatement.ToString());
+
+            return serializer.Serialize(Users.GetUsers(columns, whereStatement, limits));
         }
     }
 }
