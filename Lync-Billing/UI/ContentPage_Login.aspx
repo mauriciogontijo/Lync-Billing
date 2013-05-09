@@ -108,33 +108,40 @@
             });
 
             $('#signin_btn').mouseup(function (e) {
-                //debugger;
+                e.preventDefault();
+                
+                debugger;
+                
                 if (BillingAPI['data']['AuthUserStatus'] == true) {
                     if (BillingAPI['data']['Users'].length > 0) {
                         //do nothing
                     }
-                    else if (BillingAPI['data']['UserData'].hasOwnProperty('SipAccount')) {
-                        var currentUserData = BillingAPI['data']['UserData'];
-                        var userInfo = JSON.stringify({
-                            'SipAccount': currentUserData.SipAccount.substring(4, currentUserData.SipAccount.length),
-                            'SiteName': currentUserData.physicalDeliveryOfficeName,
-                            'UserID': currentUserData.EmployeeID
-                        });
-
-                        console.log('User was not found. Record to be inserted is: ' + userInfo.toString());
-                         BillingAPI['lib'].InsertUser(
-                            userInfo,
-                            function (onSuccessData) {
-                                var data = $.parseJSON(onSuccessData);
-                                BillingAPI['data']['InsertUserStatus'] = data;
-                                console.log('InsertUser API Call was successful | returned data: ' + data);
-                            }
-                        );
-                    }
                     else {
-                        console.log('User data could not be retrieved!');
+                        if (BillingAPI['data']['UserData'].hasOwnProperty('SipAccount')) {
+                            var currentUserData = BillingAPI['data']['UserData'];
+                            var userInfo = JSON.stringify({
+                                'SipAccount': currentUserData.SipAccount.substring(4, currentUserData.SipAccount.length),
+                                'SiteName': currentUserData.physicalDeliveryOfficeName,
+                                'UserID': currentUserData.EmployeeID
+                            });
+
+                            console.log('User was not found. Record to be inserted is: ' + userInfo.toString());
+                            BillingAPI['lib'].InsertUser(
+                                userInfo,
+                                function (onSuccessData) {
+                                    var data = $.parseJSON(onSuccessData);
+                                    BillingAPI['data']['InsertUserStatus'] = data;
+                                    console.log('InsertUser API Call was successful | returned data: ' + data);
+                                }
+                            );
+                        }
                     }
+                    /*else {
+                        console.log('User data could not be retrieved!');
+                    }*/
                 }
+
+                return false;
             });
         });
     </script>
