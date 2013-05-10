@@ -60,7 +60,7 @@ namespace Lync_Billing.Libs
                     List<string> columns = new List<string>();
                     Dictionary<string, object> whereStatement = new Dictionary<string, object>();
                     
-                    whereStatement.Add("SipAccount", userInfo.SipAccount);
+                    whereStatement.Add("SipAccount", userInfo.SipAccount.Replace("sip:",""));
                    
                     List<Users> ListOfUsers =  Users.GetUsers(columns, whereStatement, 1);
                     List<UserRole> userRoles;
