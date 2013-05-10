@@ -97,8 +97,9 @@
 
             return JSON.stringify({
                 'IPAddress': ip_address,
-                'BrowserName': browser_name,
-                'BrowserVersion': browser_version,
+                'BrowserName': BrowserDetect.browser,
+                'BrowserVersion': BrowserDetect.version,
+                'OS': BrowserDetect.OS,
                 'UserAgent': user_agent
             });
         }
