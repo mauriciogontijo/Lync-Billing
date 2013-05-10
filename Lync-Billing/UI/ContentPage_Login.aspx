@@ -55,7 +55,7 @@
         function authenticateUser() {
             var email = $('#signin-email').val();
             var password = $('#signin-password').val();
-
+            
             if (email != '' && password != '') {
                 var clientData = getClientData();
                 BillingAPI['lib'].authenticateUser(email, password, clientData, function (onSuccessData) { BillingAPI['data']['AuthUserStatus'] = $.parseJSON(onSuccessData); }, function (onFailData) { });
