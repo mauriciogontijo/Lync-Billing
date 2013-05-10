@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="css/green-layout.css" />
 		<link rel="stylesheet" type="text/css" href="css/toolkit.css" />
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/browserdetector.js"></script>
         <script type="text/javascript" src="js/toolkit.js"></script>
 
 		<!--[if lt IE 9]>
