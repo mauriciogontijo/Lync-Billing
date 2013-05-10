@@ -44,22 +44,27 @@ namespace Lync_Billing.Libs
 
             Dictionary<string, string> userEnv = serializer.Deserialize<Dictionary<string, string>>(env.ToString());
             
-            
-            
             status = adConnector.AuthenticateUser(emailAddress, password);
 
             if (status == true) 
             {
-               
                 userInfo = Users.GetUserInfo(emailAddress);
                 
                 // User Information was found in active directory
                 if (!userInfo.Equals(null))
                 {
-
                     session.EmailAddress = userInfo.EmailAddress;
                     session.DisplayName = userInfo.DisplayName;
                     session.TelephoneNumber = userInfo.Telephone;
+
+                    foreach (KeyValuePair<string, string> keyvalue in userEnv) 
+                    {
+                        if (keyvalue.Key == "IPAddress")
+                            session.IPAddress = keyvalue.Value;
+
+                        if (keyvalue.Key == "BrowserData")
+                            session.BrowserData = keyvalue.Value;
+                    }
                     
                     List<string> columns = new List<string>();
                     Dictionary<string, object> whereStatement = new Dictionary<string, object>();
