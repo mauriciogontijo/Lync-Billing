@@ -3042,6 +3042,7 @@
     <Content Include="UI\images\phonecalls.png" />
     <Content Include="UI\images\settings.png" />
     <Content Include="UI\js\browserdetector.js" />
+    <Content Include="UI\js\ext-all.js" />
     <Content Include="UI\js\jquery-1.9.1.min.js" />
     <Content Include="UI\js\stacktrace.js" />
     <Content Include="UI\api_tests.aspx" />
