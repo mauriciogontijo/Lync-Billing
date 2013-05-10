@@ -135,8 +135,8 @@ namespace Lync_Billing.DB
             TableName,
             [Description("UsersRolesID")]
             UsersRolesID,
-            [Description("SipAccount")]
-            SipAccount,
+            [Description("EmailAddress")]
+            EmailAddress,
             [Description("RoleID")]
             RoleID,
             [Description("SiteID")]
