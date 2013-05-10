@@ -52,24 +52,30 @@ namespace Lync_Billing.Libs
         /// <returns></returns>
         public bool AuthenticateUser(string EmailAddress, string password)
         {
-            ADUserInfo userInfo = getUserAttributes(EmailAddress);
-            if (userInfo == null)
-                return false;
+            try
+            {
+                ADUserInfo userInfo = getUserAttributes(EmailAddress);
+                if (userInfo == null)
+                    return false;
 
-            DirectoryEntry directoryEntry = new DirectoryEntry(LocalGCUri, userInfo.SamAccountName, password);
-            string localFilter = string.Format(ADSearchFilter, EmailAddress);
+                DirectoryEntry directoryEntry = new DirectoryEntry(LocalGCUri, userInfo.SamAccountName, password);
+                string localFilter = string.Format(ADSearchFilter, EmailAddress);
 
-            DirectorySearcher localSearcher = new DirectorySearcher(directoryEntry);
-            localSearcher.PropertiesToLoad.Add("mail");
-            // localSearcher.Filter = localFilter;
+                DirectorySearcher localSearcher = new DirectorySearcher(directoryEntry);
+                localSearcher.PropertiesToLoad.Add("mail");
+                // localSearcher.Filter = localFilter;
 
-            SearchResult result = localSearcher.FindOne();
+                SearchResult result = localSearcher.FindOne();
 
 
-            if (result != null)
-                return true;
-            else
-                return false;
+                if (result != null)
+                    return true;
+                else
+                    return false;
+            }catch (Exception ex)
+            {
+                throw(ex);
+            }
         }
 
         /// <summary>
