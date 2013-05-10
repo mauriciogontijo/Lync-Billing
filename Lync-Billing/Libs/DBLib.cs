@@ -83,19 +83,21 @@ namespace Lync_Billing.Libs
             StringBuilder selectedfields = new StringBuilder();
             StringBuilder whereStatement = new StringBuilder();
 
-            if (fields.Count != 0)
+            if (fields != null)
             {
-                foreach (string fieldName in fields)
+                if (fields.Count != 0)
                 {
-                    selectedfields.Append(fieldName + ",");
+                    foreach (string fieldName in fields)
+                    {
+                        selectedfields.Append(fieldName + ",");
+                    }
+                    selectedfields.Remove(selectedfields.Length - 1, 1);
                 }
-                selectedfields.Remove(selectedfields.Length - 1, 1);
+                else
+                    selectedfields.Append("*");
             }
-            else
-            {
+            else 
                 selectedfields.Append("*");
-            }
-
 
            if(whereClause.Count != 0)
            {

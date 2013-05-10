@@ -40,13 +40,13 @@ namespace Lync_Billing.Libs
             bool status = false;
             AdLib adConnector = new AdLib();
             ADUserInfo userInfo = new ADUserInfo();
-           
+            UserSession session;
             
             status = adConnector.AuthenticateUser(emailAddress, password);
 
             if (status == true) 
             {
-                UserSession session = new UserSession();
+                session = new UserSession();
                 userInfo = Users.GetUserInfo(emailAddress);
                 
                 // User Information was found in active directory
@@ -68,7 +68,7 @@ namespace Lync_Billing.Libs
                     //User Exists in Users Table
                     if (ListOfUsers.Count > 0)
                     {
-                        userRoles = Users.GetUserRoles((ListOfUsers[0]).SipAccount);
+                        userRoles = Users.GetUserRoles((ListOfUsers[0]).SipAccount.ToLower());
 
                          session.ActiveRoleName = "USER";
 
@@ -90,8 +90,8 @@ namespace Lync_Billing.Libs
                             Users.UpdateUser(user);
                         }
 
-                        session.SiteName = userInfo.physicalDeliveryOfficeName;
-                        session.EmployeeID = userInfo.EmployeeID;
+                         session.SiteName = userInfo.physicalDeliveryOfficeName;
+                         session.EmployeeID = userInfo.EmployeeID;
                          session.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                     }
                     else 
@@ -107,7 +107,7 @@ namespace Lync_Billing.Libs
                 }
                 
             }
-            return serializer.Serialize(HttpContext.Current.Session);
+            return serializer.Serialize(session);
         }
         
         /// <summary>

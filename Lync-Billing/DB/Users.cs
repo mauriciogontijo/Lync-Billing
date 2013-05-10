@@ -133,7 +133,7 @@ namespace Lync_Billing.DB
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             wherePart.Add("SipAccount", sipAccount);
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), null, wherePart, 0);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), null , wherePart, 0);
 
             foreach (DataRow row in dt.Rows)
             {
