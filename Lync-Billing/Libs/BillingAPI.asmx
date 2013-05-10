@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Services;
 using Lync_Billing.DB;
 using System.Web.Script.Serialization;
-using System.Web.SessionState;
 
 namespace Lync_Billing.Libs
 {
