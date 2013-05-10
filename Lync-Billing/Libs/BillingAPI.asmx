@@ -40,13 +40,13 @@ namespace Lync_Billing.Libs
             bool status = false;
             AdLib adConnector = new AdLib();
             ADUserInfo userInfo = new ADUserInfo();
-            UserSession session;
+            UserSession session = new UserSession();
             
             status = adConnector.AuthenticateUser(emailAddress, password);
 
             if (status == true) 
             {
-                session = new UserSession();
+               
                 userInfo = Users.GetUserInfo(emailAddress);
                 
                 // User Information was found in active directory
