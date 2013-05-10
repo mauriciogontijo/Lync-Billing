@@ -56,14 +56,21 @@ namespace Lync_Billing.Libs
                     session.EmailAddress = userInfo.EmailAddress;
                     session.DisplayName = userInfo.DisplayName;
                     session.TelephoneNumber = userInfo.Telephone;
-
+                    session.ClientData = new Dictionary<string, string>();
+                    
                     foreach (KeyValuePair<string, string> keyvalue in userEnv) 
                     {
                         if (keyvalue.Key == "IPAddress")
-                            session.IPAddress = keyvalue.Value;
+                            session.ClientData.Add("IPAddress", keyvalue.Value);
 
-                        if (keyvalue.Key == "BrowserData")
-                            session.BrowserData = keyvalue.Value;
+                        if (keyvalue.Key == "BrowserName")
+                            session.ClientData.Add("BrowserName", keyvalue.Value);
+
+                        if (keyvalue.Key == "BrowserVersion")
+                            session.ClientData.Add("BrowserVersion", keyvalue.Value);
+
+                        if (keyvalue.Key == "UserAgent")
+                            session.ClientData.Add("UserAgent", keyvalue.Value);
                     }
                     
                     List<string> columns = new List<string>();
