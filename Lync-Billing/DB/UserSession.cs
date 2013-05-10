@@ -16,5 +16,20 @@ namespace Lync_Billing.DB
         public string SipAccount { set; get; }
         public List<UserRole> Roles { set; get; }
 
+        private static List<UserSession> usersSessions = new List<UserSession>();
+
+        public void AddUserSession(UserSession userSession)
+        {
+            if (!usersSessions.Contains(userSession))
+                usersSessions.Add(userSession);
+        }
+
+        public void RemoveUserSession(UserSession userSession)
+        {
+            if (!usersSessions.Contains(userSession))
+                usersSessions.Remove(userSession);
+        }
     }
+
+    
 }
