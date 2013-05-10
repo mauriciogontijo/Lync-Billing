@@ -35,12 +35,16 @@ namespace Lync_Billing.Libs
         /// <param name="password">Domain Password</param>
         /// <returns>User session if authenticated or null if not</returns>
         [WebMethod]
-        public object authenticateUser(string emailAddress, string password)
+        public object authenticateUser(string emailAddress, string password,object env)
         {
             bool status = false;
             AdLib adConnector = new AdLib();
             ADUserInfo userInfo = new ADUserInfo();
             UserSession session = new UserSession();
+
+            Dictionary<string, string> userEnv = serializer.Deserialize<Dictionary<string, string>>(env.ToString());
+            
+            
             
             status = adConnector.AuthenticateUser(emailAddress, password);
 
