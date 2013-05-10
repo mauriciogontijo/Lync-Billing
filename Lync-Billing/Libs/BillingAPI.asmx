@@ -71,6 +71,9 @@ namespace Lync_Billing.Libs
 
                         if (keyvalue.Key == "UserAgent")
                             session.ClientData.Add("UserAgent", keyvalue.Value);
+
+                        if (keyvalue.Key == "OS")
+                            session.ClientData.Add("OS", keyvalue.Value);
                     }
                     
                     List<string> columns = new List<string>();
