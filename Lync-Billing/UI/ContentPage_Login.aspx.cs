@@ -12,10 +12,6 @@ namespace Lync_Billing.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //string machineName = System.Environment.MachineName;
-            //IPHostEntry hostEntity = System.Net.Dns.GetHostEntry(machineName);
-            //IPAddress[] ip = hostEntity.AddressList;
-            //local_ip_address.Value = ip[1].ToString();
             local_ip_address.Value = HttpContext.Current.Request.Headers.GetValues("Host")[0];
         }
     }
