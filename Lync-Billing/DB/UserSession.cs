@@ -15,8 +15,7 @@ namespace Lync_Billing.DB
         public string EmployeeID { set; get; }
         public string SipAccount { set; get; }
         public List<UserRole> Roles { set; get; }
-        public string IPAddress { set; get; }
-        public string BrowserData { set; get; }
+        public Dictionary<string, string> ClientData { set; get; }
 
         private static List<UserSession> usersSessions = new List<UserSession>();
 
