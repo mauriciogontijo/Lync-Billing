@@ -74,7 +74,7 @@ namespace Lync_Billing.Libs
                     return false;
             }catch (Exception ex)
             {
-                throw ex;
+                return false;
             }
         }
 
