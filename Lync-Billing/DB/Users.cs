@@ -144,11 +144,11 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.RoleID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.RoleID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.SipAccount = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.EmailAddress = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.SipAccount = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.EmailAddress = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.PoolID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.PoolID = (int)row[column.ColumnName];

@@ -12,7 +12,7 @@ namespace Lync_Billing.DB
         private static DBLib DBRoutines = new DBLib();
 
         public int UsersRolesID { set; get; }
-        public string SipAccount { get; set; }
+        public string EmailAddress { get; set; }
         public int RoleID { get; set; }
         public int SiteID { get; set; }
         public int PoolID { get; set; }
@@ -36,8 +36,8 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.RoleID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.RoleID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.SipAccount = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.EmailAddress = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.SiteID = (int)row[column.ColumnName];
@@ -75,8 +75,8 @@ namespace Lync_Billing.DB
             if ((userRole.GatewayID).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.GatewayID), userRole.GatewayID);
 
-            if (userRole.SipAccount != null)
-                columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.SipAccount), userRole.SipAccount);
+            if (userRole.EmailAddress != null)
+                columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.EmailAddress), userRole.EmailAddress);
 
             if ((userRole.RoleID).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), userRole.RoleID);
@@ -106,8 +106,8 @@ namespace Lync_Billing.DB
             if ((userRole.GatewayID).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.UsersRoles.GatewayID), userRole.GatewayID);
 
-            if (userRole.SipAccount != null)
-                setPart.Add(Enums.GetDescription(Enums.UsersRoles.SipAccount), userRole.SipAccount);
+            if (userRole.EmailAddress != null)
+                setPart.Add(Enums.GetDescription(Enums.UsersRoles.EmailAddress), userRole.EmailAddress);
 
             if ((userRole.RoleID).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), userRole.RoleID);
@@ -138,7 +138,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public static bool ValidateUsersRoles(string SipAccount, int RoleID)
+        public static bool ValidateUsersRoles(string EmailAddress, int RoleID)
         {
 
             DataTable dt = new DataTable();
@@ -149,8 +149,8 @@ namespace Lync_Billing.DB
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
            
             columns.Add(Enums.GetDescription(Enums.UsersRoles.RoleID));
-            
-            wherePart.Add(Enums.GetDescription(Enums.UsersRoles.SipAccount), SipAccount);
+
+            wherePart.Add(Enums.GetDescription(Enums.UsersRoles.EmailAddress), EmailAddress);
             wherePart.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), RoleID);
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), columns, wherePart, 0);
