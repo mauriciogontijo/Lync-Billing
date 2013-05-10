@@ -46,15 +46,16 @@ namespace Lync_Billing.Libs
 
             if (status == true) 
             {
+                UserSession session = new UserSession();
                 userInfo = Users.GetUserInfo(emailAddress);
                 
                 // User Information was found in active directory
                 if (!userInfo.Equals(null))
                 {
 
-                    Session["EmailAddress"] = userInfo.EmailAddress;
-                    Session.Add("DisplayName", userInfo.DisplayName);
-                    Session.Add("TelephoneNumber", userInfo.Telephone);
+                    session.EmailAddress = userInfo.EmailAddress;
+                    session.DisplayName = userInfo.DisplayName;
+                    session.TelephoneNumber = userInfo.Telephone;
                     
                     List<string> columns = new List<string>();
                     Dictionary<string, object> whereStatement = new Dictionary<string, object>();
@@ -69,12 +70,13 @@ namespace Lync_Billing.Libs
                     {
                         userRoles = Users.GetUserRoles((ListOfUsers[0]).SipAccount);
 
-                        Session.Add("ActiveRoleName", "USER");
+                         session.ActiveRoleName = "USER";
 
                         if (userRoles.Count > 0)
-                            Session.Add("UserRoles", userRoles);
+                             session.Roles = userRoles;
                         else
-                            Session.Add("UserRoles", null);
+                            session.Roles = null;
+                        
                         //If user information from Active directory doesnt match the one in Users Table : update user table 
                         if ((ListOfUsers[0]).SipAccount != userInfo.SipAccount.Replace("sip:", "") ||
                             (ListOfUsers[0]).UserID.ToString() != userInfo.EmployeeID ||
@@ -88,9 +90,9 @@ namespace Lync_Billing.Libs
                             Users.UpdateUser(user);
                         }
 
-                        Session.Add("SiteName", userInfo.physicalDeliveryOfficeName);
-                        Session.Add("EmployeeID", userInfo.EmployeeID);
-                        Session.Add("SipAccount", userInfo.SipAccount.Replace("sip:", ""));
+                        session.SiteName = userInfo.physicalDeliveryOfficeName;
+                        session.EmployeeID = userInfo.EmployeeID;
+                         session.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                     }
                     else 
                     {
