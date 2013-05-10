@@ -68,7 +68,7 @@ namespace Lync_Billing.Libs
                     //User Exists in Users Table
                     if (ListOfUsers.Count > 0)
                     {
-                        userRoles = Users.GetUserRoles(userInfo.EmailAddress);
+                        userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
 
                          session.ActiveRoleName = "USER";
 
