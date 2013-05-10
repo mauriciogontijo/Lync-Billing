@@ -34,6 +34,8 @@
               	<div class="placeholding-input">
 					<input type="button" id='signin_btn' tabindex="4" value="Sign in" /> <!--onclick="authenticateUser(); getUserAttrs(); getUser(); return false;" />-->
 				</div>
+
+                <asp:HiddenField id="local_ip_address" value="" runat="server"></asp:HiddenField>
 			</div>
 		</div>
 	</div>
@@ -55,7 +57,8 @@
             var password = $('#signin-password').val();
 
             if (email != '' && password != '') {
-                BillingAPI['lib'].authenticateUser(email, password, function (onSuccessData) { BillingAPI['data']['AuthUserStatus'] = $.parseJSON(onSuccessData); }, function (onFailData) { });
+                var clientData = getClientData();
+                BillingAPI['lib'].authenticateUser(email, password, clientData, function (onSuccessData) { BillingAPI['data']['AuthUserStatus'] = $.parseJSON(onSuccessData); }, function (onFailData) { });
             }
         }
 
@@ -86,6 +89,19 @@
             console.log('finished getUser API Call | ' + BillingAPI['data']['Users'].length);
         }
 
+        function getClientData() {
+            var ip_address = $('#main_content_place_holder_local_ip_address').val();
+            var browser_name = navigator.appName;
+            var browser_version = navigator.appVersion;
+            var user_agent = navigator.userAgent;
+
+            return JSON.stringify({
+                'IPAddress': ip_address,
+                'BrowserName': browser_name,
+                'BrowserVersion': browser_version,
+                'UserAgent': user_agent
+            });
+        }
 
 
         //DOCUMENT READY - EVENTS BIND

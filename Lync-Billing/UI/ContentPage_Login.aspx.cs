@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net;
 
 namespace Lync_Billing.UI
 {
@@ -11,6 +12,10 @@ namespace Lync_Billing.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string machineName = System.Environment.MachineName;
+            IPHostEntry hostEntity = System.Net.Dns.GetHostEntry(machineName);
+            IPAddress[] ip = hostEntity.AddressList;
+            local_ip_address.Value = ip[1].ToString();
 
         }
     }
