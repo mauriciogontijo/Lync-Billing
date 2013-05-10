@@ -12,7 +12,7 @@ namespace Lync_Billing.DB
         private static DBLib DBRoutines = new DBLib();
 
         public int UsersRolesID { set; get; }
-        public string EmailAddress { get; set; }
+        public string SipAccount { get; set; }
         public int RoleID { get; set; }
         public int SiteID { get; set; }
         public int PoolID { get; set; }
@@ -37,7 +37,7 @@ namespace Lync_Billing.DB
                         userRole.RoleID = (int)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.EmailAddress = (string)row[column.ColumnName];
+                        userRole.SipAccount = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.SiteID = (int)row[column.ColumnName];
@@ -75,8 +75,8 @@ namespace Lync_Billing.DB
             if ((userRole.GatewayID).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.GatewayID), userRole.GatewayID);
 
-            if (userRole.EmailAddress != null)
-                columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.EmailAddress), userRole.EmailAddress);
+            if (userRole.SipAccount != null)
+                columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.EmailAddress), userRole.SipAccount);
 
             if ((userRole.RoleID).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), userRole.RoleID);
@@ -106,8 +106,8 @@ namespace Lync_Billing.DB
             if ((userRole.GatewayID).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.UsersRoles.GatewayID), userRole.GatewayID);
 
-            if (userRole.EmailAddress != null)
-                setPart.Add(Enums.GetDescription(Enums.UsersRoles.EmailAddress), userRole.EmailAddress);
+            if (userRole.SipAccount != null)
+                setPart.Add(Enums.GetDescription(Enums.UsersRoles.EmailAddress), userRole.SipAccount);
 
             if ((userRole.RoleID).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.UsersRoles.RoleID), userRole.RoleID);
