@@ -23,8 +23,6 @@ namespace Lync_Billing.Libs
     {
         public BillingAPI() { }
         JavaScriptSerializer serializer = new JavaScriptSerializer();
-
-
         #region Users Related
         
         /// <summary>
@@ -42,7 +40,7 @@ namespace Lync_Billing.Libs
             bool status = false;
             AdLib adConnector = new AdLib();
             ADUserInfo userInfo = new ADUserInfo();
-            //HttpSessionState Session = new HttpSessionState();
+           
             
             status = adConnector.AuthenticateUser(emailAddress, password);
 
@@ -53,7 +51,8 @@ namespace Lync_Billing.Libs
                 // User Information was found in active directory
                 if (!userInfo.Equals(null))
                 {
-                    Session.Add("EmailAddress", userInfo.EmailAddress);
+
+                    Session["EmailAddress"] = userInfo.EmailAddress;
                     Session.Add("DisplayName", userInfo.DisplayName);
                     Session.Add("TelephoneNumber", userInfo.Telephone);
                     
@@ -104,8 +103,9 @@ namespace Lync_Billing.Libs
                         Users.InsertUser(user);
                     }
                 }
+                
             }
-            return serializer.Serialize(Session);
+            return serializer.Serialize(HttpContext.Current.Session);
         }
         
         /// <summary>
