@@ -12,10 +12,12 @@ namespace Lync_Billing.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string machineName = System.Environment.MachineName;
-            IPHostEntry hostEntity = System.Net.Dns.GetHostEntry(machineName);
-            IPAddress[] ip = hostEntity.AddressList;
-            local_ip_address.Value = ip[1].ToString();
+            //string machineName = System.Environment.MachineName;
+            //IPHostEntry hostEntity = System.Net.Dns.GetHostEntry(machineName);
+            //IPAddress[] ip = hostEntity.AddressList;
+            //local_ip_address.Value = ip[1].ToString();
+            local_ip_address.Value = Request.Headers.GetValues("Host")[0];
+            string userAgent = Request.Headers.GetValues("User-Agent")[0];
 
         }
     }
