@@ -30,8 +30,42 @@ namespace Lync_Billing.UI
             panel.ID = "GridPanel";
 
             GridPanel grid = Grids.PhoneCallsGrid(columns, wherePart, 10);
-        
-            form1.Controls.Add(grid);
+            Viewport viewport = new Viewport();
+            viewport.ID = "viewport";
+            viewport.Layout ="Border";
+            viewport.SetSize("100%", "100%");
+
+            panel.Region = Region.Center;
+            panel.SetSize("50%","50%");
+            panel.Layout = "Border";
+            panel.Frame = true;
+
+            grid.ID = "PhoneCallsGrid";
+            grid.Layout = "Fit";
+            grid.SetSize(500, 300);
+            
+            Ext.Net.ComboBox markingStatus = new ComboBox();
+            markingStatus.ID = "markingStatus";
+
+            markingStatus.FieldLabel = "MarkingStatus";
+            markingStatus.DisplayField = "MarkingStatus";
+            markingStatus.ValueField = "MarkingValue";
+            markingStatus.Store.Add(DBStores.PhoneCallMarkingStore());
+            markingStatus.QueryMode = DataLoadMode.Local;
+            markingStatus.TypeAhead = true;
+            markingStatus.TriggerAction = TriggerAction.All;
+            
+            Toolbar toolbar = new Toolbar();
+            toolbar.ID = "Toolbar";
+
+            toolbar.Add(markingStatus);
+            grid.TopBar.Add(toolbar);
+
+            panel.Add(grid);
+            viewport.Add(panel);
+
+
+            form1.Controls.Add(viewport);
             
         }
      }
