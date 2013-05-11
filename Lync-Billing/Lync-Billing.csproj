@@ -105,6 +105,8 @@
     <Content Include="UI\css\green-layout.css" />
     <Content Include="UI\css\reset.css" />
     <Content Include="UI\css\toolkit.css" />
+    <Content Include="UI\GridTest.aspx" />
+    <Content Include="UI\GridTest2.aspx" />
     <Content Include="UI\images\mybills.png" />
     <Content Include="UI\images\navbar-bg.gif" />
     <Content Include="UI\images\phonecalls.png" />
@@ -154,6 +156,21 @@
     <Compile Include="UI\ContentPage_Login.aspx.designer.cs">
       <DependentUpon>ContentPage_Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UI\DBStores.cs" />
+    <Compile Include="UI\GridTest.aspx.cs">
+      <DependentUpon>GridTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\GridTest.aspx.designer.cs">
+      <DependentUpon>GridTest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\GridTest2.aspx.cs">
+      <DependentUpon>GridTest2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\GridTest2.aspx.designer.cs">
+      <DependentUpon>GridTest2.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UI\MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -161,6 +178,7 @@
     <Compile Include="UI\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
+    <Compile Include="UI\DBModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="UI\MasterPage.Master" />
