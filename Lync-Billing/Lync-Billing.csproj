@@ -157,6 +157,7 @@
       <DependentUpon>ContentPage_Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\DBStores.cs" />
+    <Compile Include="UI\Grids.cs" />
     <Compile Include="UI\GridTest.aspx.cs">
       <DependentUpon>GridTest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
