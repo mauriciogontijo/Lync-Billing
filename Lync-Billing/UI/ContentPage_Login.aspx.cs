@@ -12,7 +12,7 @@ namespace Lync_Billing.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            local_ip_address.Value = HttpContext.Current.Request.Headers.GetValues("Host")[0];
+            local_ip_address.Value = HttpContext.Current.Request.UserHostAddress;
         }
     }
 }
