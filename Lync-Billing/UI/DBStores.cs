@@ -58,6 +58,24 @@ namespace Lync_Billing.UI
             return model;
         }
 
+        public static Model PhoneCallMarkingModel() 
+        {
+            Model model;
+
+            model = new Model()
+            {
+                ID = "phoneCallModel",
+                IDProperty = "SessionIdTime",
+                Fields = 
+                    {
+                        new ModelField("MarkingStatus"),
+                        new ModelField("MarkingValue")
+                    }
+            };
+
+            return model;
+        }
+
         public static Store PhoneCallsStore(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Store store = new Store()
@@ -65,6 +83,25 @@ namespace Lync_Billing.UI
                 ID = "PhonceCallsStore",
                 DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, limits),
                 Model = { PhoneCallModel(columns) }
+            };
+            return store;
+        }
+
+        public Store PhoneCallMarkingStore() 
+        {
+            Store store = new Store()
+            {
+                ID = "PhonceCallsStore",
+                DataSource = new Object[]
+                {
+                    new object[] { "Unmarked" , 1 },
+                    new object[] { "Marked" , 2 },
+                    new object[] { "Marked As Business", 3 },
+                    new object[] { "Marked As Personal", 4 },
+                    new object[] { "Marked As Dispute", 4 },
+                    new object[] { "Charged Calls", 4 }
+                },
+                Model = { PhoneCallMarkingModel() }
             };
             return store;
         }
