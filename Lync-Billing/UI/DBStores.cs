@@ -9,7 +9,7 @@ namespace Lync_Billing.UI
 {
     public class DBStores
     {
-        public static Model PhoneCallModel(List<string> columns)
+        private static Model PhoneCallModel(List<string> columns)
         {
             Model model;
 
@@ -58,13 +58,13 @@ namespace Lync_Billing.UI
             return model;
         }
 
-        public static Model PhoneCallMarkingModel() 
+        private static Model PhoneCallMarkingModel() 
         {
             Model model;
 
             model = new Model()
             {
-                ID = "phoneCallModel",
+                ID = "PhoneCallMarkingModel",
                 IDProperty = "SessionIdTime",
                 Fields = 
                     {
@@ -87,11 +87,11 @@ namespace Lync_Billing.UI
             return store;
         }
 
-        public Store PhoneCallMarkingStore() 
+        public static Store PhoneCallMarkingStore() 
         {
             Store store = new Store()
             {
-                ID = "PhonceCallsStore",
+                ID = "PhoneCallMarkingStore",
                 DataSource = new Object[]
                 {
                     new object[] { "Unmarked" , 1 },
