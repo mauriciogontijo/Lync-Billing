@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Ext.Net;
 using Lync_Billing.DB;
+using System.Web.Script.Serialization;
 
 namespace Lync_Billing.UI
 {
@@ -78,13 +79,67 @@ namespace Lync_Billing.UI
 
         public static Store PhoneCallsStore(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
+            Model model = PhoneCallModel(columns);
             Store store = new Store()
             {
                 ID = "PhonceCallsStore",
                 DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, limits),
-                Model = { PhoneCallModel(columns) }
+                Model = { model }
             };
+            store.AfterRecordInserted += AfterPhoneCallRecordInserted;
+            store.AfterRecordUpdated  += AfterPhoneCallRecordUpdated;
+            store.AfterRecordDeleted  += AfterPhoneCallRecordDeleted;
+            store.AfterStoreChanged   += store_AfterStoreChanged;
+            store.BeforeDirectEvent   += store_BeforeDirectEvent;
+            store.BeforeRecordUpdated +=store_BeforeRecordUpdated;
+
+
+
             return store;
+        }
+
+        private static void store_BeforeRecordUpdated(object sender, BeforeRecordUpdatedEventArgs e)
+        {
+            PhoneCall phonecall = e.Object<PhoneCall>();
+           
+
+            
+
+            throw new NotImplementedException();
+        }
+
+        private static void store_BeforeDirectEvent(object sender, BeforeDirectEventArgs e)
+        {
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            phoneCalls = serializer.Deserialize<List<PhoneCall>>(e.Data.JsonData);
+          
+            throw new NotImplementedException();
+        }
+
+        private static void store_AfterStoreChanged(object sender, AfterStoreChangedEventArgs e)
+        {
+            if (e.Action == StoreAction.Update) 
+            {
+                ResponseRecordsList recordlist = e.ResponseRecords;
+            }
+            throw new NotImplementedException();
+        }
+
+        private static void AfterPhoneCallRecordDeleted(object sender, AfterRecordDeletedEventArgs e)
+        {
+            PhoneCall phonecall = e.Object<PhoneCall>();
+            throw new NotImplementedException();
+        }
+
+        private static void AfterPhoneCallRecordUpdated(object sender, AfterRecordUpdatedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void AfterPhoneCallRecordInserted(object sender, AfterRecordInsertedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public static Store PhoneCallMarkingStore() 
