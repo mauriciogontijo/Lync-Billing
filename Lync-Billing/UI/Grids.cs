@@ -25,7 +25,8 @@ namespace Lync_Billing.UI
                             {
                                 ID = "SessionIdTime",
                                 Text = "SessionIdTime",
-                                DataIndex = "SessionIdTime"
+                                DataIndex = "SessionIdTime",
+                               
                             },
                             new Column 
                             {
