@@ -101,11 +101,6 @@ namespace Lync_Billing.UI
         private static void store_BeforeRecordUpdated(object sender, BeforeRecordUpdatedEventArgs e)
         {
             PhoneCall phonecall = e.Object<PhoneCall>();
-           
-
-            
-
-            throw new NotImplementedException();
         }
 
         private static void store_BeforeDirectEvent(object sender, BeforeDirectEventArgs e)
@@ -113,23 +108,20 @@ namespace Lync_Billing.UI
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             phoneCalls = serializer.Deserialize<List<PhoneCall>>(e.Data.JsonData);
-          
-            throw new NotImplementedException();
         }
-
         private static void store_AfterStoreChanged(object sender, AfterStoreChangedEventArgs e)
         {
             if (e.Action == StoreAction.Update) 
             {
                 ResponseRecordsList recordlist = e.ResponseRecords;
             }
-            throw new NotImplementedException();
+         
         }
 
         private static void AfterPhoneCallRecordDeleted(object sender, AfterRecordDeletedEventArgs e)
         {
             PhoneCall phonecall = e.Object<PhoneCall>();
-            throw new NotImplementedException();
+         
         }
 
         private static void AfterPhoneCallRecordUpdated(object sender, AfterRecordUpdatedEventArgs e)
