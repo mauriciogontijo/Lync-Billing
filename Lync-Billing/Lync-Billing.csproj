@@ -179,7 +179,6 @@
     <Compile Include="UI\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
-    <Compile Include="UI\DBModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="UI\MasterPage.Master" />
