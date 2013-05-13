@@ -21,10 +21,9 @@ namespace Lync_Billing.UI
 
             wherePart.Add("SourceUserUri",sipAccount);
             columns.Add("SessionIdTime");
-            columns.Add("ResponseTime");
             columns.Add("DestinationNumberUri");
             columns.Add("Duration");
-            columns.Add("PoolFQDN");
+            columns.Add("marker_CallCost");
 
            //Store store = DBStores.PhoneCallsStore(columns,wherePart,10);
 
@@ -35,7 +34,7 @@ namespace Lync_Billing.UI
             grid.SelectionModel.Add(new RowSelectionModel()
             {
                 AllowDeselect = true,
-                Mode = SelectionMode.Single
+                Mode = SelectionMode.Multi
             });
           
             //Grid editor plugin : enables editing
@@ -49,22 +48,10 @@ namespace Lync_Billing.UI
             grid.ColumnModel.Columns[2].Editor.Add(textField);
             //Formating Date
             grid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";
-            grid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";                        
-            
-                                    
-            Viewport viewport = new Viewport();
-            viewport.ID = "viewport";
-            viewport.Layout ="Border";
-            viewport.SetSize("100%", "100%");
-
-            panel.Region = Region.Center;
-            panel.SetSize("50%","50%");
-            panel.Layout = "Border";
-            panel.Frame = true;
 
             grid.ID = "PhoneCallsGrid";
             grid.Layout = "Fit";
-            grid.SetSize(500, 300);
+            grid.SetSize(400, 300);
             
             Ext.Net.ComboBox markingStatus = new ComboBox();
             markingStatus.ID = "markingStatus";
@@ -88,17 +75,18 @@ namespace Lync_Billing.UI
             toolbar.Add(markingStatus);
             grid.TopBar.Add(toolbar);
             grid.Buttons.Add(save);
-            panel.Add(grid);
-            viewport.Add(panel);
-           
-
-            form1.Controls.Add(viewport);
+            //panel.Add(grid);
+            //viewport.Add(panel);
+            //form1.Controls.Add(viewport);
+            ph.Controls.Add(grid);
             
         }
 
         private void save_DirectClick(object sender, DirectEventArgs e)
         {
             (grid.GetStore()).Sync();
+            //(grid.GetStore()).CommitChanges();
+            
             
         }
          public string formatDateTime(string value) {

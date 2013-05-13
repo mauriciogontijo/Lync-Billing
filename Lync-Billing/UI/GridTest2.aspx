@@ -9,7 +9,9 @@
 <body>
     <form id="form1" runat="server">
            <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
+            <asp:PlaceHolder ID="ph" runat="server">
 
+            </asp:PlaceHolder>
     <div>
     
     </div>
