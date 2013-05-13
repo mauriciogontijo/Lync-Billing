@@ -22,17 +22,18 @@
 		<div class="front-signin p10">
 			<div class="signin mt5">
 				<div class="placeholding-input username">
-					<input type="text" id="signin-email" class="" name="session[username_or_email]" title="Email" tabindex="1" />
-					<label for="signin-email" class="placeholder">Email</label>
+					<asp:TextBox TextMode="Email" runat="server" id="email" class="" name="email" title="Email" tabindex="1" />
+					<label for="email" class="placeholder">Email</label>
 				</div>
 
 				<div class="placeholding-input password">
-            		<input type="password" id="signin-password" class="" name="session[password]" title="Password" tabindex="2" />
-                	<label for="signin-password" class="placeholder">Password</label>
+            		<asp:TextBox id="password" runat="server" TextMode="Password" name="password" title="Password" tabindex="2" />
+                	<label for="password" class="placeholder">Password</label>
               	</div>
 
               	<div class="placeholding-input">
-					<input type="button" id='signin_btn' tabindex="4" value="Sign in" /> <!--onclick="authenticateUser(); getUserAttrs(); getUser(); return false;" />-->
+					<!--<input type="submit" id='signin_btn' tabindex="4" value="Sign in" /> <!--onclick="authenticateUser(); getUserAttrs(); getUser(); return false;" />-->
+                    <asp:Button ID="signin_submit" runat="server" OnClick="Signin" />
 				</div>
 
                 <asp:HiddenField id="local_ip_address" value="" runat="server"></asp:HiddenField>
@@ -52,8 +53,8 @@
 
 
         function authenticateUser() {
-            var email = $('#signin-email').val();
-            var password = $('#signin-password').val();
+            var email = $('#email').val();
+            var password = $('#password').val();
             
             if (email != '' && password != '') {
                 var clientData = getClientData();
@@ -68,7 +69,7 @@
         }
 
         function getUserAttrs() {
-            var email = $('#signin-email').val();
+            var email = $('#email').val();
 
             BillingAPI['lib'].GetUserAttributes(
                 email,
