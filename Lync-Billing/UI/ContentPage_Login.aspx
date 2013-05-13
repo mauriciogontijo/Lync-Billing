@@ -40,8 +40,7 @@
 		</div>
 	</div>
     <!-- End of ContentPage_Login Main HTML Content -->
-
-
+    
     <!-- Start of Billing WebServices Javascript -->
     <script type="text/javascript">
         if (!window.BillingAPI) {
@@ -58,7 +57,13 @@
             
             if (email != '' && password != '') {
                 var clientData = getClientData();
-                BillingAPI['lib'].authenticateUser(email, password, clientData, function (onSuccessData) { BillingAPI['data']['AuthUserStatus'] = $.parseJSON(onSuccessData); }, function (onFailData) { });
+                BillingAPI['lib'].authenticateUser(
+                    email,
+                    password,
+                    clientData,
+                    function (onSuccessData) { BillingAPI['data']['AuthUserStatus'] = $.parseJSON(onSuccessData); },
+                    function (onFailData) { }
+                );
             }
         }
 
