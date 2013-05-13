@@ -49,7 +49,8 @@ namespace Lync_Billing.UI
             grid.ColumnModel.Columns[2].Editor.Add(textField);
             //Formating Date
             grid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";
-            grid.ColumnModel.Columns[1].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";                        
+            grid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";                        
+            
                                     
             Viewport viewport = new Viewport();
             viewport.ID = "viewport";
@@ -98,6 +99,7 @@ namespace Lync_Billing.UI
         private void save_DirectClick(object sender, DirectEventArgs e)
         {
             (grid.GetStore()).Sync();
+            
         }
          public string formatDateTime(string value) {
              return "2013-10-10";
