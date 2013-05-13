@@ -69,8 +69,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
-    <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
-
     <div id='announcements' class='announcements shadow mb10 p10'>
 		<div class='mb20'>
 			<p class='font-18'>ANNOUNCEMENTS!</p>

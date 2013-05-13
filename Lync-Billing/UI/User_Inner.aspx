@@ -98,11 +98,13 @@
 		    });
 
 		    $('.show-phone-call-history-btn').click(function (e) {
-		        $('#main div.visibility-marker').fadeOut(400, function (e) {
+		        $('#phone-call-history').fadeIn(150);
+		        //$('#phone-call-history').css('display', 'block');
+		        /*$('#main div.visibility-marker').fadeOut(400, function (e) {
 		            $(this).removeClass('visibility-marker');
 		            $('#phone-call-history').fadeIn(150);
 		            $('#phone-call-history').addClass('visibility-marker');
-		        });
+		        });*/
 		    }); 
 		});
 	</script>
@@ -136,146 +138,49 @@
 		    <div class='clear h5'></div>
 	    </div>
     </div>
-
+    
     <div id='content-block-0' class='block float-right w80p h100p visibility-marker'>
-	    <div class='block-header top-rounded bh-shadow'>
-		    <p class='font-18'>Content Block #0</p>
-	    </div>
-	    <div class='block-body bottom-rounded bb-shadow'>
-		    <div class='block-content wauto float-left'>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-		    </div>
-		    <div class='clear h5'></div>
-	    </div>
-    </div>
+		<div class='block-header top-rounded bh-shadow'>
+			<p class='font-18'>Content Block #0</p>
+		</div>
+		<div class='block-body bottom-rounded bb-shadow'>
+			<div class='block-content wauto float-left'>
+			</div>
+			<div class='clear h5'></div>
+		</div>
+	</div>
 
-    <div id='content-block-1' class='block float-right w80p h100p' style='display: none;'>
-	    <div class='block-header top-rounded bh-shadow'>
-		    <p class='font-18'>Content Block #1</p>
-	    </div>
-	    <div class='block-body bottom-rounded bb-shadow'>
-		    <div class='block-content wauto float-left'>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-		    </div>
-		    <div class='clear h5'></div>
-	    </div>
-    </div>
+	<div id='content-block-1' class='block float-right w80p h100p' style='display: none;'>
+		<div class='block-header top-rounded bh-shadow'>
+			<p class='font-18'>Content Block #1</p>
+		</div>
+		<div class='block-body bottom-rounded bb-shadow'>
+			<div class='block-content wauto float-left'>
+			</div>
+			<div class='clear h5'></div>
+		</div>
+	</div>
 
-    <div id='content-block-2' class='block float-right w80p h100p' style='display: none;'>
-	    <div class='block-header top-rounded bh-shadow'>
-		    <p class='font-18'>Content Block #2</p>
-	    </div>
-	    <div class='block-body bottom-rounded bb-shadow'>
-		    <div class='wauto float-left'>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>
-			    <p class='font-14'>aasdasdasdas dasdasdasdaasdasd asdasdasdasdasdaasd asdasdasdasdasdasda asdasdasdas dasdasdasda dasdasdasda</p>						
-		    </div>
-		    <div class='clear h5'></div>
-	    </div>
-    </div>
+	<div id='content-block-2' class='block float-right w80p h100p' style='display: none;'>
+		<div class='block-header top-rounded bh-shadow'>
+			<p class='font-18'>Content Block #2</p>
+		</div>
+		<div class='block-body bottom-rounded bb-shadow'>
+			<div class='wauto float-left'>						
+			</div>
+			<div class='clear h5'></div>
+		</div>
+	</div>
 
-    <div id='phone-call-history' class='block float-right w80p h100p' style='display: none;'>
-	    <div class='block-header top-rounded bh-shadow'>
-		    <p class='font-18'>Phone Calls History</p>
-	    </div>
-	    <div class='block-body bottom-rounded bb-shadow'>
-		    <div class='wauto float-left'>
+    <div id='phone-call-history' class='block float-right w80p h100p visibility-marker'>
+        <div class='block-header top-rounded bh-shadow'>
+			<p class='font-18'>Content Block #2</p>
+		</div>
+		<div class='block-body bottom-rounded bb-shadow'>
+			<div class='wauto float-left'>
                 <asp:PlaceHolder ID="UserPhoneCallsHistoryPH" runat="server">
                 </asp:PlaceHolder>
-		    </div>
-		    <div class='clear h5'></div>
-	    </div>
+            </div>
+        </div>
     </div>
 </asp:Content>

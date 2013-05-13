@@ -23,10 +23,8 @@ namespace Lync_Billing.UI
             columns.Add("marker_CallToCountry");
             columns.Add("DestinationNumberUri");
             columns.Add("Duration");
-            columns.Add("marker_CallCost");
             columns.Add("ui_IsPersonal");
             columns.Add("ui_MarkedOn");
-            columns.Add("ui_UpdatedByUser");
             columns.Add("ui_IsInvoiced");
             
             UserPhoneCallsHistoryGrid = Grids.PhoneCallsGrid(columns, wherePart,0);
@@ -35,17 +33,38 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";
 
             UserPhoneCallsHistoryGrid.ID = "PhoneCallsGrid";
-            UserPhoneCallsHistoryGrid.Layout = "Table";
-            UserPhoneCallsHistoryGrid.Width = 465;
+            UserPhoneCallsHistoryGrid.Layout = "Table"; 
+            UserPhoneCallsHistoryGrid.Width = 700;
+            UserPhoneCallsHistoryGrid.Height = 300;
+            UserPhoneCallsHistoryGrid.Scroll = ScrollMode.Both;
+            
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Text = "Date";
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Text = "Destination";
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Width = 165;
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Width = 80;
+
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Text = "Country Code";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Width = 100;
+            
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[2].Text = "Destination";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[2].Width = 165;
 
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[3].Text = "Cost";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[3].Width = 50;
+
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[4].Text = "Type";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[4].Width = 100;
+
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[5].Text = "Updated On";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[5].Width = 100;
+
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[6].Text = "Billing Status";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[6].Width = 100;
+
             UserPhoneCallsHistoryGrid.Header = true;
             UserPhoneCallsHistoryGrid.Title = "Calls History";
 
             UserPhoneCallsHistoryPH.Controls.Add(UserPhoneCallsHistoryGrid);
+            UserPhoneCallsHistoryPH.
+
         }
     }
 }
