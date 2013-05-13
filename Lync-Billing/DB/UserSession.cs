@@ -31,7 +31,6 @@ namespace Lync_Billing.DB
             if (!usersSessions.Contains(userSession))
                 usersSessions.Remove(userSession);
         }
-
     }
 
     
