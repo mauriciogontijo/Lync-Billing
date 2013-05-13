@@ -48,7 +48,7 @@ namespace Lync_Billing.UI
             grid.ColumnModel.Columns[2].Editor.Add(textField);
             //Formating Date
             grid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";
-
+            
             grid.ID = "PhoneCallsGrid";
             grid.Layout = "Fit";
             grid.SetSize(400, 300);
@@ -70,6 +70,7 @@ namespace Lync_Billing.UI
             Ext.Net.Button save = new Ext.Net.Button();
             save.Selectable = true;
             save.ID = "Save";
+            save.Text = "Save";
             save.DirectClick +=save_DirectClick;
 
             toolbar.Add(markingStatus);
