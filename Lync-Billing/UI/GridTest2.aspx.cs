@@ -30,7 +30,7 @@ namespace Lync_Billing.UI
             Ext.Net.Panel panel = new Ext.Net.Panel();
             panel.ID = "GridPanel";
 
-            grid = Grids.PhoneCallsGrid(columns, wherePart, 10);
+            grid = Grids.PhoneCallsGrid(columns, wherePart, 7);
             grid.SelectionModel.Add(new RowSelectionModel()
             {
                 AllowDeselect = true,
@@ -45,37 +45,48 @@ namespace Lync_Billing.UI
             Ext.Net.TextField textField = new TextField();
             textField.ID = "SessionTime";
             //Add Editor to SessionTime 
-            grid.ColumnModel.Columns[2].Editor.Add(textField);
+            //grid.ColumnModel.Columns[2].Editor.Add(textField);
             //Formating Date
             grid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";
             
             grid.ID = "PhoneCallsGrid";
-            grid.Layout = "Fit";
-            grid.SetSize(400, 300);
-            
-            Ext.Net.ComboBox markingStatus = new ComboBox();
-            markingStatus.ID = "markingStatus";
+            grid.Layout = "Table";
+            //grid.SetSize(400, 300);
+            grid.Width = 465;
+            grid.ColumnModel.Columns[0].Text = "Date";
+            grid.ColumnModel.Columns[1].Text = "Destination";
+            grid.ColumnModel.Columns[1].Width = 165;
 
-            markingStatus.FieldLabel = "MarkingStatus";
-            markingStatus.DisplayField = "MarkingStatus";
-            markingStatus.ValueField = "MarkingValue";
-            markingStatus.Store.Add(DBStores.PhoneCallMarkingStore());
-            markingStatus.QueryMode = DataLoadMode.Local;
-            markingStatus.TypeAhead = true;
-            markingStatus.TriggerAction = TriggerAction.All;
+            grid.ColumnModel.Columns[3].Text = "Cost";
+            grid.Header = true;
+            grid.Title = "Calls History";
 
-            Toolbar toolbar = new Toolbar();
-            toolbar.ID = "Toolbar";
+            //Table Layout modifications
 
-            Ext.Net.Button save = new Ext.Net.Button();
-            save.Selectable = true;
-            save.ID = "Save";
-            save.Text = "Save";
-            save.DirectClick +=save_DirectClick;
 
-            toolbar.Add(markingStatus);
-            grid.TopBar.Add(toolbar);
-            grid.Buttons.Add(save);
+            //Ext.Net.ComboBox markingStatus = new ComboBox();
+            //markingStatus.ID = "markingStatus";
+
+            //markingStatus.FieldLabel = "MarkingStatus";
+            //markingStatus.DisplayField = "MarkingStatus";
+            //markingStatus.ValueField = "MarkingValue";
+            //markingStatus.Store.Add(DBStores.PhoneCallMarkingStore());
+            //markingStatus.QueryMode = DataLoadMode.Local;
+            //markingStatus.TypeAhead = true;
+            //markingStatus.TriggerAction = TriggerAction.All;
+
+            //Toolbar toolbar = new Toolbar();
+            //toolbar.ID = "Toolbar";
+
+            //Ext.Net.Button save = new Ext.Net.Button();
+            //save.Selectable = true;
+            //save.ID = "Save";
+            //save.Text = "Save";
+            //save.DirectClick +=save_DirectClick;
+
+            //toolbar.Add(markingStatus);
+            //grid.TopBar.Add(toolbar);
+            //grid.Buttons.Add(save);
             //panel.Add(grid);
             //viewport.Add(panel);
             //form1.Controls.Add(viewport);
