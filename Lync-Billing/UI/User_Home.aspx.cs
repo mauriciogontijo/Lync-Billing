@@ -16,8 +16,7 @@ namespace Lync_Billing.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            //string sipAccount = "SGhaida@ccc.gr";
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             List<string> columns = new List<string>();
 
