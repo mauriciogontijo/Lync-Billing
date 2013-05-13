@@ -20,11 +20,16 @@ namespace Lync_Billing.UI
 
             wherePart.Add("SourceUserUri", SipAccount);
             columns.Add("SessionIdTime");
+            columns.Add("marker_CallToCountry");
             columns.Add("DestinationNumberUri");
             columns.Add("Duration");
             columns.Add("marker_CallCost");
-
-            UserPhoneCallsHistoryGrid = Grids.PhoneCallsGrid(columns, wherePart, 7);
+            columns.Add("ui_IsPersonal");
+            columns.Add("ui_MarkedOn");
+            columns.Add("ui_UpdatedByUser");
+            columns.Add("ui_IsInvoiced");
+            
+            UserPhoneCallsHistoryGrid = Grids.PhoneCallsGrid(columns, wherePart,0);
             Ext.Net.TextField textField = new TextField();
             textField.ID = "SessionTime";
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";
