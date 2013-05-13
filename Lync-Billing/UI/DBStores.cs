@@ -93,8 +93,6 @@ namespace Lync_Billing.UI
             store.BeforeDirectEvent   += store_BeforeDirectEvent;
             store.BeforeRecordUpdated +=store_BeforeRecordUpdated;
 
-
-
             return store;
         }
 
