@@ -14,6 +14,13 @@ namespace Lync_Billing.UI
         GridPanel UserPhoneCallsHistoryGrid;
         protected void Page_Load(object sender, EventArgs e)
         {
+            PlaceHolder1.Visible = false;
+            UserPhoneCallsHistoryPH.Visible = false;
+        }
+
+        protected void view_call_history_Click(object sender, EventArgs e)
+        {
+            UserPhoneCallsHistoryPH.Visible = true;
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             List<string> columns = new List<string>();
@@ -26,24 +33,24 @@ namespace Lync_Billing.UI
             columns.Add("ui_IsPersonal");
             columns.Add("ui_MarkedOn");
             columns.Add("ui_IsInvoiced");
-            
-            UserPhoneCallsHistoryGrid = Grids.PhoneCallsGrid(columns, wherePart,0);
+
+            UserPhoneCallsHistoryGrid = Grids.PhoneCallsGrid(columns, wherePart, 0);
             Ext.Net.TextField textField = new TextField();
             textField.ID = "SessionTime";
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";
 
             UserPhoneCallsHistoryGrid.ID = "PhoneCallsGrid";
-            UserPhoneCallsHistoryGrid.Layout = "Table"; 
+            UserPhoneCallsHistoryGrid.Layout = "Table";
             UserPhoneCallsHistoryGrid.Width = 700;
             UserPhoneCallsHistoryGrid.Height = 300;
             UserPhoneCallsHistoryGrid.Scroll = ScrollMode.Both;
-            
+
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Text = "Date";
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Width = 80;
 
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Text = "Country Code";
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Width = 100;
-            
+
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[2].Text = "Destination";
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[2].Width = 165;
 
@@ -62,9 +69,26 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.Header = true;
             UserPhoneCallsHistoryGrid.Title = "Calls History";
 
-            UserPhoneCallsHistoryPH.Controls.Add(UserPhoneCallsHistoryGrid);
-            UserPhoneCallsHistoryPH.
+            LiveSearchGridPanel searchPanel = new LiveSearchGridPanel();
+            searchPanel.Listeners.Search.Fn = "if(count>0){#{StatusBar1}.setStatus({text: count + ' matche(s) found.', iconCls: 'x-status-valid'});}";
+            
 
+                
+            PagingToolbar pagingToolBar = new PagingToolbar();
+            
+            pagingToolBar.DisplayMsg = "Phone Calls";
+            UserPhoneCallsHistoryGrid.BottomBar.Add(pagingToolBar);
+            //UserPhoneCallsHistoryGrid.Plugins.Add(searchPanel);
+            
+            UserPhoneCallsHistoryPH.Controls.Add(UserPhoneCallsHistoryGrid);
+                
         }
+
+        protected void TEST1_Click(object sender, EventArgs e)
+        {
+            UserPhoneCallsHistoryPH.Visible = false;
+            PlaceHolder1.Visible = true;
+        }
+      
     }
 }
