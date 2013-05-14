@@ -86,7 +86,7 @@ namespace Lync_Billing.UI
                 DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, limits),
                 Model = { model },
                 IsPagingStore = true,
-                PageSize = 20
+                PageSize = 25
             };
             store.AfterRecordInserted += AfterPhoneCallRecordInserted;
             store.AfterRecordUpdated  += AfterPhoneCallRecordUpdated;
