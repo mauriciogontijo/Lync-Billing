@@ -84,7 +84,9 @@ namespace Lync_Billing.UI
             {
                 ID = "PhonceCallsStore",
                 DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, limits),
-                Model = { model }
+                Model = { model },
+                IsPagingStore = true,
+                PageSize = 20
             };
             store.AfterRecordInserted += AfterPhoneCallRecordInserted;
             store.AfterRecordUpdated  += AfterPhoneCallRecordUpdated;
