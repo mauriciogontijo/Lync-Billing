@@ -115,8 +115,24 @@ namespace Lync_Billing.UI
 
         public void PhoneCallsReadData(object sender, StoreReadDataEventArgs e)
         {
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            
             int count;
-            (UserPhoneCallsHistoryGrid.GetStore()).DataSource = PhoneCall.GetPhoneCallsFilter(e.Start, e.Limit, e.Sort.Length > 0 ? e.Sort[0] : null, out count);
+           
+            List<string> columns = new List<string>();
+            Dictionary<string, object> wherePart = new Dictionary<string,object>();
+
+            wherePart.Add("SourceUserUri", SipAccount);
+            columns.Add("SessionIdTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+            columns.Add("ui_IsPersonal");
+            columns.Add("ui_MarkedOn");
+            columns.Add("ui_IsInvoiced");
+
+            (UserPhoneCallsHistoryGrid.GetStore()).DataSource = PhoneCall.GetPhoneCallsFilter(columns,wherePart, e.Start, e.Limit, out count);
             e.Total = count;
             this.store.DataBind();
         }
