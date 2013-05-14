@@ -14,22 +14,64 @@ namespace Lync_Billing.UI
     public partial class GridTest : System.Web.UI.Page
     {
 
+       Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        List<string> columns = new List<string>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            ObjectDataSource1.SelectParameters.Add("SourceUserUri","Sghaida@ccc.gr");
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+
+            wherePart.Add("SourceUserUri", SipAccount);
+
+            columns.Add("SessionIdTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+            columns.Add("ui_IsPersonal");
+            columns.Add("ui_MarkedOn");
+            columns.Add("ui_IsInvoiced");
+
+            PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            PhoneCallStore.DataBind();
         }
 
-        public static List<PhoneCall> GetPhoneCalls(string SourceUserUri)
+     
+        protected void GridSubmitChanges_Click(object sender, DirectEventArgs e)
         {
-            Store PhoneCallsStore = new Store();
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            wherePart.Add("SourceUserUri", SourceUserUri);
 
-            PhoneCallsStore.ID = "PhoneCallsStore";
-            PhoneCallsStore.AutoLoad = false;
-            //PhoneCallsStore.DataSource = serializer.Serialize(Lync_Billing.DB.PhoneCall.GetPhoneCalls(null, wherePart, 10));
-            //DataBind();
-            return Lync_Billing.DB.PhoneCall.GetPhoneCalls(null, wherePart, 10);
         }
+
+        protected void PhoneCallStore_AfterRecordUpdated(object sender, AfterRecordUpdatedEventArgs e)
+        {
+
+        }
+
+        protected void PhoneCallStore_AfterStoreChanged(object sender, AfterStoreChangedEventArgs e)
+        {
+
+        }
+
+        protected void PhoneCallStore_AfterDirectEvent(object sender, AfterDirectEventArgs e)
+        {
+
+        }
+
+        protected void PhoneCallStore_BeforeDirectEvent(object sender, BeforeDirectEventArgs e)
+        {
+
+        }
+
+        protected void PhoneCallStore_BeforeRecordUpdated(object sender, BeforeRecordUpdatedEventArgs e)
+        {
+
+        }
+
+        protected void PhoneCallStore_BeforeStoreChanged(object sender, BeforeStoreChangedEventArgs e)
+        {
+
+        }
+        
     }
 }

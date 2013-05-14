@@ -40,31 +40,22 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.ResourceManager ResourceManager1;
         
         /// <summary>
-        /// ObjectDataSource1 control.
+        /// PhoneCallsHistoryGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource1;
+        protected global::Ext.Net.GridPanel PhoneCallsHistoryGrid;
         
         /// <summary>
-        /// GridPanel1 control.
+        /// PhoneCallStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridPanel GridPanel1;
-        
-        /// <summary>
-        /// Store1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store Store1;
+        protected global::Ext.Net.Store PhoneCallStore;
         
         /// <summary>
         /// Model1 control.
@@ -76,57 +67,102 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Model Model1;
         
         /// <summary>
-        /// Column1 control.
+        /// SessionIdTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column1;
+        protected global::Ext.Net.Column SessionIdTime;
         
         /// <summary>
-        /// Column2 control.
+        /// marker_CallToCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column2;
+        protected global::Ext.Net.Column marker_CallToCountry;
         
         /// <summary>
-        /// Column3 control.
+        /// DestinationNumberUri control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column3;
+        protected global::Ext.Net.Column DestinationNumberUri;
         
         /// <summary>
-        /// GridView1 control.
+        /// Duration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridView GridView1;
+        protected global::Ext.Net.Column Duration;
         
         /// <summary>
-        /// RowSelectionModel1 control.
+        /// marker_CallCost control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.RowSelectionModel RowSelectionModel1;
+        protected global::Ext.Net.Column marker_CallCost;
         
         /// <summary>
-        /// RowBody1 control.
+        /// ui_IsPersonal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.RowBody RowBody1;
+        protected global::Ext.Net.Column ui_IsPersonal;
+        
+        /// <summary>
+        /// ui_MarkedOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column ui_MarkedOn;
+        
+        /// <summary>
+        /// ui_IsInvoiced control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column ui_IsInvoiced;
+        
+        /// <summary>
+        /// PhoneCallsPagingToolbar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.PagingToolbar PhoneCallsPagingToolbar;
+        
+        /// <summary>
+        /// PhoneCallsCheckBoxColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CheckboxSelectionModel PhoneCallsCheckBoxColumn;
+        
+        /// <summary>
+        /// GridSubmitChanges control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button GridSubmitChanges;
     }
 }

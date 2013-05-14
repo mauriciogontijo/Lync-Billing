@@ -6,7 +6,7 @@
 <html>
     <head id="Head1" runat="server">
     <title>GridPanel with ObjectDataSource - Ext.NET Examples</title>
-    <link href="/resources/css/examples.css" rel="stylesheet" />
+    
 
     <style>
         .x-grid-cell-fullName .x-grid-cell-inner {
@@ -38,51 +38,124 @@
 <body>
     <form id="Form1" runat="server">
         <ext:ResourceManager ID="ResourceManager1" runat="server" />
-        
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"  SelectMethod="GetPhoneCalls" TypeName="Lync_Billing.UI.GridTest" >
-            <asp:SelectParameters>
-                <asp:ControlParameter name="SourceUserUri" Type="String" />
-            </asp:SelectParameters>
-        </asp:ObjectDataSource>
-        
-        <ext:GridPanel ID="GridPanel1" 
+        <ext:GridPanel 
+            ID="PhoneCallsHistoryGrid" 
             runat="server" 
-            Title="PhoneCalls" 
-            Frame="true" 
-            Height="600">
+            Title="Phone Calls History"
+            Width="745"
+            Height="450"  
+            AutoScroll="true"
+            Header="true"
+            Scroll="Both" 
+            Layout="FitLayout">
+
             <Store>
-                <ext:Store ID="Store1" runat="server" DataSourceID="ObjectDataSource1">
-                    <Model>
-                        <ext:Model ID="Model1" runat="server" IDProperty="ResponseTime">
-                            <Fields>
-                                <ext:ModelField Name="ResponseTime" />
-                                <ext:ModelField Name="SourceUserUri" />
-                                <ext:ModelField Name="Duration" />
-                            </Fields>
-                        </ext:Model>
-                    </Model>
-                </ext:Store>
-            </Store>
-            <ColumnModel ID="ColumnModel1" runat="server">
-                <Columns>
-                    <ext:Column ID="Column1" runat="server" DataIndex="ResponseTime" Text="ResponseTimeCol" Width="150" />
-                    <ext:Column ID="Column2" runat="server" DataIndex="SourceUserUri" Text="SourceUserUriCol" Width="150" />
-                    <ext:Column ID="Column3" runat="server" DataIndex="Duration" Text="DurationCol" Width="150" />
-                </Columns>
+             <ext:Store ID="PhoneCallStore" runat="server" IsPagingStore="true"  PageSize="25"
+                OnAfterRecordUpdated="PhoneCallStore_AfterRecordUpdated"
+                OnAfterStoreChanged="PhoneCallStore_AfterStoreChanged"
+                OnAfterDirectEvent="PhoneCallStore_AfterDirectEvent"
+                OnBeforeDirectEvent="PhoneCallStore_BeforeDirectEvent"
+                OnBeforeRecordUpdated="PhoneCallStore_BeforeRecordUpdated"
+                OnBeforeStoreChanged="PhoneCallStore_BeforeStoreChanged">
+                <Model>
+                    <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
+                        <Fields>
+                            <ext:ModelField Name="SessionIdTime" Type="Date" />
+                            <ext:ModelField Name="marker_CallToCountry" Type="String" />
+                            <ext:ModelField Name="DestinationNumberUri" Type="String" />
+                            <ext:ModelField Name="Duration" Type="Float" />
+                            <ext:ModelField Name="marker_CallCost"  Type="Float" />
+                            <ext:ModelField Name="ui_IsPersonal" Type="Boolean" />
+                            <ext:ModelField Name="ui_MarkedOn" Type="Date" />
+                            <ext:ModelField Name="ui_IsInvoiced" Type="Boolean" />
+                        </Fields>
+                 </ext:Model>
+               </Model>
+            </ext:Store>
+         </Store>
+            <ColumnModel ID="PhoneCallsColumnModel" runat="server">
+		        <Columns>
+                    <ext:Column ID="SessionIdTime" 
+                        runat="server" 
+                        Text="Date" 
+                        Width="80" 
+                        DataIndex="SessionIdTime" 
+                        Resizable="false" 
+                        MenuDisabled="true" 
+                        Fixed="true" 
+                        Flex="1"
+                         >
+                        <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
+                    </ext:Column>
+
+                    <ext:Column ID="marker_CallToCountry"
+                        runat="server"
+                        Text="Country Code"
+                        Width="80"
+                        DataIndex="DestinationNumberUri Code" />
+
+                    <ext:Column ID="DestinationNumberUri"
+                        runat="server"
+                        Text="Destination"
+                        Width="130"
+                        DataIndex="DestinationNumberUri" />
+
+                    <ext:Column ID="Duration"
+                        runat="server"
+                        Text="Duration"
+                        Width="70"
+                        DataIndex="Duration" />
+
+                    <ext:Column ID="marker_CallCost"
+                        runat="server"
+                        Text="Cost"
+                        Width="70"
+                        DataIndex="marker_CallCost" />
+
+                    <ext:Column ID="ui_IsPersonal"
+                        runat="server"
+                        Text="Type"
+                        Width="100"
+                        DataIndex="ui_IsPersonal" />
+
+                    <ext:Column ID="ui_MarkedOn"
+                        runat="server"
+                        Text="Updated On"
+                        Width="80"
+                        DataIndex="ui_MarkedOn" />
+
+                    <ext:Column ID="ui_IsInvoiced"
+                        runat="server"
+                        Text="Billing Status"
+                        Width="90"
+                        DataIndex="ui_IsInvoiced" />
+		        </Columns>
             </ColumnModel>
-            <View>
-                <ext:GridView ID="GridView1" runat="server">
-                    <GetRowClass Handler="return 'x-grid-row-expanded';" />
-                </ext:GridView>        
-            </View>  
+
+            <BottomBar>
+                <ext:PagingToolbar 
+                    ID="PhoneCallsPagingToolbar" 
+                    runat="server" 
+                    StoreID="PhoneCallStore" 
+                    DisplayInfo="true" 
+                    Weight="25" 
+                    DisplayMsg="Phone Calls {0} - {1} of {2}"
+                     />
+            </BottomBar>
+                    
             <SelectionModel>
-                <ext:RowSelectionModel ID="RowSelectionModel1" runat="server" Mode="Multi" />
-            </SelectionModel>
-            <Features>
-                <ext:RowBody ID="RowBody1" runat="server" >
-                    <GetAdditionalData Handler="orig.rowBody = '<div>' + data.Notes + '</div>'; orig.rowBodyColspan = record.fields.getCount();" />
-                </ext:RowBody>
-            </Features>
+                <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi" />
+            </SelectionModel>            
+                    
+            <Buttons>
+                <ext:Button ID="GridSubmitChanges" runat="server" Text="Save Changes">
+                    <DirectEvents>
+                        <Click OnEvent="GridSubmitChanges_Click">
+                            <EventMask ShowMask="true" />
+                        </Click>
+                    </DirectEvents>
+                </ext:Button>
+            </Buttons>
         </ext:GridPanel>
     </form>
 </body>
