@@ -92,7 +92,7 @@ namespace Lync_Billing.UI
             //UserPhoneCallsHistoryGrid.TopBar.Add(searchToolBar);
 
             PagingToolbar pagingToolBar = new PagingToolbar();
-            //pagingToolBar.DisplayMsg = "Phone Calls";
+            pagingToolBar.DisplayMsg = "Phone Calls {0} - {1} of {2}";
 
             UserPhoneCallsHistoryGrid.BottomBar.Add(pagingToolBar);
             //UserPhoneCallsHistoryGrid.BottomBar.Add(statusbar);
