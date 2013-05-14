@@ -175,9 +175,11 @@ namespace Lync_Billing.DB
         public static List<PhoneCall> GetPhoneCallsFilter(List<string> columns, Dictionary<string, object> wherePart, int start, int limit, out int count)
         {
             List<PhoneCall> phoneCalls = GetPhoneCalls(columns, wherePart, 0);
-            phoneCalls.Skip(start).Take(limit);
 
-            throw new NotImplementedException();
+            count = phoneCalls.Count();
+
+            return phoneCalls.Skip(start).Take(limit).ToList();
+            
         }
     }
 }
