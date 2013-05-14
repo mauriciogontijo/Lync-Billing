@@ -82,6 +82,12 @@ namespace Lync_Billing.Libs
 
             StringBuilder selectedfields = new StringBuilder();
             StringBuilder whereStatement = new StringBuilder();
+            StringBuilder orderBy = new StringBuilder();
+
+            if (tableName == "PhoneCalls")
+                orderBy.Append("ORDER BY [SessionIdTime] ASC");
+            else
+                orderBy.Append("");
 
             if (fields != null)
             {
@@ -120,16 +126,16 @@ namespace Lync_Billing.Libs
             if (limits == 0)
             {
                 if (whereClause !=null)
-                    selectQuery = string.Format("SELECT {0} FROM  [{1}] {2}", selectedfields.ToString(), tableName, whereStatement.ToString());
+                    selectQuery = string.Format("SELECT {0} FROM  [{1}] {2} {3}", selectedfields.ToString(), tableName, whereStatement.ToString(), orderBy);
                 else
-                    selectQuery = string.Format("SELECT {0} FROM  ['{1}']", selectedfields.ToString(), tableName);
+                    selectQuery = string.Format("SELECT {0} FROM  ['{1}'] {2}", selectedfields.ToString(), tableName, orderBy);
             }
             else
             {
                 if (whereClause != null)
-                    selectQuery = string.Format("SELECT TOP({0}) {1} FROM [{2}] {3}", limits, selectedfields.ToString(), tableName, whereStatement.ToString());
+                    selectQuery = string.Format("SELECT TOP({0}) {1} FROM [{2}] {3} {4}", limits, selectedfields.ToString(), tableName, whereStatement.ToString(), orderBy);
                 else
-                    selectQuery = string.Format("SELECT TOP({0}) {1} FROM [{2}]", limits, selectedfields.ToString(), tableName);
+                    selectQuery = string.Format("SELECT TOP({0}) {1} FROM [{2}] {3}", limits, selectedfields.ToString(), tableName, orderBy);
             }
                     
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
