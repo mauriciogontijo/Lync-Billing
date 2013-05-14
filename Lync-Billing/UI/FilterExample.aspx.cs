@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Lync_Billing.DB;
+using Ext.Net;
 
 namespace Lync_Billing.UI
 {
@@ -12,9 +14,7 @@ namespace Lync_Billing.UI
         GridPanel grid;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            string sipAccount = "SGhaida@ccc.gr";
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            string SipAccount = "AAlhour@ccc.gr"; //((UserSession)Session.Contents["UserData"]).SipAccount;
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             List<string> columns = new List<string>();
 
