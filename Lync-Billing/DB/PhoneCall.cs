@@ -36,9 +36,9 @@ namespace Lync_Billing.DB
         //User UI update Fields
         public string UI_UpdatedByUser { set; get; }
         public DateTime UI_MarkedOn { set; get; }
-        public bool UI_IsPersonal { set; get; }
-        public bool UI_Dispute { set; get; }
-        public bool UI_IsInvoiced { set; get; }
+        public string UI_IsPersonal { set; get; }
+        public string UI_Dispute { set; get; }
+        public string UI_IsInvoiced { set; get; }
 
         public static List<PhoneCall> GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
@@ -115,13 +115,13 @@ namespace Lync_Billing.DB
                         phoneCall.UI_UpdatedByUser = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_IsPersonal) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.UI_IsPersonal = (bool)row[column.ColumnName];
+                        phoneCall.UI_IsPersonal = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_Dispute) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.UI_Dispute = (bool)row[column.ColumnName];
+                        phoneCall.UI_Dispute = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_IsInvoiced) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.UI_IsInvoiced = (bool)row[column.ColumnName];
+                        phoneCall.UI_IsInvoiced = (string)row[column.ColumnName];
                    
                     
                 }
