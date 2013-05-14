@@ -105,6 +105,7 @@
     <Content Include="UI\css\green-layout.css" />
     <Content Include="UI\css\reset.css" />
     <Content Include="UI\css\toolkit.css" />
+    <Content Include="UI\FilterExample.aspx" />
     <Content Include="UI\GridTest.aspx" />
     <Content Include="UI\GridTest2.aspx" />
     <Content Include="UI\images\mybills.png" />
@@ -159,6 +160,13 @@
       <DependentUpon>ContentPage_Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\DBStores.cs" />
+    <Compile Include="UI\FilterExample.aspx.cs">
+      <DependentUpon>FilterExample.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\FilterExample.aspx.designer.cs">
+      <DependentUpon>FilterExample.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UI\Grids.cs" />
     <Compile Include="UI\GridTest.aspx.cs">
       <DependentUpon>GridTest.aspx</DependentUpon>
