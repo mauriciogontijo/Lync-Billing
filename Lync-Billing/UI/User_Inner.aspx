@@ -76,11 +76,11 @@
 		    $('.show-phone-call-history-btn').click(function (e) {
 		        $('#phone-call-history').fadeIn(150);
 		        //$('#phone-call-history').css('display', 'block');
-		        /*$('#main div.visibility-marker').fadeOut(400, function (e) {
+		        $('#main div.visibility-marker').fadeOut(400, function (e) {
 		            $(this).removeClass('visibility-marker');
 		            $('#phone-call-history').fadeIn(150);
 		            $('#phone-call-history').addClass('visibility-marker');
-		        });*/
+		        });
 		    }); 
 		});
 	</script>
@@ -104,12 +104,13 @@
 			    <p class='font-14 ml15 show-content-0-btn'><a href='#'>Content Block 0</a></p>
 			    <p class='font-14 ml15 show-content-1-btn'><a href='#'>Content Block 1</a></p>
 			    <p class='font-14 ml15 show-content-2-btn'><a href='#'>Content Block 2</a></p>
-                <asp:LinkButton ID="TEST1" runat="server" OnClick="TEST1_Click" Text="TEST" ></asp:LinkButton>
 		    </div>
 
 		    <div class='block-content wauto float-left mb15'>
-			    <p class='font-16 bold mb5'>Phone Calls History</p>
-                <asp:LinkButton ID="view_call_history" runat="server" OnClick="view_call_history_Click" Text="View Calls History" ></asp:LinkButton>
+			    <p class='font-16 bold mb5'>History</p>
+                <p class='font-14 ml15 show-phone-call-history-btn'><a href='#'>Phone Calls History</a></p>
+
+                <!--<asp:LinkButton ID="view_call_history" runat="server" OnClick="view_call_history_Click" Text="View Calls History" ></asp:LinkButton>-->
 		    </div>
 
 		    <div class='clear h5'></div>

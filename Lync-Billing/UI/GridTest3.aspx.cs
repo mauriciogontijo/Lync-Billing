@@ -4,17 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Collections.ObjectModel;
-using Ext.Net;
-using System.Web.Script.Serialization;
 using Lync_Billing.DB;
+using Ext.Net;
 
 namespace Lync_Billing.UI
 {
-    public partial class GridTest : System.Web.UI.Page
+    public partial class GridTest3 : System.Web.UI.Page
     {
-
-       Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        Dictionary<string, object> wherePart = new Dictionary<string, object>();
         List<string> columns = new List<string>();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -35,12 +32,6 @@ namespace Lync_Billing.UI
 
             PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             PhoneCallStore.DataBind();
-        }
-
-     
-        protected void GridSubmitChanges_Click(object sender, DirectEventArgs e)
-        {
-
         }
 
         protected void PhoneCallStore_AfterRecordUpdated(object sender, AfterRecordUpdatedEventArgs e)
@@ -73,29 +64,9 @@ namespace Lync_Billing.UI
 
         }
 
-        protected void FilterTypeChange(object sender, EventArgs e)
+        protected void GridSubmitChanges_Click(object sender, DirectEventArgs e)
         {
-            
-            switch(Convert.ToInt32(FilterTypeComboBox.SelectedItem.Value))
-            {
-                case 1:
-                    PhoneCallsHistoryGrid.GetStore().Filter("ui_IsPersonal", null);        
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-            }
 
-            
-            
         }
-        
     }
 }

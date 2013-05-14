@@ -13,15 +13,6 @@ namespace Lync_Billing.UI {
     public partial class User_Inner {
         
         /// <summary>
-        /// TEST1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton TEST1;
-        
-        /// <summary>
         /// view_call_history control.
         /// </summary>
         /// <remarks>

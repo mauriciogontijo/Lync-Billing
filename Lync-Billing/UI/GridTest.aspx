@@ -28,12 +28,11 @@
             border-bottom-width:0px;
         }
     </style>
+         <ext:XScript ID="FilterXScript" runat="server">
+        <script>
 
-    <script>
-        var fullName = function (value, metadata, record, rowIndex, colIndex, store) {
-            return "<b>" + record.data.LastName + ' ' + record.data.FirstName + "</b>";
-        };
-    </script>
+        </script>
+    </ext:XScript>
 </head>
 <body>
     <form id="Form1" runat="server">
@@ -81,10 +80,7 @@
                         Width="80" 
                         DataIndex="SessionIdTime" 
                         Resizable="false" 
-                        MenuDisabled="true" 
-                        Fixed="true" 
-                        Flex="1"
-                         >
+                        MenuDisabled="true">
                        
                         <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
                     </ext:Column>
@@ -149,8 +145,11 @@
                                 <ext:ListItem Text="Business" Value="3" />
                                 <ext:ListItem Text="Personal" Value="4" />
                                 <ext:ListItem Text="Charged" Value="5" />
-                                <ext:ListItem Text="UnCharhed" Value="6" />
+                                <ext:ListItem Text="Uncharged" Value="6" />
                             </Items>
+                            <DirectEvents>
+                                <Change OnEvent="FilterTypeChange"></Change>
+                            </DirectEvents>
                         </ext:ComboBox>
                     </Items>
                 </ext:Toolbar>

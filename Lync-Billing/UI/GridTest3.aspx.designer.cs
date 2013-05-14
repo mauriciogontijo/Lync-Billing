@@ -10,7 +10,7 @@
 namespace Lync_Billing.UI {
     
     
-    public partial class GridTest {
+    public partial class GridTest3 {
         
         /// <summary>
         /// Head1 control.
@@ -22,40 +22,22 @@ namespace Lync_Billing.UI {
         protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
         
         /// <summary>
-        /// FilterXScript control.
+        /// resourceManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.XScript FilterXScript;
+        protected global::Ext.Net.ResourceManager resourceManager;
         
         /// <summary>
-        /// Form1 control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm Form1;
-        
-        /// <summary>
-        /// ResourceManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ResourceManager ResourceManager1;
-        
-        /// <summary>
-        /// PhoneCallsHistoryGrid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridPanel PhoneCallsHistoryGrid;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
         /// PhoneCallStore control.
@@ -74,6 +56,15 @@ namespace Lync_Billing.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Model Model1;
+        
+        /// <summary>
+        /// PhoneCallsHistoryGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridPanel PhoneCallsHistoryGrid;
         
         /// <summary>
         /// SessionIdTime control.
@@ -148,24 +139,6 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Column ui_IsInvoiced;
         
         /// <summary>
-        /// FilterToolBar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Toolbar FilterToolBar;
-        
-        /// <summary>
-        /// FilterTypeComboBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ComboBox FilterTypeComboBox;
-        
-        /// <summary>
         /// PhoneCallsPagingToolbar control.
         /// </summary>
         /// <remarks>
@@ -191,5 +164,14 @@ namespace Lync_Billing.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button GridSubmitChanges;
+        
+        /// <summary>
+        /// PH control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PH;
     }
 }

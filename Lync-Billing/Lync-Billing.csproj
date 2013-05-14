@@ -106,6 +106,7 @@
     <Content Include="UI\FilterExample.aspx" />
     <Content Include="UI\GridTest.aspx" />
     <Content Include="UI\GridTest2.aspx" />
+    <Content Include="UI\GridTest3.aspx" />
     <Content Include="UI\images\mybills.png" />
     <Content Include="UI\images\navbar-bg.gif" />
     <Content Include="UI\images\phonecalls.png" />
@@ -179,6 +180,13 @@
     </Compile>
     <Compile Include="UI\GridTest2.aspx.designer.cs">
       <DependentUpon>GridTest2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\GridTest3.aspx.cs">
+      <DependentUpon>GridTest3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\GridTest3.aspx.designer.cs">
+      <DependentUpon>GridTest3.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
