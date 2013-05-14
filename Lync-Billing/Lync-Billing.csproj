@@ -118,6 +118,7 @@
     <Content Include="UI\api_tests.aspx" />
     <Content Include="UI\js\toolkit.js" />
     <Content Include="UI\User_Home.aspx" />
+    <Content Include="UI\User_Inner.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -186,6 +187,13 @@
     </Compile>
     <Compile Include="UI\User_Home.aspx.designer.cs">
       <DependentUpon>User_Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\User_Inner.aspx.cs">
+      <DependentUpon>User_Inner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\User_Inner.aspx.designer.cs">
+      <DependentUpon>User_Inner.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

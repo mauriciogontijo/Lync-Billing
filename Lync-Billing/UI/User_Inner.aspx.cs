@@ -30,6 +30,7 @@ namespace Lync_Billing.UI
             columns.Add("marker_CallToCountry");
             columns.Add("DestinationNumberUri");
             columns.Add("Duration");
+            columns.Add("marker_CallCost");
             columns.Add("ui_IsPersonal");
             columns.Add("ui_MarkedOn");
             columns.Add("ui_IsInvoiced");
@@ -41,7 +42,7 @@ namespace Lync_Billing.UI
 
             UserPhoneCallsHistoryGrid.ID = "PhoneCallsGrid";
             UserPhoneCallsHistoryGrid.Layout = "Table";
-            UserPhoneCallsHistoryGrid.Width = 700;
+            UserPhoneCallsHistoryGrid.Width = 745;
             UserPhoneCallsHistoryGrid.Height = 400;
             UserPhoneCallsHistoryGrid.Scroll = ScrollMode.Both;
 
@@ -49,25 +50,34 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Width = 80;
 
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Text = "Country Code";
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Width = 100;
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Width = 90;
 
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[2].Text = "Destination";
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[2].Width = 165;
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[2].Width = 130;
 
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[3].Text = "Cost";
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[3].Width = 50;
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[3].Text = "Duration";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[3].Width = 70;
 
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[4].Text = "Type";
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[4].Width = 100;
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[4].Text = "Cost";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[4].Width = 70;
 
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[5].Text = "Updated On";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[5].Text = "Type";
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[5].Width = 100;
 
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[6].Text = "Billing Status";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[6].Text = "Updated On";
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[6].Width = 100;
+
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[7].Text = "Billing Status";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[7].Width = 100;
 
             UserPhoneCallsHistoryGrid.Header = true;
             UserPhoneCallsHistoryGrid.Title = "Calls History";
+            UserPhoneCallsHistoryGrid.AutoScroll = true;
+            
+            Ext.Net.GridView gridview = new Ext.Net.GridView();
+            gridview.AutoScroll = true;
+
+            UserPhoneCallsHistoryGrid.View.Add(gridview);
 
             //LiveSearchGridPanel searchPanel = new LiveSearchGridPanel();
             //searchPanel.Listeners.Search.Handler = "if(count>0){#{statusbar}.setStatus({text: count + ' matche(s) found.', iconCls: 'x-status-valid'});}";
