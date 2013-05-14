@@ -152,7 +152,5 @@ namespace Lync_Billing.UI
             };
             return store;
         }
-
-      
     }
 }
