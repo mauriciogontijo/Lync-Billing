@@ -85,6 +85,7 @@
                         Fixed="true" 
                         Flex="1"
                          >
+                       
                         <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
                     </ext:Column>
 
@@ -131,7 +132,29 @@
                         DataIndex="ui_IsInvoiced" />
 		        </Columns>
             </ColumnModel>
-
+             <TopBar>
+                  <ext:Toolbar ID="FilterToolBar" runat="server">
+                     <Items>
+                      <ext:ComboBox 
+                            ID="FilterTypeComboBox" 
+                            runat="server" 
+                            Icon="Find" 
+                            TriggerAction="All" 
+                            QueryMode="Local" 
+                            DisplayField="TypeName" 
+                            ValueField="TypeValue">
+                            <Items>
+                                <ext:ListItem Text="Unmarked" Value="1" />
+                                <ext:ListItem Text="Marked" Value="2" />
+                                <ext:ListItem Text="Business" Value="3" />
+                                <ext:ListItem Text="Personal" Value="4" />
+                                <ext:ListItem Text="Charged" Value="5" />
+                                <ext:ListItem Text="UnCharhed" Value="6" />
+                            </Items>
+                        </ext:ComboBox>
+                    </Items>
+                </ext:Toolbar>
+            </TopBar>
             <BottomBar>
                 <ext:PagingToolbar 
                     ID="PhoneCallsPagingToolbar" 

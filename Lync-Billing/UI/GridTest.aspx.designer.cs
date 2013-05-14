@@ -139,6 +139,24 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Column ui_IsInvoiced;
         
         /// <summary>
+        /// FilterToolBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Toolbar FilterToolBar;
+        
+        /// <summary>
+        /// FilterTypeComboBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox FilterTypeComboBox;
+        
+        /// <summary>
         /// PhoneCallsPagingToolbar control.
         /// </summary>
         /// <remarks>
