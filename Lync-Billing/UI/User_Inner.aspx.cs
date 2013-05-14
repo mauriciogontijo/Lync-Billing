@@ -41,7 +41,7 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";
 
             UserPhoneCallsHistoryGrid.ID = "PhoneCallsGrid";
-            UserPhoneCallsHistoryGrid.Layout = "Table";
+            UserPhoneCallsHistoryGrid.Layout = "Fit";
             UserPhoneCallsHistoryGrid.Width = 745;
             UserPhoneCallsHistoryGrid.Height = 400;
             UserPhoneCallsHistoryGrid.Scroll = ScrollMode.Both;
@@ -65,10 +65,10 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[5].Width = 100;
 
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[6].Text = "Updated On";
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[6].Width = 100;
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[6].Width = 80;
 
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[7].Text = "Billing Status";
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[7].Width = 100;
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[7].Width = 90;
 
             UserPhoneCallsHistoryGrid.Header = true;
             UserPhoneCallsHistoryGrid.Title = "Calls History";
