@@ -145,8 +145,8 @@ namespace Lync_Billing.UI
                     new object[] { "Marked" , 2 },
                     new object[] { "Marked As Business", 3 },
                     new object[] { "Marked As Personal", 4 },
-                    new object[] { "Marked As Dispute", 4 },
-                    new object[] { "Charged Calls", 4 }
+                    new object[] { "Marked As Dispute", 5 },
+                    new object[] { "Charged Calls", 6 }
                 },
                 Model = { PhoneCallMarkingModel() }
             };
