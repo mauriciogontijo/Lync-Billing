@@ -115,50 +115,73 @@
 		    <div class='clear h5'></div>
 	    </div>
     </div>
-    
-    <!--<div id='content-block-0' class='block float-right w80p h100p visibility-marker'>
-		<div class='block-header top-rounded bh-shadow'>
-			<p class='font-18'>Content Block #0</p>
-		</div>
-		<div class='block-body bottom-rounded bb-shadow'>
-			<div class='block-content wauto float-left'>
-			</div>
-			<div class='clear h5'></div>
-		</div>
-	</div>
-
-	<div id='content-block-1' class='block float-right w80p h100p' style='display: none;'>
-		<div class='block-header top-rounded bh-shadow'>
-			<p class='font-18'>Content Block #1</p>
-		</div>
-		<div class='block-body bottom-rounded bb-shadow'>
-			<div class='block-content wauto float-left'>
-			</div>
-			<div class='clear h5'></div>
-		</div>
-	</div>
-
-	<div id='content-block-2' class='block float-right w80p h100p' style='display: none;'>
-		<div class='block-header top-rounded bh-shadow'>
-			<p class='font-18'>Content Block #2</p>
-		</div>
-		<div class='block-body bottom-rounded bb-shadow'>
-			<div class='wauto float-left'>						
-			</div>
-			<div class='clear h5'></div>
-		</div>
-	</div>-->
 
     <div id='phone-call-history' class='block float-right w80p h100p'>
 		<div class='block-body'>
 			<div class='wauto float-left'>
-                <asp:PlaceHolder ID="UserPhoneCallsHistoryPH" runat="server">
-                </asp:PlaceHolder>
-                 <asp:PlaceHolder ID="PlaceHolder1" runat="server">
-                     HASDGHKASDGHKASD
-                     BJKASDGKASDASDJK
-                     KASDASDASDASD
-                </asp:PlaceHolder>
+               <ext:Store ID="PhoneCallStore" runat="server" PageSize="10" DataSourceID="PhoneCallsDataSource" IsPagingStore="true" PageSize="25">
+                    <Model>
+                        <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
+                            <Fields>
+                                <ext:ModelField Name="SessionIdTime" Type="Date" />
+                                <ext:ModelField Name="marker_CallToCountry" Type="String" />
+                                <ext:ModelField Name="DestinationNumberUri" Type="String" />
+                                <ext:ModelField Name="Duration" Type="Float" />
+                                <ext:ModelField Name="marker_CallCost"  Type="Float" />
+                                <ext:ModelField Name="ui_IsPersonal" Type="Boolean" />
+                                <ext:ModelField Name="ui_MarkedOn" Type="Date" />
+                                <ext:ModelField Name="ui_IsInvoiced" Type="Boolean" />
+                            </Fields>
+                        </ext:Model>
+                    </Model>
+                </ext:Store>
+                
+                <ext:GridPanel 
+                    ID="GridPanel1" 
+                    runat="server" 
+                    StoreID="Store1"
+                    Title="Company List"
+                    Collapsible="true"
+                    Width="600"
+                    Height="350">
+                    <ColumnModel ID="ColumnModel1" runat="server">
+		                <Columns>
+                            <ext:Column ID="Column1" 
+                                runat="server" 
+                                Text="Company" 
+                                Width="160" 
+                                DataIndex="Name" 
+                                Resizable="false" 
+                                MenuDisabled="true" 
+                                Fixed="true" 
+                                Flex="1" />
+                            <ext:Column ID="Column2" runat="server" Text="Price" Width="75" DataIndex="Price">
+                                <Renderer Format="UsMoney" />
+                            </ext:Column>
+                            <ext:Column ID="Column3" runat="server" Text="Change" Width="75" DataIndex="Change">
+                                <Renderer Fn="change" />
+                            </ext:Column>
+                            <ext:Column ID="Column4" runat="server" Text="Change" Width="75" DataIndex="PctChange">
+                                <Renderer Fn="pctChange" />
+                            </ext:Column>
+		                </Columns>
+                    </ColumnModel>
+                    <BottomBar>
+                        <ext:PagingToolbar ID="PagingToolbar1" runat="server" StoreID="Store1" DisplayInfo="false" Weight="10" />
+                    </BottomBar>
+                    <SelectionModel>
+                        <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1" runat="server" Mode="Multi" />
+                    </SelectionModel>            
+                    <Buttons>
+                        <ext:Button ID="Button2" runat="server" Text="Submit Selected Records">
+                            <DirectEvents>
+                                <Click OnEvent="Button2_Click">
+                                    <EventMask ShowMask="true" />
+                                </Click>
+                            </DirectEvents>
+                        </ext:Button>
+                    </Buttons>
+                </ext:GridPanel>
             </div>
         </div>
     </div>
