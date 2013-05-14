@@ -12,6 +12,8 @@ namespace Lync_Billing.UI
     public partial class User_Inner : System.Web.UI.Page
     {
         GridPanel UserPhoneCallsHistoryGrid;
+        Store store;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             PlaceHolder1.Visible = false;
@@ -24,6 +26,8 @@ namespace Lync_Billing.UI
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             List<string> columns = new List<string>();
+
+            store = UserPhoneCallsHistoryGrid.GetStore();
 
             wherePart.Add("SourceUserUri", SipAccount);
             columns.Add("SessionIdTime");
@@ -74,6 +78,8 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.Title = "Calls History";
             UserPhoneCallsHistoryGrid.AutoScroll = true;
             
+            store.ReadData +=PhoneCallsReadData;
+
             Ext.Net.GridView gridview = new Ext.Net.GridView();
             gridview.AutoScroll = true;
 
@@ -105,6 +111,14 @@ namespace Lync_Billing.UI
         {
             UserPhoneCallsHistoryPH.Visible = false;
             PlaceHolder1.Visible = true;
+        }
+
+        public void PhoneCallsReadData(object sender, StoreReadDataEventArgs e)
+        {
+            int count;
+            (UserPhoneCallsHistoryGrid.GetStore()).DataSource = PhoneCall.GetPhoneCallsFilter(e.Start, e.Limit, e.Sort.Length > 0 ? e.Sort[0] : null, out count);
+            e.Total = count;
+            this.store.DataBind();
         }
       
     }
