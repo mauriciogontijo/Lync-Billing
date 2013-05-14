@@ -119,7 +119,14 @@
     <div id='phone-call-history' class='block float-right w80p h100p'>
 		<div class='block-body'>
 			<div class='wauto float-left'>
-               <ext:Store ID="PhoneCallStore" runat="server" PageSize="10" DataSourceID="PhoneCallsDataSource" IsPagingStore="true" PageSize="25">
+               <ext:Store ID="PhoneCallStore" runat="server" IsPagingStore="true" PageSize="25"
+                   OnAfterRecordUpdated="PhoneCallStore_AfterRecordUpdated"
+                   OnAfterStoreChanged="PhoneCallStore_AfterStoreChanged"
+                   OnAfterDirectEvent="PhoneCallStore_AfterDirectEvent"
+                   OnBeforeDirectEvent="PhoneCallStore_BeforeDirectEvent"
+                   OnBeforeRecordUpdated="PhoneCallStore_BeforeRecordUpdated"
+                   OnBeforeStoreChanged="PhoneCallStore_BeforeStoreChanged"
+                   >
                     <Model>
                         <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
                             <Fields>
@@ -137,45 +144,90 @@
                 </ext:Store>
                 
                 <ext:GridPanel 
-                    ID="GridPanel1" 
+                    ID="PhoneCallsHistoryGrid" 
                     runat="server" 
-                    StoreID="Store1"
-                    Title="Company List"
-                    Collapsible="true"
-                    Width="600"
-                    Height="350">
-                    <ColumnModel ID="ColumnModel1" runat="server">
+                    StoreID="PhoneCallsStore"
+                    Title="Phone Calls History"
+                    Width="745"
+                    Height="450" 
+                    AutoScroll="true"
+                    Header="true"
+                    Scroll="Both" 
+                    Layout="FitLayout">
+                    <ColumnModel ID="PhoneCallsColumnModel" runat="server">
 		                <Columns>
-                            <ext:Column ID="Column1" 
+                            <ext:Column ID="SessionIdTime" 
                                 runat="server" 
-                                Text="Company" 
-                                Width="160" 
+                                Text="Date" 
+                                Width="80" 
                                 DataIndex="Name" 
                                 Resizable="false" 
                                 MenuDisabled="true" 
                                 Fixed="true" 
                                 Flex="1" />
-                            <ext:Column ID="Column2" runat="server" Text="Price" Width="75" DataIndex="Price">
-                                <Renderer Format="UsMoney" />
-                            </ext:Column>
-                            <ext:Column ID="Column3" runat="server" Text="Change" Width="75" DataIndex="Change">
-                                <Renderer Fn="change" />
-                            </ext:Column>
-                            <ext:Column ID="Column4" runat="server" Text="Change" Width="75" DataIndex="PctChange">
-                                <Renderer Fn="pctChange" />
-                            </ext:Column>
+
+                            <ext:Column ID="marker_CallToCountry"
+                                runat="server"
+                                Text="Country Code"
+                                Width="80"
+                                DataIndex="Country Code" />
+
+                            <ext:Column ID="DestinationNumberUri"
+                                runat="server"
+                                Text="Destination"
+                                Width="130"
+                                DataIndex="Destination" />
+
+                            <ext:Column ID="Duration"
+                                runat="server"
+                                Text="Duration"
+                                Width="70"
+                                DataIndex="Duration" />
+
+                            <ext:Column ID="marker_CallCost"
+                                runat="server"
+                                Text="Cost"
+                                Width="70"
+                                DataIndex="Cost" />
+
+                            <ext:Column ID="ui_IsPersonal"
+                                runat="server"
+                                Text="Type"
+                                Width="100"
+                                DataIndex="Type" />
+
+                            <ext:Column ID="ui_MarkedOn"
+                                runat="server"
+                                Text="Updated On"
+                                Width="80"
+                                DataIndex="Updated On" />
+
+                            <ext:Column ID="ui_IsInvoiced"
+                                runat="server"
+                                Text="Billing Status"
+                                Width="90"
+                                DataIndex="Billing Status" />
 		                </Columns>
                     </ColumnModel>
+
                     <BottomBar>
-                        <ext:PagingToolbar ID="PagingToolbar1" runat="server" StoreID="Store1" DisplayInfo="false" Weight="10" />
+                        <ext:PagingToolbar 
+                            ID="PhoneCallsPagingToolbar" 
+                            runat="server" 
+                            StoreID="PhoneCallStore" 
+                            DisplayInfo="false" 
+                            Weight="25" 
+                            DisplayMsg="Phone Calls {0} - {1} of {2}"/>
                     </BottomBar>
+                    
                     <SelectionModel>
-                        <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1" runat="server" Mode="Multi" />
+                        <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi" />
                     </SelectionModel>            
+                    
                     <Buttons>
-                        <ext:Button ID="Button2" runat="server" Text="Submit Selected Records">
+                        <ext:Button ID="GridSubmitChanges" runat="server" Text="Save Changes">
                             <DirectEvents>
-                                <Click OnEvent="Button2_Click">
+                                <Click OnEvent="GridSubmitChanges_Click">
                                     <EventMask ShowMask="true" />
                                 </Click>
                             </DirectEvents>
