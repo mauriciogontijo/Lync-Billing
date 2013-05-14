@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using Lync_Billing.Libs;
 using System.Data;
-
+using Ext.Net
+;
 namespace Lync_Billing.DB
 {
     public class PhoneCall
@@ -169,6 +170,14 @@ namespace Lync_Billing.DB
             //throw success message
             return status;
         }
-    
+
+
+        public static List<PhoneCall> GetPhoneCallsFilter(List<string> columns, Dictionary<string, object> wherePart, int start, int limit, out int count)
+        {
+            List<PhoneCall> phoneCalls = GetPhoneCalls(columns, wherePart, 0);
+            phoneCalls.Skip(start).Take(limit);
+
+            throw new NotImplementedException();
+        }
     }
 }
