@@ -42,7 +42,7 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.ID = "PhoneCallsGrid";
             UserPhoneCallsHistoryGrid.Layout = "Table";
             UserPhoneCallsHistoryGrid.Width = 700;
-            UserPhoneCallsHistoryGrid.Height = 300;
+            UserPhoneCallsHistoryGrid.Height = 400;
             UserPhoneCallsHistoryGrid.Scroll = ScrollMode.Both;
 
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Text = "Date";
@@ -69,17 +69,24 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.Header = true;
             UserPhoneCallsHistoryGrid.Title = "Calls History";
 
-            LiveSearchGridPanel searchPanel = new LiveSearchGridPanel();
-            searchPanel.Listeners.Search.Fn = "if(count>0){#{StatusBar1}.setStatus({text: count + ' matche(s) found.', iconCls: 'x-status-valid'});}";
-            
+            //LiveSearchGridPanel searchPanel = new LiveSearchGridPanel();
+            //searchPanel.Listeners.Search.Handler = "if(count>0){#{statusbar}.setStatus({text: count + ' matche(s) found.', iconCls: 'x-status-valid'});}";
+            //searchPanel.Listeners.RegExpError.Handler = "#{statusbar}.setStatus({text: message, iconCls: 'x-status-error'});";
+            //searchPanel.Listeners.BeforeSearch.Handler = "#{statusbar}.setStatus({text: 'Nothing Found', iconCls: ''});";
 
-                
-            PagingToolbar pagingToolBar = new PagingToolbar();
-            
-            pagingToolBar.DisplayMsg = "Phone Calls";
-            UserPhoneCallsHistoryGrid.BottomBar.Add(pagingToolBar);
+            //LiveSearchToolbar searchToolBar = new LiveSearchToolbar();
+            //StatusBar statusbar = new StatusBar();
+            //statusbar.ID = "statusBar";
+
             //UserPhoneCallsHistoryGrid.Plugins.Add(searchPanel);
-            
+            //UserPhoneCallsHistoryGrid.TopBar.Add(searchToolBar);
+
+            PagingToolbar pagingToolBar = new PagingToolbar();
+            //pagingToolBar.DisplayMsg = "Phone Calls";
+
+            UserPhoneCallsHistoryGrid.BottomBar.Add(pagingToolBar);
+            //UserPhoneCallsHistoryGrid.BottomBar.Add(statusbar);
+
             UserPhoneCallsHistoryPH.Controls.Add(UserPhoneCallsHistoryGrid);
                 
         }
