@@ -18,7 +18,7 @@ namespace Lync_Billing.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            string SipAccount = "AAlhour@ccc.gr"; //((UserSession)Session.Contents["UserData"]).SipAccount;
 
             wherePart.Add("SourceUserUri", SipAccount);
             wherePart.Add("marker_CallTypeID", 1);

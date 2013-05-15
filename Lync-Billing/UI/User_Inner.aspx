@@ -92,12 +92,10 @@
     <ext:XScript ID="XScript1" runat="server">
         <script type="text/javascript">
             var applyFilter = function (field) {
-                var store = #{PhoneCallsHistoryGrid}.getStore();
-
                 if(#{FilterTypeComboBox}.getValue() == "1") {
                     clearFilter();
                 } else {
-                    store.filterBy(getRecordFilter());
+                    #{PhoneCallsHistoryGrid}.getStore().filterBy(getRecordFilter());
                 }
             };
 
@@ -106,6 +104,22 @@
                 
                 var FilterValue = #{FilterTypeComboBox}.getValue() || "";
                 switch(FilterValue) {
+                    case "2":
+                        f.push({
+                            filter: function (record) {
+                                return filterMarkedCriteria("Marked", 'UI_IsPersonal', record); 
+                            }
+                        });
+                        break;
+
+                    case "3":
+                        f.push({
+                            filter: function (record) {
+                                return filterMarkedCriteria("Unmarked", 'UI_IsPersonal', record); 
+                            }
+                        });
+                        break;
+
                     case "4":
                         f.push({
                             filter: function (record) {
@@ -113,10 +127,27 @@
                             }
                         });
                         break;
+
                     case "5":
                         f.push({
                             filter: function (record) {
                                 return filterString('YES', 'UI_IsPersonal', record); 
+                            }
+                        });
+                        break;
+
+                    case "6":
+                        f.push({
+                            filter: function (record) {
+                                return filterInvoiceCriteria("Charged", 'UI_IsInvoiced', record); 
+                            }
+                        });
+                        break;
+
+                    case "7":
+                        f.push({
+                            filter: function (record) {
+                                return filterInvoiceCriteria("Uncharged", 'UI_IsInvoiced', record); 
                             }
                         });
                         break;
@@ -138,7 +169,49 @@
                 #{FilterTypeComboBox}.reset();
                 #{PhoneCallsHistoryGrid}.getStore().clearFilter();
             }
- 
+            
+
+            /* FILTERS BY CRITERIA */
+            var filterMarkedCriteria = function(value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if(value == "Marked") {
+                    if (typeof val == "string" && val != 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if(typeof val != "string" || (typeof val == "string" && val == 0)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            };
+
+            var filterInvoiceCriteria = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if(value == "Charged") {
+                    if (typeof val == "string" && val.toLowerCase().indexOf("yes") > -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    //if(typeof val != "string" || (typeof val == "string" && val == 0) || (typeof val == "string" && val.toLowerCase().indexOf("no") > -1)) {
+                    if (typeof val == "string" && val.toLowerCase().indexOf("yes") > -1) {
+                        //this returns the invesre vale of the previous identical if condition
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            };
+
+
+            /* FILTERS BY DATA TYPE */
             var filterString = function (value, dataIndex, record) {
                 var val = record.get(dataIndex);
                 
@@ -148,7 +221,7 @@
                 
                 return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
             };
-            
+
             var filterDate = function (value, dataIndex, record) {
                 var val = Ext.Date.clearTime(record.get(dataIndex), true).getTime();
  
@@ -174,40 +247,40 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <div id='sidebar' class='sidebar block float-left w20p'>
 	    <div class='block-header top-rounded bh-shadow'>
-		    <p class='font-18'>SIDEBAR</p>
+		    <p class='font-1-2-em bold'>User Management</p>
 	    </div>
 	    <div class='block-body bottom-rounded bb-shadow'>
-		    <div class='block-content wauto float-left mb15'>
-			    <p class='font-16 bold mb5'>Manage Phone Calls</p>
-			    <p class='font-14 ml15 show-content-0-btn'><a href='#'>Content Block 0</a></p>
-			    <p class='font-14 ml15 show-content-1-btn'><a href='#'>Content Block 1</a></p>
-			    <p class='font-14 ml15 show-content-2-btn'><a href='#'>Content Block 2</a></p>
+		    <div class='wauto float-left mb15'>
+			    <p class='section-header'>Manage Phone Calls</p>
+			    <p class='section-item show-content-0-btn'><a href='#'>Content Block 0</a></p>
+			    <p class='section-item show-content-1-btn'><a href='#'>Content Block 1</a></p>
+			    <p class='section-item show-content-2-btn'><a href='#'>Content Block 2</a></p>
 		    </div>
 					
-		    <div class='block-content wauto float-left mb15'>
-			    <p class='font-16 bold mb5'>Manage Statistics</p>
-			    <p class='font-14 ml15 show-content-0-btn'><a href='#'>Content Block 0</a></p>
-			    <p class='font-14 ml15 show-content-1-btn'><a href='#'>Content Block 1</a></p>
-			    <p class='font-14 ml15 show-content-2-btn'><a href='#'>Content Block 2</a></p>
+		    <div class='wauto float-left mb15'>
+			    <p class='section-header'>Manage Statistics</p>
+			    <p class='section-item show-content-0-btn'><a href='#'>Content Block 0</a></p>
+			    <p class='section-item show-content-1-btn'><a href='#'>Content Block 1</a></p>
+			    <p class='section-item show-content-2-btn'><a href='#'>Content Block 2</a></p>
 		    </div>
 
-		    <div class='block-content wauto float-left mb15'>
-			    <p class='font-16 bold mb5'>History</p>
-                <p class='font-14 ml15 show-phone-call-history-btn'><a href='#'>Phone Calls History</a></p>
+		    <div class='wauto float-left mb15'>
+			    <p class='section-header'>History</p>
+                <p class='section-item show-phone-call-history-btn'><a href='#'>View Phone Calls History</a></p>
 		    </div>
 
 		    <div class='clear h5'></div>
 	    </div>
     </div>
 
-    <div id='phone-call-history' class='block float-right w80p h100p'>
-        <div class="block-body">
+    <div id='phone-call-history' class='block float-right w80p h100p' style="visibility: visible;">
+        <div class="block-body pt5">
             <ext:GridPanel 
                 ID="PhoneCallsHistoryGrid" 
                 runat="server" 
                 Title="Phone Calls History"
-                Width="530"
-                Height="450"  
+                Width="740"
+                Height="650"  
                 AutoScroll="true"
                 Header="true"
                 Scroll="Both" 
@@ -231,7 +304,7 @@
                                 <ext:ModelField Name="marker_CallCost"  Type="Float" />
                                 <ext:ModelField Name="UI_IsPersonal" Type="String" />
                                 <ext:ModelField Name="UI_MarkedOn" Type="Date" />
-                                <ext:ModelField Name="UI_IsPersonal" Type="String" />
+                                <ext:ModelField Name="UI_IsInvoiced" Type="String" />
                             </Fields>
                      </ext:Model>
                    </Model>
@@ -242,7 +315,7 @@
                         <ext:Column ID="SessionIdTime" 
                             runat="server" 
                             Text="Date" 
-                            Width="80" 
+                            Width="120" 
                             DataIndex="SessionIdTime" 
                             Resizable="false" 
                             MenuDisabled="true">
@@ -253,25 +326,25 @@
                         <ext:Column ID="marker_CallToCountry"
                             runat="server"
                             Text="Country Code"
-                            Width="80"
+                            Width="120"
                             DataIndex="DestinationNumberUri Code" />
 
                         <ext:Column ID="DestinationNumberUri"
                             runat="server"
                             Text="Destination"
-                            Width="130"
+                            Width="150"
                             DataIndex="DestinationNumberUri" />
 
                         <ext:Column ID="Duration"
                             runat="server"
                             Text="Duration"
-                            Width="70"
+                            Width="100"
                             DataIndex="Duration" />
 
                         <ext:Column ID="marker_CallCost"
                             runat="server"
                             Text="Cost"
-                            Width="70"
+                            Width="100"
                             DataIndex="marker_CallCost" />
 
                         <ext:Column ID="UI_IsPersonal"
@@ -284,7 +357,7 @@
                         <ext:Column ID="UI_MarkedOn"
                             runat="server"
                             Text="Updated On"
-                            Width="80"
+                            Width="120"
                             DataIndex="UI_MarkedOn" />
 
                         <ext:Column ID="UI_IsInvoiced"
@@ -308,8 +381,8 @@
                                 ValueField="TypeValue">
                                 <Items>
                                     <ext:ListItem Text="Everything" Value="1"/>
-                                    <ext:ListItem Text="Unmarked" Value="2" />
-                                    <ext:ListItem Text="Marked" Value="3" />
+                                    <ext:ListItem Text="Marked" Value="2" />
+                                    <ext:ListItem Text="Unmarked" Value="3" />
                                     <ext:ListItem Text="Business" Value="4" />
                                     <ext:ListItem Text="Personal" Value="5" />
                                     <ext:ListItem Text="Charged" Value="6" />
