@@ -16,14 +16,14 @@
         <script type="text/javascript" src="js/toolkit.js"></script>
 
 		<!--[if lt IE 9]>
-			<link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
-		<![endif]-->
+		    <link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
+	    <![endif]-->
 
-		<!--[if lt IE 8]>
-			<style type="text/css">
-				#main { padding-top: 65px !important; }
-			</style>
-		<![endif]-->
+	    <!--[if lt IE 8]>
+		    <style type="text/css">
+			    #main { padding-top: 65px !important; }
+		    </style>
+	    <![endif]-->
 
         <script type="text/javascript">
             window.BillingAPI = { 'lib': {}, 'data': {} };

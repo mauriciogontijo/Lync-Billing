@@ -3,23 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>eBill | User Tools</title>
 
-	<link rel="stylesheet" type="text/css" href="css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="css/green-layout.css" />
-	<link rel="stylesheet" type="text/css" href="css/toolkit.css" />
-
-	<!--[if lt IE 9]>
-		<link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
-	<![endif]-->
-
-	<!--[if lt IE 8]>
-		<style type="text/css">
-			#main { padding-top: 65px !important; }
-		</style>
-	<![endif]-->
-
-	<!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
-	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-
 	<script type="text/javascript">
 		$(document).ready(function () {
 		    $('settings-menu-button').click(function (e) {
