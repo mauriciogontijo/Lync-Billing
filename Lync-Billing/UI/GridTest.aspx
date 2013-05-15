@@ -78,12 +78,6 @@
             };
              
             var clearFilter = function () {
-                /*#{FilterTypeComboBox}.reset();
-                #{PriceFilter}.reset();
-                #{ChangeFilter}.reset();
-                #{PctChangeFilter}.reset();
-                #{LastChangeFilter}.reset();*/
-                
                 #{FilterTypeComboBox}.reset();
                 #{PhoneCallsHistoryGrid}.getStore().clearFilter();
             }
