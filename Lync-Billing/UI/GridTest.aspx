@@ -190,19 +190,19 @@
                         runat="server"
                         Text="Is Personal"
                         Width="100"
-                        Visible ="false"
                         DataIndex="UI_IsPersonal" />
 
                     <ext:Column ID="UI_MarkedOn"
                         runat="server"
                         Text="Updated On"
                         Width="80"
-                        DataIndex="UI_MarkedOn" />
+                        DataIndex="UI_MarkedOn" >
+                        <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
+                    </ext:Column>
 
                     <ext:Column ID="UI_IsInvoiced"
                         runat="server"
                         Text="Billing Status"
-                        Visible="false"
                         Width="90"
                         DataIndex="UI_IsInvoiced" />
 		        </Columns>
@@ -249,7 +249,7 @@
             </BottomBar>
                     
             <SelectionModel>
-                <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi"  Visible="false"/>
+                <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi" />
             </SelectionModel>            
                     
             <%--<Buttons>
