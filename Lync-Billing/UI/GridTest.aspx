@@ -252,7 +252,7 @@
                 <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi"  Visible="false"/>
             </SelectionModel>            
                     
-            <Buttons>
+            <%--<Buttons>
                 <ext:Button ID="GridSubmitChanges" runat="server" Text="Save Changes">
                     <DirectEvents>
                         <Click OnEvent="GridSubmitChanges_Click">
@@ -260,8 +260,7 @@
                         </Click>
                     </DirectEvents>
                 </ext:Button>
-            </Buttons>
-            
+            </Buttons>--%>
         </ext:GridPanel>
     </form>
 
