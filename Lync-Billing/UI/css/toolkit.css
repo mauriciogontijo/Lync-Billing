@@ -4,6 +4,22 @@
 
 
 
+/* start floatings */
+.float-left { float: left; }
+.float-right { float: right; }
+/* end floatings */
+
+
+
+/* start visibility styling */
+.hidden { visibility: hidden; display: none; }
+.visible { visibility: visible; display: block; }
+.display-none { display: none; }
+.display-block { display: block; }
+/* end visibility styling */
+
+
+
 /* start marginings */
 .m5 { margin: 5px; }
 .m10 { margin: 10px; }
@@ -54,23 +70,47 @@
 
 
 
-/* start floatings */
-.float-left { float: left; }
-.float-right { float: right; }
-/* end floatings */
-
-
-
 /* start font sizes */
 .font-10 { font-size: 10px; }
+.font-11 { font-size: 11px; }
 .font-12 { font-size: 12px; }
+.font-13 { font-size: 13px; }
 .font-14 { font-size: 14px; }
+.font-15 { font-size: 15px; }
 .font-16 { font-size: 16px; }
+.font-17 { font-size: 17px; }
 .font-18 { font-size: 18px; }
+.font-19 { font-size: 19px; }
 .font-20 { font-size: 20px; }
+.font-21 { font-size: 21px; }
 .font-22 { font-size: 22px; }
+.font-23 { font-size: 23px; }
 .font-24 { font-size: 24px; }
+.font-25 { font-size: 25px; }
+
+.font-1-0-em { font-size: 1.0em; }
+.font-1-1-em { font-size: 1.1em; }
+.font-1-2-em { font-size: 1.2em; }
+.font-1-3-em { font-size: 1.3em; }
+.font-1-4-em { font-size: 1.4em; }
+.font-1-5-em { font-size: 1.5em; }
+.font-1-6-em { font-size: 1.6em; }
+.font-1-7-em { font-size: 1.7em; }
+.font-1-8-em { font-size: 1.8em; }
+.font-1-9-em { font-size: 1.9em; }
 /* end font sizes */
+
+
+
+/* start paragraphs customizations */
+.line-height-1, p.line-height-1 { line-height: 1.1; }
+.line-height-2, p.line-height-2 { line-height: 1.2; }
+.line-height-3, p.line-height-3 { line-height: 1.3; }
+.line-height-4, p.line-height-4 { line-height: 1.4; }
+.line-height-5, p.line-height-5 { line-height: 1.5; }
+.line-height-6, p.line-height-6 { line-height: 1.6; }
+.line-height-7, p.line-height-7 { line-height: 1.7; }
+/* start paragraphs customizations */
 
 
 
@@ -113,15 +153,12 @@ h1, h2, h3, h4, h5, h6 { margin: 0; color: #333; text-rendering: optimizeLegibil
 
 
 
-/* start heights */
-.h5 { height: 5px; }
-.h10 { height: 10px; }
-.h15 { height: 15px; }
-.h20 { height: 20px; }
-.h25 { height: 25px; }
-.h30 { height: 30px; }
-.h35 { height: 35px; }
-/* end heights */
+/* start simple solid borders styling */
+.tborder-solid { border-top: 1px solid #000000; }
+.bborder-solid { border-bottom: 1px solid #000000; }
+.lborder-solid { border-left: 1px solid #000000; }
+.rborder-solid { border-right: 1px solid #000000; }
+/* end simple solid borders styling */
 
 
 
@@ -204,21 +241,3 @@ h1, h2, h3, h4, h5, h6 { margin: 0; color: #333; text-rendering: optimizeLegibil
 
 .hauto { height: auto; }
 /* end heights styling */
-
-
-
-/* start visibility styling */
-.hidden { visibility: hidden; display: none; }
-.visible { visibility: visible; display: block; }
-.display-none { display: none; }
-.display-block { display: block; }
-/* end visibility styling */
-
-
-
-/* start simple solid borders styling */
-.tborder-solid { border-top: 1px solid #000000; }
-.bborder-solid { border-bottom: 1px solid #000000; }
-.lborder-solid { border-left: 1px solid #000000; }
-.rborder-solid { border-right: 1px solid #000000; }
-/* end simple solid borders styling */
