@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Collections.ObjectModel;
+using System.Web.Script.Serialization;
 using Ext.Net;
 using Lync_Billing.DB;
 
@@ -20,7 +21,7 @@ namespace Lync_Billing.UI
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
 
             wherePart.Add("SourceUserUri", SipAccount);
-
+            wherePart.Add("marker_CallTypeID", 1);
             columns.Add("SessionIdTime");
             columns.Add("marker_CallToCountry");
             columns.Add("DestinationNumberUri");
@@ -72,6 +73,13 @@ namespace Lync_Billing.UI
         protected void FilterTypeChange(object sender, EventArgs e)
         {
             //do nothing
+        }
+
+        public void refreshStore(string Field, string value)
+        {
+            PhoneCallsHistoryGrid.GetStore().Filters.Clear();
+            PhoneCallsHistoryGrid.GetStore().Filter(Field, value);
+            DataBind();
         }
     }
 }
