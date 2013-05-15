@@ -118,12 +118,13 @@
             ID="PhoneCallsHistoryGrid" 
             runat="server" 
             Title="Phone Calls History"
-            Width="530"
+            Width="745"
             Height="450"  
             AutoScroll="true"
             Header="true"
             Scroll="Both" 
-            Layout="FitLayout">
+            Layout="FitLayout"
+            >
 
             <Store>
              <ext:Store ID="PhoneCallStore" runat="server" IsPagingStore="true"  PageSize="25"
@@ -157,7 +158,8 @@
                         Width="80" 
                         DataIndex="SessionIdTime" 
                         Resizable="false" 
-                        MenuDisabled="true">
+                        MenuDisabled="true"
+                        >
                        
                         <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
                     </ext:Column>
@@ -234,6 +236,32 @@
                                 <Change OnEvent="FilterTypeChange"></Change>
                             </DirectEvents>--%>
                         </ext:ComboBox>
+                         <ext:ButtonGroup 
+                             ID="MrkingBottonsGroup" 
+                             runat="server"
+                             Layout="TableLayout" 
+                             Width="250" 
+                             Frame="false"
+                             Margins="0 0 0 330"
+                             ButtonAlign="Right">
+                             <Buttons>
+                                 <ext:Button ID="Business" Text="Business" runat="server">
+                                     <DirectEvents>
+                                         <Click OnEvent="AssignBusiness"></Click>
+                                     </DirectEvents>
+                                 </ext:Button>
+                                 <ext:Button ID="Personal" Text="Personal" runat="server">
+                                     <DirectEvents>
+                                         <Click OnEvent="AssignPersonal"></Click>
+                                     </DirectEvents>
+                                 </ext:Button>
+                                 <ext:Button ID="Dispute" Text="Dispute" runat="server">
+                                     <DirectEvents>
+                                         <Click OnEvent="AssignDispute"></Click>
+                                     </DirectEvents>
+                                 </ext:Button>
+                             </Buttons>
+                         </ext:ButtonGroup>
                     </Items>
                 </ext:Toolbar>
             </TopBar>
@@ -249,10 +277,14 @@
             </BottomBar>
                     
             <SelectionModel>
-                <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi" />
+                <ext:CheckboxSelectionModel 
+                    ID="PhoneCallsCheckBoxColumn" 
+                    runat="server" 
+                    Mode="Multi">
+                </ext:CheckboxSelectionModel>
             </SelectionModel>            
                     
-            <%--<Buttons>
+            <Buttons>
                 <ext:Button ID="GridSubmitChanges" runat="server" Text="Save Changes">
                     <DirectEvents>
                         <Click OnEvent="GridSubmitChanges_Click">
@@ -260,7 +292,7 @@
                         </Click>
                     </DirectEvents>
                 </ext:Button>
-            </Buttons>--%>
+            </Buttons>
         </ext:GridPanel>
     </form>
 

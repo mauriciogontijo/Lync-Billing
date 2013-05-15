@@ -166,6 +166,42 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.ComboBox FilterTypeComboBox;
         
         /// <summary>
+        /// MrkingBottonsGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ButtonGroup MrkingBottonsGroup;
+        
+        /// <summary>
+        /// Business control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button Business;
+        
+        /// <summary>
+        /// Personal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button Personal;
+        
+        /// <summary>
+        /// Dispute control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button Dispute;
+        
+        /// <summary>
         /// PhoneCallsPagingToolbar control.
         /// </summary>
         /// <remarks>
@@ -182,5 +218,14 @@ namespace Lync_Billing.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.CheckboxSelectionModel PhoneCallsCheckBoxColumn;
+        
+        /// <summary>
+        /// GridSubmitChanges control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button GridSubmitChanges;
     }
 }

@@ -80,27 +80,24 @@ namespace Lync_Billing.UI
             DataBind();
         }
 
-        protected void FilterTypeChange(object sender, EventArgs e)
+        protected void AssignBusiness(object sender, DirectEventArgs e)
         {
-            //PhoneCallsHistoryGrid.GetStore().Filters.Clear();
-            //switch (Convert.ToInt32(FilterTypeComboBox.SelectedItem.Value))
-            //{
-            //    case 1:
-            //        break;
-            //    case 2:
-            //        break;
-            //    case 3:
-            //        break;
-            //    case 4:
-            //        refreshStore("UI_IsPersonal", "NO");
-            //        break;
-            //    case 5:
-            //        refreshStore("UI_IsPersonal", "YES");
-            //        break;
-            //    case 6:
-            //        break;
-            //}
+            RowSelectionModel selectedRows = PhoneCallsHistoryGrid.GetSelectionModel() as RowSelectionModel;
+            foreach (SelectedRow row in selectedRows.SelectedRows)
+            {
+                string recordID = row.RecordID;
+            }
+
         }
-        
+
+        protected void AssignPersonal(object sender, DirectEventArgs e)
+        {
+
+        }
+
+        protected void AssignDispute(object sender, DirectEventArgs e)
+        {
+
+        }
     }
 }
