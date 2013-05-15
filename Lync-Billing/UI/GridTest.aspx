@@ -10,6 +10,10 @@
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="js/browserdetector.js"></script>
         <script type="text/javascript" src="js/toolkit.js"></script>
+        <style type="text/css">
+            .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
+            /*.x-grid-cell-inner, .x-column-header-inner { text-align: center !important; }*/
+        </style>
 </head>
 <body>
     <form id="Form1" runat="server">
