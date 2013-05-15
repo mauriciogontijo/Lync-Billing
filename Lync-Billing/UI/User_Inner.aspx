@@ -135,6 +135,7 @@
                        </Model>
                     </ext:Store>
                 </Store>
+
                 <ColumnModel ID="PhoneCallsColumnModel" runat="server">
 		            <Columns>
                         <ext:Column ID="SessionIdTime" 
@@ -191,10 +192,11 @@
                             DataIndex="ui_IsInvoiced" />
 		            </Columns>
                 </ColumnModel>
-                 <TopBar>
-                      <ext:Toolbar ID="FilterToolBar" runat="server">
-                         <Items>
-                          <ext:ComboBox 
+                
+                <TopBar>
+                    <ext:Toolbar ID="FilterToolBar" runat="server">
+                        <Items>
+                            <ext:ComboBox 
                                 ID="FilterTypeComboBox" 
                                 runat="server" 
                                 Icon="Find" 
@@ -217,6 +219,7 @@
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
+
                 <BottomBar>
                     <ext:PagingToolbar 
                         ID="PhoneCallsPagingToolbar" 
