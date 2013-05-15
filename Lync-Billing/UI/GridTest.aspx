@@ -46,13 +46,14 @@
             var getRecordFilter = function () {
                 debugger;
                 var f = [];
-                
+                var value;
                 f.push({
                     /*filter: function (record) {
                         var FilterValue = #{FilterTypeComboBox}.getValue() || "";
                         switch(FilterValue) {
                             case 4:
                                 return filterString('NO', 'UI_IsPersonal', record);
+                                value = record.field.value();
                                 break;
                             case 5:
                                 return filterString('YES', 'UI_IsPersonal', record);
