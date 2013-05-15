@@ -23,6 +23,7 @@ namespace Lync_Billing.UI
 
 
             wherePart.Add("SourceUserUri", SipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
 
             columns.Add("SessionIdTime");
             columns.Add("marker_CallToCountry");
