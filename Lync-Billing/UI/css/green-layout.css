@@ -129,6 +129,10 @@ div#main_content_place_holder_PhoneCallsHistoryGrid * {
     vertical-align: bottom;
 }
 
+.x-grid-with-row-lines .x-grid-cell { 
+    height: 25px !important;
+}
+
 /*div#main_content_place_holder_PhoneCallsHistoryGrid-body {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
