@@ -34,48 +34,35 @@
         <script type="text/javascript">
             var applyFilter = function (field) {
                 debugger;
-                if(field){
-                    var id = field.id,
-                        task = new Ext.util.DelayedTask(function(){
-                            var f = Ext.getCmp(id);
-                            f.focus();
-                            f.el.dom.value = f.el.dom.value;
-                        });
-                    task.delay(100);
-                }
+                var store = #{PhoneCallsHistoryGrid}.getStore();
 
                 if(#{FilterTypeComboBox}.getValue() == "1") {
                     clearFilter();
                 } else {
-                    #{PhoneCallsHistoryGrid}.getStore().filterBy(getRecordFilter());                                
+                    store.filterBy(getRecordFilter());
                 }
             };
 
             var getRecordFilter = function () {
                 debugger;
                 var f = [];
- 
+                
                 f.push({
                     filter: function (record) {
-                        var FilterValue = #{FilterTypeComboBox}.getValue();
-                        switch(FilterValue)
-                        {
+                        var FilterValue = #{FilterTypeComboBox}.getValue() || "";
+                        switch(FilterValue) {
                             case 4:
                                 return filterString('NO', 'UI_IsPersonal', record);
                                 break;
                             case 5:
                                 return filterString('YES', 'UI_IsPersonal', record);
                                 break;
-                            default:
-                                //return filterString(#{FilterTypeComboBox}.getValue(), 'UI_IsPersonal', record);
-                                break;
                         }
-                        
                     }
                 });
- 
+                
                 var len = f.length;
-                  
+                
                 return function (record) {
                     for (var i = 0; i < len; i++) {
                         if (!f[i].filter(record)) {
@@ -85,36 +72,44 @@
                     return true;
                 };
             };
- 
-            var clearFilter = function () {                 
+             
+            var clearFilter = function () {
+                /*#{FilterTypeComboBox}.reset();
+                #{PriceFilter}.reset();
+                #{ChangeFilter}.reset();
+                #{PctChangeFilter}.reset();
+                #{LastChangeFilter}.reset();*/
+                
+                #{FilterTypeComboBox}.reset();
                 #{PhoneCallsHistoryGrid}.getStore().clearFilter();
             }
-            
+ 
             var filterString = function (value, dataIndex, record) {
                 var val = record.get(dataIndex);
+                
                 if (typeof val != "string") {
                     return value.length == 0;
                 }
- 
-                var retValue = value!=undefined && val.toLowerCase().indexOf(value.toLowerCase()) > -1;
-                return retValue;
+                
+                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
             };
-  
+            
             var filterDate = function (value, dataIndex, record) {
-                var val = record.get(dataIndex).clearTime(true).getTime();
-  
-                if (!Ext.isEmpty(value, false) && val != value.clearTime(true).getTime()) {
+                var val = Ext.Date.clearTime(record.get(dataIndex), true).getTime();
+ 
+                if (!Ext.isEmpty(value, false) && val != Ext.Date.clearTime(value, true).getTime()) {
                     return false;
                 }
                 return true;
             };
-  
+            
             var filterNumber = function (value, dataIndex, record) {
                 var val = record.get(dataIndex);                
-  
+ 
                 if (!Ext.isEmpty(value, false) && val != value) {
                     return false;
                 }
+                
                 return true;
             };
         </script>
