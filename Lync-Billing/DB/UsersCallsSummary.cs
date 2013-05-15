@@ -29,24 +29,10 @@ namespace Lync_Billing.DB
             columns = new List<string>();
 
             wherePart.Add("SourceUserUri", sipAccount);
-            wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("startingDate", startingDate);
+            wherePart.Add("endingDate", endingDate);
 
-            columns.Add("SessionIdTime");
-            columns.Add("marker_CallToCountry");
-            columns.Add("DestinationNumberUri");
-            columns.Add("Duration");
-            columns.Add("marker_CallCost");
-            columns.Add("ui_IsPersonal");
-            columns.Add("ui_MarkedOn");
-            columns.Add("ui_IsInvoiced");
-
-            if (startingDate != null && endingDate != null)
-            {
-
-            }
-            else
-            {
-            }
+            DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
         }
 
     }
