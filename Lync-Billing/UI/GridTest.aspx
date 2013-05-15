@@ -7,7 +7,9 @@
     <head id="Head1" runat="server">
     <title>GridPanel with ObjectDataSource - Ext.NET Examples</title>
     
-
+         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/browserdetector.js"></script>
+        <script type="text/javascript" src="js/toolkit.js"></script>
     <style>
         .x-grid-cell-fullName .x-grid-cell-inner {
             font-family : tahoma, verdana;
@@ -28,9 +30,86 @@
             border-bottom-width:0px;
         }
     </style>
-         <ext:XScript ID="FilterXScript" runat="server">
-        <script>
-
+    <ext:XScript ID="XScript1" runat="server">
+        <script type="text/javascript">
+            debugger;
+            var applyFilter = function (field) {
+                if(field){
+                    var id = field.id,
+                        task = new Ext.util.DelayedTask(function(){
+                            var f = Ext.getCmp(id);
+                            f.focus();
+                            f.el.dom.value = f.el.dom.value;
+                        });
+                    task.delay(100);
+                }
+                #{PhoneCallsHistoryGrid}.getStore().filterBy(getRecordFilter());                                
+            };
+ 
+            var clearFilter = function () {                 
+                #{PhoneCallsHistoryGrid}.getStore().clearFilter();
+            }
+            
+            var filterString = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                if (typeof val != "string") {
+                    return value.length == 0;
+                }
+ 
+                var retValue = value!=undefined && val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+                return retValue;
+            };
+  
+            var filterDate = function (value, dataIndex, record) {
+                var val = record.get(dataIndex).clearTime(true).getTime();
+  
+                if (!Ext.isEmpty(value, false) && val != value.clearTime(true).getTime()) {
+                    return false;
+                }
+                return true;
+            };
+  
+            var filterNumber = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);                
+  
+                if (!Ext.isEmpty(value, false) && val != value) {
+                    return false;
+                }
+                return true;
+            };
+ 
+            var getRecordFilter = function () {
+                var f = [];
+ 
+                f.push({
+                    filter: function (record) {
+                        var FilterValue = #{FilterTypeComboBox}.getValue();
+                        switch(FilterValue)
+                        {
+                            case 4:
+                                return filterString('NO', 'UI_IsPersonal', record);
+                                break;
+                            case 5:
+                                return filterString('YES', 'UI_IsPersonal', record);
+                                break;
+                            default:
+                                return filterString(#{FilterTypeComboBox}.getValue(), 'UI_IsPersonal', record);
+                        }
+                        
+                    }
+                });
+ 
+                var len = f.length;
+                  
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
+            };
         </script>
     </ext:XScript>
 </head>
@@ -64,9 +143,9 @@
                             <ext:ModelField Name="DestinationNumberUri" Type="String" />
                             <ext:ModelField Name="Duration" Type="Float" />
                             <ext:ModelField Name="marker_CallCost"  Type="Float" />
-                            <ext:ModelField Name="ui_IsPersonal" Type="Boolean" />
-                            <ext:ModelField Name="ui_MarkedOn" Type="Date" />
-                            <ext:ModelField Name="ui_IsInvoiced" Type="Boolean" />
+                            <ext:ModelField Name="UI_IsPersonal" Type="String" />
+                            <ext:ModelField Name="UI_MarkedOn" Type="Date" />
+                            <ext:ModelField Name="UI_IsPersonal" Type="String" />
                         </Fields>
                  </ext:Model>
                </Model>
@@ -109,23 +188,23 @@
                         Width="70"
                         DataIndex="marker_CallCost" />
 
-                    <ext:Column ID="ui_IsPersonal"
+                    <ext:Column ID="UI_IsPersonal"
                         runat="server"
-                        Text="Type"
+                        Text="Is Personal"
                         Width="100"
-                        DataIndex="ui_IsPersonal" />
+                        DataIndex="UI_IsPersonal" />
 
-                    <ext:Column ID="ui_MarkedOn"
+                    <ext:Column ID="UI_MarkedOn"
                         runat="server"
                         Text="Updated On"
                         Width="80"
-                        DataIndex="ui_MarkedOn" />
+                        DataIndex="UI_MarkedOn" />
 
-                    <ext:Column ID="ui_IsInvoiced"
+                    <ext:Column ID="UI_IsInvoiced"
                         runat="server"
                         Text="Billing Status"
                         Width="90"
-                        DataIndex="ui_IsInvoiced" />
+                        DataIndex="UI_IsInvoiced" />
 		        </Columns>
             </ColumnModel>
              <TopBar>
@@ -140,16 +219,20 @@
                             DisplayField="TypeName" 
                             ValueField="TypeValue">
                             <Items>
-                                <ext:ListItem Text="Unmarked" Value="1" />
-                                <ext:ListItem Text="Marked" Value="2" />
-                                <ext:ListItem Text="Business" Value="3" />
-                                <ext:ListItem Text="Personal" Value="4" />
-                                <ext:ListItem Text="Charged" Value="5" />
-                                <ext:ListItem Text="Uncharged" Value="6" />
+                                <ext:ListItem Text="Everything" Value="1"/>
+                                <ext:ListItem Text="Unmarked" Value="2" />
+                                <ext:ListItem Text="Marked" Value="3" />
+                                <ext:ListItem Text="Business" Value="4" />
+                                <ext:ListItem Text="Personal" Value="5" />
+                                <ext:ListItem Text="Charged" Value="6" />
+                                <ext:ListItem Text="Uncharged" Value="7" />
                             </Items>
-                            <DirectEvents>
+                             <Listeners>
+                                <Select Handler="applyFilter(this);" />
+                            </Listeners>
+                           <%-- <DirectEvents>
                                 <Change OnEvent="FilterTypeChange"></Change>
-                            </DirectEvents>
+                            </DirectEvents>--%>
                         </ext:ComboBox>
                     </Items>
                 </ext:Toolbar>
@@ -178,7 +261,9 @@
                     </DirectEvents>
                 </ext:Button>
             </Buttons>
+            
         </ext:GridPanel>
     </form>
+
 </body>
 </html>

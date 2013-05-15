@@ -22,13 +22,13 @@ namespace Lync_Billing.UI {
         protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
         
         /// <summary>
-        /// FilterXScript control.
+        /// XScript1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.XScript FilterXScript;
+        protected global::Ext.Net.XScript XScript1;
         
         /// <summary>
         /// Form1 control.
@@ -121,31 +121,31 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Column marker_CallCost;
         
         /// <summary>
-        /// ui_IsPersonal control.
+        /// UI_IsPersonal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column ui_IsPersonal;
+        protected global::Ext.Net.Column UI_IsPersonal;
         
         /// <summary>
-        /// ui_MarkedOn control.
+        /// UI_MarkedOn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column ui_MarkedOn;
+        protected global::Ext.Net.Column UI_MarkedOn;
         
         /// <summary>
-        /// ui_IsInvoiced control.
+        /// UI_IsInvoiced control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column ui_IsInvoiced;
+        protected global::Ext.Net.Column UI_IsInvoiced;
         
         /// <summary>
         /// FilterToolBar control.

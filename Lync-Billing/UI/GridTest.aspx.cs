@@ -72,29 +72,33 @@ namespace Lync_Billing.UI
         {
 
         }
+        public void refreshStore(string Field, string value) 
+        {
+            PhoneCallsHistoryGrid.GetStore().Filters.Clear();
+            PhoneCallsHistoryGrid.GetStore().Filter(Field, value);
+            DataBind();
+        }
 
         protected void FilterTypeChange(object sender, EventArgs e)
         {
-            
+            PhoneCallsHistoryGrid.GetStore().Filters.Clear();
             switch(Convert.ToInt32(FilterTypeComboBox.SelectedItem.Value))
             {
                 case 1:
-                    PhoneCallsHistoryGrid.GetStore().Filter("ui_IsPersonal", null);        
                     break;
                 case 2:
                     break;
                 case 3:
                     break;
                 case 4:
+                    refreshStore("UI_IsPersonal", "NO");
                     break;
                 case 5:
+                    refreshStore("UI_IsPersonal", "YES");
                     break;
                 case 6:
                     break;
             }
-
-            
-            
         }
         
     }
