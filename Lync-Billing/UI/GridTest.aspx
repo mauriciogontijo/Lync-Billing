@@ -33,7 +33,6 @@
     <ext:XScript ID="XScript1" runat="server">
         <script type="text/javascript">
             var applyFilter = function (field) {
-                debugger;
                 var store = #{PhoneCallsHistoryGrid}.getStore();
 
                 if(#{FilterTypeComboBox}.getValue() == "1") {
@@ -44,7 +43,6 @@
             };
 
             var getRecordFilter = function () {
-                debugger;
                 var f = [];
                 
                 var FilterValue = #{FilterTypeComboBox}.getValue() || "";
