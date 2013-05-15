@@ -118,7 +118,7 @@
             ID="PhoneCallsHistoryGrid" 
             runat="server" 
             Title="Phone Calls History"
-            Width="745"
+            Width="530"
             Height="450"  
             AutoScroll="true"
             Header="true"
@@ -190,6 +190,7 @@
                         runat="server"
                         Text="Is Personal"
                         Width="100"
+                        Visible ="false"
                         DataIndex="UI_IsPersonal" />
 
                     <ext:Column ID="UI_MarkedOn"
@@ -201,6 +202,7 @@
                     <ext:Column ID="UI_IsInvoiced"
                         runat="server"
                         Text="Billing Status"
+                        Visible="false"
                         Width="90"
                         DataIndex="UI_IsInvoiced" />
 		        </Columns>
@@ -247,7 +249,7 @@
             </BottomBar>
                     
             <SelectionModel>
-                <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi" />
+                <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi"  Visible="false"/>
             </SelectionModel>            
                     
             <Buttons>
