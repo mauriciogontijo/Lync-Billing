@@ -68,13 +68,15 @@
                         runat="server"
                         Text="Country Code"
                         Width="80"
-                        DataIndex="DestinationNumberUri Code" />
+                        DataIndex="DestinationNumberUri Code" 
+                        Align="Center"/>
 
                     <ext:Column ID="DestinationNumberUri"
                         runat="server"
                         Text="Destination"
                         Width="130"
-                        DataIndex="DestinationNumberUri" />
+                        DataIndex="DestinationNumberUri" 
+                        />
 
                     <ext:Column ID="Duration"
                         runat="server"
