@@ -247,7 +247,11 @@
                              <Buttons>
                                  <ext:Button ID="Business" Text="Business" runat="server">
                                      <DirectEvents>
-                                         <Click OnEvent="AssignBusiness"></Click>
+                                         <Click OnEvent="AssignBusiness">
+                                             <ExtraParams>
+                                                 <ext:Parameter Name="Name" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true})"  Mode="Raw"/>
+                                             </ExtraParams>
+                                         </Click>
                                      </DirectEvents>
                                  </ext:Button>
                                  <ext:Button ID="Personal" Text="Personal" runat="server">
