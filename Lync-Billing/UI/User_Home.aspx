@@ -16,23 +16,6 @@
 			</style>
 		<![endif]-->
 
-        <style type="text/css">
-            .x-panel-header-default {
-                background: -webkit-gradient(linear, left top, left bottom, from(#A8DBA8), to(#79BD9A)) !important;
-                border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
-            }
-
-            div#main_content_place_holder_PhoneCallsGrid-body {
-                box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                -ms-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                border-bottom-left-radius: 5px;
-                border-bottom-right-radius: 5px;
-            }
-        </style>
-
 		<!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 
