@@ -15,7 +15,7 @@ div#header-container {
 }
 
 div#header-container div#nav-toolbar { width: 1000px; height: 40px; display: block; margin: 0 auto; }
-div#main { width: 1000px; margin: 50px auto; display: block; padding: 20px; border-left: 1px solid #CECFCE; border-right: 1px solid #CECFCE; border-bottom: 1px solid #CECFCE; overflow: hidden; }
+div#main { width: 1000px; margin: 40px auto; display: block; padding: 20px; border-left: 1px solid #CECFCE; border-right: 1px solid #CECFCE; border-bottom: 1px solid #CECFCE; overflow: hidden; }
 div#footer .footer { width: auto; display: block; height: 24px; overflow: hidden; }
 div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
 
@@ -27,8 +27,8 @@ div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; bord
 /* **************************** */
 /* start content-blocks styling */
 .block { width: auto; margin: 0 auto; color: #FFFFFF; display: block; overflow: hidden; }
-.block-body { position: relative; width: auto; margin: 0 5px 5px 5px; display: block; padding: 10px; margin-bottom: 5px; color: #000000; overflow: hidden; }
-.block-header { position: relative; width: auto; max-height: 33px; margin: 5px 5px 0 5px; display: block; padding: 10px; 	
+.block-body { position: relative; width: auto; margin: 0 5px 5px 5px; display: block; padding: 5px 5px 5px 10px; color: #000000; overflow: hidden; }
+.block-header { position: relative; width: auto; min-height: 27px; max-height: 27px; margin: 5px 5px 0 5px; display: block; padding: 5px; 	
 	background: #79BD9A; /* for non-css3 browsers */
 	background: -webkit-gradient(linear, left top, left bottom, from(#A8DBA8), to(#79BD9A)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  #A8DBA8,  #79BD9A); /* for firefox 3.6+ */
