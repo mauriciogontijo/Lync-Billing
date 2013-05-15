@@ -158,6 +158,62 @@ namespace Lync_Billing.Libs
         }
 
         /// <summary>
+        /// Construct Generic Select Statemnet 
+        /// </summary>
+        /// <param name="tableName">DB Table Name</param>
+        /// <param name="fields">List of Fields to be fetched from Database</param>
+        /// <param name="whereClause"> A dictionary which holds the fields and its related values to be able to construct Where Statemnet
+        /// 1. Null if there is no condition
+        /// 2. Dictionary holds fields names and values if there is a condition
+        /// </param>
+        /// <param name="limits">Holds how many rows to be fetched from the database table. 
+        /// 1. 0 if all Rows 
+        /// 2. Value for number of rows</param>
+        /// <returns>DataTable Object</returns>
+        public DataTable SELECT_USER_STATISTICS(string tableName, Dictionary<string, object> whereClause)
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            StringBuilder whereStatement = new StringBuilder();
+            StringBuilder fields = new StringBuilder();
+           
+
+            if (whereClause.ContainsKey("startingDate") && whereClause.ContainsKey("endingDate"))
+            {
+                whereStatement.Append(String.Format(" WHERE [SourceUserUri] = {0} AND [SessionIdTime] >= {1} AND [SessionIdTime] < {2}", whereClause["SourceUserUri"].ToString(), whereClause["startingDate"].ToString(), whereClause["endingDate"].ToString()));
+            }
+            else 
+            {
+                whereStatement.Append(String.Format(" WHERE [SourceUserUri] = {0}", whereClause["SourceUserUri"].ToString()));
+            }
+
+            selectQuery = String.Format(
+                "SELECT COUNT(*) ui_IsPersonal, ui_IsPersonal, SUM([PhoneCalls].[Duration]) as TotalMinutes, SUM([PhoneCalls].[marker_CallCost]) as TotalCost from PhoneCalls {0} group by ui_IsPersonal",
+                whereStatement.ToString()
+            );
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
+        /// <summary>
         /// Construct Generic INSERT Statement
         /// </summary>
         /// <param name="tableName">DB Table Name</param>
