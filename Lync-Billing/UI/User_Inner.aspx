@@ -112,29 +112,29 @@
                 Layout="FitLayout">
 
                 <Store>
-                 <ext:Store ID="PhoneCallStore" runat="server" IsPagingStore="true"  PageSize="25"
-                    OnAfterRecordUpdated="PhoneCallStore_AfterRecordUpdated"
-                    OnAfterStoreChanged="PhoneCallStore_AfterStoreChanged"
-                    OnAfterDirectEvent="PhoneCallStore_AfterDirectEvent"
-                    OnBeforeDirectEvent="PhoneCallStore_BeforeDirectEvent"
-                    OnBeforeRecordUpdated="PhoneCallStore_BeforeRecordUpdated"
-                    OnBeforeStoreChanged="PhoneCallStore_BeforeStoreChanged">
-                    <Model>
-                        <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
-                            <Fields>
-                                <ext:ModelField Name="SessionIdTime" Type="Date" />
-                                <ext:ModelField Name="marker_CallToCountry" Type="String" />
-                                <ext:ModelField Name="DestinationNumberUri" Type="String" />
-                                <ext:ModelField Name="Duration" Type="Float" />
-                                <ext:ModelField Name="marker_CallCost"  Type="Float" />
-                                <ext:ModelField Name="ui_IsPersonal" Type="Boolean" />
-                                <ext:ModelField Name="ui_MarkedOn" Type="Date" />
-                                <ext:ModelField Name="ui_IsInvoiced" Type="Boolean" />
-                            </Fields>
-                     </ext:Model>
-                   </Model>
-                </ext:Store>
-             </Store>
+                    <ext:Store ID="PhoneCallStore" runat="server" IsPagingStore="true"  PageSize="25"
+                        OnAfterRecordUpdated="PhoneCallStore_AfterRecordUpdated"
+                        OnAfterStoreChanged="PhoneCallStore_AfterStoreChanged"
+                        OnAfterDirectEvent="PhoneCallStore_AfterDirectEvent"
+                        OnBeforeDirectEvent="PhoneCallStore_BeforeDirectEvent"
+                        OnBeforeRecordUpdated="PhoneCallStore_BeforeRecordUpdated"
+                        OnBeforeStoreChanged="PhoneCallStore_BeforeStoreChanged">
+                        <Model>
+                            <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
+                                <Fields>
+                                    <ext:ModelField Name="SessionIdTime" Type="Date" />
+                                    <ext:ModelField Name="marker_CallToCountry" Type="String" />
+                                    <ext:ModelField Name="DestinationNumberUri" Type="String" />
+                                    <ext:ModelField Name="Duration" Type="Float" />
+                                    <ext:ModelField Name="marker_CallCost"  Type="Float" />
+                                    <ext:ModelField Name="ui_IsPersonal" Type="Boolean" />
+                                    <ext:ModelField Name="ui_MarkedOn" Type="Date" />
+                                    <ext:ModelField Name="ui_IsInvoiced" Type="Boolean" />
+                                </Fields>
+                         </ext:Model>
+                       </Model>
+                    </ext:Store>
+                </Store>
                 <ColumnModel ID="PhoneCallsColumnModel" runat="server">
 		            <Columns>
                         <ext:Column ID="SessionIdTime" 
