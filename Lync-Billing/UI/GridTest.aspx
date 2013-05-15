@@ -48,7 +48,7 @@
                 var f = [];
                 
                 f.push({
-                    filter: function (record) {
+                    /*filter: function (record) {
                         var FilterValue = #{FilterTypeComboBox}.getValue() || "";
                         switch(FilterValue) {
                             case 4:
@@ -58,6 +58,10 @@
                                 return filterString('YES', 'UI_IsPersonal', record);
                                 break;
                         }
+                    }*/
+
+                    filter: function (record) {                         
+                        return filterString('YES', 'UI_IsPersonal', record);
                     }
                 });
                 
