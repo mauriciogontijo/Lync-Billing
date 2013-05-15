@@ -7,109 +7,9 @@
     <head id="Head1" runat="server">
     <title>GridPanel with ObjectDataSource - Ext.NET Examples</title>
     
-         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="js/browserdetector.js"></script>
         <script type="text/javascript" src="js/toolkit.js"></script>
-    <style>
-        .x-grid-cell-fullName .x-grid-cell-inner {
-            font-family : tahoma, verdana;
-            display     : block;
-            font-weight : normal;
-            font-style  : normal;
-            color       : #385F95;
-            white-space : normal;
-        }
-        
-        .x-grid-rowbody div {
-            margin : 2px 5px 20px 5px !important;
-            width  : 99%;
-            color  : Gray;
-        }
-        
-        .x-grid-row-expanded td.x-grid-cell{
-            border-bottom-width:0px;
-        }
-    </style>
-    <ext:XScript ID="XScript1" runat="server">
-        <script type="text/javascript">
-            var applyFilter = function (field) {
-                var store = #{PhoneCallsHistoryGrid}.getStore();
-
-                if(#{FilterTypeComboBox}.getValue() == "1") {
-                    clearFilter();
-                } else {
-                    store.filterBy(getRecordFilter());
-                }
-            };
-
-            var getRecordFilter = function () {
-                var f = [];
-                
-                var FilterValue = #{FilterTypeComboBox}.getValue() || "";
-                switch(FilterValue) {
-                    case "4":
-                        f.push({
-                            filter: function (record) {
-                                return filterString('NO', 'UI_IsPersonal', record); 
-                            }
-                        });
-                        break;
-                    case "5":
-                        f.push({
-                            filter: function (record) {
-                                return filterString('YES', 'UI_IsPersonal', record); 
-                            }
-                        });
-                        break;
-                }
-                
-                var len = f.length;
-                
-                return function (record) {
-                    for (var i = 0; i < len; i++) {
-                        if (!f[i].filter(record)) {
-                            return false;
-                        }
-                    }
-                    return true;
-                };
-            };
-             
-            var clearFilter = function () {
-                #{FilterTypeComboBox}.reset();
-                #{PhoneCallsHistoryGrid}.getStore().clearFilter();
-            }
- 
-            var filterString = function (value, dataIndex, record) {
-                var val = record.get(dataIndex);
-                
-                if (typeof val != "string") {
-                    return value.length == 0;
-                }
-                
-                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
-            };
-            
-            var filterDate = function (value, dataIndex, record) {
-                var val = Ext.Date.clearTime(record.get(dataIndex), true).getTime();
- 
-                if (!Ext.isEmpty(value, false) && val != Ext.Date.clearTime(value, true).getTime()) {
-                    return false;
-                }
-                return true;
-            };
-            
-            var filterNumber = function (value, dataIndex, record) {
-                var val = record.get(dataIndex);                
- 
-                if (!Ext.isEmpty(value, false) && val != value) {
-                    return false;
-                }
-                
-                return true;
-            };
-        </script>
-    </ext:XScript>
 </head>
 <body>
     <form id="Form1" runat="server">
@@ -212,34 +112,13 @@
              <TopBar>
                   <ext:Toolbar ID="FilterToolBar" runat="server">
                      <Items>
-                      <ext:ComboBox 
-                            ID="FilterTypeComboBox" 
-                            runat="server" 
-                            Icon="Find" 
-                            TriggerAction="All" 
-                            QueryMode="Local" 
-                            DisplayField="TypeName" 
-                            ValueField="TypeValue">
-                            <Items>
-                                <ext:ListItem Text="Everything" Value="1"/>
-                                <ext:ListItem Text="Unmarked" Value="2" />
-                                <ext:ListItem Text="Marked" Value="3" />
-                                <ext:ListItem Text="Business" Value="4" />
-                                <ext:ListItem Text="Personal" Value="5" />
-                                <ext:ListItem Text="Charged" Value="6" />
-                                <ext:ListItem Text="Uncharged" Value="7" />
-                            </Items>
-                             <Listeners>
-                                <Select Handler="applyFilter(this);" />
-                            </Listeners>
-                        </ext:ComboBox>
                          <ext:ButtonGroup 
                              ID="MrkingBottonsGroup" 
                              runat="server"
                              Layout="TableLayout" 
                              Width="250" 
                              Frame="false"
-                             Margins="0 0 0 330"
+                             Margins="0 0 0 480"
                              ButtonAlign="Right">
                              <Buttons>
                                  <ext:Button ID="Business" Text="Business" runat="server">
