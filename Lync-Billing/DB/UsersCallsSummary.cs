@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Lync_Billing.Libs;
+using System.Data;
 namespace Lync_Billing.DB
 {
     public class UsersCallsSummary
@@ -28,11 +29,15 @@ namespace Lync_Billing.DB
             wherePart = new Dictionary<string, object>();
             columns = new List<string>();
 
+            DataTable dt = new DataTable();
+
             wherePart.Add("SourceUserUri", sipAccount);
             wherePart.Add("startingDate", startingDate);
             wherePart.Add("endingDate", endingDate);
 
-            DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
+            dt = DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
+
+
         }
 
     }
