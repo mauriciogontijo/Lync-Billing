@@ -32,8 +32,8 @@
     </style>
     <ext:XScript ID="XScript1" runat="server">
         <script type="text/javascript">
-            debugger;
             var applyFilter = function (field) {
+                debugger;
                 if(field){
                     var id = field.id,
                         task = new Ext.util.DelayedTask(function(){
@@ -43,7 +43,47 @@
                         });
                     task.delay(100);
                 }
-                #{PhoneCallsHistoryGrid}.getStore().filterBy(getRecordFilter());                                
+
+                if(#{FilterTypeComboBox}.getValue() == "1") {
+                    clearFilter();
+                } else {
+                    #{PhoneCallsHistoryGrid}.getStore().filterBy(getRecordFilter());                                
+                }
+            };
+
+            var getRecordFilter = function () {
+                debugger;
+                var f = [];
+ 
+                f.push({
+                    filter: function (record) {
+                        var FilterValue = #{FilterTypeComboBox}.getValue();
+                        switch(FilterValue)
+                        {
+                            case 4:
+                                return filterString('NO', 'UI_IsPersonal', record);
+                                break;
+                            case 5:
+                                return filterString('YES', 'UI_IsPersonal', record);
+                                break;
+                            default:
+                                //return filterString(#{FilterTypeComboBox}.getValue(), 'UI_IsPersonal', record);
+                                break;
+                        }
+                        
+                    }
+                });
+ 
+                var len = f.length;
+                  
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
             };
  
             var clearFilter = function () {                 
@@ -76,39 +116,6 @@
                     return false;
                 }
                 return true;
-            };
- 
-            var getRecordFilter = function () {
-                var f = [];
- 
-                f.push({
-                    filter: function (record) {
-                        var FilterValue = #{FilterTypeComboBox}.getValue();
-                        switch(FilterValue)
-                        {
-                            case 4:
-                                return filterString('NO', 'UI_IsPersonal', record);
-                                break;
-                            case 5:
-                                return filterString('YES', 'UI_IsPersonal', record);
-                                break;
-                            default:
-                                return filterString(#{FilterTypeComboBox}.getValue(), 'UI_IsPersonal', record);
-                        }
-                        
-                    }
-                });
- 
-                var len = f.length;
-                  
-                return function (record) {
-                    for (var i = 0; i < len; i++) {
-                        if (!f[i].filter(record)) {
-                            return false;
-                        }
-                    }
-                    return true;
-                };
             };
         </script>
     </ext:XScript>
