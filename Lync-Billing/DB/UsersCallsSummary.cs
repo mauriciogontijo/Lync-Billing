@@ -8,7 +8,7 @@ namespace Lync_Billing.DB
     public class UsersCallsSummary
     {
 
-        private static 
+        private static DBLib DBRoutines = new DBLib();
 
         int BusinessCallsCount { get; set; }
         int PersonalCallsCount { get; set; }
@@ -18,6 +18,10 @@ namespace Lync_Billing.DB
         int PersonalCallsCost { get; set; }
         int UnMarkedCalls { get; set; }
         int NumberOfDisputedCalls { get; set; }
+
+        public static UsersCallsSummary(string SipAccount) 
+        {
+        }
 
     }
 }
