@@ -2,53 +2,50 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Login</title>
-    <link rel="stylesheet" type="text/css" href="css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="css/green-layout.css" />
-	<link rel="stylesheet" type="text/css" href="css/toolkit.css" />
 
     <!--[if lt IE 9]>
-			<link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
-		<![endif]-->
+		<link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
+	<![endif]-->
 
-		<!--[if lt IE 8]>
-			<style type="text/css">
-				#main { padding-top: 65px !important; }
-			</style>
-		<![endif]-->
+	<!--[if lt IE 8]>
+		<style type="text/css">
+			#main { padding-top: 65px !important; }
+		</style>
+	<![endif]-->
 
-		<!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
-		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 
-		<script type="text/javascript">
-		    $(document).ready(function () {
-		        $('settings-menu-button').click(function (e) {
-		            e.preventDefault();
+	<script type="text/javascript">
+		$(document).ready(function () {
+		    $('settings-menu-button').click(function (e) {
+		        e.preventDefault();
 
-		            if ($('#settings-more-list-container').css('display') == 'none') {
-		                $('#settings-more-list-container').fadeIn();
-		                $('#settings-more-list-container').css('display', 'block');
-		            } else {
-		                $('#settings-more-list-container').fadeOut();
-		                $('#settings-more-list-container').css('display', 'none');
-		            }
+		        if ($('#settings-more-list-container').css('display') == 'none') {
+		            $('#settings-more-list-container').fadeIn();
+		            $('#settings-more-list-container').css('display', 'block');
+		        } else {
+		            $('#settings-more-list-container').fadeOut();
+		            $('#settings-more-list-container').css('display', 'none');
+		        }
 
-		            return false;
-		        });
-
-		        $('#nav-more').click(function (e) {
-		            e.preventDefault();
-		            var top = $(this).offset().top;
-		            var right = $(this).offset().right;
-
-		            $('#more-list-container').css({ right: right - 1, top: top + 4 }).fadeIn('fast');
-		            return false;
-		        });
-
-		        $('body').click(function (e) {
-		            $('#more-list-container').fadeOut('fast');
-		        });
+		        return false;
 		    });
-		</script>
+
+		    $('#nav-more').click(function (e) {
+		        e.preventDefault();
+		        var top = $(this).offset().top;
+		        var right = $(this).offset().right;
+
+		        $('#more-list-container').css({ right: right - 1, top: top + 4 }).fadeIn('fast');
+		        return false;
+		    });
+
+		    $('body').click(function (e) {
+		        $('#more-list-container').fadeOut('fast');
+		    });
+		});
+	</script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
