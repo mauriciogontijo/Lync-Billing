@@ -131,7 +131,7 @@
                                     <ext:ModelField Name="ui_MarkedOn" Type="Date" />
                                     <ext:ModelField Name="ui_IsInvoiced" Type="Boolean" />
                                 </Fields>
-                         </ext:Model>
+                            </ext:Model>
                        </Model>
                     </ext:Store>
                 </Store>
