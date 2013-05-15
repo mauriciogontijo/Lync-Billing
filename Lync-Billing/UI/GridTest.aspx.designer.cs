@@ -175,15 +175,6 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.PagingToolbar PhoneCallsPagingToolbar;
         
         /// <summary>
-        /// PhoneCallsCheckBoxColumn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.CheckboxSelectionModel PhoneCallsCheckBoxColumn;
-        
-        /// <summary>
         /// GridSubmitChanges control.
         /// </summary>
         /// <remarks>
