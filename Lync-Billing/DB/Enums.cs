@@ -206,6 +206,30 @@ namespace Lync_Billing.DB
             UI_IsInvoiced
         }
 
+        public enum UsersCallsSummary
+        {
+            [Description("BusinessCallsCount")]
+            BusinessCallsCount,
+            [Description("BusinessCallsCost")]
+            BusinessCallsCost,
+            [Description("BusinessCallsDuration")]
+            BusinessCallsDuration,
+            [Description("PersonalCallsCount")]
+            PersonalCallsCount,
+            [Description("PersonalCallsDuration")]
+            PersonalCallsDuration,
+            [Description("PersonalCallsCost")]
+            PersonalCallsCost,
+            [Description("UnmarkedCallsCount")]
+            UnmarkedCallsCount,
+            [Description("UnmarkedCallsDuartion")]
+            UnmarkedCallsDuartion,
+            [Description("UnmarkedCallsCost")]
+            UnmarkedCallsCost,
+            [Description("NumberOfDisputedCalls")]
+            NumberOfDisputedCalls,
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
