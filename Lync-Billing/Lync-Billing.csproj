@@ -125,6 +125,7 @@
     <Content Include="Libs\BillingAPI.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\UsersCallsSummary.cs" />
     <Compile Include="DB\GatewayDetail.cs" />
     <Compile Include="DB\PhoneCall.cs" />
     <Compile Include="DB\Pool.cs" />

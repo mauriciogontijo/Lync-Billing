@@ -14,7 +14,7 @@ namespace Lync_Billing.UI
     public partial class GridTest : System.Web.UI.Page
     {
 
-       Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        Dictionary<string, object> wherePart = new Dictionary<string, object>();
         List<string> columns = new List<string>();
 
         protected void Page_Load(object sender, EventArgs e)
