@@ -83,8 +83,10 @@ namespace Lync_Billing.UI
         protected void AssignBusiness(object sender, DirectEventArgs e)
         {
             RowSelectionModel selectedRows = PhoneCallsHistoryGrid.GetSelectionModel() as RowSelectionModel;
+            string json = e.ExtraParams["Values"];
+            
             foreach (SelectedRow row in selectedRows.SelectedRows)
-            {
+            { 
                 string recordID = row.RecordID;
             }
 

@@ -150,7 +150,7 @@
                </Model>
             </ext:Store>
          </Store>
-            <ColumnModel ID="PhoneCallsColumnModel" runat="server">
+            <ColumnModel ID="PhoneCallsColumnModel" runat="server" Fixed="true" Flex="1">
 		        <Columns>
                     <ext:Column ID="SessionIdTime" 
                         runat="server" 
@@ -248,20 +248,25 @@
                                  <ext:Button ID="Business" Text="Business" runat="server">
                                      <DirectEvents>
                                          <Click OnEvent="AssignBusiness">
+                                             <EventMask ShowMask="true" />
                                              <ExtraParams>
-                                                 <ext:Parameter Name="Name" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true})"  Mode="Raw"/>
+                                                <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
                                              </ExtraParams>
                                          </Click>
                                      </DirectEvents>
                                  </ext:Button>
                                  <ext:Button ID="Personal" Text="Personal" runat="server">
                                      <DirectEvents>
-                                         <Click OnEvent="AssignPersonal"></Click>
+                                         <Click OnEvent="AssignPersonal">
+                                             <EventMask ShowMask="true" />
+                                         </Click>
                                      </DirectEvents>
                                  </ext:Button>
                                  <ext:Button ID="Dispute" Text="Dispute" runat="server">
                                      <DirectEvents>
-                                         <Click OnEvent="AssignDispute"></Click>
+                                         <Click OnEvent="AssignDispute">
+                                             <EventMask ShowMask="true" />
+                                         </Click>
                                      </DirectEvents>
                                  </ext:Button>
                              </Buttons>
@@ -286,8 +291,8 @@
                     runat="server" 
                     Mode="Multi">
                 </ext:CheckboxSelectionModel>
+
             </SelectionModel>            
-                    
             <Buttons>
                 <ext:Button ID="GridSubmitChanges" runat="server" Text="Save Changes">
                     <DirectEvents>
