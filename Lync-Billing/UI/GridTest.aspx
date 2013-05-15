@@ -232,9 +232,6 @@
                              <Listeners>
                                 <Select Handler="applyFilter(this);" />
                             </Listeners>
-                           <%-- <DirectEvents>
-                                <Change OnEvent="FilterTypeChange"></Change>
-                            </DirectEvents>--%>
                         </ext:ComboBox>
                          <ext:ButtonGroup 
                              ID="MrkingBottonsGroup" 
