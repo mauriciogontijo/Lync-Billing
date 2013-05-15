@@ -46,25 +46,24 @@
             var getRecordFilter = function () {
                 debugger;
                 var f = [];
-                var value;
-                f.push({
-                    /*filter: function (record) {
-                        var FilterValue = #{FilterTypeComboBox}.getValue() || "";
-                        switch(FilterValue) {
-                            case 4:
-                                return filterString('NO', 'UI_IsPersonal', record);
-                                value = record.field.value();
-                                break;
-                            case 5:
-                                return filterString('YES', 'UI_IsPersonal', record);
-                                break;
-                        }
-                    }*/
-
-                    filter: function (record) {                         
-                        return filterString('YES', 'UI_IsPersonal', record);
-                    }
-                });
+                
+                var FilterValue = #{FilterTypeComboBox}.getValue() || "";
+                switch(FilterValue) {
+                    case "4":
+                        f.push({
+                            filter: function (record) {
+                                return filterString('NO', 'UI_IsPersonal', record); 
+                            }
+                        });
+                        break;
+                    case "5":
+                        f.push({
+                            filter: function (record) {
+                                return filterString('YES', 'UI_IsPersonal', record); 
+                            }
+                        });
+                        break;
+                }
                 
                 var len = f.length;
                 
