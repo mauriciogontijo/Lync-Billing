@@ -48,7 +48,7 @@
             <div id='header-container'>
 			    <div id='nav-toolbar' class='nav-toolbar text-center'>
 				    <div id='logo' class='logo float-left'>
-					    <p><a href='ContentPage_Login.aspx'>LOGO</a></p>
+					    <p><a href='Login.aspx'>LOGO</a></p>
 				    </div>
 
                     <% if(false) { %>

@@ -14,10 +14,6 @@ namespace Lync_Billing.UI
     {
         public AdLib authinticator = new AdLib();
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-        }
-
         protected void Signin(object sender, EventArgs e)
         {
             bool status = false;

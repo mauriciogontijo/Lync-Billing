@@ -10,7 +10,7 @@
 namespace Lync_Billing.UI {
     
     
-    public partial class ContentPage_Login {
+    public partial class Login {
         
         /// <summary>
         /// email control.
