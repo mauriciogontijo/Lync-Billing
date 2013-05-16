@@ -12,17 +12,16 @@ namespace Lync_Billing.DB
         private static Dictionary<string, object> wherePart;
         private static List<string> columns;
 
-        int BusinessCallsCount { get; set; }
-        int BusinessCallsCost { get; set; }
-        int BusinessCallsDuration { get; set; }
-        int PersonalCallsCount { get; set; }
-        int PersonalCallsDuration { get; set; }
-        int PersonalCallsCost { get; set; }
-        int UnmarkedCallsCount { get; set; }
-        int UnmarkedCallsDuartion { get; set; }
-        int UnmarkedCallsCost { get; set; }
-
-        int NumberOfDisputedCalls { get; set; }
+        public int BusinessCallsCount { get; set; }
+        public int BusinessCallsCost { get; set; }
+        public int BusinessCallsDuration { get; set; }
+        public int PersonalCallsCount { get; set; }
+        public int PersonalCallsDuration { get; set; }
+        public int PersonalCallsCost { get; set; }
+        public int UnmarkedCallsCount { get; set; }
+        public int UnmarkedCallsDuartion { get; set; }
+        public int UnmarkedCallsCost { get; set; }
+        public int NumberOfDisputedCalls { get; set; }
 
         public static UsersCallsSummary GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate)
         {

@@ -16,10 +16,39 @@ namespace Lync_Billing.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string SipAccount = "AAlhour@ccc.gr"; //((UserSession)Session.Contents["UserData"]).SipAccount;
+        }
 
-            //UserSummaryStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
-            //UserSummaryStore.DataBind();
+        [DirectMethod]
+        public static string Items()
+        {
+            string SipAccount = "AAlhour@ccc.gr"; //((UserSession)Session.Contents["UserData"]).SipAccount;
+            UsersCallsSummary userSummary = new UsersCallsSummary();
+            userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
+            return ComponentLoader.ToConfig(new List<AbstractComponent>() {
+                new Ext.Net.Panel { 
+                    Title="Business Calls Overview",
+                    Icon = Icon.Phone,
+                    Html = "Total Calls: " + userSummary.BusinessCallsCount + "<br />" +
+                        "Total Duration: " + userSummary.BusinessCallsDuration + "<br />" +
+                        "Total Cost: " + userSummary.BusinessCallsCost + "<br />"
+                },
+
+                new Ext.Net.Panel { 
+                    Title="Business Calls Overview",
+                    Icon = Icon.Phone,
+                    Html = "Total Calls: " + userSummary.BusinessCallsCount + "<br />" +
+                        "Total Duration: " + userSummary.BusinessCallsDuration + "<br />" +
+                        "Total Cost: " + userSummary.BusinessCallsCost + "<br />"
+                },
+
+                new Ext.Net.Panel { 
+                    Title="Business Calls Overview",
+                    Icon = Icon.Phone,
+                    Html = "Total Calls: " + userSummary.BusinessCallsCount + "<br />" +
+                        "Total Duration: " + userSummary.BusinessCallsDuration + "<br />" +
+                        "Total Cost: " + userSummary.BusinessCallsCost + "<br />"
+                }
+            });
         }
     }
 }
