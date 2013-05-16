@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
 using Lync_Billing.DB;
 using Ext.Net;
 using System.Web.SessionState;
@@ -89,15 +90,6 @@ namespace Lync_Billing.UI
                         userSummary.UnmarkedCallsCount, "unmarked", userSummary.UnmarkedCallsDuartion/=60, userSummary.UnmarkedCallsCost)
                 }
             }));*/
-
-            foreach (var item in Model.SubSystems)
-            {
-                var panel = new Ext.Net.Panel(item.DisplayName, Icon.PageWhiteGear) { ID = "detailsPanel" + item.Id, Collapsed = true, Height = 300, Margins = "10" };
-                panel.AutoLoad.Url = "/ConfigTool/Details/" + item.Id;
-                panel.AutoLoad.Params.Add(new Ext.Net.Parameter("containerId", panel.ID));
-
-                this.Accordion.Items.Add(panel);
-            }
         }
 
 
@@ -109,7 +101,9 @@ namespace Lync_Billing.UI
             UsersCallsSummary userSummary = new UsersCallsSummary();
             userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
 
-            return ComponentLoader.ToConfig(new List<AbstractComponent>() {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            return serializer.Serialize(ComponentLoader.ToConfig(new List<AbstractComponent>() {
                 new Ext.Net.Panel { 
                     Title="Personal Calls Overview",
                     Icon = Icon.Phone,
@@ -139,7 +133,7 @@ namespace Lync_Billing.UI
                         "<p>The net calculated cost is {3} euros.</p></div>",
                         userSummary.UnmarkedCallsCount, "unmarked", userSummary.UnmarkedCallsDuartion/=60, userSummary.UnmarkedCallsCost)
                 }
-            });
+            }));
         }
     }
 }
