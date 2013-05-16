@@ -14,7 +14,6 @@ namespace Lync_Billing.UI
     public partial class User_Home : System.Web.UI.Page
     {
         GridPanel UserPhoneCallsHistoryGrid;
-        private static string SipAccount { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
