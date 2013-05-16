@@ -25,24 +25,12 @@
 		    </style>
 	    <![endif]-->
 
-        <script type="text/javascript">
-            window.BillingAPI = { 'lib': {}, 'data': {} };
-            /*window.BillingAPI.lib = Lync_Billing.Libs.BillingAPI;
-            window.BillingAPI.data = {'authUser': {}, 'UserData': {}, 'JsonUserData': {}, 'UserPhoneCalls': {} };*/
-        </script>
-
         <asp:ContentPlaceHolder ID="head" runat="server">
         </asp:ContentPlaceHolder>
     </head>
 
     <body>
         <form id="form1" runat="server">
-            <asp:ScriptManager ID="BillingAPIReference" runat="server">
-                <Services>
-                    <asp:ServiceReference Path="~/Libs/BillingAPI.asmx" />
-                </Services>
-            </asp:ScriptManager>
-
             <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
         
             <div id='header-container'>
