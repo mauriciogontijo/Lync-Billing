@@ -39,9 +39,9 @@
                 OnBeforeRecordUpdated="PhoneCallStore_BeforeRecordUpdated"
                 OnBeforeStoreChanged="PhoneCallStore_BeforeStoreChanged">
                 <Model>
-                    <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
+                    <ext:Model ID="Model1" runat="server" IDProperty="SessionIdTime">
                         <Fields>
-                            <ext:ModelField Name="SessionIdTime" Type="Date" />
+                            <ext:ModelField Name="SessionIdTime" Type="Date" DateFormat="d M Y G:i:s:u"/>
                             <ext:ModelField Name="marker_CallToCountry" Type="String" />
                             <ext:ModelField Name="DestinationNumberUri" Type="String" />
                             <ext:ModelField Name="Duration" Type="Float" />
@@ -62,10 +62,11 @@
                         Width="80" 
                         DataIndex="SessionIdTime" 
                         Resizable="false" 
-                        MenuDisabled="true"
+                        Fixed="true" 
+                        Flex="1"
                         >
                        
-                        <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
+                        <Renderer Handler="return Ext.util.Format.date(value, 'd M Y G:i');"/>
                     </ext:Column>
 
                     <ext:Column ID="marker_CallToCountry"
@@ -115,11 +116,20 @@
                         DataIndex="UI_IsInvoiced" />
 		        </Columns>
             </ColumnModel>
+            <SelectionModel>
+                <ext:CheckboxSelectionModel 
+                    ID="PhoneCallsCheckBoxColumn" 
+                    runat="server" 
+                    Mode="Multi"
+                    
+                    >
+                </ext:CheckboxSelectionModel>
+            </SelectionModel>          
              <TopBar>
                   <ext:Toolbar ID="FilterToolBar" runat="server">
                      <Items>
                          <ext:ButtonGroup 
-                             ID="MrkingBottonsGroup" 
+                             ID="MarkingBottonsGroup" 
                              runat="server"
                              Layout="TableLayout" 
                              Width="250" 
@@ -141,6 +151,9 @@
                                      <DirectEvents>
                                          <Click OnEvent="AssignPersonal">
                                              <EventMask ShowMask="true" />
+                                              <ExtraParams>
+                                                <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                             </ExtraParams>
                                          </Click>
                                      </DirectEvents>
                                  </ext:Button>
@@ -148,6 +161,9 @@
                                      <DirectEvents>
                                          <Click OnEvent="AssignDispute">
                                              <EventMask ShowMask="true" />
+                                              <ExtraParams>
+                                                <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                             </ExtraParams>
                                          </Click>
                                      </DirectEvents>
                                  </ext:Button>
@@ -166,15 +182,6 @@
                     DisplayMsg="Phone Calls {0} - {1} of {2}"
                      />
             </BottomBar>
-                    
-            <SelectionModel>
-                <ext:CheckboxSelectionModel 
-                    ID="PhoneCallsCheckBoxColumn" 
-                    runat="server" 
-                    Mode="Multi">
-                </ext:CheckboxSelectionModel>
-
-            </SelectionModel>            
             <Buttons>
                 <ext:Button ID="GridSubmitChanges" runat="server" Text="Save Changes">
                     <DirectEvents>

@@ -82,19 +82,40 @@ namespace Lync_Billing.UI
 
         protected void AssignBusiness(object sender, DirectEventArgs e)
         {
-            RowSelectionModel selectedRows = PhoneCallsHistoryGrid.GetSelectionModel() as RowSelectionModel;
             string json = e.ExtraParams["Values"];
-            
-            foreach (SelectedRow row in selectedRows.SelectedRows)
-            { 
-                string recordID = row.RecordID;
-            }
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+
+            foreach (PhoneCall phoneCall in phoneCalls) 
+            {
+                phoneCall.UI_IsPersonal="NO";
+                phoneCall.UI_MarkedOn = DateTime.Now;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                PhoneCall.UpdatePhoneCall(phoneCall);
+            }
         }
 
         protected void AssignPersonal(object sender, DirectEventArgs e)
         {
+            string json = e.ExtraParams["Values"];
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+
+            foreach (PhoneCall phoneCall in phoneCalls)
+            {
+                phoneCall.UI_IsPersonal = "YES";
+                phoneCall.UI_MarkedOn = DateTime.Now;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                PhoneCall.UpdatePhoneCall(phoneCall);
+                phoneCall.SessionIdTime = phoneCall.SessionIdTime.AddHours(-3);
+
+            }
         }
 
         protected void AssignDispute(object sender, DirectEventArgs e)

@@ -143,19 +143,19 @@ namespace Lync_Billing.DB
             wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq), phoneCall.SessionIdSeq);
 
             //Set Part
-            if ((phoneCall.UI_MarkedOn).ToString() != null)
+            if (phoneCall.UI_MarkedOn != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn), phoneCall.UI_MarkedOn);
 
-            if ((phoneCall.UI_UpdatedByUser).ToString() != null)
+            if (phoneCall.UI_UpdatedByUser != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser), phoneCall.UI_UpdatedByUser);
 
-            if ((phoneCall.UI_IsPersonal).ToString() != null)
+            if (phoneCall.UI_IsPersonal != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_IsPersonal), phoneCall.UI_IsPersonal);
 
-            if ((phoneCall.UI_Dispute).ToString() != null)
+            if (phoneCall.UI_Dispute != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_Dispute), phoneCall.UI_Dispute);
 
-            if ((phoneCall.UI_IsInvoiced).ToString() != null)
+            if (phoneCall.UI_IsInvoiced != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_IsInvoiced), phoneCall.UI_IsInvoiced);
                
 

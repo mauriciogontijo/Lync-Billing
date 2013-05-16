@@ -145,6 +145,7 @@ namespace Lync_Billing.Libs
             {
                 conn.Open();
                 dr = comm.ExecuteReader();
+               
                 dt.Load(dr);
             }
             catch (Exception ex) 
@@ -329,10 +330,10 @@ namespace Lync_Billing.Libs
                 if (valueType == typeof(int) || valueType == typeof(Double))
                     fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");              
                 else
-                    fieldsValues.Append(pair.Key + "=" + "'" + pair.Value  + "'" + ",");  
+                    fieldsValues.Append("[" +pair.Key + "]=" + "'" + pair.Value  + "'" + ",");  
             }
             
-            fieldsValues.Remove(fieldsValues.Length - 1, 1).Append(")");
+            fieldsValues.Remove(fieldsValues.Length - 1, 1);
 
             foreach (KeyValuePair<string, object> pair in wherePart)
             {
@@ -435,6 +436,9 @@ namespace Lync_Billing.Libs
             finally { conn.Close(); }
         }
 
-
+        private static string GetDateForDatabase(DateTime dt)
+        {
+            return dt.Year + "-" + dt.Month + "-" + dt.Day + " " + dt.Hour + ":" + dt.Minute + ":" + dt.Second +"." + dt.Millisecond;
+        }
    }
 }
