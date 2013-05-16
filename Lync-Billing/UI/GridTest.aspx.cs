@@ -93,7 +93,8 @@ namespace Lync_Billing.UI
             {
                 phoneCall.UI_IsPersonal="NO";
                 phoneCall.UI_MarkedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                phoneCall.UI_UpdatedByUser = "SGhaida@ccc.gr";
+                //phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
             }
         }
@@ -111,7 +112,8 @@ namespace Lync_Billing.UI
             {
                 phoneCall.UI_IsPersonal = "YES";
                 phoneCall.UI_MarkedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                phoneCall.UI_UpdatedByUser = "SGhaida@ccc.gr";
+                //phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
                 phoneCall.SessionIdTime = phoneCall.SessionIdTime.AddHours(-3);
 

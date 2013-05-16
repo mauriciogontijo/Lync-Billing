@@ -41,7 +41,7 @@
                 <Model>
                     <ext:Model ID="Model1" runat="server" IDProperty="SessionIdTime">
                         <Fields>
-                            <ext:ModelField Name="SessionIdTime" Type="Date" DateFormat="d M Y G:i:s:u"/>
+                            <ext:ModelField Name="SessionIdTime" Type="Date" RenderMilliseconds="true"/>
                             <ext:ModelField Name="marker_CallToCountry" Type="String" />
                             <ext:ModelField Name="DestinationNumberUri" Type="String" />
                             <ext:ModelField Name="Duration" Type="Float" />
@@ -61,8 +61,6 @@
                         Text="Date" 
                         Width="80" 
                         DataIndex="SessionIdTime" 
-                        Resizable="false" 
-                        Fixed="true" 
                         Flex="1"
                         >
                        
@@ -106,7 +104,7 @@
                         Text="Updated On"
                         Width="80"
                         DataIndex="UI_MarkedOn" >
-                        <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
+                        <Renderer Handler="return Ext.util.Format.date(value, 'd M Y G:i');"/>
                     </ext:Column>
 
                     <ext:Column ID="UI_IsInvoiced"
