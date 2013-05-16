@@ -182,15 +182,15 @@ namespace Lync_Billing.Libs
 
             if (whereClause.ContainsKey("startingDate") && whereClause.ContainsKey("endingDate"))
             {
-                whereStatement.Append(String.Format(" WHERE [SourceUserUri] = {0} AND [SessionIdTime] >= {1} AND [SessionIdTime] < {2}", whereClause["SourceUserUri"].ToString(), whereClause["startingDate"].ToString(), whereClause["endingDate"].ToString()));
+                whereStatement.Append(String.Format(" WHERE [SourceUserUri] = '{0}' AND [SessionIdTime] >= '{1}' AND [SessionIdTime] < '{2}'", whereClause["SourceUserUri"].ToString(), whereClause["startingDate"].ToString(), whereClause["endingDate"].ToString()));
             }
             else 
             {
-                whereStatement.Append(String.Format(" WHERE [SourceUserUri] = {0}", whereClause["SourceUserUri"].ToString()));
+                whereStatement.Append(String.Format(" WHERE [SourceUserUri] = '{0}'", whereClause["SourceUserUri"].ToString()));
             }
 
             selectQuery = String.Format(
-                "SELECT COUNT(*) ui_IsPersonal, ui_IsPersonal, SUM([PhoneCalls].[Duration]) as TotalMinutes, SUM([PhoneCalls].[marker_CallCost]) as TotalCost from PhoneCalls {0} group by ui_IsPersonal",
+                "SELECT COUNT(*) ui_IsPersonal, ui_IsPersonal as PhoneCallType, SUM([PhoneCalls].[Duration]) as TotalDuration, SUM([PhoneCalls].[marker_CallCost]) as TotalCost from PhoneCalls {0} group by ui_IsPersonal",
                 whereStatement.ToString()
             );
 
