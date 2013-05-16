@@ -89,6 +89,15 @@ namespace Lync_Billing.UI
                         userSummary.UnmarkedCallsCount, "unmarked", userSummary.UnmarkedCallsDuartion/=60, userSummary.UnmarkedCallsCost)
                 }
             }));*/
+
+            foreach (var item in Model.SubSystems)
+            {
+                var panel = new Ext.Net.Panel(item.DisplayName, Icon.PageWhiteGear) { ID = "detailsPanel" + item.Id, Collapsed = true, Height = 300, Margins = "10" };
+                panel.AutoLoad.Url = "/ConfigTool/Details/" + item.Id;
+                panel.AutoLoad.Params.Add(new Ext.Net.Parameter("containerId", panel.ID));
+
+                this.Accordion.Items.Add(panel);
+            }
         }
 
 
