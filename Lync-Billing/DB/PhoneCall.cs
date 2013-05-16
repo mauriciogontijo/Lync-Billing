@@ -12,7 +12,7 @@ namespace Lync_Billing.DB
     {
         private static DBLib DBRoutines = new DBLib();
 
-        public DateTime SessionIdTime { set; get; }
+        public string SessionIdTime { set; get; }
         public int SessionIdSeq { get; set; }
         public DateTime ResponseTime { set; get; }
         public DateTime SessionEndTime { set; get; }
@@ -55,7 +55,7 @@ namespace Lync_Billing.DB
                 foreach(DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.SessionIdTime = (DateTime)row[column.ColumnName];
+                        phoneCall.SessionIdTime = Convert.ToDateTime( row[column.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss.fff");
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.SessionIdSeq = (int)row[column.ColumnName];
