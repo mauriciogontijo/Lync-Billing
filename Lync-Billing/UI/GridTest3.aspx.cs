@@ -13,9 +13,41 @@ namespace Lync_Billing.UI
     {
         Dictionary<string, object> wherePart = new Dictionary<string, object>();
         List<string> columns = new List<string>();
+        GridPanel UserPhoneCallsHistoryGrid;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string SipAccount = "AAlhour@ccc.gr"; //((UserSession)Session.Contents["UserData"]).SipAccount;
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            List<string> columns = new List<string>();
+
+            wherePart.Add("SourceUserUri", SipAccount);
+            columns.Add("SessionIdTime");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+
+            Ext.Net.Panel panel = new Ext.Net.Panel();
+            panel.ID = "GridPanel";
+
+            UserPhoneCallsHistoryGrid = Grids.PhoneCallsGrid(columns, wherePart, 7);
+            Ext.Net.TextField textField = new TextField();
+            textField.ID = "SessionTime";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";
+
+            UserPhoneCallsHistoryGrid.ID = "PhoneCallsGrid";
+            UserPhoneCallsHistoryGrid.Layout = "Table";
+            UserPhoneCallsHistoryGrid.Width = 465;
+            UserPhoneCallsHistoryGrid.Height = 240;
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Text = "Date";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Text = "Destination";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Width = 165;
+
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[3].Text = "Cost";
+            UserPhoneCallsHistoryGrid.Header = true;
+            UserPhoneCallsHistoryGrid.Title = "Calls History";
+
+            UserPhoneCallsHistoryPH.Controls.Add(UserPhoneCallsHistoryGrid);
         }
 
         [DirectMethod]

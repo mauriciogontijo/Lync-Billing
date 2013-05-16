@@ -1,16 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GridTest3.aspx.cs" Inherits="Lync_Billing.UI.GridTest3" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/UI/MasterPage.Master" CodeBehind="GridTest3.aspx.cs" Inherits="Lync_Billing.UI.GridTest3" %>
 <%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>GridPanel with ObjectDataSource - Ext.NET Examples</title>
+</asp:Content>
 
-<html>
-    <head id="Head1" runat="server">
-        <title>GridPanel with ObjectDataSource - Ext.NET Examples</title>
-    </head>
-
-    <body>
-        <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
-        <form id="form1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
             <ext:Panel ID="UserPhoneCallsSummary"
                 runat="server"         
                 Height="200" 
@@ -24,6 +19,10 @@
                     <LoadMask ShowMask="true" />
                 </Loader>
             </ext:Panel>
-        </form>
-    </body>
-</html>
+
+            <br />
+            <br />
+
+            <asp:PlaceHolder ID="UserPhoneCallsHistoryPH" runat="server">
+            </asp:PlaceHolder>
+</asp:Content>
