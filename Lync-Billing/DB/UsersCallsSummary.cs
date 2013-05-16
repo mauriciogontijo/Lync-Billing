@@ -43,17 +43,17 @@ namespace Lync_Billing.DB
                 if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "NO")
                 {
                     if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
-                        userSummary.BusinessCallsCount = (int)row[dt.Columns["ui_IsPersonal"]];
+                        userSummary.BusinessCallsCount = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
                     else
                         userSummary.BusinessCallsCount = 0;
 
                     if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
-                        userSummary.BusinessCallsCost = (int)row[dt.Columns["TotalCost"]];
+                        userSummary.BusinessCallsCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
                     else
                         userSummary.BusinessCallsCost = 0;
 
                     if (row[dt.Columns["TotalDuration"]] != System.DBNull.Value)
-                        userSummary.BusinessCallsDuration = (int)row[dt.Columns["TotalDuration"]];
+                        userSummary.BusinessCallsDuration = Convert.ToInt32(row[dt.Columns["TotalDuration"]]);
                     else
                         userSummary.BusinessCallsDuration = 0;
                 }

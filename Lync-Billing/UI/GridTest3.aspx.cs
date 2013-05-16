@@ -24,13 +24,14 @@ namespace Lync_Billing.UI
             string SipAccount = "AAlhour@ccc.gr"; //((UserSession)Session.Contents["UserData"]).SipAccount;
             UsersCallsSummary userSummary = new UsersCallsSummary();
             userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
+
             return ComponentLoader.ToConfig(new List<AbstractComponent>() {
                 new Ext.Net.Panel { 
-                    Title="Business Calls Overview",
+                    Title="Personal Calls Overview",
                     Icon = Icon.Phone,
-                    Html = "Total Calls: " + userSummary.BusinessCallsCount + "<br />" +
-                        "Total Duration: " + userSummary.BusinessCallsDuration + "<br />" +
-                        "Total Cost: " + userSummary.BusinessCallsCost + "<br />"
+                    Html = "Total Calls: " + userSummary.PersonalCallsCount + "<br />" +
+                        "Total Duration: " + userSummary.PersonalCallsDuration + "<br />" +
+                        "Total Cost: " + userSummary.PersonalCallsCost + "<br />"
                 },
 
                 new Ext.Net.Panel { 
@@ -42,11 +43,11 @@ namespace Lync_Billing.UI
                 },
 
                 new Ext.Net.Panel { 
-                    Title="Business Calls Overview",
+                    Title="Unmarked Calls Overview",
                     Icon = Icon.Phone,
-                    Html = "Total Calls: " + userSummary.BusinessCallsCount + "<br />" +
-                        "Total Duration: " + userSummary.BusinessCallsDuration + "<br />" +
-                        "Total Cost: " + userSummary.BusinessCallsCost + "<br />"
+                    Html = "Total Calls: " + userSummary.UnmarkedCallsCount + "<br />" +
+                        "Total Duration: " + userSummary.UnmarkedCallsDuartion + "<br />" +
+                        "Total Cost: " + userSummary.UnmarkedCallsCost + "<br />"
                 }
             });
         }
