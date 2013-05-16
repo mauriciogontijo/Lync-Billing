@@ -19,9 +19,10 @@ namespace Lync_Billing.UI
         }
 
         [DirectMethod]
-        public static string Items()
+        public static string GetSummaryData()
         {
             string SipAccount = "AAlhour@ccc.gr"; //((UserSession)Session.Contents["UserData"]).SipAccount;
+
             UsersCallsSummary userSummary = new UsersCallsSummary();
             userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
 
@@ -29,27 +30,32 @@ namespace Lync_Billing.UI
                 new Ext.Net.Panel { 
                     Title="Personal Calls Overview",
                     Icon = Icon.Phone,
-                    Html = "Total Calls: " + userSummary.PersonalCallsCount + "<br />" +
-                        "Total Duration: " + userSummary.PersonalCallsDuration + "<br />" +
-                        "Total Cost: " + userSummary.PersonalCallsCost + "<br />"
+                    Html = String.Format("You have a total of {0} {1} phone calls, they add up to almost {2} minutes. <br />The net calculated cost is {3} euros.", userSummary.PersonalCallsCount, "personal", userSummary.PersonalCallsDuration/=60, userSummary.PersonalCallsCost)
                 },
 
                 new Ext.Net.Panel { 
                     Title="Business Calls Overview",
                     Icon = Icon.Phone,
-                    Html = "Total Calls: " + userSummary.BusinessCallsCount + "<br />" +
-                        "Total Duration: " + userSummary.BusinessCallsDuration + "<br />" +
-                        "Total Cost: " + userSummary.BusinessCallsCost + "<br />"
+                    Html = String.Format("You have a total of {0} {1} phone calls, they add up to almost {2} minutes. <br />The net calculated cost is {3} euros.", userSummary.BusinessCallsCount, "business", userSummary.BusinessCallsDuration/=60, userSummary.BusinessCallsCost)
                 },
 
                 new Ext.Net.Panel { 
                     Title="Unmarked Calls Overview",
                     Icon = Icon.Phone,
-                    Html = "Total Calls: " + userSummary.UnmarkedCallsCount + "<br />" +
-                        "Total Duration: " + userSummary.UnmarkedCallsDuartion + "<br />" +
-                        "Total Cost: " + userSummary.UnmarkedCallsCost + "<br />"
+                    Html = String.Format("You have a total of {0} {1} phone calls, they add up to almost {2} minutes. <br />The net calculated cost is {3} euros.", userSummary.UnmarkedCallsCount, "unmarked", userSummary.UnmarkedCallsDuartion/=60, userSummary.UnmarkedCallsCost)
                 }
             });
         }
+
+        /*protected string format_summary_html_contents(int total_calls, int total_cost, int total_duration, string phone_calls_type) 
+        {
+            //convert the total duration from seconds to minutes.
+            total_duration /= 60;
+
+            return String.Format(
+                "You have a total of {0} {1}, they add up to almost {2} minutes. The net calculated cost is {3} euros.",
+                total_calls, phone_calls_type, total_duration, total_cost
+            );
+        }*/
     }
 }
