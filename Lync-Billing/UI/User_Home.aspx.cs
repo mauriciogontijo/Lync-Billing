@@ -95,7 +95,7 @@ namespace Lync_Billing.UI
         [DirectMethod]
         public static string GetSummaryData()
         {
-            string SipAccount = "AAlhour@ccc.gr"; //((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+            string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
 
             UsersCallsSummary userSummary = new UsersCallsSummary();
             userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
