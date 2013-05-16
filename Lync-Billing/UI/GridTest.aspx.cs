@@ -24,6 +24,7 @@ namespace Lync_Billing.UI
 
             wherePart.Add("SourceUserUri", SipAccount);
             wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("ui_IsInvoiced", "PENDING");
 
             columns.Add("SessionIdTime");
             columns.Add("SessionIdSeq");
@@ -41,52 +42,9 @@ namespace Lync_Billing.UI
             PhoneCallStore.DataBind();
         }
 
-     
-        protected void GridSubmitChanges_Click(object sender, DirectEventArgs e)
-        {
-
-        }
-
-        protected void PhoneCallStore_AfterRecordUpdated(object sender, AfterRecordUpdatedEventArgs e)
-        {
-
-        }
-
-        protected void PhoneCallStore_AfterStoreChanged(object sender, AfterStoreChangedEventArgs e)
-        {
-
-        }
-
-        protected void PhoneCallStore_AfterDirectEvent(object sender, AfterDirectEventArgs e)
-        {
-
-        }
-
-        protected void PhoneCallStore_BeforeDirectEvent(object sender, BeforeDirectEventArgs e)
-        {
-
-        }
-
-        protected void PhoneCallStore_BeforeRecordUpdated(object sender, BeforeRecordUpdatedEventArgs e)
-        {
-
-        }
-
-        protected void PhoneCallStore_BeforeStoreChanged(object sender, BeforeStoreChangedEventArgs e)
-        {
-
-        }
- 
-
         protected void AssignBusiness(object sender, DirectEventArgs e)
         {
             RowSelectionModel sm = this.PhoneCallsHistoryGrid.GetSelectionModel() as RowSelectionModel;
-            foreach (SelectedRow row in sm.SelectedRows) 
-            {
-                var rowdata = PhoneCallsHistoryGrid.GetStore().GetAt(row.RowIndex);
-                string test = rowdata.ModelInstance;
-            }
-           
             
             string json = e.ExtraParams["Values"];
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
@@ -102,12 +60,16 @@ namespace Lync_Billing.UI
                 phoneCall.UI_UpdatedByUser = "SGhaida@ccc.gr";
                 //phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
+                
+                PhoneCallsHistoryGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                PhoneCallsHistoryGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
         }
 
         protected void AssignPersonal(object sender, DirectEventArgs e)
         {
-            RowSelectionModel sm = this.PhoneCallsHistoryGrid.SelectionModel.Primary as RowSelectionModel;
+            RowSelectionModel sm = this.PhoneCallsHistoryGrid.GetSelectionModel() as RowSelectionModel;
+
             string json = e.ExtraParams["Values"];
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
@@ -122,8 +84,9 @@ namespace Lync_Billing.UI
                 phoneCall.UI_UpdatedByUser = "SGhaida@ccc.gr";
                 //phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
-                phoneCall.SessionIdTime = Convert.ToDateTime(phoneCall.SessionIdTime).AddHours(-3).ToString();
 
+                PhoneCallsHistoryGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                PhoneCallsHistoryGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
         }
 
