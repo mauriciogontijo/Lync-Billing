@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Lync_Billing.DB;
 using Ext.Net;
+using System.Web.SessionState;
 
 namespace Lync_Billing.UI
 {
@@ -37,6 +38,7 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.ID = "PhoneCallsGrid";
             UserPhoneCallsHistoryGrid.Layout = "Table";
             UserPhoneCallsHistoryGrid.Width = 465;
+            UserPhoneCallsHistoryGrid.Height = 240;
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Text = "Date";
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Text = "Destination";
             UserPhoneCallsHistoryGrid.ColumnModel.Columns[1].Width = 165;
@@ -51,11 +53,11 @@ namespace Lync_Billing.UI
             /*
              * Configuration of the User Summary Panel
              */
-            UsersCallsSummary userSummary = new UsersCallsSummary();
+            /*UsersCallsSummary userSummary = new UsersCallsSummary();
             userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
-            /*ComponentLoader.Config ComponentLoaderConfig = new ComponentLoader.Config();
+            ComponentLoader.Config ComponentLoaderConfig = new ComponentLoader.Config();
             ComponentLoaderConfig = ComponentLoader.ToConfig();
-            ComponentLoader UserPhoneCallsSummaryLoader = new ComponentLoader(ComponentLoaderConfig);*/
+            ComponentLoader UserPhoneCallsSummaryLoader = new ComponentLoader(ComponentLoaderConfig);
             this.UserPhoneCallsSummary.LoadContent(ComponentLoader.ToConfig(new List<AbstractComponent>() {
                 new Ext.Net.Panel {
                     Title="Personal Calls Overview",
@@ -86,14 +88,14 @@ namespace Lync_Billing.UI
                         "<p>The net calculated cost is {3} euros.</p></div>",
                         userSummary.UnmarkedCallsCount, "unmarked", userSummary.UnmarkedCallsDuartion/=60, userSummary.UnmarkedCallsCost)
                 }
-            }));
+            }));*/
         }
 
 
-        /*[DirectMethod]
+        [DirectMethod]
         public static string GetSummaryData()
         {
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            string SipAccount = "AAlhour@ccc.gr"; //((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
 
             UsersCallsSummary userSummary = new UsersCallsSummary();
             userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
@@ -129,6 +131,6 @@ namespace Lync_Billing.UI
                         userSummary.UnmarkedCallsCount, "unmarked", userSummary.UnmarkedCallsDuartion/=60, userSummary.UnmarkedCallsCost)
                 }
             });
-        }*/
+        }
     }
 }

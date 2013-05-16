@@ -49,30 +49,33 @@
 	<div class='clear h15'></div>
 
 	<div id='user-phone-calls-history-block' class='block float-left w49p'>
-		<div class='content wauto float-left clear mb10'>
+		<div class='content wauto float-left mb10'>
 			<asp:PlaceHolder ID="UserPhoneCallsHistoryPH" runat="server">
             </asp:PlaceHolder>
 		</div>
+        <div class="clear"></div>
 		<div class='more-button wauto float-right'>
 			<a href='#' class='font-10'>view more >></a>
 		</div>
 	</div>
 
 	<div id='user-phone-calls-summary-block' class='block float-right w49p'>
-		<div class='content wauto float-left clear mb10'>
+		<div class='content wauto float-left mb10'>
 			<ext:Panel ID="UserPhoneCallsSummary"
                 runat="server"         
-                Height="200" 
-                Width="350"
+                Height="240" 
+                Width="465"
                 Layout="AccordionLayout"
                 Title="Your Phone Calls Summary">
                 <Loader ID="SummaryLoader" 
                     runat="server" 
+                    DirectMethod="#{DirectMethods}.GetSummaryData"
                     Mode="Component">
                     <LoadMask ShowMask="true" />
                 </Loader>
             </ext:Panel>
 		</div>
+        <div class="clear"></div>
 		<div class='more-button wauto float-right'>
 			<a href='#' class='font-10'>view more >></a>
 		</div>
@@ -81,20 +84,22 @@
 	<div class='clear h15'></div>
 
 	<div id='history-block-2' class='block float-left w49p'>
-		<div class='content wauto float-left clear mb10'>
+		<div class='content wauto float-left mb10'>
 			<asp:PlaceHolder ID="PlaceHolder3" runat="server">
             </asp:PlaceHolder>
 		</div>
+        <div class="clear"></div>
 		<div class='more-button wauto float-right'>
 			<a href='#' class='font-10'>view more >></a>
 		</div>
 	</div>
 
 	<div id='history-block-3' class='block float-right w49p'>
-		<div class='content wauto float-left clear mb10'>
+		<div class='content wauto float-left mb10'>
 			<asp:PlaceHolder ID="PlaceHolder4" runat="server">
             </asp:PlaceHolder>
 		</div>
+        <div class="clear"></div>
 		<div class='more-button wauto float-right'>
 			<a href='#' class='font-10'>view more >></a>
 		</div>
