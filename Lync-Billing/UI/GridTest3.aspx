@@ -11,12 +11,12 @@
     <body>
         <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
         <form id="form1" runat="server">
-            <ext:Panel ID="Summary"
+            <ext:Panel ID="UserPhoneCallsSummary"
                 runat="server"         
                 Height="200" 
                 Width="350"
                 Layout="AccordionLayout"
-                Title="User Summary">
+                Title="Your Phone Calls Summary">
                 <Loader ID="SummaryLoader" 
                     runat="server" 
                     DirectMethod="#{DirectMethods}.GetSummaryData"
