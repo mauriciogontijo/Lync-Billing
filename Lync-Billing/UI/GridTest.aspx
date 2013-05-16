@@ -14,6 +14,13 @@
             .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
             /*.x-grid-cell-inner, .x-column-header-inner { text-align: center !important; }*/
         </style>
+       <%--   <script type="text/javascript">
+              var myDateRenderer = function (value) {
+                  value = Ext.util.Format.date(value, "d M Y G:i u");
+                 
+                  return JSON.stringify(value);
+              }
+    </script>--%>
 </head>
 <body>
     <form id="Form1" runat="server">
@@ -40,8 +47,11 @@
                 OnBeforeStoreChanged="PhoneCallStore_BeforeStoreChanged">
                 <Model>
                     <ext:Model ID="Model1" runat="server" IDProperty="SessionIdTime">
-                        <Fields>
-                            <ext:ModelField Name="SessionIdTime" Type="Date" RenderMilliseconds="true"/>
+                        <Fields> 
+                            <ext:ModelField Name="SessionIdTime" Type="String"/>  <%--RenderMilliseconds="true" DateWriteFormat="d M Y G:i"--%>
+                             <ext:ModelField Name="SessionIdSeq" Type="Int"/>
+                            <ext:ModelField Name="ResponseTime" Type="Date" RenderMilliseconds="true"/>
+                            <ext:ModelField Name="SessionEndTime" Type="Date" RenderMilliseconds="true"/>
                             <ext:ModelField Name="marker_CallToCountry" Type="String" />
                             <ext:ModelField Name="DestinationNumberUri" Type="String" />
                             <ext:ModelField Name="Duration" Type="Float" />
@@ -62,9 +72,10 @@
                         Width="80" 
                         DataIndex="SessionIdTime" 
                         Flex="1"
+                        
                         >
-                       
-                        <Renderer Handler="return Ext.util.Format.date(value, 'd M Y G:i');"/>
+                       <%-- <Renderer Fn="myDateRenderer" />--%>
+                       <%-- <Renderer Handler="return Ext.util.Format.date(value, 'd M Y G:i');"/>--%>
                     </ext:Column>
 
                     <ext:Column ID="marker_CallToCountry"

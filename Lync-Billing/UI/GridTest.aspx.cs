@@ -26,6 +26,9 @@ namespace Lync_Billing.UI
             wherePart.Add("marker_CallTypeID", 1);
 
             columns.Add("SessionIdTime");
+            columns.Add("SessionIdSeq");
+            columns.Add("ResponseTime");
+            columns.Add("SessionEndTime");
             columns.Add("marker_CallToCountry");
             columns.Add("DestinationNumberUri");
             columns.Add("Duration");
@@ -73,15 +76,18 @@ namespace Lync_Billing.UI
         {
 
         }
-        public void refreshStore(string Field, string value) 
-        {
-            PhoneCallsHistoryGrid.GetStore().Filters.Clear();
-            PhoneCallsHistoryGrid.GetStore().Filter(Field, value);
-            DataBind();
-        }
+ 
 
         protected void AssignBusiness(object sender, DirectEventArgs e)
         {
+            RowSelectionModel sm = this.PhoneCallsHistoryGrid.GetSelectionModel() as RowSelectionModel;
+            foreach (SelectedRow row in sm.SelectedRows) 
+            {
+                var rowdata = PhoneCallsHistoryGrid.GetStore().GetAt(row.RowIndex);
+                string test = rowdata.ModelInstance;
+            }
+           
+            
             string json = e.ExtraParams["Values"];
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
@@ -101,6 +107,7 @@ namespace Lync_Billing.UI
 
         protected void AssignPersonal(object sender, DirectEventArgs e)
         {
+            RowSelectionModel sm = this.PhoneCallsHistoryGrid.SelectionModel.Primary as RowSelectionModel;
             string json = e.ExtraParams["Values"];
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
@@ -115,7 +122,7 @@ namespace Lync_Billing.UI
                 phoneCall.UI_UpdatedByUser = "SGhaida@ccc.gr";
                 //phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
-                phoneCall.SessionIdTime = phoneCall.SessionIdTime.AddHours(-3);
+                phoneCall.SessionIdTime = Convert.ToDateTime(phoneCall.SessionIdTime).AddHours(-3).ToString();
 
             }
         }
