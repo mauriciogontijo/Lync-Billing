@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="User_Home.aspx.cs" Inherits="Lync_Billing.UI.User_Home" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <title>eBill | Login</title>
+    <title>eBill | User Homepage</title>
 
 	<script type="text/javascript">
 		$(document).ready(function () {
