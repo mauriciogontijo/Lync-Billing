@@ -48,9 +48,9 @@
 
 	<div class='clear h15'></div>
 
-	<div id='history-block-0' class='block float-left w49p'>
+	<div id='user-phone-calls-history-block' class='block float-left w49p'>
 		<div class='content wauto float-left clear mb10'>
-			<asp:PlaceHolder ID="UserPhoneCallsSummaryPH" runat="server">
+			<asp:PlaceHolder ID="UserPhoneCallsHistoryPH" runat="server">
             </asp:PlaceHolder>
 		</div>
 		<div class='more-button wauto float-right'>
@@ -58,10 +58,20 @@
 		</div>
 	</div>
 
-	<div id='history-block-1' class='block float-right w49p'>
+	<div id='user-phone-calls-summary-block' class='block float-right w49p'>
 		<div class='content wauto float-left clear mb10'>
-			<asp:PlaceHolder ID="PlaceHolder2" runat="server">
-            </asp:PlaceHolder>
+			<ext:Panel ID="UserPhoneCallsSummary"
+                runat="server"         
+                Height="200" 
+                Width="350"
+                Layout="AccordionLayout"
+                Title="Your Phone Calls Summary">
+                <Loader ID="SummaryLoader" 
+                    runat="server" 
+                    Mode="Component">
+                    <LoadMask ShowMask="true" />
+                </Loader>
+            </ext:Panel>
 		</div>
 		<div class='more-button wauto float-right'>
 			<a href='#' class='font-10'>view more >></a>
