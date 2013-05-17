@@ -169,7 +169,9 @@
                             runat="server"
                             Text="Duration"
                             Width="70"
-                            DataIndex="Duration" />
+                            DataIndex="Duration">
+                            <Renderer Fn="GetMinutes" />
+                        </ext:Column>
 
                         <ext:Column
                             ID="Column5"
