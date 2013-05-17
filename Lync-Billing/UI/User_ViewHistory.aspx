@@ -183,7 +183,6 @@
  
             var submitValue = function (grid, hiddenFormat, format) 
             {
-                    hiddenFormat.setValue(format);
                     grid.submitData(false, {isUpload:true});
             };
         
@@ -368,7 +367,7 @@
                             </ext:ComboBox>
                             <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 500">
                                  <Listeners>
-                                    <Click Handler="submitValue(#{GridPanel1}, #{FormatType}, 'xls');" />
+                                    <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, 'xls');" />
                                 </Listeners>
                             </ext:Button>
                         </Items>

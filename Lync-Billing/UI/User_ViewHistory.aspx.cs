@@ -94,7 +94,7 @@ namespace Lync_Billing.UI
             this.Response.ContentType = "application/vnd.ms-excel";
             this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
             XslCompiledTransform xtExcel = new XslCompiledTransform();
-            xtExcel.Load(Server.MapPath("Excel.xsl"));
+            xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
             xtExcel.Transform(xml, null, Response.OutputStream);
             
             this.Response.End();
