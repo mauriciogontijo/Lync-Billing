@@ -41,8 +41,7 @@
 			<p class='font-18'>ANNOUNCEMENTS!</p>
 		</div>
 		<div>
-			<p class='font-14'>Please do ... 1 2 3 .... now!</p>
-			<p class='font-14'>Please do ... 4 5 6 .... later!</p>
+			<p class='font-14'>Welcome to the new eBill, it's now more customized and personal. Please take your time going through your personal analytics and have a look at our new personal management tools.</p>
 		</div>
 	</div>
 
