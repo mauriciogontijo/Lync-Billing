@@ -48,19 +48,6 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.Title = "Calls History";
 
             UserPhoneCallsHistoryPH.Controls.Add(UserPhoneCallsHistoryGrid);
-
-
-            /*
-             * Configuration of the User Summary Panel
-             */
-            /*UsersCallsSummary userSummary = new UsersCallsSummary();
-            userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
-            ComponentLoader.Config ComponentLoaderConfig = new ComponentLoader.Config();
-            ComponentLoaderConfig = ComponentLoader.ToConfig();
-            ComponentLoader UserPhoneCallsSummaryLoader = new ComponentLoader(ComponentLoaderConfig);
-            this.UserPhoneCallsSummary.LoadContent(ComponentLoader.ToConfig(
-                //......
-            );*/
         }
 
 
