@@ -36,13 +36,13 @@ namespace Lync_Billing.UI
             columns.Add("ui_IsPersonal");
             columns.Add("ui_MarkedOn");
 
-            PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-            PhoneCallStore.DataBind();
+            PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            PhoneCallsStore.DataBind();
         }
 
         protected void AssignBusiness(object sender, DirectEventArgs e)
         {
-            RowSelectionModel sm = this.PhoneCallsHistoryGrid.GetSelectionModel() as RowSelectionModel;
+            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
@@ -58,14 +58,14 @@ namespace Lync_Billing.UI
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
-                PhoneCallsHistoryGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                PhoneCallsHistoryGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
         }
 
         protected void AssignPersonal(object sender, DirectEventArgs e)
         {
-            RowSelectionModel sm = this.PhoneCallsHistoryGrid.GetSelectionModel() as RowSelectionModel;
+            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
@@ -81,8 +81,8 @@ namespace Lync_Billing.UI
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
-                PhoneCallsHistoryGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                PhoneCallsHistoryGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
         }
 
