@@ -252,7 +252,7 @@
                                             <Click OnEvent="AssignBusiness">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
                                                 </ExtraParams>
                                             </Click>
                                         </DirectEvents>
@@ -263,7 +263,7 @@
                                             <Click OnEvent="AssignPersonal">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
                                                 </ExtraParams>
                                             </Click>
                                         </DirectEvents>
@@ -274,7 +274,7 @@
                                             <Click OnEvent="AssignDispute">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
                                                 </ExtraParams>
                                             </Click>
                                         </DirectEvents>
