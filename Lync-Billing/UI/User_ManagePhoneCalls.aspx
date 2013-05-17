@@ -99,7 +99,17 @@
     <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
     <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
         <div class="block-body pt5">
-            <ext:GridPanel ID="ManagePhoneCallsGrid" runat="server" Title="Manage Phone Calls" Width="740" Height="740" AutoScroll="true" Header="true" Scroll="Both" Layout="FitLayout">
+            <ext:GridPanel
+                ID="ManagePhoneCallsGrid"
+                runat="server"
+                Title="Manage Phone Calls"
+                Width="740"
+                Height="740"
+                AutoScroll="true"
+                Header="true"
+                Scroll="Both"
+                Layout="FitLayout">
+
                 <Store>
                     <ext:Store ID="PhoneCallsStore" runat="server" IsPagingStore="true"  PageSize="25">
                         <Model>
@@ -124,16 +134,48 @@
 
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
 		            <Columns>
-                        <ext:Column ID="Column1" runat="server" Text="Date" Width="130" DataIndex="SessionIdTime">
-                            <Renderer Fn="myDateRenderer" />
+                        <ext:Column
+                            ID="Column1"
+                            runat="server"
+                            Text="Date"
+                            Width="130"
+                            DataIndex="SessionIdTime">
+                                <Renderer Fn="myDateRenderer" />
                         </ext:Column>
-                        <ext:Column ID="Column2" runat="server" Text="Country Code" Width="80" DataIndex="DestinationNumberUri Code" Align="Center" />
-                        <ext:Column ID="Column3" runat="server" Text="Destination" Width="125" DataIndex="DestinationNumberUri" />
-                        <ext:Column ID="Column4" runat="server" Text="Duration" Width="60" DataIndex="Duration" />
-                        <ext:Column ID="Column5" runat="server" Text="Cost" Width="70" DataIndex="marker_CallCost" />
+
+                        <ext:Column
+                            ID="Column2"
+                            runat="server"
+                            Text="Country Code"
+                            Width="80"
+                            DataIndex="DestinationNumberUri Code"
+                            Align="Center" />
+
+                        <ext:Column
+                            ID="Column3"
+                            runat="server"
+                            Text="Destination"
+                            Width="125"
+                            DataIndex="DestinationNumberUri" />
+
+                        <ext:Column
+                            ID="Column4"
+                            runat="server"
+                            Text="Duration"
+                            Width="60"
+                            DataIndex="Duration" />
+
+                        <ext:Column
+                            ID="Column5"
+                            runat="server"
+                            Text="Cost"
+                            Width="70"
+                            DataIndex="marker_CallCost" />
+
                         <ext:Column ID="Column6" runat="server" Text="Is Personal" Width="80" DataIndex="UI_IsPersonal">
                             <Renderer Fn="getRowClassForIsPersonal" />
                         </ext:Column>
+
                         <ext:Column ID="Column7" runat="server" Text="Updated On" Width="80" DataIndex="UI_MarkedOn">
                             <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
                         </ext:Column>
