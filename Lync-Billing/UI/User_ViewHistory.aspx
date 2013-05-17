@@ -314,7 +314,7 @@
                             Text="Duration"
                             Width="70"
                             DataIndex="Duration" >
-                            <Renderer Fn="myDateRenderer"/>
+                            <Renderer Fn="GetMinutes"/>
                         </ext:Column>
 
                         <ext:Column ID="marker_CallCost"
