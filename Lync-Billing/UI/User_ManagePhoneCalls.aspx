@@ -198,7 +198,7 @@
                 <TopBar>
                     <ext:Toolbar ID="Toolbar1" runat="server">
                         <Items>
-                            <ext:ButtonGroup ID="MarkingBottonsGroup" runat="server" Layout="TableLayout" Width="250" Frame="false" Margins="0 0 0 390" ButtonAlign="Right">
+                            <ext:ButtonGroup ID="MarkingBottonsGroup" runat="server" Layout="TableLayout" Width="250" Frame="false" Margins="0 0 0 485" ButtonAlign="Right">
                                 <Buttons>
                                     <ext:Button ID="Business" Text="Business" runat="server">
                                         <DirectEvents>
