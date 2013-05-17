@@ -36,7 +36,6 @@ namespace Lync_Billing.UI
             columns.Add("marker_CallCost");
             columns.Add("ui_IsPersonal");
             columns.Add("ui_MarkedOn");
-            columns.Add("ui_IsInvoiced");
 
             PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             PhoneCallStore.DataBind();

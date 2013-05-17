@@ -61,8 +61,8 @@
             ID="PhoneCallsHistoryGrid" 
             runat="server" 
             Title="Manage Phone Calls"
-            Width="760"
-            Height="770"  
+            Width="660"
+            Height="740"  
             AutoScroll="true"
             Header="true"
             Scroll="Both" 
@@ -85,7 +85,6 @@
                             <ext:ModelField Name="UI_IsPersonal" Type="String" />
                             <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                             <ext:ModelField Name="UI_IsPersonal" Type="String" />
-                            <ext:ModelField Name="UI_IsInvoiced" Type="String" />
                         </Fields>
                  </ext:Model>
                </Model>
@@ -141,14 +140,6 @@
                         DataIndex="UI_MarkedOn" >
                         <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
                     </ext:Column>
-
-                    <ext:Column ID="UI_IsInvoiced"
-                        runat="server"
-                        Text="Billing Status"
-                        Width="90"
-                        DataIndex="UI_IsInvoiced" >
-                        <Renderer Fn="getRowClassForIsInvoiced" />
-                    </ext:Column>
 		        </Columns>
             </ColumnModel>
             <SelectionModel>
@@ -169,7 +160,7 @@
                              Layout="TableLayout" 
                              Width="250" 
                              Frame="false"
-                             Margins="0 0 0 500"
+                             Margins="0 0 0 390"
                              ButtonAlign="Right">
                              <Buttons>
                                  <ext:Button ID="Business" Text="Business" runat="server">
