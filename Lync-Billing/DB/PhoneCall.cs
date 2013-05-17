@@ -125,6 +125,7 @@ namespace Lync_Billing.DB
                    
                     
                 }
+                
                 phoneCalls.Add(phoneCall);
             }
             return phoneCalls;
