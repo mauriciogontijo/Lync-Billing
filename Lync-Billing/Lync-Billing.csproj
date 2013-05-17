@@ -96,6 +96,7 @@
     <Content Include="App_Readme\Transformer.NET\LICENSE.txt" />
     <Content Include="App_Readme\Transformer.NET\README.txt" />
     <Content Include="Global.asax" />
+    <Content Include="Resources\excel.xsl" />
     <Content Include="UI\Login.aspx" />
     <Content Include="UI\css\black-layout.css" />
     <Content Include="UI\css\diagnostics-v1.css" />

@@ -88,8 +88,6 @@ namespace Lync_Billing.UI
 
         protected void PhoneCallStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
-            string format = FormatType.Value.ToString();
-
             XmlNode xml = e.Xml;
 
             this.Response.Clear();
@@ -100,6 +98,12 @@ namespace Lync_Billing.UI
             xtExcel.Transform(xml, null, Response.OutputStream);
             
             this.Response.End();
+        }
+
+        protected void PhoneCallStore_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            this.PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            this.PhoneCallStore.DataBind();
         }
     }
 }

@@ -268,7 +268,8 @@
                     <ext:Store
                          ID="PhoneCallStore" 
                          runat="server" 
-                        OnSubmitData="PhoneCallStore_SubmitData"
+                         OnSubmitData="PhoneCallStore_SubmitData"
+                         OnReadData="PhoneCallStore_ReadData"
                          IsPagingStore="true"  
                          PageSize="25">
                         <Model>
