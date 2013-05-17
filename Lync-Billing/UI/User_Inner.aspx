@@ -87,6 +87,37 @@
 		        });
 		    }); 
 		});
+
+		var myDateRenderer = function (value) {
+		    value = Ext.util.Format.date(value, "d M Y h:m A");
+		    return value;
+		}
+               
+		function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
+		    if (record.data.UI_IsPersonal == 'YES' || record.data.UI_IsPersonal == 'Yes') {
+		        meta.style = "color: rgb(201, 20, 20);";
+		    }
+		    if (record.data.UI_IsPersonal == 'NO' || record.data.UI_IsPersonal == 'No') {
+		        meta.style = "color: rgb(46, 143, 42);";
+		    }
+		    //if (record.data.UI_IsInvoiced == 'Pending' || record.data.UI_IsInvoiced == 'PENDING') {
+		    //    meta.style = "color: rgb(201, 20, 20);";
+		    //}
+		    //if (record.data.UI_IsInvoiced == 'Charged' || record.data.UI_IsInvoiced == 'CHARGED') {
+		    //    meta.style = "color: rgb(46, 143, 42);";
+		    //}
+		    return value
+		}
+
+
+		function getRowClassForIsInvoiced(value, meta, record, rowIndex, colIndex, store) {
+		    if (record.data.UI_IsInvoiced == 'Pending' || record.data.UI_IsInvoiced == 'PENDING') {
+		        meta.style = "color: rgb(201, 20, 20);";
+		    }
+		    if (record.data.UI_IsInvoiced == 'Charged' || record.data.UI_IsInvoiced == 'CHARGED') {
+		        meta.style = "color: rgb(46, 143, 42);";
+		    }
+		    return value
 	</script>
 
     <ext:XScript ID="XScript1" runat="server">
@@ -287,13 +318,12 @@
                 Layout="FitLayout">
 
                 <Store>
-                 <ext:Store ID="PhoneCallStore" runat="server" IsPagingStore="true"  PageSize="25"
-                    OnAfterRecordUpdated="PhoneCallStore_AfterRecordUpdated"
-                    OnAfterStoreChanged="PhoneCallStore_AfterStoreChanged"
-                    OnAfterDirectEvent="PhoneCallStore_AfterDirectEvent"
-                    OnBeforeDirectEvent="PhoneCallStore_BeforeDirectEvent"
-                    OnBeforeRecordUpdated="PhoneCallStore_BeforeRecordUpdated"
-                    OnBeforeStoreChanged="PhoneCallStore_BeforeStoreChanged">
+                 <ext:Store 
+                     ID="PhoneCallStore" 
+                     runat="server" 
+                     IsPagingStore="true"  
+                     PageSize="25"
+                   >
                     <Model>
                         <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
                             <Fields>
@@ -304,7 +334,6 @@
                                 <ext:ModelField Name="marker_CallCost"  Type="Float" />
                                 <ext:ModelField Name="UI_IsPersonal" Type="String" />
                                 <ext:ModelField Name="UI_MarkedOn" Type="Date" />
-                                <ext:ModelField Name="UI_IsInvoiced" Type="String" />
                             </Fields>
                      </ext:Model>
                    </Model>
@@ -352,20 +381,15 @@
                             Text="Is Personal"
                             Width="100"
                             Visible ="false"
-                            DataIndex="UI_IsPersonal" />
+                            DataIndex="UI_IsPersonal" >
+                             <Renderer Fn="getRowClassForIsPersonal" />
+                        </ext:Column>
 
                         <ext:Column ID="UI_MarkedOn"
                             runat="server"
                             Text="Updated On"
                             Width="120"
                             DataIndex="UI_MarkedOn" />
-
-                        <ext:Column ID="UI_IsInvoiced"
-                            runat="server"
-                            Text="Billing Status"
-                            Visible="false"
-                            Width="90"
-                            DataIndex="UI_IsInvoiced" />
 		            </Columns>
                 </ColumnModel>
                  <TopBar>

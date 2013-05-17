@@ -112,15 +112,6 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Column UI_MarkedOn;
         
         /// <summary>
-        /// UI_IsInvoiced control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column UI_IsInvoiced;
-        
-        /// <summary>
         /// FilterToolBar control.
         /// </summary>
         /// <remarks>
