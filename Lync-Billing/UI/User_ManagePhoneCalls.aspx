@@ -198,7 +198,11 @@
                 <TopBar>
                     <ext:Toolbar ID="Toolbar1" runat="server">
                         <Items>
-                            <ext:ButtonGroup ID="MarkingBottonsGroup" runat="server" Layout="TableLayout" Width="250" Frame="false" Margins="0 0 0 485" ButtonAlign="Right">
+                            <ext:Label runat="server" ID="button_group_lable" Margin="5">
+                                <Content>Mark Selected As:</Content>
+                            </ext:Label>
+
+                            <ext:ButtonGroup ID="MarkingBottonsGroup" runat="server" Layout="TableLayout" Width="250" Frame="false" ButtonAlign="Right">
                                 <Buttons>
                                     <ext:Button ID="Business" Text="Business" runat="server">
                                         <DirectEvents>

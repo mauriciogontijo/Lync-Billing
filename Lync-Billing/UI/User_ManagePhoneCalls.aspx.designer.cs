@@ -121,6 +121,15 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Toolbar Toolbar1;
         
         /// <summary>
+        /// button_group_lable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Label button_group_lable;
+        
+        /// <summary>
         /// MarkingBottonsGroup control.
         /// </summary>
         /// <remarks>
