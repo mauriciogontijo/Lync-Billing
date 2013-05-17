@@ -180,6 +180,13 @@
                 }
             };
 
+ 
+            var submitValue = function (grid, hiddenFormat, format) 
+            {
+                    hiddenFormat.setValue(format);
+                    grid.submitData(false, {isUpload:true});
+            };
+        
 
             /* FILTERS BY DATA TYPE */
             var filterString = function (value, dataIndex, record) {
@@ -215,26 +222,30 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
-    <!-- *** START OF SIDEBAR *** -->
+   <!-- *** START OF SIDEBAR *** -->
     <div id='sidebar' class='sidebar block float-left w20p'>
-	    <div class='block-header top-rounded bh-shadow'>
-		    <p class='font-1-2-em bold'>User Management</p>
-	    </div>
-	    <div class='block-body bottom-rounded bb-shadow'>
-		    <div class='wauto float-left mb15'>
-			    <p class='section-header'>Manage</p>
-			    <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Phone Calls</a></p>
-                <p class='section-item'>Delegates</p>
-		    </div>
+        <div class='block-header top-rounded bh-shadow'>
+            <p class='font-1-2-em bold'>User Management</p>
+        </div>
+        <div class='block-body bottom-rounded bb-shadow'>
+            <div class='wauto float-left mb15'>
+                <p class='section-header'>Manage</p>
+                <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Personal Phone Calls</a></p>
+                <p class='section-item'><a href='#'>Personal Delegates</a></p>
+            </div>
 
-		    <div class='wauto float-left mb15'>
-			    <p class='section-header'>History and Statistics</p>
-                <p class='section-item'><a href='User_ViewHistory.aspx'>View Phone Calls History</a></p>
-                <p class='section-item'>View Phone Calls Statistics</p>
-		    </div>
+            <div class='wauto float-left mb15'>
+                <p class='section-header'>History</p>
+                <p class='section-item'><a href='User_ViewHistory.aspx'>Personal History</a></p>
+            </div>
 
-		    <div class='clear h5'></div>
-	    </div>
+            <div class='wauto float-left mb15'>
+                <p class='section-header'>Statistics</p>
+                <p class='section-item'><a href='#'>Personal Statistics</a></p>
+            </div>
+
+            <div class='clear h5'></div>
+        </div>
     </div>
     <!-- *** END OF SIDEBAR *** -->
 
@@ -257,6 +268,7 @@
                     <ext:Store
                          ID="PhoneCallStore" 
                          runat="server" 
+                        OnSubmitData="PhoneCallStore_SubmitData"
                          IsPagingStore="true"  
                          PageSize="25">
                         <Model>
@@ -353,6 +365,11 @@
                                     <Select Handler="applyFilter(this);" />
                                 </Listeners>
                             </ext:ComboBox>
+                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 500">
+                                 <Listeners>
+                                    <Click Handler="submitValue(#{GridPanel1}, #{FormatType}, 'xls');" />
+                                </Listeners>
+                            </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>

@@ -8,6 +8,10 @@ using System.Collections.ObjectModel;
 using System.Web.Script.Serialization;
 using Ext.Net;
 using Lync_Billing.DB;
+using System.Xml;
+using System.Xml.Xsl;
+using Microsoft.Build.Tasks;
+
 
 namespace Lync_Billing.UI
 {
@@ -80,6 +84,22 @@ namespace Lync_Billing.UI
             PhoneCallsHistoryGrid.GetStore().Filters.Clear();
             PhoneCallsHistoryGrid.GetStore().Filter(Field, value);
             DataBind();
+        }
+
+        protected void PhoneCallStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
+        {
+            string format = FormatType.Value.ToString();
+
+            XmlNode xml = e.Xml;
+
+            this.Response.Clear();
+            this.Response.ContentType = "application/vnd.ms-excel";
+            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+            XslCompiledTransform xtExcel = new XslCompiledTransform();
+            xtExcel.Load(Server.MapPath("Excel.xsl"));
+            xtExcel.Transform(xml, null, Response.OutputStream);
+            
+            this.Response.End();
         }
     }
 }

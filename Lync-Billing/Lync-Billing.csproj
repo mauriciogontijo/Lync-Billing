@@ -52,6 +52,7 @@
     <Reference Include="itextsharp" />
     <Reference Include="itextsharp.pdfa" />
     <Reference Include="itextsharp.xtra" />
+    <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.JScript" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
