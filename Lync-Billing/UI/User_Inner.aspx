@@ -300,7 +300,7 @@
                 runat="server" 
                 Title="Phone Calls History"
                 Width="740"
-                Height="650"  
+                Height="740"  
                 AutoScroll="true"
                 Header="true"
                 Scroll="Both" 
@@ -333,7 +333,7 @@
                         <ext:Column ID="SessionIdTime" 
                             runat="server" 
                             Text="Date" 
-                            Width="140" 
+                            Width="160" 
                             DataIndex="SessionIdTime">
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
@@ -347,13 +347,13 @@
                         <ext:Column ID="DestinationNumberUri"
                             runat="server"
                             Text="Destination"
-                            Width="150"
+                            Width="130"
                             DataIndex="DestinationNumberUri" />
 
                         <ext:Column ID="Duration"
                             runat="server"
                             Text="Duration"
-                            Width="60"
+                            Width="70"
                             DataIndex="Duration" />
 
                         <ext:Column ID="marker_CallCost"
