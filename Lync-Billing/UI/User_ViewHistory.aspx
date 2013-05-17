@@ -295,7 +295,8 @@
                             runat="server" 
                             Text="Date" 
                             Width="160" 
-                            DataIndex="SessionIdTime">
+                            DataIndex="SessionIdTime"
+                            Groupable="false">
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
 
@@ -303,19 +304,22 @@
                             runat="server"
                             Text="Country Code"
                             Width="90"
-                            DataIndex="DestinationNumberUri Code" />
+                            DataIndex="DestinationNumberUri Code" 
+                            Groupable="true"/>
 
                         <ext:Column ID="DestinationNumberUri"
                             runat="server"
                             Text="Destination"
                             Width="130"
-                            DataIndex="DestinationNumberUri" />
+                            DataIndex="DestinationNumberUri"
+                            Groupable="true" />
 
                         <ext:Column ID="Duration"
                             runat="server"
                             Text="Duration"
                             Width="70"
-                            DataIndex="Duration" >
+                            DataIndex="Duration"
+                            Groupable="false" >
                             <Renderer Fn="GetMinutes"/>
                         </ext:Column>
 
@@ -323,13 +327,15 @@
                             runat="server"
                             Text="Cost"
                             Width="60"
-                            DataIndex="marker_CallCost" />
+                            DataIndex="marker_CallCost"
+                            Groupable="false" />
 
                         <ext:Column ID="UI_IsPersonal"
                             runat="server"
                             Text="Is Personal"
                             Width="80"
-                            DataIndex="UI_IsPersonal" >
+                            DataIndex="UI_IsPersonal" 
+                            Groupable="false">
                             <Renderer Fn="getRowClassForIsPersonal" />
                         </ext:Column>
 
@@ -337,12 +343,22 @@
                             runat="server"
                             Text="Updated On"
                             Width="120"
-                            DataIndex="UI_MarkedOn">
+                            DataIndex="UI_MarkedOn"
+                             Groupable="true">
                             <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
                         </ext:Column>
 		            </Columns>
                 </ColumnModel>
-
+                <Features>               
+                <ext:GroupingSummary 
+                    ID="GroupingPhoneCallsHistory" 
+                    runat="server" 
+                    GroupHeaderTplString="{name}" 
+                    HideGroupedHeader="true" 
+                    EnableGroupingMenu="true"
+                    EnableNoGroups="true"
+                    ShowSummaryRow="true" />
+            </Features>     
                 <TopBar>
                     <ext:Toolbar ID="FilterToolBar" runat="server">
                         <Items>
