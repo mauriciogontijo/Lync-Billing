@@ -249,7 +249,13 @@
                 </TopBar>
 
                 <BottomBar>
-                    <ext:PagingToolbar ID="PagingToolbar1" runat="server" StoreID="PhoneCallStore" DisplayInfo="true" Weight="25" DisplayMsg="Phone Calls {0} - {1} of {2}" />
+                    <ext:PagingToolbar 
+                        ID="PagingToolbar1" 
+                        runat="server" 
+                        StoreID="PhoneCallStore" 
+                        DisplayInfo="true" 
+                        Weight="25" 
+                        DisplayMsg="Phone Calls {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
         </div>
