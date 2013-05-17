@@ -237,5 +237,4 @@
         </div>
     </div>
     <!-- *** END OF MANAGE PHONE CALLS GRID *** -->
-    </div>
 </asp:Content>
