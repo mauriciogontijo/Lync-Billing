@@ -245,7 +245,6 @@
                                             <Click OnEvent="AssignBusiness">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
-                                                    <%--<ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />--%>
                                                     <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
                                                 </ExtraParams>
                                             </Click>
