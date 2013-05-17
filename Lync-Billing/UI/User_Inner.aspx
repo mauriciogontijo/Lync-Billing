@@ -4,24 +4,9 @@
     <title>eBill | User Tools</title>
 
     <style type="text/css">
-        .x-grid-cell-fullName .x-grid-cell-inner {
-            font-family : tahoma, verdana;
-            display     : block;
-            font-weight : normal;
-            font-style  : normal;
-            color       : #385F95;
-            white-space : normal;
-        }
-        
-        .x-grid-rowbody div {
-            margin : 2px 5px 20px 5px !important;
-            width  : 99%;
-            color  : Gray;
-        }
-        
-        .x-grid-row-expanded td.x-grid-cell{
-            border-bottom-width:0px;
-        }
+        .x-grid-cell-fullName .x-grid-cell-inner { font-family: tahoma, verdana; display: block; font-weight: normal; font-style: normal; color:#385F95; white-space: normal; }
+        .x-grid-rowbody div { margin: 2px 5px 20px 5px !important; width: 99%; color: Gray; }
+        .x-grid-row-expanded td.x-grid-cell { border-bottom-width: 0px; }
     </style>
 
 	<script type="text/javascript">
@@ -52,40 +37,6 @@
 		    $('body').click(function (e) {
 		        $('#more-list-container').fadeOut('fast');
 		    });
-
-		    $('.show-content-0-btn').click(function (e) {
-		        $('#main div.visibility-marker').fadeOut(400, function (e) {
-		            $(this).removeClass('visibility-marker');
-		            $('#content-block-0').fadeIn(150);
-		            $('#content-block-0').addClass('visibility-marker');
-		        });
-		    });
-
-		    $('.show-content-1-btn').click(function (e) {
-		        $('#main div.visibility-marker').fadeOut(400, function (e) {
-		            $(this).removeClass('visibility-marker');
-		            $('#content-block-1').fadeIn(150);
-		            $('#content-block-1').addClass('visibility-marker');
-		        });
-		    });
-
-		    $('.show-content-2-btn').click(function (e) {
-		        $('#main div.visibility-marker').fadeOut(400, function (e) {
-		            $(this).removeClass('visibility-marker');
-		            $('#content-block-2').fadeIn(150);
-		            $('#content-block-2').addClass('visibility-marker');
-		        });
-		    });
-
-		    $('.show-phone-call-history-btn').click(function (e) {
-		        $('#phone-call-history').fadeIn(150);
-		        //$('#phone-call-history').css('display', 'block');
-		        $('#main div.visibility-marker').fadeOut(400, function (e) {
-		            $(this).removeClass('visibility-marker');
-		            $('#phone-call-history').fadeIn(150);
-		            $('#phone-call-history').addClass('visibility-marker');
-		        });
-		    }); 
 		});
 
 		var myDateRenderer = function (value) {
@@ -125,56 +76,31 @@
                 var FilterValue = #{FilterTypeComboBox}.getValue() || "";
                 switch(FilterValue) {
                     case "2":
-                        f.push({
-                            filter: function (record) {
-                                return filterMarkedCriteria("Marked", 'UI_IsPersonal', record); 
-                            }
-                        });
+                        f.push({ filter: function (record) { return filterMarkedCriteria("Marked", 'UI_IsPersonal', record); }});
                         break;
 
                     case "3":
-                        f.push({
-                            filter: function (record) {
-                                return filterMarkedCriteria("Unmarked", 'UI_IsPersonal', record); 
-                            }
-                        });
+                        f.push({ filter: function (record) { return filterMarkedCriteria("Unmarked", 'UI_IsPersonal', record); }});
                         break;
 
                     case "4":
-                        f.push({
-                            filter: function (record) {
-                                return filterString('NO', 'UI_IsPersonal', record); 
-                            }
-                        });
+                        f.push({ filter: function (record) { return filterString('NO', 'UI_IsPersonal', record); }});
                         break;
 
                     case "5":
-                        f.push({
-                            filter: function (record) {
-                                return filterString('YES', 'UI_IsPersonal', record); 
-                            }
-                        });
+                        f.push({ filter: function (record) { return filterString('YES', 'UI_IsPersonal', record); }});
                         break;
 
                     case "6":
-                        f.push({
-                            filter: function (record) {
-                                return filterInvoiceCriteria("Charged", 'UI_IsInvoiced', record); 
-                            }
-                        });
+                        f.push({ filter: function (record) { return filterInvoiceCriteria("Charged", 'UI_IsInvoiced', record); }});
                         break;
 
                     case "7":
-                        f.push({
-                            filter: function (record) {
-                                return filterInvoiceCriteria("Uncharged", 'UI_IsInvoiced', record); 
-                            }
-                        });
+                        f.push({ filter: function (record) { return filterInvoiceCriteria("Uncharged", 'UI_IsInvoiced', record); }});
                         break;
                 }
                 
                 var len = f.length;
-                
                 return function (record) {
                     for (var i = 0; i < len; i++) {
                         if (!f[i].filter(record)) {
@@ -265,34 +191,31 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
+    <!-- *** START OF SIDEBAR *** -->
     <div id='sidebar' class='sidebar block float-left w20p'>
 	    <div class='block-header top-rounded bh-shadow'>
 		    <p class='font-1-2-em bold'>User Management</p>
 	    </div>
 	    <div class='block-body bottom-rounded bb-shadow'>
 		    <div class='wauto float-left mb15'>
-			    <p class='section-header'>Manage Phone Calls</p>
-			    <p class='section-item show-content-0-btn'><a href='#'>Content Block 0</a></p>
-			    <p class='section-item show-content-1-btn'><a href='#'>Content Block 1</a></p>
-			    <p class='section-item show-content-2-btn'><a href='#'>Content Block 2</a></p>
-		    </div>
-					
-		    <div class='wauto float-left mb15'>
-			    <p class='section-header'>Manage Statistics</p>
-			    <p class='section-item show-content-0-btn'><a href='#'>Content Block 0</a></p>
-			    <p class='section-item show-content-1-btn'><a href='#'>Content Block 1</a></p>
-			    <p class='section-item show-content-2-btn'><a href='#'>Content Block 2</a></p>
+			    <p class='section-header'>Manage</p>
+			    <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Phone Calls</a></p>
+                <p class='section-item'>Delegates</p>
 		    </div>
 
 		    <div class='wauto float-left mb15'>
-			    <p class='section-header'>History</p>
-                <p class='section-item show-phone-call-history-btn'><a href='#'>View Phone Calls History</a></p>
+			    <p class='section-header'>History and Statistics</p>
+                <p class='section-item'><a href='User_ViewHistory.aspx'>View Phone Calls History</a></p>
+                <p class='section-item'>View Phone Calls Statistics</p>
 		    </div>
 
 		    <div class='clear h5'></div>
 	    </div>
     </div>
+    <!-- *** END OF SIDEBAR *** -->
 
+
+    <!-- *** START OF PHONE CALLS HISTORY GRID *** -->
     <div id='phone-call-history' class='block float-right w80p h100p' style="visibility: visible;">
         <div class="block-body pt5">
             <ext:GridPanel 
@@ -419,18 +342,9 @@
                     
                 <SelectionModel>
                     <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi"  Visible="false"/>
-                </SelectionModel>            
-                    
-                <%--<Buttons>
-                    <ext:Button ID="GridSubmitChanges" runat="server" Text="Save Changes">
-                        <DirectEvents>
-                            <Click OnEvent="GridSubmitChanges_Click">
-                                <EventMask ShowMask="true" />
-                            </Click>
-                        </DirectEvents>
-                    </ext:Button>
-                </Buttons>--%>
+                </SelectionModel>
             </ext:GridPanel>
         </div>
+        <!-- *** END OF PHONE CALLS HISTORY GRID *** -->
     </div>
 </asp:Content>
