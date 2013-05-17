@@ -85,7 +85,7 @@ namespace Lync_Billing.UI
                     }
 
                     Session.Add("UserData", session);
-                    Response.Redirect("~/UI/User_Home.aspx");
+                    Response.Redirect("~/UI/User_Dashboard.aspx");
                 }
 
             }
