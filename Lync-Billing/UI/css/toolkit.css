@@ -135,6 +135,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0; color: #333; text-rendering: optimizeLegibil
 
 /* start font colors */
 .white-font { color: #FFFFFF }
+.red-font { color: #D80000 }
 .black-font { color: #000000 }
 /* end font colors */
 
