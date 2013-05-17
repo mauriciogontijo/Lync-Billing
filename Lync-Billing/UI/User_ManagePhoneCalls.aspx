@@ -111,21 +111,19 @@
         </div>
         <div class='block-body bottom-rounded bb-shadow'>
             <div class='wauto float-left mb15'>
-                <p class='section-header'>General</p>
-                <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Manage Phone Calls</a></p>
-                <p class='section-item'><a href='#'>Manage Delegates</a></p>
+                <p class='section-header'>Manage</p>
+                <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Personal Phone Calls</a></p>
+                <p class='section-item'><a href='#'>Personal Delegates</a></p>
             </div>
 
             <div class='wauto float-left mb15'>
                 <p class='section-header'>History</p>
-                <p class='section-item'><a href='User_ViewHistory.aspx'>View History</a></p>
-                <p class='section-item'><a href='#'>Export History</a></p>
+                <p class='section-item'><a href='User_ViewHistory.aspx'>Personal History</a></p>
             </div>
 
             <div class='wauto float-left mb15'>
                 <p class='section-header'>Statistics</p>
-                <p class='section-item'><a href='#'>View Statistics</a></p>
-                <p class='section-item'><a href='#'>Export Statistics</a></p>
+                <p class='section-item'><a href='#'>Personal Statistics</a></p>
             </div>
 
             <div class='clear h5'></div>
