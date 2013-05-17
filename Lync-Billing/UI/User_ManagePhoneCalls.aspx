@@ -97,7 +97,7 @@
     <!-- *** END OF SIDEBAR *** -->
 
     <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
-    <div id='manage-phone-calls-block' class='block float-right w80p h100p' style="visibility: hidden;">
+    <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
         <ext:GridPanel ID="ManagePhoneCallsGrid" runat="server" Title="Manage Phone Calls" Width="660" Height="740" AutoScroll="true" Header="true" Scroll="Both" Layout="FitLayout">
             <Store>
                 <ext:Store ID="PhoneCallsStore" runat="server" IsPagingStore="true"  PageSize="25">
