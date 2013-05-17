@@ -103,13 +103,18 @@
 
 
 /* start paragraphs customizations */
-.line-height-1, p.line-height-1 { line-height: 1.1; }
-.line-height-2, p.line-height-2 { line-height: 1.2; }
-.line-height-3, p.line-height-3 { line-height: 1.3; }
-.line-height-4, p.line-height-4 { line-height: 1.4; }
-.line-height-5, p.line-height-5 { line-height: 1.5; }
-.line-height-6, p.line-height-6 { line-height: 1.6; }
-.line-height-7, p.line-height-7 { line-height: 1.7; }
+.line-height-1, p.line-height-1 { line-height: 1; }
+.line-height-1-1, p.line-height-1-1 { line-height: 1.1; }
+.line-height-1-2, p.line-height-1-2 { line-height: 1.2; }
+.line-height-1-3, p.line-height-1-3 { line-height: 1.3; }
+.line-height-1-4, p.line-height-1-4 { line-height: 1.4; }
+.line-height-1-5, p.line-height-1-5 { line-height: 1.5; }
+.line-height-1-6, p.line-height-1-6 { line-height: 1.6; }
+.line-height-1-7, p.line-height-1-7 { line-height: 1.7; }
+.line-height-1-8, p.line-height-1-8 { line-height: 1.8; }
+.line-height-1-9, p.line-height-1-9 { line-height: 1.9; }
+.line-height-2, p.line-height-2 { line-height: 2; }
+.line-height-3, p.line-height-3 { line-height: 3; }
 /* start paragraphs customizations */
 
 
