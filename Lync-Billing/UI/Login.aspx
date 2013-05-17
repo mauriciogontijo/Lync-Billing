@@ -22,17 +22,42 @@
 		<div class="front-signin p10">
 			<div class="signin mt5">
 				<div class="placeholding-input username">
-					<asp:TextBox TextMode="Email" runat="server" id="email" class="" name="email" title="Email" tabindex="1" />
-					<asp:label Text="email" CssClass="placeholder" runat="server"></asp:label>
+					<asp:TextBox 
+                        TextMode="Email"
+                        runat="server" 
+                        id="email" 
+                        class="" 
+                        name="email" 
+                        title="Email" 
+                        tabindex="1" />
+					<asp:label 
+                        Text="email" 
+                        CssClass="placeholder" 
+                        runat="server"></asp:label>
 				</div>
 
 				<div class="placeholding-input password">
-            		<asp:TextBox id="password" runat="server" TextMode="Password" name="password" title="Password" tabindex="2" />
-                	<asp:label Text="password"  CssClass="placeholder" runat="server"></asp:label>
+            		<asp:TextBox 
+                        id="password" 
+                        runat="server" 
+                        TextMode="Password" 
+                        name="password" 
+                        title="Password" 
+                        tabindex="2" />
+                	<asp:label 
+                        Text="password"  
+                        CssClass="placeholder" 
+                        runat="server">
+
+                	</asp:label>
               	</div>
 
               	<div class="placeholding-input">
-                    <asp:Button ID="signin_submit" runat="server" Text="Signin" OnClick="Signin" />
+                    <asp:Button 
+                        ID="signin_submit" 
+                        runat="server" 
+                        Text="Signin" 
+                        OnClick="Signin" />
 				</div>
 			</div>
 		</div>
