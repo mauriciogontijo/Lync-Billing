@@ -117,18 +117,20 @@
         <div class='block-body bottom-rounded bb-shadow'>
             <div class='wauto float-left mb15'>
                 <p class='section-header'>Manage</p>
-                <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Personal Phone Calls</a></p>
-                <p class='section-item'><a href='#'>Personal Delegates</a></p>
+                <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Business Personal</a></p>
+                <p class='section-item'><a href='#'>Delegates</a></p>
+                 <p class='section-item'><a href='#'>Address Book</a></p>
+                
             </div>
 
             <div class='wauto float-left mb15'>
                 <p class='section-header'>History</p>
-                <p class='section-item'><a href='User_ViewHistory.aspx'>Personal History</a></p>
+                <p class='section-item'><a href='User_ViewHistory.aspx'>Phone Calls History</a></p>
             </div>
 
             <div class='wauto float-left mb15'>
                 <p class='section-header'>Statistics</p>
-                <p class='section-item'><a href='#'>Personal Statistics</a></p>
+                <p class='section-item'><a href='#'>Phone Calls Statistics</a></p>
             </div>
 
             <div class='clear h5'></div>
