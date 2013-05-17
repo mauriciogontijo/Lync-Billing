@@ -100,6 +100,11 @@
 
             return hours + ':' + minutes + ':' + seconds;;
         }
+
+        var submitValue = function (grid, hiddenFormat, format) {
+            grid.submitData(false, { isUpload: true });
+        };
+
     </script>
 </asp:Content>
 
@@ -146,15 +151,20 @@
                 Layout="FitLayout">
 
                 <Store>
-                    <ext:Store ID="PhoneCallsStore" runat="server" IsPagingStore="true" PageSize="25">
+                    <ext:Store 
+                        ID="PhoneCallsStore" 
+                        runat="server" 
+                        IsPagingStore="true" 
+                        PageSize="25"
+                        OnSubmitData="PhoneCallsStore_SubmitData"
+                        OnReadData="PhoneCallsStore_ReadData">
                         <Model>
                             <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
                                 <Fields>
                                     <ext:ModelField Name="SessionIdTime" Type="String" />
-                                    <%--RenderMilliseconds="true" DateWriteFormat="d M Y G:i"--%>
                                     <ext:ModelField Name="SessionIdSeq" Type="Int" />
-                                    <ext:ModelField Name="ResponseTime" Type="Date" RenderMilliseconds="true" />
-                                    <ext:ModelField Name="SessionEndTime" Type="Date" RenderMilliseconds="true" />
+                                    <ext:ModelField Name="ResponseTime" Type="String"/>
+                                    <ext:ModelField Name="SessionEndTime" Type="String"/>
                                     <ext:ModelField Name="marker_CallToCountry" Type="String" />
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
@@ -281,6 +291,11 @@
                                     </ext:Button>
                                 </Buttons>
                             </ext:ButtonGroup>
+                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 500">
+                                 <Listeners>
+                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
+                                </Listeners>
+                            </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>

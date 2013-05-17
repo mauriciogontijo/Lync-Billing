@@ -166,6 +166,15 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Button Dispute;
         
         /// <summary>
+        /// ExportToExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button ExportToExcel;
+        
+        /// <summary>
         /// PagingToolbar1 control.
         /// </summary>
         /// <remarks>

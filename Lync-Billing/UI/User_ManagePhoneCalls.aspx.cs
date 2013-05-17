@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using Ext.Net;
 using System.Web.Script.Serialization;
 using Lync_Billing.DB;
+using System.Xml;
+using System.Xml.Xsl;
 
 namespace Lync_Billing.UI
 {
@@ -87,6 +89,25 @@ namespace Lync_Billing.UI
         }
 
         protected void AssignDispute(object sender, DirectEventArgs e)
+        {
+
+        }
+
+        protected void PhoneCallsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
+        {
+            XmlNode xml = e.Xml;
+
+            this.Response.Clear();
+            this.Response.ContentType = "application/vnd.ms-excel";
+            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+            XslCompiledTransform xtExcel = new XslCompiledTransform();
+            xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
+            xtExcel.Transform(xml, null, Response.OutputStream);
+
+            this.Response.End();
+        }
+
+        protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
 
         }
