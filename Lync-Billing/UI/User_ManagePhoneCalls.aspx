@@ -82,7 +82,7 @@
 		    <div class='wauto float-left mb15'>
 			    <p class='section-header'>General</p>
 			    <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Manage Phone Calls</a></p>
-                <p class='section-item'>Manage Delegates</p>
+                <p class='section-item'><a href='#'>Manage Delegates</a></p>
 		    </div>
 
 		    <div class='wauto float-left mb15'>
