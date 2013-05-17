@@ -70,8 +70,8 @@
                         <Fields> 
                             <ext:ModelField Name="SessionIdTime" Type="String"/>  <%--RenderMilliseconds="true" DateWriteFormat="d M Y G:i"--%>
                              <ext:ModelField Name="SessionIdSeq" Type="Int"/>
-                            <ext:ModelField Name="ResponseTime" Type="Date" RenderMilliseconds="true"/>
-                            <ext:ModelField Name="SessionEndTime" Type="Date" RenderMilliseconds="true"/>
+                            <ext:ModelField Name="ResponseTime" Type="String"/>
+                            <ext:ModelField Name="SessionEndTime" Type="String"/>
                             <ext:ModelField Name="marker_CallToCountry" Type="String" />
                             <ext:ModelField Name="DestinationNumberUri" Type="String" />
                             <ext:ModelField Name="Duration" Type="Float" />
