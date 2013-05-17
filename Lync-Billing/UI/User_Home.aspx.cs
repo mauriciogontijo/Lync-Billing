@@ -33,7 +33,7 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid = Grids.PhoneCallsGrid(columns, wherePart, 7);
             Ext.Net.TextField textField = new TextField();
             textField.ID = "SessionTime";
-            UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y-m-d');";
+            UserPhoneCallsHistoryGrid.ColumnModel.Columns[0].Renderer.Handler = "return Ext.util.Format.date(value, 'Y m d');";
 
             UserPhoneCallsHistoryGrid.ID = "PhoneCallsGrid";
             UserPhoneCallsHistoryGrid.Layout = "Table";
