@@ -95,12 +95,12 @@
             <div id='main' class='main bottom-rounded'>
 <%--<asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">--%>
                 <div id='announcements' class='announcements shadow mb10 p10'>
-		            <div class='mb20'>
+                    <div class='m10'>
 			            <p class='font-18'>ANNOUNCEMENTS!</p>
 		            </div>
-		            <div>
+		            <div class="block-body">
 			            <p class='font-14'>Welcome to the new eBill, it's now more customized and personal. Please take your time going through your personal analytics and have a look at our new personal management tools.</p>
-		            </div>
+                    </div>
 	            </div>
 
 	            <div class='clear h15'></div>
