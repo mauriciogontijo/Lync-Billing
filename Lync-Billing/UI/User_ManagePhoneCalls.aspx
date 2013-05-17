@@ -202,7 +202,12 @@
                                 <Content>Mark Selected As:</Content>
                             </ext:Label>
 
-                            <ext:ButtonGroup ID="MarkingBottonsGroup" runat="server" Layout="TableLayout" Width="250" Frame="false" ButtonAlign="Right">
+                            <ext:ButtonGroup ID="MarkingBottonsGroup" 
+                                runat="server" 
+                                Layout="TableLayout" 
+                                Width="250" 
+                                Frame="false" 
+                                ButtonAlign="Right">
                                 <Buttons>
                                     <ext:Button ID="Business" Text="Business" runat="server">
                                         <DirectEvents>
