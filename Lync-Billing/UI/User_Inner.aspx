@@ -299,7 +299,7 @@
                 ID="PhoneCallsHistoryGrid" 
                 runat="server" 
                 Title="Phone Calls History"
-                Width="810"
+                Width="740"
                 Height="650"  
                 AutoScroll="true"
                 Header="true"
@@ -341,7 +341,7 @@
                         <ext:Column ID="marker_CallToCountry"
                             runat="server"
                             Text="Country Code"
-                            Width="120"
+                            Width="90"
                             DataIndex="DestinationNumberUri Code" />
 
                         <ext:Column ID="DestinationNumberUri"
@@ -353,13 +353,13 @@
                         <ext:Column ID="Duration"
                             runat="server"
                             Text="Duration"
-                            Width="100"
+                            Width="60"
                             DataIndex="Duration" />
 
                         <ext:Column ID="marker_CallCost"
                             runat="server"
                             Text="Cost"
-                            Width="80"
+                            Width="60"
                             DataIndex="marker_CallCost" />
 
                         <ext:Column ID="UI_IsPersonal"
