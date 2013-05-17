@@ -140,9 +140,7 @@
                 <ext:CheckboxSelectionModel 
                     ID="PhoneCallsCheckBoxColumn" 
                     runat="server" 
-                    Mode="Multi"
-                    
-                    >
+                    Mode="Multi">
                 </ext:CheckboxSelectionModel>
             </SelectionModel>          
              <TopBar>
