@@ -63,8 +63,8 @@
 		<div class='content wauto float-left mb10'>
 			<ext:Panel ID="UserPhoneCallsSummary"
                 runat="server"         
-                Height="200" 
-                Width="350"
+                Height="240" 
+                Width="465"
                 Layout="AccordionLayout"
                 Title="Your Phone Calls Summary">
                 <Loader ID="SummaryLoader" 

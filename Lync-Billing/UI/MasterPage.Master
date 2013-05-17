@@ -31,6 +31,8 @@
 
     <body>
         <form id="form1" runat="server">
+            <asp:ScriptManager ID="ScriptManager1" runat="server">
+            </asp:ScriptManager>
             <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
         
             <div id='header-container'>
