@@ -103,7 +103,6 @@
     <Content Include="UI\css\green-layout.css" />
     <Content Include="UI\css\reset.css" />
     <Content Include="UI\css\toolkit.css" />
-    <Content Include="UI\FilterExample.aspx" />
     <Content Include="UI\GridTest.aspx" />
     <Content Include="UI\GridTest2.aspx" />
     <Content Include="UI\GridTest3.aspx" />
@@ -115,7 +114,6 @@
     <Content Include="UI\js\ext-all.js" />
     <Content Include="UI\js\jquery-1.9.1.min.js" />
     <Content Include="UI\js\stacktrace.js" />
-    <Content Include="UI\api_tests.aspx" />
     <Content Include="UI\js\toolkit.js" />
     <Content Include="UI\User_Home.aspx" />
     <Content Include="UI\User_ViewHistory.aspx" />
@@ -146,13 +144,6 @@
     <Compile Include="Libs\JsonTranslator.cs" />
     <Compile Include="Libs\PDFLib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\api_tests.aspx.cs">
-      <DependentUpon>api_tests.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\api_tests.aspx.designer.cs">
-      <DependentUpon>api_tests.aspx</DependentUpon>
-    </Compile>
     <Compile Include="UI\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -161,13 +152,6 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\DBStores.cs" />
-    <Compile Include="UI\FilterExample.aspx.cs">
-      <DependentUpon>FilterExample.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\FilterExample.aspx.designer.cs">
-      <DependentUpon>FilterExample.aspx</DependentUpon>
-    </Compile>
     <Compile Include="UI\Grids.cs" />
     <Compile Include="UI\GridTest.aspx.cs">
       <DependentUpon>GridTest.aspx</DependentUpon>
