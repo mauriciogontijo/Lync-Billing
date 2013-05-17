@@ -68,9 +68,10 @@
                 Title="Your Phone Calls Summary">
                 <Loader ID="SummaryLoader" 
                     runat="server" 
-                    DirectMethod="#{DirectMethods}.GetSummaryData"
-                    Mode="Component">
-                    <LoadMask ShowMask="true" />
+                    DirectMethod="#{DirectMethods}.GetCallsSummaryData"
+                    Mode="Component"
+                     >
+                    <%--<LoadMask ShowMask="true" />--%>
                 </Loader>
             </ext:Panel>
 		</div>
