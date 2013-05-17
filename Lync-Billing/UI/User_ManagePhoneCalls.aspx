@@ -71,33 +71,26 @@
 	    }
 
 	    function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
-	        var seconds = record.data.Duration;
-	        var hours = minites = 0;
-
-	        switch (true)
-	        {
-	            case (seconds > 3600):
-	                hours = Math.floor(seconds / 3600);
-	                seconds %= 3600;
-	            case (seconds > 60):
-	                m = Math.floor(seconds / 60);
-	                seconds %= 60;
-	        }
+	        
+	        var sec_num = parseInt(record.data.Duration, 10); 
+	        var hours = Math.floor(sec_num / 3600);
+	        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+	        var seconds = sec_num - (hours * 3600) - (minutes * 60);
 
 	        if (hours < 10)
 	        {
 	            hours = "0" + hours;
 	        }
-	        if (minites < 10)
+	        if (minutes < 10)
 	        {
-	            minites = "0" + minites;
+	            minutes = "0" + minutes;
 	        }
 	        if (seconds < 10)
 	        {
 	            seconds = "0" + seconds;
 	        }
 
-	        return hours + ":" + minites + ":" + seconds;
+	        return  hours + ':' + minutes + ':' + seconds;;
 	    }
 	</script>
 </asp:Content>
