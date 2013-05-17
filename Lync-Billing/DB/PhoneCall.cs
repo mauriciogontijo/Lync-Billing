@@ -14,8 +14,8 @@ namespace Lync_Billing.DB
 
         public string SessionIdTime { set; get; }
         public int SessionIdSeq { get; set; }
-        public DateTime ResponseTime { set; get; }
-        public DateTime SessionEndTime { set; get; }
+        public string ResponseTime { set; get; }
+        public string SessionEndTime { set; get; }
         public string SourceUserUri { set; get; }
         public string SourceNumberUri { set; get; }
         public string DestinationNumberUri { set; get; }
@@ -61,10 +61,10 @@ namespace Lync_Billing.DB
                         phoneCall.SessionIdSeq = (int)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ResponseTime) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.ResponseTime = (DateTime)row[column.ColumnName];
+                        phoneCall.ResponseTime = Convert.ToDateTime(row[column.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss.fff");
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionEndTime) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.SessionEndTime = (DateTime)row[column.ColumnName];
+                        phoneCall.SessionEndTime = Convert.ToDateTime(row[column.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss.fff");
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.SourceUserUri = (string)row[column.ColumnName];
