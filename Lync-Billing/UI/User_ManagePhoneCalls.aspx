@@ -138,7 +138,7 @@
                             ID="Column1"
                             runat="server"
                             Text="Date"
-                            Width="130"
+                            Width="160"
                             DataIndex="SessionIdTime">
                                 <Renderer Fn="myDateRenderer" />
                         </ext:Column>
@@ -147,7 +147,7 @@
                             ID="Column2"
                             runat="server"
                             Text="Country Code"
-                            Width="80"
+                            Width="90"
                             DataIndex="DestinationNumberUri Code"
                             Align="Center" />
 
@@ -155,29 +155,38 @@
                             ID="Column3"
                             runat="server"
                             Text="Destination"
-                            Width="125"
+                            Width="130"
                             DataIndex="DestinationNumberUri" />
 
                         <ext:Column
                             ID="Column4"
                             runat="server"
                             Text="Duration"
-                            Width="60"
+                            Width="70"
                             DataIndex="Duration" />
 
                         <ext:Column
                             ID="Column5"
                             runat="server"
                             Text="Cost"
-                            Width="70"
+                            Width="60"
                             DataIndex="marker_CallCost" />
 
-                        <ext:Column ID="Column6" runat="server" Text="Is Personal" Width="80" DataIndex="UI_IsPersonal">
-                            <Renderer Fn="getRowClassForIsPersonal" />
+                        <ext:Column ID="Column6"
+                            runat="server"
+                            Text="Is Personal"
+                            Width="80"
+                            DataIndex="UI_IsPersonal">
+                                <Renderer Fn="getRowClassForIsPersonal" />
                         </ext:Column>
 
-                        <ext:Column ID="Column7" runat="server" Text="Updated On" Width="80" DataIndex="UI_MarkedOn">
-                            <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
+                        <ext:Column
+                            ID="Column7"
+                            runat="server"
+                            Text="Updated On"
+                            Width="120"
+                            DataIndex="UI_MarkedOn">
+                                <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
                         </ext:Column>
 		            </Columns>
                 </ColumnModel>
