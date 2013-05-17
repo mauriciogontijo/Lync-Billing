@@ -115,7 +115,6 @@
     <Content Include="UI\js\jquery-1.9.1.min.js" />
     <Content Include="UI\js\stacktrace.js" />
     <Content Include="UI\js\toolkit.js" />
-    <Content Include="UI\SammaryCalls.aspx" />
     <Content Include="UI\User_Dashboard.aspx" />
     <Content Include="UI\User_ViewHistory.aspx" />
     <Content Include="UI\User_ManagePhoneCalls.aspx" />
@@ -181,13 +180,6 @@
     </Compile>
     <Compile Include="UI\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SammaryCalls.aspx.cs">
-      <DependentUpon>SammaryCalls.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\SammaryCalls.aspx.designer.cs">
-      <DependentUpon>SammaryCalls.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\User_Dashboard.aspx.cs">
       <DependentUpon>User_Dashboard.aspx</DependentUpon>
