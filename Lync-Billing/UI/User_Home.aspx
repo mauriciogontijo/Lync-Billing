@@ -55,7 +55,7 @@
 		</div>
         <div class="clear"></div>
 		<div class='more-button wauto float-right'>
-			<a href='#' class='font-10'>view more >></a>
+			<a href='User_ViewHistory.aspx' class='font-10'>view more >></a>
 		</div>
 	</div>
 
@@ -77,7 +77,7 @@
 		</div>
         <div class="clear"></div>
 		<div class='more-button wauto float-right'>
-			<a href='#' class='font-10'>view more >></a>
+			<a href='User_ManagePhoneCalls.aspx' class='font-10'>view more >></a>
 		</div>
 	</div>
 

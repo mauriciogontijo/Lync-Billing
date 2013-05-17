@@ -98,99 +98,101 @@
 
     <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
     <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
-        <ext:GridPanel ID="ManagePhoneCallsGrid" runat="server" Title="Manage Phone Calls" Width="660" Height="740" AutoScroll="true" Header="true" Scroll="Both" Layout="FitLayout">
-            <Store>
-                <ext:Store ID="PhoneCallsStore" runat="server" IsPagingStore="true"  PageSize="25">
-                    <Model>
-                        <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
-                            <Fields> 
-                                <ext:ModelField Name="SessionIdTime" Type="String"/>  <%--RenderMilliseconds="true" DateWriteFormat="d M Y G:i"--%>
-                                <ext:ModelField Name="SessionIdSeq" Type="Int"/>
-                                <ext:ModelField Name="ResponseTime" Type="Date" RenderMilliseconds="true"/>
-                                <ext:ModelField Name="SessionEndTime" Type="Date" RenderMilliseconds="true"/>
-                                <ext:ModelField Name="marker_CallToCountry" Type="String" />
-                                <ext:ModelField Name="DestinationNumberUri" Type="String" />
-                                <ext:ModelField Name="Duration" Type="Float" />
-                                <ext:ModelField Name="marker_CallCost"  Type="Float" />
-                                <ext:ModelField Name="UI_IsPersonal" Type="String" />
-                                <ext:ModelField Name="UI_MarkedOn" Type="Date" />
-                                <ext:ModelField Name="UI_IsPersonal" Type="String" />
-                            </Fields>
-                        </ext:Model>
-                    </Model>
-                </ext:Store>
-            </Store>
+        <div class="block-body pt5">
+            <ext:GridPanel ID="ManagePhoneCallsGrid" runat="server" Title="Manage Phone Calls" Width="740" Height="740" AutoScroll="true" Header="true" Scroll="Both" Layout="FitLayout">
+                <Store>
+                    <ext:Store ID="PhoneCallsStore" runat="server" IsPagingStore="true"  PageSize="25">
+                        <Model>
+                            <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
+                                <Fields> 
+                                    <ext:ModelField Name="SessionIdTime" Type="String"/>  <%--RenderMilliseconds="true" DateWriteFormat="d M Y G:i"--%>
+                                    <ext:ModelField Name="SessionIdSeq" Type="Int"/>
+                                    <ext:ModelField Name="ResponseTime" Type="Date" RenderMilliseconds="true"/>
+                                    <ext:ModelField Name="SessionEndTime" Type="Date" RenderMilliseconds="true"/>
+                                    <ext:ModelField Name="marker_CallToCountry" Type="String" />
+                                    <ext:ModelField Name="DestinationNumberUri" Type="String" />
+                                    <ext:ModelField Name="Duration" Type="Float" />
+                                    <ext:ModelField Name="marker_CallCost"  Type="Float" />
+                                    <ext:ModelField Name="UI_IsPersonal" Type="String" />
+                                    <ext:ModelField Name="UI_MarkedOn" Type="Date" />
+                                    <ext:ModelField Name="UI_IsPersonal" Type="String" />
+                                </Fields>
+                            </ext:Model>
+                        </Model>
+                    </ext:Store>
+                </Store>
 
-            <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
-		        <Columns>
-                    <ext:Column ID="Column1" runat="server" Text="Date" Width="130" DataIndex="SessionIdTime">
-                        <Renderer Fn="myDateRenderer" />
-                    </ext:Column>
-                    <ext:Column ID="Column2" runat="server" Text="Country Code" Width="80" DataIndex="DestinationNumberUri Code" Align="Center" />
-                    <ext:Column ID="Column3" runat="server" Text="Destination" Width="125" DataIndex="DestinationNumberUri" />
-                    <ext:Column ID="Column4" runat="server" Text="Duration" Width="60" DataIndex="Duration" />
-                    <ext:Column ID="Column5" runat="server" Text="Cost" Width="70" DataIndex="marker_CallCost" />
-                    <ext:Column ID="Column6" runat="server" Text="Is Personal" Width="80" DataIndex="UI_IsPersonal">
-                        <Renderer Fn="getRowClassForIsPersonal" />
-                    </ext:Column>
-                    <ext:Column ID="Column7" runat="server" Text="Updated On" Width="80" DataIndex="UI_MarkedOn">
-                        <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
-                    </ext:Column>
-		        </Columns>
-            </ColumnModel>
+                <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
+		            <Columns>
+                        <ext:Column ID="Column1" runat="server" Text="Date" Width="130" DataIndex="SessionIdTime">
+                            <Renderer Fn="myDateRenderer" />
+                        </ext:Column>
+                        <ext:Column ID="Column2" runat="server" Text="Country Code" Width="80" DataIndex="DestinationNumberUri Code" Align="Center" />
+                        <ext:Column ID="Column3" runat="server" Text="Destination" Width="125" DataIndex="DestinationNumberUri" />
+                        <ext:Column ID="Column4" runat="server" Text="Duration" Width="60" DataIndex="Duration" />
+                        <ext:Column ID="Column5" runat="server" Text="Cost" Width="70" DataIndex="marker_CallCost" />
+                        <ext:Column ID="Column6" runat="server" Text="Is Personal" Width="80" DataIndex="UI_IsPersonal">
+                            <Renderer Fn="getRowClassForIsPersonal" />
+                        </ext:Column>
+                        <ext:Column ID="Column7" runat="server" Text="Updated On" Width="80" DataIndex="UI_MarkedOn">
+                            <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
+                        </ext:Column>
+		            </Columns>
+                </ColumnModel>
 
-            <SelectionModel>
-                <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1" runat="server" Mode="Multi"></ext:CheckboxSelectionModel>
-            </SelectionModel>
+                <SelectionModel>
+                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1" runat="server" Mode="Multi"></ext:CheckboxSelectionModel>
+                </SelectionModel>
 
-            <TopBar>
-                <ext:Toolbar ID="Toolbar1" runat="server">
-                    <Items>
-                        <ext:ButtonGroup ID="MarkingBottonsGroup" runat="server" Layout="TableLayout" Width="250" Frame="false" Margins="0 0 0 390" ButtonAlign="Right">
-                            <Buttons>
-                                <ext:Button ID="Business" Text="Business" runat="server">
-                                    <DirectEvents>
-                                        <Click OnEvent="AssignBusiness">
-                                            <EventMask ShowMask="true" />
-                                            <ExtraParams>
-                                                <%--<ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />--%>
-                                                <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                            </ExtraParams>
-                                        </Click>
+                <TopBar>
+                    <ext:Toolbar ID="Toolbar1" runat="server">
+                        <Items>
+                            <ext:ButtonGroup ID="MarkingBottonsGroup" runat="server" Layout="TableLayout" Width="250" Frame="false" Margins="0 0 0 390" ButtonAlign="Right">
+                                <Buttons>
+                                    <ext:Button ID="Business" Text="Business" runat="server">
+                                        <DirectEvents>
+                                            <Click OnEvent="AssignBusiness">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <%--<ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />--%>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
+                                            </DirectEvents>
+                                        </ext:Button>
+
+                                        <ext:Button ID="Personal" Text="Personal" runat="server">
+                                            <DirectEvents>
+                                                <Click OnEvent="AssignPersonal">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
                                         </DirectEvents>
                                     </ext:Button>
 
-                                    <ext:Button ID="Personal" Text="Personal" runat="server">
+                                    <ext:Button ID="Dispute" Text="Dispute" runat="server">
                                         <DirectEvents>
-                                            <Click OnEvent="AssignPersonal">
-                                            <EventMask ShowMask="true" />
-                                            <ExtraParams>
-                                                <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                            </ExtraParams>
-                                        </Click>
-                                    </DirectEvents>
-                                </ext:Button>
+                                            <Click OnEvent="AssignDispute">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
+                                    </ext:Button>
+                                </Buttons>
+                                </ext:ButtonGroup>
+                        </Items>
+                    </ext:Toolbar>
+                </TopBar>
 
-                                <ext:Button ID="Dispute" Text="Dispute" runat="server">
-                                    <DirectEvents>
-                                        <Click OnEvent="AssignDispute">
-                                            <EventMask ShowMask="true" />
-                                            <ExtraParams>
-                                                <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                            </ExtraParams>
-                                        </Click>
-                                    </DirectEvents>
-                                </ext:Button>
-                            </Buttons>
-                            </ext:ButtonGroup>
-                    </Items>
-                </ext:Toolbar>
-            </TopBar>
-
-            <BottomBar>
-                <ext:PagingToolbar ID="PagingToolbar1" runat="server" StoreID="PhoneCallStore" DisplayInfo="true" Weight="25" DisplayMsg="Phone Calls {0} - {1} of {2}" />
-            </BottomBar>
-        </ext:GridPanel>
+                <BottomBar>
+                    <ext:PagingToolbar ID="PagingToolbar1" runat="server" StoreID="PhoneCallStore" DisplayInfo="true" Weight="25" DisplayMsg="Phone Calls {0} - {1} of {2}" />
+                </BottomBar>
+            </ext:GridPanel>
+        </div>
     </div>
     <!-- *** END OF MANAGE PHONE CALLS GRID *** -->
     </div>
