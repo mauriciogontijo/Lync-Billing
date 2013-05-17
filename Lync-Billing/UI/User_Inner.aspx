@@ -100,12 +100,6 @@
 		    if (record.data.UI_IsPersonal == 'NO' || record.data.UI_IsPersonal == 'No') {
 		        meta.style = "color: rgb(46, 143, 42);";
 		    }
-		    //if (record.data.UI_IsInvoiced == 'Pending' || record.data.UI_IsInvoiced == 'PENDING') {
-		    //    meta.style = "color: rgb(201, 20, 20);";
-		    //}
-		    //if (record.data.UI_IsInvoiced == 'Charged' || record.data.UI_IsInvoiced == 'CHARGED') {
-		    //    meta.style = "color: rgb(46, 143, 42);";
-		    //}
 		    return value
 		}
 
@@ -305,7 +299,7 @@
                 ID="PhoneCallsHistoryGrid" 
                 runat="server" 
                 Title="Phone Calls History"
-                Width="740"
+                Width="810"
                 Height="650"  
                 AutoScroll="true"
                 Header="true"
@@ -371,10 +365,9 @@
                         <ext:Column ID="UI_IsPersonal"
                             runat="server"
                             Text="Is Personal"
-                            Width="100"
-                            Visible ="false"
+                            Width="80"
                             DataIndex="UI_IsPersonal" >
-                             <Renderer Fn="getRowClassForIsPersonal" />
+                            <Renderer Fn="getRowClassForIsPersonal" />
                         </ext:Column>
 
                         <ext:Column ID="UI_MarkedOn"
