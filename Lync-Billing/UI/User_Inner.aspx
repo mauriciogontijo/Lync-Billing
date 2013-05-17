@@ -109,15 +109,10 @@
 		    return value
 		}
 
-
-		function getRowClassForIsInvoiced(value, meta, record, rowIndex, colIndex, store) {
-		    if (record.data.UI_IsInvoiced == 'Pending' || record.data.UI_IsInvoiced == 'PENDING') {
-		        meta.style = "color: rgb(201, 20, 20);";
-		    }
-		    if (record.data.UI_IsInvoiced == 'Charged' || record.data.UI_IsInvoiced == 'CHARGED') {
-		        meta.style = "color: rgb(46, 143, 42);";
-		    }
-		    return value
+		var myDateRenderer = function (value) {
+		    value = Ext.util.Format.date(value, "d M Y h:m A");
+		    return value;
+		}
 	</script>
 
     <ext:XScript ID="XScript1" runat="server">
@@ -327,7 +322,7 @@
                     <Model>
                         <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
                             <Fields>
-                                <ext:ModelField Name="SessionIdTime" Type="Date" />
+                                <ext:ModelField Name="SessionIdTime" Type="String" />
                                 <ext:ModelField Name="marker_CallToCountry" Type="String" />
                                 <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                 <ext:ModelField Name="Duration" Type="Float" />
@@ -344,12 +339,9 @@
                         <ext:Column ID="SessionIdTime" 
                             runat="server" 
                             Text="Date" 
-                            Width="120" 
-                            DataIndex="SessionIdTime" 
-                            Resizable="false" 
-                            MenuDisabled="true">
-                       
-                            <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
+                            Width="140" 
+                            DataIndex="SessionIdTime">
+                            <Renderer Fn="myDateRenderer" />
                         </ext:Column>
 
                         <ext:Column ID="marker_CallToCountry"
@@ -373,7 +365,7 @@
                         <ext:Column ID="marker_CallCost"
                             runat="server"
                             Text="Cost"
-                            Width="100"
+                            Width="80"
                             DataIndex="marker_CallCost" />
 
                         <ext:Column ID="UI_IsPersonal"
@@ -389,7 +381,9 @@
                             runat="server"
                             Text="Updated On"
                             Width="120"
-                            DataIndex="UI_MarkedOn" />
+                            DataIndex="UI_MarkedOn">
+                            <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
+                        </ext:Column>
 		            </Columns>
                 </ColumnModel>
                  <TopBar>
@@ -415,9 +409,6 @@
                                  <Listeners>
                                     <Select Handler="applyFilter(this);" />
                                 </Listeners>
-                               <%-- <DirectEvents>
-                                    <Change OnEvent="FilterTypeChange"></Change>
-                                </DirectEvents>--%>
                             </ext:ComboBox>
                         </Items>
                     </ext:Toolbar>
