@@ -5,123 +5,131 @@
 
     <style type="text/css">
         /* start manage-phone-calls grid styling */
-        .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }    
-        .row-green  { background-color: rgb(46, 143, 42); }
-        .row-red    { background-color: rgb(201, 20, 20); }
-        .row-yellow { background-color: yellow; }
+        .x-grid-with-row-lines .x-grid-cell {
+            height: 25px !important;
+        }
+
+        .row-green {
+            background-color: rgb(46, 143, 42);
+        }
+
+        .row-red {
+            background-color: rgb(201, 20, 20);
+        }
+
+        .row-yellow {
+            background-color: yellow;
+        }
         /* end manage-phone-calls grid styling */
     </style>
 
-	<script type="text/javascript">
-	    $(document).ready(function () {
-	        $('settings-menu-button').click(function (e) {
-	            e.preventDefault();
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('settings-menu-button').click(function (e) {
+                e.preventDefault();
 
-	            if ($('#settings-more-list-container').css('display') == 'none') {
-	                $('#settings-more-list-container').fadeIn();
-	                $('#settings-more-list-container').css('display', 'block');
-	            } else {
-	                $('#settings-more-list-container').fadeOut();
-	                $('#settings-more-list-container').css('display', 'none');
-	            }
+                if ($('#settings-more-list-container').css('display') == 'none') {
+                    $('#settings-more-list-container').fadeIn();
+                    $('#settings-more-list-container').css('display', 'block');
+                } else {
+                    $('#settings-more-list-container').fadeOut();
+                    $('#settings-more-list-container').css('display', 'none');
+                }
 
-	            return false;
-	        });
+                return false;
+            });
 
-	        $('#nav-more').click(function (e) {
-	            e.preventDefault();
-	            var top = $(this).offset().top;
-	            var right = $(this).offset().right;
+            $('#nav-more').click(function (e) {
+                e.preventDefault();
+                var top = $(this).offset().top;
+                var right = $(this).offset().right;
 
-	            $('#more-list-container').css({ right: right - 1, top: top + 4 }).fadeIn('fast');
-	            return false;
-	        });
+                $('#more-list-container').css({ right: right - 1, top: top + 4 }).fadeIn('fast');
+                return false;
+            });
 
-	        $('body').click(function (e) {
-	            $('#more-list-container').fadeOut('fast');
-	        });
-	    });
-
-
-	    //Manage-Phone-Calls Grid JavaScripts
-	    var myDateRenderer = function (value) {
-	        value = Ext.util.Format.date(value, "d M Y h:i A");
-	        return value;
-	    }
-               
-	    function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
-	        if (record.data.UI_IsPersonal == 'YES' || record.data.UI_IsPersonal == 'Yes') {
-	            meta.style = "color: rgb(201, 20, 20);";
-	        }
-	        if (record.data.UI_IsPersonal == 'NO' || record.data.UI_IsPersonal == 'No') {
-	            meta.style = "color: rgb(46, 143, 42);";
-	        }
-	        return value
-	    }
+            $('body').click(function (e) {
+                $('#more-list-container').fadeOut('fast');
+            });
+        });
 
 
-	    function getRowClassForIsInvoiced(value, meta, record, rowIndex, colIndex, store) {
-	        if (record.data.UI_IsInvoiced == 'Pending' || record.data.UI_IsInvoiced == 'PENDING') {
-	            meta.style = "color: rgb(201, 20, 20);";
-	        }
-	        if (record.data.UI_IsInvoiced == 'Charged' || record.data.UI_IsInvoiced == 'CHARGED') {
-	            meta.style = "color: rgb(46, 143, 42);";
-	        }
-	        return value
-	    }
+        //Manage-Phone-Calls Grid JavaScripts
+        var myDateRenderer = function (value) {
+            value = Ext.util.Format.date(value, "d M Y h:i A");
+            return value;
+        }
 
-	    function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
-	        
-	        var sec_num = parseInt(record.data.Duration, 10); 
-	        var hours = Math.floor(sec_num / 3600);
-	        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-	        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+        function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
+            if (record.data.UI_IsPersonal == 'YES' || record.data.UI_IsPersonal == 'Yes') {
+                meta.style = "color: rgb(201, 20, 20);";
+            }
+            if (record.data.UI_IsPersonal == 'NO' || record.data.UI_IsPersonal == 'No') {
+                meta.style = "color: rgb(46, 143, 42);";
+            }
+            return value
+        }
 
-	        if (hours < 10)
-	        {
-	            hours = "0" + hours;
-	        }
-	        if (minutes < 10)
-	        {
-	            minutes = "0" + minutes;
-	        }
-	        if (seconds < 10)
-	        {
-	            seconds = "0" + seconds;
-	        }
 
-	        return  hours + ':' + minutes + ':' + seconds;;
-	    }
-	</script>
+        function getRowClassForIsInvoiced(value, meta, record, rowIndex, colIndex, store) {
+            if (record.data.UI_IsInvoiced == 'Pending' || record.data.UI_IsInvoiced == 'PENDING') {
+                meta.style = "color: rgb(201, 20, 20);";
+            }
+            if (record.data.UI_IsInvoiced == 'Charged' || record.data.UI_IsInvoiced == 'CHARGED') {
+                meta.style = "color: rgb(46, 143, 42);";
+            }
+            return value
+        }
+
+        function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
+
+            var sec_num = parseInt(record.data.Duration, 10);
+            var hours = Math.floor(sec_num / 3600);
+            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+            var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+
+            return hours + ':' + minutes + ':' + seconds;;
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF SIDEBAR *** -->
     <div id='sidebar' class='sidebar block float-left w20p'>
-	    <div class='block-header top-rounded bh-shadow'>
-		    <p class='font-1-2-em bold'>User Management</p>
-	    </div>
-	    <div class='block-body bottom-rounded bb-shadow'>
-		    <div class='wauto float-left mb15'>
-			    <p class='section-header'>General</p>
-			    <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Manage Phone Calls</a></p>
+        <div class='block-header top-rounded bh-shadow'>
+            <p class='font-1-2-em bold'>User Management</p>
+        </div>
+        <div class='block-body bottom-rounded bb-shadow'>
+            <div class='wauto float-left mb15'>
+                <p class='section-header'>General</p>
+                <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Manage Phone Calls</a></p>
                 <p class='section-item'><a href='#'>Manage Delegates</a></p>
-		    </div>
-
-		    <div class='wauto float-left mb15'>
-			    <p class='section-header'>History</p>
-                <p class='section-item'><a href='User_ViewHistory.aspx'>View History</a></p>
-                <p class='section-item'><a href='#'>Export History</a></p>
-		    </div>
+            </div>
 
             <div class='wauto float-left mb15'>
-			    <p class='section-header'>Statistics</p>
+                <p class='section-header'>History</p>
+                <p class='section-item'><a href='User_ViewHistory.aspx'>View History</a></p>
+                <p class='section-item'><a href='#'>Export History</a></p>
+            </div>
+
+            <div class='wauto float-left mb15'>
+                <p class='section-header'>Statistics</p>
                 <p class='section-item'><a href='#'>View Statistics</a></p>
                 <p class='section-item'><a href='#'>Export Statistics</a></p>
-		    </div>
+            </div>
 
-		    <div class='clear h5'></div>
-	    </div>
+            <div class='clear h5'></div>
+        </div>
     </div>
     <!-- *** END OF SIDEBAR *** -->
 
@@ -140,18 +148,19 @@
                 Layout="FitLayout">
 
                 <Store>
-                    <ext:Store ID="PhoneCallsStore" runat="server" IsPagingStore="true"  PageSize="25">
+                    <ext:Store ID="PhoneCallsStore" runat="server" IsPagingStore="true" PageSize="25">
                         <Model>
                             <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
-                                <Fields> 
-                                    <ext:ModelField Name="SessionIdTime" Type="String"/>  <%--RenderMilliseconds="true" DateWriteFormat="d M Y G:i"--%>
-                                    <ext:ModelField Name="SessionIdSeq" Type="Int"/>
-                                    <ext:ModelField Name="ResponseTime" Type="Date" RenderMilliseconds="true"/>
-                                    <ext:ModelField Name="SessionEndTime" Type="Date" RenderMilliseconds="true"/>
+                                <Fields>
+                                    <ext:ModelField Name="SessionIdTime" Type="String" />
+                                    <%--RenderMilliseconds="true" DateWriteFormat="d M Y G:i"--%>
+                                    <ext:ModelField Name="SessionIdSeq" Type="Int" />
+                                    <ext:ModelField Name="ResponseTime" Type="Date" RenderMilliseconds="true" />
+                                    <ext:ModelField Name="SessionEndTime" Type="Date" RenderMilliseconds="true" />
                                     <ext:ModelField Name="marker_CallToCountry" Type="String" />
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
-                                    <ext:ModelField Name="marker_CallCost"  Type="Float" />
+                                    <ext:ModelField Name="marker_CallCost" Type="Float" />
                                     <ext:ModelField Name="UI_IsPersonal" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                     <ext:ModelField Name="UI_IsPersonal" Type="String" />
@@ -162,14 +171,14 @@
                 </Store>
 
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
-		            <Columns>
+                    <Columns>
                         <ext:Column
                             ID="Column1"
                             runat="server"
                             Text="Date"
                             Width="160"
                             DataIndex="SessionIdTime">
-                                <Renderer Fn="myDateRenderer" />
+                            <Renderer Fn="myDateRenderer" />
                         </ext:Column>
 
                         <ext:Column
@@ -208,7 +217,7 @@
                             Text="Is Personal"
                             Width="80"
                             DataIndex="UI_IsPersonal">
-                                <Renderer Fn="getRowClassForIsPersonal" />
+                            <Renderer Fn="getRowClassForIsPersonal" />
                         </ext:Column>
 
                         <ext:Column
@@ -217,9 +226,9 @@
                             Text="Updated On"
                             Width="100"
                             DataIndex="UI_MarkedOn">
-                                <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
+                            <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');" />
                         </ext:Column>
-		            </Columns>
+                    </Columns>
                 </ColumnModel>
 
                 <SelectionModel>
@@ -229,15 +238,15 @@
                 <TopBar>
                     <ext:Toolbar ID="Toolbar1" runat="server">
                         <Items>
-                            <ext:Label runat="server" ID="button_group_lable" Margin="5">
+                           <ext:Label runat="server" ID="button_group_lable" Margin="5">
                                 <Content>Mark Selected As:</Content>
                             </ext:Label>
 
-                            <ext:ButtonGroup ID="MarkingBottonsGroup" 
-                                runat="server" 
-                                Layout="TableLayout" 
-                                Width="250" 
-                                Frame="false" 
+                            <ext:ButtonGroup ID="MarkingBottonsGroup"
+                                runat="server"
+                                Layout="TableLayout"
+                                Width="250"
+                                Frame="false"
                                 ButtonAlign="Right">
                                 <Buttons>
                                     <ext:Button ID="Business" Text="Business" runat="server">
@@ -248,12 +257,12 @@
                                                     <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
                                                 </ExtraParams>
                                             </Click>
-                                            </DirectEvents>
-                                        </ext:Button>
+                                        </DirectEvents>
+                                    </ext:Button>
 
-                                        <ext:Button ID="Personal" Text="Personal" runat="server">
-                                            <DirectEvents>
-                                                <Click OnEvent="AssignPersonal">
+                                    <ext:Button ID="Personal" Text="Personal" runat="server">
+                                        <DirectEvents>
+                                            <Click OnEvent="AssignPersonal">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
                                                     <ext:Parameter Name="Values" Value="Ext.encode(#{PhoneCallsHistoryGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
@@ -273,18 +282,18 @@
                                         </DirectEvents>
                                     </ext:Button>
                                 </Buttons>
-                                </ext:ButtonGroup>
+                            </ext:ButtonGroup>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
 
                 <BottomBar>
-                    <ext:PagingToolbar 
-                        ID="PagingToolbar1" 
-                        runat="server" 
-                        StoreID="PhoneCallStore" 
-                        DisplayInfo="true" 
-                        Weight="25" 
+                    <ext:PagingToolbar
+                        ID="PagingToolbar1"
+                        runat="server"
+                        StoreID="PhoneCallStore"
+                        DisplayInfo="true"
+                        Weight="25"
                         DisplayMsg="Phone Calls {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
