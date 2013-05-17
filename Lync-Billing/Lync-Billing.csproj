@@ -115,7 +115,7 @@
     <Content Include="UI\js\jquery-1.9.1.min.js" />
     <Content Include="UI\js\stacktrace.js" />
     <Content Include="UI\js\toolkit.js" />
-    <Content Include="UI\User_Home.aspx" />
+    <Content Include="UI\User_Dashboard.aspx" />
     <Content Include="UI\User_ViewHistory.aspx" />
     <Content Include="UI\User_ManagePhoneCalls.aspx" />
     <Content Include="Web.config">
@@ -181,12 +181,12 @@
     <Compile Include="UI\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
-    <Compile Include="UI\User_Home.aspx.cs">
-      <DependentUpon>User_Home.aspx</DependentUpon>
+    <Compile Include="UI\User_Dashboard.aspx.cs">
+      <DependentUpon>User_Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\User_Home.aspx.designer.cs">
-      <DependentUpon>User_Home.aspx</DependentUpon>
+    <Compile Include="UI\User_Dashboard.aspx.designer.cs">
+      <DependentUpon>User_Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\User_ViewHistory.aspx.cs">
       <DependentUpon>User_ViewHistory.aspx</DependentUpon>
