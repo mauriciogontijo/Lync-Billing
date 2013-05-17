@@ -19,7 +19,7 @@ namespace Lync_Billing.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string SipAccount = "SGhaida@ccc.gr"; //((UserSession)Session.Contents["UserData"]).SipAccount;
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
 
 
             wherePart.Add("SourceUserUri", SipAccount);
@@ -56,8 +56,7 @@ namespace Lync_Billing.UI
             {
                 phoneCall.UI_IsPersonal="NO";
                 phoneCall.UI_MarkedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = "SGhaida@ccc.gr";
-                //phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
                 
                 PhoneCallsHistoryGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
@@ -80,8 +79,7 @@ namespace Lync_Billing.UI
             {
                 phoneCall.UI_IsPersonal = "YES";
                 phoneCall.UI_MarkedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = "SGhaida@ccc.gr";
-                //phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 PhoneCallsHistoryGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
