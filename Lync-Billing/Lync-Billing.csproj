@@ -95,7 +95,7 @@
     <Content Include="App_Readme\Transformer.NET\LICENSE.txt" />
     <Content Include="App_Readme\Transformer.NET\README.txt" />
     <Content Include="Global.asax" />
-    <Content Include="UI\ContentPage_Login.aspx" />
+    <Content Include="UI\Login.aspx" />
     <Content Include="UI\css\black-layout.css" />
     <Content Include="UI\css\diagnostics-v1.css" />
     <Content Include="UI\css\diagnostics-v2.css" />
@@ -118,7 +118,8 @@
     <Content Include="UI\api_tests.aspx" />
     <Content Include="UI\js\toolkit.js" />
     <Content Include="UI\User_Home.aspx" />
-    <Content Include="UI\User_Inner.aspx" />
+    <Content Include="UI\User_ViewHistory.aspx" />
+    <Content Include="UI\User_ManagePhoneCalls.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -152,12 +153,12 @@
     <Compile Include="UI\api_tests.aspx.designer.cs">
       <DependentUpon>api_tests.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\ContentPage_Login.aspx.cs">
-      <DependentUpon>ContentPage_Login.aspx</DependentUpon>
+    <Compile Include="UI\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\ContentPage_Login.aspx.designer.cs">
-      <DependentUpon>ContentPage_Login.aspx</DependentUpon>
+    <Compile Include="UI\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\DBStores.cs" />
     <Compile Include="UI\FilterExample.aspx.cs">
@@ -203,12 +204,19 @@
     <Compile Include="UI\User_Home.aspx.designer.cs">
       <DependentUpon>User_Home.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\User_Inner.aspx.cs">
-      <DependentUpon>User_Inner.aspx</DependentUpon>
+    <Compile Include="UI\User_ViewHistory.aspx.cs">
+      <DependentUpon>User_ViewHistory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\User_Inner.aspx.designer.cs">
-      <DependentUpon>User_Inner.aspx</DependentUpon>
+    <Compile Include="UI\User_ViewHistory.aspx.designer.cs">
+      <DependentUpon>User_ViewHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\User_ManagePhoneCalls.aspx.cs">
+      <DependentUpon>User_ManagePhoneCalls.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\User_ManagePhoneCalls.aspx.designer.cs">
+      <DependentUpon>User_ManagePhoneCalls.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
