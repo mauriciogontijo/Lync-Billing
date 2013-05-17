@@ -45,7 +45,7 @@
 
 	    //Manage-Phone-Calls Grid JavaScripts
 	    var myDateRenderer = function (value) {
-	        value = Ext.util.Format.date(value, "d M Y h:m A");
+	        value = Ext.util.Format.date(value, "d M Y h:i A");
 	        return value;
 	    }
                
