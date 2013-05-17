@@ -104,7 +104,7 @@
                 runat="server"
                 Title="Manage Phone Calls"
                 Width="740"
-                Height="740"
+                Height="750"
                 AutoScroll="true"
                 Header="true"
                 Scroll="Both"
