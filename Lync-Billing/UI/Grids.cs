@@ -96,39 +96,39 @@ namespace Lync_Billing.UI
                             },
                             new Column 
                             {
-                                ID = "Marker_CallCost",
-                                Text = "Marker_CallCost",
-                                DataIndex = "Marker_CallCost"
+                                ID = "marker_CallCost",
+                                Text = "marker_CallCost",
+                                DataIndex = "marker_CallCost"
                             },
                             new Column 
                             {
-                                ID = "UI_UpdatedByUser",
-                                Text = "UI_UpdatedByUser",
-                                DataIndex = "UI_UpdatedByUser"
+                                ID = "ui_UpdatedByUser",
+                                Text = "ui_UpdatedByUser",
+                                DataIndex = "ui_UpdatedByUser"
                             },
                             new Column 
                             {
-                                ID = "UI_MarkedOn",
-                                Text = "UI_MarkedOn",
-                                DataIndex = "UI_MarkedOn"
+                                ID = "ui_MarkedOn",
+                                Text = "ui_MarkedOn",
+                                DataIndex = "ui_MarkedOn"
                             },
                             new Column 
                             {
-                                ID = "UI_IsPersonal",
-                                Text = "UI_IsPersonal",
-                                DataIndex = "UI_IsPersonal"
+                                ID = "ui_IsPersonal",
+                                Text = "ui_IsPersonal",
+                                DataIndex = "ui_IsPersonal"
                             },
                             new Column 
                             {
-                                ID = "UI_Dispute",
-                                Text = "UI_Dispute",
-                                DataIndex = "UI_Dispute"
+                                ID = "ui_Dispute",
+                                Text = "ui_Dispute",
+                                DataIndex = "ui_Dispute"
                             },
                             new Column 
                             {
-                                ID = "UI_IsInvoiced",
-                                Text = "UI_IsInvoiced",
-                                DataIndex = "UI_IsInvoiced"
+                                ID = "ui_IsInvoiced",
+                                Text = "ui_IsInvoiced",
+                                DataIndex = "ui_IsInvoiced"
                             }
                         }
                     }
