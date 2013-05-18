@@ -31,7 +31,7 @@ namespace Lync_Billing.DB
         public string marker_CallType { set; get; }
 
         public decimal Duration { set; get; }
-        public double Marker_CallCost { set; get; }
+        public decimal Marker_CallCost { set; get; }
        
         //User UI update Fields
         public string UI_UpdatedByUser { set; get; }
@@ -106,7 +106,7 @@ namespace Lync_Billing.DB
                         phoneCall.Marker_CallToCountry = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.Marker_CallCost = (double)row[column.ColumnName];
+                        phoneCall.Marker_CallCost = (decimal)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_MarkedOn = (DateTime)row[column.ColumnName];
