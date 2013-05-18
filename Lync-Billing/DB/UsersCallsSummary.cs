@@ -6,6 +6,70 @@ using Lync_Billing.Libs;
 using System.Data;
 namespace Lync_Billing.DB
 {
+    public class UsersCallsSummaryChartData 
+    {
+        private static DBLib DBRoutines = new DBLib();
+        private static Dictionary<string, object> wherePart;
+        private static List<string> columns;
+
+        public string Name { get;set;}
+        public int Total { get; set; }
+
+        public static List<UsersCallsSummaryChartData> GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate) 
+        {
+            wherePart = new Dictionary<string, object>();
+            columns = new List<string>();
+
+            DataTable dt = new DataTable();
+            UsersCallsSummaryChartData userSummary;
+            List<UsersCallsSummaryChartData> chartList = new List<UsersCallsSummaryChartData>();
+
+            wherePart.Add("SourceUserUri", sipAccount);
+            wherePart.Add("startingDate", startingDate);
+            wherePart.Add("endingDate", endingDate);
+
+              dt = DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
+
+            
+            foreach (DataRow row in dt.Rows)
+            {
+                userSummary = new UsersCallsSummaryChartData();
+                if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "NO")
+                {
+                    userSummary.Name = "Business";
+
+                    if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
+                        userSummary.Total = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
+                    else
+                        userSummary.Total = 0;
+                }
+
+                else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "YES")
+                {
+                    userSummary.Name = "Personal";
+
+                    if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
+                        userSummary.Total = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
+                    else
+                        userSummary.Total = 0;
+                   
+                }
+
+                else if (row[dt.Columns["PhoneCallType"]] == System.DBNull.Value)
+                {
+                    userSummary.Name = "Unmarked"; 
+                    if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
+                        userSummary.Total = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
+                    else
+                        userSummary.Total = 0;
+                  
+                }
+                chartList.Add(userSummary);
+            }
+            return chartList;
+        }
+    }
+
     public class UsersCallsSummary
     {
         private static DBLib DBRoutines = new DBLib();
