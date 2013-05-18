@@ -40,67 +40,67 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Model Model2;
         
         /// <summary>
-        /// Column1 control.
+        /// SessionIdTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column1;
+        protected global::Ext.Net.Column SessionIdTime;
         
         /// <summary>
-        /// Column2 control.
+        /// Marker_CallToCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column2;
+        protected global::Ext.Net.Column Marker_CallToCountry;
         
         /// <summary>
-        /// Column3 control.
+        /// DestinationNumberUri control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column3;
+        protected global::Ext.Net.Column DestinationNumberUri;
         
         /// <summary>
-        /// Column4 control.
+        /// Duration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column4;
+        protected global::Ext.Net.Column Duration;
         
         /// <summary>
-        /// Column5 control.
+        /// Marker_CallCost control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column5;
+        protected global::Ext.Net.Column Marker_CallCost;
         
         /// <summary>
-        /// Column6 control.
+        /// UI_IsPersonal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column6;
+        protected global::Ext.Net.Column UI_IsPersonal;
         
         /// <summary>
-        /// Column7 control.
+        /// UI_MarkedOn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column7;
+        protected global::Ext.Net.Column UI_MarkedOn;
         
         /// <summary>
         /// CheckboxSelectionModel1 control.

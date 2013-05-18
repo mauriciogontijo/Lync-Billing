@@ -63,6 +63,7 @@ namespace Lync_Billing.UI
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
+            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
         }
 
         protected void AssignPersonal(object sender, DirectEventArgs e)
@@ -86,11 +87,31 @@ namespace Lync_Billing.UI
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
+            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
         }
 
         protected void AssignDispute(object sender, DirectEventArgs e)
         {
+            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
+            string json = e.ExtraParams["Values"];
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+
+            foreach (PhoneCall phoneCall in phoneCalls)
+            {
+                phoneCall.UI_Dispute = "YES";
+                phoneCall.UI_MarkedOn = DateTime.Now;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                PhoneCall.UpdatePhoneCall(phoneCall);
+
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
+            }
+            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
         }
 
         protected void PhoneCallsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)

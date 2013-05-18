@@ -53,6 +53,10 @@
             });
         });
 
+        function RoundCost(value, meta, record, rowIndex, colIndex, store) {
+
+            return Math.round(record.data.Marker_CallCost * 100) / 100;
+        }
 
         //Manage-Phone-Calls Grid JavaScripts
         var myDateRenderer = function (value) {
@@ -167,10 +171,10 @@
                                     <ext:ModelField Name="SessionIdSeq" Type="Int" />
                                     <ext:ModelField Name="ResponseTime" Type="String"/>
                                     <ext:ModelField Name="SessionEndTime" Type="String"/>
-                                    <ext:ModelField Name="marker_CallToCountry" Type="String" />
+                                    <ext:ModelField Name="Marker_CallToCountry" Type="String" />
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
-                                    <ext:ModelField Name="marker_CallCost" Type="Float" />
+                                    <ext:ModelField Name="Marker_CallCost" Type="Float" />
                                     <ext:ModelField Name="UI_IsPersonal" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                     <ext:ModelField Name="UI_IsPersonal" Type="String" />
@@ -183,7 +187,7 @@
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                     <Columns>
                         <ext:Column
-                            ID="Column1"
+                            ID="SessionIdTime"
                             runat="server"
                             Text="Date"
                             Width="160"
@@ -192,22 +196,22 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="Column2"
+                            ID="Marker_CallToCountry"
                             runat="server"
                             Text="Country Code"
                             Width="90"
-                            DataIndex="DestinationNumberUri Code"
+                            DataIndex="Marker_CallToCountry"
                             Align="Center" />
 
                         <ext:Column
-                            ID="Column3"
+                            ID="DestinationNumberUri"
                             runat="server"
                             Text="Destination"
                             Width="130"
                             DataIndex="DestinationNumberUri" />
 
                         <ext:Column
-                            ID="Column4"
+                            ID="Duration"
                             runat="server"
                             Text="Duration"
                             Width="70"
@@ -216,13 +220,15 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="Column5"
+                            ID="Marker_CallCost"
                             runat="server"
                             Text="Cost"
                             Width="60"
-                            DataIndex="marker_CallCost" />
+                            DataIndex="Marker_CallCost">
+                            <Renderer Fn="RoundCost"/>
+                        </ext:Column>
 
-                        <ext:Column ID="Column6"
+                        <ext:Column ID="UI_IsPersonal"
                             runat="server"
                             Text="Is Personal"
                             Width="80"
@@ -231,7 +237,7 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="Column7"
+                            ID="UI_MarkedOn"
                             runat="server"
                             Text="Updated On"
                             Width="100"
