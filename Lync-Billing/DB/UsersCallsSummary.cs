@@ -97,21 +97,23 @@ namespace Lync_Billing.DB
             return userSummary;
         }
 
-        public static UsersCallsSummary GetUsersCallsSummary(string sipAccount, int year, int month) 
+        public static List<UsersCallsSummary> GetUsersCallsSummary1(string sipAccount, int year, int month) 
         {
             DataTable dt = new DataTable();
             UsersCallsSummary userSummary = new UsersCallsSummary();
+            List<UsersCallsSummary> userCallsSummaryChart = new List<UsersCallsSummary>();
 
-            dt = DBRoutines.SELECT_DB_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), sipAccount,year,month);
+            dt = DBRoutines.SELECT_DB_USER_STATISTICS("vw_User_Statistics", sipAccount,year,month);
 
             foreach (DataRow row in dt.Rows) 
             {
+
                 if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value && row[dt.Columns["ui_IsPersonal"]].ToString() == "NO")
                 {
-                    if (row[dt.Columns["TotalCalls"]] != System.DBNull.Value)
-                        userSummary.BusinessCallsCount = Convert.ToInt32(row[dt.Columns["TotalCalls"]]);
-                    else
-                        userSummary.BusinessCallsCount = 0;
+                    //if (row[dt.Columns["TotalCalls"]] != System.DBNull.Value)
+                    //    userSummary.BusinessCallsCount = Convert.ToInt32(row[dt.Columns["TotalCalls"]]);
+                    //else
+                    //    userSummary.BusinessCallsCount = 0;
 
                     if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
                         userSummary.BusinessCallsCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
@@ -125,10 +127,10 @@ namespace Lync_Billing.DB
                 }
                 else if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value && row[dt.Columns["ui_IsPersonal"]].ToString() == "YES")
                 {
-                    if (row[dt.Columns["TotalCalls"]] != System.DBNull.Value)
-                        userSummary.PersonalCallsCount = Convert.ToInt32(row[dt.Columns["TotalCalls"]]);
-                    else
-                        userSummary.PersonalCallsCount = 0;
+                    //if (row[dt.Columns["TotalCalls"]] != System.DBNull.Value)
+                    //    userSummary.PersonalCallsCount = Convert.ToInt32(row[dt.Columns["TotalCalls"]]);
+                    //else
+                    //    userSummary.PersonalCallsCount = 0;
 
                     if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
                         userSummary.PersonalCallsCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
@@ -142,10 +144,10 @@ namespace Lync_Billing.DB
                 }
                 else if (row[dt.Columns["ui_IsPersonal"]] == System.DBNull.Value)
                 {
-                    if (row[dt.Columns["TotalCalls"]] != System.DBNull.Value)
-                        userSummary.UnmarkedCallsCount = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
-                    else
-                        userSummary.UnmarkedCallsCount = 0;
+                    //if (row[dt.Columns["TotalCalls"]] != System.DBNull.Value)
+                    //    userSummary.UnmarkedCallsCount = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
+                    //else
+                    //    userSummary.UnmarkedCallsCount = 0;
 
                     if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
                         userSummary.UnmarkedCallsCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
@@ -157,9 +159,10 @@ namespace Lync_Billing.DB
                     else
                         userSummary.UnmarkedCallsDuartion = 0;
                 }
+                userCallsSummaryChart.Add(userSummary);
             }
-
-            return userSummary;
+            return userCallsSummaryChart;
+            //return userSummary;
         }
 
     }
