@@ -44,15 +44,15 @@ namespace Lync_Billing.UI
                         new ModelField("DestinationNumberUri"),
                         new ModelField("ServerFQDN"),
                         new ModelField("PoolFQDN"),
-                        new ModelField("Marker_CallToCountry"),
+                        new ModelField("marker_CallToCountry"),
                         new ModelField("marker_CallType"),
                         new ModelField("Duration"),
-                        new ModelField("Marker_CallCost"),
-                        new ModelField("UI_UpdatedByUser"),
-                        new ModelField("UI_MarkedOn"),
-                        new ModelField("UI_IsPersonal"),
-                        new ModelField("UI_Dispute"),
-                        new ModelField("UI_IsInvoiced")
+                        new ModelField("marker_CallCost"),
+                        new ModelField("ui_UpdatedByUser"),
+                        new ModelField("ui_MarkedOn"),
+                        new ModelField("ui_IsPersonal"),
+                        new ModelField("ui_Dispute"),
+                        new ModelField("ui_IsInvoiced")
                     }
                 };
             }
