@@ -90,10 +90,10 @@
             var total = 0;
             
             App.PhoneCallsChart.getStore().each(function (rec) {
-                total += rec.get('Total');
+                total += rec.get('TotalCalls');
             });
-
-            this.setTitle(storeItem.get('Name') + ': ' + Math.round(storeItem.get('Total') / total * 100) + '%');
+            
+            this.setTitle(storeItem.get('Name') + ': ' + Math.round(storeItem.get('TotalCalls') / total * 100) +  '%' + '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls'));
         };
 
     </script>
@@ -273,7 +273,7 @@
                                 <ext:Model ID="PhoneCallsChartModel" runat="server">
                                     <Fields>
                                         <ext:ModelField Name="Name" />
-                                        <ext:ModelField Name="Total" />
+                                        <ext:ModelField Name="TotalCalls" />
                                     </Fields>
                                 </ext:Model>
                             </Model>
@@ -281,12 +281,12 @@
                     </Store>
                     <Series>
                         <ext:PieSeries 
-                            AngleField="Total" 
+                            AngleField="TotalCalls" 
                             ShowInLegend="true" 
                             Donut="30" 
                             Highlight="true" 
                             HighlightSegmentMargin="20">
-                            <Label Field="Name" Display="Rotate" Contrast="true" Font="18px Arial" />
+                            <Label Field="Name" Display="Rotate" Contrast="true" Font="12px Arial" />
                             <Tips runat="server" TrackMouse="true" Width="140" Height="28">
                                 <Renderer Fn="tipRenderer" />
                             </Tips>
