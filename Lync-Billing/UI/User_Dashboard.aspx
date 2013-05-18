@@ -92,7 +92,6 @@
             App.PhoneCallsChart.getStore().each(function (rec) {
                 total += rec.get('TotalCalls');
             });
-            
             this.setTitle(storeItem.get('Name') + ': ' + Math.round(storeItem.get('TotalCalls') / total * 100) +  '%' + '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls'));
         };
 
@@ -240,7 +239,7 @@
                 </div>
                 <div class="clear"></div>
                 <div class='more-button wauto float-right'>
-                    <a href='User_ManagePhoneCalls.aspx' class='font-10'>view more >></a>
+                    <%--<a href='User_ManagePhoneCalls.aspx' class='font-10'>view more >></a>--%>
                 </div>
             </div>
 
@@ -298,7 +297,7 @@
                 </div>
                 <div class="clear"></div>
                 <div class='more-button wauto float-right'>
-                    <a href='#' class='font-10'>view more >></a>
+                  <%--  <a href='#' class='font-10'>view more >></a>--%>
                 </div>
             </div>
 
