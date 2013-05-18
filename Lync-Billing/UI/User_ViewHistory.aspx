@@ -43,6 +43,11 @@
 		    value = Ext.util.Format.date(value, "d M Y h:m A");
 		    return value;
 		}
+
+		function RoundCost(value, meta, record, rowIndex, colIndex, store) {
+		
+		    return Math.round( record.data.Marker_CallCost * 100 ) / 100;
+		}
                
 		function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
 		    if (record.data.UI_IsPersonal == 'YES' || record.data.UI_IsPersonal == 'Yes') {
@@ -277,10 +282,10 @@
                             <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
                                 <Fields>
                                     <ext:ModelField Name="SessionIdTime" Type="String" />
-                                    <ext:ModelField Name="marker_CallToCountry" Type="String" />
+                                    <ext:ModelField Name="Marker_CallToCountry" Type="String" />
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
-                                    <ext:ModelField Name="marker_CallCost"   Type="Float" />
+                                    <ext:ModelField Name="Marker_CallCost" Type="Float" />
                                     <ext:ModelField Name="UI_IsPersonal" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                 </Fields>
@@ -300,11 +305,11 @@
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
 
-                        <ext:Column ID="marker_CallToCountry"
+                        <ext:Column ID="Marker_CallToCountry"
                             runat="server"
                             Text="Country Code"
                             Width="90"
-                            DataIndex="DestinationNumberUri Code" 
+                            DataIndex="Marker_CallToCountry" 
                             Groupable="true"/>
 
                         <ext:Column ID="DestinationNumberUri"
@@ -323,12 +328,14 @@
                             <Renderer Fn="GetMinutes"/>
                         </ext:Column>
 
-                        <ext:Column ID="marker_CallCost"
+                        <ext:Column ID="Marker_CallCost"
                             runat="server"
                             Text="Cost"
                             Width="60"
-                            DataIndex="marker_CallCost"
-                            Groupable="false" />
+                            DataIndex="Marker_CallCost"
+                            Groupable="false">
+                            <Renderer Fn="RoundCost"/>
+                        </ext:Column>
 
                         <ext:Column ID="UI_IsPersonal"
                             runat="server"
