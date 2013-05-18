@@ -280,7 +280,7 @@
                                     <ext:ModelField Name="marker_CallToCountry" Type="String" />
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
-                                    <ext:ModelField Name="marker_CallCost"  Type="Float" />
+                                    <ext:ModelField Name="marker_CallCost"   Type="Float" />
                                     <ext:ModelField Name="UI_IsPersonal" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                 </Fields>
