@@ -183,7 +183,7 @@ namespace Lync_Billing.UI
             Store store = new Store()
             {
                 ID = "PhoneCallsSummaryStore",
-                DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount,year,month),
+                DataSource = UsersCallsSummary.GetUsersCallsSummary1(sipAccount,year,month),
                 Model = { model },
                 IsPagingStore = true,
                 PageSize = 25
