@@ -44,47 +44,47 @@ namespace Lync_Billing.UI
 
             List<AbstractComponent> components = new List<AbstractComponent>();
 
-            //Ext.Net.Panel ChartPanel = new Ext.Net.Panel();
+            Ext.Net.Panel ChartPanel = new Ext.Net.Panel();
 
-            //Chart summarypieChart = new Chart()
-            //{
-            //    Animate = true,
-            //    Shadow = true,
-            //    InsetPadding = 60,
-            //    Theme = "Base:gradients",
-            //    LegendConfig = new ChartLegend
-            //    {
-            //        Position = LegendPosition.Right
-            //    },
-            //    Store = { DBStores.PhoneCallsSummaryStore(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now) },
-            //    Series = 
-            //    {
-            //        new PieSeries
-            //        {
-            //            AngleField="",
-            //            ShowInLegend = true,
-            //            Donut=10,
-            //            HighlightSegmentMargin = 10,
-            //            Label  = 
-            //            {
-            //                Display = SeriesLabelDisplay.Rotate,
-            //                Contrast = true,
-            //                Font = "18px Arial"
-            //            },
+            Chart summarypieChart = new Chart()
+            {
+                Animate = true,
+                Shadow = true,
+                InsetPadding = 60,
+                Theme = "Base:gradients",
+                LegendConfig = new ChartLegend
+                {
+                    Position = LegendPosition.Right
+                },
+                Store = { DBStores.PhoneCallsSummaryStore(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now) },
+                Series = 
+                {
+                    new PieSeries
+                    {
+                        AngleField="",
+                        ShowInLegend = true,
+                        Donut=10,
+                        HighlightSegmentMargin = 10,
+                        Label  = 
+                        {
+                            Display = SeriesLabelDisplay.Rotate,
+                            Contrast = true,
+                            Font = "18px Arial"
+                        },
 
-            //            Tips = 
-            //            {
-            //                TrackMouse = true,
-            //                Width = 140,
-            //                Height = 28
-            //            }
-            //        }
-            //    }
-            //};
+                        Tips = 
+                        {
+                            TrackMouse = true,
+                            Width = 140,
+                            Height = 28
+                        }
+                    }
+                }
+            };
 
-            //Ext.Net.Panel SummaryChart = new Ext.Net.Panel();
+            Ext.Net.Panel SummaryChart = new Ext.Net.Panel();
 
-            //SummaryChart.Add(summarypieChart);
+            SummaryChart.Add(summarypieChart);
 
             Ext.Net.Panel personalPanel = new Ext.Net.Panel()
             {
@@ -120,7 +120,7 @@ namespace Lync_Billing.UI
                     userSummary.UnmarkedCallsCount, userSummary.UnmarkedCallsDuartion /= 60, userSummary.UnmarkedCallsCost)
             };
 
-            //components.Add(SummaryChart);
+            components.Add(SummaryChart);
             components.Add(personalPanel);
             components.Add(businessPanel);
             components.Add(unmarkedPanel);
