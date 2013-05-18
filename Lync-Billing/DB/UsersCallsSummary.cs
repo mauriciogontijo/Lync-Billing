@@ -13,8 +13,10 @@ namespace Lync_Billing.DB
         private static List<string> columns;
 
         public string Name { get;set;}
-        public int Total { get; set; }
-
+        public int TotalCalls { get; set; }
+        public int TotalDuration { get; set; }
+        public int TotalCost { get; set; }
+       
         public static List<UsersCallsSummaryChartData> GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate) 
         {
             wherePart = new Dictionary<string, object>();
