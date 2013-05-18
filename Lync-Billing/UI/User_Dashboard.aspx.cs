@@ -14,7 +14,6 @@ namespace Lync_Billing.UI
 {
     public partial class User_Dashboard : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
@@ -32,9 +31,6 @@ namespace Lync_Billing.UI
 
             PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart,7);
             PhoneCallsHistoryStore.DataBind();
-
-            //PhoneCallsChart.GetStore().DataSource = UsersCallsSummary.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, 2012, 1);
-            //UsersCallsSummaryStore.DataBind();
         }
 
         [DirectMethod]
@@ -90,12 +86,28 @@ namespace Lync_Billing.UI
 
         }
 
-        public UsersCallsSummary GetUsersCallsSummary() 
+        public List<UsersCallsSummary> getChartData() 
         {
-            UsersCallsSummary userSummary = new UsersCallsSummary();
-            userSummary = UsersCallsSummary.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, 2012, 1);
-            return userSummary;
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+            return UsersCallsSummary.GetUsersCallsSummary1(((UserSession)Session.Contents["UserData"]).SipAccount, 2012, 1);
         }
-    
+
+
     }
+
+
+
+   
+    public class PhoneCallsSummary
+    {
+        private int NumberOfCalls { get; set; }
+        private int NumberOfSeconds { get; set; }
+        private int TotalCost { get; set; }
+
+        public PhoneCallsSummary() { }
+       
+    }
+
+    
 }

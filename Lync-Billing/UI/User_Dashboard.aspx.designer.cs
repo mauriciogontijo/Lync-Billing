@@ -112,40 +112,31 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Panel UserPhoneCallsSummary;
         
         /// <summary>
-        /// PlaceHolder3 control.
+        /// Panel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder3;
+        protected global::Ext.Net.Panel Panel1;
         
         /// <summary>
-        /// UserStatisticsPanel control.
+        /// Chart1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel UserStatisticsPanel;
+        protected global::Ext.Net.Chart Chart1;
         
         /// <summary>
-        /// PhoneCallsChart control.
+        /// Store1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Chart PhoneCallsChart;
-        
-        /// <summary>
-        /// UsersCallsSummaryStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store UsersCallsSummaryStore;
+        protected global::Ext.Net.Store Store1;
         
         /// <summary>
         /// Model1 control.

@@ -84,6 +84,18 @@
         var submitValue = function (grid, hiddenFormat, format) {
             grid.submitData(false, { isUpload: true });
         };
+
+        var tipRenderer = function (storeItem, item) {
+            //calculate percentage.
+            var total = 0;
+
+            App.Chart1.getStore().each(function (rec) {
+                total += rec.get('Data1');
+            });
+
+            this.setTitle(storeItem.get('Name') + ': ' + Math.round(storeItem.get('Data1') / total * 100) + '%');
+        };
+
     </script>
 </head>
 
@@ -234,9 +246,55 @@
 
             <div class='clear h15'></div>
 
-            <div id='history-block-2' class='block float-left w49p'>
+            <div id='user-phone-calls-Chart-block' class='block float-left w49p'>
                 <div class='content wauto float-left mb10'>
-                    <asp:PlaceHolder ID="PlaceHolder3" runat="server"></asp:PlaceHolder>
+                    <ext:Panel ID="Panel1" 
+            runat="server"
+            Title="Bar Chart"
+            Width="465"
+            Height="240"
+            Layout="FitLayout">
+            <Items>
+                <ext:Chart 
+                     ID="Chart1" 
+                    runat="server"
+                    Animate="true"
+                    Shadow="true"
+                    InsetPadding="60"
+                    Theme="Base:gradients">
+                    <LegendConfig Position="Right" />
+                   <Store>
+                        <ext:Store ID="Store1" 
+                            runat="server" 
+                             Data="<%# getChartData() %>"
+                            AutoDataBind="true">                           
+                            <Model>
+                                <ext:Model ID="Model1" runat="server">
+                                    <Fields>
+                                        <ext:ModelField Name="Ui_IsPersonal" />
+                                        <ext:ModelField Name="TotalCost" />
+                                        <ext:ModelField Name="MonthlyDuration" />
+                                    </Fields>
+                                </ext:Model>
+                            </Model>
+                        </ext:Store>
+                    </Store>
+                    <Series>
+                        <ext:PieSeries 
+                            AngleField="ui_IsPersonal" 
+                            ShowInLegend="true" 
+                            Donut="0" 
+                            Highlight="true" 
+                            HighlightSegmentMargin="20">
+                            <Label Field="Name" Display="Rotate" Contrast="true" Font="18px Arial" />
+                            <Tips runat="server" TrackMouse="true" Width="140" Height="28">
+                                <Renderer Fn="tipRenderer" />
+                            </Tips>
+                        </ext:PieSeries>
+                    </Series>
+                </ext:Chart>
+            </Items>
+        </ext:Panel>
                 </div>
                 <div class="clear"></div>
                 <div class='more-button wauto float-right'>
@@ -246,60 +304,6 @@
 
             <div id='history-block-3' class='block float-right w49p'>
                 <div class='content wauto float-left mb10'>
-                    <ext:Panel ID="UserStatisticsPanel"
-                        runat="server"
-                        Width="465"
-                        Height="240"
-                        Title="Phone Calls Statistics"
-                        Layout="FitLayout">
-                        <Items>
-                            <ext:Chart
-                                ID="PhoneCallsChart"
-                                runat="server"
-                                Animate="true"
-                                Shadow="true"
-                                InsetPadding="60"
-                                Theme="Base:gradients">
-                                <LegendConfig Position="Right" />
-                                <Store>
-                                    <ext:Store 
-                                        ID="UsersCallsSummaryStore"
-                                        DataSource="GetSummaryData"
-                                        runat="server">
-                                        <Model>
-                                            <ext:Model ID="Model1" runat="server">
-                                                <Fields>
-                                                    <ext:ModelField Name="TotalCost" />
-                                                    <ext:ModelField Name="MonthlyDuration" />
-                                                </Fields>
-                                            </ext:Model>
-                                        </Model>
-                                    </ext:Store>
-                                </Store>
-                                <Series>
-                                    <ext:PieSeries
-                                        AngleField="Data1"
-                                        ShowInLegend="true"
-                                        Donut="0"
-                                        Highlight="true"
-                                        HighlightSegmentMargin="20">
-                                        <Label 
-                                            Field="Name" 
-                                            Display="Rotate" 
-                                            Contrast="true" 
-                                            Font="18px Arial" />
-                                        <Tips 
-                                            runat="server" 
-                                            TrackMouse="true" 
-                                            Width="140" 
-                                            Height="28">
-                                            <Renderer Fn="tipRenderer" />
-                                        </Tips>
-                                    </ext:PieSeries>
-                                </Series>
-                            </ext:Chart>
-                        </Items>
-                    </ext:Panel>
                 </div>
                 <div class="clear"></div>
                 <div class='more-button wauto float-right'>
