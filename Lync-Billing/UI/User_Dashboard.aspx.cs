@@ -32,6 +32,9 @@ namespace Lync_Billing.UI
 
             PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart,7);
             PhoneCallsHistoryStore.DataBind();
+
+            //PhoneCallsChart.GetStore().DataSource = UsersCallsSummary.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, 2012, 1);
+            //UsersCallsSummaryStore.DataBind();
         }
 
         [DirectMethod]
@@ -43,48 +46,6 @@ namespace Lync_Billing.UI
             userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
 
             List<AbstractComponent> components = new List<AbstractComponent>();
-
-            Ext.Net.Panel ChartPanel = new Ext.Net.Panel();
-
-            Chart summarypieChart = new Chart()
-            {
-                Animate = true,
-                Shadow = true,
-                InsetPadding = 60,
-                Theme = "Base:gradients",
-                LegendConfig = new ChartLegend
-                {
-                    Position = LegendPosition.Right
-                },
-                Store = { DBStores.PhoneCallsSummaryStore(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now) },
-                Series = 
-                {
-                    new PieSeries
-                    {
-                        AngleField="",
-                        ShowInLegend = true,
-                        Donut=10,
-                        HighlightSegmentMargin = 10,
-                        Label  = 
-                        {
-                            Display = SeriesLabelDisplay.Rotate,
-                            Contrast = true,
-                            Font = "18px Arial"
-                        },
-
-                        Tips = 
-                        {
-                            TrackMouse = true,
-                            Width = 140,
-                            Height = 28
-                        }
-                    }
-                }
-            };
-
-            Ext.Net.Panel SummaryChart = new Ext.Net.Panel();
-
-            SummaryChart.Add(summarypieChart);
 
             Ext.Net.Panel personalPanel = new Ext.Net.Panel()
             {
@@ -120,7 +81,7 @@ namespace Lync_Billing.UI
                     userSummary.UnmarkedCallsCount, userSummary.UnmarkedCallsDuartion /= 60, userSummary.UnmarkedCallsCost)
             };
 
-            components.Add(SummaryChart);
+            
             components.Add(personalPanel);
             components.Add(businessPanel);
             components.Add(unmarkedPanel);
@@ -128,5 +89,13 @@ namespace Lync_Billing.UI
             return ComponentLoader.ToConfig(components);
 
         }
+
+        public UsersCallsSummary GetUsersCallsSummary() 
+        {
+            UsersCallsSummary userSummary = new UsersCallsSummary();
+            userSummary = UsersCallsSummary.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, 2012, 1);
+            return userSummary;
+        }
+    
     }
 }

@@ -121,12 +121,39 @@ namespace Lync_Billing.UI {
         protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder3;
         
         /// <summary>
-        /// PlaceHolder4 control.
+        /// UserStatisticsPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder4;
+        protected global::Ext.Net.Panel UserStatisticsPanel;
+        
+        /// <summary>
+        /// PhoneCallsChart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Chart PhoneCallsChart;
+        
+        /// <summary>
+        /// UsersCallsSummaryStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store UsersCallsSummaryStore;
+        
+        /// <summary>
+        /// Model1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model Model1;
     }
 }
