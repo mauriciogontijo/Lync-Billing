@@ -179,7 +179,7 @@ namespace Lync_Billing.Libs
 
             StringBuilder whereStatement = new StringBuilder();
             StringBuilder fields = new StringBuilder();
-           
+           //SourceUserUri
 
             if (whereClause.ContainsKey("startingDate") && whereClause.ContainsKey("endingDate"))
             {
@@ -194,6 +194,40 @@ namespace Lync_Billing.Libs
                 "SELECT COUNT(*) ui_IsPersonal, ui_IsPersonal as PhoneCallType, SUM([PhoneCalls].[Duration]) as TotalDuration, SUM([PhoneCalls].[marker_CallCost]) as TotalCost from PhoneCalls {0} group by ui_IsPersonal",
                 whereStatement.ToString()
             );
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
+        public DataTable SELECT_DB_USER_STATISTICS(string tableName, string sipAccount,int year,int month) 
+        {
+           //SELECT  Month,Year,ui_IsPersonal,MonthlyDuration,TotalCost
+           //FROM [tBill].[dbo].[vw_User_Statistics]
+           //WHERE marker_CallTypeID=1 and SourceUserUri='sghaida@ccc.gr' and Year=2013 and Month=1 order by Year asc
+
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            StringBuilder whereStatement = new StringBuilder();
+            StringBuilder fields = new StringBuilder();
+            whereStatement.Append(string.Format("WHERE [marker_CallTypeID]=1 AND [SourceUserUri]='{0}' AND [Year]={1} AND [Month]={2}",sipAccount,year,month));
+            selectQuery = string.Format("SELECT  [Month],[Year],[ui_IsPersonal],[MonthlyDuration],[TotalCost] FROM [{0}] {1}", tableName, whereStatement.ToString());
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(selectQuery, conn);
