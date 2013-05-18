@@ -31,6 +31,9 @@ namespace Lync_Billing.UI
 
             PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart,7);
             PhoneCallsHistoryStore.DataBind();
+
+            PhoneCallsChartStore.DataSource = getChartData();
+            PhoneCallsChart.DataBind();
         }
 
         [DirectMethod]
@@ -86,28 +89,11 @@ namespace Lync_Billing.UI
 
         }
 
-        public List<UsersCallsSummary> getChartData() 
+        public List<UsersCallsSummaryChartData> getChartData() 
         {
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-
-            return UsersCallsSummary.GetUsersCallsSummary1(((UserSession)Session.Contents["UserData"]).SipAccount, 2012, 1);
+            List<UsersCallsSummaryChartData> summary = UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
+            return summary;
         }
-
-
     }
-
-
-
-   
-    public class PhoneCallsSummary
-    {
-        private int NumberOfCalls { get; set; }
-        private int NumberOfSeconds { get; set; }
-        private int TotalCost { get; set; }
-
-        public PhoneCallsSummary() { }
-       
-    }
-
-    
 }

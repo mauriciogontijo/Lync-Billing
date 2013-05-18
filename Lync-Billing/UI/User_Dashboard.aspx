@@ -88,12 +88,12 @@
         var tipRenderer = function (storeItem, item) {
             //calculate percentage.
             var total = 0;
-
-            App.Chart1.getStore().each(function (rec) {
-                total += rec.get('Data1');
+            
+            App.PhoneCallsChart.getStore().each(function (rec) {
+                total += rec.get('Total');
             });
 
-            this.setTitle(storeItem.get('Name') + ': ' + Math.round(storeItem.get('Data1') / total * 100) + '%');
+            this.setTitle(storeItem.get('Name') + ': ' + Math.round(storeItem.get('Total') / total * 100) + '%');
         };
 
     </script>
@@ -248,32 +248,32 @@
 
             <div id='user-phone-calls-Chart-block' class='block float-left w49p'>
                 <div class='content wauto float-left mb10'>
-                    <ext:Panel ID="Panel1" 
+                    <ext:Panel ID="PhoneCallsChartPanel" 
             runat="server"
-            Title="Bar Chart"
+            Title="Phone Calls Chart"
             Width="465"
-            Height="240"
+            Height="340"
             Layout="FitLayout">
             <Items>
                 <ext:Chart 
-                     ID="Chart1" 
+                     ID="PhoneCallsChart" 
                     runat="server"
                     Animate="true"
                     Shadow="true"
-                    InsetPadding="60"
+                    InsetPadding="30"
+                    Width="465"
+                    Height="340"
                     Theme="Base:gradients">
                     <LegendConfig Position="Right" />
                    <Store>
-                        <ext:Store ID="Store1" 
+                        <ext:Store ID="PhoneCallsChartStore" 
                             runat="server" 
-                             Data="<%# getChartData() %>"
-                            AutoDataBind="true">                           
+                            >                           
                             <Model>
-                                <ext:Model ID="Model1" runat="server">
+                                <ext:Model ID="PhoneCallsChartModel" runat="server">
                                     <Fields>
-                                        <ext:ModelField Name="Ui_IsPersonal" />
-                                        <ext:ModelField Name="TotalCost" />
-                                        <ext:ModelField Name="MonthlyDuration" />
+                                        <ext:ModelField Name="Name" />
+                                        <ext:ModelField Name="Total" />
                                     </Fields>
                                 </ext:Model>
                             </Model>
@@ -281,9 +281,9 @@
                     </Store>
                     <Series>
                         <ext:PieSeries 
-                            AngleField="ui_IsPersonal" 
+                            AngleField="Total" 
                             ShowInLegend="true" 
-                            Donut="0" 
+                            Donut="30" 
                             Highlight="true" 
                             HighlightSegmentMargin="20">
                             <Label Field="Name" Display="Rotate" Contrast="true" Font="18px Arial" />
@@ -304,6 +304,14 @@
 
             <div id='history-block-3' class='block float-right w49p'>
                 <div class='content wauto float-left mb10'>
+                    <ext:Panel ID="Panel2"
+                        runat="server"
+                        Height="240"
+                        Width="465"
+                        Layout="AccordionLayout"
+                        Title="Something">
+
+                    </ext:Panel>
                 </div>
                 <div class="clear"></div>
                 <div class='more-button wauto float-right'>
