@@ -54,6 +54,35 @@
 		            $('#more-list-container').fadeOut('fast');
 		        });
 		    });
+
+		    var myDateRenderer = function (value) {
+		        value = Ext.util.Format.date(value, "d M Y h:i A");
+		        return value;
+		    }
+
+		    function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
+
+		        var sec_num = parseInt(record.data.Duration, 10);
+		        var hours = Math.floor(sec_num / 3600);
+		        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+		        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+		        if (hours < 10) {
+		            hours = "0" + hours;
+		        }
+		        if (minutes < 10) {
+		            minutes = "0" + minutes;
+		        }
+		        if (seconds < 10) {
+		            seconds = "0" + seconds;
+		        }
+
+		        return hours + ':' + minutes + ':' + seconds;;
+		    }
+
+		    var submitValue = function (grid, hiddenFormat, format) {
+		        grid.submitData(false, { isUpload: true });
+		    };
 	    </script>
     </head>
 
@@ -107,8 +136,63 @@
 
 	            <div id='user-phone-calls-history-block' class='block float-left w49p'>
 		            <div class='content wauto float-left mb10'>
-			            <asp:PlaceHolder ID="UserPhoneCallsHistoryPH" runat="server">
-                        </asp:PlaceHolder>
+			                                <ext:GridPanel
+                        ID="PhoneCallsHistoryGrid"
+                        runat="server"
+                        Title="Phone Calls History"
+                        Width="465"
+                        Height="240"
+                        AutoScroll="true"
+                        Header="true"
+                        Scroll="Both"
+                        Layout="FitLayout">
+
+                        <Store>
+                            <ext:Store
+                                ID="PhoneCallsHistoryStore"
+                                runat="server"
+                                IsPagingStore="true">
+                                <Model>
+                                    <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
+                                        <Fields>
+                                            <ext:ModelField Name="SessionIdTime" Type="String" />
+                                            <ext:ModelField Name="Marker_CallToCountry" Type="String" />
+                                            <ext:ModelField Name="DestinationNumberUri" Type="String" />
+                                            <ext:ModelField Name="Duration" Type="Float" />
+                                        </Fields>
+                                    </ext:Model>
+                                </Model>
+                            </ext:Store>
+                        </Store>
+                        <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
+                            <Columns>
+                                <ext:Column
+                                    ID="SessionIdTime"
+                                    runat="server"
+                                    Text="Date"
+                                    Width="160"
+                                    DataIndex="SessionIdTime">
+                                    <Renderer Fn="myDateRenderer" />
+                                </ext:Column>
+
+                                <ext:Column
+                                    ID="DestinationNumberUri"
+                                    runat="server"
+                                    Text="Destination"
+                                    Width="160"
+                                    DataIndex="DestinationNumberUri" />
+
+                                <ext:Column
+                                    ID="Duration"
+                                    runat="server"
+                                    Text="Duration"
+                                    Width="140"
+                                    DataIndex="Duration">
+                                    <Renderer Fn="GetMinutes" />
+                                </ext:Column>
+                             </Columns>
+                        </ColumnModel>
+                    </ext:GridPanel>
 		            </div>
                     <div class="clear"></div>
 		            <div class='more-button wauto float-right'>
