@@ -28,7 +28,7 @@ namespace Lync_Billing.UI
             columns.Add("SessionIdTime");
             columns.Add("DestinationNumberUri");
             columns.Add("Duration");
-            columns.Add("marker_CallCost");
+            columns.Add("marker_CallToCountry");
 
             PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart,7);
             PhoneCallsHistoryStore.DataBind();

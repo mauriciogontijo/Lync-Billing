@@ -174,19 +174,24 @@
                                     DataIndex="SessionIdTime">
                                     <Renderer Fn="myDateRenderer" />
                                 </ext:Column>
-
+                                 <ext:Column
+                                    ID="Marker_CallToCountry"
+                                    runat="server"
+                                    Text="Country"
+                                    Width="60"
+                                    DataIndex="Marker_CallToCountry"
+                                    Align="Center" />
                                 <ext:Column
                                     ID="DestinationNumberUri"
                                     runat="server"
                                     Text="Destination"
-                                    Width="160"
+                                    Width="140"
                                     DataIndex="DestinationNumberUri" />
-
                                 <ext:Column
                                     ID="Duration"
                                     runat="server"
                                     Text="Duration"
-                                    Width="140"
+                                    Width="100"
                                     DataIndex="Duration">
                                     <Renderer Fn="GetMinutes" />
                                 </ext:Column>
