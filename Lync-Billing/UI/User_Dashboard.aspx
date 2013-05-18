@@ -252,7 +252,7 @@
             runat="server"
             Title="Phone Calls Chart"
             Width="465"
-            Height="340"
+            Height="400"
             Layout="FitLayout">
             <Items>
                 <ext:Chart 
@@ -260,9 +260,9 @@
                     runat="server"
                     Animate="true"
                     Shadow="true"
-                    InsetPadding="30"
+                    InsetPadding="20"
                     Width="465"
-                    Height="340"
+                    Height="465"
                     Theme="Base:gradients">
                     <LegendConfig Position="Right" />
                    <Store>
@@ -285,8 +285,8 @@
                             ShowInLegend="true" 
                             Donut="30" 
                             Highlight="true" 
-                            HighlightSegmentMargin="20">
-                            <Label Field="Name" Display="Rotate" Contrast="true" Font="12px Arial" />
+                            HighlightSegmentMargin="10">
+                            <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial" />
                             <Tips runat="server" TrackMouse="true" Width="140" Height="28">
                                 <Renderer Fn="tipRenderer" />
                             </Tips>
