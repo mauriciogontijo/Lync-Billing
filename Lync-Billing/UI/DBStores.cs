@@ -152,5 +152,44 @@ namespace Lync_Billing.UI
             };
             return store;
         }
+
+        private static Model PhoneCallSummaryModel()
+        {
+            Model model;
+
+            model = new Model()
+            {
+                ID = "PhoneCallSummaryModel",
+                Fields = 
+                    {
+                        new ModelField("BusinessCallsCount"),
+                        new ModelField("BusinessCallsCost"),
+                        new ModelField("PersonalCallsCount"),
+                        new ModelField("PersonalCallsDuration"),
+                        new ModelField("PersonalCallsCost"),
+                        new ModelField("UnmarkedCallsCount"),
+                        new ModelField("UnmarkedCallsDuartion"),
+                        new ModelField("NumberOfDisputedCalls"),
+                    }
+            };
+
+            return model;
+        }
+
+
+        public static Store PhoneCallsSummaryStore(string sipAccount, DateTime startingDate,DateTime endingDate)
+        {
+            Model model = PhoneCallSummaryModel();
+            Store store = new Store()
+            {
+                ID = "PhoneCallsSummaryStore",
+                DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount,startingDate,endingDate),
+                Model = { model },
+                IsPagingStore = true,
+                PageSize = 25
+            };
+
+            return store;
+        }
     }
 }
