@@ -25,7 +25,7 @@ namespace Lync_Billing.UI
 
             wherePart.Add("SourceUserUri", SipAccount);
             wherePart.Add("marker_CallTypeID", 1);
-            wherePart.Add("ui_IsInvoiced", "PENDING");
+            wherePart.Add("ui_IsInvoiced", "NO");
 
             columns.Add("SessionIdTime");
             columns.Add("SessionIdSeq");
