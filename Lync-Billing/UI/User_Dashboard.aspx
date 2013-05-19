@@ -85,14 +85,29 @@
             grid.submitData(false, { isUpload: true });
         };
 
-        var tipRenderer = function (storeItem, item) {
+        var tipCostRenderer = function (storeItem, item) {
             //calculate percentage.
             var total = 0;
-            
-            App.PhoneCallsChart.getStore().each(function (rec) {
-                total += rec.get('TotalCalls');
+
+            App.PhoneCallsCostChart.getStore().each(function (rec) {
+                total += rec.get('TotalCost');
             });
-            this.setTitle(storeItem.get('Name') + ': ' + Math.round(storeItem.get('TotalCalls') / total * 100) +  '%' + '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls'));
+            this.setTitle(storeItem.get('Name') + ' : ' +
+                Math.round(storeItem.get('TotalCost') / total * 100) + '%' +
+                '<br>' + 'Total Calls :' + storeItem.get('TotalCalls') +
+                '<br>' + ' Costs : ' + storeItem.get('TotalCost'));
+        };
+
+        var tipDuartionRenderer = function (storeIem, item) {
+
+            //calculate percentage.
+            var total = 0;
+
+            App.PhoneCallsDuartionChart.getStore().each(function (rec) {
+                total += rec.get('TotalDuartion');
+            });
+           
+            this.setTitle(storeItem.get('Name') + ': ' + Math.round(storeItem.get('TotalDuartion') / total * 100) + '%');
         };
 
     </script>
@@ -247,76 +262,115 @@
 
             <div id='user-phone-calls-Chart-block' class='block float-left w49p'>
                 <div class='content wauto float-left mb10'>
-                    <ext:Panel ID="PhoneCallsChartPanel" 
-            runat="server"
-            Title="Phone Calls Chart"
-            Width="465"
-            Height="400"
-            Layout="FitLayout">
-            <Items>
-                <ext:Chart 
-                     ID="PhoneCallsChart" 
-                    runat="server"
-                    Animate="true"
-                    Shadow="true"
-                    InsetPadding="20"
-                    Width="465"
-                    Height="465"
-                    Theme="Base:gradients">
-                    <LegendConfig Position="Right" />
-                   <Store>
-                        <ext:Store ID="PhoneCallsChartStore" 
-                            runat="server" 
-                            >                           
-                            <Model>
-                                <ext:Model ID="PhoneCallsChartModel" runat="server">
-                                    <Fields>
-                                        <ext:ModelField Name="Name" />
-                                        <ext:ModelField Name="TotalCalls" />
-                                         <ext:ModelField Name="TotalCost" />
-                                         <ext:ModelField Name="TotalDuration" />
-                                    </Fields>
-                                </ext:Model>
-                            </Model>
-                        </ext:Store>
-                    </Store>
-                    <Series>
-                        <ext:PieSeries 
-                            AngleField="TotalCost" 
-                            ShowInLegend="true" 
-                            Donut="30" 
-                            Highlight="true" 
-                            HighlightSegmentMargin="10">
-                            <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial" />
-                            <Tips runat="server" TrackMouse="true" Width="140" Height="28">
-                                <Renderer Fn="tipRenderer" />
-                            </Tips>
-                        </ext:PieSeries>
-                    </Series>
-                </ext:Chart>
-            </Items>
-        </ext:Panel>
+                    <ext:Panel ID="PhoneCallsCostChartPanel"
+                        runat="server"
+                        Title="Calls Cost Chart"
+                        Width="465"
+                        Height="350"
+                        Layout="FitLayout">
+                        <Items>
+                            <ext:Chart
+                                ID="PhoneCallsCostChart"
+                                runat="server"
+                                Animate="true"
+                                Shadow="true"
+                                InsetPadding="20"
+                                Width="465"
+                                Height="350"
+                                Theme="Base:gradients">
+                                <LegendConfig Position="Right" />
+                                <Store>
+                                    <ext:Store ID="PhoneCallsCostChartStore"
+                                        runat="server">
+                                        <Model>
+                                            <ext:Model ID="PhoneCallsCostChartModel" runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="Name" />
+                                                    <ext:ModelField Name="TotalCalls" />
+                                                    <ext:ModelField Name="TotalCost" />
+                                                    <ext:ModelField Name="TotalDuration" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
+                                <Series>
+                                    <ext:PieSeries
+                                        AngleField="TotalCost"
+                                        ShowInLegend="true"
+                                        Donut="30"
+                                        Highlight="true"
+                                        HighlightSegmentMargin="10">
+                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial" />
+                                        <Tips runat="server" TrackMouse="true" Width="200" Height="55">
+                                            <Renderer Fn="tipCostRenderer" />
+                                        </Tips>
+                                    </ext:PieSeries>
+                                </Series>
+                            </ext:Chart>
+                        </Items>
+                    </ext:Panel>
                 </div>
                 <div class="clear"></div>
                 <div class='more-button wauto float-right'>
-                  <%--  <a href='#' class='font-10'>view more >></a>--%>
+                    <%--  <a href='#' class='font-10'>view more >></a>--%>
                 </div>
             </div>
 
             <div id='history-block-3' class='block float-right w49p'>
                 <div class='content wauto float-left mb10'>
-                    <ext:Panel ID="Panel2"
+                             <ext:Panel ID="PhoneCallsDuartionChartPanel"
                         runat="server"
-                        Height="240"
+                        Title="Calls Duration Chart"
                         Width="465"
-                        Layout="AccordionLayout"
-                        Title="Something">
-
+                        Height="350"
+                        Layout="FitLayout">
+                        <Items>
+                            <ext:Chart
+                                ID="PhoneCallsDuartionChart"
+                                runat="server"
+                                Animate="true"
+                                Shadow="true"
+                                InsetPadding="20"
+                                Width="465"
+                                Height="350"
+                                Theme="Base:gradients">
+                                <LegendConfig Position="Right" />
+                                <Store>
+                                    <ext:Store ID="PhoneCallsDuartionChartStore"
+                                        runat="server">
+                                        <Model>
+                                            <ext:Model ID="Model1" runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="Name" />
+                                                    <ext:ModelField Name="TotalCalls" />
+                                                    <ext:ModelField Name="TotalCost" />
+                                                    <ext:ModelField Name="TotalDuration" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
+                                <Series>
+                                    <ext:PieSeries
+                                        AngleField="TotalDuration"
+                                        ShowInLegend="true"
+                                        Donut="30"
+                                        Highlight="true"
+                                        HighlightSegmentMargin="10">
+                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial" />
+                                        <Tips runat="server" TrackMouse="true" Width="200" Height="55">
+                                            <Renderer Fn="tipDuartionRenderer" />
+                                        </Tips>
+                                    </ext:PieSeries>
+                                </Series>
+                            </ext:Chart>
+                        </Items>
                     </ext:Panel>
                 </div>
                 <div class="clear"></div>
                 <div class='more-button wauto float-right'>
-                    <a href='#' class='font-10'>view more >></a>
+                  <%--  <a href='#' class='font-10'>view more >></a>--%>
                 </div>
             </div>
             <%--</asp:Content>--%>

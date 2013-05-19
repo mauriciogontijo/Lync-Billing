@@ -14,6 +14,7 @@ namespace Lync_Billing.UI
 {
     public partial class User_Dashboard : System.Web.UI.Page
     {
+        List<UsersCallsSummaryChartData> summary;
         protected void Page_Load(object sender, EventArgs e)
         {
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
@@ -32,8 +33,11 @@ namespace Lync_Billing.UI
             PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart,7);
             PhoneCallsHistoryStore.DataBind();
 
-            PhoneCallsChartStore.DataSource = getChartData();
-            PhoneCallsChart.DataBind();
+            PhoneCallsCostChartStore.DataSource = getChartData();
+            PhoneCallsCostChartStore.DataBind();
+
+            PhoneCallsDuartionChartStore.DataSource = summary;
+            PhoneCallsDuartionChartStore.DataBind();
         }
 
         [DirectMethod]
@@ -92,7 +96,7 @@ namespace Lync_Billing.UI
         public List<UsersCallsSummaryChartData> getChartData() 
         {
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-            List<UsersCallsSummaryChartData> summary = UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
+            summary = UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
             return summary;
         }
     }
