@@ -39,7 +39,8 @@ namespace Lync_Billing.DB
         public string UI_IsPersonal { set; get; }
         public string UI_Dispute { set; get; }
         public string UI_IsInvoiced { set; get; }
-        public List<PhoneCall> TotalCalls { get; set; }
+
+        public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
 
         public static List<PhoneCall> GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits)
