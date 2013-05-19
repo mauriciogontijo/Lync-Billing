@@ -100,6 +100,7 @@ namespace Lync_Billing.DB
             }
             return chartList;
         }
+       
     }
 
     public class UsersCallsSummary
@@ -118,6 +119,8 @@ namespace Lync_Billing.DB
         public int UnmarkedCallsDuartion { get; set; }
         public int UnmarkedCallsCost { get; set; }
         public int NumberOfDisputedCalls { get; set; }
+
+        public static UsersCallsSummary UserSummary;
 
         public static UsersCallsSummary GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate)
         {
@@ -192,5 +195,7 @@ namespace Lync_Billing.DB
             }
             return userSummary;
         }
+
+        
     }
 }
