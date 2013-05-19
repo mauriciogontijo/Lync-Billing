@@ -137,12 +137,12 @@ namespace Lync_Billing.UI
                 columns.Add("ui_MarkedOn");
 
                 Stores.phoeCallsmanagementStoreDataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-                PhoneCallsStore.DataSource = Stores.phoeCallsmanagementStoreDataSource 
+                PhoneCallsStore.DataSource = Stores.phoeCallsmanagementStoreDataSource;
                 PhoneCallsStore.DataBind();
             }
             else
             {
-                PhoneCallsStore.DataSource = Stores.phoeCallsmanagementStoreDataSource 
+                PhoneCallsStore.DataSource = Stores.phoeCallsmanagementStoreDataSource; 
                 PhoneCallsStore.DataBind();
             }
         }
