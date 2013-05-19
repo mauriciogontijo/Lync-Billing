@@ -17,9 +17,7 @@ namespace Lync_Billing.DB
         public string IpAddress {set;get;}
         public string UserAgent { set; get; }
 
-        public static List<PhoneCall> phoneCallsHistoryStoreDataSource;
-        public static List<PhoneCall> phoeCallsmanagementStoreDataSource;
-        public static List<UsersCallsSummaryChartData> phoneCallsSummaryChartData;
+        public static Stores stores = new Stores();
 
 
         public List<UserRole> Roles { set; get; }
@@ -40,5 +38,11 @@ namespace Lync_Billing.DB
         }
     }
 
+    public class Stores
+    {
+        public List<PhoneCall> phoneCallsHistoryStoreDataSource;
+        public List<PhoneCall> phoeCallsmanagementStoreDataSource;
+        public List<UsersCallsSummaryChartData> phoneCallsSummaryChartData;
+    }
     
 }
