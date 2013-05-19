@@ -17,21 +17,28 @@ namespace Lync_Billing.UI
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            List<string> columns = new List<string>();
+            int count = PhoneCallsHistoryStore.Proxy.Count();
+            if (!X.IsAjaxRequest)
+            {
+            
+                string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                Dictionary<string, object> wherePart = new Dictionary<string, object>();
+                List<string> columns = new List<string>();
 
-            wherePart.Add("SourceUserUri", SipAccount);
-            wherePart.Add("marker_CallTypeID", 1);
-            wherePart.Add("ui_IsInvoiced", "NO");
+                wherePart.Add("SourceUserUri", SipAccount);
+                wherePart.Add("marker_CallTypeID", 1);
+                wherePart.Add("ui_IsInvoiced", "NO");
 
-            columns.Add("SessionIdTime");
-            columns.Add("DestinationNumberUri");
-            columns.Add("Duration");
-            columns.Add("marker_CallToCountry");
+                columns.Add("SessionIdTime");
+                columns.Add("DestinationNumberUri");
+                columns.Add("Duration");
+                columns.Add("marker_CallToCountry");
 
-            PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart,7);
-            PhoneCallsHistoryStore.DataBind();
+                PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart,7);
+                PhoneCallsHistoryStore.DataBind();
+
+                
+            }
         }
 
         [DirectMethod]
