@@ -8,8 +8,8 @@ namespace Lync_Billing.UI
 {
     public class Stores
     {
-        public static List<PhoneCall> phoneCallsHistoryStoreDataSource;
-        public static List<PhoneCall> phoeCallsmanagementStoreDataSource;
-        public static List<UsersCallsSummaryChartData> phoneCallsSummaryChartData;
+        public static List<PhoneCall> phoneCallsHistoryStoreDataSource = new List<PhoneCall>();
+        public static List<PhoneCall> phoeCallsmanagementStoreDataSource = new List<PhoneCall>();
+        public static List<UsersCallsSummaryChartData> phoneCallsSummaryChartData = new List<UsersCallsSummaryChartData>();
     }
 }
