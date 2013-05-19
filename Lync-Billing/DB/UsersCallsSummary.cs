@@ -44,6 +44,16 @@ namespace Lync_Billing.DB
                         userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
                     else
                         userSummary.TotalCalls = 0;
+
+                    if (row[dt.Columns["TotalDuration"]] != System.DBNull.Value)
+                        userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns["TotalDuration"]]);
+                    else
+                        userSummary.TotalDuration = 0;
+
+                    if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
+                        userSummary.TotalCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
+                    else
+                        userSummary.TotalCost = 0;
                 }
 
                 else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "YES")
@@ -54,6 +64,16 @@ namespace Lync_Billing.DB
                         userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
                     else
                         userSummary.TotalCalls = 0;
+
+                    if (row[dt.Columns["TotalDuration"]] != System.DBNull.Value)
+                        userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns["TotalDuration"]]);
+                    else
+                        userSummary.TotalDuration = 0;
+
+                    if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
+                        userSummary.TotalCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
+                    else
+                        userSummary.TotalCost = 0;
                    
                 }
 
@@ -64,6 +84,16 @@ namespace Lync_Billing.DB
                         userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
                     else
                         userSummary.TotalCalls = 0;
+
+                    if (row[dt.Columns["TotalDuration"]] != System.DBNull.Value)
+                        userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns["TotalDuration"]]);
+                    else
+                        userSummary.TotalDuration = 0;
+
+                    if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
+                        userSummary.TotalCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
+                    else
+                        userSummary.TotalCost = 0;
                   
                 }
                 chartList.Add(userSummary);
