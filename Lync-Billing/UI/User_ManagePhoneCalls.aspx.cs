@@ -117,8 +117,9 @@ namespace Lync_Billing.UI
 
         protected void PhoneCallsStore_Load(object sender, EventArgs e)
         {
-            if (Stores.phoeCallsmanagementStoreDataSource.Count == 0) 
+            if (Stores.phoeCallsmanagementStoreDataSource == null) 
             {
+                Stores.phoeCallsmanagementStoreDataSource = new List<PhoneCall>();
                 string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
 
                 wherePart.Add("SourceUserUri", SipAccount);
