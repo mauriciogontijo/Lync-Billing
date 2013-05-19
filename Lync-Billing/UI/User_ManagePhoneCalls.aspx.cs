@@ -18,28 +18,6 @@ namespace Lync_Billing.UI
         Dictionary<string, object> wherePart = new Dictionary<string, object>();
         List<string> columns = new List<string>();
         
-
-        public void Bind() 
-        {
-            PhoneCallsStore.Load += PhoneCallsStore_Load;
-        }
-
-        void PhoneCallsStore_Load(object sender, EventArgs e)
-        {
-            if (PhoneCall.PhoneCalls.Count == 0)
-            {
-                PhoneCall.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-                PhoneCallsStore.DataSource = PhoneCall.PhoneCalls;
-                PhoneCallsStore.DataBind();
-            }
-            else 
-            {
-                PhoneCallsStore.DataSource = PhoneCall.PhoneCalls;
-                PhoneCallsStore.DataBind();
-            }
-            
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
@@ -59,9 +37,6 @@ namespace Lync_Billing.UI
             columns.Add("marker_CallCost");
             columns.Add("ui_IsPersonal");
             columns.Add("ui_MarkedOn");
-
-            Bind();
-            
         }
 
         protected void AssignBusiness(object sender, DirectEventArgs e)
@@ -154,6 +129,21 @@ namespace Lync_Billing.UI
         {
             this.PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             this.PhoneCallsStore.DataBind();
+        }
+
+        protected void PhoneCallsStore_Load(object sender, EventArgs e)
+        {
+            if (PhoneCall.PhoneCalls.Count == 0)
+            {
+                PhoneCall.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                PhoneCallsStore.DataSource = PhoneCall.PhoneCalls;
+                PhoneCallsStore.DataBind();
+            }
+            else
+            {
+                PhoneCallsStore.DataSource = PhoneCall.PhoneCalls;
+                PhoneCallsStore.DataBind();
+            }
         }
     }
 }

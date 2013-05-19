@@ -162,8 +162,10 @@
                         runat="server" 
                         IsPagingStore="true" 
                         PageSize="25"
+                        OnLoad="PhoneCallsStore_Load"
                         OnSubmitData="PhoneCallsStore_SubmitData"
-                        OnReadData="PhoneCallsStore_ReadData">
+                        OnReadData="PhoneCallsStore_ReadData"
+                        >
                         <Model>
                             <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
                                 <Fields>
