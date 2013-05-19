@@ -22,7 +22,7 @@ namespace Lync_Billing.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         public void refreshStore(string Field, string value)
@@ -48,12 +48,14 @@ namespace Lync_Billing.UI
 
         protected void PhoneCallStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
-            this.PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+           
             this.PhoneCallStore.DataBind();
         }
 
         protected void PhoneCallStore_Load(object sender, EventArgs e)
         {
+
+            this.PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
 
             wherePart.Add("SourceUserUri", SipAccount);
@@ -67,12 +69,12 @@ namespace Lync_Billing.UI
             columns.Add("ui_IsPersonal");
             columns.Add("ui_MarkedOn");
             columns.Add("ui_IsInvoiced");
+           
 
             if (PhoneCall.PhoneCalls.Count == 0)
             {
                 PhoneCall.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
                 PhoneCallStore.DataSource = PhoneCall.PhoneCalls;
-                PhoneCallStore.DataBind();
             }
             else
             {
