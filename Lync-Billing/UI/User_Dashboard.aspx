@@ -110,6 +110,10 @@
             this.setTitle(storeItem.get('Name') + ': ' + Math.round(storeItem.get('TotalDuartion') / total * 100) + '%');
         };
 
+        var redirect = function () {
+            window.location = "User_ManagePhoneCalls.aspx";
+        };
+
     </script>
 </head>
 
@@ -305,8 +309,12 @@
                                         <Tips runat="server" TrackMouse="true" Width="200" Height="55">
                                             <Renderer Fn="tipCostRenderer" />
                                         </Tips>
+                                        <Listeners>
+                                            <ItemClick Fn="redirect"/>
+                                        </Listeners>
                                     </ext:PieSeries>
                                 </Series>
+                                
                             </ext:Chart>
                         </Items>
                     </ext:Panel>
@@ -362,6 +370,9 @@
                                         <Tips runat="server" TrackMouse="true" Width="200" Height="55">
                                             <Renderer Fn="tipDuartionRenderer" />
                                         </Tips>
+                                         <Listeners>
+                                            <ItemClick Fn="redirect"/>
+                                        </Listeners>
                                     </ext:PieSeries>
                                 </Series>
                             </ext:Chart>
