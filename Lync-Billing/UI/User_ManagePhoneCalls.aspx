@@ -162,7 +162,6 @@
                         runat="server" 
                         IsPagingStore="true" 
                         PageSize="25"
-                        OnLoad="PhoneCallsStore_Load"
                         OnSubmitData="PhoneCallsStore_SubmitData"
                         OnReadData="PhoneCallsStore_ReadData"
                         >
