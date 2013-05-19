@@ -98,6 +98,8 @@
     <Content Include="App_Readme\Transformer.NET\README.txt" />
     <Content Include="Global.asax" />
     <Content Include="Resources\excel.xsl" />
+    <Content Include="UI\Accounting_Dashboard.aspx" />
+    <Content Include="UI\Admin_DashBoard.aspx" />
     <Content Include="UI\Login.aspx" />
     <Content Include="UI\css\black-layout.css" />
     <Content Include="UI\css\diagnostics-v1.css" />
@@ -147,6 +149,20 @@
     <Compile Include="Libs\JsonTranslator.cs" />
     <Compile Include="Libs\PDFLib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Accounting_Dashboard.aspx.cs">
+      <DependentUpon>Accounting_Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Accounting_Dashboard.aspx.designer.cs">
+      <DependentUpon>Accounting_Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin_DashBoard.aspx.cs">
+      <DependentUpon>Admin_DashBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Admin_DashBoard.aspx.designer.cs">
+      <DependentUpon>Admin_DashBoard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UI\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
