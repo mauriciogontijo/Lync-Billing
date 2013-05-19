@@ -162,14 +162,10 @@ namespace Lync_Billing.UI
                 ID = "PhoneCallSummaryModel",
                 Fields = 
                     {
-                        new ModelField("BusinessCallsCount"),
-                        new ModelField("BusinessCallsCost"),
-                        new ModelField("PersonalCallsCount"),
-                        new ModelField("PersonalCallsDuration"),
-                        new ModelField("PersonalCallsCost"),
-                        new ModelField("UnmarkedCallsCount"),
-                        new ModelField("UnmarkedCallsDuartion"),
-                        new ModelField("NumberOfDisputedCalls"),
+                        new ModelField("Name"),
+                        new ModelField("TotalCost"),
+                        new ModelField("TotalDuration"),
+                        new ModelField("TotalMinutes"),
                     }
             };
 
