@@ -340,7 +340,7 @@
                                     <ext:Store ID="PhoneCallsDuartionChartStore"
                                         runat="server">
                                         <Model>
-                                            <ext:Model ID="Model1" runat="server">
+                                            <ext:Model ID="PhoneCallsDuartionCharModel" runat="server">
                                                 <Fields>
                                                     <ext:ModelField Name="Name" />
                                                     <ext:ModelField Name="TotalCalls" />

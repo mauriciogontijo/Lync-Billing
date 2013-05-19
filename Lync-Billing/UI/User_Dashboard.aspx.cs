@@ -14,7 +14,7 @@ namespace Lync_Billing.UI
 {
     public partial class User_Dashboard : System.Web.UI.Page
     {
-        List<UsersCallsSummaryChartData> summary;
+        List<UsersCallsSummaryChartData> summary = new List<UsersCallsSummaryChartData>();
         protected void Page_Load(object sender, EventArgs e)
         {
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
