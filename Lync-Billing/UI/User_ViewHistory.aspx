@@ -274,6 +274,7 @@
                     <ext:Store
                          ID="PhoneCallStore" 
                          runat="server" 
+                         OnLoad="PhoneCallStore_Load"
                          OnSubmitData="PhoneCallStore_SubmitData"
                          OnReadData="PhoneCallStore_ReadData"
                          IsPagingStore="true"  
