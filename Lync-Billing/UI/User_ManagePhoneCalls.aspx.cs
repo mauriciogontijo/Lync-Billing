@@ -20,26 +20,7 @@ namespace Lync_Billing.UI
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-
-
-            wherePart.Add("SourceUserUri", SipAccount);
-            wherePart.Add("marker_CallTypeID", 1);
-            wherePart.Add("ui_IsInvoiced", "NO");
-
-            columns.Add("SessionIdTime");
-            columns.Add("SessionIdSeq");
-            columns.Add("ResponseTime");
-            columns.Add("SessionEndTime");
-            columns.Add("marker_CallToCountry");
-            columns.Add("DestinationNumberUri");
-            columns.Add("Duration");
-            columns.Add("marker_CallCost");
-            columns.Add("ui_IsPersonal");
-            columns.Add("ui_MarkedOn");
-
-            PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-            PhoneCallsStore.DataBind();
+            
         }
 
         protected void AssignBusiness(object sender, DirectEventArgs e)
@@ -132,6 +113,38 @@ namespace Lync_Billing.UI
         {
             this.PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             this.PhoneCallsStore.DataBind();
+        }
+
+        protected void PhoneCallsStore_Load(object sender, EventArgs e)
+        {
+            if (Stores.phoeCallsmanagementStoreDataSource.Count == 0) 
+            {
+                string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+                wherePart.Add("SourceUserUri", SipAccount);
+                wherePart.Add("marker_CallTypeID", 1);
+                wherePart.Add("ui_IsInvoiced", "NO");
+
+                columns.Add("SessionIdTime");
+                columns.Add("SessionIdSeq");
+                columns.Add("ResponseTime");
+                columns.Add("SessionEndTime");
+                columns.Add("marker_CallToCountry");
+                columns.Add("DestinationNumberUri");
+                columns.Add("Duration");
+                columns.Add("marker_CallCost");
+                columns.Add("ui_IsPersonal");
+                columns.Add("ui_MarkedOn");
+
+                Stores.phoeCallsmanagementStoreDataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                PhoneCallsStore.DataSource = Stores.phoeCallsmanagementStoreDataSource 
+                PhoneCallsStore.DataBind();
+            }
+            else
+            {
+                PhoneCallsStore.DataSource = Stores.phoeCallsmanagementStoreDataSource 
+                PhoneCallsStore.DataBind();
+            }
         }
 
     }
