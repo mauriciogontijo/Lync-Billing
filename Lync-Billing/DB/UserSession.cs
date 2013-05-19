@@ -17,6 +17,11 @@ namespace Lync_Billing.DB
         public string IpAddress {set;get;}
         public string UserAgent { set; get; }
 
+        public static List<PhoneCall> phoneCallsHistoryStoreDataSource;
+        public static List<PhoneCall> phoeCallsmanagementStoreDataSource;
+        public static List<UsersCallsSummaryChartData> phoneCallsSummaryChartData;
+
+
         public List<UserRole> Roles { set; get; }
         public Dictionary<string, string> ClientData { set; get; }
 
