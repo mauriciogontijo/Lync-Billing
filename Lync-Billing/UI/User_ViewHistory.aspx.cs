@@ -54,8 +54,10 @@ namespace Lync_Billing.UI
 
         protected void PhoneCallStore_Load(object sender, EventArgs e)
         {
-            if (Stores.phoneCallsHistoryStoreDataSource.Count == 0)
+            if (Stores.phoneCallsHistoryStoreDataSource == null)
             {
+                Stores.phoneCallsHistoryStoreDataSource = new List<PhoneCall>();
+
                 string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
 
                 wherePart.Add("SourceUserUri", SipAccount);
