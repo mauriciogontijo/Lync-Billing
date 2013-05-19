@@ -185,15 +185,4 @@ namespace Lync_Billing.DB
             
         }
     }
-
-    public class TotalCalls
-    {
-        public List<PhoneCall> ListoFCalls = new List<PhoneCall>();
-
-        public TotalCalls(List<string> columns, Dictionary<string, object> wherePart, int limits)
-        {
-            ListoFCalls = PhoneCall.GetPhoneCalls(columns, wherePart, limits);
-        }
-
-    }
 }
