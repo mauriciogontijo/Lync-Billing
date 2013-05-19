@@ -285,6 +285,7 @@
                                 <LegendConfig Position="Right" />
                                 <Store>
                                     <ext:Store ID="PhoneCallsCostChartStore"
+                                        OnLoad="PhoneCallsCostChartStore_Load"
                                         runat="server">
                                         <Model>
                                             <ext:Model ID="PhoneCallsCostChartModel" runat="server">
@@ -346,6 +347,7 @@
                                 <LegendConfig Position="Right" />
                                 <Store>
                                     <ext:Store ID="PhoneCallsDuartionChartStore"
+                                        OnLoad="PhoneCallsDuartionChartStore_Load"
                                         runat="server">
                                         <Model>
                                             <ext:Model ID="PhoneCallsDuartionCharModel" runat="server">

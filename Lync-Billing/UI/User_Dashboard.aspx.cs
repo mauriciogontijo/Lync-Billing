@@ -14,7 +14,7 @@ namespace Lync_Billing.UI
 {
     public partial class User_Dashboard : System.Web.UI.Page
     {
-        List<UsersCallsSummaryChartData> summary = new List<UsersCallsSummaryChartData>();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
@@ -32,12 +32,6 @@ namespace Lync_Billing.UI
 
             PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart,7);
             PhoneCallsHistoryStore.DataBind();
-
-            PhoneCallsCostChartStore.DataSource = getChartData();
-            PhoneCallsCostChartStore.DataBind();
-
-            PhoneCallsDuartionChartStore.DataSource = summary;
-            PhoneCallsDuartionChartStore.DataBind();
         }
 
         [DirectMethod]
@@ -99,8 +93,38 @@ namespace Lync_Billing.UI
         public List<UsersCallsSummaryChartData> getChartData() 
         {
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-            summary = UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
-            return summary;
+            return UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
+            
+        }
+
+        protected void PhoneCallsCostChartStore_Load(object sender, EventArgs e)
+        {
+            if (Stores.phoneCallsSummaryChartData.Count == 0)
+            {
+                Stores.phoneCallsSummaryChartData = getChartData();
+                PhoneCallsCostChartStore.DataSource = Stores.phoneCallsSummaryChartData;
+                PhoneCallsCostChartStore.DataBind();
+            }
+            else 
+            {
+                PhoneCallsCostChartStore.DataSource = Stores.phoneCallsSummaryChartData;
+                PhoneCallsCostChartStore.DataBind();
+            }
+        }
+
+        protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)
+        {
+            if (Stores.phoneCallsSummaryChartData.Count == 0)
+            {
+                Stores.phoneCallsSummaryChartData = getChartData();
+                PhoneCallsDuartionChartStore.DataSource = Stores.phoneCallsSummaryChartData;
+                PhoneCallsDuartionChartStore.DataBind();
+            }
+            else
+            {
+                PhoneCallsDuartionChartStore.DataSource = Stores.phoneCallsSummaryChartData;
+                 PhoneCallsDuartionChartStore.DataBind();
+            }
         }
     }
 }
