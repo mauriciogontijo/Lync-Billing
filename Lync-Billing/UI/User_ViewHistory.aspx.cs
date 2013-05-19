@@ -22,22 +22,7 @@ namespace Lync_Billing.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-
-            wherePart.Add("SourceUserUri", SipAccount);
-            wherePart.Add("marker_CallTypeID", 1);
-            wherePart.Add("ui_IsInvoiced", "YES");
-            columns.Add("SessionIdTime");
-            columns.Add("marker_CallToCountry");
-            columns.Add("DestinationNumberUri");
-            columns.Add("Duration");
-            columns.Add("marker_CallCost");
-            columns.Add("ui_IsPersonal");
-            columns.Add("ui_MarkedOn");
-            columns.Add("ui_IsInvoiced");
-
-            PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-            PhoneCallStore.DataBind();
+           
         }
 
         public void refreshStore(string Field, string value)
@@ -69,6 +54,20 @@ namespace Lync_Billing.UI
 
         protected void PhoneCallStore_Load(object sender, EventArgs e)
         {
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+            wherePart.Add("SourceUserUri", SipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("ui_IsInvoiced", "YES");
+            columns.Add("SessionIdTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+            columns.Add("ui_IsPersonal");
+            columns.Add("ui_MarkedOn");
+            columns.Add("ui_IsInvoiced");
+
             if (PhoneCall.PhoneCalls.Count == 0)
             {
                 PhoneCall.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
