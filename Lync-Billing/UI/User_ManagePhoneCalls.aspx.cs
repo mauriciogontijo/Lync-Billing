@@ -117,10 +117,12 @@ namespace Lync_Billing.UI
 
         protected void PhoneCallsStore_Load(object sender, EventArgs e)
         {
-            if (Stores.phoeCallsmanagementStoreDataSource == null) 
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+
+            if (userSession.Stores.phoneCallsHistoryStoreDataSource == null) 
             {
-                Stores.phoeCallsmanagementStoreDataSource = new List<PhoneCall>();
-                string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                userSession.Stores.phoneCallsManagementStoreDataSource = new List<PhoneCall>();
+                string SipAccount = userSession.SipAccount;
 
                 wherePart.Add("SourceUserUri", SipAccount);
                 wherePart.Add("marker_CallTypeID", 1);
@@ -137,13 +139,13 @@ namespace Lync_Billing.UI
                 columns.Add("ui_IsPersonal");
                 columns.Add("ui_MarkedOn");
 
-                Stores.phoeCallsmanagementStoreDataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-                PhoneCallsStore.DataSource = Stores.phoeCallsmanagementStoreDataSource;
+                userSession.Stores.phoneCallsManagementStoreDataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                PhoneCallsStore.DataSource = userSession.Stores.phoneCallsManagementStoreDataSource;
                 PhoneCallsStore.DataBind();
             }
             else
             {
-                PhoneCallsStore.DataSource = Stores.phoeCallsmanagementStoreDataSource; 
+                PhoneCallsStore.DataSource = userSession.Stores.phoneCallsManagementStoreDataSource;
                 PhoneCallsStore.DataBind();
             }
         }
