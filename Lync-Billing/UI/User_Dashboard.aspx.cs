@@ -92,7 +92,7 @@ namespace Lync_Billing.UI
         public List<UsersCallsSummaryChartData> getChartData() 
         {
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-            List<UsersCallsSummaryChartData> summary = UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
+            List<UsersCallsSummaryChartData> summary = UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
             return summary;
         }
     }

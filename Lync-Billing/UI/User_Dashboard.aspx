@@ -273,6 +273,8 @@
                                     <Fields>
                                         <ext:ModelField Name="Name" />
                                         <ext:ModelField Name="TotalCalls" />
+                                         <ext:ModelField Name="TotalCost" />
+                                         <ext:ModelField Name="TotalDuration" />
                                     </Fields>
                                 </ext:Model>
                             </Model>
@@ -280,7 +282,7 @@
                     </Store>
                     <Series>
                         <ext:PieSeries 
-                            AngleField="TotalCalls" 
+                            AngleField="TotalCost" 
                             ShowInLegend="true" 
                             Donut="30" 
                             Highlight="true" 
