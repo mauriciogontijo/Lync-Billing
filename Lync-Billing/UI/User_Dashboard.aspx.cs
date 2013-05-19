@@ -39,11 +39,13 @@ namespace Lync_Billing.UI
         {
             string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
 
-            //UsersCallsSummary userSummary = new UsersCallsSummary();
-
-            if (UsersCallsSummary.UserSummary == null) 
-                UsersCallsSummary.UserSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddYears(-1), DateTime.Now);
-            
+            if (UsersCallsSummary.UserSummary == null)
+            {
+                UsersCallsSummary.UserSummary = UsersCallsSummary.GetUsersCallsSummary(
+                    ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount, 
+                    DateTime.Now.AddYears(-1), 
+                    DateTime.Now);
+            }
 
             List<AbstractComponent> components = new List<AbstractComponent>();
 
