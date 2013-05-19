@@ -108,33 +108,36 @@ namespace Lync_Billing.UI
 
         protected void PhoneCallsCostChartStore_Load(object sender, EventArgs e)
         {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            if (Stores.phoneCallsSummaryChartData == null)
+            if (userSession.Stores.phoneCallsSummaryChartData == null)
             {
-                Stores.phoneCallsSummaryChartData = new List<UsersCallsSummaryChartData>();
-                Stores.phoneCallsSummaryChartData = getChartData();
-                PhoneCallsCostChartStore.DataSource = Stores.phoneCallsSummaryChartData;
+                userSession.Stores.phoneCallsSummaryChartData = new List<UsersCallsSummaryChartData>();
+                userSession.Stores.phoneCallsSummaryChartData = getChartData();
+                PhoneCallsCostChartStore.DataSource = userSession.Stores.phoneCallsSummaryChartData;
                 PhoneCallsCostChartStore.DataBind();
             }
             else 
             {
-                PhoneCallsCostChartStore.DataSource = Stores.phoneCallsSummaryChartData;
+                PhoneCallsCostChartStore.DataSource = userSession.Stores.phoneCallsSummaryChartData;
                 PhoneCallsCostChartStore.DataBind();
             }
         }
 
         protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)
         {
-            if (Stores.phoneCallsSummaryChartData == null)
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+
+            if (userSession.Stores.phoneCallsSummaryChartData == null)
             {
-                Stores.phoneCallsSummaryChartData = new List<UsersCallsSummaryChartData>();
-                Stores.phoneCallsSummaryChartData = getChartData();
-                PhoneCallsDuartionChartStore.DataSource = Stores.phoneCallsSummaryChartData;
+                userSession.Stores.phoneCallsSummaryChartData = new List<UsersCallsSummaryChartData>();
+                userSession.Stores.phoneCallsSummaryChartData = getChartData();
+                PhoneCallsDuartionChartStore.DataSource = userSession.Stores.phoneCallsSummaryChartData;
                 PhoneCallsDuartionChartStore.DataBind();
             }
             else
             {
-                PhoneCallsDuartionChartStore.DataSource = Stores.phoneCallsSummaryChartData;
+                PhoneCallsDuartionChartStore.DataSource = userSession.Stores.phoneCallsSummaryChartData;
                  PhoneCallsDuartionChartStore.DataBind();
             }
         }
