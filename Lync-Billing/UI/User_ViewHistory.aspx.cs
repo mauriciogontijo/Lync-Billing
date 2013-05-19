@@ -40,46 +40,6 @@ namespace Lync_Billing.UI
             PhoneCallStore.DataBind();
         }
 
-        protected void GridSubmitChanges_Click(object sender, DirectEventArgs e)
-        {
-            //do nothing
-        }
-
-        protected void PhoneCallStore_AfterRecordUpdated(object sender, AfterRecordUpdatedEventArgs e)
-        {
-            //do nothing
-        }
-
-        protected void PhoneCallStore_AfterStoreChanged(object sender, AfterStoreChangedEventArgs e)
-        {
-            //do nothing
-        }
-
-        protected void PhoneCallStore_AfterDirectEvent(object sender, AfterDirectEventArgs e)
-        {
-            //do nothing
-        }
-
-        protected void PhoneCallStore_BeforeDirectEvent(object sender, BeforeDirectEventArgs e)
-        {
-            //do nothing
-        }
-
-        protected void PhoneCallStore_BeforeRecordUpdated(object sender, BeforeRecordUpdatedEventArgs e)
-        {
-            //do nothing
-        }
-
-        protected void PhoneCallStore_BeforeStoreChanged(object sender, BeforeStoreChangedEventArgs e)
-        {
-            //do nothing
-        }
-
-        protected void FilterTypeChange(object sender, EventArgs e)
-        {
-            //do nothing
-        }
-
         public void refreshStore(string Field, string value)
         {
             PhoneCallsHistoryGrid.GetStore().Filters.Clear();
@@ -105,6 +65,21 @@ namespace Lync_Billing.UI
         {
             this.PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             this.PhoneCallStore.DataBind();
+        }
+
+        protected void PhoneCallStore_Load(object sender, EventArgs e)
+        {
+            if (PhoneCall.PhoneCalls.Count == 0)
+            {
+                PhoneCall.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                PhoneCallStore.DataSource = PhoneCall.PhoneCalls;
+                PhoneCallStore.DataBind();
+            }
+            else
+            {
+                PhoneCallStore.DataSource = PhoneCall.PhoneCalls;
+                PhoneCallStore.DataBind();
+            }
         }
     }
 }
