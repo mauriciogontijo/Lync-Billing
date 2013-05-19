@@ -177,13 +177,13 @@ namespace Lync_Billing.UI
         }
 
 
-        public static Store PhoneCallsSummaryStore(string sipAccount,int year,int month)
+        public static Store PhoneCallsSummaryStore(string sipAccount,DateTime from,DateTime to)
         {
             Model model = PhoneCallSummaryModel();
             Store store = new Store()
             {
                 ID = "PhoneCallsSummaryStore",
-                DataSource = UsersCallsSummary.GetUsersCallsSummary1(sipAccount,year,month),
+                DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount,from,to),
                 Model = { model },
                 IsPagingStore = true,
                 PageSize = 25
