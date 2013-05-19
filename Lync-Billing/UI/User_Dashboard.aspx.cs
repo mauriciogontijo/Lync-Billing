@@ -101,8 +101,10 @@ namespace Lync_Billing.UI
 
         protected void PhoneCallsCostChartStore_Load(object sender, EventArgs e)
         {
-            if (Stores.phoneCallsSummaryChartData.Count == 0)
+
+            if (Stores.phoneCallsSummaryChartData == null)
             {
+                Stores.phoneCallsSummaryChartData = new List<UsersCallsSummaryChartData>();
                 Stores.phoneCallsSummaryChartData = getChartData();
                 PhoneCallsCostChartStore.DataSource = Stores.phoneCallsSummaryChartData;
                 PhoneCallsCostChartStore.DataBind();
@@ -116,8 +118,9 @@ namespace Lync_Billing.UI
 
         protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)
         {
-            if (Stores.phoneCallsSummaryChartData.Count == 0)
+            if (Stores.phoneCallsSummaryChartData == null)
             {
+                Stores.phoneCallsSummaryChartData = new List<UsersCallsSummaryChartData>();
                 Stores.phoneCallsSummaryChartData = getChartData();
                 PhoneCallsDuartionChartStore.DataSource = Stores.phoneCallsSummaryChartData;
                 PhoneCallsDuartionChartStore.DataBind();
