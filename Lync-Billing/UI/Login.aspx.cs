@@ -34,7 +34,6 @@ namespace Lync_Billing.UI
                     session.TelephoneNumber = userInfo.Telephone;
                     session.IpAddress = HttpContext.Current.Request.UserHostAddress;
                     session.UserAgent = HttpContext.Current.Request.UserAgent;
-                    session.Stores = new Stores();
 
                     List<string> columns = new List<string>();
                     Dictionary<string, object> whereStatement = new Dictionary<string, object>();
