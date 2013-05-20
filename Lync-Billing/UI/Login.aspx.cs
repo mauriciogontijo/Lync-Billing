@@ -74,6 +74,15 @@ namespace Lync_Billing.UI
                     }
                     else
                     {
+                        session.ActiveRoleName = "USER";
+                        
+                        userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
+
+                        if (userRoles.Count > 0)
+                            session.Roles = userRoles;
+                        else
+                            session.Roles = null;
+
                         // If user not found in Users tables that means this is his first login : insert his information into Users table
                         Users user = new Users();
                         user.SiteName = userInfo.physicalDeliveryOfficeName;
