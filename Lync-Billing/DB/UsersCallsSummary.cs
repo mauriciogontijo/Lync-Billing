@@ -120,8 +120,6 @@ namespace Lync_Billing.DB
         public int UnmarkedCallsCost { get; set; }
         public int NumberOfDisputedCalls { get; set; }
 
-        public static UsersCallsSummary UserSummary;
-
         public static UsersCallsSummary GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate)
         {
             wherePart = new Dictionary<string, object>();
