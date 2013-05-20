@@ -18,6 +18,7 @@ namespace Lync_Billing.UI
         Dictionary<string, object> wherePart = new Dictionary<string, object>();
         List<string> columns = new List<string>();
         
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -45,6 +46,7 @@ namespace Lync_Billing.UI
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            Rebind();
         }
 
         protected void AssignPersonal(object sender, DirectEventArgs e)
@@ -69,6 +71,7 @@ namespace Lync_Billing.UI
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            Rebind();
         }
 
         protected void AssignDispute(object sender, DirectEventArgs e)
@@ -93,6 +96,7 @@ namespace Lync_Billing.UI
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            Rebind();
         }
 
         protected void PhoneCallsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
@@ -119,35 +123,23 @@ namespace Lync_Billing.UI
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            if (userSession.Stores.phoneCallsManagementStoreDataSource == null) 
-            {
-                userSession.Stores.phoneCallsManagementStoreDataSource = new List<PhoneCall>();
-                string SipAccount = userSession.SipAccount;
+            wherePart.Add("SourceUserUri", userSession.SipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("ui_IsInvoiced", "NO");
 
-                wherePart.Add("SourceUserUri", SipAccount);
-                wherePart.Add("marker_CallTypeID", 1);
-                wherePart.Add("ui_IsInvoiced", "NO");
+            columns.Add("SessionIdTime");
+            columns.Add("SessionIdSeq");
+            columns.Add("ResponseTime");
+            columns.Add("SessionEndTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+            columns.Add("ui_IsPersonal");
+            columns.Add("ui_MarkedOn");
 
-                columns.Add("SessionIdTime");
-                columns.Add("SessionIdSeq");
-                columns.Add("ResponseTime");
-                columns.Add("SessionEndTime");
-                columns.Add("marker_CallToCountry");
-                columns.Add("DestinationNumberUri");
-                columns.Add("Duration");
-                columns.Add("marker_CallCost");
-                columns.Add("ui_IsPersonal");
-                columns.Add("ui_MarkedOn");
-
-                userSession.Stores.phoneCallsManagementStoreDataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-                PhoneCallsStore.DataSource = userSession.Stores.phoneCallsManagementStoreDataSource;
-                PhoneCallsStore.DataBind();
-            }
-            else
-            {
-                PhoneCallsStore.DataSource = userSession.Stores.phoneCallsManagementStoreDataSource;
-                PhoneCallsStore.DataBind();
-            }
+            PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            PhoneCallsStore.DataBind();
         }
 
     }
