@@ -108,37 +108,17 @@ namespace Lync_Billing.UI
         protected void PhoneCallsCostChartStore_Load(object sender, EventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-
-            if (userSession.Stores.phoneCallsSummaryChartData == null)
-            {
-                userSession.Stores.phoneCallsSummaryChartData = new List<UsersCallsSummaryChartData>();
-                userSession.Stores.phoneCallsSummaryChartData = getChartData();
-                PhoneCallsCostChartStore.DataSource = userSession.Stores.phoneCallsSummaryChartData;
-                PhoneCallsCostChartStore.DataBind();
-            }
-            else 
-            {
-                PhoneCallsCostChartStore.DataSource = userSession.Stores.phoneCallsSummaryChartData;
-                PhoneCallsCostChartStore.DataBind();
-            }
+                
+            PhoneCallsCostChartStore.DataSource = getChartData();
+            PhoneCallsCostChartStore.DataBind();
         }
 
         protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            if (userSession.Stores.phoneCallsSummaryChartData == null)
-            {
-                userSession.Stores.phoneCallsSummaryChartData = new List<UsersCallsSummaryChartData>();
-                userSession.Stores.phoneCallsSummaryChartData = getChartData();
-                PhoneCallsDuartionChartStore.DataSource = userSession.Stores.phoneCallsSummaryChartData;
-                PhoneCallsDuartionChartStore.DataBind();
-            }
-            else
-            {
-                PhoneCallsDuartionChartStore.DataSource = userSession.Stores.phoneCallsSummaryChartData;
-                 PhoneCallsDuartionChartStore.DataBind();
-            }
+            PhoneCallsDuartionChartStore.DataSource = getChartData();
+            PhoneCallsDuartionChartStore.DataBind();
         }
     }
 }
