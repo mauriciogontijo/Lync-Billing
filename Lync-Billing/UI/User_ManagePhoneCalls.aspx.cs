@@ -42,8 +42,8 @@ namespace Lync_Billing.UI
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
-                //ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                //ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
             ManagePhoneCallsGrid.GetStore().CommitChanges();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
