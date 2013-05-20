@@ -26,6 +26,7 @@ namespace Lync_Billing.UI
                 List<string> columns = new List<string>();
 
                 wherePart.Add("SourceUserUri", SipAccount);
+                wherePart.Add("marker_CallTypeID", 1);
 
                 columns.Add("SessionIdTime");
                 columns.Add("DestinationNumberUri");
