@@ -46,7 +46,6 @@ namespace Lync_Billing.UI
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
-            Rebind();
         }
 
         protected void AssignPersonal(object sender, DirectEventArgs e)
@@ -71,7 +70,6 @@ namespace Lync_Billing.UI
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
-            Rebind();
         }
 
         protected void AssignDispute(object sender, DirectEventArgs e)
@@ -96,7 +94,6 @@ namespace Lync_Billing.UI
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
-            Rebind();
         }
 
         protected void PhoneCallsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
