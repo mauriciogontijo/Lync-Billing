@@ -225,6 +225,7 @@
   <ItemGroup>
     <Content Include="UI\MasterPage.Master" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\TBill-Bublisher.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
