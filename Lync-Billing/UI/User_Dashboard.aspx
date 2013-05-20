@@ -95,7 +95,7 @@
 
             this.setTitle(
                 storeItem.get('Name') + ': ' +
-                ((storeItem.get('TotalCost') / total).toFixed(4)) * 100.0 + '%' +
+                ((storeItem.get('TotalCost') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
                 '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
                 '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
             );
@@ -111,7 +111,7 @@
 
             this.setTitle(
                 storeItem.get('Name') + ': ' +
-                ((storeItem.get('TotalDuration') / total).toFixed(4)) * 100.0 + '%' +
+                ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
                 '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
                 '<br>' + 'Net Duration: ' + storeItem.get('TotalDuration') + ' minutes'
             );
