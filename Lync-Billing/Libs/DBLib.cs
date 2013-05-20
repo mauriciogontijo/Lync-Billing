@@ -183,7 +183,7 @@ namespace Lync_Billing.Libs
 
             if (whereClause.ContainsKey("startingDate") && whereClause.ContainsKey("endingDate"))
             {
-                whereStatement.Append(String.Format(" WHERE [SourceUserUri] = '{0}' AND [SessionIdTime] >= '{1}' AND [SessionIdTime] < '{2}'", whereClause["SourceUserUri"].ToString(), whereClause["startingDate"].ToString(), whereClause["endingDate"].ToString()));
+                whereStatement.Append(String.Format(" WHERE [SourceUserUri] = '{0}' AND [SessionIdTime] >= '{1}' AND [SessionIdTime] < '{2}' and [marker_CallTypeID]=1", whereClause["SourceUserUri"].ToString(), whereClause["startingDate"].ToString(), whereClause["endingDate"].ToString()));
             }
             else 
             {
