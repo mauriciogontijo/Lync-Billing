@@ -85,7 +85,7 @@ namespace Lync_Billing.Libs
             StringBuilder orderBy = new StringBuilder();
 
             if (tableName == "PhoneCalls")
-                orderBy.Append("ORDER BY [SessionIdTime] ASC");
+                orderBy.Append("ORDER BY [SessionIdTime] DESC");
             else
                 orderBy.Append("");
 
