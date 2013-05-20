@@ -44,14 +44,8 @@ namespace Lync_Billing.UI
         public static string GetSummaryData()
         {
             string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
-
-            if (UsersCallsSummary.UserSummary == null)
-            {
-                UsersCallsSummary.UserSummary = UsersCallsSummary.GetUsersCallsSummary(
-                    SipAccount,
-                    DateTime.Now.AddMonths(-3),
-                    DateTime.Now);
-            }
+            UsersCallsSummary userSummary = new UsersCallsSummary();
+            userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
 
             List<AbstractComponent> components = new List<AbstractComponent>();
 
@@ -61,9 +55,9 @@ namespace Lync_Billing.UI
                 Icon = Icon.Phone,
                 Html = String.Format(
                     "<div class='block-body wauto m15 p5'><p>" +
-                    "<p class='line-height-1-7 mb15'>You have a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                    "<p class='line-height-1-7 mb15'>In the <span class='red-font'>last 3 months</span>, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                     "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                    UsersCallsSummary.UserSummary.PersonalCallsCount, UsersCallsSummary.UserSummary.PersonalCallsDuration / 60, UsersCallsSummary.UserSummary.PersonalCallsCost)
+                    userSummary.PersonalCallsCount, userSummary.PersonalCallsDuration / 60, userSummary.PersonalCallsCost)
             };
 
             Ext.Net.Panel businessPanel = new Ext.Net.Panel()
@@ -72,9 +66,9 @@ namespace Lync_Billing.UI
                 Icon = Icon.Phone,
                 Html = String.Format(
                     "<div class='block-body wauto m15 p5'><p>" +
-                    "<p class='line-height-1-7 mb15'>You have a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                    "<p class='line-height-1-7 mb15'>In the <span class='red-font'>last 3 months</span>, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                     "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                    UsersCallsSummary.UserSummary.BusinessCallsCount, UsersCallsSummary.UserSummary.BusinessCallsDuration / 60, UsersCallsSummary.UserSummary.BusinessCallsCost)
+                    userSummary.BusinessCallsCount, userSummary.BusinessCallsDuration / 60, userSummary.BusinessCallsCost)
             };
 
             Ext.Net.Panel unmarkedPanel = new Ext.Net.Panel()
@@ -84,9 +78,9 @@ namespace Lync_Billing.UI
                 Icon = Icon.Phone,
                 Html = String.Format(
                     "<div class='block-body wauto m15 p5'><p>" +
-                    "<p class='line-height-1-7 mb15'>You have a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                    "<p class='line-height-1-7 mb15'>In the <span class='red-font'>last 3 months</span>, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                     "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                    UsersCallsSummary.UserSummary.UnmarkedCallsCount, UsersCallsSummary.UserSummary.UnmarkedCallsDuartion / 60, UsersCallsSummary.UserSummary.UnmarkedCallsCost)
+                    userSummary.UnmarkedCallsCount, userSummary.UnmarkedCallsDuartion / 60, userSummary.UnmarkedCallsCost)
             };
 
             
