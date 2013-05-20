@@ -56,34 +56,23 @@ namespace Lync_Billing.UI
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            if (userSession.Stores.phoneCallsHistoryStoreDataSource == null)
-            {
-                userSession.Stores.phoneCallsHistoryStoreDataSource = new List<PhoneCall>();
+           
+            string SipAccount = userSession.SipAccount;
 
-                string SipAccount = userSession.SipAccount;
-
-                wherePart.Add("SourceUserUri", SipAccount);
-                wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("SourceUserUri", SipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
                
-                columns.Add("SessionIdTime");
-                columns.Add("marker_CallToCountry");
-                columns.Add("DestinationNumberUri");
-                columns.Add("Duration");
-                columns.Add("marker_CallCost");
-                columns.Add("ui_IsPersonal");
-                columns.Add("ui_MarkedOn");
-                columns.Add("ui_IsInvoiced");
-
-                userSession.Stores.phoneCallsHistoryStoreDataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-                PhoneCallStore.DataSource = userSession.Stores.phoneCallsHistoryStoreDataSource;
-                PhoneCallStore.DataBind();
-            }
-
-            else 
-            {
-                PhoneCallStore.DataSource = userSession.Stores.phoneCallsHistoryStoreDataSource;
-                PhoneCallStore.DataBind();
-            }
+            columns.Add("SessionIdTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+            columns.Add("ui_IsPersonal");
+            columns.Add("ui_MarkedOn");
+            columns.Add("ui_IsInvoiced");
+              
+            PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            PhoneCallStore.DataBind();
         }
     }
 }
