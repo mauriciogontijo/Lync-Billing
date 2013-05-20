@@ -78,7 +78,20 @@
                 seconds = "0" + seconds;
             }
 
-            return hours + ':' + minutes + ':' + seconds;;
+            return hours + ':' + minutes + ':' + seconds;
+        }
+
+        var chartsDurationFormat = function (seconds) {
+            var sec_num = parseInt(seconds, 10);
+            var hours = Math.floor(sec_num / 3600);
+            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+            var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+            if (hours < 10) hours = "0" + hours;
+            if (minutes < 10) minutes = "0" + minutes;
+            if (seconds < 10) seconds = "0" + seconds;
+
+            return hours + ':' + minutes + ':' + seconds;
         }
 
         var submitValue = function (grid, hiddenFormat, format) {
@@ -86,7 +99,6 @@
         };
 
         var tipCostRenderer = function (storeItem, item) {
-            //calculate percentage.
             var total = 0;
 
             App.PhoneCallsCostChart.getStore().each(function (rec) {
@@ -113,8 +125,68 @@
                 storeItem.get('Name') + ': ' +
                 ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
                 '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
-                '<br>' + 'Net Duration: ' + storeItem.get('TotalDuration') + ' minutes'
+                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.'
             );
+        };
+
+        var TotalDurationLableRenderer = function (storeItem, item) {
+            var total = 0, business_duration = 0, personal_duration = 0, unmarked_duration = 0;
+
+            App.PhoneCallsCostChart.getStore().each(function (rec) {
+                total += rec.get('TotalDuration');
+
+                if (rec.get('Name') == 'Business') {
+                    business_duration = rec.get('TotalDuration');
+                }
+                else if (rec.get('Name') == 'Personal') {
+                    personal_duration = rec.get('TotalDuration');
+                }
+                else if (rec.get('Name') == 'Unmarked') {
+                    unmarked_duration = rec.get('TotalDuration');
+                }
+            });
+
+            if (storeItem == "Business") {
+                return ((business_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
+                //return business_duration
+            }
+            else if (storeItem == "Personal") {
+                return ((personal_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
+                //return personal_duration;
+            }
+            else if (storeItem == "Unmarked") {
+                return ((unmarked_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
+                //return unmarked_duration;
+            }
+        };
+
+
+        var TotalCostLableRenderer = function (storeItem, item) {
+            var total = 0, b_total = 0, p_total = 0, u_total = 0;
+
+            App.PhoneCallsCostChart.getStore().each(function (rec) {
+                total += rec.get('TotalCost');
+
+                if (rec.get('Name') == 'Business') {
+                    b_total = rec.get('TotalCost');
+                }
+                else if (rec.get('Name') == 'Personal') {
+                    p_total = rec.get('TotalCost');
+                }
+                else if (rec.get('Name') == 'Unmarked') {
+                    u_total = rec.get('TotalCost');
+                }
+            });
+
+            if (storeItem == "Business") {
+                return ((b_total / total).toFixed(4) * 100.0).toFixed(2) + '%';
+            }
+            else if (storeItem == "Personal") {
+                return ((p_total / total).toFixed(4) * 100.0).toFixed(2) + '%';
+            }
+            else if (storeItem == "Unmarked") {
+                return ((u_total / total).toFixed(4) * 100.0).toFixed(2) + '%';
+            }
         };
 
         var redirect = function () {
@@ -176,12 +248,12 @@
 
             <div class='clear h15'></div>
 
-            <div id='user-phone-calls-history-block' class='block float-left w49p'>
+            <div id='brief-history-block' class='block float-left w49p'>
                 <div class='content wauto float-left mb10'>
                     <ext:GridPanel
                         ID="PhoneCallsHistoryGrid"
                         runat="server"
-                        Title="Phone Calls History"
+                        Title="History Brief"
                         Width="465"
                         Height="240"
                         AutoScroll="true"
@@ -247,14 +319,14 @@
                 </div>
             </div>
 
-            <div id='user-phone-calls-summary-block' class='block float-right w49p'>
+            <div id='summary-block' class='block float-right w49p'>
                 <div class='content wauto float-left mb10'>
                     <ext:Panel ID="UserPhoneCallsSummary"
                         runat="server"
                         Height="240"
                         Width="465"
                         Layout="AccordionLayout"
-                        Title="Your Phone Calls Summary">
+                        Title="Summary">
                         <Loader ID="SummaryLoader"
                             runat="server"
                             DirectMethod="#{DirectMethods}.GetSummaryData"
@@ -271,11 +343,11 @@
 
             <div class='clear h15'></div>
 
-            <div id='user-phone-calls-Chart-block' class='block float-left w49p'>
+            <div id='cost-report-block' class='block float-left w49p'>
                 <div class='content wauto float-left mb10'>
                     <ext:Panel ID="PhoneCallsCostChartPanel"
                         runat="server"
-                        Title="Calls Cost Chart"
+                        Title="Cost Report (Last 3 Months)"
                         Width="465"
                         Height="350"
                         Layout="FitLayout">
@@ -313,7 +385,9 @@
                                         Donut="30"
                                         Highlight="true"
                                         HighlightSegmentMargin="10">
-                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial" />
+                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial" >
+                                            <Renderer Fn="TotalCostLableRenderer"/>
+                                        </Label>
                                         <Tips runat="server" TrackMouse="true" Width="200" Height="55">
                                             <Renderer Fn="tipCostRenderer" />
                                         </Tips>
@@ -333,11 +407,11 @@
                 </div>
             </div>
 
-            <div id='history-block-3' class='block float-right w49p'>
+            <div id='duration-report-block' class='block float-right w49p'>
                 <div class='content wauto float-left mb10'>
                              <ext:Panel ID="PhoneCallsDuartionChartPanel"
                         runat="server"
-                        Title="Calls Duration Chart"
+                        Title="Duration Report (Last 3 Months)"
                         Width="465"
                         Height="350"
                         Layout="FitLayout">
@@ -375,7 +449,9 @@
                                         Donut="30"
                                         Highlight="true"
                                         HighlightSegmentMargin="10">
-                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial" />
+                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
+                                             <Renderer Fn="TotalDurationLableRenderer"/>
+                                        </Label>
                                         <Tips runat="server" TrackMouse="true" Width="200" Height="55">
                                             <Renderer Fn="tipDuartionRenderer" />
                                         </Tips>

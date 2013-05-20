@@ -57,7 +57,7 @@ namespace Lync_Billing.UI
 
             Ext.Net.Panel personalPanel = new Ext.Net.Panel()
             {
-                Title = "Personal Calls Overview",
+                Title = "Personal",
                 Icon = Icon.Phone,
                 Html = String.Format(
                     "<div class='block-body wauto m15 p5'><p>" +
@@ -68,7 +68,7 @@ namespace Lync_Billing.UI
 
             Ext.Net.Panel businessPanel = new Ext.Net.Panel()
             {
-                Title = "Business Calls Overview",
+                Title = "Business",
                 Icon = Icon.Phone,
                 Html = String.Format(
                     "<div class='block-body wauto m15 p5'><p>" +
@@ -80,7 +80,7 @@ namespace Lync_Billing.UI
             Ext.Net.Panel unmarkedPanel = new Ext.Net.Panel()
             {
 
-                Title = "Unmarked Calls Overview",
+                Title = "Unmarked",
                 Icon = Icon.Phone,
                 Html = String.Format(
                     "<div class='block-body wauto m15 p5'><p>" +
