@@ -92,22 +92,29 @@
             App.PhoneCallsCostChart.getStore().each(function (rec) {
                 total += rec.get('TotalCost');
             });
-            this.setTitle(storeItem.get('Name') + ' : ' +
-                Math.round(storeItem.get('TotalCost') / total * 100) + '%' +
-                '<br>' + 'Total Calls :' + storeItem.get('TotalCalls') +
-                '<br>' + ' Costs : ' + storeItem.get('TotalCost'));
+
+            this.setTitle(
+                storeItem.get('Name') + ': ' +
+                ((storeItem.get('TotalCost') / total).toFixed(4)) * 100.0 + '%' +
+                '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
+                '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
+            );
         };
 
-        var tipDuartionRenderer = function (storeIem, item) {
-
+        var tipDuartionRenderer = function (storeItem, item) {
             //calculate percentage.
             var total = 0;
 
-            App.PhoneCallsDuartionChart.getStore().each(function (rec) {
-                total += rec.get('TotalDuartion');
+            App.PhoneCallsCostChart.getStore().each(function (rec) {
+                total += rec.get('TotalDuration');
             });
-           
-            this.setTitle(storeItem.get('Name') + ': ' + Math.round(storeItem.get('TotalDuartion') / total * 100) + '%');
+
+            this.setTitle(
+                storeItem.get('Name') + ': ' +
+                ((storeItem.get('TotalDuration') / total).toFixed(4)) * 100.0 + '%' +
+                '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
+                '<br>' + 'Net Duration: ' + storeItem.get('TotalDuration') + ' minutes'
+            );
         };
 
         var redirect = function () {
