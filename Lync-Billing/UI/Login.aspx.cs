@@ -75,8 +75,12 @@ namespace Lync_Billing.UI
                     else
                     {
                         session.ActiveRoleName = "USER";
-                        
+                        session.SipAccount = userInfo.SipAccount.Replace("sip:", "");
+                        session.SiteName = userInfo.physicalDeliveryOfficeName;
+                        session.EmployeeID = userInfo.EmployeeID;
+
                         userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
+
 
                         if (userRoles.Count > 0)
                             session.Roles = userRoles;
