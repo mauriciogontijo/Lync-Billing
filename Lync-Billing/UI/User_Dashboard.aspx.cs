@@ -49,7 +49,7 @@ namespace Lync_Billing.UI
             {
                 UsersCallsSummary.UserSummary = UsersCallsSummary.GetUsersCallsSummary(
                     SipAccount,
-                    DateTime.Now.AddYears(-1), 
+                    DateTime.Now.AddMonths(-3),
                     DateTime.Now);
             }
 
