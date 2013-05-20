@@ -47,6 +47,7 @@ namespace Lync_Billing.UI
 
             if (UsersCallsSummary.UserSummary == null)
             {
+                //UsersCallsSummaryChartData
                 UsersCallsSummary.UserSummary = UsersCallsSummary.GetUsersCallsSummary(
                     SipAccount,
                     DateTime.Now.AddYears(-1), 
@@ -63,7 +64,7 @@ namespace Lync_Billing.UI
                     "<div class='block-body wauto m15 p5'><p>" +
                     "<p class='line-height-1-7 mb15'>You have a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                     "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                    UsersCallsSummary.UserSummary.PersonalCallsCount, UsersCallsSummary.UserSummary.PersonalCallsDuration / 60, UsersCallsSummary.UserSummary.PersonalCallsCost)
+                    UsersCallsSummary.UserSummary.PersonalCallsCount, Convert.ToInt32(UsersCallsSummary.UserSummary.PersonalCallsDuration / 60), UsersCallsSummary.UserSummary.PersonalCallsCost)
             };
 
             Ext.Net.Panel businessPanel = new Ext.Net.Panel()
@@ -74,7 +75,7 @@ namespace Lync_Billing.UI
                     "<div class='block-body wauto m15 p5'><p>" +
                     "<p class='line-height-1-7 mb15'>You have a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                     "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                    UsersCallsSummary.UserSummary.BusinessCallsCount, UsersCallsSummary.UserSummary.BusinessCallsDuration / 60, UsersCallsSummary.UserSummary.BusinessCallsCost)
+                    UsersCallsSummary.UserSummary.BusinessCallsCount, Convert.ToInt32(UsersCallsSummary.UserSummary.BusinessCallsDuration / 60), UsersCallsSummary.UserSummary.BusinessCallsCost)
             };
 
             Ext.Net.Panel unmarkedPanel = new Ext.Net.Panel()
@@ -86,7 +87,7 @@ namespace Lync_Billing.UI
                     "<div class='block-body wauto m15 p5'><p>" +
                     "<p class='line-height-1-7 mb15'>You have a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                     "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                    UsersCallsSummary.UserSummary.UnmarkedCallsCount, UsersCallsSummary.UserSummary.UnmarkedCallsDuartion / 60, UsersCallsSummary.UserSummary.UnmarkedCallsCost)
+                    UsersCallsSummary.UserSummary.UnmarkedCallsCount, Convert.ToInt32(UsersCallsSummary.UserSummary.UnmarkedCallsDuartion / 60), UsersCallsSummary.UserSummary.UnmarkedCallsCost)
             };
 
             
