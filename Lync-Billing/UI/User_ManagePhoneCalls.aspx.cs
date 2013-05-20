@@ -119,7 +119,7 @@ namespace Lync_Billing.UI
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            if (userSession.Stores.phoneCallsHistoryStoreDataSource == null) 
+            if (userSession.Stores.phoneCallsManagementStoreDataSource == null) 
             {
                 userSession.Stores.phoneCallsManagementStoreDataSource = new List<PhoneCall>();
                 string SipAccount = userSession.SipAccount;
