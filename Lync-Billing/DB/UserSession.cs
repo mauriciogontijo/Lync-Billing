@@ -17,9 +17,6 @@ namespace Lync_Billing.DB
         public string IpAddress {set;get;}
         public string UserAgent { set; get; }
 
-        public Stores Stores = new Stores();
-
-
         public List<UserRole> Roles { set; get; }
         public Dictionary<string, string> ClientData { set; get; }
 
@@ -36,13 +33,6 @@ namespace Lync_Billing.DB
             if (!usersSessions.Contains(userSession))
                 usersSessions.Remove(userSession);
         }
-    }
-
-    public class Stores
-    {
-        public  List<PhoneCall> phoneCallsHistoryStoreDataSource;
-        public  List<PhoneCall> phoneCallsManagementStoreDataSource;
-        public  List<UsersCallsSummaryChartData> phoneCallsSummaryChartData;
     }
     
 }
