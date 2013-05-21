@@ -36,6 +36,10 @@ namespace Lync_Billing.UI
                 PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart,7);
                 PhoneCallsHistoryStore.DataBind();
 
+
+                UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+                DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.SipAccount, DateTime.Now.Year, 1, 12);
+                DurationCostChartStore.DataBind();
                 
             }
         }
@@ -113,6 +117,14 @@ namespace Lync_Billing.UI
 
             PhoneCallsDuartionChartStore.DataSource = getChartData();
             PhoneCallsDuartionChartStore.DataBind();
+        }
+
+        protected void DurationCostChartStore_Load(object sender, EventArgs e)
+        {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.SipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataBind();
+
         }
     }
 }
