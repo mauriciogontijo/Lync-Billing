@@ -151,6 +151,7 @@
                                 runat="server" 
                                 Vtype="daterange"
                                 FieldLabel="From"
+                                Margins="0 25 0 5"
                                 EnableKeyEvents="true">    
                                 <CustomConfig>
                                     <ext:ConfigItem Name="startDateField" Value="DateField1" Mode="Value" />
@@ -174,7 +175,7 @@
                                 </Listeners>
                             </ext:DateField>
 
-                            <ext:Button ID="Button1" runat="server" Text="Generate" Icon="Application" Margins="0 0 0 175">
+                            <ext:Button ID="Button1" runat="server" Text="Generate" Icon="Application" Margins="0 0 0 145">
                                 <%--<Listeners>
                                     <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, 'xls');" />
                                 </Listeners>--%>
