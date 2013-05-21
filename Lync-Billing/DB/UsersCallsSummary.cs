@@ -123,7 +123,7 @@ namespace Lync_Billing.DB
         public decimal UnmarkedCallsCost { get; set; }
         public int NumberOfDisputedCalls { get; set; }
 
-        public DateTime Date { set; get; }
+        public DateTime MonthDate { set; get; }
 
         public int Year { get; set; }
         public int Month { get; set; }
@@ -219,8 +219,8 @@ namespace Lync_Billing.DB
                 int month = Convert.ToInt32(row[dt.Columns["Month"]]);
                
                 userSummary = new UsersCallsSummary();
-                
-                userSummary.Date = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+
+                userSummary.MonthDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
 
                 userSummary.BusinessCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessDuration"]]));
                 userSummary.BusinessCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessCallsCount"]]));
