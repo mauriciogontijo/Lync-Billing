@@ -304,7 +304,7 @@
                         ID="DurationCostChartPanel"
                         runat="server"
                         Width="900"
-                        Height="300"
+                        Height="350"
                         Layout="FitLayout">
                         <Items>
                 <ext:Chart 
