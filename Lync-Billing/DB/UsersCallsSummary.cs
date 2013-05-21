@@ -123,6 +123,8 @@ namespace Lync_Billing.DB
         public decimal UnmarkedCallsCost { get; set; }
         public int NumberOfDisputedCalls { get; set; }
 
+        public DateTime Date { set; get; }
+
         public int Year { get; set; }
         public int Month { get; set; }
 
@@ -212,60 +214,36 @@ namespace Lync_Billing.DB
 
             foreach (DataRow row in dt.Rows)
             {
+
+                int year = Convert.ToInt32(row[dt.Columns["Year"]]);
+                int month = Convert.ToInt32(row[dt.Columns["Month"]]);
+               
                 userSummary = new UsersCallsSummary();
-
-                userSummary.Month = Convert.ToInt32(row[dt.Columns["Month"]]);
-                userSummary.Year = Convert.ToInt32(row[dt.Columns["Year"]]);
                 
-                if (row[dt.Columns["BusinessDuration"]] != System.DBNull.Value)
-                    userSummary.BusinessCallsDuration = 0;
-                else
-                    userSummary.BusinessCallsDuration = Convert.ToInt32(row[dt.Columns["BusinessDuration"]]);
+                userSummary.Date = new DateTime(year, month, DateTime.DaysInMonth(year, month));
 
-                if (row[dt.Columns["BusinessCallsCount"]] != System.DBNull.Value)
-                    userSummary.BusinessCallsCount = 0;
-                else
-                    userSummary.BusinessCallsCount = Convert.ToInt32(row[dt.Columns["BusinessCallsCount"]]);
-
-                if (row[dt.Columns["BusinessCost"]] != System.DBNull.Value)
-                    userSummary.BusinessCallsCost = 0;
-                else
-                    userSummary.BusinessCallsCost = Convert.ToDecimal(row[dt.Columns["BusinessCost"]]);
-
-                if (row[dt.Columns["PersonalDuartion"]] != System.DBNull.Value)
-                    userSummary.PersonalCallsDuration = 0;
-                else
-                    userSummary.PersonalCallsDuration = Convert.ToInt32(row[dt.Columns["PersonalDuartion"]]);
-
-                if (row[dt.Columns["PersonalCallsCount"]] != System.DBNull.Value)
-                    userSummary.PersonalCallsCount = 0;
-                else
-                    userSummary.PersonalCallsCount = Convert.ToInt32(row[dt.Columns["PersonalCallsCount"]]);
-
-                if (row[dt.Columns["PersonalCost"]] != System.DBNull.Value)
-                    userSummary.PersonalCallsCost = 0;
-                else
-                    userSummary.PersonalCallsCost = Convert.ToDecimal(row[dt.Columns["PersonalCost"]]);
-
-                if (row[dt.Columns["UnMarkedDuartion"]] != System.DBNull.Value)
-                    userSummary.UnmarkedCallsDuartion = 0;
-                else
-                    userSummary.UnmarkedCallsDuartion = Convert.ToInt32(row[dt.Columns["UnMarkedDuartion"]]);
-
-                if (row[dt.Columns["UnMarkedCallsCount"]] != System.DBNull.Value)
-                    userSummary.UnmarkedCallsCount = 0;
-                else
-                    userSummary.UnmarkedCallsCount = Convert.ToInt32(row[dt.Columns["UnMarkedCallsCount"]]);
-
-                if (row[dt.Columns["UnMarkedCost"]] != System.DBNull.Value)
-                    userSummary.UnmarkedCallsCost = 0;
-                else
-                    userSummary.UnmarkedCallsCost = Convert.ToDecimal(row[dt.Columns["UnMarkedCost"]]);
+                userSummary.BusinessCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessDuration"]]));
+                userSummary.BusinessCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessCallsCount"]]));
+                userSummary.BusinessCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["BusinessCost"]]));
+                userSummary.PersonalCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalDuartion"]]));
+                userSummary.PersonalCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalCallsCount"]]));
+                userSummary.PersonalCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["PersonalCost"]]));
+                userSummary.UnmarkedCallsDuartion = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuartion"]]));
+                userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
+                userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
 
                 chartList.Add(userSummary);
             }
 
             return chartList;
+        }
+
+        private static object ReturnZeroIfNull(object value) 
+        {
+            if (value == System.DBNull.Value)
+                return 0;
+            else
+                return value;
         }
         
     }
