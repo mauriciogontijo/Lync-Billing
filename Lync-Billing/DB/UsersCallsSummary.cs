@@ -124,6 +124,7 @@ namespace Lync_Billing.DB
         public int NumberOfDisputedCalls { get; set; }
 
         public DateTime MonthDate { set; get; }
+        public decimal Duration { get; set; }
 
         public int Year { get; set; }
         public int Month { get; set; }
@@ -233,6 +234,9 @@ namespace Lync_Billing.DB
                 userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
                 userSummary.Month = month;
                 userSummary.Year = year;
+
+                userSummary.Duration = userSummary.PersonalCallsDuration / 60;
+
                 chartList.Add(userSummary);
             }
 
