@@ -193,6 +193,58 @@
             window.location = "User_ManagePhoneCalls.aspx";
         };
 
+        Ext.override(Ext.chart.LegendItem, {
+            createSeriesMarkers: function (config) {
+                var me = this,
+                    index = config.yFieldIndex,
+                    series = me.series,
+                    seriesType = series.type,
+                    surface = me.surface,
+                    z = me.zIndex;
+
+                // Line series - display as short line with optional marker in the middle
+                if (seriesType === 'line' || seriesType === 'scatter') {
+                    if (seriesType === 'line') {
+                        var seriesStyle = Ext.apply(series.seriesStyle, series.style);
+                        me.drawLine(0.5, 0.5, 16.5, 0.5, z, seriesStyle, index);
+                    };
+
+                    if (series.showMarkers || seriesType === 'scatter') {
+                        var markerConfig = Ext.apply(series.markerStyle, series.markerConfig || {}, {
+                            fill: series.getLegendColor(index)
+                        });
+                        me.drawMarker(8.5, 0.5, z, markerConfig);
+                    }
+                }
+                    // All other series types - display as filled box
+                else {
+                    me.drawFilledBox(12, 12, z, index);
+                }
+            },
+
+            /**
+             * @private Creates line sprite for Line series.
+             */
+            drawLine: function (fromX, fromY, toX, toY, z, seriesStyle, index) {
+                var me = this,
+                    surface = me.surface,
+                    series = me.series;
+
+                return me.add('line', surface.add({
+                    type: 'path',
+                    path: 'M' + fromX + ',' + fromY + 'L' + toX + ',' + toY,
+                    zIndex: (z || 0) + 2,
+                    "stroke-width": series.lineWidth,
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": series.dash,
+                    stroke: seriesStyle.stroke || series.getLegendColor(index) || '#000',
+                    style: {
+                        cursor: 'pointer'
+                    }
+                }));
+            }
+
+        });
     </script>
 </head>
 
@@ -264,8 +316,8 @@
                             <Model>
                                 <ext:Model ID="DurationCostChartModel" runat="server">
                                     <Fields>
-                                        <ext:ModelField Name="MonthDate" Type="Date" />
-                                        <ext:ModelField Name="PersonalCallsDuration" />
+                                        <ext:ModelField Name="Month" />
+                                        <ext:ModelField Name="Duration" />
                                         <ext:ModelField Name="PersonalCallsCost" />
                                     </Fields>
                                 </ext:Model>
@@ -273,28 +325,19 @@
                         </ext:Store>
                     </Store>
                     <Axes>
-                        <ext:TimeAxis 
-                            Title="Date" 
-                            Fields="MonthDate" 
-                            Position="Bottom" 
-                            DateFormat="MMM"
-                            Constrain="true"
-                            StepUnit="Month"
-                            AutoDataBind="true"
-                            FromDate="<%# DateTime.Now.AddMonths(-12) %>"
-                            ToDate =" <%# DateTime.Now %>"/>
-
+                         <ext:CategoryAxis 
+                            Position="Bottom"
+                            Fields="Month"
+                            Title="Year"/>      
                         <ext:NumericAxis 
-                            Title="Calls Duartion" 
-                            Fields="PersonalCallsDuration" 
-                            Position="Left" 
+                            Fields="Duration" 
+                            Position="Left"
                             >
                             <LabelTitle Fill="#115fa6" />
                             <Label Fill="#115fa6" />
                         </ext:NumericAxis>
-
+                        
                         <ext:NumericAxis 
-                            Title="Calls Cost"
                             Fields="PersonalCallsCost" 
                             Position="Right" 
                             >
@@ -304,9 +347,9 @@
                     </Axes>
                     <Series>
                         <ext:LineSeries 
-                            Titles="Cakks Duartion" 
-                            XField="MonthDate" 
-                            YField="PersonalCallsDuration" 
+                            Titles="Calls Duartion" 
+                            XField="Month" 
+                            YField="Duration" 
                             Axis="Left" 
                             Smooth="3">
                             <HighlightConfig Size="7" Radius="7" />
@@ -315,7 +358,7 @@
 
                         <ext:LineSeries 
                             Titles="Calls Cost" 
-                            XField="MonthDate" 
+                            XField="Month" 
                             YField="PersonalCallsCost" 
                             Axis="Right" 
                             Smooth="3">
