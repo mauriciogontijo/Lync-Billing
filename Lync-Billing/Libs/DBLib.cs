@@ -166,7 +166,6 @@ namespace Lync_Billing.Libs
             string selectQuery = string.Empty;
 
             StringBuilder whereStatement = new StringBuilder();
-            StringBuilder fields = new StringBuilder();
            //SourceUserUri
 
             if (whereClause.ContainsKey("startingDate") && whereClause.ContainsKey("endingDate"))
