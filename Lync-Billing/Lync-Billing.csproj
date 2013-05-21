@@ -148,6 +148,7 @@
     <Compile Include="DB\Enums.cs" />
     <Compile Include="Libs\JsonTranslator.cs" />
     <Compile Include="Libs\PDFLib.cs" />
+    <Compile Include="Libs\Statistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Accounting_Dashboard.aspx.cs">
       <DependentUpon>Accounting_Dashboard.aspx</DependentUpon>
