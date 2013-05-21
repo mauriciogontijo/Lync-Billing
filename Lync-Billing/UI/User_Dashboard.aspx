@@ -328,19 +328,19 @@
                          <ext:CategoryAxis 
                             Position="Bottom"
                             Fields="Month"
-                            Title="Year"/>      
+                            Title="Current Year"/>      
                         <ext:NumericAxis 
+                            Title="Duration in Munites"
                             Fields="Duration" 
-                            Position="Left"
-                            >
+                            Position="Left">
                             <LabelTitle Fill="#115fa6" />
                             <Label Fill="#115fa6" />
                         </ext:NumericAxis>
                         
                         <ext:NumericAxis 
+                            Title="Cost in Local Currency"
                             Fields="PersonalCallsCost" 
-                            Position="Right" 
-                            >
+                            Position="Right">
                             <LabelTitle Fill="#94ae0a" />
                             <Label Fill="#94ae0a" />
                         </ext:NumericAxis>
