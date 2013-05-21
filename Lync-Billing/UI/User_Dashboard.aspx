@@ -328,7 +328,7 @@
                          <ext:CategoryAxis 
                             Position="Bottom"
                             Fields="Month"
-                            Title="Current Year"/>      
+                            Title="Current Year" />      
                         <ext:NumericAxis 
                             Title="Duration in Munites"
                             Fields="Duration" 
