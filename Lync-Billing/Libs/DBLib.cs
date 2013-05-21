@@ -158,19 +158,7 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
-        /// <summary>
-        /// Construct Generic Select Statemnet 
-        /// </summary>
-        /// <param name="tableName">DB Table Name</param>
-        /// <param name="fields">List of Fields to be fetched from Database</param>
-        /// <param name="whereClause"> A dictionary which holds the fields and its related values to be able to construct Where Statemnet
-        /// 1. Null if there is no condition
-        /// 2. Dictionary holds fields names and values if there is a condition
-        /// </param>
-        /// <param name="limits">Holds how many rows to be fetched from the database table. 
-        /// 1. 0 if all Rows 
-        /// 2. Value for number of rows</param>
-        /// <returns>DataTable Object</returns>
+       
         public DataTable SELECT_USER_STATISTICS(string tableName, Dictionary<string, object> whereClause)
         {
             DataTable dt = new DataTable();
@@ -213,6 +201,7 @@ namespace Lync_Billing.Libs
 
             return dt;
         }
+
 
         /// <summary>
         /// Construct Generic INSERT Statement
