@@ -193,6 +193,59 @@
             window.location = "User_ManagePhoneCalls.aspx";
         };
 
+        Ext.override(Ext.chart.LegendItem, {
+            createSeriesMarkers: function (config) {
+                var me = this,
+                    index = config.yFieldIndex,
+                    series = me.series,
+                    seriesType = series.type,
+                    surface = me.surface,
+                    z = me.zIndex;
+
+                // Line series - display as short line with optional marker in the middle
+                if (seriesType === 'line' || seriesType === 'scatter') {
+                    if (seriesType === 'line') {
+                        var seriesStyle = Ext.apply(series.seriesStyle, series.style);
+                        me.drawLine(0.5, 0.5, 16.5, 0.5, z, seriesStyle, index);
+                    };
+
+                    if (series.showMarkers || seriesType === 'scatter') {
+                        var markerConfig = Ext.apply(series.markerStyle, series.markerConfig || {}, {
+                            fill: series.getLegendColor(index)
+                        });
+                        me.drawMarker(8.5, 0.5, z, markerConfig);
+                    }
+                }
+                    // All other series types - display as filled box
+                else {
+                    me.drawFilledBox(12, 12, z, index);
+                }
+            },
+
+            /**
+             * @private Creates line sprite for Line series.
+             */
+            drawLine: function (fromX, fromY, toX, toY, z, seriesStyle, index) {
+                var me = this,
+                    surface = me.surface,
+                    series = me.series;
+
+                return me.add('line', surface.add({
+                    type: 'path',
+                    path: 'M' + fromX + ',' + fromY + 'L' + toX + ',' + toY,
+                    zIndex: (z || 0) + 2,
+                    "stroke-width": series.lineWidth,
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": series.dash,
+                    stroke: seriesStyle.stroke || series.getLegendColor(index) || '#000',
+                    style: {
+                        cursor: 'pointer'
+                    }
+                }));
+            }
+
+        });
+
     </script>
 </head>
 
@@ -243,6 +296,98 @@
                 </div>
                 <div class="block-body">
                     <p class='font-14'>Welcome to the new eBill, it's now more customized and personal. Please take your time going through your personal analytics and have a look at our new personal management tools.</p>
+                </div>
+            </div>
+
+            <div id='Div1' class='announcements shadow mb10 p10'>
+                <div class='m10'>
+                    <%--<p class='font-18'>ANNOUNCEMENTS!</p>--%>
+                </div>
+                <div class="block-body">
+                    <ext:Panel
+                        ID="DurationCostChartPanel"
+                        runat="server"
+                        Width="900"
+                        Height="400"
+                        Layout="FitLayout">
+                        <Items>
+                            <ext:Chart
+                                ID="DurationCostChart"
+                                runat="server"
+                                Animate="true">
+                                <Store>
+                                    <ext:Store ID="DurationCostChartStore" runat="server">
+                                        <Model>
+                                            <ext:Model ID="Model1" runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="Date" Type="Date" />
+                                                    <ext:ModelField Name="PersonalCallsDuration" />
+                                                    <ext:ModelField Name="PersonalCallsCost" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
+                                <Axes>
+                                    <ext:TimeAxis
+                                        Title="Date"
+                                        Fields="Date"
+                                        Position="Bottom"
+                                        DateFormat="MMM"
+                                        Constrain="true"
+                                        FromDate="<%# DateTime.Today %>"
+                                        ToDate="<%# DateTime.Today.AddMonths(-12) %>"
+                                        AutoDataBind="true" />
+
+                                    <ext:NumericAxis
+                                        Title="Calls Duartion"
+                                        Fields="PersonalCallsDuration"
+                                        Position="Left"
+                                        Maximum="100">
+                                        <LabelTitle Fill="#115fa6" />
+                                        <Label Fill="#115fa6" />
+                                    </ext:NumericAxis>
+
+                                    <ext:NumericAxis
+                                        Title="Calls Cost"
+                                        Fields="PersonalCallsCost"
+                                        Position="Right"
+                                        Maximum="100">
+                                        <LabelTitle Fill="#94ae0a" />
+                                        <Label Fill="#94ae0a" />
+                                    </ext:NumericAxis>
+                                </Axes>
+                                <Series>
+                                    <ext:LineSeries
+                                        Titles="Blue Line"
+                                        XField="PersonalCallsDuration"
+                                        YField="PersonalCallsCost"
+                                        Axis="Left"
+                                        Smooth="3">
+                                        <HighlightConfig Size="7" Radius="7" />
+                                        <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+                                    </ext:LineSeries>
+
+                                    <ext:LineSeries
+                                        Titles="Green Line"
+                                        XField="PersonalCallsDuration"
+                                        YField="PersonalCallsCost"
+                                        Axis="Right"
+                                        Smooth="3">
+                                        <HighlightConfig Size="7" Radius="7" />
+                                        <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+                                    </ext:LineSeries>
+                                </Series>
+                                <Plugins>
+                                    <ext:VerticalMarker ID="VerticalMarker1" runat="server">
+                                        <XLabelRenderer Handler="return Ext.util.Format.date(value, 'M');" />
+                                    </ext:VerticalMarker>
+                                </Plugins>
+                                <LegendConfig Position="Bottom" />
+                            </ext:Chart>
+                        </Items>
+                    </ext:Panel>
+
                 </div>
             </div>
 
@@ -385,18 +530,18 @@
                                         Donut="30"
                                         Highlight="true"
                                         HighlightSegmentMargin="10">
-                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial" >
-                                            <Renderer Fn="TotalCostLableRenderer"/>
+                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
+                                            <Renderer Fn="TotalCostLableRenderer" />
                                         </Label>
                                         <Tips runat="server" TrackMouse="true" Width="200" Height="55">
                                             <Renderer Fn="tipCostRenderer" />
                                         </Tips>
                                         <Listeners>
-                                            <ItemClick Fn="redirect"/>
+                                            <ItemClick Fn="redirect" />
                                         </Listeners>
                                     </ext:PieSeries>
                                 </Series>
-                                
+
                             </ext:Chart>
                         </Items>
                     </ext:Panel>
@@ -409,7 +554,7 @@
 
             <div id='duration-report-block' class='block float-right w49p'>
                 <div class='content wauto float-left mb10'>
-                             <ext:Panel ID="PhoneCallsDuartionChartPanel"
+                    <ext:Panel ID="PhoneCallsDuartionChartPanel"
                         runat="server"
                         Title="Duration Report (Last 3 Months)"
                         Width="465"
@@ -450,13 +595,13 @@
                                         Highlight="true"
                                         HighlightSegmentMargin="10">
                                         <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
-                                             <Renderer Fn="TotalDurationLableRenderer"/>
+                                            <Renderer Fn="TotalDurationLableRenderer" />
                                         </Label>
                                         <Tips runat="server" TrackMouse="true" Width="200" Height="55">
                                             <Renderer Fn="tipDuartionRenderer" />
                                         </Tips>
-                                         <Listeners>
-                                            <ItemClick Fn="redirect"/>
+                                        <Listeners>
+                                            <ItemClick Fn="redirect" />
                                         </Listeners>
                                     </ext:PieSeries>
                                 </Series>
@@ -466,7 +611,7 @@
                 </div>
                 <div class="clear"></div>
                 <div class='more-button wauto float-right'>
-                  <%--  <a href='#' class='font-10'>view more >></a>--%>
+                    <%--  <a href='#' class='font-10'>view more >></a>--%>
                 </div>
             </div>
             <%--</asp:Content>--%>

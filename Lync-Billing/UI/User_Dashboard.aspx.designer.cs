@@ -40,6 +40,51 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.ResourceManager resourceManager;
         
         /// <summary>
+        /// DurationCostChartPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel DurationCostChartPanel;
+        
+        /// <summary>
+        /// DurationCostChart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Chart DurationCostChart;
+        
+        /// <summary>
+        /// DurationCostChartStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store DurationCostChartStore;
+        
+        /// <summary>
+        /// Model1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model Model1;
+        
+        /// <summary>
+        /// VerticalMarker1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.VerticalMarker VerticalMarker1;
+        
+        /// <summary>
         /// PhoneCallsHistoryGrid control.
         /// </summary>
         /// <remarks>
