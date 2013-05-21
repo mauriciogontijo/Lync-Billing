@@ -18,7 +18,7 @@ namespace Lync_Billing.Libs
             return new OleDbConnection(connectionString);
         }
 
-         public DataTable USER_SUMMARY(string SipAccount, int Year, int startingMonth, int endingMonth)
+        public DataTable USER_STATS(string SipAccount, int Year, int startingMonth, int endingMonth)
          {
              DataTable dt = new DataTable();
              OleDbDataReader dr;
@@ -47,8 +47,8 @@ namespace Lync_Billing.Libs
              return dt;
 
          }
-
-         private static void ConvertDateToYearMonth(DateTime date,out int year, out int month) 
+        
+        private static void ConvertDateToYearMonth(DateTime date,out int year, out int month) 
          {
              year = date.Year;
              month = date.Month;
