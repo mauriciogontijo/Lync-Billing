@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="Accounting_Dashboard.aspx.cs" Inherits="Lync_Billing.UI.Accounting_Dashboard" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="Accounting_ValidateCycle.aspx.cs" Inherits="Lync_Billing.UI.Accounting_ValidateCycle" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Accounting Mainpage</title>
@@ -28,7 +28,7 @@
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
         <div class="block-body pt5">
-            <p class="font-18">Accounting Dashboard!</p>
+            <p class="font-18">Validate Accounting Cycle!</p>
         </div>
     </div>
     <!-- *** END OF ACCOUNTING MAIN BODY *** -->

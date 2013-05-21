@@ -13,7 +13,7 @@ using System.Xml.Xsl;
 
 namespace Lync_Billing.UI
 {
-    public partial class Accounting_Dashboard : System.Web.UI.Page
+    public partial class Accounting_ValidateCycle : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

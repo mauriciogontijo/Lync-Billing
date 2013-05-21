@@ -101,14 +101,14 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
 /* ************************************** */
 /* start inner-pages sidebar text styling */
 #sidebar p.section-header {
-    font-size: 1.1em;
+    font-size: 12px;
     line-height: 1.8;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
 #sidebar p.section-item {
-    font-size: 1.0em;
+    font-size: 11px;
     line-height: 1.5;
     margin-left: 15px;
 }
