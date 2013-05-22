@@ -40,51 +40,6 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.ResourceManager resourceManager;
         
         /// <summary>
-        /// DurationCostChartPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel DurationCostChartPanel;
-        
-        /// <summary>
-        /// DurationCostChart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Chart DurationCostChart;
-        
-        /// <summary>
-        /// DurationCostChartStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store DurationCostChartStore;
-        
-        /// <summary>
-        /// DurationCostChartModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Model DurationCostChartModel;
-        
-        /// <summary>
-        /// VerticalMarker1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.VerticalMarker VerticalMarker1;
-        
-        /// <summary>
         /// PhoneCallsDuartionChartPanel control.
         /// </summary>
         /// <remarks>
@@ -193,39 +148,48 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Column Duration;
         
         /// <summary>
-        /// PhoneCallsCostChartPanel control.
+        /// DurationCostChartPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel PhoneCallsCostChartPanel;
+        protected global::Ext.Net.Panel DurationCostChartPanel;
         
         /// <summary>
-        /// PhoneCallsCostChart control.
+        /// DurationCostChart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Chart PhoneCallsCostChart;
+        protected global::Ext.Net.Chart DurationCostChart;
         
         /// <summary>
-        /// PhoneCallsCostChartStore control.
+        /// DurationCostChartStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store PhoneCallsCostChartStore;
+        protected global::Ext.Net.Store DurationCostChartStore;
         
         /// <summary>
-        /// PhoneCallsCostChartModel control.
+        /// DurationCostChartModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model PhoneCallsCostChartModel;
+        protected global::Ext.Net.Model DurationCostChartModel;
+        
+        /// <summary>
+        /// VerticalMarker1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.VerticalMarker VerticalMarker1;
     }
 }
