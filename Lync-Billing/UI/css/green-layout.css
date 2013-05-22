@@ -112,6 +112,42 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
     line-height: 1.5;
     margin-left: 15px;
 }
+
+.sidebar-section {
+    width: auto;
+    margin-bottom: 25px;
+}
+
+.sidebar-section .sidebar-section-header {
+    width: auto;
+    height: 28px;
+    margin-bottom: 5px;
+    padding: 0;
+    cursor: default;
+    zoom: 1;
+    overflow: hidden;
+    border: 1px solid #d0d0d0;
+    border-bottom-color: #c5c5c5;
+    background-image: none;
+    background-color: #c5c5c5;
+    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#f9f9f9),color-stop(100%,#e3e4e6));
+    background-image: -webkit-linear-gradient(top,#f9f9f9,#e3e4e6);
+    background-image: -moz-linear-gradient(top,#f9f9f9,#e3e4e6);
+    background-image: -o-linear-gradient(top,#f9f9f9,#e3e4e6);
+    background-image: linear-gradient(top,#f9f9f9,#e3e4e6);
+}
+
+.sidebar-section .sidebar-section-header p {
+    margin: 5px;
+    text-align: left;
+    vertical-align: central;
+    font-size: 12px;
+}
+
+.sidebar-section .sidebar-section-body {
+    margin: 0 0 5px 15px;
+    font-size: 11px;
+}
 /* end inner-pages sidebar text styling */
 /* ************************************ */
 
