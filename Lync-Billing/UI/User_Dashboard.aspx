@@ -451,6 +451,7 @@
                                         Smooth="3">
                                             <HighlightConfig Size="7" Radius="7" />
                                             <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+
                                     </ext:LineSeries>
 
                                     <ext:LineSeries 
