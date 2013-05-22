@@ -307,7 +307,7 @@
                             runat="server"
                             Title="Duration Report (Last 3 Months)"
                             Width="465"
-                            Height="400"
+                            Height="370"
                             Layout="FitLayout">
                             <Items>
                                 <ext:Chart
@@ -457,7 +457,7 @@
                             ID="DurationCostChartPanel"
                             runat="server"
                             Width="465"
-                            Height="390"
+                            Height="360"
                             Header="True"
                             Title="Personal Duration & Cost Report"
                             Layout="FitLayout">
