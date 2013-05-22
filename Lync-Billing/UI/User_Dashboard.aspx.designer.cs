@@ -191,5 +191,41 @@ namespace Lync_Billing.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Panel UserPhoneCallsSummary;
+        
+        /// <summary>
+        /// PhoneCallsCostChartPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel PhoneCallsCostChartPanel;
+        
+        /// <summary>
+        /// PhoneCallsCostChart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Chart PhoneCallsCostChart;
+        
+        /// <summary>
+        /// PhoneCallsCostChartStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store PhoneCallsCostChartStore;
+        
+        /// <summary>
+        /// PhoneCallsCostChartModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model PhoneCallsCostChartModel;
     }
 }
