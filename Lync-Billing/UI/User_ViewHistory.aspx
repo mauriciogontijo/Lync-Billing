@@ -231,7 +231,7 @@
         <div class="block-body">
             <ext:Panel ID="SidebarPanel"
                 runat="server"
-                Height="300"
+                Height="340"
                 Title="User Tools">
                 <Content>
                     <div class='sidebar-section'>
@@ -239,7 +239,7 @@
                             <p>Manage</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='User_ManagePhoneCalls.aspx'>Business Personal</a></p>
+                            <p><a href='User_ManagePhoneCalls.aspx'>Phone Calls</a></p>
                             <p><a href='#'>Delegates</a></p>
                             <p><a href='#'>Address Book</a></p>
                         </div>
@@ -250,7 +250,7 @@
                             <p>History</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='User_ViewHistory.aspx'>Phone Calls History</a></p>
+                            <p><a href='User_ViewHistory.aspx' class="selected">Phone Calls History</a></p>
                         </div>
                     </div>
 
@@ -404,7 +404,7 @@
                                     <Select Handler="applyFilter(this);" />
                                 </Listeners>
                             </ext:ComboBox>
-                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 500">
+                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 510">
                                  <Listeners>
                                     <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, 'xls');" />
                                 </Listeners>

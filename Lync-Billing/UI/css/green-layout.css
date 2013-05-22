@@ -27,7 +27,7 @@ div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; bord
 /* **************************** */
 /* start content-blocks styling */
 .block { width: auto; margin: 0 auto; color: #FFFFFF; display: block; overflow: hidden; }
-.block-body { position: relative; width: auto; margin: 0 5px 5px 5px; display: block; padding: 5px 5px 5px 10px; color: #000000; overflow: hidden; }
+.block-body { position: relative; width: auto; margin: 5px; display: block; /*padding: 5px;*/ padding-top: 5px; color: #000000; overflow: hidden; }
 .block-header { position: relative; width: auto; min-height: 27px; max-height: 27px; margin: 5px 5px 0 5px; display: block; padding: 5px; 	
 	background: #79BD9A; /* for non-css3 browsers */
 	background: -webkit-gradient(linear, left top, left bottom, from(#A8DBA8), to(#79BD9A)); /* for webkit browsers */
@@ -116,6 +116,8 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
 .sidebar-section {
     width: auto;
     margin-bottom: 25px;
+    display: block;
+    overflow: hidden;
 }
 
 .sidebar-section .sidebar-section-header {
@@ -137,17 +139,13 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
     background-image: linear-gradient(top,#f9f9f9,#e3e4e6);
 }
 
-.sidebar-section .sidebar-section-header p {
-    margin: 5px;
-    text-align: left;
-    vertical-align: central;
-    font-size: 12px;
-}
+.sidebar-section .sidebar-section-header p { margin: 5px; text-align: left; vertical-align: central; font-size: 12px; }
+.sidebar-section .sidebar-section-body { height: auto; width: auto; margin: 0 0 5px 15px; }
+.sidebar-section .sidebar-section-body p { font-size: 12px; line-height: 22px; }
+.sidebar-section .sidebar-section-body p a { font-size: inherit; text-decoration: none; }
+.sidebar-section .sidebar-section-body p a:hover { color: green; }
+.sidebar-section .sidebar-section-body p a.selected { font-weight: bold; font-size: 12px; }
 
-.sidebar-section .sidebar-section-body {
-    margin: 0 0 5px 15px;
-    font-size: 11px;
-}
 /* end inner-pages sidebar text styling */
 /* ************************************ */
 

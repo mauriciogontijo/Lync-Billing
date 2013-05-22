@@ -118,24 +118,36 @@
         <div class="block-body">
             <ext:Panel ID="SidebarPanel"
                 runat="server"
-                Height="300"
+                Height="340"
                 Title="User Tools">
                 <Content>
-                    <div class='float-left m10 ml15'>
-                        <p class='section-header'>Manage</p>
-                        <p class='section-item ml15'><a href='User_ManagePhoneCalls.aspx'>Business Personal</a></p>
-                        <p class='section-item ml15'><a href='#'>Delegates</a></p>
-                        <p class='section-item ml15'><a href='#'>Address Book</a></p>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Manage</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='User_ManagePhoneCalls.aspx' class="selected">Phone Calls</a></p>
+                            <p><a href='#'>Delegates</a></p>
+                            <p><a href='#'>Address Book</a></p>
+                        </div>
                     </div>
 
-                    <div class='float-left m10 ml15'>
-                        <p class='section-header'>History</p>
-                        <p class='section-item ml15'><a href='User_ViewHistory.aspx'>Phone Calls History</a></p>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>History</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='User_ViewHistory.aspx'>Phone Calls History</a></p>
+                        </div>
                     </div>
 
-                    <div class='float-left m10 ml15'>
-                        <p class='section-header'>Statistics</p>
-                        <p class='section-item ml15'><a href='#'>Phone Calls Statistics</a></p>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Statistics</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='#'>Phone Calls Statistics</a></p>
+                        </div>
                     </div>
                 </Content>
             </ext:Panel>
@@ -309,7 +321,7 @@
                                     </ext:Button>
                                 </Buttons>
                             </ext:ButtonGroup>
-                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 290">
+                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 300">
                                  <Listeners>
                                     <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
                                 </Listeners>
