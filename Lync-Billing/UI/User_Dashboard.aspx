@@ -301,91 +301,59 @@
             <div class='clear h15'></div>
             
             <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 900px;">
-                <div id='duration-cost-chart-block' class='block wauto'>
-                    <div class="content wauto float-left mb10">
-                        <ext:Panel
-                            ID="DurationCostChartPanel"
+                <div id='duration-report-block' class='block wauto'>
+                    <div class='content wauto float-left mb10'>
+                        <ext:Panel ID="PhoneCallsDuartionChartPanel"
                             runat="server"
-                            Width="460"
-                            Height="390"
-                            Header="True"
-                            Title="Personal Duration & Cost Report"
+                            Title="Duration Report (Last 3 Months)"
+                            Width="465"
+                            Height="400"
                             Layout="FitLayout">
                             <Items>
-                                <ext:Chart 
-                                    ID="DurationCostChart" 
-                                    runat="server" 
-                                    Animate="true">
+                                <ext:Chart
+                                    ID="PhoneCallsDuartionChart"
+                                    runat="server"
+                                    Animate="true"
+                                    Shadow="true"
+                                    InsetPadding="20"
+                                    Width="465"
+                                    Height="350"
+                                    Theme="Base:gradients">
+                                    <LegendConfig Position="Right" />
                                     <Store>
-                                        <ext:Store ID="DurationCostChartStore" runat="server" >
+                                        <ext:Store ID="PhoneCallsDuartionChartStore"
+                                            OnLoad="PhoneCallsDuartionChartStore_Load"
+                                            runat="server">
                                             <Model>
-                                                <ext:Model ID="DurationCostChartModel" runat="server">
+                                                <ext:Model ID="PhoneCallsDuartionCharModel" runat="server">
                                                     <Fields>
-                                                        <ext:ModelField Name="MonthDate" />
-                                                        <ext:ModelField Name="Duration" />
-                                                        <ext:ModelField Name="PersonalCallsCost" />
+                                                        <ext:ModelField Name="Name" />
+                                                        <ext:ModelField Name="TotalCalls" />
+                                                        <ext:ModelField Name="TotalCost" />
+                                                        <ext:ModelField Name="TotalDuration" />
                                                     </Fields>
                                                 </ext:Model>
                                             </Model>
                                         </ext:Store>
                                     </Store>
-                                
-                                    <Axes>
-                                         <ext:CategoryAxis 
-                                            Position="Bottom"
-                                            Fields="MonthDate"
-                                            Title="Current Year">
-                                             <Label>
-                                                 <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
-                                             </Label>
-                                         </ext:CategoryAxis>
-
-                                        <ext:NumericAxis 
-                                            Title="Duration in Munites"
-                                            Fields="Duration" 
-                                            Position="Left">
-                                                <LabelTitle Fill="#115fa6" />
-                                                <Label Fill="#115fa6" />
-                                        </ext:NumericAxis>
-                        
-                                        <ext:NumericAxis 
-                                            Title="Cost in Local Currency"
-                                            Fields="PersonalCallsCost" 
-                                            Position="Right">
-                                                <LabelTitle Fill="#94ae0a" />
-                                                <Label Fill="#94ae0a" />
-                                        </ext:NumericAxis>
-                                    </Axes>
-
                                     <Series>
-                                        <ext:LineSeries 
-                                            Titles="Calls Duartion" 
-                                            XField="MonthDate" 
-                                            YField="Duration" 
-                                            Axis="Left" 
-                                            Smooth="3">
-                                                <HighlightConfig Size="7" Radius="7" />
-                                                <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
-
-                                        </ext:LineSeries>
-
-                                        <ext:LineSeries 
-                                            Titles="Calls Cost" 
-                                            XField="MonthDate" 
-                                            YField="PersonalCallsCost" 
-                                            Axis="Right" 
-                                            Smooth="3">
-                                                <HighlightConfig Size="7" Radius="7" />
-                                                <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
-                                        </ext:LineSeries>
+                                        <ext:PieSeries
+                                            AngleField="TotalDuration"
+                                            ShowInLegend="true"
+                                            Donut="30"
+                                            Highlight="true"
+                                            HighlightSegmentMargin="10">
+                                            <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
+                                                <Renderer Fn="TotalDurationLableRenderer" />
+                                            </Label>
+                                            <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="55">
+                                                <Renderer Fn="tipDuartionRenderer" />
+                                            </Tips>
+                                            <Listeners>
+                                                <ItemClick Fn="redirect" />
+                                            </Listeners>
+                                        </ext:PieSeries>
                                     </Series>
-
-                                    <Plugins>
-                                        <ext:VerticalMarker ID="VerticalMarker1" runat="server">
-                                            <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');" />
-                                        </ext:VerticalMarker>
-                                    </Plugins>
-                                    <LegendConfig Position="Bottom" />
                                 </ext:Chart>
                             </Items>
                         </ext:Panel>
@@ -487,59 +455,91 @@
 
                 <div class='clear h20'></div>
 
-                <div id='duration-report-block' class='block wauto'>
-                    <div class='content wauto float-left mb10'>
-                        <ext:Panel ID="PhoneCallsDuartionChartPanel"
+                <div id='duration-cost-chart-block' class='block wauto'>
+                    <div class="content wauto float-left mb10">
+                        <ext:Panel
+                            ID="DurationCostChartPanel"
                             runat="server"
-                            Title="Duration Report (Last 3 Months)"
-                            Width="465"
-                            Height="400"
+                            Width="460"
+                            Height="410"
+                            Header="True"
+                            Title="Personal Duration & Cost Report"
                             Layout="FitLayout">
                             <Items>
-                                <ext:Chart
-                                    ID="PhoneCallsDuartionChart"
-                                    runat="server"
-                                    Animate="true"
-                                    Shadow="true"
-                                    InsetPadding="20"
-                                    Width="465"
-                                    Height="350"
-                                    Theme="Base:gradients">
-                                    <LegendConfig Position="Right" />
+                                <ext:Chart 
+                                    ID="DurationCostChart" 
+                                    runat="server" 
+                                    Animate="true">
                                     <Store>
-                                        <ext:Store ID="PhoneCallsDuartionChartStore"
-                                            OnLoad="PhoneCallsDuartionChartStore_Load"
-                                            runat="server">
+                                        <ext:Store ID="DurationCostChartStore" runat="server" >
                                             <Model>
-                                                <ext:Model ID="PhoneCallsDuartionCharModel" runat="server">
+                                                <ext:Model ID="DurationCostChartModel" runat="server">
                                                     <Fields>
-                                                        <ext:ModelField Name="Name" />
-                                                        <ext:ModelField Name="TotalCalls" />
-                                                        <ext:ModelField Name="TotalCost" />
-                                                        <ext:ModelField Name="TotalDuration" />
+                                                        <ext:ModelField Name="MonthDate" />
+                                                        <ext:ModelField Name="Duration" />
+                                                        <ext:ModelField Name="PersonalCallsCost" />
                                                     </Fields>
                                                 </ext:Model>
                                             </Model>
                                         </ext:Store>
                                     </Store>
+                                
+                                    <Axes>
+                                         <ext:CategoryAxis 
+                                            Position="Bottom"
+                                            Fields="MonthDate"
+                                            Title="Current Year">
+                                             <Label>
+                                                 <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
+                                             </Label>
+                                         </ext:CategoryAxis>
+
+                                        <ext:NumericAxis 
+                                            Title="Duration in Munites"
+                                            Fields="Duration" 
+                                            Position="Left">
+                                                <LabelTitle Fill="#115fa6" />
+                                                <Label Fill="#115fa6" />
+                                        </ext:NumericAxis>
+                        
+                                        <ext:NumericAxis 
+                                            Title="Cost in Local Currency"
+                                            Fields="PersonalCallsCost" 
+                                            Position="Right">
+                                                <LabelTitle Fill="#94ae0a" />
+                                                <Label Fill="#94ae0a" />
+                                        </ext:NumericAxis>
+                                    </Axes>
+
                                     <Series>
-                                        <ext:PieSeries
-                                            AngleField="TotalDuration"
-                                            ShowInLegend="true"
-                                            Donut="30"
-                                            Highlight="true"
-                                            HighlightSegmentMargin="10">
-                                            <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
-                                                <Renderer Fn="TotalDurationLableRenderer" />
-                                            </Label>
-                                            <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="55">
-                                                <Renderer Fn="tipDuartionRenderer" />
-                                            </Tips>
-                                            <Listeners>
-                                                <ItemClick Fn="redirect" />
-                                            </Listeners>
-                                        </ext:PieSeries>
+                                        <ext:LineSeries 
+                                            Titles="Calls Duartion" 
+                                            XField="MonthDate" 
+                                            YField="Duration" 
+                                            Axis="Left" 
+                                            Smooth="3">
+                                                <HighlightConfig Size="7" Radius="7" />
+                                                <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+
+                                        </ext:LineSeries>
+
+                                        <ext:LineSeries 
+                                            Titles="Calls Cost" 
+                                            XField="MonthDate" 
+                                            YField="PersonalCallsCost" 
+                                            Axis="Right" 
+                                            Smooth="3">
+                                                <HighlightConfig Size="7" Radius="7" />
+                                                <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+                                        </ext:LineSeries>
                                     </Series>
+
+                                    <Plugins>
+                                        <ext:VerticalMarker ID="VerticalMarker1" runat="server">
+                                            <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');" />
+                                        </ext:VerticalMarker>
+                                    </Plugins>
+                                    <LegendConfig Position="Bottom" />
                                 </ext:Chart>
                             </Items>
                         </ext:Panel>

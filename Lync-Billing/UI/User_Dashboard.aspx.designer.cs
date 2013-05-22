@@ -40,49 +40,40 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.ResourceManager resourceManager;
         
         /// <summary>
-        /// DurationCostChartPanel control.
+        /// PhoneCallsDuartionChartPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel DurationCostChartPanel;
+        protected global::Ext.Net.Panel PhoneCallsDuartionChartPanel;
         
         /// <summary>
-        /// DurationCostChart control.
+        /// PhoneCallsDuartionChart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Chart DurationCostChart;
+        protected global::Ext.Net.Chart PhoneCallsDuartionChart;
         
         /// <summary>
-        /// DurationCostChartStore control.
+        /// PhoneCallsDuartionChartStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store DurationCostChartStore;
+        protected global::Ext.Net.Store PhoneCallsDuartionChartStore;
         
         /// <summary>
-        /// DurationCostChartModel control.
+        /// PhoneCallsDuartionCharModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model DurationCostChartModel;
-        
-        /// <summary>
-        /// VerticalMarker1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.VerticalMarker VerticalMarker1;
+        protected global::Ext.Net.Model PhoneCallsDuartionCharModel;
         
         /// <summary>
         /// PhoneCallsHistoryGrid control.
@@ -157,39 +148,48 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Panel UserPhoneCallsSummary;
         
         /// <summary>
-        /// PhoneCallsDuartionChartPanel control.
+        /// DurationCostChartPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel PhoneCallsDuartionChartPanel;
+        protected global::Ext.Net.Panel DurationCostChartPanel;
         
         /// <summary>
-        /// PhoneCallsDuartionChart control.
+        /// DurationCostChart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Chart PhoneCallsDuartionChart;
+        protected global::Ext.Net.Chart DurationCostChart;
         
         /// <summary>
-        /// PhoneCallsDuartionChartStore control.
+        /// DurationCostChartStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store PhoneCallsDuartionChartStore;
+        protected global::Ext.Net.Store DurationCostChartStore;
         
         /// <summary>
-        /// PhoneCallsDuartionCharModel control.
+        /// DurationCostChartModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model PhoneCallsDuartionCharModel;
+        protected global::Ext.Net.Model DurationCostChartModel;
+        
+        /// <summary>
+        /// VerticalMarker1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.VerticalMarker VerticalMarker1;
     }
 }
