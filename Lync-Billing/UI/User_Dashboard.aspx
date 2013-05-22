@@ -125,7 +125,8 @@
                 storeItem.get('Name') + ': ' +
                 ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
                 '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
-                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.'
+                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' + 
+                '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
             );
         };
 
@@ -359,7 +360,7 @@
                                             <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
                                                 <Renderer Fn="TotalDurationLableRenderer" />
                                             </Label>
-                                            <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="55">
+                                            <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="75">
                                                 <Renderer Fn="tipDuartionRenderer" />
                                             </Tips>
                                             <Listeners>
@@ -520,7 +521,7 @@
                                             </ext:CategoryAxis>
 
                                         <ext:NumericAxis 
-                                            Title="Duration in Minutes"
+                                            Title="Duration in Hours"
                                             Fields="Duration" 
                                             Position="Left">
                                                 <LabelTitle Fill="#115fa6" />

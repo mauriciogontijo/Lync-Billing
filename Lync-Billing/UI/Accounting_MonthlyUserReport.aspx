@@ -30,7 +30,7 @@
         <div class="block-body">
             <ext:Panel ID="SidebarPanel"
                 runat="server"
-                Height="340"
+                Height="380"
                 Title="User Tools">
                 <Content>
                     <div class='sidebar-section'>
@@ -38,13 +38,13 @@
                             <p>Pages</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='Accounting_Dashboard.aspx' class='selected'>Accounting Dashboard</a></p>
+                            <p><a href='Accounting_Dashboard.aspx'>Accounting Dashboard</a></p>
                         </div>
                     </div>
 
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>User Reports</p>
+                            <p>Generate User Reports</p>
                         </div>
                         <div class="sidebar-section-body">
                             <p><a href='Accounting_MonthlyUserReport.aspx' class='selected'>Monthly Users Report</a></p>
@@ -55,7 +55,7 @@
 
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>Site Reports</p>
+                            <p>Generate Site Reports</p>
                         </div>
                         <div class="sidebar-section-body">
                             
@@ -71,7 +71,7 @@
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='Div2' class='block float-right w80p h100p'>
         <div class="block-body pt5">
-            <p class="font-18">Generate Periodical User Reports!</p>
+            <p class="font-18">Generate Monthly User Reports!</p>
         </div>
     </div>
     <!-- *** END OF ACCOUNTING MAIN BODY *** -->

@@ -30,7 +30,7 @@
         <div class="block-body">
             <ext:Panel ID="SidebarPanel"
                 runat="server"
-                Height="340"
+                Height="380"
                 Title="User Tools">
                 <Content>
                     <div class='sidebar-section'>
@@ -44,7 +44,7 @@
 
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>User Reports</p>
+                            <p>Generate User Reports</p>
                         </div>
                         <div class="sidebar-section-body">
                             <p><a href='Accounting_MonthlyUserReport.aspx'>Monthly Users Report</a></p>
@@ -55,7 +55,7 @@
 
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>Site Reports</p>
+                            <p>Generate Site Reports</p>
                         </div>
                         <div class="sidebar-section-body">
                             
