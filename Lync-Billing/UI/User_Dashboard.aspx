@@ -132,7 +132,7 @@
         var TotalDurationLableRenderer = function (storeItem, item) {
             var total = 0, business_duration = 0, personal_duration = 0, unmarked_duration = 0;
 
-            App.PhoneCallsCostChart.getStore().each(function (rec) {
+            App.PhoneCallsDuartionChart.getStore().each(function (rec) {
                 total += rec.get('TotalDuration');
 
                 if (rec.get('Name') == 'Business') {
