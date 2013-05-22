@@ -43,9 +43,9 @@ namespace Lync_Billing.UI
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                //ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
-            ManagePhoneCallsGrid.GetStore().CommitChanges();
+            //ManagePhoneCallsGrid.GetStore().CommitChanges();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
         }
 
@@ -68,9 +68,9 @@ namespace Lync_Billing.UI
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();  
             }
-            ManagePhoneCallsGrid.GetStore().CommitChanges();
+            //ManagePhoneCallsGrid.GetStore().CommitChanges();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
         }
 
@@ -93,8 +93,9 @@ namespace Lync_Billing.UI
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
-            ManagePhoneCallsGrid.GetStore().CommitChanges();
+            //ManagePhoneCallsGrid.GetStore().CommitChanges();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
         }
 
