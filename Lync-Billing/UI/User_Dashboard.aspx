@@ -406,7 +406,7 @@
                                         <Model>
                                             <ext:Model ID="DurationCostChartModel" runat="server">
                                                 <Fields>
-                                                    <ext:ModelField Name="Month" />
+                                                    <ext:ModelField Name="MonthDate" />
                                                     <ext:ModelField Name="Duration" />
                                                     <ext:ModelField Name="PersonalCallsCost" />
                                                 </Fields>
@@ -418,8 +418,12 @@
                                 <Axes>
                                      <ext:CategoryAxis 
                                         Position="Bottom"
-                                        Fields="Month"
-                                        Title="Current Year" />
+                                        Fields="MonthDate"
+                                        Title="Current Year">
+                                         <Label>
+                                             <Renderer Handler="return Ext.util.Format.date(value, 'M d');" />
+                                         </Label>
+                                     </ext:CategoryAxis>
 
                                     <ext:NumericAxis 
                                         Title="Duration in Munites"
@@ -441,7 +445,7 @@
                                 <Series>
                                     <ext:LineSeries 
                                         Titles="Calls Duartion" 
-                                        XField="Month" 
+                                        XField="MonthDate" 
                                         YField="Duration" 
                                         Axis="Left" 
                                         Smooth="3">
@@ -451,7 +455,7 @@
 
                                     <ext:LineSeries 
                                         Titles="Calls Cost" 
-                                        XField="Month" 
+                                        XField="MonthDate" 
                                         YField="PersonalCallsCost" 
                                         Axis="Right" 
                                         Smooth="3">
