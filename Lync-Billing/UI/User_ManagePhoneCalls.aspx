@@ -250,7 +250,14 @@
                 </ColumnModel>
 
                 <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1" runat="server" Mode="Multi"></ext:CheckboxSelectionModel>
+                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1" 
+                        runat="server" 
+                        Mode="Multi" 
+                        AllowDeselect="true"
+                        IgnoreRightMouseSelection="true"
+                        CheckOnly="true">
+
+                    </ext:CheckboxSelectionModel>
                 </SelectionModel>
 
                 <TopBar>
