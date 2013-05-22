@@ -539,6 +539,10 @@
                         </ColumnModel>
                     </ext:GridPanel>
                 </div><!-- END OF CONTENT -->
+				<div class='clear h5'></div>
+				<div class='more-button wauto float-right mb5'>
+					<a href='User_ViewHistory.aspx' class='font-10'>view more >></a>
+				</div>
             </div><!-- END OF BLOCk -->
 
             <div id='summary-block' class='block float-right w49p'>
@@ -553,7 +557,7 @@
                             runat="server"
                             DirectMethod="#{DirectMethods}.GetSummaryData"
                             Mode="Component">
-                            <LoadMask ShowMask="true" />
+                                <LoadMask ShowMask="true" />
                         </Loader>
                     </ext:Panel>
                 </div><!-- END OF CONTENT -->

@@ -115,32 +115,34 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF SIDEBAR *** -->
     <div id='sidebar' class='sidebar block float-left w20p'>
-        <div class='block-header top-rounded bh-shadow'>
-            <p class='font-1-2-em bold'>User Management</p>
-        </div>
-        <div class='block-body bottom-rounded bb-shadow'>
-            <div class='wauto float-left mb15'>
-                <p class='section-header'>Manage</p>
-                <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Business Personal</a></p>
-                <p class='section-item'><a href='#'>Delegates</a></p>
-                 <p class='section-item'><a href='#'>Address Book</a></p>
-                
-            </div>
+        <div class="block-body">
+            <ext:Panel ID="SidebarPanel"
+                runat="server"
+                Height="300"
+                Title="User Tools">
+                <Content>
+                    <div class='float-left m10 ml15'>
+                        <p class='section-header'>Manage</p>
+                        <p class='section-item ml15'><a href='User_ManagePhoneCalls.aspx'>Business Personal</a></p>
+                        <p class='section-item ml15'><a href='#'>Delegates</a></p>
+                        <p class='section-item ml15'><a href='#'>Address Book</a></p>
+                    </div>
 
-            <div class='wauto float-left mb15'>
-                <p class='section-header'>History</p>
-                <p class='section-item'><a href='User_ViewHistory.aspx'>Phone Calls History</a></p>
-            </div>
+                    <div class='float-left m10 ml15'>
+                        <p class='section-header'>History</p>
+                        <p class='section-item ml15'><a href='User_ViewHistory.aspx'>Phone Calls History</a></p>
+                    </div>
 
-            <div class='wauto float-left mb15'>
-                <p class='section-header'>Statistics</p>
-                <p class='section-item'><a href='#'>Phone Calls Statistics</a></p>
-            </div>
-
-            <div class='clear h5'></div>
+                    <div class='float-left m10 ml15'>
+                        <p class='section-header'>Statistics</p>
+                        <p class='section-item ml15'><a href='#'>Phone Calls Statistics</a></p>
+                    </div>
+                </Content>
+            </ext:Panel>
         </div>
     </div>
     <!-- *** END OF SIDEBAR *** -->
+
 
     <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
     <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
@@ -164,8 +166,7 @@
                         PageSize="25"
                         OnLoad="PhoneCallsStore_Load"
                         OnSubmitData="PhoneCallsStore_SubmitData"
-                        OnReadData="PhoneCallsStore_ReadData"
-                        >
+                        OnReadData="PhoneCallsStore_ReadData">
                         <Model>
                             <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
                                 <Fields>

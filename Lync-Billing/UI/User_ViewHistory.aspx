@@ -226,31 +226,44 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
-   <!-- *** START OF SIDEBAR *** -->
+    <!-- *** START OF SIDEBAR *** -->
     <div id='sidebar' class='sidebar block float-left w20p'>
-        <div class='block-header top-rounded bh-shadow'>
-            <p class='font-1-2-em bold'>User Management</p>
-        </div>
-        <div class='block-body bottom-rounded bb-shadow'>
-            <div class='wauto float-left mb15'>
-                <p class='section-header'>Manage</p>
-                <p class='section-item'><a href='User_ManagePhoneCalls.aspx'>Business Personal</a></p>
-                <p class='section-item'><a href='#'>Delegates</a></p>
-                 <p class='section-item'><a href='#'>Address Book</a></p>
-                
-            </div>
+        <div class="block-body">
+            <ext:Panel ID="SidebarPanel"
+                runat="server"
+                Height="300"
+                Title="User Tools">
+                <Content>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Manage</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='User_ManagePhoneCalls.aspx'>Business Personal</a></p>
+                            <p><a href='#'>Delegates</a></p>
+                            <p><a href='#'>Address Book</a></p>
+                        </div>
+                    </div>
 
-            <div class='wauto float-left mb15'>
-                <p class='section-header'>History</p>
-                <p class='section-item'><a href='User_ViewHistory.aspx'>Phone Calls History</a></p>
-            </div>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>History</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='User_ViewHistory.aspx'>Phone Calls History</a></p>
+                        </div>
+                    </div>
 
-            <div class='wauto float-left mb15'>
-                <p class='section-header'>Statistics</p>
-                <p class='section-item'><a href='#'>Phone Calls Statistics</a></p>
-            </div>
-
-            <div class='clear h5'></div>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Statistics</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='#'>Phone Calls Statistics</a></p>
+                        </div>
+                    </div>
+                </Content>
+            </ext:Panel>
         </div>
     </div>
     <!-- *** END OF SIDEBAR *** -->

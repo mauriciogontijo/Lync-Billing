@@ -13,6 +13,15 @@ namespace Lync_Billing.UI {
     public partial class User_ManagePhoneCalls {
         
         /// <summary>
+        /// SidebarPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel SidebarPanel;
+        
+        /// <summary>
         /// ManagePhoneCallsGrid control.
         /// </summary>
         /// <remarks>
