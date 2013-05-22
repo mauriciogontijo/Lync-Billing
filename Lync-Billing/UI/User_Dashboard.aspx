@@ -421,7 +421,7 @@
                                         Fields="MonthDate"
                                         Title="Current Year">
                                          <Label>
-                                             <Renderer Handler="return Ext.util.Format.date(value, 'M d');" />
+                                             <Renderer Handler="return Ext.util.Format.date(value, 'Y M');" />
                                          </Label>
                                      </ext:CategoryAxis>
 
