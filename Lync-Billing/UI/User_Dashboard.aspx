@@ -255,7 +255,6 @@
                     }
                 }));
             }
-
         });
     </script>
 </head>
@@ -267,40 +266,42 @@
         <div id='header-container'>
             <div id='nav-toolbar' class='nav-toolbar text-center'>
                 <div id='logo' class='logo float-left'>
-                    <p><a href='User_Dashboard.aspx'>LOGO</a></p>
-                </div>
+				    <p><a href='User_Dashboard.aspx'>LOGO</a></p>
+			    </div>
 
-                <% if (false)
-                   { %>
-                <ul id='nav-buttons'>
-                    <li class='nav-button'>
-                        <!--<a href='#' class='nav-button-item'><img src='images/settings.png' width='32' /></a>-->
-                        <a id='settings-menu-button' href="javascript:void(0)">
-                            <img alt='Settings Menu' src='images/settings.png' width='32' /></a>
-                        <div id="settings-more-list-container" style="display: block;">
-                            <!---<ul id="settings-more-list">
-						                <li><a class='settings-menu-text' title="jQuery Cheat Sheet" href="/jquery">Example</a></li>
-						                <li><a class='settings-menu-text' title="NodeJS Cheat Sheet" href="/nodejs">Example</a></li>
-						                <li><a class='settings-menu-text' title="PHP Cheat Sheet" href="/php">Example</a></li>
-						                <li><a class='settings-menu-text' title="Java Cheat Sheet" href="/java">Example</a></li>
-						                <li><a class='settings-menu-text' href="/#more">Even More ></a></li>
-						            </ul>---->
-                            <a href="#">One 123123</a>
-                            <a href="#">Two 123123</a>
-                            <a href="#">Three 123123</a>
-                        </div>
-                    </li>
-                    <li class='nav-button'><a href='user-inner-page.html' class='nav-button-item'>
-                        <img alt='Manage My Bills' src='images/mybills.png' width='32' /></a></li>
-                    <li class='nav-button'><a href='user-inner-page.html' class='nav-button-item'>
-                        <img alt='Manage My Phone Calls' src='images/phonecalls.png' width='40' /></a></li>
-                </ul>
-                <% } %>
+			    <ul id='nav-buttons'>
+				    <li class='nav-button'>
+					    <!--<a href='#' class='nav-button-item'><img src='images/settings.png' width='32' /></a>-->
+					    <a id='settings-menu-button' href="javascript:void(0)"><img alt='Settings Menu' src='images/settings.png' width='32' /></a>
+					    <div id="settings-more-list-container" style="display: none;">
+						    <!---<ul id="settings-more-list">
+						        <li><a class='settings-menu-text' title="jQuery Cheat Sheet" href="/jquery">Example</a></li>
+						        <li><a class='settings-menu-text' title="NodeJS Cheat Sheet" href="/nodejs">Example</a></li>
+						        <li><a class='settings-menu-text' title="PHP Cheat Sheet" href="/php">Example</a></li>
+						        <li><a class='settings-menu-text' title="Java Cheat Sheet" href="/java">Example</a></li>
+						        <li><a class='settings-menu-text' href="/#more">Even More ></a></li>
+						    </ul>---->
+						    <a href="#">One 123123</a>
+						    <a href="#">Two 123123</a>
+						    <a href="#">Three 123123</a>
+					    </div>
+				    </li>
+				    <li class='nav-button'>
+                        <a href='USer_ManagePhoneCalls.aspx' class='nav-button-item'>
+                            <img alt='Manage My Bills' src='images/mybills.png' width='32' />
+                        </a>
+				    </li>
+
+				    <li class='nav-button'>
+                        <a href='Accounting_Dashboard.aspx' class='nav-button-item'>
+                            <img alt='Manage My Phone Calls' src='images/phonecalls.png' width='40' />
+                        </a>
+				    </li>
+			    </ul>
             </div>
         </div>
 
         <div id='main' class='main bottom-rounded'>
-            <%--<asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">--%>
             <div id='announcements' class='announcements shadow mb20 p10'>
                 <div class='m10'>
                     <p class='font-18'>ANNOUNCEMENTS!</p>

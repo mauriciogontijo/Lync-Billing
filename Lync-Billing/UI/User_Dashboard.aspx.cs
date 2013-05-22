@@ -18,9 +18,15 @@ namespace Lync_Billing.UI
         protected void Page_Load(object sender, EventArgs e)
         {
             int count = PhoneCallsHistoryStore.Proxy.Count();
+
+            //If the user is not loggedin, redirect to Login page.
+            if (Session.Contents["UserData"] == null)
+            {
+                Response.Redirect("~/UI/Login.aspx");
+            }
+
             if (!X.IsAjaxRequest)
             {
-            
                 string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 Dictionary<string, object> wherePart = new Dictionary<string, object>();
                 List<string> columns = new List<string>();

@@ -22,7 +22,11 @@ namespace Lync_Billing.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            //If the user is not loggedin, redirect to Login page.
+            if (Session.Contents["UserData"] == null)
+            {
+                Response.Redirect("~/UI/Login.aspx");
+            }
         }
 
         public void refreshStore(string Field, string value)

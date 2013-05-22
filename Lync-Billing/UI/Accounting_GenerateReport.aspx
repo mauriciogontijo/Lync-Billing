@@ -45,6 +45,38 @@
     <!-- *** END OF SIDEBAR *** -->
 
 
+    <!-- *** START OF SIDEBAR *** -->
+    <div id='Div1' class='sidebar block float-left w20p'>
+        <div class="block-body">
+            <ext:Panel ID="SidebarPanel"
+                runat="server"
+                Height="340"
+                Title="User Tools">
+                <Content>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Reports</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p class='selected'><a href='Accounting_GenerateReport.aspx'>Generate Report</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Validation</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='Accounting_ValidateCycle.aspx'>Validate Accounting Cycle</a></p>
+                        </div>
+                    </div>
+                </Content>
+            </ext:Panel>
+        </div>
+    </div>
+    <!-- *** END OF SIDEBAR *** -->
+
+
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
         <div class="block-body pt5">
