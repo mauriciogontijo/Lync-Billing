@@ -40,6 +40,51 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.ResourceManager resourceManager;
         
         /// <summary>
+        /// DurationCostChartPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel DurationCostChartPanel;
+        
+        /// <summary>
+        /// DurationCostChart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Chart DurationCostChart;
+        
+        /// <summary>
+        /// DurationCostChartStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store DurationCostChartStore;
+        
+        /// <summary>
+        /// DurationCostChartModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model DurationCostChartModel;
+        
+        /// <summary>
+        /// VerticalMarker1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.VerticalMarker VerticalMarker1;
+        
+        /// <summary>
         /// PhoneCallsDuartionChartPanel control.
         /// </summary>
         /// <remarks>
@@ -148,48 +193,39 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Column Duration;
         
         /// <summary>
-        /// DurationCostChartPanel control.
+        /// PhoneCallsCostChartPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel DurationCostChartPanel;
+        protected global::Ext.Net.Panel PhoneCallsCostChartPanel;
         
         /// <summary>
-        /// DurationCostChart control.
+        /// PhoneCallsCostChart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Chart DurationCostChart;
+        protected global::Ext.Net.Chart PhoneCallsCostChart;
         
         /// <summary>
-        /// DurationCostChartStore control.
+        /// PhoneCallsCostChartStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store DurationCostChartStore;
+        protected global::Ext.Net.Store PhoneCallsCostChartStore;
         
         /// <summary>
-        /// DurationCostChartModel control.
+        /// PhoneCallsCostChartModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model DurationCostChartModel;
-        
-        /// <summary>
-        /// VerticalMarker1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.VerticalMarker VerticalMarker1;
+        protected global::Ext.Net.Model PhoneCallsCostChartModel;
     }
 }

@@ -107,8 +107,8 @@ namespace Lync_Billing.UI
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
                 
-            //PhoneCallsCostChartStore.DataSource = getChartData();
-            //PhoneCallsCostChartStore.DataBind();
+            PhoneCallsCostChartStore.DataSource = getChartData();
+            PhoneCallsCostChartStore.DataBind();
         }
 
         protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)
