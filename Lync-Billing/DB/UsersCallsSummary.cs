@@ -127,7 +127,7 @@ namespace Lync_Billing.DB
         public decimal Duration { get; set; }
 
         public int Year { get; set; }
-        public string Month { get; set; }
+        public int Month { get; set; }
 
         public static UsersCallsSummary GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate)
         {
@@ -211,9 +211,7 @@ namespace Lync_Billing.DB
             UsersCallsSummary userSummary;
             List<UsersCallsSummary> chartList = new List<UsersCallsSummary>();
 
-            System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-
-            int previousMonth = 0;
+            //System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
 
             dt = StatRoutines.USER_STATS(sipAccount, Year, fromMonth, toMonth);
             
@@ -225,7 +223,7 @@ namespace Lync_Billing.DB
 
                 int year = Convert.ToInt32(row[dt.Columns["Year"]]);
                 int month = Convert.ToInt32(row[dt.Columns["Month"]]);
-                previousMonth = month;
+              
                 
                 userSummary = new UsersCallsSummary();
 
@@ -240,9 +238,10 @@ namespace Lync_Billing.DB
                 userSummary.UnmarkedCallsDuartion = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
                 userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
                 userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
-                userSummary.Month = mfi.GetAbbreviatedMonthName(month);
+                //userSummary.Month = mfi.GetAbbreviatedMonthName(month);
                 userSummary.Year = year;
-
+                userSummary.Month = month;
+                
                 userSummary.Duration = userSummary.PersonalCallsDuration / 60;
 
                 //if (month == previousMonth + 1)
