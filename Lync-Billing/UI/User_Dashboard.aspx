@@ -300,7 +300,7 @@
 
             <div class='clear h15'></div>
             
-            <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 900px;">
+            <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
                 <div id='duration-report-block' class='block wauto'>
                     <div class='content wauto float-left mb10'>
                         <ext:Panel ID="PhoneCallsDuartionChartPanel"
@@ -362,6 +362,26 @@
                 
                 <div class='clear h20'></div>
 
+                <div id='summary-block' class='block wauto'>
+                    <div class='content wauto float-left mb10'>
+                        <ext:Panel ID="UserPhoneCallsSummary"
+                            runat="server"
+                            Height="220"
+                            Width="465"
+                            Layout="AccordionLayout"
+                            Title="Summary">
+                            <Loader ID="SummaryLoader"
+                                runat="server"
+                                DirectMethod="#{DirectMethods}.GetSummaryData"
+                                Mode="Component">
+                                    <LoadMask ShowMask="true" />
+                            </Loader>
+                        </ext:Panel>
+                    </div><!-- END OF CONTENT -->
+                </div><!-- END OF BLOCk -->
+            </div>
+
+            <div style="float: right; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
                 <div id='brief-history-block' class='block wauto'>
                     <div class='content wauto float-left mb10'>
                         <ext:GridPanel
@@ -427,30 +447,6 @@
                             </ColumnModel>
                         </ext:GridPanel>
                     </div><!-- END OF CONTENT -->
-				    <div class='clear h5'></div>
-				    <div class='more-button wauto float-right mb5'>
-					    <a href='User_ViewHistory.aspx' class='font-10'>view more >></a>
-				    </div>
-                </div><!-- END OF BLOCk -->
-            </div>
-
-            <div style="float: right; width: 49%; overflow: hidden; display: block; height: auto; min-height: 900px;">
-                <div id='summary-block' class='block wauto'>
-                    <div class='content wauto float-left mb10'>
-                        <ext:Panel ID="UserPhoneCallsSummary"
-                            runat="server"
-                            Height="220"
-                            Width="465"
-                            Layout="AccordionLayout"
-                            Title="Summary">
-                            <Loader ID="SummaryLoader"
-                                runat="server"
-                                DirectMethod="#{DirectMethods}.GetSummaryData"
-                                Mode="Component">
-                                    <LoadMask ShowMask="true" />
-                            </Loader>
-                        </ext:Panel>
-                    </div><!-- END OF CONTENT -->
                 </div><!-- END OF BLOCk -->
 
                 <div class='clear h20'></div>
@@ -460,8 +456,8 @@
                         <ext:Panel
                             ID="DurationCostChartPanel"
                             runat="server"
-                            Width="460"
-                            Height="410"
+                            Width="465"
+                            Height="390"
                             Header="True"
                             Title="Personal Duration & Cost Report"
                             Layout="FitLayout">
