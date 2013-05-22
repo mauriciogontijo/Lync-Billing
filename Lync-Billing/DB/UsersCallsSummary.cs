@@ -127,7 +127,7 @@ namespace Lync_Billing.DB
         public decimal Duration { get; set; }
 
         public int Year { get; set; }
-        public int Month { get; set; }
+        public string Month { get; set; }
 
         public static UsersCallsSummary GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate)
         {
@@ -211,14 +211,22 @@ namespace Lync_Billing.DB
             UsersCallsSummary userSummary;
             List<UsersCallsSummary> chartList = new List<UsersCallsSummary>();
 
+            System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+
+            int previousMonth = 0;
+
             dt = StatRoutines.USER_STATS(sipAccount, Year, fromMonth, toMonth);
+            
+
+
 
             foreach (DataRow row in dt.Rows)
             {
 
                 int year = Convert.ToInt32(row[dt.Columns["Year"]]);
                 int month = Convert.ToInt32(row[dt.Columns["Month"]]);
-               
+                previousMonth = month;
+                
                 userSummary = new UsersCallsSummary();
 
                 userSummary.MonthDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
@@ -232,14 +240,34 @@ namespace Lync_Billing.DB
                 userSummary.UnmarkedCallsDuartion = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
                 userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
                 userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
-                userSummary.Month = month;
+                userSummary.Month = mfi.GetAbbreviatedMonthName(month);
                 userSummary.Year = year;
 
                 userSummary.Duration = userSummary.PersonalCallsDuration / 60;
 
+                //if (month == previousMonth + 1)
+                //    previousMonth = month;
+                //else
+                //{
+                //    UsersCallsSummary glueSummary = new UsersCallsSummary();
+                //    glueSummary.BusinessCallsDuration = 0;
+                //    glueSummary.BusinessCallsCount = 0;
+                //    glueSummary.BusinessCallsCost = 0;
+                //    glueSummary.PersonalCallsDuration = 0;
+                //    glueSummary.PersonalCallsCount = 0;
+                //    glueSummary.PersonalCallsCost = 0;
+                //    glueSummary.UnmarkedCallsDuartion = 0;
+                //    glueSummary.UnmarkedCallsCount = 0;
+                //    glueSummary.UnmarkedCallsCost = 0;
+                //    glueSummary.Month = mfi.GetAbbreviatedMonthName(month);
+                //    if (previousMonth == 12)
+                //        glueSummary.Year = year + 1;
+                //    else
+                //        glueSummary.Year = year;
+
+                //}
                 chartList.Add(userSummary);
             }
-
             return chartList;
         }
 
