@@ -308,7 +308,7 @@
                         Width="945"
                         Height="350"
                         Header="True"
-                        Title="Personal Duration and Cost Report"
+                        Title="Personal Duration & Cost Report"
                         Layout="FitLayout">
                         <Items>
                             <ext:Chart 
