@@ -161,7 +161,10 @@
         };
 
         var GetHoursFromMinutes = function (value) {
-            return (value / 60).toFixed(2);
+            var sec_num = parseInt(value, 10);
+            var hours = Math.floor(sec_num / 60);
+            var minutes = Math.floor((sec_num - (hours * 60)));
+            return hours + "." + minutes;
         };
         /*var TotalCostLableRenderer = function (storeItem, item) {
             var total = 0, b_total = 0, p_total = 0, u_total = 0;
@@ -544,7 +547,6 @@
                                             Smooth="3">
                                                 <HighlightConfig Size="7" Radius="7" />
                                                 <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
-
                                         </ext:LineSeries>
 
                                         <ext:LineSeries 
@@ -554,13 +556,16 @@
                                             Axis="Right" 
                                             Smooth="3">
                                                 <HighlightConfig Size="7" Radius="7" />
-                                                <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+                                                <MarkerConfig Size="4" Radius="4" StrokeWidth="0"/>
                                         </ext:LineSeries>
                                     </Series>
 
                                     <Plugins>
                                         <ext:VerticalMarker ID="VerticalMarker1" runat="server">
-                                            <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');" />
+                                            <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');"/>
+                                        </ext:VerticalMarker>
+                                        <ext:VerticalMarker ID="VerticalMarker2" runat="server">
+                                            <XLabelRenderer Handler="return tesxt"/>
                                         </ext:VerticalMarker>
                                     </Plugins>
                                     <LegendConfig Position="Bottom" />
