@@ -495,7 +495,7 @@
                                          </ext:CategoryAxis>
 
                                         <ext:NumericAxis 
-                                            Title="Duration in Munites"
+                                            Title="Duration in Minutes"
                                             Fields="Duration" 
                                             Position="Left">
                                                 <LabelTitle Fill="#115fa6" />
