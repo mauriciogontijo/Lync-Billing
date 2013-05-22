@@ -391,61 +391,20 @@
                 </div><!-- END OF CONTENT -->
             </div><!-- END OF BLOCk -->
 
-            <div id='duration-report-block' class='block float-right w49p'>
+            <div id='summary-block' class='block float-right w49p'>
                 <div class='content wauto float-left mb10'>
-                    <ext:Panel ID="PhoneCallsDuartionChartPanel"
+                    <ext:Panel ID="UserPhoneCallsSummary"
                         runat="server"
-                        Title="Duration Report (Last 3 Months)"
+                        Height="250"
                         Width="465"
-                        Height="350"
-                        Layout="FitLayout">
-                        <Items>
-                            <ext:Chart
-                                ID="PhoneCallsDuartionChart"
-                                runat="server"
-                                Animate="true"
-                                Shadow="true"
-                                InsetPadding="20"
-                                Width="465"
-                                Height="350"
-                                Theme="Base:gradients">
-                                <LegendConfig Position="Right" />
-                                <Store>
-                                    <ext:Store ID="PhoneCallsDuartionChartStore"
-                                        OnLoad="PhoneCallsDuartionChartStore_Load"
-                                        runat="server">
-                                        <Model>
-                                            <ext:Model ID="PhoneCallsDuartionCharModel" runat="server">
-                                                <Fields>
-                                                    <ext:ModelField Name="Name" />
-                                                    <ext:ModelField Name="TotalCalls" />
-                                                    <ext:ModelField Name="TotalCost" />
-                                                    <ext:ModelField Name="TotalDuration" />
-                                                </Fields>
-                                            </ext:Model>
-                                        </Model>
-                                    </ext:Store>
-                                </Store>
-                                <Series>
-                                    <ext:PieSeries
-                                        AngleField="TotalDuration"
-                                        ShowInLegend="true"
-                                        Donut="30"
-                                        Highlight="true"
-                                        HighlightSegmentMargin="10">
-                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
-                                            <Renderer Fn="TotalDurationLableRenderer" />
-                                        </Label>
-                                        <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="55">
-                                            <Renderer Fn="tipDuartionRenderer" />
-                                        </Tips>
-                                        <Listeners>
-                                            <ItemClick Fn="redirect" />
-                                        </Listeners>
-                                    </ext:PieSeries>
-                                </Series>
-                            </ext:Chart>
-                        </Items>
+                        Layout="AccordionLayout"
+                        Title="Summary">
+                        <Loader ID="SummaryLoader"
+                            runat="server"
+                            DirectMethod="#{DirectMethods}.GetSummaryData"
+                            Mode="Component">
+                                <LoadMask ShowMask="true" />
+                        </Loader>
                     </ext:Panel>
                 </div><!-- END OF CONTENT -->
             </div><!-- END OF BLOCk -->
@@ -459,7 +418,7 @@
                         runat="server"
                         Title="History Brief"
                         Width="465"
-                        Height="240"
+                        Height="250"
                         AutoScroll="true"
                         Header="true"
                         Scroll="Both"
@@ -523,27 +482,68 @@
 				</div>
             </div><!-- END OF BLOCk -->
 
-            <div id='summary-block' class='block float-right w49p'>
+            <div id='duration-report-block' class='block float-right w49p'>
                 <div class='content wauto float-left mb10'>
-                    <ext:Panel ID="UserPhoneCallsSummary"
+                    <ext:Panel ID="PhoneCallsDuartionChartPanel"
                         runat="server"
-                        Height="240"
+                        Title="Duration Report (Last 3 Months)"
                         Width="465"
-                        Layout="AccordionLayout"
-                        Title="Summary">
-                        <Loader ID="SummaryLoader"
-                            runat="server"
-                            DirectMethod="#{DirectMethods}.GetSummaryData"
-                            Mode="Component">
-                                <LoadMask ShowMask="true" />
-                        </Loader>
+                        Height="250"
+                        Layout="FitLayout">
+                        <Items>
+                            <ext:Chart
+                                ID="PhoneCallsDuartionChart"
+                                runat="server"
+                                Animate="true"
+                                Shadow="true"
+                                InsetPadding="20"
+                                Width="465"
+                                Height="350"
+                                Theme="Base:gradients">
+                                <LegendConfig Position="Right" />
+                                <Store>
+                                    <ext:Store ID="PhoneCallsDuartionChartStore"
+                                        OnLoad="PhoneCallsDuartionChartStore_Load"
+                                        runat="server">
+                                        <Model>
+                                            <ext:Model ID="PhoneCallsDuartionCharModel" runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="Name" />
+                                                    <ext:ModelField Name="TotalCalls" />
+                                                    <ext:ModelField Name="TotalCost" />
+                                                    <ext:ModelField Name="TotalDuration" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
+                                <Series>
+                                    <ext:PieSeries
+                                        AngleField="TotalDuration"
+                                        ShowInLegend="true"
+                                        Donut="30"
+                                        Highlight="true"
+                                        HighlightSegmentMargin="10">
+                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
+                                            <Renderer Fn="TotalDurationLableRenderer" />
+                                        </Label>
+                                        <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="55">
+                                            <Renderer Fn="tipDuartionRenderer" />
+                                        </Tips>
+                                        <Listeners>
+                                            <ItemClick Fn="redirect" />
+                                        </Listeners>
+                                    </ext:PieSeries>
+                                </Series>
+                            </ext:Chart>
+                        </Items>
                     </ext:Panel>
                 </div><!-- END OF CONTENT -->
             </div><!-- END OF BLOCk -->
 
             <div class='clear h15'></div>
 
-            <div id='cost-report-block' class='block float-left w49p'>
+            <%--<div id='cost-report-block' class='block float-left w49p'>
                 <div class='content wauto float-left mb10'>
                     <ext:Panel ID="PhoneCallsCostChartPanel"
                         runat="server"
@@ -601,7 +601,7 @@
                         </Items>
                     </ext:Panel>
                 </div><!-- END OF CONTENT -->
-            </div><!-- END OF BLOCk -->
+            </div><!-- END OF BLOCk -->--%>
 
         </div>
 

@@ -85,40 +85,13 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.VerticalMarker VerticalMarker1;
         
         /// <summary>
-        /// PhoneCallsDuartionChartPanel control.
+        /// UserPhoneCallsSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel PhoneCallsDuartionChartPanel;
-        
-        /// <summary>
-        /// PhoneCallsDuartionChart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Chart PhoneCallsDuartionChart;
-        
-        /// <summary>
-        /// PhoneCallsDuartionChartStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store PhoneCallsDuartionChartStore;
-        
-        /// <summary>
-        /// PhoneCallsDuartionCharModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Model PhoneCallsDuartionCharModel;
+        protected global::Ext.Net.Panel UserPhoneCallsSummary;
         
         /// <summary>
         /// PhoneCallsHistoryGrid control.
@@ -184,48 +157,39 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Column Duration;
         
         /// <summary>
-        /// UserPhoneCallsSummary control.
+        /// PhoneCallsDuartionChartPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel UserPhoneCallsSummary;
+        protected global::Ext.Net.Panel PhoneCallsDuartionChartPanel;
         
         /// <summary>
-        /// PhoneCallsCostChartPanel control.
+        /// PhoneCallsDuartionChart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel PhoneCallsCostChartPanel;
+        protected global::Ext.Net.Chart PhoneCallsDuartionChart;
         
         /// <summary>
-        /// PhoneCallsCostChart control.
+        /// PhoneCallsDuartionChartStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Chart PhoneCallsCostChart;
+        protected global::Ext.Net.Store PhoneCallsDuartionChartStore;
         
         /// <summary>
-        /// PhoneCallsCostChartStore control.
+        /// PhoneCallsDuartionCharModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store PhoneCallsCostChartStore;
-        
-        /// <summary>
-        /// PhoneCallsCostChartModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Model PhoneCallsCostChartModel;
+        protected global::Ext.Net.Model PhoneCallsDuartionCharModel;
     }
 }
