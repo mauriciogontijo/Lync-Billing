@@ -160,7 +160,9 @@
             }
         };
 
-
+        var GetHoursFromMinutes = function (value) {
+            return (value / 60).toFixed(2);
+        };
         /*var TotalCostLableRenderer = function (storeItem, item) {
             var total = 0, b_total = 0, p_total = 0, u_total = 0;
 
@@ -519,6 +521,9 @@
                                             Position="Left">
                                                 <LabelTitle Fill="#115fa6" />
                                                 <Label Fill="#115fa6" />
+                                            <Label>
+                                                <Renderer Fn="GetHoursFromMinutes"/>
+                                            </Label>
                                         </ext:NumericAxis>
                         
                                         <ext:NumericAxis 
