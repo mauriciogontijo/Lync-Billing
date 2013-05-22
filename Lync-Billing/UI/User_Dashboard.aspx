@@ -300,246 +300,252 @@
 
             <div class='clear h15'></div>
             
-            <div id='duration-cost-chart-block' class='block float-left w49p'>
-                <div class="content wauto float-left mb10">
-                    <ext:Panel
-                        ID="DurationCostChartPanel"
-                        runat="server"
-                        Width="460"
-                        Height="350"
-                        Header="True"
-                        Title="Personal Duration & Cost Report"
-                        Layout="FitLayout">
-                        <Items>
-                            <ext:Chart 
-                                ID="DurationCostChart" 
-                                runat="server" 
-                                Animate="true">
-                                <Store>
-                                    <ext:Store ID="DurationCostChartStore" runat="server" >
-                                        <Model>
-                                            <ext:Model ID="DurationCostChartModel" runat="server">
-                                                <Fields>
-                                                    <ext:ModelField Name="MonthDate" />
-                                                    <ext:ModelField Name="Duration" />
-                                                    <ext:ModelField Name="PersonalCallsCost" />
-                                                </Fields>
-                                            </ext:Model>
-                                        </Model>
-                                    </ext:Store>
-                                </Store>
-                                
-                                <Axes>
-                                     <ext:CategoryAxis 
-                                        Position="Bottom"
-                                        Fields="MonthDate"
-                                        Title="Current Year">
-                                         <Label>
-                                             <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
-                                         </Label>
-                                     </ext:CategoryAxis>
-
-                                    <ext:NumericAxis 
-                                        Title="Duration in Munites"
-                                        Fields="Duration" 
-                                        Position="Left">
-                                            <LabelTitle Fill="#115fa6" />
-                                            <Label Fill="#115fa6" />
-                                    </ext:NumericAxis>
-                        
-                                    <ext:NumericAxis 
-                                        Title="Cost in Local Currency"
-                                        Fields="PersonalCallsCost" 
-                                        Position="Right">
-                                            <LabelTitle Fill="#94ae0a" />
-                                            <Label Fill="#94ae0a" />
-                                    </ext:NumericAxis>
-                                </Axes>
-
-                                <Series>
-                                    <ext:LineSeries 
-                                        Titles="Calls Duartion" 
-                                        XField="MonthDate" 
-                                        YField="Duration" 
-                                        Axis="Left" 
-                                        Smooth="3">
-                                            <HighlightConfig Size="7" Radius="7" />
-                                            <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
-
-                                    </ext:LineSeries>
-
-                                    <ext:LineSeries 
-                                        Titles="Calls Cost" 
-                                        XField="MonthDate" 
-                                        YField="PersonalCallsCost" 
-                                        Axis="Right" 
-                                        Smooth="3">
-                                            <HighlightConfig Size="7" Radius="7" />
-                                            <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
-                                    </ext:LineSeries>
-                                </Series>
-
-                                <Plugins>
-                                    <ext:VerticalMarker ID="VerticalMarker1" runat="server">
-                                        <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');" />
-                                    </ext:VerticalMarker>
-                                </Plugins>
-                                <LegendConfig Position="Bottom" />
-                            </ext:Chart>
-                        </Items>
-                    </ext:Panel>
-                </div><!-- END OF CONTENT -->
-            </div><!-- END OF BLOCk -->
-
-            <div id='summary-block' class='block float-right w49p'>
-                <div class='content wauto float-left mb10'>
-                    <ext:Panel ID="UserPhoneCallsSummary"
-                        runat="server"
-                        Height="250"
-                        Width="465"
-                        Layout="AccordionLayout"
-                        Title="Summary">
-                        <Loader ID="SummaryLoader"
+            <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 900px;">
+                <div id='duration-cost-chart-block' class='block wauto'>
+                    <div class="content wauto float-left mb10">
+                        <ext:Panel
+                            ID="DurationCostChartPanel"
                             runat="server"
-                            DirectMethod="#{DirectMethods}.GetSummaryData"
-                            Mode="Component">
-                                <LoadMask ShowMask="true" />
-                        </Loader>
-                    </ext:Panel>
-                </div><!-- END OF CONTENT -->
-            </div><!-- END OF BLOCk -->
+                            Width="460"
+                            Height="350"
+                            Header="True"
+                            Title="Personal Duration & Cost Report"
+                            Layout="FitLayout">
+                            <Items>
+                                <ext:Chart 
+                                    ID="DurationCostChart" 
+                                    runat="server" 
+                                    Animate="true">
+                                    <Store>
+                                        <ext:Store ID="DurationCostChartStore" runat="server" >
+                                            <Model>
+                                                <ext:Model ID="DurationCostChartModel" runat="server">
+                                                    <Fields>
+                                                        <ext:ModelField Name="MonthDate" />
+                                                        <ext:ModelField Name="Duration" />
+                                                        <ext:ModelField Name="PersonalCallsCost" />
+                                                    </Fields>
+                                                </ext:Model>
+                                            </Model>
+                                        </ext:Store>
+                                    </Store>
+                                
+                                    <Axes>
+                                         <ext:CategoryAxis 
+                                            Position="Bottom"
+                                            Fields="MonthDate"
+                                            Title="Current Year">
+                                             <Label>
+                                                 <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
+                                             </Label>
+                                         </ext:CategoryAxis>
 
-            <div class='clear h15'></div>
+                                        <ext:NumericAxis 
+                                            Title="Duration in Munites"
+                                            Fields="Duration" 
+                                            Position="Left">
+                                                <LabelTitle Fill="#115fa6" />
+                                                <Label Fill="#115fa6" />
+                                        </ext:NumericAxis>
+                        
+                                        <ext:NumericAxis 
+                                            Title="Cost in Local Currency"
+                                            Fields="PersonalCallsCost" 
+                                            Position="Right">
+                                                <LabelTitle Fill="#94ae0a" />
+                                                <Label Fill="#94ae0a" />
+                                        </ext:NumericAxis>
+                                    </Axes>
 
-            <div id='brief-history-block' class='block float-left w49p'>
-                <div class='content wauto float-left mb10'>
-                    <ext:GridPanel
-                        ID="PhoneCallsHistoryGrid"
-                        runat="server"
-                        Title="History Brief"
-                        Width="465"
-                        Height="250"
-                        AutoScroll="true"
-                        Header="true"
-                        Scroll="Both"
-                        Layout="FitLayout">
+                                    <Series>
+                                        <ext:LineSeries 
+                                            Titles="Calls Duartion" 
+                                            XField="MonthDate" 
+                                            YField="Duration" 
+                                            Axis="Left" 
+                                            Smooth="3">
+                                                <HighlightConfig Size="7" Radius="7" />
+                                                <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
 
-                        <Store>
-                            <ext:Store
-                                ID="PhoneCallsHistoryStore"
+                                        </ext:LineSeries>
+
+                                        <ext:LineSeries 
+                                            Titles="Calls Cost" 
+                                            XField="MonthDate" 
+                                            YField="PersonalCallsCost" 
+                                            Axis="Right" 
+                                            Smooth="3">
+                                                <HighlightConfig Size="7" Radius="7" />
+                                                <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+                                        </ext:LineSeries>
+                                    </Series>
+
+                                    <Plugins>
+                                        <ext:VerticalMarker ID="VerticalMarker1" runat="server">
+                                            <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');" />
+                                        </ext:VerticalMarker>
+                                    </Plugins>
+                                    <LegendConfig Position="Bottom" />
+                                </ext:Chart>
+                            </Items>
+                        </ext:Panel>
+                    </div><!-- END OF CONTENT -->
+                </div><!-- END OF BLOCk -->
+                
+                <div class='clear h20'></div>
+
+                <div id='brief-history-block' class='block wauto'>
+                    <div class='content wauto float-left mb10'>
+                        <ext:GridPanel
+                            ID="PhoneCallsHistoryGrid"
+                            runat="server"
+                            Title="History Brief"
+                            Width="465"
+                            Height="250"
+                            AutoScroll="true"
+                            Header="true"
+                            Scroll="Both"
+                            Layout="FitLayout">
+
+                            <Store>
+                                <ext:Store
+                                    ID="PhoneCallsHistoryStore"
+                                    runat="server"
+                                    IsPagingStore="true">
+                                    <Model>
+                                        <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
+                                            <Fields>
+                                                <ext:ModelField Name="SessionIdTime" Type="String" />
+                                                <ext:ModelField Name="Marker_CallToCountry" Type="String" />
+                                                <ext:ModelField Name="DestinationNumberUri" Type="String" />
+                                                <ext:ModelField Name="Duration" Type="Float" />
+                                            </Fields>
+                                        </ext:Model>
+                                    </Model>
+                                </ext:Store>
+                            </Store>
+                            <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
+                                <Columns>
+                                    <ext:Column
+                                        ID="SessionIdTime"
+                                        runat="server"
+                                        Text="Date"
+                                        Width="160"
+                                        DataIndex="SessionIdTime">
+                                        <Renderer Fn="myDateRenderer" />
+                                    </ext:Column>
+                                    <ext:Column
+                                        ID="Marker_CallToCountry"
+                                        runat="server"
+                                        Text="Country"
+                                        Width="60"
+                                        DataIndex="Marker_CallToCountry"
+                                        Align="Center" />
+                                    <ext:Column
+                                        ID="DestinationNumberUri"
+                                        runat="server"
+                                        Text="Destination"
+                                        Width="140"
+                                        DataIndex="DestinationNumberUri" />
+                                    <ext:Column
+                                        ID="Duration"
+                                        runat="server"
+                                        Text="Duration"
+                                        Width="100"
+                                        DataIndex="Duration">
+                                        <Renderer Fn="GetMinutes" />
+                                    </ext:Column>
+                                </Columns>
+                            </ColumnModel>
+                        </ext:GridPanel>
+                    </div><!-- END OF CONTENT -->
+				    <div class='clear h5'></div>
+				    <div class='more-button wauto float-right mb5'>
+					    <a href='User_ViewHistory.aspx' class='font-10'>view more >></a>
+				    </div>
+                </div><!-- END OF BLOCk -->
+            </div>
+
+            <div style="float: right; width: 49%; overflow: hidden; display: block; height: auto; min-height: 900px;">
+                <div id='summary-block' class='block wauto'>
+                    <div class='content wauto float-left mb10'>
+                        <ext:Panel ID="UserPhoneCallsSummary"
+                            runat="server"
+                            Height="250"
+                            Width="465"
+                            Layout="AccordionLayout"
+                            Title="Summary">
+                            <Loader ID="SummaryLoader"
                                 runat="server"
-                                IsPagingStore="true">
-                                <Model>
-                                    <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
-                                        <Fields>
-                                            <ext:ModelField Name="SessionIdTime" Type="String" />
-                                            <ext:ModelField Name="Marker_CallToCountry" Type="String" />
-                                            <ext:ModelField Name="DestinationNumberUri" Type="String" />
-                                            <ext:ModelField Name="Duration" Type="Float" />
-                                        </Fields>
-                                    </ext:Model>
-                                </Model>
-                            </ext:Store>
-                        </Store>
-                        <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
-                            <Columns>
-                                <ext:Column
-                                    ID="SessionIdTime"
-                                    runat="server"
-                                    Text="Date"
-                                    Width="160"
-                                    DataIndex="SessionIdTime">
-                                    <Renderer Fn="myDateRenderer" />
-                                </ext:Column>
-                                <ext:Column
-                                    ID="Marker_CallToCountry"
-                                    runat="server"
-                                    Text="Country"
-                                    Width="60"
-                                    DataIndex="Marker_CallToCountry"
-                                    Align="Center" />
-                                <ext:Column
-                                    ID="DestinationNumberUri"
-                                    runat="server"
-                                    Text="Destination"
-                                    Width="140"
-                                    DataIndex="DestinationNumberUri" />
-                                <ext:Column
-                                    ID="Duration"
-                                    runat="server"
-                                    Text="Duration"
-                                    Width="100"
-                                    DataIndex="Duration">
-                                    <Renderer Fn="GetMinutes" />
-                                </ext:Column>
-                            </Columns>
-                        </ColumnModel>
-                    </ext:GridPanel>
-                </div><!-- END OF CONTENT -->
-				<div class='clear h5'></div>
-				<div class='more-button wauto float-right mb5'>
-					<a href='User_ViewHistory.aspx' class='font-10'>view more >></a>
-				</div>
-            </div><!-- END OF BLOCk -->
+                                DirectMethod="#{DirectMethods}.GetSummaryData"
+                                Mode="Component">
+                                    <LoadMask ShowMask="true" />
+                            </Loader>
+                        </ext:Panel>
+                    </div><!-- END OF CONTENT -->
+                </div><!-- END OF BLOCk -->
 
-            <div id='duration-report-block' class='block float-right w49p'>
-                <div class='content wauto float-left mb10'>
-                    <ext:Panel ID="PhoneCallsDuartionChartPanel"
-                        runat="server"
-                        Title="Duration Report (Last 3 Months)"
-                        Width="465"
-                        Height="250"
-                        Layout="FitLayout">
-                        <Items>
-                            <ext:Chart
-                                ID="PhoneCallsDuartionChart"
-                                runat="server"
-                                Animate="true"
-                                Shadow="true"
-                                InsetPadding="20"
-                                Width="465"
-                                Height="350"
-                                Theme="Base:gradients">
-                                <LegendConfig Position="Right" />
-                                <Store>
-                                    <ext:Store ID="PhoneCallsDuartionChartStore"
-                                        OnLoad="PhoneCallsDuartionChartStore_Load"
-                                        runat="server">
-                                        <Model>
-                                            <ext:Model ID="PhoneCallsDuartionCharModel" runat="server">
-                                                <Fields>
-                                                    <ext:ModelField Name="Name" />
-                                                    <ext:ModelField Name="TotalCalls" />
-                                                    <ext:ModelField Name="TotalCost" />
-                                                    <ext:ModelField Name="TotalDuration" />
-                                                </Fields>
-                                            </ext:Model>
-                                        </Model>
-                                    </ext:Store>
-                                </Store>
-                                <Series>
-                                    <ext:PieSeries
-                                        AngleField="TotalDuration"
-                                        ShowInLegend="true"
-                                        Donut="30"
-                                        Highlight="true"
-                                        HighlightSegmentMargin="10">
-                                        <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
-                                            <Renderer Fn="TotalDurationLableRenderer" />
-                                        </Label>
-                                        <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="55">
-                                            <Renderer Fn="tipDuartionRenderer" />
-                                        </Tips>
-                                        <Listeners>
-                                            <ItemClick Fn="redirect" />
-                                        </Listeners>
-                                    </ext:PieSeries>
-                                </Series>
-                            </ext:Chart>
-                        </Items>
-                    </ext:Panel>
-                </div><!-- END OF CONTENT -->
-            </div><!-- END OF BLOCk -->
+                <div class='clear h20'></div>
+
+                <div id='duration-report-block' class='block wauto'>
+                    <div class='content wauto float-left mb10'>
+                        <ext:Panel ID="PhoneCallsDuartionChartPanel"
+                            runat="server"
+                            Title="Duration Report (Last 3 Months)"
+                            Width="465"
+                            Height="250"
+                            Layout="FitLayout">
+                            <Items>
+                                <ext:Chart
+                                    ID="PhoneCallsDuartionChart"
+                                    runat="server"
+                                    Animate="true"
+                                    Shadow="true"
+                                    InsetPadding="20"
+                                    Width="465"
+                                    Height="350"
+                                    Theme="Base:gradients">
+                                    <LegendConfig Position="Right" />
+                                    <Store>
+                                        <ext:Store ID="PhoneCallsDuartionChartStore"
+                                            OnLoad="PhoneCallsDuartionChartStore_Load"
+                                            runat="server">
+                                            <Model>
+                                                <ext:Model ID="PhoneCallsDuartionCharModel" runat="server">
+                                                    <Fields>
+                                                        <ext:ModelField Name="Name" />
+                                                        <ext:ModelField Name="TotalCalls" />
+                                                        <ext:ModelField Name="TotalCost" />
+                                                        <ext:ModelField Name="TotalDuration" />
+                                                    </Fields>
+                                                </ext:Model>
+                                            </Model>
+                                        </ext:Store>
+                                    </Store>
+                                    <Series>
+                                        <ext:PieSeries
+                                            AngleField="TotalDuration"
+                                            ShowInLegend="true"
+                                            Donut="30"
+                                            Highlight="true"
+                                            HighlightSegmentMargin="10">
+                                            <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
+                                                <Renderer Fn="TotalDurationLableRenderer" />
+                                            </Label>
+                                            <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="55">
+                                                <Renderer Fn="tipDuartionRenderer" />
+                                            </Tips>
+                                            <Listeners>
+                                                <ItemClick Fn="redirect" />
+                                            </Listeners>
+                                        </ext:PieSeries>
+                                    </Series>
+                                </ext:Chart>
+                            </Items>
+                        </ext:Panel>
+                    </div><!-- END OF CONTENT -->
+                </div><!-- END OF BLOCk -->
+            </div>
 
             <div class='clear h15'></div>
 
