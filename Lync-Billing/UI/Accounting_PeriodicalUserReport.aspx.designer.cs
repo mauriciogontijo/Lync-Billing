@@ -10,7 +10,7 @@
 namespace Lync_Billing.UI {
     
     
-    public partial class Accounting_Dashboard {
+    public partial class Accounting_PeriodicalUserReport {
         
         /// <summary>
         /// SidebarPanel control.

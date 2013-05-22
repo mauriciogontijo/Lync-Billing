@@ -6,20 +6,43 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF SIDEBAR *** -->
-    <div id='sidebar' class='sidebar block float-left w20p'>
-        <div class='block-header top-rounded bh-shadow'>
-            <p class='font-12 bold'>Accounting Tools</p>
-        </div>
-        <div class='block-body bottom-rounded bb-shadow pt15'>
-            <div class='wauto float-left mb15'>
-                <p class='section-header'><a href='Accounting_Dashboard.aspx'>Dashboard</a></p>
-            </div>
-            <div class='clear h5'></div>
-            <div class='wauto float-left mb15'>
-                <p class='section-header'>Reports</p>
-                <p class='section-item'><a href='Accounting_ValidateCycle.aspx'>Validate Accounting Cycle</a></p>
-                <p class='section-item'><a href='Accounting_GenerateReport.aspx'>Generate Report</a></p>
-            </div>
+    <div id='Div1' class='sidebar block float-left w20p'>
+        <div class="block-body">
+            <ext:Panel ID="SidebarPanel"
+                runat="server"
+                Height="340"
+                Title="User Tools">
+                <Content>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Pages</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='Accounting_Dashboard.aspx' class='selected'>Accounting Dashboard</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>User Reports</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='Accounting_MonthlyUserReport.aspx'>Monthly Users Report</a></p>
+                            <p><a href='Accounting_PeriodicalUserReport.aspx'>Periodical Users Report</a></p>
+                            <p><a href='Accounting_ValidateCycle.aspx' class='selected'>Validate Accounting Cycle</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Site Reports</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            
+                        </div>
+                    </div>
+                </Content>
+            </ext:Panel>
         </div>
     </div>
     <!-- *** END OF SIDEBAR *** -->

@@ -1,7 +1,27 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="Accounting_Dashboard.aspx.cs" Inherits="Lync_Billing.UI.Accounting_Dashboard" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="Accounting_PeriodicalUserReport.aspx.cs" Inherits="Lync_Billing.UI.Accounting_PeriodicalUserReport" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Accounting Mainpage</title>
+
+    <script type="text/javascript">
+        var onKeyUp = function () {
+            var me = this,
+                v = me.getValue(),
+                field;
+
+            if (me.startDateField) {
+                field = Ext.getCmp(me.startDateField);
+                field.setMaxValue(v);
+                me.dateRangeMax = v;
+            } else if (me.endDateField) {
+                field = Ext.getCmp(me.endDateField);
+                field.setMinValue(v);
+                me.dateRangeMin = v;
+            }
+
+            field.validate();
+        };
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -28,7 +48,7 @@
                         </div>
                         <div class="sidebar-section-body">
                             <p><a href='Accounting_MonthlyUserReport.aspx'>Monthly Users Report</a></p>
-                            <p><a href='Accounting_PeriodicalUserReport.aspx'>Periodical Users Report</a></p>
+                            <p><a href='Accounting_PeriodicalUserReport.aspx' class='selected'>Periodical Users Report</a></p>
                             <p><a href='Accounting_ValidateCycle.aspx'>Validate Accounting Cycle</a></p>
                         </div>
                     </div>
@@ -47,9 +67,8 @@
     </div>
     <!-- *** END OF SIDEBAR *** -->
 
-
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
-    <div id='Div2' class='block float-right w80p h100p'>
+    <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
         <div class="block-body pt5">
             <p class="font-18">Generate Periodical User Reports!</p>
         </div>
