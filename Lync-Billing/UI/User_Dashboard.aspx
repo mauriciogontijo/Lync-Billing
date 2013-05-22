@@ -421,7 +421,7 @@
                                         Fields="MonthDate"
                                         Title="Current Year">
                                          <Label>
-                                             <Renderer Handler="return Ext.util.Format.date(value, 'Y M');" />
+                                             <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
                                          </Label>
                                      </ext:CategoryAxis>
 
@@ -466,7 +466,7 @@
 
                                 <Plugins>
                                     <ext:VerticalMarker ID="VerticalMarker1" runat="server">
-                                        <XLabelRenderer Handler="return Ext.util.Format.date(value, 'M d');" />
+                                        <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');" />
                                     </ext:VerticalMarker>
                                 </Plugins>
                                 <LegendConfig Position="Bottom" />
