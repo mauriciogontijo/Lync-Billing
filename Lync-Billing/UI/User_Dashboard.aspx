@@ -305,7 +305,7 @@
                     <ext:Panel
                         ID="DurationCostChartPanel"
                         runat="server"
-                        Width="940"
+                        Width="950"
                         Height="360"
                         Header="True"
                         Title="Personal Duration & Cost Report"
