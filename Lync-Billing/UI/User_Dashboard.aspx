@@ -396,7 +396,7 @@
                             runat="server"
                             Title="History Brief"
                             Width="465"
-                            Height="230"
+                            Height="210"
                             AutoScroll="true"
                             Header="true"
                             Scroll="Both"
@@ -480,7 +480,7 @@
                             ID="DurationCostChartPanel"
                             runat="server"
                             Width="465"
-                            Height="360"
+                            Height="380"
                             Header="True"
                             Title="Personal Calls - Duration & Cost Report"
                             Layout="FitLayout">
