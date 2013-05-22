@@ -98,7 +98,7 @@
             grid.submitData(false, { isUpload: true });
         };
 
-        var tipCostRenderer = function (storeItem, item) {
+        /*var tipCostRenderer = function (storeItem, item) {
             var total = 0;
 
             App.PhoneCallsCostChart.getStore().each(function (rec) {
@@ -111,13 +111,13 @@
                 '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
                 '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
             );
-        };
+        };*/
 
         var tipDuartionRenderer = function (storeItem, item) {
             //calculate percentage.
             var total = 0;
 
-            App.PhoneCallsCostChart.getStore().each(function (rec) {
+            App.PhoneCallsDuartionChart.getStore().each(function (rec) {
                 total += rec.get('TotalDuration');
             });
 
@@ -161,7 +161,7 @@
         };
 
 
-        var TotalCostLableRenderer = function (storeItem, item) {
+        /*var TotalCostLableRenderer = function (storeItem, item) {
             var total = 0, b_total = 0, p_total = 0, u_total = 0;
 
             App.PhoneCallsCostChart.getStore().each(function (rec) {
@@ -187,7 +187,7 @@
             else if (storeItem == "Unmarked") {
                 return ((u_total / total).toFixed(4) * 100.0).toFixed(2) + '%';
             }
-        };
+        };*/
 
         var redirect = function () {
             window.location = "User_ManagePhoneCalls.aspx";
@@ -307,7 +307,7 @@
                             ID="DurationCostChartPanel"
                             runat="server"
                             Width="460"
-                            Height="350"
+                            Height="390"
                             Header="True"
                             Title="Personal Duration & Cost Report"
                             Layout="FitLayout">
@@ -401,7 +401,7 @@
                             runat="server"
                             Title="History Brief"
                             Width="465"
-                            Height="250"
+                            Height="230"
                             AutoScroll="true"
                             Header="true"
                             Scroll="Both"
@@ -471,7 +471,7 @@
                     <div class='content wauto float-left mb10'>
                         <ext:Panel ID="UserPhoneCallsSummary"
                             runat="server"
-                            Height="250"
+                            Height="220"
                             Width="465"
                             Layout="AccordionLayout"
                             Title="Summary">
@@ -493,7 +493,7 @@
                             runat="server"
                             Title="Duration Report (Last 3 Months)"
                             Width="465"
-                            Height="250"
+                            Height="400"
                             Layout="FitLayout">
                             <Items>
                                 <ext:Chart
