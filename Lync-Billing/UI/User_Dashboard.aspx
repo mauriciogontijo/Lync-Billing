@@ -547,8 +547,6 @@
                 </div><!-- END OF BLOCk -->
             </div>
 
-            <div class='clear h15'></div>
-
             <%--<div id='cost-report-block' class='block float-left w49p'>
                 <div class='content wauto float-left mb10'>
                     <ext:Panel ID="PhoneCallsCostChartPanel"
