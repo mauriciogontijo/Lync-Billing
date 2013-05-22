@@ -189,8 +189,15 @@
             }
         };*/
 
-        var redirect = function () {
-            window.location = "User_ManagePhoneCalls.aspx";
+        var redirect_to_manage_phonecalls = function () {
+            to = "User_ManagePhoneCalls.aspx"
+            window.location = to;
+        };
+
+        var redirect_to = function (destination) {
+            if (typeof destination == "string" && destination != 0) {
+                window.location = destination;
+            }
         };
 
         Ext.override(Ext.chart.LegendItem, {
@@ -350,7 +357,7 @@
                                                 <Renderer Fn="tipDuartionRenderer" />
                                             </Tips>
                                             <Listeners>
-                                                <ItemClick Fn="redirect" />
+                                                <ItemClick Fn="redirect_to_manage_phonecalls" />
                                             </Listeners>
                                         </ext:PieSeries>
                                     </Series>
@@ -412,6 +419,7 @@
                                     </Model>
                                 </ext:Store>
                             </Store>
+
                             <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                                 <Columns>
                                     <ext:Column
@@ -420,8 +428,9 @@
                                         Text="Date"
                                         Width="160"
                                         DataIndex="SessionIdTime">
-                                        <Renderer Fn="myDateRenderer" />
+                                            <Renderer Fn="myDateRenderer" />
                                     </ext:Column>
+
                                     <ext:Column
                                         ID="Marker_CallToCountry"
                                         runat="server"
@@ -429,22 +438,36 @@
                                         Width="60"
                                         DataIndex="Marker_CallToCountry"
                                         Align="Center" />
+
                                     <ext:Column
                                         ID="DestinationNumberUri"
                                         runat="server"
                                         Text="Destination"
                                         Width="140"
                                         DataIndex="DestinationNumberUri" />
+
                                     <ext:Column
                                         ID="Duration"
                                         runat="server"
                                         Text="Duration"
                                         Width="100"
                                         DataIndex="Duration">
-                                        <Renderer Fn="GetMinutes" />
+                                            <Renderer Fn="GetMinutes" />
                                     </ext:Column>
                                 </Columns>
                             </ColumnModel>
+
+                            <TopBar>
+                                <ext:Toolbar ID="CallsHistoryGridToolbar" runat="server">
+                                    <Items>
+                                        <ext:Button ID="HistoryGridViewMore" runat="server" Text="View More..." Icon="ApplicationGo" Margins="">
+                                             <Listeners>
+                                                <Click Handler="redirect_to('User_ViewHistory.aspx');" />
+                                            </Listeners>
+                                        </ext:Button>
+                                    </Items>
+                                </ext:Toolbar>
+                            </TopBar>
                         </ext:GridPanel>
                     </div><!-- END OF CONTENT -->
                 </div><!-- END OF BLOCk -->

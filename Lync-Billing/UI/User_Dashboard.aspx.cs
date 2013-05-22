@@ -33,7 +33,7 @@ namespace Lync_Billing.UI
                 columns.Add("Duration");
                 columns.Add("marker_CallToCountry");
 
-                PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart,7);
+                PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 5);
                 PhoneCallsHistoryStore.DataBind();
 
 

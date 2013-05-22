@@ -148,6 +148,24 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Column Duration;
         
         /// <summary>
+        /// CallsHistoryGridToolbar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Toolbar CallsHistoryGridToolbar;
+        
+        /// <summary>
+        /// HistoryGridViewMore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button HistoryGridViewMore;
+        
+        /// <summary>
         /// DurationCostChartPanel control.
         /// </summary>
         /// <remarks>
