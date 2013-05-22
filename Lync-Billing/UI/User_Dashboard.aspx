@@ -460,7 +460,7 @@
                             <TopBar>
                                 <ext:Toolbar ID="CallsHistoryGridToolbar" runat="server">
                                     <Items>
-                                        <ext:Button ID="HistoryGridViewMore" runat="server" Text="View More..." Icon="ApplicationGo" Margins="">
+                                        <ext:Button ID="HistoryGridViewMore" runat="server" Text="View More..." Icon="ApplicationGo" Margins="0 0 0 365">
                                              <Listeners>
                                                 <Click Handler="redirect_to('User_ViewHistory.aspx');" />
                                             </Listeners>
