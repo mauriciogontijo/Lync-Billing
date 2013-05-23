@@ -32,10 +32,8 @@ namespace Lync_Billing.UI
 
                 foreach (UserRole role in session.Roles)
                 {
-                    if (role.Notes == "Accountant" || role.Notes == "Developer")
-                    {
+                    if (role.RoleID == 7 || role.RoleID == 1)
                         status = true;
-                    }
                 }
 
                 if (status == false)
