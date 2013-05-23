@@ -557,7 +557,7 @@
                                             YField="PersonalCallsCost" 
                                             Axis="Right" 
                                             Smooth="3">
-                                                <HighlightConfig Size="7" Radius="7" />
+                                                <HighlightConfig Size="7" Radius="7"/>
                                                 <MarkerConfig Size="4" Radius="4" StrokeWidth="0"/>
                                         </ext:LineSeries>
                                     </Series>
@@ -565,6 +565,7 @@
                                     <Plugins>
                                         <ext:VerticalMarker ID="VerticalMarker1" runat="server">
                                             <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');"/>
+                                            <YLabelRenderer FormatHandler="true"></YLabelRenderer>
                                         </ext:VerticalMarker>
                                     </Plugins>
                                     <LegendConfig Position="Bottom" />
