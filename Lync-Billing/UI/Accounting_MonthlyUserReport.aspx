@@ -67,133 +67,86 @@
     </div>
     <!-- *** END OF SIDEBAR *** -->
 
-
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
-    <div id='Div2' class='block float-right w80p h100p'>
+    <div id='generate-report-block' class='block float-right w80p h100p'>
         <div class="block-body pt5">
-            <p class="font-18">Generate Monthly User Reports!</p>
-        </div>
-    </div>
-    <!-- *** END OF ACCOUNTING MAIN BODY *** -->
-
-    <%--<!-- *** START OF ACCOUNTING MAIN BODY *** -->
-    <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
-        <div class="block-body pt5">
-            <ext:GridPanel
-                ID="AccountingReportGrid" 
+            <ext:Panel
+                ID="GenerateReportPanel" 
                 runat="server" 
-                Width="740"
-                Height="740"  
-                AutoScroll="true"
-                Scroll="Both" 
+                Width="750"
+                Height="53"  
                 Header="true"
-                Title="Generate Accounting Report"
-                Layout="FitLayout">
-                <Store>
-                    <ext:Store
-                        ID="AccountingReportStore" 
-                        runat="server"
-                        IsPagingStore="true"  
-                        PageSize="25">
-                        <Model>
-                            <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
-                                <Fields>
-                                    <ext:ModelField Name="SipAccount" Type="String" />
-                                    <ext:ModelField Name="FullName" Type="String" />
-                                    <ext:ModelField Name="SourceUserUri" Type="String" />
-                                    <ext:ModelField Name="Cost" Type="Float" />
-                                </Fields>
-                            </ext:Model>
-                        </Model>
-                    </ext:Store>
-                </Store>
-
-                <ColumnModel ID="AccountingReportColumnModel" runat="server">
-		            <Columns>
-                        <ext:Column ID="SipAccount" 
-                            runat="server" 
-                            Text="Sip Account" 
-                            Width="160"
-                            DataIndex="SipAccount"
-                            Groupable="True" />
-
-                        <ext:Column ID="FullName"
-                            runat="server"
-                            Text="Full Name"
-                            Width="160"
-                            DataIndex="FullName" 
-                            Groupable="True" />
-
-                        <ext:Column ID="SourceUserUri"
-                            runat="server"
-                            Text="Email Address"
-                            Width="160"
-                            DataIndex="SourceUserUri"
-                            Groupable="True" />
-
-                        <ext:Column ID="Cost"
-                            runat="server"
-                            Text="Cost"
-                            Width="160"
-                            DataIndex="Cost"
-                            Groupable="True" />
-		            </Columns>
-                </ColumnModel>
-                        
+                Title="Generate Monthly User Report"
+                Layout="Anchor">
                 <TopBar>
-                    <ext:Toolbar ID="FilterToolBar" runat="server">
+                    <ext:Toolbar ID="Toolbar1" runat="server">
                         <Items>
+                            <ext:TextField
+                                ID="GroupNumberField"
+                                runat="server" 
+                                Vtype="text"
+                                FieldLabel="User Group Number:"
+                                Margins="0 25 0 5"
+                                EnableKeyEvents="true" />
+
                             <ext:DateField 
-                                ID="StartDateField"
+                                ID="DateField"
                                 runat="server" 
                                 Vtype="daterange"
-                                FieldLabel="From"
+                                FieldLabel="Month & Year:"
                                 Margins="0 25 0 5"
-                                EnableKeyEvents="true">    
+                                EnableKeyEvents="true">
                                 <CustomConfig>
-                                    <ext:ConfigItem Name="startDateField" Value="DateField1" Mode="Value" />
+                                    <ext:ConfigItem Name="DateField" Value="DateField1" Mode="Value" />
                                 </CustomConfig>
                                 <Listeners>
                                     <KeyUp Fn="onKeyUp" />
                                 </Listeners>
                             </ext:DateField>
 
-                            <ext:DateField 
-                                ID="EndDateField" 
-                                runat="server"
-                                Vtype="daterange"
-                                FieldLabel="To"
-                                EnableKeyEvents="true">  
-                                <CustomConfig>
-                                    <ext:ConfigItem Name="endDateField" Value="DateField2" Mode="Value" />
-                                </CustomConfig>
-                                <Listeners>
-                                    <KeyUp Fn="onKeyUp" />
-                                </Listeners>
-                            </ext:DateField>
-
-                            <ext:Button ID="Button1" runat="server" Text="Generate" Icon="Application" Margins="0 0 0 145">
+                            <ext:Button ID="Button1" runat="server" Text="Generate" Icon="ApplicationGo" Margins="0 0 0 125">
                             </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
 
-                <BottomBar>
-                    <ext:PagingToolbar 
-                        ID="PhoneCallsPagingToolbar" 
-                        runat="server" 
-                        StoreID="PhoneCallStore" 
-                        DisplayInfo="true" 
-                        Weight="25" 
-                        DisplayMsg="Phone Calls {0} - {1} of {2}"
-                            />
-                </BottomBar>
-                    
-                <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi"  Visible="false"/>
-                </SelectionModel>
-            </ext:GridPanel>
+                <%--<Content>
+                    <div class="block-body wauto p5">
+                        <ext:DateField 
+                            ID="StartDateField"
+                            runat="server" 
+                            Vtype="daterange"
+                            FieldLabel="From"
+                            Margins="0 25 0 5"
+                            EnableKeyEvents="true">    
+                            <CustomConfig>
+                                <ext:ConfigItem Name="startDateField" Value="DateField1" Mode="Value" />
+                            </CustomConfig>
+                            <Listeners>
+                                <KeyUp Fn="onKeyUp" />
+                            </Listeners>
+                        </ext:DateField>
+
+                        <ext:DateField 
+                            ID="EndDateField" 
+                            runat="server"
+                            Vtype="daterange"
+                            FieldLabel="To"
+                            EnableKeyEvents="true">  
+                            <CustomConfig>
+                                <ext:ConfigItem Name="endDateField" Value="DateField2" Mode="Value" />
+                            </CustomConfig>
+                            <Listeners>
+                                <KeyUp Fn="onKeyUp" />
+                            </Listeners>
+                        </ext:DateField>
+
+                        <ext:Button ID="Button1" runat="server" Text="Generate" Icon="Application" Margins="50 0 0 0">
+                        </ext:Button>
+                    </div>
+                </Content>--%>
+            </ext:Panel>
         </div>
     </div>
-    <!-- *** END OF ACCOUNTING MAIN BODY *** -->--%>
+    <!-- *** END OF ACCOUNTING MAIN BODY *** -->
 </asp:Content>

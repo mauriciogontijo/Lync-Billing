@@ -68,9 +68,76 @@
     <!-- *** END OF SIDEBAR *** -->
 
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
-    <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
+    <div id='generate-report-block' class='block float-right w80p h100p'>
         <div class="block-body pt5">
-            <p class="font-18">Generate Monthly Sites Reports!</p>
+            <ext:Panel
+                ID="GenerateReportPanel" 
+                runat="server" 
+                Width="750"
+                Height="53"  
+                Header="true"
+                Title="Generate Monthly Sites Report"
+                Layout="Anchor">
+                <TopBar>
+                    <ext:Toolbar ID="Toolbar1" runat="server">
+                        <Items>
+                            <ext:DateField 
+                                ID="DateField"
+                                runat="server" 
+                                Vtype="daterange"
+                                FieldLabel="Month & Year:"
+                                Margins="0 25 0 5"
+                                EnableKeyEvents="true">    
+                                <CustomConfig>
+                                    <ext:ConfigItem Name="DateField" Value="DateField1" Mode="Value" />
+                                </CustomConfig>
+                                <Listeners>
+                                    <KeyUp Fn="onKeyUp" />
+                                </Listeners>
+                            </ext:DateField>
+
+                            <ext:Button ID="Button1" runat="server" Text="Generate" Icon="ApplicationGo" Margins="0 0 0 395">
+                            </ext:Button>
+                        </Items>
+                    </ext:Toolbar>
+                </TopBar>
+
+                <%--<Content>
+                    <div class="block-body wauto p5">
+                        <ext:DateField 
+                            ID="StartDateField"
+                            runat="server" 
+                            Vtype="daterange"
+                            FieldLabel="From"
+                            Margins="0 25 0 5"
+                            EnableKeyEvents="true">    
+                            <CustomConfig>
+                                <ext:ConfigItem Name="startDateField" Value="DateField1" Mode="Value" />
+                            </CustomConfig>
+                            <Listeners>
+                                <KeyUp Fn="onKeyUp" />
+                            </Listeners>
+                        </ext:DateField>
+
+                        <ext:DateField 
+                            ID="EndDateField" 
+                            runat="server"
+                            Vtype="daterange"
+                            FieldLabel="To"
+                            EnableKeyEvents="true">  
+                            <CustomConfig>
+                                <ext:ConfigItem Name="endDateField" Value="DateField2" Mode="Value" />
+                            </CustomConfig>
+                            <Listeners>
+                                <KeyUp Fn="onKeyUp" />
+                            </Listeners>
+                        </ext:DateField>
+
+                        <ext:Button ID="Button1" runat="server" Text="Generate" Icon="Application" Margins="50 0 0 0">
+                        </ext:Button>
+                    </div>
+                </Content>--%>
+            </ext:Panel>
         </div>
     </div>
     <!-- *** END OF ACCOUNTING MAIN BODY *** -->
