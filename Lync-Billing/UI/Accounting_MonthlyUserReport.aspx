@@ -31,7 +31,7 @@
             <ext:Panel ID="SidebarPanel"
                 runat="server"
                 Height="330"
-                Title="User Tools">
+                Title="Accounting Tools">
                 <Content>
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
