@@ -206,9 +206,9 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
     text-transform: none;
 }
 
-div#main_content_place_holder_PhoneCallsHistoryGrid * {
+div#main_content_place_holder_PhoneCallsHistoryGrid *, div#main_content_place_holder_GenerateReportPanel * {
     vertical-align: bottom;
-}
+} 
 
 .x-grid-with-row-lines .x-grid-cell { 
     height: 25px !important;
