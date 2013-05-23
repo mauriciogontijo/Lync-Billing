@@ -99,8 +99,10 @@
     <Content Include="Global.asax" />
     <Content Include="Resources\excel.xsl" />
     <Content Include="UI\Accounting_Dashboard.aspx" />
-    <Content Include="UI\Accounting_GenerateReport.aspx" />
-    <Content Include="UI\Accounting_ValidateCycle.aspx" />
+    <Content Include="UI\Accounting_MonthlySiteReport.aspx" />
+    <Content Include="UI\Accounting_MonthlyUserReport.aspx" />
+    <Content Include="UI\Accounting_PeriodicalSiteReport.aspx" />
+    <Content Include="UI\Accounting_PeriodicalUserReport.aspx" />
     <Content Include="UI\Login.aspx" />
     <Content Include="UI\css\black-layout.css" />
     <Content Include="UI\css\diagnostics-v1.css" />
@@ -158,19 +160,33 @@
     <Compile Include="UI\Accounting_Dashboard.aspx.designer.cs">
       <DependentUpon>Accounting_Dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting_GenerateReport.aspx.cs">
-      <DependentUpon>Accounting_GenerateReport.aspx</DependentUpon>
+    <Compile Include="UI\Accounting_MonthlySiteReport.aspx.cs">
+      <DependentUpon>Accounting_MonthlySiteReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\Accounting_GenerateReport.aspx.designer.cs">
-      <DependentUpon>Accounting_GenerateReport.aspx</DependentUpon>
+    <Compile Include="UI\Accounting_MonthlySiteReport.aspx.designer.cs">
+      <DependentUpon>Accounting_MonthlySiteReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting_ValidateCycle.aspx.cs">
-      <DependentUpon>Accounting_ValidateCycle.aspx</DependentUpon>
+    <Compile Include="UI\Accounting_MonthlyUserReport.aspx.cs">
+      <DependentUpon>Accounting_MonthlyUserReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\Accounting_ValidateCycle.aspx.designer.cs">
-      <DependentUpon>Accounting_ValidateCycle.aspx</DependentUpon>
+    <Compile Include="UI\Accounting_MonthlyUserReport.aspx.designer.cs">
+      <DependentUpon>Accounting_MonthlyUserReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Accounting_PeriodicalSiteReport.aspx.cs">
+      <DependentUpon>Accounting_PeriodicalSiteReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Accounting_PeriodicalSiteReport.aspx.designer.cs">
+      <DependentUpon>Accounting_PeriodicalSiteReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Accounting_PeriodicalUserReport.aspx.cs">
+      <DependentUpon>Accounting_PeriodicalUserReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Accounting_PeriodicalUserReport.aspx.designer.cs">
+      <DependentUpon>Accounting_PeriodicalUserReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
