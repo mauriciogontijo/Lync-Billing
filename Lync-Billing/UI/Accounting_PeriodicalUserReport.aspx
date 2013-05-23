@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="Accounting_PeriodicalUserReport.aspx.cs" Inherits="Lync_Billing.UI.Accounting_PeriodicalUserReport" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
-    <title>eBill | Accounting Mainpage</title>
+    <title>eBill | Periodical Users Report</title>
 
     <script type="text/javascript">
         var onKeyUp = function () {
@@ -49,7 +49,6 @@
                         <div class="sidebar-section-body">
                             <p><a href='Accounting_MonthlyUserReport.aspx'>Monthly Users Report</a></p>
                             <p><a href='Accounting_PeriodicalUserReport.aspx' class='selected'>Periodical Users Report</a></p>
-                            <p><a href='Accounting_ValidateCycle.aspx'>Validate Accounting Cycle</a></p>
                         </div>
                     </div>
 
@@ -58,7 +57,8 @@
                             <p>Generate Site Reports</p>
                         </div>
                         <div class="sidebar-section-body">
-                            
+                            <p><a href='Accounting_MonthlySiteReport.aspx'>Monthly Sites Report</a></p>
+                            <p><a href='Accounting_PeriodicalSiteReport.aspx'>Periodical Sites Report</a></p>
                         </div>
                     </div>
                 </Content>
@@ -70,7 +70,7 @@
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
         <div class="block-body pt5">
-            <p class="font-18">Generate Periodical User Reports!</p>
+            <p class="font-18">Generate Periodical Users Reports!</p>
         </div>
     </div>
     <!-- *** END OF ACCOUNTING MAIN BODY *** -->

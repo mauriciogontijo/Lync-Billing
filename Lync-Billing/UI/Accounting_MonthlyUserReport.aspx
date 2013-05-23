@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="Accounting_MonthlyUserReport.aspx.cs" Inherits="Lync_Billing.UI.Accounting_MonthlyUserReport" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
-    <title>eBill | Accounting Mainpage</title>
+    <title>eBill | Monthly Users Report</title>
 
     <script type="text/javascript">
         var onKeyUp = function () {
@@ -44,21 +44,21 @@
 
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>Generate User Reports</p>
+                            <p>Generate Users Reports</p>
                         </div>
                         <div class="sidebar-section-body">
                             <p><a href='Accounting_MonthlyUserReport.aspx' class='selected'>Monthly Users Report</a></p>
                             <p><a href='Accounting_PeriodicalUserReport.aspx'>Periodical Users Report</a></p>
-                            <p><a href='Accounting_ValidateCycle.aspx'>Validate Accounting Cycle</a></p>
                         </div>
                     </div>
 
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>Generate Site Reports</p>
+                            <p>Generate Sites Reports</p>
                         </div>
                         <div class="sidebar-section-body">
-                            
+                            <p><a href='Accounting_MonthlySiteReport.aspx'>Monthly Sites Report</a></p>
+                            <p><a href='Accounting_PeriodicalSiteReport.aspx'>Periodical Sites Report</a></p>
                         </div>
                     </div>
                 </Content>
