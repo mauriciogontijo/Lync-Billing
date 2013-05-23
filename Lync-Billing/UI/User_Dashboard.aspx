@@ -489,7 +489,7 @@
                             Width="465"
                             Height="380"
                             Header="True"
-                            Title="Personal Calls - Duration & Cost Report"
+                            Title="Personal Duration/Cost Report"
                             Layout="FitLayout">
                             <Items>
                                 <ext:Chart 
@@ -565,9 +565,6 @@
                                     <Plugins>
                                         <ext:VerticalMarker ID="VerticalMarker1" runat="server">
                                             <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');"/>
-                                        </ext:VerticalMarker>
-                                        <ext:VerticalMarker ID="VerticalMarker2" runat="server">
-                                            <XLabelRenderer Handler="return tesxt"/>
                                         </ext:VerticalMarker>
                                     </Plugins>
                                     <LegendConfig Position="Bottom" />
