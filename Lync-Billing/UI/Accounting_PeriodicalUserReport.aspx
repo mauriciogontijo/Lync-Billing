@@ -38,7 +38,7 @@
                             <p>Pages</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='Accounting_Dashboard.aspx' class='selected'>Accounting Dashboard</a></p>
+                            <p><a href='Accounting_Dashboard.aspx'>Accounting Dashboard</a></p>
                         </div>
                     </div>
 
