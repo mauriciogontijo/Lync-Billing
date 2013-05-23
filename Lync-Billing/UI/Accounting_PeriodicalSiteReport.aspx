@@ -30,7 +30,7 @@
         <div class="block-body">
             <ext:Panel ID="SidebarPanel"
                 runat="server"
-                Height="380"
+                Height="330"
                 Title="User Tools">
                 <Content>
                     <div class='sidebar-section'>

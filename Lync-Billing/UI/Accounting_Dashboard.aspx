@@ -10,7 +10,7 @@
         <div class="block-body">
             <ext:Panel ID="SidebarPanel"
                 runat="server"
-                Height="380"
+                Height="330"
                 Title="User Tools">
                 <Content>
                     <div class='sidebar-section'>
@@ -51,7 +51,7 @@
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='Div2' class='block float-right w80p h100p'>
         <div class="block-body pt5">
-            <p class="font-18">Generate Periodical User Reports!</p>
+            <p class="font-18">Accounting Dashboard!</p>
         </div>
     </div>
     <!-- *** END OF ACCOUNTING MAIN BODY *** -->
