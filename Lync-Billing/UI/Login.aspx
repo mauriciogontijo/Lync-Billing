@@ -37,11 +37,15 @@
                         ID="email"
                         EmptyText="Email Address"
                         Width="200"
-                        TabIndex="0"
+                        TabIndex="1"
                         InputType="Email"
                         ValidateBlank="true"
                         Vtype="email"
-                        VtypeText="Kindly enter your CCC email.">
+                        VtypeText="Kindly enter your CCC email."
+                        SelectOnFocus="true"
+                        Selectable="true"
+                        AllowBlank="false"
+                        AllowOnlyWhitespace="false">
 					</ext:TextField>
 				</div>
 
@@ -51,8 +55,12 @@
                         ID="password"
                         EmptyText="Password"
                         Width="200"
-                        TabIndex="1"
-                        InputType="Password">
+                        TabIndex="2"
+                        InputType="Password"
+                        SelectOnFocus="true"
+                        Selectable="true"
+                        AllowBlank="false"
+                        AllowOnlyWhitespace="false">
                         <Listeners>
                             <KeyPress Handler="Ext.getDoc().on('keydown', function (e) {if (e.getKey() = e.ENTER) {SigninButton.fireEvent('click');}});">
                             </KeyPress>
