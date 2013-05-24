@@ -53,6 +53,7 @@
                         ValidateBlank="true"
                         Vtype="email"
                         VtypeText="Kindly enter your CCC email."
+                        StandardVtype="Email"
                         SelectOnFocus="true"
                         Selectable="true"
                         AllowBlank="false"
@@ -72,10 +73,6 @@
                         Selectable="true"
                         AllowBlank="false"
                         AllowOnlyWhitespace="false">
-                        <Listeners>
-                            <KeyPress Fn="TriggerSubmit">
-                            </KeyPress>
-                        </Listeners>
                     </ext:TextField>
               	</div>
 
