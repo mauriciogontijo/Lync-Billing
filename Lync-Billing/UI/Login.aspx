@@ -16,6 +16,17 @@
                 }
             });
         });
+
+        var TriggerSubmit = function () {
+            if (Ext.getKey() == Ext.ENTER) {
+                SigninButton.fireEvent('click');
+            }
+            /*Ext.getDoc().on('keydown', function (e) {
+                if (e.getKey() == e.ENTER) {
+                    SigninButton.fireEvent('click');
+                }
+            });*/
+        }
     </script>
 </asp:Content>
 
@@ -62,7 +73,7 @@
                         AllowBlank="false"
                         AllowOnlyWhitespace="false">
                         <Listeners>
-                            <KeyPress Handler="Ext.getDoc().on('keydown', function (e) {if (e.getKey() = e.ENTER) {SigninButton.fireEvent('click');}});">
+                            <KeyPress Fn="TriggerSubmit">
                             </KeyPress>
                         </Listeners>
                     </ext:TextField>
