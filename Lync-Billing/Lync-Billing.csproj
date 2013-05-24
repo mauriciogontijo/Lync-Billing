@@ -98,7 +98,7 @@
     <Content Include="App_Readme\Transformer.NET\README.txt" />
     <Content Include="Global.asax" />
     <Content Include="Resources\excel.xsl" />
-    <Content Include="UI\Accounting_Dashboard.aspx" />
+    <Content Include="UI\Accounting_ManageDisputes.aspx" />
     <Content Include="UI\Accounting_MonthlySiteReport.aspx" />
     <Content Include="UI\Accounting_MonthlyUserReport.aspx" />
     <Content Include="UI\Accounting_PeriodicalSiteReport.aspx" />
@@ -153,12 +153,12 @@
     <Compile Include="Libs\PDFLib.cs" />
     <Compile Include="Libs\Statistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Accounting_Dashboard.aspx.cs">
-      <DependentUpon>Accounting_Dashboard.aspx</DependentUpon>
+    <Compile Include="UI\Accounting_ManageDisputes.aspx.cs">
+      <DependentUpon>Accounting_ManageDisputes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\Accounting_Dashboard.aspx.designer.cs">
-      <DependentUpon>Accounting_Dashboard.aspx</DependentUpon>
+    <Compile Include="UI\Accounting_ManageDisputes.aspx.designer.cs">
+      <DependentUpon>Accounting_ManageDisputes.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\Accounting_MonthlySiteReport.aspx.cs">
       <DependentUpon>Accounting_MonthlySiteReport.aspx</DependentUpon>
