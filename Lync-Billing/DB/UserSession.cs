@@ -76,30 +76,37 @@ namespace Lync_Billing.DB
             if (UserRoles != null) {
                 foreach (UserRole role in UserRoles) {
                     switch (role.RoleID) {
-                        case 1: IsDeveloper = true;
+                        case 1:
+                            IsDeveloper = true;
                             break;
 
-                        case 2: IsAccountant = true;
+                        case 2:
+                            IsAccountant = true;
                             IsSuperAccountant = true;
                             break;
 
-                        case 3: IsAdmin = true;
+                        case 3:
+                            IsAdmin = true;
                             IsSuperAdmin = true;
                             break;
 
-                        case 4: IsAdmin = true;
+                        case 4:
+                            IsAdmin = true;
                             IsCountryAdmin = true;
                             break;
 
-                        case 5: IsAdmin = true;
+                        case 5:
+                            IsAdmin = true;
                             IsProjectAdmin = true;
                             break;
 
-                        case 6: IsAccountant = true;
+                        case 6:
+                            IsAccountant = true;
                             IsCountryAccountant = true;
                             break;
 
-                        case 7: IsAccountant = true;
+                        case 7:
+                            IsAccountant = true;
                             IsProjectAccountant = true;
                             break;
                     }
