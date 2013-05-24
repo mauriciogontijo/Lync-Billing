@@ -24,25 +24,6 @@ namespace Lync_Billing.UI
             }
             else
             {
-                /*bool status = new Boolean();
-                status = false;
-
-                UserSession session = new UserSession();
-                session = (UserSession)Session.Contents["UserData"];
-
-                foreach (UserRole role in session.Roles)
-                {
-                    if (role.Notes == "Accountant" || role.Notes == "Developer")
-                    {
-                        status = true;
-                    }
-                }
-
-                if(status == false)
-                {
-                    Response.Redirect("~/UI/User_Dashboard.aspx");
-                }*/
-
                 UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
