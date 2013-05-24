@@ -68,8 +68,8 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
     position: absolute;
     left: 50%;
     top: 50%;
-    height: 150px;
-    width: 830px;
+    height: 140px;
+    width: 820px;
     margin: -150px 0 0 -410px;
     z-index: 10;
     border-radius: 4px;
@@ -83,7 +83,7 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
 	display: block;
 	position: absolute;
 	top: 0px;
-	right: 10px;
+	right: 0px;
 	/*width: 210px;*/
 	/*height: 108px;*/
 	width: auto;
