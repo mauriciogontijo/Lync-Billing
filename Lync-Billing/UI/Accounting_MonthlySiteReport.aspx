@@ -35,15 +35,6 @@
                 <Content>
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>Pages</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='Accounting_Dashboard.aspx'>Accounting Dashboard</a></p>
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
                             <p>Generate User Reports</p>
                         </div>
                         <div class="sidebar-section-body">
@@ -59,6 +50,15 @@
                         <div class="sidebar-section-body">
                             <p><a href='Accounting_MonthlySiteReport.aspx' class="selected">Monthly Sites Report</a></p>
                             <p><a href='Accounting_PeriodicalSiteReport.aspx'>Periodical Sites Report</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Disputes</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='Accounting_ManageDisputes.aspx'>Manage Disputed Calls</a></p>
                         </div>
                     </div>
                 </Content>
@@ -101,42 +101,6 @@
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
-
-                <%--<Content>
-                    <div class="block-body wauto p5">
-                        <ext:DateField 
-                            ID="StartDateField"
-                            runat="server" 
-                            Vtype="daterange"
-                            FieldLabel="From"
-                            Margins="0 25 0 5"
-                            EnableKeyEvents="true">    
-                            <CustomConfig>
-                                <ext:ConfigItem Name="startDateField" Value="DateField1" Mode="Value" />
-                            </CustomConfig>
-                            <Listeners>
-                                <KeyUp Fn="onKeyUp" />
-                            </Listeners>
-                        </ext:DateField>
-
-                        <ext:DateField 
-                            ID="EndDateField" 
-                            runat="server"
-                            Vtype="daterange"
-                            FieldLabel="To"
-                            EnableKeyEvents="true">  
-                            <CustomConfig>
-                                <ext:ConfigItem Name="endDateField" Value="DateField2" Mode="Value" />
-                            </CustomConfig>
-                            <Listeners>
-                                <KeyUp Fn="onKeyUp" />
-                            </Listeners>
-                        </ext:DateField>
-
-                        <ext:Button ID="Button1" runat="server" Text="Generate" Icon="Application" Margins="50 0 0 0">
-                        </ext:Button>
-                    </div>
-                </Content>--%>
             </ext:Panel>
         </div>
     </div>

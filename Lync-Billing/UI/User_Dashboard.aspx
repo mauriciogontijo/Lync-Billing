@@ -98,21 +98,6 @@
             grid.submitData(false, { isUpload: true });
         };
 
-        /*var tipCostRenderer = function (storeItem, item) {
-            var total = 0;
-
-            App.PhoneCallsCostChart.getStore().each(function (rec) {
-                total += rec.get('TotalCost');
-            });
-
-            this.setTitle(
-                storeItem.get('Name') + ': ' +
-                ((storeItem.get('TotalCost') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
-                '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
-                '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
-            );
-        };*/
-
         var tipDuartionRenderer = function (storeItem, item) {
             //calculate percentage.
             var total = 0;
@@ -167,33 +152,6 @@
             var minutes = Math.floor((sec_num - (hours * 60)));
             return hours + "." + minutes;
         };
-        /*var TotalCostLableRenderer = function (storeItem, item) {
-            var total = 0, b_total = 0, p_total = 0, u_total = 0;
-
-            App.PhoneCallsCostChart.getStore().each(function (rec) {
-                total += rec.get('TotalCost');
-
-                if (rec.get('Name') == 'Business') {
-                    b_total = rec.get('TotalCost');
-                }
-                else if (rec.get('Name') == 'Personal') {
-                    p_total = rec.get('TotalCost');
-                }
-                else if (rec.get('Name') == 'Unmarked') {
-                    u_total = rec.get('TotalCost');
-                }
-            });
-
-            if (storeItem == "Business") {
-                return ((b_total / total).toFixed(4) * 100.0).toFixed(2) + '%';
-            }
-            else if (storeItem == "Personal") {
-                return ((p_total / total).toFixed(4) * 100.0).toFixed(2) + '%';
-            }
-            else if (storeItem == "Unmarked") {
-                return ((u_total / total).toFixed(4) * 100.0).toFixed(2) + '%';
-            }
-        };*/
 
         var redirect_to_manage_phonecalls = function () {
             to = "User_ManagePhoneCalls.aspx"
@@ -294,7 +252,7 @@
 				    </li>
 
 				    <li class='nav-button'>
-                        <a href='Accounting_Dashboard.aspx' class='nav-button-item'>
+                        <a href='Accounting_MonthlyUsersReports.aspx' class='nav-button-item'>
                             <img alt='Manage My Phone Calls' src='images/phonecalls.png' width='40' />
                         </a>
 				    </li>

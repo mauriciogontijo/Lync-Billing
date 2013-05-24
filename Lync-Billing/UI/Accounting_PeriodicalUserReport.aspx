@@ -35,15 +35,6 @@
                 <Content>
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>Pages</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='Accounting_Dashboard.aspx'>Accounting Dashboard</a></p>
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
                             <p>Generate User Reports</p>
                         </div>
                         <div class="sidebar-section-body">
@@ -59,6 +50,15 @@
                         <div class="sidebar-section-body">
                             <p><a href='Accounting_MonthlySiteReport.aspx'>Monthly Sites Report</a></p>
                             <p><a href='Accounting_PeriodicalSiteReport.aspx'>Periodical Sites Report</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Disputes</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='Accounting_ManageDisputes.aspx'>Manage Disputed Calls</a></p>
                         </div>
                     </div>
                 </Content>
