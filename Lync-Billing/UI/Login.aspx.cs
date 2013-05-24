@@ -18,9 +18,10 @@ namespace Lync_Billing.UI
         {
             //Session.Contents["UserData"];
             Session.Clear();
+          
         }
 
-        protected void Signin(object sender, EventArgs e)
+        protected void SigninButton_DirectClick(object sender, Ext.Net.DirectEventArgs e)
         {
             bool status = false;
             ADUserInfo userInfo = new ADUserInfo();
@@ -56,13 +57,16 @@ namespace Lync_Billing.UI
 
                         session.ActiveRoleName = "USER";
 
-                        if (userRoles.Count > 0) {
+                        if (userRoles.Count > 0)
+                        {
                             session.Roles = userRoles;
                             session.InitializeRoles(userRoles);
-                        } else {
+                        }
+                        else
+                        {
                             session.Roles = null;
                             //By default, the Roles map (IsDeveloper....etc) is initialized to false.
-                         }
+                        }
 
                         //If user information from Active directory doesnt match the one in Users Table : update user table 
                         if ((ListOfUsers[0]).SipAccount != userInfo.SipAccount.Replace("sip:", "") ||
@@ -91,11 +95,13 @@ namespace Lync_Billing.UI
                         userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
 
 
-                        if (userRoles.Count > 0) {
+                        if (userRoles.Count > 0)
+                        {
                             session.Roles = userRoles;
                             session.InitializeRoles(userRoles);
                         }
-                        else {
+                        else
+                        {
                             session.Roles = null;
                             //By default, the Roles map (IsDeveloper....etc) is initialized to false.
                         }
@@ -113,7 +119,6 @@ namespace Lync_Billing.UI
                 }
 
             }
-            
         }
 
 

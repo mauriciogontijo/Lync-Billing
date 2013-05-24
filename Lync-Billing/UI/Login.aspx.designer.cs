@@ -40,12 +40,12 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Checkbox remember_me;
         
         /// <summary>
-        /// Button1 control.
+        /// SigninButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button Button1;
+        protected global::Ext.Net.Button SigninButton;
     }
 }

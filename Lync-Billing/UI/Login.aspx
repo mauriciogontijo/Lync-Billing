@@ -7,6 +7,16 @@
             border: 0;
         }
     </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#main_content_place_holder_password-inputEl').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    $('#main_content_place_holder_SigninButton-btnEl').click();
+                }
+            });
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -27,16 +37,27 @@
                         ID="email"
                         EmptyText="Email Address"
                         Width="200"
-                        TabIndex="1"
+                        TabIndex="0"
                         InputType="Email"
                         ValidateBlank="true"
-                        ValidatorText="Please, enter a correct email."
-                        ValidationGroup="Email">
+                        Vtype="email"
+                        VtypeText="Kindly enter your CCC email.">
 					</ext:TextField>
 				</div>
 
 				<div class="placeholding-input password">
-                    <ext:TextField runat="server" ID="password" StyleHtmlCls="placeholder" EmptyText="Password" Width="200" TabIndex="2" InputType="Password" />
+                    <ext:TextField
+                        runat="server"
+                        ID="password"
+                        EmptyText="Password"
+                        Width="200"
+                        TabIndex="1"
+                        InputType="Password">
+                        <Listeners>
+                            <KeyPress Handler="Ext.getDoc().on('keydown', function (e) {if (e.getKey() = e.ENTER) {SigninButton.fireEvent('click');}});">
+                            </KeyPress>
+                        </Listeners>
+                    </ext:TextField>
               	</div>
 
                 <style type="text/css">
@@ -53,7 +74,7 @@
                         <ext:Checkbox runat="server" ID="remember_me" IndicatorText="Remember Me" LabelStyle="vertical-align:bottom;" TabIndex="4" />
                     </div>
                     <div class="float-right">
-                        <ext:Button ID="Button1" runat="server" Text="<p class='font-13 tahoma'>Signin</p>" OnClick="Signin" Width="60" Height="25" TabIndex="3" />
+                        <ext:Button ID="SigninButton" runat="server" Text="<p class='font-13 tahoma'>Signin</p>"  OnDirectClick="SigninButton_DirectClick" Width="60" Height="25" TabIndex="3" Type="Submit" />
                     </div>
 				</div>
 			</div>
