@@ -11,10 +11,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- Start of ContentPage_Login Main HTML Content -->
-    <div class="front-card">
+    <div class="front-card shadow-bottom">
 		<div class="front-welcome float-left p10">
 			<div class="front-welcome-text">
-			    <h1>Welcome to eBill.</h1>
+			    <h1>Welcome to eBill</h1>
 			    <p>Manage your phone calls, bills and your phone calls history from one place.</p>
 			</div>
 		</div>
@@ -22,44 +22,41 @@
 		<div class="front-signin p10">
 			<div class="signin mt5">
 				<div class="placeholding-input username">
-					<asp:TextBox 
-                        TextMode="Email"
-                        runat="server" 
-                        id="email" 
-                        class="" 
-                        name="email" 
-                        title="Email" 
-                        tabindex="1" />
-					<asp:label 
-                        Text="email" 
-                        CssClass="placeholder" 
-                        runat="server"></asp:label>
+					<ext:TextField
+                        runat="server"
+                        ID="email"
+                        EmptyText="Email Address"
+                        Width="200"
+                        TabIndex="1"
+                        InputType="Email"
+                        ValidateBlank="true"
+                        ValidatorText="Please, enter a correct email."
+                        ValidationGroup="Email">
+					</ext:TextField>
 				</div>
 
 				<div class="placeholding-input password">
-            		<asp:TextBox 
-                        id="password" 
-                        runat="server" 
-                        TextMode="Password" 
-                        name="password" 
-                        title="Password" 
-                        tabindex="2" />
-                	<asp:label 
-                        Text="password"  
-                        CssClass="placeholder" 
-                        runat="server">
-
-                	</asp:label>
+                    <ext:TextField runat="server" ID="password" StyleHtmlCls="placeholder" EmptyText="Password" Width="200" TabIndex="2" InputType="Password" />
               	</div>
 
-              	<div class="placeholding-input">
-                    <asp:Button 
-                        ID="signin_submit" 
-                        runat="server" 
-                        Text="Signin" 
-                        OnClick="Signin" />
+                <style type="text/css">
+                    .x-field-indicator {
+                        position: absolute;
+                        display: block;
+                        top: -3px;
+                        left: 5px;
+                    }
+                </style>
+
+                <div class="placeholding-input">
+                    <div class="float-left">
+                        <ext:Checkbox runat="server" ID="remember_me" IndicatorText="Remember Me" LabelStyle="vertical-align:bottom;" TabIndex="4" />
+                    </div>
+                    <div class="float-right">
+                        <ext:Button ID="Button1" runat="server" Text="<p class='font-13 tahoma'>Signin</p>" OnClick="Signin" Width="60" Height="25" TabIndex="3" />
+                    </div>
 				</div>
 			</div>
 		</div>
-	</div>
+    </div>
 </asp:Content>

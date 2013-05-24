@@ -38,8 +38,8 @@
             <div id='header-container'>
 			    <div id='nav-toolbar' class='nav-toolbar text-center'>
                     <% if(Session.Contents["UserData"] != null) { %>
-				        <div id='logo' class='logo float-left'>
-					        <p><a href='User_Dashboard.aspx'>LOGO</a></p>
+				        <div class='logo float-left'>
+					        <a href='User_Dashboard.aspx'>eBill</a>
 				        </div>
 
 				        <ul id='nav-buttons'>
@@ -72,8 +72,8 @@
 					        </li>
 				        </ul>
                     <% } else { %>
-                        <div id='Div1' class='logo float-left'>
-					        <p><a href='Login.aspx'>LOGO</a></p>
+                        <div class='logo float-left'>
+					        <a href='Login.aspx'>eBill</a>
 				        </div>
                     <% } %>
 			    </div>

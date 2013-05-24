@@ -225,7 +225,7 @@
         <div id='header-container'>
             <div id='nav-toolbar' class='nav-toolbar text-center'>
                 <div id='logo' class='logo float-left'>
-				    <p><a href='User_Dashboard.aspx'>LOGO</a></p>
+				    <a href='User_Dashboard.aspx'>eBill</a>
 			    </div>
 
 			    <ul id='nav-buttons'>
