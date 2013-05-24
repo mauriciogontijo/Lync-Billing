@@ -6,9 +6,48 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF SIDEBAR *** -->
+
     <div id='Div1' class='sidebar block float-left w20p'>
         <div class="block-body">
-            <ext:Panel ID="SidebarPanel"
+            <ext:Panel ID="UserToolsSidebar"
+                runat="server"
+                Height="330"
+                Title="User Tools">
+                <Content>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Manage</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='User_ManagePhoneCalls.aspx'>Phone Calls</a></p>
+                            <p><a href='#'>Delegates</a></p>
+                            <p><a href='#'>Address Book</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>History</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='User_ViewHistory.aspx'>Phone Calls History</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Statistics</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='#'>Phone Calls Statistics</a></p>
+                        </div>
+                    </div>
+                </Content>
+            </ext:Panel>
+            
+            <div class="clear h20"></div>
+
+            <ext:Panel ID="AccountingToolsSidebar"
                 runat="server"
                 Height="330"
                 Title="Accounting Tools">

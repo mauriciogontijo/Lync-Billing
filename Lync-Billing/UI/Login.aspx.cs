@@ -56,10 +56,13 @@ namespace Lync_Billing.UI
 
                         session.ActiveRoleName = "USER";
 
-                        if (userRoles.Count > 0)
+                        if (userRoles.Count > 0) {
                             session.Roles = userRoles;
-                        else
+                            session.InitializeRoles(userRoles);
+                        } else {
                             session.Roles = null;
+                            //By default, the Roles map (IsDeveloper....etc) is initialized to false.
+                         }
 
                         //If user information from Active directory doesnt match the one in Users Table : update user table 
                         if ((ListOfUsers[0]).SipAccount != userInfo.SipAccount.Replace("sip:", "") ||
@@ -88,10 +91,14 @@ namespace Lync_Billing.UI
                         userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
 
 
-                        if (userRoles.Count > 0)
+                        if (userRoles.Count > 0) {
                             session.Roles = userRoles;
-                        else
+                            session.InitializeRoles(userRoles);
+                        }
+                        else {
                             session.Roles = null;
+                            //By default, the Roles map (IsDeveloper....etc) is initialized to false.
+                        }
 
                         // If user not found in Users tables that means this is his first login : insert his information into Users table
                         Users user = new Users();

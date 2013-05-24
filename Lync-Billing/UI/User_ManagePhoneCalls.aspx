@@ -116,9 +116,9 @@
     <!-- *** START OF SIDEBAR *** -->
     <div id='sidebar' class='sidebar block float-left w20p'>
         <div class="block-body">
-            <ext:Panel ID="SidebarPanel"
+            <ext:Panel ID="UserToolsSidebar"
                 runat="server"
-                Height="340"
+                Height="330"
                 Title="User Tools">
                 <Content>
                     <div class='sidebar-section'>
@@ -151,6 +151,50 @@
                     </div>
                 </Content>
             </ext:Panel>
+            
+            <div class="clear h20"></div>
+
+            <% 
+                bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                if ( condition )
+                {
+            %>
+                <ext:Panel ID="AccountingToolsSidebar"
+                    runat="server"
+                    Height="330"
+                    Title="Accounting Tools">
+                    <Content>
+                        <div class='sidebar-section'>
+                            <div class="sidebar-section-header">
+                                <p>Generate User Reports</p>
+                            </div>
+                            <div class="sidebar-section-body">
+                                <p><a href='Accounting_MonthlyUserReport.aspx'>Monthly Users Report</a></p>
+                                <p><a href='Accounting_PeriodicalUserReport.aspx'>Periodical Users Report</a></p>
+                            </div>
+                        </div>
+
+                        <div class='sidebar-section'>
+                            <div class="sidebar-section-header">
+                                <p>Generate Site Reports</p>
+                            </div>
+                            <div class="sidebar-section-body">
+                                <p><a href='Accounting_MonthlySiteReport.aspx'>Monthly Sites Report</a></p>
+                                <p><a href='Accounting_PeriodicalSiteReport.aspx'>Periodical Sites Report</a></p>
+                            </div>
+                        </div>
+
+                        <div class='sidebar-section'>
+                            <div class="sidebar-section-header">
+                                <p>Disputes</p>
+                            </div>
+                            <div class="sidebar-section-body">
+                                <p><a href='Accounting_ManageDisputes.aspx'>Manage Disputed Calls</a></p>
+                            </div>
+                        </div>
+                    </Content>
+                </ext:Panel>
+            <% } %>
         </div>
     </div>
     <!-- *** END OF SIDEBAR *** -->

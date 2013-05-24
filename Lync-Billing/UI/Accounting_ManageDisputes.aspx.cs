@@ -24,7 +24,7 @@ namespace Lync_Billing.UI
             }
             else
             {
-                bool status = new Boolean();
+                /*bool status = new Boolean();
                 status = false;
 
                 UserSession session = new UserSession();
@@ -40,7 +40,15 @@ namespace Lync_Billing.UI
 
                 if(status == false)
                 {
-                    Response.Redirect("~/UI/Login.aspx");
+                    Response.Redirect("~/UI/User_Dashboard.aspx");
+                }*/
+
+                UserSession session = new UserSession();
+                session = (UserSession)Session.Contents["UserData"];
+
+                if (!session.IsDeveloper && !session.IsAccountant)
+                {
+                    Response.Redirect("~/UI/User_Dashboard.aspx");
                 }
             }
         }

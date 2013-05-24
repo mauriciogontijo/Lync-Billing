@@ -8,10 +8,18 @@
 //------------------------------------------------------------------------------
 
 namespace Lync_Billing.UI {
-
-
-    public partial class Accounting_ManageDisputes
-    {
+    
+    
+    public partial class Accounting_ManageDisputes {
+        
+        /// <summary>
+        /// UserToolsSidebar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel UserToolsSidebar;
         
         /// <summary>
         /// SidebarPanel control.

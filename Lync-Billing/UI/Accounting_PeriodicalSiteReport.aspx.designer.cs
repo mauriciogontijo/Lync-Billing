@@ -13,13 +13,22 @@ namespace Lync_Billing.UI {
     public partial class Accounting_PeriodicalSiteReport {
         
         /// <summary>
-        /// SidebarPanel control.
+        /// UserToolsSidebar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel SidebarPanel;
+        protected global::Ext.Net.Panel UserToolsSidebar;
+        
+        /// <summary>
+        /// AccountingToolsSidebar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel AccountingToolsSidebar;
         
         /// <summary>
         /// GenerateReportPanel control.
