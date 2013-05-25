@@ -98,6 +98,7 @@ div#header-container div#nav-toolbar {
     border-top: 4px solid #6DB14A;
     display: none;
     width: 170px;
+    z-index:100000000;
 }
 
 #toolbar .more-container a {
