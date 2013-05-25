@@ -14,7 +14,7 @@
     <div class="front-card">
 		<div class="front-welcome float-left p10">
 			<div class="front-welcome-text">
-			    <h1>Welcome to eBill.</h1>
+			    <h1>Welcome to eBill</h1>
 			    <p>Manage your phone calls, bills and your phone calls history from one place.</p>
 			</div>
 		</div>
