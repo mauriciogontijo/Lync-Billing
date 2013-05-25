@@ -15,7 +15,8 @@ namespace Lync_Billing.UI
 {
     public partial class Accounting_MonthlyUserReport : System.Web.UI.Page
     {
-        Store AccountingStore;
+
+        Store UserBusinessCallsStore = new Store();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,8 +27,7 @@ namespace Lync_Billing.UI
             }
             else
             {
-                UserSession session = new UserSession();
-                session = (UserSession)Session.Contents["UserData"];
+                UserSession session = (UserSession)Session.Contents["UserData"];
 
                 if (!session.IsDeveloper && !session.IsAccountant)
                 {
@@ -48,14 +48,13 @@ namespace Lync_Billing.UI
 
         public bool ValidateAccountantSite(string employeeID) 
         {
-            UserSession session = new UserSession();
-            session = (UserSession)Session.Contents["UserData"];
+            UserSession session = (UserSession)Session.Contents["UserData"];
 
             List<UserRole> userRoles = session.Roles;
 
             foreach (UserRole role in userRoles) 
             {
-                if (GetSiteName(role.SiteID) == GetSipAccountSite(employeeID) && role.RoleID == 7) 
+                if ((GetSiteName(role.SiteID) == GetSipAccountSite(employeeID)) && (role.RoleID == 7 || role.RoleID == 1)) 
                     return true;
             }
             return false;
@@ -77,14 +76,43 @@ namespace Lync_Billing.UI
         public string GetSipAccountSite(string employeeID)
         {
             Dictionary<string, object> whereStatement = new Dictionary<string, object>();
-            List<string> fields = new List<string>();
+           // List<string> fields = new List<string>();
             List<Users> users = new List<Users>();
 
             whereStatement.Add("UserID", employeeID);
-            fields.Add("SipAccount");
+          
 
-            users = Users.GetUsers(fields, whereStatement, 0);
+            users = Users.GetUsers(null, whereStatement, 0);
             return users[0].SiteName;
+        }
+
+        protected void Button1_DirectClick(object sender, DirectEventArgs e)
+        {
+            UserSession session = (UserSession)Session.Contents["UserData"];
+
+            int year = 0;
+            int month = 0;
+
+            DateTime date = DateField.SelectedDate;
+
+            List<UsersCallsSummary> userSummary;
+            decimal BusinessCallCost;
+            string sipAccount = string.Empty;
+
+            year = date.Year;
+            month = date.Month;
+
+            if (ValidateAccountantSite(GroupNumberField.Text) == true)
+            {
+                sipAccount = GetSipAccount(GroupNumberField.Text);
+                userSummary = UsersCallsSummary.GetUsersCallsSummary(sipAccount, year, month, month);
+
+                BusinessCallCost = userSummary[0].BusinessCallsCost;
+
+                UserBusinessCallsStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, year, month, month);
+                UserBusinessCallsStore.DataBind();
+
+            }
         }
     }
 }
