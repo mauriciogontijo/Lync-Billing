@@ -93,7 +93,6 @@ namespace Lync_Billing.UI
         protected void Button1_DirectClick(object sender, DirectEventArgs e)
         {
             DataSet ds = new DataSet();
-            
 
             UserSession session = (UserSession)Session.Contents["UserData"];
 
@@ -125,32 +124,37 @@ namespace Lync_Billing.UI
                         )
                     );
 
-                ds.ReadXml(eml.CreateReader());
-                DataTable dt = ds.Tables[0];
+                System.Xml.XmlReader xmlReader = eml.CreateReader();
+                XmlDocument xml = new XmlDocument();
+                xml.Load(xmlReader);
 
-                var result = new StringBuilder();
-                for (int i = 0; i < dt.Columns.Count; i++)
-                {
-                    result.Append(dt.Columns[i].ColumnName);
-                    result.Append(i == dt.Columns.Count - 1 ? "\n" : ",");
-                }
+                //ds.ReadXml(eml.CreateReader());
+                //DataTable dt = ds.Tables[0];
 
-                foreach (DataRow row in dt.Rows)
-                {
-                    for (int i = 0; i < dt.Columns.Count; i++)
-                    {
-                        result.Append(row[i].ToString());
-                        result.Append(i == dt.Columns.Count - 1 ? "\n" : ",");
-                    }
-                }
+                //var result = new StringBuilder();
+                //for (int i = 0; i < dt.Columns.Count; i++)
+                //{
+                //    result.Append(dt.Columns[i].ColumnName);
+                //    result.Append(i == dt.Columns.Count - 1 ? "\n" : ",");
+                //}
 
-               
-
+                //foreach (DataRow row in dt.Rows)
+                //{
+                //    for (int i = 0; i < dt.Columns.Count; i++)
+                //    {
+                //        result.Append(row[i].ToString());
+                //        result.Append(i == dt.Columns.Count - 1 ? "\n" : ",");
+                //    }
+                //}
                 this.Response.Clear();
                 this.Response.ContentType = "application/octet-stream";
                 this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.csv");
+
+                XslCompiledTransform xtCsv = new XslCompiledTransform();
+                xtCsv.Load(Server.MapPath("~/Resources/Csv.xsl"));
+                xtCsv.Transform(xml, null, Response.OutputStream);
                
-                Response.Write(result.ToString());
+                //Response.Write(result.ToString());
                 this.Response.End();
             }
         }
