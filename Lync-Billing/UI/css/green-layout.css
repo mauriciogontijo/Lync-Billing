@@ -61,6 +61,10 @@ div#header-container div#nav-toolbar { width: 980px; height: 40px; display: bloc
     padding: 0;
 }
 
+#toolbar .blackbox ul.ptabs li.last {
+    border-left: 1px solid #535252;
+}
+
 #toolbar .blackbox ul.ptabs li a {
     color: #FFFFFF;
     font-size: 13px;
