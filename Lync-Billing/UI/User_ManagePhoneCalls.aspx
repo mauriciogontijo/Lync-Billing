@@ -25,32 +25,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('settings-menu-button').click(function (e) {
-                e.preventDefault();
-
-                if ($('#settings-more-list-container').css('display') == 'none') {
-                    $('#settings-more-list-container').fadeIn();
-                    $('#settings-more-list-container').css('display', 'block');
-                } else {
-                    $('#settings-more-list-container').fadeOut();
-                    $('#settings-more-list-container').css('display', 'none');
-                }
-
-                return false;
-            });
-
-            $('#nav-more').click(function (e) {
-                e.preventDefault();
-                var top = $(this).offset().top;
-                var right = $(this).offset().right;
-
-                $('#more-list-container').css({ right: right - 1, top: top + 4 }).fadeIn('fast');
-                return false;
-            });
-
-            $('body').click(function (e) {
-                $('#more-list-container').fadeOut('fast');
-            });
+            $('#navigation-tabs>li.selected-item').removeClass('selected-item');
+            $('#manage-phonecalls-tab').addClass('selected-item');
         });
 
         function RoundCost(value, meta, record, rowIndex, colIndex, store) {
@@ -166,6 +142,15 @@
                     <Content>
                         <div class='sidebar-section'>
                             <div class="sidebar-section-header">
+                                <p>Disputes</p>
+                            </div>
+                            <div class="sidebar-section-body">
+                                <p><a href='Accounting_ManageDisputes.aspx'>Manage Disputed Calls</a></p>
+                            </div>
+                        </div>
+
+                        <div class='sidebar-section'>
+                            <div class="sidebar-section-header">
                                 <p>Generate User Reports</p>
                             </div>
                             <div class="sidebar-section-body">
@@ -183,15 +168,6 @@
                                 <p><a href='Accounting_PeriodicalSiteReport.aspx'>Periodical Sites Report</a></p>
                             </div>
                         </div>
-
-                        <div class='sidebar-section'>
-                            <div class="sidebar-section-header">
-                                <p>Disputes</p>
-                            </div>
-                            <div class="sidebar-section-body">
-                                <p><a href='Accounting_ManageDisputes.aspx'>Manage Disputed Calls</a></p>
-                            </div>
-                        </div>
                     </Content>
                 </ext:Panel>
             <% } %>
@@ -201,7 +177,7 @@
 
 
     <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
-    <div id='manage-phone-calls-block' class='block float-right w80p h100p'>
+    <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"

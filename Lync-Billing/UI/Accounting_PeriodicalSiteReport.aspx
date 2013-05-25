@@ -4,6 +4,11 @@
     <title>eBill | Periodical Sites Report</title>
 
     <script type="text/javascript">
+        $(document).ready(function () {
+            $('#navigation-tabs>li.selected-item').removeClass('selected-item');
+            $('#accounting-tab').addClass('selected-item');
+        });
+
         var onKeyUp = function () {
             var me = this,
                 v = me.getValue(),
@@ -73,6 +78,15 @@
                 <Content>
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
+                            <p>Disputes</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='Accounting_ManageDisputes.aspx'>Manage Disputed Calls</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
                             <p>Generate User Reports</p>
                         </div>
                         <div class="sidebar-section-body">
@@ -90,15 +104,6 @@
                             <p><a href='Accounting_PeriodicalSiteReport.aspx' class="selected">Periodical Sites Report</a></p>
                         </div>
                     </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Disputes</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='Accounting_ManageDisputes.aspx'>Manage Disputed Calls</a></p>
-                        </div>
-                    </div>
                 </Content>
             </ext:Panel>
         </div>
@@ -106,7 +111,7 @@
     <!-- *** END OF SIDEBAR *** -->
 
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
-    <div id='generate-report-block' class='block float-right w80p h100p'>
+    <div id='generate-report-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
             <ext:Panel
                 ID="GenerateReportPanel" 

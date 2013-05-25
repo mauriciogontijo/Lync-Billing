@@ -14,7 +14,6 @@
     <link rel="stylesheet" type="text/css" href="css/toolkit.css" />
     <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="js/browserdetector.js"></script>
-    <script type="text/javascript" src="js/toolkit.js"></script>
 
     <!--[if lt IE 9]>
 		    <link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
@@ -27,6 +26,11 @@
 	    <![endif]-->
 
     <script type="text/javascript">
+        $(document).ready(function () {
+            $('#navigation-tabs>li.selected-item').removeClass('selected-item');
+            $('#home-tab').addClass('selected-item');
+        });
+
         var myDateRenderer = function (value) {
             value = Ext.util.Format.date(value, "d M Y h:i A");
             return value;
@@ -193,32 +197,6 @@
     <form id="form1" runat="server">
         <ext:ResourceManager ID="resourceManager" runat="server" Theme="Gray" />
 
-        <!--<div id='header-container' class="">
-            <div id='nav-toolbar' class='nav-toolbar text-center'>
-                <div id='logo' class='logo float-left'>
-				    <a href='User_Dashboard.aspx'>eBill</a>
-			    </div>
-
-			    <ul id='nav-buttons'>
-				    <li class='nav-button'>
-					    <a id='settings-menu-button' href="Logout.aspx">Logout</a>
-				    </li>
-
-                    <li class='nav-button'><div class="separator"></div></li>
-
-				    <li class='nav-button'>
-                        <a href='User_ManagePhoneCalls.aspx'>My Phone Calls</a>
-				    </li>
-
-                    <li class='nav-button'><div class="separator"></div></li>
-
-				    <li class='nav-button'>
-                        <a href='Accounting_MonthlyUserReport.aspx'>Accounting Tools</a>
-				    </li>
-			    </ul>
-            </div>
-        </div>-->
-
         <div id="toolbar">
             <style type="text/css">
               .more-container { margin: 5px -3px 5px -3px; }
@@ -231,29 +209,34 @@
 				        <a href='User_Dashboard.aspx'>eBill</a>
 			        </div>
 
-                    <ul style="width:auto" class="ptabs">
-                        <li>
+                    <ul id="navigation-tabs" style="width:auto" class="ptabs">
+                        <li id="logout-tab">
                             <a title="Logout" href="Logout.aspx">Logout</a>
                         </li>
 
-                        <li class="selected">
+                        <li id="home-tab" class="selected-item">
                             <a title="Home" href="User_Dashboard.aspx">Home</a>
                         </li>
           
-                        <li>
+                        <li id="manage-phonecalls-tab">
                             <a title="Manage My Phone Calls" href="User_ManagePhoneCalls.aspx">My Phone Calls</a>
                         </li>
 
-                        <li>
-                            <a title="Accounting Tools" href="#" rel="nofollow" class="">Accounting Tools&nbsp;&nbsp;<img src="images/header-ddl-icon.png"></a>
-                            <div class="more-container text-left">
-                                <a href="Accounting_ManageDisputes.aspx"><div class="float-left ml5">Manage Disputed Calls</div></a>
-                                <a href="Accounting_MonthlyUserReport.aspx"><div class="float-left ml5">Monthly User Report</div></a>
-                                <a href="Accounting_PeriodicalUserReport.aspx"><div class="float-left ml5">Periodical User Report</div></a>
-                                <a href="Accounting_MonthlySiteReport.aspx"><div class="float-left ml5">Monthly Site Report</div></a>
-                                <a href="Accounting_PeriodicalSiteReport.aspx"><div class="float-left ml5">Periodical Site Report</div></a>
-                            </div>
-                        </li>
+                        <% 
+                            bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                            if(condition) { 
+                        %>
+                            <li id="accounting-tab">
+                                <a title="Accounting Tools" href="#">Accounting Tools&nbsp;&nbsp;<img src="images/header-ddl-icon.png"></a>
+                                <div class="more-container text-left">
+                                    <a href="Accounting_ManageDisputes.aspx"><div class="float-left ml5">Manage Disputed Calls</div></a>
+                                    <a href="Accounting_MonthlyUserReport.aspx"><div class="float-left ml5">Monthly User Report</div></a>
+                                    <a href="Accounting_PeriodicalUserReport.aspx"><div class="float-left ml5">Periodical User Report</div></a>
+                                    <a href="Accounting_MonthlySiteReport.aspx"><div class="float-left ml5">Monthly Site Report</div></a>
+                                    <a href="Accounting_PeriodicalSiteReport.aspx"><div class="float-left ml5">Periodical Site Report</div></a>
+                                </div>
+                            </li>
+                        <% } %>
 
                         <li>&nbsp;</li>
                     </ul>

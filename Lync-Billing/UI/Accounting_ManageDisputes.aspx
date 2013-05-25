@@ -2,6 +2,13 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Accounting Mainpage</title>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#navigation-tabs>li.selected-item').removeClass('selected-item');
+            $('#accounting-tab').addClass('selected-item');
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -54,6 +61,15 @@
                 <Content>
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
+                            <p>Disputes</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='Accounting_ManageDisputes.aspx' class="selected">Manage Disputed Calls</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
                             <p>Generate User Reports</p>
                         </div>
                         <div class="sidebar-section-body">
@@ -71,15 +87,6 @@
                             <p><a href='Accounting_PeriodicalSiteReport.aspx'>Periodical Sites Report</a></p>
                         </div>
                     </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Disputes</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='Accounting_ManageDisputes.aspx' class="selected">Manage Disputed Calls</a></p>
-                        </div>
-                    </div>
                 </Content>
             </ext:Panel>
         </div>
@@ -88,7 +95,7 @@
 
 
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
-    <div id='Div2' class='block float-right w80p h100p'>
+    <div id='Div2' class='block float-right wauto h100p'>
         <div class="block-body pt5">
             <p class="font-18">Accounting Dashboard!</p>
         </div>

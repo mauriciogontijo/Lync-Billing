@@ -22,12 +22,12 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Panel UserToolsSidebar;
         
         /// <summary>
-        /// SidebarPanel control.
+        /// AccountingToolsSidebar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel SidebarPanel;
+        protected global::Ext.Net.Panel AccountingToolsSidebar;
     }
 }

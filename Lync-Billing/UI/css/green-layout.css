@@ -104,13 +104,14 @@ div#header-container div#nav-toolbar { width: 980px; height: 40px; display: bloc
     z-index: 900500;
 }
 
-#toolbar .selected-item {
-    background-color: #6DB14A !important;
-}
+/*#toolbar .selected-item { background-color: #6DB14A !important; background: none repeat scroll 0 0 #6DB14A; }*/
 
-
-#toolbar .blackbox ul.ptabs li:hover, #toolbar .blackbox ul.ptabs li.selected {
-    background: none repeat scroll 0 0 #6DB14A;
+#toolbar .blackbox ul.ptabs li:hover, #toolbar .blackbox ul.ptabs li.selected, #toolbar .blackbox ul.ptabs li.selected-item {
+    /*background: none repeat scroll 0 0 #6DB14A;*/
+    background-color: #6DB14A;
+    background: -webkit-gradient(linear, left top, left bottom, from(#A8DBA8), to(#6DB14A));
+    background: -moz-linear-gradient(top, #3B8686, #6DB14A);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3B8686', endColorstr='#6DB14A');
 }
 /* END OF HEADER STYLING */
 /* ********************* */
