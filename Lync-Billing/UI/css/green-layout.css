@@ -6,6 +6,10 @@ body {
 
 div#container { width: 100%; margin: 0 auto; font-family: tahoma; overflow: hidden; }
 
+
+
+/* *********************** */
+/* START OF HEADER STYLING */
 div#header-container {
 	position: fixed; top: 0; left: 0; z-index: 1000000; width: 100%; height: 40px; padding: 5px;
 	background: #0B486B;
@@ -14,13 +18,137 @@ div#header-container {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3B8686', endColorstr='#0B486B');
 }
 
-div#header-container div#nav-toolbar { width: 1000px; height: 40px; display: block; margin: 0 auto; }
-div#main { width: 1000px; margin: 40px auto; display: block; padding: 20px; border-left: 1px solid #CECFCE; border-right: 1px solid #CECFCE; border-bottom: 1px solid #CECFCE; overflow: hidden; }
-div#footer .footer { width: auto; display: block; height: 24px; overflow: hidden; }
-div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
+div#header-container div#nav-toolbar { width: 980px; height: 40px; display: block; margin: 0 auto; }
 
-.login-background-container { position: fixed; left: -50%; z-index: 0; background: none repeat scroll 0 0 #000000; height: 200%; width: 200%; }
-.login-background-container img { bottom: 0; display: block; left: 0; margin: auto; min-height: 50%; min-width: 50%; right: 0; top: 0; }
+#toolbar .blackbox {
+    background: #0B486B;
+	background: -webkit-gradient(linear, left top, left bottom, from(#3B8686), to(#0B486B));
+	background: -moz-linear-gradient(top,  #3B8686,  #0B486B);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3B8686', endColorstr='#0B486B');
+    box-shadow: 5px 0 10px #ACACAC;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 400;
+    left: 0;
+    margin: 0;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 900000;
+}
+
+#toolbar .center-piece {
+    margin: 0 auto;
+    text-align: right;
+    width: 1000px;
+}
+
+#toolbar .blackbox ul.ptabs {
+    float: right;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+#toolbar .blackbox ul.ptabs li {
+    border-right: 1px solid #535252;
+    direction: rtl;
+    float: right;
+    height: 34px;
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+#toolbar .blackbox ul.ptabs li a {
+    color: #FFFFFF;
+    font-size: 13px;
+    padding: 0 8px;
+    text-decoration: none;
+}
+
+#toolbar .blackbox ul.ptabs li.drop, .blackbox ul.ptabs li.drop:hover {
+    padding: 0 5px;
+}
+
+#toolbar .more-container {
+    background: none repeat scroll 0 0 #282727;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top: 4px solid #6DB14A;
+    display: none;
+    width: 170px;
+}
+
+#toolbar .more-container a {
+    border-bottom: 1px solid #2C2B2B;
+    border-top: 1px solid #3E3E3E;
+    clear: both;
+    display: block;
+    float: none;
+    font-size: 13px;
+}
+
+#toolbar .more-container a:hover {
+    background: none repeat scroll 0 0 #424242;
+}
+
+#toolbar .blackbox ul.ptabs li:hover .more-container {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 4px;
+    position: absolute;
+    top: 30px;
+    margin: 0px;
+    z-index: 900500;
+}
+
+#toolbar .selected-item {
+    background-color: #6DB14A !important;
+}
+
+
+#toolbar .blackbox ul.ptabs li:hover, #toolbar .blackbox ul.ptabs li.selected {
+    background: none repeat scroll 0 0 #6DB14A;
+}
+/* END OF HEADER STYLING */
+/* ********************* */
+
+
+
+/* ********************************** */
+/* START OF MAIN BODY CONTENT STYLING */
+div#main {
+    width: 1000px;
+    margin: 40px auto;
+    display: block;
+    padding: 20px;
+    border-left: 1px solid #CECFCE;
+    border-right: 1px solid #CECFCE;
+    border-bottom: 1px solid #CECFCE;
+    overflow: hidden;
+}
+
+div#footer .footer {
+    width: auto; 
+    display: block;
+    height: 24px;
+    overflow: hidden; 
+}
+
+div#announcements {
+    width: auto;
+    display: block;
+    border: 1px solid #B6C0D2;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+}
+/* ******************************** */
+/* END OF MAIN BODY CONTENT STYLING */
 
 
 
@@ -42,9 +170,9 @@ div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; bord
 
 /* **************************** */
 /* start navigation bar styling */
-.logo { display: block; line-height: 33px; margin: 0; padding: 0; }
-.logo a { text-decoration: none; color: #FFFFFF; font-size: 24px; font-weight: bold; line-height: 28px; text-align: left; text-shadow: 0 2px 4px #000000; }
-ul#nav-buttons { width: 150px; list-style:none outside none; margin: 0; padding: 0; float: right;}
+.logo { display: block; line-height: 30px; height: 34px; margin: 0; padding: 0; }
+.logo a { text-decoration: none; color: #FFFFFF; font-size: 22px; font-weight: bold; line-height: 30px; text-align: left; text-shadow: 0 2px 4px #000000; }
+ul#nav-buttons { width: 350px; list-style:none outside none; margin: 0; padding: 0; float: right;}
 ul#nav-buttons li.nav-button { width: 40px; float: right; margin-left: 10px; display: inline; }
 ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line-height: 40px; text-decoration: none; padding: 1px; }
 #settings-more-list-container { position: relative; right: 130.05px; top: 44px; width: 150px; background: none repeat scroll 0 0 #000000; border: 1px solid #333333; line-height: 28px; z-index: 500; overflow: hidden; }
@@ -53,6 +181,7 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
 #settings-more-list { overflow: hidden; }
 #settings-more-list li { width: auto; clear: both; float: right; margin-right: 10px; display: inline; text-align: right; }
 #settings-more-list li a.settings-menu-text { width: auto !important; height: 40px !important; display: block !important; line-height: 40px !important; text-decoration: none !important; padding: 1px !important; }
+.separator { display: block; width: 2px; height: 40px; border-left: 1px solid #333333; }
 /*#settings-more-list li { float: right; margin-left: 5px; padding: 0 0 0 5px; width: 100px; }
 #settings-more-list li a { width: 40px; height: 40px; display: block; line-height: 40px; text-decoration: none; padding: 1px; }*/
 /* end navigation bar styling */
