@@ -13,3 +13,29 @@ div#header-container {
 	border-right: 1px solid #CECFCE !important;
 	border-bottom: 1px solid #CECFCE !important;
 }
+
+.front-welcome-text {
+    display: block;
+    font-size: 22px;
+    font-weight: bolder;
+    line-height: 20px;
+    text-align: left;
+    width: 26.5em;
+    color: #0B486B;
+}
+
+.front-welcome-text p {
+    font-size: 18px;
+    line-height: 28px;
+    height: 32px;
+    text-align: left;
+    color: inherit;
+}
+
+.front-welcome-text h1 {
+    font-size: 26px;
+    line-height: 22px;
+    height: 36px;
+    margin: 0;
+    color: #000000;
+}

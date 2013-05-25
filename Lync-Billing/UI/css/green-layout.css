@@ -4,21 +4,36 @@ body {
 	color: #FFFFFF;
 }
 
-div#container { width: 100%; margin: 0 auto; font-family: tahoma; overflow: hidden; }
-
-
 
 /* *********************** */
 /* START OF HEADER STYLING */
+div#container { 
+    width: 100%;
+    margin: 0 auto;
+    font-family: tahoma;
+    overflow: hidden; 
+}
+
 div#header-container {
-	position: fixed; top: 0; left: 0; z-index: 1000000; width: 100%; height: 40px; padding: 5px;
+	position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000000;
+    width: 100%;
+    height: 40px;
+    padding: 5px;
 	background: #0B486B;
 	background: -webkit-gradient(linear, left top, left bottom, from(#3B8686), to(#0B486B));
 	background: -moz-linear-gradient(top,  #3B8686,  #0B486B);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3B8686', endColorstr='#0B486B');
 }
 
-div#header-container div#nav-toolbar { width: 980px; height: 40px; display: block; margin: 0 auto; }
+div#header-container div#nav-toolbar {
+    width: 980px;
+    height: 40px;
+    display: block;
+    margin: 0 auto;
+}
 
 #toolbar .blackbox {
     background: #0B486B;
@@ -109,12 +124,11 @@ div#header-container div#nav-toolbar { width: 980px; height: 40px; display: bloc
     z-index: 900500;
 }
 
-/*#toolbar .selected-item { background-color: #6DB14A !important; background: none repeat scroll 0 0 #6DB14A; }*/
 #toolbar .blackbox ul.ptabs li:hover, #toolbar .blackbox ul.ptabs li.selected, #toolbar .blackbox ul.ptabs li.selected-item {
     background-color: #6DB14A;
     background: -webkit-gradient(linear, left top, left bottom, from(#A8DBA8), to(#6DB14A));
-    background: -moz-linear-gradient(top, #3B8686, #6DB14A);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3B8686', endColorstr='#6DB14A');
+    background: -moz-linear-gradient(top, #A8DBA8, #6DB14A);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#6DB14A');
 }
 
 #toolbar .blackbox ul.ptabs li:hover a, #toolbar .blackbox ul.ptabs li.selected a {
@@ -199,7 +213,18 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
 
 /* *************************** */
 /* start the login box styling */
-.front-container { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: none; min-height: 545px; max-height: 750px; }
+.front-container {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    min-height: 545px;
+    max-height: 750px; 
+}
+
 .front-card { 
     display: block;
     position: absolute;
@@ -240,11 +265,48 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
 	-moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
 	box-shadow: 0 1px 0 rgba(0,0,0,.1);
 }
-.front-signin .placeholding-input { height: 28px; color: #333; }
-.front-welcome-text { font-size: 20px !important; font-weight: 300; line-height: 22px; text-align: left; text-shadow: -1px -1px 0px #000000; width: 26.5em; color: #A8DBA8; }
-.front-welcome-text p { display: block; font-size: 20px !important; font-weight: 300; line-height: 24px; text-align: left; -webkit-margin-before: 1em; -webkit-margin-after: 1em; -webkit-margin-start: 0px; -webkit-margin-end: 0px; color: inherit;}
-.front-welcome-text h1 { font-size: 26px; font-weight: bold; margin: 0; text-rendering: optimizeLegibility; color: inherit;}
-.front-welcome, .front-signin { -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.front-signin .placeholding-input {
+    height: 28px;
+    color: #333;
+}
+
+.front-welcome-text {
+    font-size: 20px !important;
+    font-weight: 300;
+    line-height: 22px;
+    text-align: left;
+    text-shadow: -1px -1px 0px #A8DBA8;
+    width: 26.5em;
+    color: #0B486B;
+}
+
+.front-welcome-text p {
+    display: block;
+    font-size: 20px !important;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: left;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    color: inherit;
+}
+
+.front-welcome-text h1 {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0;
+    text-rendering: optimizeLegibility;
+    color: inherit;
+}
+
+.front-welcome, .front-signin {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px; 
+}
 /* end the login box styling */
 /* ************************* */
 
@@ -284,12 +346,13 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
     border-bottom: 1px solid #c5c5c5;
     /*border-bottom-color: #c5c5c5;*/
     background-image: none;
-    background-color: #c5c5c5;
+    background-color: #f9f9f9;
     background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#f9f9f9),color-stop(100%,#e3e4e6));
     background-image: -webkit-linear-gradient(top,#f9f9f9,#e3e4e6);
     background-image: -moz-linear-gradient(top,#f9f9f9,#e3e4e6);
     background-image: -o-linear-gradient(top,#f9f9f9,#e3e4e6);
     background-image: linear-gradient(top,#f9f9f9,#e3e4e6);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e3e4e6');
 }
 
 .sidebar-section .sidebar-section-header p { margin: 5px; text-align: left; vertical-align: central; font-size: 12px; }
@@ -314,6 +377,7 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
     background-image: -moz-linear-gradient(top, #A8DBA8, #79BD9A);
     background-image: -o-linear-gradient(top, #A8DBA8, #79BD9A);
     background-image: linear-gradient(top, #A8DBA8, #79BD9A);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#79BD9A');
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
