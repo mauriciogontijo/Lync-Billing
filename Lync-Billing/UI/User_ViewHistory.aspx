@@ -11,7 +11,7 @@
 
 	<script type="text/javascript">
 		$(document).ready(function () {
-		    $('#navigation-tabs>li.selected-item').removeClass('selected-item');
+		    $('#navigation-tabs>li.selected').removeClass('selected');
 		});
 
 		var myDateRenderer = function (value) {

@@ -5,8 +5,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#navigation-tabs>li.selected-item').removeClass('selected-item');
-            $('#accounting-tab').addClass('selected-item');
+            $('#navigation-tabs>li.selected').removeClass('selected');
+            $('#accounting-tab').addClass('selected');
         });
 
         var onKeyUp = function () {

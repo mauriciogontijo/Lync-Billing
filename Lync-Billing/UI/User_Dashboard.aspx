@@ -27,8 +27,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#navigation-tabs>li.selected-item').removeClass('selected-item');
-            $('#home-tab').addClass('selected-item');
+            $('#navigation-tabs>li.selected').removeClass('selected');
+            $('#home-tab').addClass('selected');
         });
 
         var myDateRenderer = function (value) {
@@ -214,7 +214,7 @@
                             <a title="Logout" href="Logout.aspx">Logout</a>
                         </li>
 
-                        <li id="home-tab" class="selected-item">
+                        <li id="home-tab" class="selected">
                             <a title="Home" href="User_Dashboard.aspx">Home</a>
                         </li>
           
@@ -226,7 +226,7 @@
                             bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                             if(condition) { 
                         %>
-                            <li id="accounting-tab">
+                            <li id="accounting-tab" class="last">
                                 <a title="Accounting Tools" href="#">Accounting Tools&nbsp;&nbsp;<img src="images/header-ddl-icon.png"></a>
                                 <div class="more-container text-left">
                                     <a href="Accounting_ManageDisputes.aspx"><div class="float-left ml5">Manage Disputed Calls</div></a>
@@ -237,8 +237,6 @@
                                 </div>
                             </li>
                         <% } %>
-
-                        <li>&nbsp;</li>
                     </ul>
                 </div>
             </div>
