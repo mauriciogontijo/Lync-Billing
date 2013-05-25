@@ -72,11 +72,11 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
     width: 820px;
     margin: -150px 0 0 -410px;
     z-index: 10;
-    border-radius: 4px;
+    /*border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-left: 1px solid #CECFCE;
-    border-bottom: 1px solid #CECFCE;
+    border-bottom: 1px solid #CECFCE;*/
 }
 
 .front-signin {
@@ -104,7 +104,7 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
 	box-shadow: 0 1px 0 rgba(0,0,0,.1);
 }
 .front-signin .placeholding-input { height: 28px; color: #333; }
-.front-welcome-text { font-size: 20px !important; font-weight: 300; line-height: 22px; text-align: left; /*text-shadow: 0 1px 2px #000000;*/ width: 26.5em; color: #3B8686; }
+.front-welcome-text { font-size: 20px !important; font-weight: 300; line-height: 22px; text-align: left; text-shadow: -1px -1px 0px #000000; width: 26.5em; color: #A8DBA8; }
 .front-welcome-text p { display: block; font-size: 20px !important; font-weight: 300; line-height: 24px; text-align: left; -webkit-margin-before: 1em; -webkit-margin-after: 1em; -webkit-margin-start: 0px; -webkit-margin-end: 0px; color: inherit;}
 .front-welcome-text h1 { font-size: 26px; font-weight: bold; margin: 0; text-rendering: optimizeLegibility; color: inherit;}
 .front-welcome, .front-signin { -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
@@ -181,18 +181,6 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
     border-top-right-radius: 5px;
 }
 
-/*.x-panel-header-default .x-accordion-hd {
-    background-image: none;
-    background-color: #d7d2d2 !important;
-    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#f0f0f0),color-stop(100%,#d7d7d7)) !important;
-    background-image: -webkit-linear-gradient(top,#f0f0f0,#d7d7d7) !important;
-    background-image: -moz-linear-gradient(top,#f0f0f0,#d7d7d7) !important;
-    background-image: -o-linear-gradient(top,#f0f0f0,#d7d7d7) !important;
-    background-image: linear-gradient(top,#f0f0f0,#d7d7d7) !important;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}*/
-
 .x-accordion-item .x-accordion-hd {
     background: #e5e5e5;
     border-top-color: #ececec;
@@ -228,14 +216,5 @@ div#main_content_place_holder_PhoneCallsHistoryGrid *, div#main_content_place_ho
 .x-grid-with-row-lines .x-grid-cell { 
     height: 25px !important;
 }
-
-/*div#main_content_place_holder_PhoneCallsHistoryGrid-body {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}*/
 /* end asp & ext blocks styling */
 /* **************************** */

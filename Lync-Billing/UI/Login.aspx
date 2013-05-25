@@ -32,7 +32,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- Start of ContentPage_Login Main HTML Content -->
-    <div class="front-card shadow-bottom">
+    <div class="front-card">
 		<div class="front-welcome float-left p10">
 			<div class="front-welcome-text">
 			    <h1>Welcome to eBill</h1>
