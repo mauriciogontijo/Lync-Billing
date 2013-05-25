@@ -20,14 +20,9 @@ namespace Lync_Billing.UI
             {
                 Response.Redirect("~/UI/User_Dashboard.aspx");
             }
-
-            email.SetActive(true);
-            email.EnableKeyEvents = true;
-            password.EnableKeyEvents = true;
-            
         }
 
-        protected void SigninButton_DirectClick(object sender, Ext.Net.DirectEventArgs e)
+        protected void SigninButton_Click(object sender, EventArgs e)
         {
             bool status = false;
             ADUserInfo userInfo = new ADUserInfo();
@@ -125,8 +120,6 @@ namespace Lync_Billing.UI
                 }
 
             }
-        }
-
-
+        }//END OF FUNCTION
     }
 }
