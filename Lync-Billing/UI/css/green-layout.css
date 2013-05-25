@@ -384,6 +384,7 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
 
 .x-accordion-item .x-accordion-hd {
     background: #e5e5e5;
+    filter: none; /* IE bugfix */
     border-top-color: #ececec;
     padding: 4px 5px 5px 5px;
 }
