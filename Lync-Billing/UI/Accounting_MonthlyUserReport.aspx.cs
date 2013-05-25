@@ -9,6 +9,7 @@ using Ext.Net;
 using System.Web.Script.Serialization;
 using Lync_Billing.DB;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Xsl;
 
 namespace Lync_Billing.UI
@@ -109,8 +110,34 @@ namespace Lync_Billing.UI
 
                 BusinessCallCost = userSummary[0].BusinessCallsCost;
 
-                UserBusinessCallsStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, year, month, month);
-                UserBusinessCallsStore.DataBind();
+                XElement eml = new XElement(
+                    "Records",
+                    new XElement(
+                        "Record",
+                        new XElement("EmployeeID", GroupNumberField.Text),
+                        new XElement("SipAccount", sipAccount),
+                        new XElement("Cost",BusinessCallCost)
+                        )
+                    );
+
+                XmlDocument xmlDoc = new XmlDocument();
+
+                using (System.Xml.XmlReader xmlReader = eml.CreateReader())
+                {
+                    xmlDoc.Load(xmlReader);
+                }
+
+                XmlNode xmlNode = xmlDoc; //.DocumentElement;
+
+                this.Response.Clear();
+                this.Response.ContentType = "application/vnd.ms-excel";
+                this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+                XslCompiledTransform xtExcel = new XslCompiledTransform();
+                xtExcel.Load(Server.MapPath("Excel.xslt"));
+                xtExcel.Transform(xmlNode, null, this.Response.OutputStream);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Response.Flush();
+                this.Response.Close();
 
             }
         }
