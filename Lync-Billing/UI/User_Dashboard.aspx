@@ -27,35 +27,6 @@
 	    <![endif]-->
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('settings-menu-button').click(function (e) {
-                e.preventDefault();
-
-                if ($('#settings-more-list-container').css('display') == 'none') {
-                    $('#settings-more-list-container').fadeIn();
-                    $('#settings-more-list-container').css('display', 'block');
-                } else {
-                    $('#settings-more-list-container').fadeOut();
-                    $('#settings-more-list-container').css('display', 'none');
-                }
-
-                return false;
-            });
-
-            $('#nav-more').click(function (e) {
-                e.preventDefault();
-                var top = $(this).offset().top;
-                var right = $(this).offset().right;
-
-                $('#more-list-container').css({ right: right - 1, top: top + 4 }).fadeIn('fast');
-                return false;
-            });
-
-            $('body').click(function (e) {
-                $('#more-list-container').fadeOut('fast');
-            });
-        });
-
         var myDateRenderer = function (value) {
             value = Ext.util.Format.date(value, "d M Y h:i A");
             return value;
@@ -222,7 +193,7 @@
     <form id="form1" runat="server">
         <ext:ResourceManager ID="resourceManager" runat="server" Theme="Gray" />
 
-        <div id='header-container'>
+        <!--<div id='header-container' class="">
             <div id='nav-toolbar' class='nav-toolbar text-center'>
                 <div id='logo' class='logo float-left'>
 				    <a href='User_Dashboard.aspx'>eBill</a>
@@ -230,33 +201,63 @@
 
 			    <ul id='nav-buttons'>
 				    <li class='nav-button'>
-					    <!--<a href='#' class='nav-button-item'><img src='images/settings.png' width='32' /></a>-->
-					    <a id='settings-menu-button' href="javascript:void(0)"><img alt='Settings Menu' src='images/settings.png' width='32' /></a>
-					    <div id="settings-more-list-container" style="display: none;">
-						    <!---<ul id="settings-more-list">
-						        <li><a class='settings-menu-text' title="jQuery Cheat Sheet" href="/jquery">Example</a></li>
-						        <li><a class='settings-menu-text' title="NodeJS Cheat Sheet" href="/nodejs">Example</a></li>
-						        <li><a class='settings-menu-text' title="PHP Cheat Sheet" href="/php">Example</a></li>
-						        <li><a class='settings-menu-text' title="Java Cheat Sheet" href="/java">Example</a></li>
-						        <li><a class='settings-menu-text' href="/#more">Even More ></a></li>
-						    </ul>---->
-						    <a href="#">One 123123</a>
-						    <a href="#">Two 123123</a>
-						    <a href="#">Three 123123</a>
-					    </div>
-				    </li>
-				    <li class='nav-button'>
-                        <a href='User_ManagePhoneCalls.aspx' class='nav-button-item'>
-                            <img alt='Manage My Bills' src='images/mybills.png' width='32' />
-                        </a>
+					    <a id='settings-menu-button' href="Logout.aspx">Logout</a>
 				    </li>
 
+                    <li class='nav-button'><div class="separator"></div></li>
+
 				    <li class='nav-button'>
-                        <a href='Accounting_MonthlyUserReport.aspx' class='nav-button-item'>
-                            <img alt='Manage My Phone Calls' src='images/phonecalls.png' width='40' />
-                        </a>
+                        <a href='User_ManagePhoneCalls.aspx'>My Phone Calls</a>
+				    </li>
+
+                    <li class='nav-button'><div class="separator"></div></li>
+
+				    <li class='nav-button'>
+                        <a href='Accounting_MonthlyUserReport.aspx'>Accounting Tools</a>
 				    </li>
 			    </ul>
+            </div>
+        </div>-->
+
+        <div id="toolbar">
+            <style type="text/css">
+              .more-container { margin: 5px -3px 5px -3px; }
+              .ptabs {width:auto}
+            </style>
+
+            <div style="margin-bottom:100px !important;" class="blackbox">
+                <div class="center-piece">
+                    <div id='logo' class='logo float-left'>
+				        <a href='User_Dashboard.aspx'>eBill</a>
+			        </div>
+
+                    <ul style="width:auto" class="ptabs">
+                        <li>
+                            <a title="Logout" href="Logout.aspx">Logout</a>
+                        </li>
+
+                        <li class="selected">
+                            <a title="Home" href="User_Dashboard.aspx">Home</a>
+                        </li>
+          
+                        <li>
+                            <a title="Manage My Phone Calls" href="User_ManagePhoneCalls.aspx">My Phone Calls</a>
+                        </li>
+
+                        <li>
+                            <a title="Accounting Tools" href="#" rel="nofollow" class="">Accounting Tools&nbsp;&nbsp;<img src="images/header-ddl-icon.png"></a>
+                            <div class="more-container text-left">
+                                <a href="Accounting_ManageDisputes.aspx"><div class="float-left ml5">Manage Disputed Calls</div></a>
+                                <a href="Accounting_MonthlyUserReport.aspx"><div class="float-left ml5">Monthly User Report</div></a>
+                                <a href="Accounting_PeriodicalUserReport.aspx"><div class="float-left ml5">Periodical User Report</div></a>
+                                <a href="Accounting_MonthlySiteReport.aspx"><div class="float-left ml5">Monthly Site Report</div></a>
+                                <a href="Accounting_PeriodicalSiteReport.aspx"><div class="float-left ml5">Periodical Site Report</div></a>
+                            </div>
+                        </li>
+
+                        <li>&nbsp;</li>
+                    </ul>
+                </div>
             </div>
         </div>
 

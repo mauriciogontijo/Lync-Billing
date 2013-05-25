@@ -28,7 +28,7 @@
                         id="email" 
                         TabIndex="1" />
 					<asp:label ID="Label1" 
-                        Text="email" 
+                        Text="Email" 
                         CssClass="placeholder" 
                         runat="server"></asp:label>
 				</div>
@@ -40,7 +40,7 @@
                         TextMode="Password" 
                         tabindex="2" />
                 	<asp:label ID="Label2" 
-                        Text="password"  
+                        Text="Password"  
                         CssClass="placeholder" 
                         runat="server">
 
