@@ -147,8 +147,8 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.SipAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.SipAccount = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.SiteID = (int)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.PoolID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.PoolID = (int)row[column.ColumnName];
