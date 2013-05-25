@@ -19,7 +19,16 @@ namespace Lync_Billing.UI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField email;
+        protected global::System.Web.UI.WebControls.TextBox email;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// password control.
@@ -28,24 +37,24 @@ namespace Lync_Billing.UI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField password;
+        protected global::System.Web.UI.WebControls.TextBox password;
         
         /// <summary>
-        /// remember_me control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Checkbox remember_me;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// SigninButton control.
+        /// signin_submit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button SigninButton;
+        protected global::System.Web.UI.WebControls.Button signin_submit;
     }
 }

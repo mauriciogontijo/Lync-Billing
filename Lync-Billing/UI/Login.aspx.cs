@@ -17,14 +17,14 @@ namespace Lync_Billing.UI
         protected void Page_Load(object sender, EventArgs e)
         {
             //Session.Contents["UserData"];
-            email.SetActive(true);
-            Session.Clear();
-            email.EnableKeyEvents = true;
-            password.EnableKeyEvents = true;
+            //email.SetActive(true);
+            //Session.Clear();
+            //email.EnableKeyEvents = true;
+            //password.EnableKeyEvents = true;
             
         }
 
-        protected void SigninButton_DirectClick(object sender, Ext.Net.DirectEventArgs e)
+        protected void signin_submit_Click(object sender, EventArgs e)
         {
             bool status = false;
             ADUserInfo userInfo = new ADUserInfo();
