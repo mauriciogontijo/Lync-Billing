@@ -34,7 +34,6 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
             <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
-        
             <div id='header-container'>
 			    <div id='nav-toolbar' class='nav-toolbar text-center'>
                     <% if(Session.Contents["UserData"] != null) { %>
