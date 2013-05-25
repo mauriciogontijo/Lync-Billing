@@ -1,21 +1,21 @@
-xslstylesheet version=1.0 xmlnsxsl=httpwww.w3.org1999XSLTransform
-	xsloutput method=text 
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:output method="text" />
 
-	xsltemplate match=records
-		xslapply-templates select=record 
-	xsltemplate
+  <xsl:template match="records">
+    <xsl:apply-templates select="record" />
+  </xsl:template>
 
-	xsltemplate match=record
-		xslfor-each select=
-			xsltextxsltext	
-			xslvalue-of select=. 
-			xsltextxsltext
-			
-			xslif test=position() != last()
-				xslvalue-of select=',' 
-			xslif
-		xslfor-each
-		xsltext&#10;xsltext
-	xsltemplate
+  <xsl:template match="record">
+    <xsl:for-each select="*">
+      <xsl:text>"</xsl:text>
+      <xsl:value-of select="." />
+      <xsl:text>"</xsl:text>
 
-xslstylesheet
+      <xsl:if test="position() != last()">
+        <xsl:value-of select="','" />
+      </xsl:if>
+    </xsl:for-each>
+    <xsl:text>&#10;</xsl:text>
+  </xsl:template>
+
+</xsl:stylesheet>
