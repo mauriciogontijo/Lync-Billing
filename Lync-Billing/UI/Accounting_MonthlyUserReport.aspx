@@ -127,24 +127,21 @@
                             <ext:TextField
                                 ID="GroupNumberField"
                                 runat="server" 
-                                Vtype="text"
                                 FieldLabel="User Group Number:"
-                                Margins="0 25 0 5"
-                                EnableKeyEvents="true" />
+                                Margins="0 25 0 5"/>
 
                             <ext:DateField 
                                 ID="DateField"
                                 runat="server" 
                                 Vtype="daterange"
                                 FieldLabel="Month & Year:"
-                                Margins="0 25 0 5"
-                                EnableKeyEvents="true">
+                                Margins="0 25 0 5">
                                 <CustomConfig>
                                     <ext:ConfigItem Name="DateField" Value="DateField1" Mode="Value" />
                                 </CustomConfig>
-                                <Listeners>
+                                <%--<Listeners>
                                     <KeyUp Fn="onKeyUp" />
-                                </Listeners>
+                                </Listeners>--%>
                             </ext:DateField>
 
                             <ext:Button ID="Button1" runat="server" Text="Generate" Icon="ApplicationGo" Margins="0 0 0 125" OnDirectClick="Button1_DirectClick">

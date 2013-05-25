@@ -11,6 +11,8 @@ using Lync_Billing.DB;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Xsl;
+using System.Data;
+using System.IO;
 
 namespace Lync_Billing.UI
 {
@@ -89,12 +91,16 @@ namespace Lync_Billing.UI
 
         protected void Button1_DirectClick(object sender, DirectEventArgs e)
         {
+            DataSet ds = new DataSet();
+            DataGrid grid = new DataGrid();
+
             UserSession session = (UserSession)Session.Contents["UserData"];
 
             int year = 0;
             int month = 0;
 
             DateTime date = DateField.SelectedDate;
+            
 
             List<UsersCallsSummary> userSummary;
             decimal BusinessCallCost;
@@ -111,9 +117,9 @@ namespace Lync_Billing.UI
                 BusinessCallCost = userSummary[0].BusinessCallsCost;
 
                 XElement eml = new XElement(
-                    "Records",
+                    "records",
                     new XElement(
-                        "Record",
+                        "record",
                         new XElement("EmployeeID", GroupNumberField.Text),
                         new XElement("SipAccount", sipAccount),
                         new XElement("Cost",BusinessCallCost)
@@ -122,6 +128,11 @@ namespace Lync_Billing.UI
 
                 XmlDocument xmlDoc = new XmlDocument();
 
+                //ds.ReadXml(eml.CreateReader());
+                //DataTable dt = ds.Tables[0];
+                //grid.DataSource = dt;
+                //grid.DataBind();
+
                 using (System.Xml.XmlReader xmlReader = eml.CreateReader())
                 {
                     xmlDoc.Load(xmlReader);
@@ -129,15 +140,33 @@ namespace Lync_Billing.UI
 
                 XmlNode xmlNode = xmlDoc; //.DocumentElement;
 
-                this.Response.Clear();
-                this.Response.ContentType = "application/vnd.ms-excel";
-                this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
-                XslCompiledTransform xtExcel = new XslCompiledTransform();
-                xtExcel.Load(Server.MapPath("Excel.xslt"));
-                xtExcel.Transform(xmlNode, null, this.Response.OutputStream);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Response.Flush();
-                this.Response.Close();
+
+                HttpContext context = HttpContext.Current;
+
+                context.Response.Clear();
+               
+                //foreach (DataColumn column in dt.Columns)
+                //{
+                //    context.Response.Write(column.ColumnName + ";");
+                //}
+                //context.Response.Write(Environment.NewLine);
+                //foreach (DataRow row in dt.Rows)
+                //{
+                //    for (int i = 0; i < dt.Columns.Count; i++)
+                //    {
+                //        context.Response.Write(row[i].ToString().Replace(";", string.Empty) + ";");
+                //    }
+                //    context.Response.Write(Environment.NewLine);
+                //}
+
+                context.Response.ContentType = "application/octet-stream";
+                context.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.csv");
+                XslCompiledTransform xtCsv = new XslCompiledTransform();
+                xtCsv.Load(Server.MapPath("~/Resources/Csv.xsl"));
+                xtCsv.Transform(xmlNode, null, Response.OutputStream);
+
+                context.Response.End();
+               
 
             }
         }
