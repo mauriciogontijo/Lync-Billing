@@ -7,27 +7,6 @@
             border: 0;
         }
     </style>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#main_content_place_holder_password-inputEl').keydown(function (e) {
-                if (e.keyCode == 13) {
-                    $('#main_content_place_holder_SigninButton-btnEl').click();
-                }
-            });
-        });
-
-        var TriggerSubmit = function () {
-            if (Ext.getKey() == Ext.ENTER) {
-                SigninButton.fireEvent('click');
-            }
-            /*Ext.getDoc().on('keydown', function (e) {
-                if (e.getKey() == e.ENTER) {
-                    SigninButton.fireEvent('click');
-                }
-            });*/
-        }
-    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -72,6 +51,7 @@
                         Selectable="true"
                         AllowBlank="false"
                         AllowOnlyWhitespace="false">
+                        
                     </ext:TextField>
               	</div>
 
