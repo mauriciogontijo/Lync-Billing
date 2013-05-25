@@ -52,7 +52,6 @@
                         InputType="Email"
                         ValidateBlank="true"
                         Vtype="email"
-                        VtypeText="Kindly enter your CCC email."
                         StandardVtype="Email"
                         SelectOnFocus="true"
                         Selectable="true"
