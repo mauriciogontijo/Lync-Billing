@@ -103,6 +103,8 @@
     <Content Include="UI\Accounting_MonthlyUserReport.aspx" />
     <Content Include="UI\Accounting_PeriodicalSiteReport.aspx" />
     <Content Include="UI\Accounting_PeriodicalUserReport.aspx" />
+    <Content Include="UI\images\header-bg.gif" />
+    <Content Include="UI\images\header-ddl-icon.png" />
     <Content Include="UI\Login.aspx" />
     <Content Include="UI\css\black-layout.css" />
     <Content Include="UI\css\diagnostics-v1.css" />
@@ -111,9 +113,10 @@
     <Content Include="UI\css\green-layout.css" />
     <Content Include="UI\css\reset.css" />
     <Content Include="UI\css\toolkit.css" />
-    <Content Include="UI\tests\GridTest.aspx" />
-    <Content Include="UI\tests\GridTest2.aspx" />
-    <Content Include="UI\tests\GridTest3.aspx" />
+    <Content Include="UI\Logout.aspx" />
+    <Content Include="UI\grids_tests\GridTest.aspx" />
+    <Content Include="UI\grids_tests\GridTest2.aspx" />
+    <Content Include="UI\grids_tests\GridTest3.aspx" />
     <Content Include="UI\images\mybills.png" />
     <Content Include="UI\images\navbar-bg.gif" />
     <Content Include="UI\images\phonecalls.png" />
@@ -122,7 +125,6 @@
     <Content Include="UI\js\ext-all.js" />
     <Content Include="UI\js\jquery-1.9.1.min.js" />
     <Content Include="UI\js\stacktrace.js" />
-    <Content Include="UI\js\toolkit.js" />
     <Content Include="UI\User_Dashboard.aspx" />
     <Content Include="UI\User_ViewHistory.aspx" />
     <Content Include="UI\User_ManagePhoneCalls.aspx" />
@@ -195,27 +197,34 @@
     <Compile Include="UI\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\DBStores.cs" />
-    <Compile Include="UI\Grids.cs" />
-    <Compile Include="UI\tests\GridTest.aspx.cs">
+    <Compile Include="UI\grids_generators\DBStores.cs" />
+    <Compile Include="UI\grids_generators\Grids.cs" />
+    <Compile Include="UI\Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\grids_tests\GridTest.aspx.cs">
       <DependentUpon>GridTest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\tests\GridTest.aspx.designer.cs">
+    <Compile Include="UI\grids_tests\GridTest.aspx.designer.cs">
       <DependentUpon>GridTest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\tests\GridTest2.aspx.cs">
+    <Compile Include="UI\grids_tests\GridTest2.aspx.cs">
       <DependentUpon>GridTest2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\tests\GridTest2.aspx.designer.cs">
+    <Compile Include="UI\grids_tests\GridTest2.aspx.designer.cs">
       <DependentUpon>GridTest2.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\tests\GridTest3.aspx.cs">
+    <Compile Include="UI\grids_tests\GridTest3.aspx.cs">
       <DependentUpon>GridTest3.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\tests\GridTest3.aspx.designer.cs">
+    <Compile Include="UI\grids_tests\GridTest3.aspx.designer.cs">
       <DependentUpon>GridTest3.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\MasterPage.Master.cs">
