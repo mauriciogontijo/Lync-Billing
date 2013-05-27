@@ -18,7 +18,7 @@ namespace Lync_Billing.UI
         protected void Page_Load(object sender, EventArgs e)
         {
             string SipAccount = "AAlhour@ccc.gr"; //((UserSession)Session.Contents["UserData"]).SipAccount;
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            /*Dictionary<string, object> wherePart = new Dictionary<string, object>();
             List<string> columns = new List<string>();
 
             wherePart.Add("SourceUserUri", SipAccount);
@@ -47,7 +47,21 @@ namespace Lync_Billing.UI
             UserPhoneCallsHistoryGrid.Header = true;
             UserPhoneCallsHistoryGrid.Title = "Calls History";
 
-            UserPhoneCallsHistoryPH.Controls.Add(UserPhoneCallsHistoryGrid);
+            UserPhoneCallsHistoryPH.Controls.Add(UserPhoneCallsHistoryGrid);*/
+
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            List<string> columns = new List<string>();
+
+            wherePart.Add("SourceUserUri", SipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
+
+            columns.Add("SessionIdTime");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallToCountry");
+
+            PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 5);
+            PhoneCallsHistoryStore.DataBind();
         }
 
         [DirectMethod]
