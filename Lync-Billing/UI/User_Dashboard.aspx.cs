@@ -17,37 +17,31 @@ namespace Lync_Billing.UI
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            int count = PhoneCallsHistoryStore.Proxy.Count();
-
             //If the user is not loggedin, redirect to Login page.
             if (Session.Contents["UserData"] == null)
             {
                 Response.Redirect("~/UI/Login.aspx");
             }
 
-            if (!X.IsAjaxRequest)
-            {
-                string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-                Dictionary<string, object> wherePart = new Dictionary<string, object>();
-                List<string> columns = new List<string>();
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            List<string> columns = new List<string>();
 
-                wherePart.Add("SourceUserUri", SipAccount);
-                wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("SourceUserUri", SipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
 
-                columns.Add("SessionIdTime");
-                columns.Add("DestinationNumberUri");
-                columns.Add("Duration");
-                columns.Add("marker_CallToCountry");
+            columns.Add("SessionIdTime");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallToCountry");
 
-                PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 5);
-                PhoneCallsHistoryStore.DataBind();
+            PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 5);
+            PhoneCallsHistoryStore.DataBind();
 
 
-                UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-                DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.SipAccount, DateTime.Now.Year, 1, 12);
-                DurationCostChartStore.DataBind();
-                
-            }
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.SipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataBind();
         }
 
         [DirectMethod]
