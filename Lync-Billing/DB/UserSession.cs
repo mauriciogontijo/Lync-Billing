@@ -34,6 +34,9 @@ namespace Lync_Billing.DB
         public bool IsCountryAccountant { set; get; }
         public bool IsProjectAccountant { set; get; }
 
+        //Delegate-capability check
+        public bool IsDelegate { set; get; }
+
         private static List<UserSession> usersSessions = new List<UserSession>();
 
 
@@ -50,6 +53,8 @@ namespace Lync_Billing.DB
             IsSuperAccountant = false;
             IsCountryAccountant = false;
             IsProjectAccountant = false;
+
+            IsDelegate = false;
         }
 
         
