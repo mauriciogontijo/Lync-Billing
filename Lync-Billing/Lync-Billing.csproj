@@ -127,6 +127,7 @@
     <Content Include="UI\js\jquery-1.9.1.min.js" />
     <Content Include="UI\js\stacktrace.js" />
     <Content Include="UI\User_Dashboard.aspx" />
+    <Content Include="UI\User_ManageDelegates.aspx" />
     <Content Include="UI\User_ViewHistory.aspx" />
     <Content Include="UI\User_ManagePhoneCalls.aspx" />
     <Content Include="Web.config">
@@ -242,6 +243,13 @@
     </Compile>
     <Compile Include="UI\User_Dashboard.aspx.designer.cs">
       <DependentUpon>User_Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\User_ManageDelegates.aspx.cs">
+      <DependentUpon>User_ManageDelegates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\User_ManageDelegates.aspx.designer.cs">
+      <DependentUpon>User_ManageDelegates.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\User_ViewHistory.aspx.cs">
       <DependentUpon>User_ViewHistory.aspx</DependentUpon>
