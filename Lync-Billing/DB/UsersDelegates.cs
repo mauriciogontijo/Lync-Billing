@@ -16,32 +16,35 @@ namespace Lync_Billing.DB
 
         private static DBLib DBRoutines = new DBLib();
 
-        public UsersDelegates GetBySipAccount(string delegateAccount) 
+        public List<UsersDelegates> GetBySipAccounts(string delegateAccount) 
         {
-            UsersDelegates delegates = new UsersDelegates();
-
+            UsersDelegates delegatedAccount;
+            List<UsersDelegates> DelegatedAccounts = new List<UsersDelegates>();
             DataTable dt = new DataTable();
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), "DelegateAccount", delegateAccount);
 
             foreach (DataRow row in dt.Rows)
             {
+                delegatedAccount = new UsersDelegates();
+
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
-                        delegates.ID = (int)row[column.ColumnName];
+                        delegatedAccount.ID = (int)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeAccount) && row[column.ColumnName] != System.DBNull.Value)
-                        delegates.DelegeeAccount = (string)row[column.ColumnName];
+                        delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
-                        delegates.SipAccount = (string)row[column.ColumnName];
+                        delegatedAccount.SipAccount = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Description) && row[column.ColumnName] != System.DBNull.Value)
-                        delegates.Description = (string)row[column.ColumnName];
+                        delegatedAccount.Description = (string)row[column.ColumnName];
                 }
+                DelegatedAccounts.Add(delegatedAccount);
             }
 
-            return delegates;
+            return DelegatedAccounts;
         }
 
         public UsersDelegates GetByDelegateAccount(string sipAccount) 
