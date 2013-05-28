@@ -107,7 +107,7 @@ namespace Lync_Billing.DB
     public class UsersCallsSummary
     {
         private static DBLib DBRoutines = new DBLib();
-        private static CallsStatistics StatRoutines = new CallsStatistics();
+        private static Statistics StatRoutines = new Statistics();
 
         private static Dictionary<string, object> wherePart;
         private static List<string> columns;
