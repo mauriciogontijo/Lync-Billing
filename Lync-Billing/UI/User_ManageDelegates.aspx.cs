@@ -161,6 +161,7 @@ namespace Lync_Billing.UI
 
             DelegatedUsersStore.DataSource = UsersDelegates.GetSipAccounts(userSession.SipAccount);
             DelegatedUsersStore.DataBind();
+            ResourceManager res = new ResourceManager();
         }
 
         protected void GetDelegatedUserPhoneCalls()
