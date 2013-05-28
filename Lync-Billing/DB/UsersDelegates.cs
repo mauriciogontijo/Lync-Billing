@@ -16,7 +16,7 @@ namespace Lync_Billing.DB
 
         private static DBLib DBRoutines = new DBLib();
 
-        public List<UsersDelegates> GetBySipAccounts(string delegateAccount) 
+        public List<UsersDelegates> GetSipAccounts(string delegateAccount) 
         {
             UsersDelegates delegatedAccount;
             List<UsersDelegates> DelegatedAccounts = new List<UsersDelegates>();
