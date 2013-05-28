@@ -28,7 +28,7 @@ namespace Lync_Billing.DB
                 return true;
         }
 
-        public List<UsersDelegates> GetSipAccounts(string delegateAccount) 
+        public static List<UsersDelegates> GetSipAccounts(string delegateAccount) 
         {
             UsersDelegates delegatedAccount;
             List<UsersDelegates> DelegatedAccounts = new List<UsersDelegates>();
@@ -59,7 +59,7 @@ namespace Lync_Billing.DB
             return DelegatedAccounts;
         }
 
-        public UsersDelegates GetDelegateAccount(string sipAccount) 
+        public static UsersDelegates GetDelegateAccount(string sipAccount) 
         {
             UsersDelegates delegates = new UsersDelegates();
 
@@ -87,7 +87,7 @@ namespace Lync_Billing.DB
             return delegates;
         }
 
-        public bool UpadeDelegate(UsersDelegates delegee) 
+        public static bool UpadeDelegate(UsersDelegates delegee) 
         {
             bool status = false;
 
@@ -118,7 +118,7 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeleteDelegate(UsersDelegates delegee) 
+        public static bool DeleteDelegate(UsersDelegates delegee) 
         {
             bool status = false;
 
@@ -135,7 +135,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public int AddDelegate(UsersDelegates delegee ) 
+        public static int AddDelegate(UsersDelegates delegee) 
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
