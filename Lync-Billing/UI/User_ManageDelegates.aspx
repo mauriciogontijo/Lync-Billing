@@ -115,6 +115,7 @@
             <ext:Panel ID="UserToolsSidebar"
                 runat="server"
                 Height="330"
+                Width="180"
                 Title="User Tools">
                 <Content>
                     <div class='sidebar-section'>
@@ -158,6 +159,7 @@
                 <ext:Panel ID="AccountingToolsSidebar"
                     runat="server"
                     Height="330"
+                    Width="180"
                     Title="Accounting Tools">
                     <Content>
                         <div class='sidebar-section'>
@@ -203,7 +205,7 @@
                 ID="SelectDelegatedAccountsPanel" 
                 runat="server" 
                 Width="750"
-                Height="53"  
+                Height="51"  
                 Header="true"
                 Title="Select Delegated Accounts"
                 Layout="Anchor">
@@ -211,22 +213,30 @@
                     <ext:Toolbar ID="Toolbar2" runat="server">
                         <Items>
                             <ext:ComboBox 
-                                ID="FilterTypeComboBox" 
+                                ID="DelegatedUsersComboBox" 
                                 runat="server" 
-                                Icon="Find" 
+                                Icon="User" 
                                 TriggerAction="All" 
                                 QueryMode="Local" 
                                 DisplayField="TypeName" 
-                                ValueField="TypeValue">
-                                <Items>
-                                    <ext:ListItem Text="Everything" Value="1"/>
-                                    <ext:ListItem Text="Marked" Value="2" />
-                                    <ext:ListItem Text="Unmarked" Value="3" />
-                                    <ext:ListItem Text="Business" Value="4" />
-                                    <ext:ListItem Text="Personal" Value="5" />
-                                    <ext:ListItem Text="Charged" Value="6" />
-                                    <ext:ListItem Text="Uncharged" Value="7" />
-                                </Items>
+                                ValueField="TypeValue"
+                                FieldLabel="<p class='ml5 float-left'>Delegated User Accounts</p>"
+                                LabelWidth="170"
+                                Width="300">
+                                <Store>
+                                    <ext:Store 
+                                        ID="DelegatedUsersStore" 
+                                        runat="server" 
+                                        OnLoad="DelegatedUsersStore_Load">
+                                        <Model>
+                                            <ext:Model ID="Model1" runat="server" IDProperty="SipAccount">
+                                                <Fields>
+                                                    <ext:ModelField Name="SipAccount" Type="String" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
                                  <Listeners>
                                     <Select Handler="applyFilter(this);" />
                                 </Listeners>
@@ -235,20 +245,13 @@
                     </ext:Toolbar>
                 </TopBar>
             </ext:Panel>
-        </div>
-    </div>
-    <!-- *** END OF DELEGATES SELECTOR *** -->
 
-
-    <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
-    <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
-        <div class="block-body pt5">
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"
                 runat="server"
-                Title="Manage Phone Calls"
-                Width="740"
-                Height="750"
+                
+                Width="750"
+                Height="730"
                 AutoScroll="true"
                 Header="true"
                 Scroll="Both"
@@ -424,6 +427,14 @@
                         DisplayMsg="Phone Calls {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
+        </div>
+    </div>
+    <!-- *** END OF DELEGATES SELECTOR *** -->
+
+
+    <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
+    <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
+        <div class="block-body pt5">
         </div>
     </div>
     <!-- *** END OF MANAGE PHONE CALLS GRID *** -->

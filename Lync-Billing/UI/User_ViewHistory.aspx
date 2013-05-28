@@ -232,6 +232,7 @@
             <ext:Panel ID="UserToolsSidebar"
                 runat="server"
                 Height="330"
+                Width="180"
                 Title="User Tools">
                 <Content>
                     <div class='sidebar-section'>
@@ -280,6 +281,7 @@
                 <ext:Panel ID="AccountingToolsSidebar"
                     runat="server"
                     Height="330"
+                    Width="180"
                     Title="Accounting Tools">
                     <Content>
                         <div class='sidebar-section'>
