@@ -47,7 +47,7 @@ namespace Lync_Billing.DB
             return DelegatedAccounts;
         }
 
-        public UsersDelegates GetByDelegateAccount(string sipAccount) 
+        public UsersDelegates GetDelegateAccount(string sipAccount) 
         {
             UsersDelegates delegates = new UsersDelegates();
 
