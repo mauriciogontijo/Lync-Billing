@@ -107,17 +107,17 @@ namespace Lync_Billing.DB
         {
             bool status = false;
 
-            status = DBRoutines.DELETE(
-                Enums.GetDescription(Enums.Delegates.TableName),
-                Enums.GetDescription(Enums.Delegates.ID),
-                delegee.ID);
+            Dictionary<string,object> wherePart = new Dictionary<string,object>();
+            wherePart.Add("SipAccount",delegee.SipAccount);
+            wherePart.Add("Delegee",delegee.DelegeeAccount);
+
+            status = DBRoutines.DELETE(Enums.GetDescription(Enums.Delegates.TableName), wherePart);
 
             if (status == false)
             {
                 //throw error message
             }
             return status;
-
         }
 
         public int AddDelegate(UsersDelegates delegee ) 
