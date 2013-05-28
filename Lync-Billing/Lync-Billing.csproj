@@ -97,6 +97,7 @@
     <Content Include="App_Readme\Transformer.NET\LICENSE.txt" />
     <Content Include="App_Readme\Transformer.NET\README.txt" />
     <Content Include="Global.asax" />
+    <Content Include="Resources\Csv.xsl" />
     <Content Include="Resources\excel.xsl" />
     <Content Include="UI\Accounting_ManageDisputes.aspx" />
     <Content Include="UI\Accounting_MonthlySiteReport.aspx" />
