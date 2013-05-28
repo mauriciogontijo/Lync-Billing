@@ -50,7 +50,6 @@ namespace Lync_Billing.UI
 
                     List<Users> ListOfUsers = Users.GetUsers(columns, whereStatement, 1);
                     List<UserRole> userRoles;
-                    UsersDelegates delegateChecker = new UsersDelegates();
 
                     //User Exists in Users Table
                     if (ListOfUsers.Count > 0)
@@ -86,7 +85,7 @@ namespace Lync_Billing.UI
                         session.SiteName = userInfo.physicalDeliveryOfficeName;
                         session.EmployeeID = userInfo.EmployeeID;
                         session.SipAccount = userInfo.SipAccount.Replace("sip:", "");
-                        session.IsDelegate = delegateChecker.IsDelegate(userInfo.SipAccount.Replace("sip:", ""));
+                        session.IsDelegate = UsersDelegates.IsDelegate(userInfo.SipAccount.Replace("sip:", ""));
                     }
                     else
                     {
@@ -94,7 +93,7 @@ namespace Lync_Billing.UI
                         session.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                         session.SiteName = userInfo.physicalDeliveryOfficeName;
                         session.EmployeeID = userInfo.EmployeeID;
-                        session.IsDelegate = delegateChecker.IsDelegate(userInfo.SipAccount.Replace("sip:", ""));
+                        session.IsDelegate = UsersDelegates.IsDelegate(userInfo.SipAccount.Replace("sip:", ""));
 
                         userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
 
