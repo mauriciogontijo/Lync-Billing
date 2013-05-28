@@ -237,9 +237,6 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
-                                 <Listeners>
-                                    <Select Handler="applyFilter(this);" />
-                                </Listeners>
                             </ext:ComboBox>
                         </Items>
                     </ext:Toolbar>
