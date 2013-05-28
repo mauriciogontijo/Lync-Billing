@@ -17,7 +17,6 @@ namespace Lync_Billing.DB
         public string CountryName { private set; get; }
         public long TotalDuration { private set; get; }
         public decimal TotalCost { private set; get; }
-
        
         public static List<TopCountries> GetTopDestinations(string sipAccount)
         {
