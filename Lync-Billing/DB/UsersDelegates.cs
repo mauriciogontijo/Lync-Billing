@@ -33,7 +33,7 @@ namespace Lync_Billing.DB
             UsersDelegates delegatedAccount;
             List<UsersDelegates> DelegatedAccounts = new List<UsersDelegates>();
             DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), "DelegateAccount", delegateAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), "DelegeeAccount", delegateAccount);
 
             foreach (DataRow row in dt.Rows)
             {
