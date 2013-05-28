@@ -103,9 +103,21 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public bool DeleteDelegate(string sipAccount) 
+        public bool DeleteDelegate(UsersDelegates delegee) 
         {
-            return false;
+            bool status = false;
+
+            status = DBRoutines.DELETE(
+                Enums.GetDescription(Enums.Delegates.TableName),
+                Enums.GetDescription(Enums.Delegates.ID),
+                delegee.ID);
+
+            if (status == false)
+            {
+                //throw error message
+            }
+            return status;
+
         }
 
         public int AddDelegate(UsersDelegates delegee ) 
