@@ -42,6 +42,9 @@ namespace Lync_Billing.UI
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
             DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.SipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
+
+            TOPDestinationNumbersStore.DataSource = TopDestinations.GetTopDestinations(SipAccount);
+            TOPDestinationNumbersStore.DataBind();
         }
 
         [DirectMethod]

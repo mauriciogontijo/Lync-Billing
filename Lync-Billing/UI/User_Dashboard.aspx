@@ -627,14 +627,15 @@
                                         ID="Internal"
                                         runat="server"
                                         Text="User"
-                                        Width="60"
-                                        Align="Center" />
+                                        Width="160"
+                                        DataIndex="Internal" />
 
                                     <ext:Column
                                         ID="NumberOfPhoneCalls"
                                         runat="server"
                                         Text="Number of Calls"
-                                        Width="140"/>
+                                        Width="140"
+                                        DataIndex="NumberOfPhoneCalls"/>
                                 </Columns>
                             </ColumnModel>
                         </ext:GridPanel>
