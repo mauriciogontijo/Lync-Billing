@@ -117,7 +117,7 @@
                 storeItem.get('Name') + ': ' +
                 ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
                 '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
-                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' + 
+                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' +
                 '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
             );
         };
@@ -231,17 +231,22 @@
 
         <div id="toolbar">
             <style type="text/css">
-              .more-container { margin: 5px -3px 5px -3px; }
-              .ptabs {width:auto}
+                .more-container {
+                    margin: 5px -3px 5px -3px;
+                }
+
+                .ptabs {
+                    width: auto;
+                }
             </style>
 
-            <div style="margin-bottom:100px !important;" class="blackbox">
+            <div style="margin-bottom: 100px !important;" class="blackbox">
                 <div class="center-piece">
                     <div id='logo' class='logo float-left'>
-				        <a href='User_Dashboard.aspx'>eBill</a>
-			        </div>
+                        <a href='User_Dashboard.aspx'>eBill</a>
+                    </div>
 
-                    <ul id="navigation-tabs" style="width:auto" class="ptabs">
+                    <ul id="navigation-tabs" style="width: auto" class="ptabs">
                         <li id="logout-tab">
                             <a title="Logout" href="Logout.aspx">Logout</a>
                         </li>
@@ -249,25 +254,36 @@
                         <li id="home-tab" class="selected">
                             <a title="Home" href="User_Dashboard.aspx">Home</a>
                         </li>
-          
+
                         <li id="manage-phonecalls-tab">
                             <a title="Manage My Phone Calls" href="User_ManagePhoneCalls.aspx">My Phone Calls</a>
                         </li>
 
                         <% 
                             bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                            if(condition) { 
+                            if (condition)
+                            { 
                         %>
-                            <li id="accounting-tab" class="last">
-                                <a title="Accounting Tools" href="#">Accounting Tools&nbsp;&nbsp;<img src="images/header-ddl-icon.png"></a>
-                                <div class="more-container text-left">
-                                    <a href="Accounting_ManageDisputes.aspx"><div class="float-left ml5">Manage Disputed Calls</div></a>
-                                    <a href="Accounting_MonthlyUserReport.aspx"><div class="float-left ml5">Monthly User Report</div></a>
-                                    <a href="Accounting_PeriodicalUserReport.aspx"><div class="float-left ml5">Periodical User Report</div></a>
-                                    <a href="Accounting_MonthlySiteReport.aspx"><div class="float-left ml5">Monthly Site Report</div></a>
-                                    <a href="Accounting_PeriodicalSiteReport.aspx"><div class="float-left ml5">Periodical Site Report</div></a>
-                                </div>
-                            </li>
+                        <li id="accounting-tab" class="last">
+                            <a title="Accounting Tools" href="#">Accounting Tools&nbsp;&nbsp;<img src="images/header-ddl-icon.png"></a>
+                            <div class="more-container text-left">
+                                <a href="Accounting_ManageDisputes.aspx">
+                                    <div class="float-left ml5">Manage Disputed Calls</div>
+                                </a>
+                                <a href="Accounting_MonthlyUserReport.aspx">
+                                    <div class="float-left ml5">Monthly User Report</div>
+                                </a>
+                                <a href="Accounting_PeriodicalUserReport.aspx">
+                                    <div class="float-left ml5">Periodical User Report</div>
+                                </a>
+                                <a href="Accounting_MonthlySiteReport.aspx">
+                                    <div class="float-left ml5">Monthly Site Report</div>
+                                </a>
+                                <a href="Accounting_PeriodicalSiteReport.aspx">
+                                    <div class="float-left ml5">Periodical Site Report</div>
+                                </a>
+                            </div>
+                        </li>
                         <% } %>
                     </ul>
                 </div>
@@ -344,9 +360,11 @@
                                 </ext:Chart>
                             </Items>
                         </ext:Panel>
-                    </div><!-- END OF CONTENT -->
-                </div><!-- END OF BLOCk -->
-                
+                    </div>
+                    <!-- END OF CONTENT -->
+                </div>
+                <!-- END OF BLOCk -->
+
                 <div class='clear h20'></div>
 
                 <div id='summary-block' class='block wauto'>
@@ -361,11 +379,13 @@
                                 runat="server"
                                 DirectMethod="#{DirectMethods}.GetSummaryData"
                                 Mode="Component">
-                                    <LoadMask ShowMask="true" />
+                                <LoadMask ShowMask="true" />
                             </Loader>
                         </ext:Panel>
-                    </div><!-- END OF CONTENT -->
-                </div><!-- END OF BLOCk -->
+                    </div>
+                    <!-- END OF CONTENT -->
+                </div>
+                <!-- END OF BLOCk -->
 
                 <div class='clear h20'></div>
 
@@ -418,7 +438,7 @@
                                         Text="Date"
                                         Width="160"
                                         DataIndex="SessionIdTime">
-                                            <Renderer Fn="myDateRenderer" />
+                                        <Renderer Fn="myDateRenderer" />
                                     </ext:Column>
 
                                     <ext:Column
@@ -442,7 +462,7 @@
                                         Text="Duration"
                                         Width="100"
                                         DataIndex="Duration">
-                                            <Renderer Fn="GetMinutes" />
+                                        <Renderer Fn="GetMinutes" />
                                     </ext:Column>
                                 </Columns>
                             </ColumnModel>
@@ -451,7 +471,7 @@
                                 <ext:Toolbar ID="CallsHistoryGridToolbar" runat="server">
                                     <Items>
                                         <ext:Button ID="HistoryGridViewMore" runat="server" Text="View More..." Icon="ApplicationGo" Margins="0 0 0 365">
-                                             <Listeners>
+                                            <Listeners>
                                                 <Click Handler="redirect_to('User_ViewHistory.aspx');" />
                                             </Listeners>
                                         </ext:Button>
@@ -459,8 +479,10 @@
                                 </ext:Toolbar>
                             </TopBar>
                         </ext:GridPanel>
-                    </div><!-- END OF CONTENT -->
-                </div><!-- END OF BLOCk -->
+                    </div>
+                    <!-- END OF CONTENT -->
+                </div>
+                <!-- END OF BLOCk -->
 
                 <div class='clear h20'></div>
 
@@ -475,12 +497,12 @@
                             Title="Personal Duration/Cost Report"
                             Layout="FitLayout">
                             <Items>
-                                <ext:Chart 
-                                    ID="DurationCostChart" 
-                                    runat="server" 
+                                <ext:Chart
+                                    ID="DurationCostChart"
+                                    runat="server"
                                     Animate="true">
                                     <Store>
-                                        <ext:Store ID="DurationCostChartStore" runat="server" >
+                                        <ext:Store ID="DurationCostChartStore" runat="server">
                                             <Model>
                                                 <ext:Model ID="DurationCostChartModel" runat="server">
                                                     <Fields>
@@ -492,62 +514,62 @@
                                             </Model>
                                         </ext:Store>
                                     </Store>
-                                
+
                                     <Axes>
-                                            <ext:CategoryAxis 
+                                        <ext:CategoryAxis
                                             Position="Bottom"
                                             Fields="MonthDate"
                                             Title="Current Year">
-                                                <Label>
-                                                    <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
-                                                </Label>
-                                            </ext:CategoryAxis>
-
-                                        <ext:NumericAxis 
-                                            Title="Duration in Hours"
-                                            Fields="Duration" 
-                                            Position="Left">
-                                                <LabelTitle Fill="#115fa6" />
-                                                <Label Fill="#115fa6" />
                                             <Label>
-                                                <Renderer Fn="GetHoursFromMinutes"/>
+                                                <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
+                                            </Label>
+                                        </ext:CategoryAxis>
+
+                                        <ext:NumericAxis
+                                            Title="Duration in Hours"
+                                            Fields="Duration"
+                                            Position="Left">
+                                            <LabelTitle Fill="#115fa6" />
+                                            <Label Fill="#115fa6" />
+                                            <Label>
+                                                <Renderer Fn="GetHoursFromMinutes" />
                                             </Label>
                                         </ext:NumericAxis>
-                        
-                                        <ext:NumericAxis 
+
+                                        <ext:NumericAxis
                                             Title="Cost in Local Currency"
-                                            Fields="PersonalCallsCost" 
+                                            Fields="PersonalCallsCost"
                                             Position="Right">
-                                                <LabelTitle Fill="#94ae0a" />
-                                                <Label Fill="#94ae0a" />
+                                            <LabelTitle Fill="#94ae0a" />
+                                            <Label Fill="#94ae0a" />
                                         </ext:NumericAxis>
                                     </Axes>
 
                                     <Series>
-                                        <ext:LineSeries 
-                                            Titles="Calls Duartion" 
-                                            XField="MonthDate" 
-                                            YField="Duration" 
-                                            Axis="Left" 
+                                        <ext:LineSeries
+                                            Titles="Calls Duartion"
+                                            XField="MonthDate"
+                                            YField="Duration"
+                                            Axis="Left"
                                             Smooth="3">
-                                                <HighlightConfig Size="7" Radius="7" />
-                                                <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+                                            <HighlightConfig Size="7" Radius="7" />
+                                            <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
                                         </ext:LineSeries>
 
-                                        <ext:LineSeries 
-                                            Titles="Calls Cost" 
-                                            XField="MonthDate" 
-                                            YField="PersonalCallsCost" 
-                                            Axis="Right" 
+                                        <ext:LineSeries
+                                            Titles="Calls Cost"
+                                            XField="MonthDate"
+                                            YField="PersonalCallsCost"
+                                            Axis="Right"
                                             Smooth="3">
-                                                <HighlightConfig Size="7" Radius="7"/>
-                                                <MarkerConfig Size="4" Radius="4" StrokeWidth="0"/>
+                                            <HighlightConfig Size="7" Radius="7" />
+                                            <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
                                         </ext:LineSeries>
                                     </Series>
 
                                     <Plugins>
                                         <ext:VerticalMarker ID="VerticalMarker1" runat="server">
-                                            <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');"/>
+                                            <XLabelRenderer Handler="return Ext.util.Format.date(value, 'Y M');" />
                                             <YLabelRenderer FormatHandler="true"></YLabelRenderer>
                                         </ext:VerticalMarker>
                                     </Plugins>
@@ -555,14 +577,67 @@
                                 </ext:Chart>
                             </Items>
                         </ext:Panel>
-                    </div><!-- END OF CONTENT -->
-                </div><!-- END OF BLOCk -->
+                    </div>
+                    <!-- END OF CONTENT -->
+                </div>
+                <!-- END OF BLOCk -->
 
                 <div class='clear h20'></div>
 
-                <div id='test-grid-1' class='block wauto'>
+                <div id='TOP-Destination-Numbers-Block' class='block wauto'>
                     <div class='content wauto float-left mb10'>
-                        <!-- YOUR CODE GOES HERE -->
+                        <ext:GridPanel
+                            ID="TOPDestinationNumbersGrid"
+                            runat="server"
+                            Title="TOP Destination Numbers"
+                            Width="465"
+                            Height="210"
+                            AutoScroll="true"
+                            Header="true"
+                            Scroll="Both"
+                            Layout="FitLayout">
+                            <Store>
+                                <ext:Store
+                                    ID="TOPDestinationNumbersStore"
+                                    runat="server"
+                                    IsPagingStore="true">
+                                    <Model>
+                                        <ext:Model ID="TOPDestinationNumbersModel" runat="server" IDProperty="SessionIdTime">
+                                            <Fields>
+                                                <ext:ModelField Name="PhoneNumber" Type="String" />
+                                                <ext:ModelField Name="Internal" Type="String" />
+                                                <ext:ModelField Name="NumberOfPhoneCalls" Type="Int" />
+                                            </Fields>
+                                        </ext:Model>
+                                    </Model>
+                                </ext:Store>
+                            </Store>
+
+                            <ColumnModel ID="TOPDestinationNumbersColumnModel" runat="server" Flex="1">
+                                <Columns>
+                                    <ext:Column
+                                        ID="PhoneNumber"
+                                        runat="server"
+                                        Text="Number"
+                                        Width="160"
+                                        DataIndex="PhoneNumber">
+                                    </ext:Column>
+
+                                    <ext:Column
+                                        ID="Internal"
+                                        runat="server"
+                                        Text="User"
+                                        Width="60"
+                                        Align="Center" />
+
+                                    <ext:Column
+                                        ID="NumberOfPhoneCalls"
+                                        runat="server"
+                                        Text="Number of Calls"
+                                        Width="140"/>
+                                </Columns>
+                            </ColumnModel>
+                        </ext:GridPanel>
                     </div>
                 </div>
             </div>
