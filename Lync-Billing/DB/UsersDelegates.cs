@@ -72,9 +72,35 @@ namespace Lync_Billing.DB
             return delegates;
         }
 
-        public bool UpadeDelegate(string sipAccount) 
+        public bool UpadeDelegate(UsersDelegates delegee) 
         {
-            return false;
+            bool status = false;
+
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+
+            //Set Part
+            if (delegee.SipAccount.ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Delegates.SipAccount), delegee.SipAccount);
+
+            if (delegee.DelegeeAccount.ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegee.DelegeeAccount);
+
+            if (delegee.Description.ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Delegates.Description), delegee.Description);
+
+            //Execute Update
+            status = DBRoutines.UPDATE(
+                Enums.GetDescription(Enums.GatewaysDetails.TableName),
+                setPart,
+                Enums.GetDescription(Enums.Delegates.ID),
+                delegee.ID);
+
+            if (status == false)
+            {
+                //throw error message
+            }
+
+            return true;
         }
 
         public bool DeleteDelegate(string sipAccount) 
@@ -82,20 +108,20 @@ namespace Lync_Billing.DB
             return false;
         }
 
-        public int AddDelegate(UsersDelegates DelegateAccount ) 
+        public int AddDelegate(UsersDelegates delegee ) 
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
 
             //Set Part
-            if (DelegateAccount.SipAccount.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Delegates.SipAccount), DelegateAccount.SipAccount);
+            if (delegee.SipAccount.ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Delegates.SipAccount), delegee.SipAccount);
 
-            if (DelegateAccount.DelegeeAccount.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Delegates.DelegeeAccount), DelegateAccount.DelegeeAccount);
+            if (delegee.DelegeeAccount.ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegee.DelegeeAccount);
 
-            if (DelegateAccount.Description.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Delegates.Description), DelegateAccount.Description);
+            if (delegee.Description.ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Delegates.Description), delegee.Description);
 
             //Execute Insert
             rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Delegates.TableName), columnsValues, Enums.GetDescription(Enums.Delegates.ID));
