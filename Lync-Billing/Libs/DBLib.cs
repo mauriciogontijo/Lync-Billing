@@ -158,7 +158,7 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
-        public DataTable SELECT_FROM_FUNCTION(string tableName,List<object> functionParams,Dictionary<string,object> whereClause ) 
+        public DataTable SELECT_FROM_FUNCTION(string tableName,List<object> functionParams, Dictionary<string,object> whereClause ) 
         {
             DataTable dt = new DataTable();
 
@@ -225,7 +225,6 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
-       
         public DataTable SELECT_USER_STATISTICS(string tableName, Dictionary<string, object> whereClause)
         {
             DataTable dt = new DataTable();
