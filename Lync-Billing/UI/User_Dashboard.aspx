@@ -286,6 +286,7 @@
 
             <div class='clear h15'></div>
 
+            <!-- START OF LEFT COLUMN -->
             <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
                 <div id='duration-report-block' class='block wauto'>
                     <div class='content wauto float-left mb10'>
@@ -365,8 +366,18 @@
                         </ext:Panel>
                     </div><!-- END OF CONTENT -->
                 </div><!-- END OF BLOCk -->
-            </div>
 
+                <div class='clear h20'></div>
+
+                <div id='test-graph-1' class='block wauto'>
+                    <div class='content wauto float-left mb10'>
+                        <!-- YOUR CODE GOES HERE -->
+                    </div>
+                </div>
+            </div>
+            <!-- END OF LEFT COLUMN -->
+
+            <!-- START OF RIGHT COLUMN -->
             <div style="float: right; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
                 <div id='brief-history-block' class='block wauto'>
                     <div class='content wauto float-left mb10'>
@@ -546,8 +557,16 @@
                         </ext:Panel>
                     </div><!-- END OF CONTENT -->
                 </div><!-- END OF BLOCk -->
-            </div>
 
+                <div class='clear h20'></div>
+
+                <div id='test-grid-1' class='block wauto'>
+                    <div class='content wauto float-left mb10'>
+                        <!-- YOUR CODE GOES HERE -->
+                    </div>
+                </div>
+            </div>
+            <!-- END OF RIGHT COLUMN -->
         </div>
 
         <div class='clear h10'></div>
