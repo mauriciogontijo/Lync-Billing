@@ -234,10 +234,14 @@ namespace Lync_Billing.DB
         {
             [Description("Delegates")]
             TableName,
+            [Description("ID")]
+            ID,
             [Description("SipAccount")]
             SipAccount,
-            [Description("DelegateAccount")]
-            DelegateAccount
+            [Description("DelegeeAccount")]
+            DelegeeAccount,
+            [Description("Description")]
+            Description
         }
 
         /// <summary>
