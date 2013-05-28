@@ -218,11 +218,12 @@
                                 Icon="User" 
                                 TriggerAction="All" 
                                 QueryMode="Local" 
-                                DisplayField="TypeName" 
-                                ValueField="TypeValue"
-                                FieldLabel="<p class='ml5 float-left'>Selected Delegated User Account</p>"
-                                LabelWidth="200"
-                                Width="380">
+                                DisplayField="SipAccount" 
+                                ValueField="SipAccount"
+                                FieldLabel="<p class='ml5 float-left'>User Account</p>"
+                                LabelWidth="90"
+                                Width="350"
+                                EmptyText="Select User Account">
                                 <Store>
                                     <ext:Store 
                                         ID="DelegatedUsersStore" 
@@ -238,6 +239,14 @@
                                     </ext:Store>
                                 </Store>
                             </ext:ComboBox>
+
+                            <ext:Button
+                                ID="GetDelegatedUserCallsButton"
+                                runat="server"
+                                OnDirectClick="GetDelegatedUserCallsButton_DirectClick"
+                                Text="Get User Phone Calls"
+                                Icon="ApplicationEdit">
+                            </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -260,7 +269,6 @@
                         runat="server" 
                         IsPagingStore="true" 
                         PageSize="25"
-                        OnLoad="PhoneCallsStore_Load"
                         OnSubmitData="PhoneCallsStore_SubmitData"
                         OnReadData="PhoneCallsStore_ReadData">
                         <Model>

@@ -132,7 +132,7 @@ namespace Lync_Billing.UI
             this.PhoneCallsStore.DataBind();
         }
 
-        protected void PhoneCallsStore_Load(object sender, EventArgs e)
+        /*protected void PhoneCallsStore_Load(object sender, EventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
@@ -153,7 +153,7 @@ namespace Lync_Billing.UI
 
             PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             PhoneCallsStore.DataBind();
-        }
+        }*/
 
         protected void DelegatedUsersStore_Load(object sender, EventArgs e)
         {
@@ -166,6 +166,35 @@ namespace Lync_Billing.UI
         protected void GetDelegatedUserPhoneCalls()
         {
 
+        }
+
+        protected void GetDelegatedUserCallsButton_DirectClick(object sender, DirectEventArgs e)
+        {
+            PhoneCallsStore.RemoveAll();
+            PhoneCallsStore.Dispose();
+
+            if (DelegatedUsersComboBox.SelectedItem.Value != null)
+            {
+                string SipAccount = DelegatedUsersComboBox.SelectedItem.Value.ToString();
+
+                wherePart.Add("SourceUserUri", SipAccount);
+                wherePart.Add("marker_CallTypeID", 1);
+                wherePart.Add("ui_IsInvoiced", "NO");
+
+                columns.Add("SessionIdTime");
+                columns.Add("SessionIdSeq");
+                columns.Add("ResponseTime");
+                columns.Add("SessionEndTime");
+                columns.Add("marker_CallToCountry");
+                columns.Add("DestinationNumberUri");
+                columns.Add("Duration");
+                columns.Add("marker_CallCost");
+                columns.Add("ui_IsPersonal");
+                columns.Add("ui_MarkedOn");
+
+                PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                PhoneCallsStore.DataBind();
+            }
         }
     }
 }

@@ -76,6 +76,15 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Model Model1;
         
         /// <summary>
+        /// GetDelegatedUserCallsButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button GetDelegatedUserCallsButton;
+        
+        /// <summary>
         /// ManagePhoneCallsGrid control.
         /// </summary>
         /// <remarks>
