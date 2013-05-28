@@ -205,7 +205,7 @@
                 ID="SelectDelegatedAccountsPanel" 
                 runat="server" 
                 Width="750"
-                Height="51"  
+                Height="54"  
                 Header="true"
                 Title="Select Delegated Accounts"
                 Layout="Anchor">
@@ -252,6 +252,8 @@
                 </TopBar>
             </ext:Panel>
 
+            <div class="h5 clear"></div>
+            
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"
                 runat="server"
