@@ -17,43 +17,40 @@ namespace Lync_Billing.UI
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!X.IsAjaxRequest)
+            //If the user is not loggedin, redirect to Login page.
+            if (Session.Contents["UserData"] == null || HttpContext.Current.Session.Count == 0)
             {
-                //If the user is not loggedin, redirect to Login page.
-                if (Session.Contents["UserData"] == null)
-                {
-                    Response.Redirect("~/UI/Login.aspx");
-                }
-
-                string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-                Dictionary<string, object> wherePart = new Dictionary<string, object>();
-                List<string> columns = new List<string>();
-
-                wherePart.Add("SourceUserUri", SipAccount);
-                wherePart.Add("marker_CallTypeID", 1);
-
-                columns.Add("SessionIdTime");
-                columns.Add("DestinationNumberUri");
-                columns.Add("Duration");
-                columns.Add("marker_CallToCountry");
-
-                PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 5);
-                PhoneCallsHistoryStore.DataBind();
-
-
-                UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-                DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.SipAccount, DateTime.Now.Year, 1, 12);
-                DurationCostChartStore.DataBind();
-
-                TOPDestinationNumbersStore.DataSource = TopDestinations.GetTopDestinations(SipAccount);
-                TOPDestinationNumbersStore.DataBind();
+                Response.Redirect("~/UI/Login.aspx");
             }
+
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            List<string> columns = new List<string>();
+
+            wherePart.Add("SourceUserUri", SipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
+
+            columns.Add("SessionIdTime");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallToCountry");
+
+            PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 5);
+            PhoneCallsHistoryStore.DataBind();
+
+
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.SipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataBind();
+
+            TOPDestinationNumbersStore.DataSource = TopDestinations.GetTopDestinations(SipAccount);
+            TOPDestinationNumbersStore.DataBind();
         }
 
         [DirectMethod]
         public static string GetSummaryData()
         {
-            if (!((UserSession)HttpContext.Current.Session.Contents["UserData"]).Equals(null))
+            if (HttpContext.Current.Session.Contents["UserData"] != null)
             {
                 string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
                 
