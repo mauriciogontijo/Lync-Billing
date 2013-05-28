@@ -12,19 +12,19 @@ namespace Lync_Billing.DB
     }
 
 
-    public class TopCountries 
+    public class TopCountries
     {
         public string CountryName { private set; get; }
         public long TotalDuration { private set; get; }
         public decimal TotalCost { private set; get; }
-       
+
         public static List<TopCountries> GetTopDestinations(string sipAccount)
         {
             DBLib DBRoutines = new DBLib();
             DataTable dt = new DataTable();
 
             List<TopCountries> topCountries = new List<TopCountries>();
-            
+
             List<object> parameters = new List<object>();
 
             parameters.Add(sipAccount);
@@ -52,6 +52,7 @@ namespace Lync_Billing.DB
             }
 
             return topCountries;
+        }
     }
 
     public class TopDestinations 
@@ -96,5 +97,4 @@ namespace Lync_Billing.DB
             return topDestinations;
         }
     }
-
 }
