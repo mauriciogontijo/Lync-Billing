@@ -38,9 +38,9 @@ namespace Lync_Billing.Libs
             StringBuilder selectedfields = new StringBuilder();
 
             if (whereValue.GetType().Equals(typeof(int)) || whereValue.GetType().Equals(typeof(double)))
-                selectQuery = string.Format("SELECT * FROM  [{0}] WHERE '{1}'={2}", tableName, whereField,whereValue);
+                selectQuery = string.Format("SELECT * FROM  [{0}] WHERE [{1}]={2}", tableName, whereField,whereValue);
             else
-                selectQuery = string.Format("SELECT * FROM  [{0}] WHERE '{1}'='{2}'", tableName, whereField, whereValue);
+                selectQuery = string.Format("SELECT * FROM  [{0}] WHERE [{1}]='{2}'", tableName, whereField, whereValue);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(selectQuery, conn);
