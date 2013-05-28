@@ -104,8 +104,15 @@
         var submitValue = function (grid, hiddenFormat, format) {
             grid.submitData(false, { isUpload: true });
         };
-
     </script>
+
+    <ext:XScript ID="XScript1" runat="server">
+        <script type="text/javascript">
+            var enable_get_calls_button = function () {
+                #{GetDelegatedUserCallsButton}.setDisabled(false)
+            }
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -238,6 +245,12 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
+                                <DirectEvents>
+                                    <Select OnEvent="OnComboboxSelection_Change"></Select>
+                                </DirectEvents>
+                                <Listeners>
+                                    <Change Handler="enable_get_calls_button();"></Change>
+                                </Listeners>
                             </ext:ComboBox>
 
                             <ext:Button
@@ -245,7 +258,8 @@
                                 runat="server"
                                 OnDirectClick="GetDelegatedUserCallsButton_DirectClick"
                                 Text="Get User Phone Calls"
-                                Icon="ApplicationEdit">
+                                Icon="ApplicationEdit"
+                                Disabled="true">
                             </ext:Button>
                         </Items>
                     </ext:Toolbar>

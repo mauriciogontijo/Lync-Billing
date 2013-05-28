@@ -194,7 +194,15 @@ namespace Lync_Billing.UI
 
                 PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
                 PhoneCallsStore.DataBind();
+
+                GetDelegatedUserCallsButton.Disabled = true;
             }
+        }
+
+        public void OnComboboxSelection_Change(object sender, DirectEventArgs e)
+        {
+            PhoneCallsStore.RemoveAll();
+            PhoneCallsStore.Dispose();
         }
     }
 }
