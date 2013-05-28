@@ -11,7 +11,10 @@ namespace Lync_Billing.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session.Clear();
+            Session.Abandon();
+            HttpContext.Current.Response.ClearContent();
+            HttpContext.Current.Response.ClearHeaders();
+
             Response.Redirect("~/UI/Login.aspx");
         }
     }
