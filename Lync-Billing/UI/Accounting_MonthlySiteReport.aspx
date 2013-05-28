@@ -44,7 +44,9 @@
                         </div>
                         <div class="sidebar-section-body">
                             <p><a href='User_ManagePhoneCalls.aspx'>Phone Calls</a></p>
-                            <p><a href='#'>Delegates</a></p>
+                            <% if( ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate ) { %>
+                                <p><a href='User_ManageDelegates.aspx'>Delegates</a></p>
+                            <% } %>
                             <p><a href='#'>Address Book</a></p>
                         </div>
                     </div>
