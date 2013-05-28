@@ -232,6 +232,8 @@ namespace Lync_Billing.DB
 
         public enum Delegates 
         {
+            [Description("Delegates")]
+            TableName,
             [Description("SipAccount")]
             SipAccount,
             [Description("DelegateAccount")]
