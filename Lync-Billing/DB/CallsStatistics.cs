@@ -28,12 +28,19 @@ namespace Lync_Billing.DB
         public static List<TopDestinations> GetTopDestinations(string sipAccount)
         {
             DBLib DBRoutines = new DBLib();
-            List<TopDestinations> topDestinations = new List<TopDestinations>();
             DataTable dt = new DataTable();
+
+            List<TopDestinations> topDestinations = new List<TopDestinations>();
+            
+            List<object> parameters = new List<object>();
+
+            parameters.Add(sipAccount);
 
             TopDestinations topDestination;
 
-            dt = DBRoutines.SELECT(""
+            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetTop5DestinationNumbersByCount", parameters, null);
+
+
 
 
             
