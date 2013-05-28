@@ -40,10 +40,25 @@ namespace Lync_Billing.DB
 
             dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetTop5DestinationNumbersByCount", parameters, null);
 
+            foreach (DataRow row in dt.Rows)
+            {
+                topDestination = new TopDestinations();
 
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == "PhoneNumber")
+                        topDestination.PhoneNumber = (string)row[column.ColumnName];
 
+                    if (column.ColumnName == "Internal")
+                        topDestination.Internal = (string)row[column.ColumnName];
 
-            
+                    if (column.ColumnName == "NumberOfPhoneCalls")
+                        topDestination.NumberOfPhoneCalls = (int)row[column.ColumnName];
+                }
+                topDestinations.Add(topDestination);
+            }
+
+            return topDestinations;
         }
     }
 
