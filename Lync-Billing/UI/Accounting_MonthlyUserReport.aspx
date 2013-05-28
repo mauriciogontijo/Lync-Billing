@@ -143,7 +143,6 @@
                                     <KeyUp Fn="onKeyUp" />
                                 </Listeners>--%>
                             </ext:DateField>
-
                             <ext:Button ID="Button1" runat="server" Text="Generate" Icon="ApplicationGo" Margins="0 0 0 125" OnDirectClick="Button1_DirectClick">
                             </ext:Button>
                         </Items>
