@@ -167,7 +167,6 @@ namespace Lync_Billing.Libs
 
             StringBuilder Parameters = new StringBuilder();
             StringBuilder whereStatement = new StringBuilder();
-            string selectStatment = string.Empty;
 
             if (functionParams != null && functionParams.Count != 0)
             {
@@ -177,7 +176,7 @@ namespace Lync_Billing.Libs
                     Type valueType = obj.GetType();
 
                     if (valueType == typeof(string))
-                        Parameters.Append("'" + obj.ToString() + "', ");
+                        Parameters.Append("'" + obj.ToString() + "',");
                     else
                         Parameters.Append(obj + ",");
                 }
@@ -200,9 +199,9 @@ namespace Lync_Billing.Libs
             }
 
             if (whereClause != null  && whereClause.Count !=0)
-                selectStatment = string.Format("SELECT * FROM [{0}] ({1}) WHERE {2}", tableName, Parameters, whereStatement);
+                selectQuery = string.Format("SELECT * FROM [tBill].[dbo].[{0}] ({1}) WHERE {2}", tableName, Parameters, whereStatement);
             else
-                selectStatment = string.Format("SELECT * FROM [{0}] ({1})", tableName, Parameters);
+                selectQuery = string.Format("SELECT * FROM [tBill].[dbo].[{0}] ({1})", tableName, Parameters);
 
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
