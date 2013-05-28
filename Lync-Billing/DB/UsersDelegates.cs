@@ -16,7 +16,7 @@ namespace Lync_Billing.DB
 
         private static DBLib DBRoutines = new DBLib();
 
-        public bool IsDelegate(string delegateAccount) 
+        public static bool IsDelegate(string delegateAccount) 
         {
             List<UsersDelegates> delegatedAccounts = new List<UsersDelegates>();
 
