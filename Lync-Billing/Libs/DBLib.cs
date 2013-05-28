@@ -199,9 +199,9 @@ namespace Lync_Billing.Libs
             }
 
             if (whereClause != null  && whereClause.Count !=0)
-                selectQuery = string.Format("SELECT * FROM [tBill].[dbo].[{0}] ({1}) WHERE {2}", tableName, Parameters, whereStatement);
+                selectQuery = string.Format("SELECT * FROM [{0}] ({1}) WHERE {2}", tableName, Parameters, whereStatement);
             else
-                selectQuery = string.Format("SELECT * FROM [tBill].[dbo].[{0}] ({1})", tableName, Parameters);
+                selectQuery = string.Format("SELECT * FROM [{0}] ({1})", tableName, Parameters);
 
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
