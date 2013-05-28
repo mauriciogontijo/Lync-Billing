@@ -13,7 +13,6 @@ namespace Lync_Billing.UI
     {
         Dictionary<string, object> wherePart = new Dictionary<string, object>();
         List<string> columns = new List<string>();
-        GridPanel UserPhoneCallsHistoryGrid;
 
         protected void Page_Load(object sender, EventArgs e)
         {

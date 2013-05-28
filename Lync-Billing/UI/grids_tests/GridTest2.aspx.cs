@@ -11,7 +11,6 @@ namespace Lync_Billing.UI
 {
     public partial class GridTest2 : System.Web.UI.Page
     {
-        GridPanel grid;
         protected void Page_Load(object sender, EventArgs e)
         {
 
