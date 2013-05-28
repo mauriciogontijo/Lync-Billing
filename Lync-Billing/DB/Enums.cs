@@ -230,6 +230,14 @@ namespace Lync_Billing.DB
             NumberOfDisputedCalls,
         }
 
+        public enum Delegates 
+        {
+            [Description("SipAccount")]
+            SipAccount,
+            [Description("DelegateAccount")]
+            DelegateAccount
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
