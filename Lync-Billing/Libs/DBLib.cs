@@ -158,6 +158,73 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
+        public DataTable SELECT_FROM_FUNCTION(string tableName,List<object> functionParams,Dictionary<string,object> whereClause ) 
+        {
+            DataTable dt = new DataTable();
+
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            StringBuilder Parameters = new StringBuilder();
+            StringBuilder whereStatement = new StringBuilder();
+            string selectStatment = string.Empty;
+
+            if (functionParams != null && functionParams.Count != 0)
+            {
+
+                foreach (object obj in functionParams)
+                {
+                    Type valueType = obj.GetType();
+
+                    if (valueType == typeof(string))
+                        Parameters.Append("'" + obj.ToString() + "', ");
+                    else
+                        Parameters.Append(obj + ",");
+                }
+                Parameters.Remove(Parameters.Length - 1, 1);
+            }
+
+            if ( whereClause != null && whereClause.Count != 0)
+            {
+                whereStatement.Append("WHERE ");
+                foreach (KeyValuePair<string, object> pair in whereClause)
+                {
+                    Type valueType = pair.Value.GetType();
+            
+                    if (valueType == typeof(int) || valueType == typeof(Double))
+                        whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                    else
+                        whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
+                }
+                whereStatement.Remove(whereStatement.Length - 5, 5);
+            }
+
+            if (whereClause != null  && whereClause.Count !=0)
+                selectStatment = string.Format("SELECT * FROM [{0}] ({1}) WHERE {2}", tableName, Parameters, whereStatement);
+            else
+                selectStatment = string.Format("SELECT * FROM [{0}] ({1})", tableName, Parameters);
+
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
        
         public DataTable SELECT_USER_STATISTICS(string tableName, Dictionary<string, object> whereClause)
         {
