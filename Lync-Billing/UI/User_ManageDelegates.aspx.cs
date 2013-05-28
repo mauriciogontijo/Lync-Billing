@@ -155,6 +155,14 @@ namespace Lync_Billing.UI
             PhoneCallsStore.DataBind();
         }
 
+        protected void DelegatedUsersStore_Load(object sender, EventArgs e)
+        {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+
+            DelegatedUsersStore.DataSource = UsersDelegates.GetSipAccounts(userSession.SipAccount);
+            DelegatedUsersStore.DataBind();
+        }
+
         protected void GetDelegatedUserPhoneCalls()
         {
 

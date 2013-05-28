@@ -220,9 +220,9 @@
                                 QueryMode="Local" 
                                 DisplayField="TypeName" 
                                 ValueField="TypeValue"
-                                FieldLabel="<p class='ml5 float-left'>Delegated User Accounts</p>"
-                                LabelWidth="170"
-                                Width="300">
+                                FieldLabel="<p class='ml5 float-left'>Selected Delegated User Account</p>"
+                                LabelWidth="200"
+                                Width="380">
                                 <Store>
                                     <ext:Store 
                                         ID="DelegatedUsersStore" 
