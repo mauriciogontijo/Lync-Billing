@@ -65,7 +65,7 @@
                   .ptabs {width:auto}
                 </style>
 
-                <div style="margin-bottom:150px !important;" class="blackbox">
+                <div style="margin-bottom:150px !important;" class="greenbox">
                     <div class="center-piece">
                         <% if(Session.Contents["UserData"] != null) { %>
                             <div id='logo' class='logo float-left'>

@@ -211,7 +211,7 @@
                 }
             </style>
 
-            <div style="margin-bottom: 100px !important;" class="blackbox">
+            <div style="margin-bottom: 100px !important;" class="greenbox">
                 <div class="center-piece">
                     <div id='logo' class='logo float-left'>
                         <a href='/UI/user/dashboard.aspx'>eBill</a>
