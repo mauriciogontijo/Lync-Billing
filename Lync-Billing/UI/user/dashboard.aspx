@@ -400,7 +400,50 @@
                             Title="Top Destination Countries"
                             Layout="FitLayout">
                             <Items>
-                               
+                                <ext:Chart
+                                    ID="TopDestinationCountriesChart"
+                                    runat="server"
+                                    Animate="true"
+                                    Shadow="true"
+                                    InsetPadding="20"
+                                    Width="465"
+                                    Height="350"
+                                    Theme="Base:gradients">
+                                    <LegendConfig Position="Right" />
+                                    <Store>
+                                        <ext:Store ID="TopDestinationCountriesStore"
+                                            OnLoad="TopDestinationCountriesStore_Load"
+                                            runat="server">
+                                            <Model>
+                                                <ext:Model ID="TopDestinationCountriesModel" runat="server">
+                                                    <Fields>
+                                                        <ext:ModelField Name="CountryName" />
+                                                        <ext:ModelField Name="TotalCost" />
+                                                        <ext:ModelField Name="TotalDuration" />
+                                                    </Fields>
+                                                </ext:Model>
+                                            </Model>
+                                        </ext:Store>
+                                    </Store>
+                                    <Series>
+                                        <ext:PieSeries
+                                            AngleField="TotalCost"
+                                            ShowInLegend="true"
+                                            Donut="30"
+                                            Highlight="true"
+                                            HighlightSegmentMargin="10">
+                                            <Label Field="Country_Name" Display="Rotate" Contrast="true" Font="16px Arial">
+                                                <Renderer Fn="TotalDurationLableRenderer" />
+                                            </Label>
+                                            <Tips ID="Tips2" runat="server" TrackMouse="true" Width="200" Height="75">
+                                                <Renderer Fn="tipDuartionRenderer" />
+                                            </Tips>
+                                            <Listeners>
+                                                <ItemClick Fn="redirect_to_manage_phonecalls" />
+                                            </Listeners>
+                                        </ext:PieSeries>
+                                    </Series>
+                                </ext:Chart>
                             </Items>
                         </ext:Panel>
                     </div>

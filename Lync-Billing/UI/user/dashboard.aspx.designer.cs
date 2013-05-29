@@ -94,6 +94,33 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Panel TopDestinationCountriesPanel;
         
         /// <summary>
+        /// TopDestinationCountriesChart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Chart TopDestinationCountriesChart;
+        
+        /// <summary>
+        /// TopDestinationCountriesStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store TopDestinationCountriesStore;
+        
+        /// <summary>
+        /// TopDestinationCountriesModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model TopDestinationCountriesModel;
+        
+        /// <summary>
         /// PhoneCallsHistoryGrid control.
         /// </summary>
         /// <remarks>

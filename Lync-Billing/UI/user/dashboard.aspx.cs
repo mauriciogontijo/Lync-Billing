@@ -135,5 +135,10 @@ namespace Lync_Billing.UI.user
             DurationCostChartStore.DataBind();
 
         }
+
+        protected void TopDestinationCountriesStore_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
