@@ -35,7 +35,6 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Announcements.Announcement) && row[column.ColumnName] != System.DBNull.Value)
                         announcement.Announcement = (string)row[column.ColumnName];
-
                 }
                 //announcement.Add(gateway);
             }
