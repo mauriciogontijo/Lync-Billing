@@ -146,7 +146,7 @@
 	    });
 
 	    var redirect_to_manage_phonecalls = function () {
-	        to = "User_ManagePhoneCalls.aspx"
+	        to = "/UI/user/manage_phone_calls.aspx"
 	        window.location = to;
 	    };
 
@@ -236,7 +236,7 @@
 
                         <div class='sidebar-section'>
                             <div class="sidebar-section-header">
-                                <p>Generate User Reportss</p>
+                                <p>Generate User Reports</p>
                             </div>
                             <div class="sidebar-section-body">
                                 <p><a href='/UI/accounting/monthly_user_reports.aspx'>Monthly Users Reports</a></p>
@@ -246,7 +246,7 @@
 
                         <div class='sidebar-section'>
                             <div class="sidebar-section-header">
-                                <p>Generate Site Reportss</p>
+                                <p>Generate Site Reports</p>
                             </div>
                             <div class="sidebar-section-body">
                                 <p><a href='/UI/accounting/monthly_site_reports.aspx'>Monthly Sites Reports</a></p>
@@ -271,7 +271,7 @@
                     Width="740"
                     Height="420"
                     Header="True"
-                    Title="Personal Duration/Cost _reports"
+                    Title="Personal Duration/Cost Reports"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
@@ -363,7 +363,7 @@
             <div class="block-body">
                 <ext:Panel ID="PhoneCallsDuartionChartPanel"
                     runat="server"
-                    Title="Calls Duration _reports (Last 3 Months)"
+                    Title="Calls Duration Reports (Last 3 Months)"
                     Width="365"
                     Height="320"
                     Layout="FitLayout">
