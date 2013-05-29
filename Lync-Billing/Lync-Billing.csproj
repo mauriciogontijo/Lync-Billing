@@ -130,6 +130,7 @@
     <Content Include="UI\user\manage_delegates.aspx" />
     <Content Include="UI\user\view_history.aspx" />
     <Content Include="UI\user\manage_phone_calls.aspx" />
+    <Content Include="UI\user\view_statistics.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -265,6 +266,13 @@
     </Compile>
     <Compile Include="UI\user\manage_phone_calls.aspx.designer.cs">
       <DependentUpon>manage_phone_calls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\user\view_statistics.aspx.cs">
+      <DependentUpon>view_statistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\user\view_statistics.aspx.designer.cs">
+      <DependentUpon>view_statistics.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
