@@ -35,23 +35,29 @@
         <div class="block-body">
             <ext:Panel ID="UserToolsSidebar"
                 runat="server"
-                Height="330"
+                Height="305"
                 Width="180"
-                Title="User Tools">
+                Title="User Tools"
+                Collapsed="true"
+                Collapsible="true">
                 <Content>
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
                             <p>Manage</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='User_ManagePhoneCalls.aspx'>Phone Calls</a></p>
+                            <p><a href='/UI/user/manage_phone_calls.aspx'>Phone Calls</a></p>
+                            
                             <%
                                 bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                 if (condition) {
                             %>
-                                <p><a href='User_ManageDelegates.aspx'>Delegates</a></p>
+                                <p><a href='/UI/user/manage_delegates.aspx'>Delegates</a></p>
                             <% } %>
-                            <p><a href='#'>Address Book</a></p>
+
+                            <% if(false) { %>
+                                <p><a href='#'>Address Book</a></p>
+                            <% } %>
                         </div>
                     </div>
 
@@ -60,7 +66,7 @@
                             <p>History</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='User_ViewHistory.aspx'>Phone Calls History</a></p>
+                            <p><a href='/UI/user/view_history.aspx'>Phone Calls History</a></p>
                         </div>
                     </div>
 
@@ -69,7 +75,7 @@
                             <p>Statistics</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='#'>Phone Calls Statistics</a></p>
+                            <p><a href='/UI/user/view_statistics.aspx'>Phone Calls Statistics</a></p>
                         </div>
                     </div>
                 </Content>
@@ -81,34 +87,36 @@
                 runat="server"
                 Height="330"
                 Width="180"
-                Title="Accounting Tools">
+                Title="Accounting Tools"
+                Collapsed="false"
+                Collapsible="true">
                 <Content>
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
                             <p>Disputes</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='Accounting_ManageDisputes.aspx'>Manage Disputed Calls</a></p>
-                        </div>
-                    </div>
-                    
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Generate User Reports</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='Accounting_MonthlyUserReport.aspx'>Monthly Users Report</a></p>
-                            <p><a href='Accounting_PeriodicalUserReport.aspx'>Periodical Users Report</a></p>
+                            <p><a href='/UI/accounting/manage_disputes.aspx'>Manage Disputed Calls</a></p>
                         </div>
                     </div>
 
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>Generate Site Reports</p>
+                            <p>Generate User Reportss</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='Accounting_MonthlySiteReport.aspx'>Monthly Sites Report</a></p>
-                            <p><a href='Accounting_PeriodicalSiteReport.aspx' class="selected">Periodical Sites Report</a></p>
+                            <p><a href='/UI/accounting/monthly_user_reports.aspx'>Monthly Users Reports</a></p>
+                            <p><a href='/UI/accounting/periodical_user_reports.aspx'>Periodical Users Reports</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Generate Site Reportss</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='/UI/accounting/monthly_site_reports.aspx'>Monthly Sites Reports</a></p>
+                            <p><a href='/UI/accounting/periodical_site_reports.aspx' class="selected">Periodical Sites Reports</a></p>
                         </div>
                     </div>
                 </Content>
