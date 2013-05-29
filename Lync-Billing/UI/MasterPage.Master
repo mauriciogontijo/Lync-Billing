@@ -8,11 +8,11 @@
     <head runat="server">
         <title></title>
 
-        <link rel="stylesheet" type="text/css" href="css/reset.css" />
-		<link rel="stylesheet" type="text/css" href="css/green-layout.css" />
-		<link rel="stylesheet" type="text/css" href="css/toolkit.css" />
-        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="js/browserdetector.js"></script>
+        <link rel="stylesheet" type="text/css" href="resources/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="resources/css/green-layout.css" />
+        <link rel="stylesheet" type="text/css" href="resources/css/toolkit.css" />
+        <script type="text/javascript" src="resources/js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="resources/js/browserdetector.js"></script>
 
 		<!--[if lt IE 9]>
 		    <link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
@@ -37,7 +37,7 @@
             <!--<div id='header-container'>
 			    <div id='nav-toolbar' class='nav-toolbar text-center'>
 				    <div class='logo float-left'>
-					    <a href='User_Dashboard.aspx'>eBill</a>
+					    <a href='/UI/user/dashboard.aspx'>eBill</a>
 				    </div>
 
 				    <ul id='nav-buttons'>
@@ -45,7 +45,7 @@
 						    <a id='settings-menu-button' href="javascript:void(0)"><img alt='Settings Menu' src='images/settings.png' width='32' /></a>
 					    </li>
 					    <li class='nav-button'>
-                            <a href='User_ManagePhoneCalls.aspx' class='nav-button-item'>
+                            <a href='/UI/user/manage_phone_calls.aspx' class='nav-button-item'>
                                 <img alt='Manage My Bills' src='images/mybills.png' width='32' />
                             </a>
 					    </li>
@@ -69,20 +69,20 @@
                     <div class="center-piece">
                         <% if(Session.Contents["UserData"] != null) { %>
                             <div id='logo' class='logo float-left'>
-				                <a href='User_Dashboard.aspx'>eBill</a>
+				                <a href='/UI/user/dashboard.aspx'>eBill</a>
 			                </div>
 
                             <ul id='navigation-tabs' style="width:auto" class="ptabs">
                                 <li id="logout-tab">
-                                    <a title="Logout" href="Logout.aspx">Logout</a>
+                                    <a title="Logout" href="/UI/session/logout.aspx">Logout</a>
                                 </li>
 
                                 <li id="home-tab">
-                                    <a title="Home" href="User_Dashboard.aspx">Home</a>
+                                    <a title="Home" href="/UI/user/dashboard.aspx">Home</a>
                                 </li>
           
                                 <li id="manage-phonecalls-tab">
-                                    <a title="Manage My Phone Calls" href="User_ManagePhoneCalls.aspx">My Phone Calls</a>
+                                    <a title="Manage My Phone Calls" href="/UI/user/manage_phone_calls.aspx">My Phone Calls</a>
                                 </li>
 
                                 <% 
@@ -90,7 +90,7 @@
                                     if(condition) { 
                                 %>
                                     <li id="accounting-tab" class="last">
-                                        <a title="Accounting Tools" href="#">Accounting Tools&nbsp;&nbsp;<img src="images/header-ddl-icon.png"></a>
+                                        <a title="Accounting Tools" href="#">Accounting Tools&nbsp;&nbsp;<img src="/UI/resources/images/header-ddl-icon.png"></a>
                                         <div class="more-container text-left">
                                             <a href="Accounting_ManageDisputes.aspx"><div class="float-left ml5">Manage Disputed Calls</div></a>
                                             <a href="Accounting_MonthlyUserReport.aspx"><div class="float-left ml5">Monthly User Report</div></a>
@@ -103,7 +103,7 @@
                             </ul>
                         <% } else { %>
                             <div class='logo float-left'>
-					            <a href='Login.aspx'>eBill</a>
+					            <a href='login.aspx'>eBill</a>
 				            </div>
                     <% } %>
                     </div>
