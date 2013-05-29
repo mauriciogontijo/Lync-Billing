@@ -46,7 +46,12 @@ namespace Lync_Billing.DB
                         topCountry.TotalDuration = (decimal)row[column.ColumnName];
 
                     if (column.ColumnName == "TotalCost")
-                        topCountry.TotalCost = (decimal)row[column.ColumnName];
+                    {
+                        if (row[column.ColumnName] != System.DBNull.Value)
+                            topCountry.TotalCost = (decimal)row[column.ColumnName];
+                        else
+                            topCountry.TotalCost = 0;
+                    }
                 }
                 topCountries.Add(topCountry);
             }
@@ -83,8 +88,12 @@ namespace Lync_Billing.DB
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == "PhoneNumber")
-                        topDestination.PhoneNumber = (string)row[column.ColumnName];
-
+                    {
+                        if (row[column.ColumnName] == System.DBNull.Value )
+                            topDestination.PhoneNumber = "UNKNOWN";
+                        else
+                            topDestination.PhoneNumber = (string)row[column.ColumnName];
+                    }
                     if (column.ColumnName == "Internal")
                         topDestination.Internal = (string)row[column.ColumnName];
 
