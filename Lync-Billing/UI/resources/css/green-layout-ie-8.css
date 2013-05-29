@@ -1,0 +1,41 @@
+div#header-container {
+	background: #0B486B; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3B8686', endColorstr='#0B486B'); /* for IE */
+}
+
+.block-header {
+	background: #79BD9A; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#79BD9A'); /* for IE */
+}
+
+.block-body {
+    border-left: 1px solid #CECFCE !important;
+	border-right: 1px solid #CECFCE !important;
+	border-bottom: 1px solid #CECFCE !important;
+}
+
+.front-welcome-text {
+    display: block;
+    font-size: 22px;
+    font-weight: bolder;
+    line-height: 20px;
+    text-align: left;
+    width: 26.5em;
+    color: #0B486B;
+}
+
+.front-welcome-text p {
+    font-size: 18px;
+    line-height: 28px;
+    height: 32px;
+    text-align: left;
+    color: inherit;
+}
+
+.front-welcome-text h1 {
+    font-size: 26px;
+    line-height: 22px;
+    height: 36px;
+    margin: 0;
+    color: #000000;
+}
