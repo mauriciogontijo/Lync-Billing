@@ -88,10 +88,65 @@
                 storeItem.get('Name') + ': ' +
                 ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
                 '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
-                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' +
-                '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
+                '<br>' + 'Total Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' +
+                '<br>' + 'Total Cost: ' + storeItem.get('TotalCost') + ' euros'
             );
 	    };
+
+
+	    //Pie Chart Data-Lable Renderer for Personal Calls
+	    var TotalCost_LableRenderer = function (storeItem, item) {
+	        var total = 0,
+                business_cost = 0,
+                personal_cost = 0,
+                unmarked_cost = 0,
+                chart_element_id = "main_content_place_holder_" + "PhoneCallsCostChart";
+
+	        //App.PhoneCallsDuartionChart
+	        App[chart_element_id].getStore().each(function (rec) {
+	            total += rec.get('TotalDuration');
+
+	            if (rec.get('Name') == 'Business') {
+	                business_duration = rec.get('TotalCost');
+	            }
+	            else if (rec.get('Name') == 'Personal') {
+	                personal_duration = rec.get('TotalCost');
+	            }
+	            else if (rec.get('Name') == 'Unmarked') {
+	                unmarked_duration = rec.get('TotalCost');
+	            }
+	        });
+
+	        if (storeItem == "Business") {
+	            return ((business_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
+	        }
+	        else if (storeItem == "Personal") {
+	            return ((personal_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
+	        }
+	        else if (storeItem == "Unmarked") {
+	            return ((unmarked_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
+	        }
+	    };
+
+
+	    //Pie Chart Data-Tip Renderer for Personal Calls
+	    var TotalCost_TipRenderer = function (storeItem, item) {
+	        var total = 0,
+                chart_element_id = "main_content_place_holder_" + "PhoneCallsCostChart";
+
+	        //App.PhoneCallsDuartionChart
+	        App[chart_element_id].getStore().each(function (rec) {
+	            total += rec.get('TotalCost');
+	        });
+
+	        this.setTitle(
+                storeItem.get('Name') + ': ' +
+                ((storeItem.get('TotalCost') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
+                '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
+                '<br>' + 'Total Cost: ' + storeItem.get('TotalCost') + ' euros'
+            );
+	    };
+
 
 	    Ext.override(Ext.chart.LegendItem, {
 	        createSeriesMarkers: function (config) {
@@ -359,12 +414,12 @@
 
         <div class="clear h5"></div>
 
-        <div id='personal-calls-duration-pie-chart' class='block float-right w50p hauto'>
+        <div id='personal-calls-duration-pie-chart' class='block float-right w49p hauto'>
             <div class="block-body">
                 <ext:Panel ID="PhoneCallsDuartionChartPanel"
                     runat="server"
                     Title="Calls Duration Reports (Last 3 Months)"
-                    Width="365"
+                    Width="360"
                     Height="320"
                     Layout="FitLayout">
                     <Items>
@@ -387,7 +442,6 @@
                                             <Fields>
                                                 <ext:ModelField Name="Name" />
                                                 <ext:ModelField Name="TotalCalls" />
-                                                <ext:ModelField Name="TotalCost" />
                                                 <ext:ModelField Name="TotalDuration" />
                                             </Fields>
                                         </ext:Model>
@@ -416,7 +470,65 @@
                     </Items>
                 </ext:Panel>
             </div>
-        </div>
+        </div><!-- END OF DURATION PIE CHART -->
+
+        <div id='total-cost-chart' class='block float-right w49p hauto'>
+            <div class="block-body">
+                <ext:Panel ID="PhoneCallsCostChartPanel"
+                    runat="server"
+                    Title="Calls Duration Reports (Last 3 Months)"
+                    Width="360"
+                    Height="320"
+                    Layout="FitLayout">
+                    <Items>
+                        <ext:Chart
+                            ID="PhoneCallsCostChart"
+                            runat="server"
+                            Animate="true"
+                            Shadow="true"
+                            InsetPadding="20"
+                            Width="465"
+                            Height="350"
+                            Theme="Base:gradients">
+                            <LegendConfig Position="Right" />
+                            <Store>
+                                <ext:Store ID="PhoneCallsCostChartStore"
+                                    OnLoad="PhoneCallsCostChartStore_Load"
+                                    runat="server">
+                                    <Model>
+                                        <ext:Model ID="Model1" runat="server">
+                                            <Fields>
+                                                <ext:ModelField Name="Name" />
+                                                <ext:ModelField Name="TotalCalls" />
+                                                <ext:ModelField Name="TotalCost" />
+                                            </Fields>
+                                        </ext:Model>
+                                    </Model>
+                                </ext:Store>
+                            </Store>
+                            <Series>
+                                <ext:PieSeries
+                                    AngleField="TotalCost"
+                                    ShowInLegend="true"
+                                    Donut="30"
+                                    Highlight="true"
+                                    HighlightSegmentMargin="10">
+                                    <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
+                                        <Renderer Fn="TotalCost_LableRenderer" />
+                                    </Label>
+                                    <Tips ID="Tips2" runat="server" TrackMouse="true" Width="200" Height="75">
+                                        <Renderer Fn="TotalCost_TipRenderer" />
+                                    </Tips>
+                                    <Listeners>
+                                        <ItemClick Fn="redirect_to_manage_phonecalls" />
+                                    </Listeners>
+                                </ext:PieSeries>
+                            </Series>
+                        </ext:Chart>
+                    </Items>
+                </ext:Panel>
+            </div>
+        </div><!-- END OF COST PIE CHART -->
     </div>
 </asp:Content>
 
