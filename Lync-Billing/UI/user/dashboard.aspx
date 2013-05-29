@@ -131,7 +131,7 @@
         };
 
         var redirect_to_manage_phonecalls = function () {
-            to = "~/UI/user/view_statistics.aspx"
+            to = "/UI/user/view_statistics.aspx"
             window.location = to;
         };
 
