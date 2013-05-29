@@ -39,7 +39,6 @@ namespace Lync_Billing.DB
                 }
                 //announcement.Add(gateway);
             }
-
             return announcement.Announcement;
         }
     
