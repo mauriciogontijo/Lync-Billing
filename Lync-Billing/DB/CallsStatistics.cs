@@ -15,7 +15,7 @@ namespace Lync_Billing.DB
     public class TopCountries
     {
         public string CountryName { private set; get; }
-        public long TotalDuration { private set; get; }
+        public decimal TotalDuration { private set; get; }
         public decimal TotalCost { private set; get; }
 
         public static List<TopCountries> GetTopDestinations(string sipAccount)
@@ -43,7 +43,7 @@ namespace Lync_Billing.DB
                         topCountry.CountryName = (string)row[column.ColumnName];
 
                     if (column.ColumnName == "TotalDuration")
-                        topCountry.TotalDuration = (int)row[column.ColumnName];
+                        topCountry.TotalDuration = (decimal)row[column.ColumnName];
 
                     if (column.ColumnName == "TotalCost")
                         topCountry.TotalCost = (decimal)row[column.ColumnName];
