@@ -248,7 +248,7 @@
 
                     <ul id="navigation-tabs" style="width: auto" class="ptabs">
                         <li id="logout-tab">
-                            <a title="Logout" href="logout.aspx">Logout</a>
+                            <a title="Logout" href="/UI/session/logout.aspx">Logout</a>
                         </li>
 
                         <li id="home-tab" class="selected">
