@@ -27,15 +27,16 @@ namespace Lync_Billing.UI.accounting
             //If the user is not loggedin, redirect to Login page.
             if (Session.Contents["UserData"] == null)
             {
-                Response.Redirect("~/UI/Login.aspx");
+                Response.Redirect("~/UI/session/login.aspx");
             }
             else
             {
-                UserSession session = (UserSession)Session.Contents["UserData"];
+                UserSession session = new UserSession();
+                session = (UserSession)Session.Contents["UserData"];
 
                 if (!session.IsDeveloper && !session.IsAccountant)
                 {
-                    Response.Redirect("~/UI/User_Dashboard.aspx");
+                    Response.Redirect("~/UI/user/dashboard.aspx");
                 }
             }
         }
