@@ -138,7 +138,9 @@ namespace Lync_Billing.UI.user
 
         protected void TopDestinationCountriesStore_Load(object sender, EventArgs e)
         {
-
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            TopDestinationCountriesStore.DataSource = TopCountries.GetTopDestinations(userSession.SipAccount);
+            TopDestinationCountriesStore.DataBind();
         }
     }
 }
