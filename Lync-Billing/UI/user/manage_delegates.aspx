@@ -224,7 +224,7 @@
             <ext:Panel
                 ID="SelectDelegatedAccountsPanel" 
                 runat="server" 
-                Width="750"
+                Width="740"
                 Height="54"  
                 Header="true"
                 Title="Select Delegated Accounts"
@@ -285,7 +285,7 @@
                 ID="ManagePhoneCallsGrid"
                 runat="server"
                 
-                Width="750"
+                Width="740"
                 Height="730"
                 AutoScroll="true"
                 Header="true"

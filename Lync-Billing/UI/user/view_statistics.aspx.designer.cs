@@ -139,12 +139,12 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Store PhoneCallsCostChartStore;
         
         /// <summary>
-        /// Model1 control.
+        /// PhoneCallsCostChartModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model Model1;
+        protected global::Ext.Net.Model PhoneCallsCostChartModel;
     }
 }

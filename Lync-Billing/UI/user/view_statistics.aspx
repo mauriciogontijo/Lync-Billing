@@ -104,16 +104,16 @@
 
 	        //App.PhoneCallsDuartionChart
 	        App[chart_element_id].getStore().each(function (rec) {
-	            total += rec.get('TotalDuration');
+	            total += rec.get('TotalCost');
 
 	            if (rec.get('Name') == 'Business') {
-	                business_duration = rec.get('TotalCost');
+	                business_cost = rec.get('TotalCost');
 	            }
 	            else if (rec.get('Name') == 'Personal') {
-	                personal_duration = rec.get('TotalCost');
+	                personal_cost = rec.get('TotalCost');
 	            }
 	            else if (rec.get('Name') == 'Unmarked') {
-	                unmarked_duration = rec.get('TotalCost');
+	                unmarked_cost = rec.get('TotalCost');
 	            }
 	        });
 
@@ -496,7 +496,7 @@
                                     OnLoad="PhoneCallsCostChartStore_Load"
                                     runat="server">
                                     <Model>
-                                        <ext:Model ID="Model1" runat="server">
+                                        <ext:Model ID="PhoneCallsCostChartModel" runat="server">
                                             <Fields>
                                                 <ext:ModelField Name="Name" />
                                                 <ext:ModelField Name="TotalCalls" />
