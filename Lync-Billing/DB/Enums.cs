@@ -244,6 +244,20 @@ namespace Lync_Billing.DB
             Description
         }
 
+        public enum Announcements 
+        {
+            [Description("Announcements")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("Announcement")]
+            Announcement,
+            [Description("Role")]
+            Role,
+            [Description("AnnouncementDate")]
+            AnnouncementDate
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
