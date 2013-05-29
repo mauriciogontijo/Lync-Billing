@@ -143,8 +143,11 @@
                                 ID="DateField"
                                 runat="server" 
                                 Vtype="daterange"
-                                FieldLabel="Month & Year:"
-                                Margins="0 25 0 5"
+                                FieldLabel="Select Month and Year:"
+                                LabelWidth="120"
+                                EmptyText="Empty Date"
+                                Width="300"
+                                Margins="0 320 0 5"
                                 EnableKeyEvents="true">    
                                 <CustomConfig>
                                     <ext:ConfigItem Name="DateField" Value="DateField1" Mode="Value" />
@@ -154,7 +157,7 @@
                                 </Listeners>
                             </ext:DateField>
 
-                            <ext:Button ID="Button1" runat="server" Text="Generate" Icon="ApplicationGo" Margins="0 0 0 395">
+                            <ext:Button ID="Button1" runat="server" Text="Generate Report" Icon="ApplicationGo" Margins="">
                             </ext:Button>
                         </Items>
                     </ext:Toolbar>

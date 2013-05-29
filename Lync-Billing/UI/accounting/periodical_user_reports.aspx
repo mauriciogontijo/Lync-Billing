@@ -143,9 +143,11 @@
                                 ID="GroupNumberField"
                                 runat="server" 
                                 Vtype="text"
-                                FieldLabel="Group Number:"
+                                FieldLabel="User Group Number:"
+                                LabelWidth="100"
+                                EmptyText="Number Only"
                                 Margins="0 15 0 5"
-                                Width="160"
+                                Width="185"
                                 EnableKeyEvents="true" />
 
                             <ext:DateField 
@@ -153,8 +155,10 @@
                                 runat="server" 
                                 Vtype="daterange"
                                 FieldLabel="Starting Date:"
+                                LabelWidth="70"
+                                EmptyText="Empty Date"
                                 Margins="0 15 0 5"
-                                Width="200"
+                                Width="190"
                                 EnableKeyEvents="true">
                                 <CustomConfig>
                                     <ext:ConfigItem Name="StartDateField" Value="DateField1" Mode="Value" />
@@ -169,8 +173,10 @@
                                 runat="server" 
                                 Vtype="daterange"
                                 FieldLabel="Ending Date:"
+                                LabelWidth="65"
+                                EmptyText="Empty Date"
                                 Margins="0 15 0 5"
-                                Width="200"
+                                Width="190"
                                 EnableKeyEvents="true">
                                 <CustomConfig>
                                     <ext:ConfigItem Name="EndDateField" Value="DateField2" Mode="Value" />
@@ -180,7 +186,7 @@
                                 </Listeners>
                             </ext:DateField>
 
-                            <ext:Button ID="Button1" runat="server" Text="Generate" Icon="ApplicationGo" Margins="0 0 0 40">
+                            <ext:Button ID="Button1" runat="server" Text="Generate Report" Icon="ApplicationGo">
                             </ext:Button>
                         </Items>
                     </ext:Toolbar>

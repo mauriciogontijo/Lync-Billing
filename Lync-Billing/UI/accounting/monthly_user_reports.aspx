@@ -143,14 +143,19 @@
                                 ID="GroupNumberField"
                                 runat="server" 
                                 FieldLabel="User Group Number:"
-                                Margins="0 25 0 5"/>
+                                LabelWidth="100"
+                                EmptyText="Number Only"
+                                Margins="0 25 0 5" />
 
                             <ext:DateField 
                                 ID="DateField"
                                 runat="server" 
                                 Vtype="daterange"
-                                FieldLabel="Month & Year:"
-                                Margins="0 25 0 5">
+                                FieldLabel="Select Month and Year:"
+                                LabelWidth="115"
+                                EmptyText="Empty Date"
+                                Width="300"
+                                Margins="0 55 0 5">
                                 <CustomConfig>
                                     <ext:ConfigItem Name="DateField" Value="DateField1" Mode="Value" />
                                 </CustomConfig>
@@ -158,7 +163,7 @@
                                     <KeyUp Fn="onKeyUp" />
                                 </Listeners>--%>
                             </ext:DateField>
-                            <ext:Button ID="Button1" runat="server" Text="Generate" Icon="ApplicationGo" Margins="0 0 0 125" OnDirectClick="Button1_DirectClick">
+                            <ext:Button ID="Button1" runat="server" Text="Generate Report" Icon="ApplicationGo" OnDirectClick="Button1_DirectClick">
                             </ext:Button>
                         </Items>
                     </ext:Toolbar>
