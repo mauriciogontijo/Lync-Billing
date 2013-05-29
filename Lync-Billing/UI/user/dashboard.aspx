@@ -105,29 +105,48 @@
             grid.submitData(false, { isUpload: true });
         };
 
-        var tipDuartionRenderer = function (storeItem, item) {
+        
+
+
+        //Pie Chart Data-Lable Renderer for Countries Destinations Calls
+        var TopCountries_LableRenderer = function (storeItem, item) {
+            var total = 0, all_countries_data = {};
+
+            App.TopDestinationCountriesChart.getStore().each(function (rec) {
+                total += rec.get('TotalDuration');
+
+                var country_name = rec.get('CountryName');
+                if (country_name != 0 && all_countries_data[country_name] == undefined) {
+                    all_countries_data[country_name] = rec.get('TotalDuration');
+                }
+            });
+
+            if (all_countries_data[storeItem] != undefined) {
+                return ((all_countries_data[storeItem] / total).toFixed(4) * 100.0).toFixed(2) + '%';
+            }
+        };
+
+
+        //Pie Chart Data-Lable Renderer for Countries Destinations Calls
+        var TopCountries_TipRenderer = function (storeItem, item) {
             //calculate percentage.
             var total = 0;
 
-            App.PhoneCallsDuartionChart.getStore().each(function (rec) {
+            App.TopDestinationCountriesChart.getStore().each(function (rec) {
                 total += rec.get('TotalDuration');
             });
 
             this.setTitle(
-                storeItem.get('Name') + ': ' +
+                storeItem.get('CountryName') + ': ' +
                 ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
-                '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
                 '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' +
                 '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
             );
         };
 
-        var TopCountriesLableRenderer = function (storeItem, item)
-        {
 
-        }
-
-        var TotalDurationLableRenderer = function (storeItem, item) {
+        //Pie Chart Data-Lable Renderer for Personal Calls
+        var TotalDuration_LableRenderer = function (storeItem, item) {
             var total = 0, business_duration = 0, personal_duration = 0, unmarked_duration = 0;
 
             App.PhoneCallsDuartionChart.getStore().each(function (rec) {
@@ -157,6 +176,26 @@
                 //return unmarked_duration;
             }
         };
+
+
+        //Pie Chart Data-Tip Renderer for Personal Calls
+        var TotalDuration_TipRenderer = function (storeItem, item) {
+            //calculate percentage.
+            var total = 0;
+
+            App.PhoneCallsDuartionChart.getStore().each(function (rec) {
+                total += rec.get('TotalDuration');
+            });
+
+            this.setTitle(
+                storeItem.get('Name') + ': ' +
+                ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
+                '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
+                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' +
+                '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
+            );
+        };
+
 
         var GetHoursFromMinutes = function (value) {
             var sec_num = parseInt(value, 10);
@@ -352,10 +391,10 @@
                                             Highlight="true"
                                             HighlightSegmentMargin="10">
                                             <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
-                                                <Renderer Fn="TotalDurationLableRenderer" />
+                                                <Renderer Fn="TotalDuration_LableRenderer" />
                                             </Label>
                                             <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="75">
-                                                <Renderer Fn="tipDuartionRenderer" />
+                                                <Renderer Fn="TotalDuration_TipRenderer" />
                                             </Tips>
                                             <Listeners>
                                                 <ItemClick Fn="redirect_to_manage_phonecalls" />
@@ -438,10 +477,10 @@
                                             Highlight="true"
                                             HighlightSegmentMargin="10">
                                             <Label Field="CountryName" Display="Rotate" Contrast="true" Font="16px Arial">
-                                                <Renderer Fn="TopCountriesLableRenderer" />
+                                                <Renderer Fn="TopCountries_LableRenderer" />
                                             </Label>
                                             <Tips ID="Tips2" runat="server" TrackMouse="true" Width="200" Height="75">
-                                                <Renderer Fn="tipDuartionRenderer" />
+                                                <Renderer Fn="TopCountries_TipRenderer" />
                                             </Tips>
                                             <Listeners>
                                                 <ItemClick Fn="redirect_to_manage_phonecalls" />
