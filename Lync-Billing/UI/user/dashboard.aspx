@@ -122,6 +122,11 @@
             );
         };
 
+        var TopCountriesLableRenderer = function (storeItem, item)
+        {
+
+        }
+
         var TotalDurationLableRenderer = function (storeItem, item) {
             var total = 0, business_duration = 0, personal_duration = 0, unmarked_duration = 0;
 
@@ -432,8 +437,8 @@
                                             Donut="30"
                                             Highlight="true"
                                             HighlightSegmentMargin="10">
-                                            <Label Field="Country_Name" Display="Rotate" Contrast="true" Font="16px Arial">
-                                                <Renderer Fn="TotalDurationLableRenderer" />
+                                            <Label Field="CountryName" Display="Rotate" Contrast="true" Font="16px Arial">
+                                                <Renderer Fn="TopCountriesLableRenderer" />
                                             </Label>
                                             <Tips ID="Tips2" runat="server" TrackMouse="true" Width="200" Height="75">
                                                 <Renderer Fn="tipDuartionRenderer" />
