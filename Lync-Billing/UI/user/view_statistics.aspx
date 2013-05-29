@@ -262,14 +262,14 @@
 
 
     <!-- *** START OF STATISTICS CHARTS CONTAINER *** -->
-    <div class="block float-right w80 h100p">
-        <div id='personal-duration-cost-chart' class='block float-right w100p'>
+    <div class="block float-right w80p h100p">
+        <div id='personal-duration-cost-chart' class='block float-right wauto w100p'>
             <div class="block-body pt5">
                 <ext:Panel
                     ID="DurationCostChartPanel"
                     runat="server"
-                    Width="740"
                     Height="420"
+                    Width="740"
                     Header="True"
                     Title="Personal Duration/Cost Reports"
                     Layout="FitLayout">
