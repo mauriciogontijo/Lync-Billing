@@ -8,11 +8,11 @@
     <head runat="server">
         <title></title>
 
-        <link rel="stylesheet" type="text/css" href="resources/css/reset.css" />
-        <link rel="stylesheet" type="text/css" href="resources/css/green-layout.css" />
-        <link rel="stylesheet" type="text/css" href="resources/css/toolkit.css" />
-        <script type="text/javascript" src="resources/js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="resources/js/browserdetector.js"></script>
+        <link rel="stylesheet" type="text/css" href="/UI/resources/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="/UI/resources/css/green-layout.css" />
+        <link rel="stylesheet" type="text/css" href="/UI/resources/css/toolkit.css" />
+        <script type="text/javascript" src="/UI/resources/js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="/UI/resources/js/browserdetector.js"></script>
 
 		<!--[if lt IE 9]>
 		    <link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
@@ -65,7 +65,7 @@
                   .ptabs {width:auto}
                 </style>
 
-                <div style="margin-bottom:100px !important;" class="blackbox">
+                <div style="margin-bottom:150px !important;" class="blackbox">
                     <div class="center-piece">
                         <% if(Session.Contents["UserData"] != null) { %>
                             <div id='logo' class='logo float-left'>
@@ -92,11 +92,11 @@
                                     <li id="accounting-tab" class="last">
                                         <a title="Accounting Tools" href="#">Accounting Tools&nbsp;&nbsp;<img src="/UI/resources/images/header-ddl-icon.png"></a>
                                         <div class="more-container">
-                                            <a href="/UI/accounting/manage_disputes.aspx"><div class="float-left ml5">Manage Disputed Calls</div></a>
-                                            <a href="/UI/accounting/monthly_user_reports.aspx"><div class="float-left ml5">Monthly User Report</div></a>
-                                            <a href="/UI/accounting/periodical_user_reports.aspx"><div class="float-left ml5">Periodical User Report</div></a>
-                                            <a href="/UI/accounting/monthly_site_reports.aspx"><div class="float-left ml5">Monthly Site Report</div></a>
-                                            <a href="/UI/accounting/periodical_site_reports.aspx"><div class="float-left ml5">Periodical Site Report</div></a>
+                                            <a href="/UI/accounting/manage_disputes.aspx" style="z-index:3000 !important;"><div class="float-left ml5">Manage Disputed Calls</div></a>
+                                            <a href="/UI/accounting/monthly_user_reports.aspx" style="z-index:3000 !important;"><div class="float-left ml5">Monthly User Report</div></a>
+                                            <a href="/UI/accounting/periodical_user_reports.aspx" style="z-index:3000 !important;"><div class="float-left ml5">Periodical User Report</div></a>
+                                            <a href="/UI/accounting/monthly_site_reports.aspx" style="z-index:3000 !important;"><div class="float-left ml5">Monthly Site Report</div></a>
+                                            <a href="/UI/accounting/periodical_site_reports.aspx" style="z-index:3000 !important;"><div class="float-left ml5">Periodical Site Report</div></a>
                                         </div>
                                     </li>
                                 <% } %>
