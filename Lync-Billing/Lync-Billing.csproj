@@ -99,11 +99,11 @@
     <Content Include="Global.asax" />
     <Content Include="Resources\Csv.xsl" />
     <Content Include="Resources\excel.xsl" />
-    <Content Include="UI\Accounting_ManageDisputes.aspx" />
-    <Content Include="UI\Accounting_MonthlySiteReport.aspx" />
-    <Content Include="UI\Accounting_MonthlyUserReport.aspx" />
-    <Content Include="UI\Accounting_PeriodicalSiteReport.aspx" />
-    <Content Include="UI\Accounting_PeriodicalUserReport.aspx" />
+    <Content Include="UI\accounting\manage_disputes.aspx" />
+    <Content Include="UI\accounting\monthly_site_reports.aspx" />
+    <Content Include="UI\accounting\monthly_user_reports.aspx" />
+    <Content Include="UI\accounting\periodical_site_reports.aspx" />
+    <Content Include="UI\accounting\periodical_user_reports.aspx" />
     <Content Include="UI\resources\images\header-bg.gif" />
     <Content Include="UI\resources\images\header-ddl-icon.png" />
     <Content Include="UI\session\login.aspx" />
@@ -159,40 +159,40 @@
     <Compile Include="Libs\PDFLib.cs" />
     <Compile Include="Libs\Statistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Accounting_ManageDisputes.aspx.cs">
-      <DependentUpon>Accounting_ManageDisputes.aspx</DependentUpon>
+    <Compile Include="UI\accounting\manage_disputes.aspx.cs">
+      <DependentUpon>manage_disputes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\Accounting_ManageDisputes.aspx.designer.cs">
-      <DependentUpon>Accounting_ManageDisputes.aspx</DependentUpon>
+    <Compile Include="UI\accounting\manage_disputes.aspx.designer.cs">
+      <DependentUpon>manage_disputes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting_MonthlySiteReport.aspx.cs">
-      <DependentUpon>Accounting_MonthlySiteReport.aspx</DependentUpon>
+    <Compile Include="UI\accounting\monthly_site_reports.aspx.cs">
+      <DependentUpon>monthly_site_reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\Accounting_MonthlySiteReport.aspx.designer.cs">
-      <DependentUpon>Accounting_MonthlySiteReport.aspx</DependentUpon>
+    <Compile Include="UI\accounting\monthly_site_reports.aspx.designer.cs">
+      <DependentUpon>monthly_site_reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting_MonthlyUserReport.aspx.cs">
-      <DependentUpon>Accounting_MonthlyUserReport.aspx</DependentUpon>
+    <Compile Include="UI\accounting\monthly_user_reports.aspx.cs">
+      <DependentUpon>monthly_user_reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\Accounting_MonthlyUserReport.aspx.designer.cs">
-      <DependentUpon>Accounting_MonthlyUserReport.aspx</DependentUpon>
+    <Compile Include="UI\accounting\monthly_user_reports.aspx.designer.cs">
+      <DependentUpon>monthly_user_reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting_PeriodicalSiteReport.aspx.cs">
-      <DependentUpon>Accounting_PeriodicalSiteReport.aspx</DependentUpon>
+    <Compile Include="UI\accounting\periodical_site_reports.aspx.cs">
+      <DependentUpon>periodical_site_reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\Accounting_PeriodicalSiteReport.aspx.designer.cs">
-      <DependentUpon>Accounting_PeriodicalSiteReport.aspx</DependentUpon>
+    <Compile Include="UI\accounting\periodical_site_reports.aspx.designer.cs">
+      <DependentUpon>periodical_site_reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting_PeriodicalUserReport.aspx.cs">
-      <DependentUpon>Accounting_PeriodicalUserReport.aspx</DependentUpon>
+    <Compile Include="UI\accounting\periodical_user_reports.aspx.cs">
+      <DependentUpon>periodical_user_reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\Accounting_PeriodicalUserReport.aspx.designer.cs">
-      <DependentUpon>Accounting_PeriodicalUserReport.aspx</DependentUpon>
+    <Compile Include="UI\accounting\periodical_user_reports.aspx.designer.cs">
+      <DependentUpon>periodical_user_reports.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\session\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
