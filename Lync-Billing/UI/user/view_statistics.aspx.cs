@@ -24,11 +24,11 @@ namespace Lync_Billing.UI.user
 
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
 
-            //PhoneCallsDuartionChartStore.DataSource = getChartData(SipAccount);
-            //PhoneCallsDuartionChartStore.DataBind();
+            PhoneCallsDuartionChartStore.DataSource = getChartData(SipAccount);
+            PhoneCallsDuartionChartStore.DataBind();
 
-            //DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, 1, 12);
-            //DurationCostChartStore.DataBind();
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataBind();
         }
 
         public List<UsersCallsSummaryChartData> getChartData(string SipAccount = "")
