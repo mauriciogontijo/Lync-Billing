@@ -40,51 +40,6 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.ResourceManager resourceManager;
         
         /// <summary>
-        /// PhoneCallsDuartionChartPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel PhoneCallsDuartionChartPanel;
-        
-        /// <summary>
-        /// PhoneCallsDuartionChart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Chart PhoneCallsDuartionChart;
-        
-        /// <summary>
-        /// PhoneCallsDuartionChartStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store PhoneCallsDuartionChartStore;
-        
-        /// <summary>
-        /// PhoneCallsDuartionCharModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Model PhoneCallsDuartionCharModel;
-        
-        /// <summary>
-        /// UserPhoneCallsSummary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel UserPhoneCallsSummary;
-        
-        /// <summary>
         /// TopDestinationCountriesPanel control.
         /// </summary>
         /// <remarks>
@@ -121,85 +76,67 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Model TopDestinationCountriesModel;
         
         /// <summary>
-        /// PhoneCallsHistoryGrid control.
+        /// UserPhoneCallsSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridPanel PhoneCallsHistoryGrid;
+        protected global::Ext.Net.Panel UserPhoneCallsSummary;
         
         /// <summary>
-        /// PhoneCallsHistoryStore control.
+        /// TOPDestinationNumbersGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store PhoneCallsHistoryStore;
+        protected global::Ext.Net.GridPanel TOPDestinationNumbersGrid;
         
         /// <summary>
-        /// Model2 control.
+        /// TopDestinationNumbersStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model Model2;
+        protected global::Ext.Net.Store TopDestinationNumbersStore;
         
         /// <summary>
-        /// SessionIdTime control.
+        /// TopDestinationNumbersModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column SessionIdTime;
+        protected global::Ext.Net.Model TopDestinationNumbersModel;
         
         /// <summary>
-        /// Marker_CallToCountry control.
+        /// PhoneNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Marker_CallToCountry;
+        protected global::Ext.Net.Column PhoneNumber;
         
         /// <summary>
-        /// DestinationNumberUri control.
+        /// Internal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column DestinationNumberUri;
+        protected global::Ext.Net.Column Internal;
         
         /// <summary>
-        /// Duration control.
+        /// NumberOfPhoneCalls control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Duration;
-        
-        /// <summary>
-        /// CallsHistoryGridToolbar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Toolbar CallsHistoryGridToolbar;
-        
-        /// <summary>
-        /// HistoryGridViewMore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button HistoryGridViewMore;
+        protected global::Ext.Net.Column NumberOfPhoneCalls;
         
         /// <summary>
         /// DurationCostChartPanel control.
@@ -245,59 +182,5 @@ namespace Lync_Billing.UI.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.VerticalMarker VerticalMarker1;
-        
-        /// <summary>
-        /// TOPDestinationNumbersGrid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridPanel TOPDestinationNumbersGrid;
-        
-        /// <summary>
-        /// TOPDestinationNumbersStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store TOPDestinationNumbersStore;
-        
-        /// <summary>
-        /// TOPDestinationNumbersModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Model TOPDestinationNumbersModel;
-        
-        /// <summary>
-        /// PhoneNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column PhoneNumber;
-        
-        /// <summary>
-        /// Internal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column Internal;
-        
-        /// <summary>
-        /// NumberOfPhoneCalls control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column NumberOfPhoneCalls;
     }
 }

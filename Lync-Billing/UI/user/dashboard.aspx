@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.UI.user.dashboard" %>
-
 <%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
 
 <?xml version="1.1" encoding="utf-8" ?>
@@ -16,14 +15,14 @@
     <script type="text/javascript" src="../resources/js/browserdetector.js"></script>
 
     <!--[if lt IE 9]>
-		    <link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
-	    <![endif]-->
+		<link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
+	<![endif]-->
 
     <!--[if lt IE 8]>
-		    <style type="text/css">
-			    #main { padding-top: 65px !important; }
-		    </style>
-	    <![endif]-->
+		<style type="text/css">
+			#main { padding-top: 65px !important; }
+		</style>
+	<![endif]-->
 
     <script type="text/javascript">
         BrowserDetect.init();
@@ -69,25 +68,6 @@
             }//END OUTER IF
         }
 
-        function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
-            var sec_num = parseInt(record.data.Duration, 10);
-            var hours = Math.floor(sec_num / 3600);
-            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-            var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-            if (hours < 10) {
-                hours = "0" + hours;
-            }
-            if (minutes < 10) {
-                minutes = "0" + minutes;
-            }
-            if (seconds < 10) {
-                seconds = "0" + seconds;
-            }
-
-            return hours + ':' + minutes + ':' + seconds;
-        }
-
         var chartsDurationFormat = function (seconds) {
             var sec_num = parseInt(seconds, 10);
             var hours = Math.floor(sec_num / 3600);
@@ -104,8 +84,6 @@
         var submitValue = function (grid, hiddenFormat, format) {
             grid.submitData(false, { isUpload: true });
         };
-
-        
 
 
         //Pie Chart Data-Lable Renderer for Countries Destinations Calls
@@ -139,58 +117,6 @@
             this.setTitle(
                 storeItem.get('CountryName') + ': ' +
                 ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
-                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' +
-                '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
-            );
-        };
-
-
-        //Pie Chart Data-Lable Renderer for Personal Calls
-        var TotalDuration_LableRenderer = function (storeItem, item) {
-            var total = 0, business_duration = 0, personal_duration = 0, unmarked_duration = 0;
-
-            App.PhoneCallsDuartionChart.getStore().each(function (rec) {
-                total += rec.get('TotalDuration');
-
-                if (rec.get('Name') == 'Business') {
-                    business_duration = rec.get('TotalDuration');
-                }
-                else if (rec.get('Name') == 'Personal') {
-                    personal_duration = rec.get('TotalDuration');
-                }
-                else if (rec.get('Name') == 'Unmarked') {
-                    unmarked_duration = rec.get('TotalDuration');
-                }
-            });
-
-            if (storeItem == "Business") {
-                return ((business_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
-                //return business_duration
-            }
-            else if (storeItem == "Personal") {
-                return ((personal_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
-                //return personal_duration;
-            }
-            else if (storeItem == "Unmarked") {
-                return ((unmarked_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
-                //return unmarked_duration;
-            }
-        };
-
-
-        //Pie Chart Data-Tip Renderer for Personal Calls
-        var TotalDuration_TipRenderer = function (storeItem, item) {
-            //calculate percentage.
-            var total = 0;
-
-            App.PhoneCallsDuartionChart.getStore().each(function (rec) {
-                total += rec.get('TotalDuration');
-            });
-
-            this.setTitle(
-                storeItem.get('Name') + ': ' +
-                ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
-                '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
                 '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' +
                 '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
             );
@@ -348,98 +274,13 @@
 
             <!-- START OF LEFT COLUMN -->
             <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
-                <div id='duration-report-block' class='block wauto'>
-                    <div class='content wauto float-left mb10'>
-                        <ext:Panel ID="PhoneCallsDuartionChartPanel"
-                            runat="server"
-                            Title="Calls Duration Report (Last 3 Months)"
-                            Width="465"
-                            Height="360"
-                            Layout="FitLayout">
-                            <Items>
-                                <ext:Chart
-                                    ID="PhoneCallsDuartionChart"
-                                    runat="server"
-                                    Animate="true"
-                                    Shadow="true"
-                                    InsetPadding="20"
-                                    Width="465"
-                                    Height="350"
-                                    Theme="Base:gradients">
-                                    <LegendConfig Position="Right" />
-                                    <Store>
-                                        <ext:Store ID="PhoneCallsDuartionChartStore"
-                                            OnLoad="PhoneCallsDuartionChartStore_Load"
-                                            runat="server">
-                                            <Model>
-                                                <ext:Model ID="PhoneCallsDuartionCharModel" runat="server">
-                                                    <Fields>
-                                                        <ext:ModelField Name="Name" />
-                                                        <ext:ModelField Name="TotalCalls" />
-                                                        <ext:ModelField Name="TotalCost" />
-                                                        <ext:ModelField Name="TotalDuration" />
-                                                    </Fields>
-                                                </ext:Model>
-                                            </Model>
-                                        </ext:Store>
-                                    </Store>
-                                    <Series>
-                                        <ext:PieSeries
-                                            AngleField="TotalDuration"
-                                            ShowInLegend="true"
-                                            Donut="30"
-                                            Highlight="true"
-                                            HighlightSegmentMargin="10">
-                                            <Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
-                                                <Renderer Fn="TotalDuration_LableRenderer" />
-                                            </Label>
-                                            <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="75">
-                                                <Renderer Fn="TotalDuration_TipRenderer" />
-                                            </Tips>
-                                            <Listeners>
-                                                <ItemClick Fn="redirect_to_manage_phonecalls" />
-                                            </Listeners>
-                                        </ext:PieSeries>
-                                    </Series>
-                                </ext:Chart>
-                            </Items>
-                        </ext:Panel>
-                    </div>
-                    <!-- END OF CONTENT -->
-                </div>
-                <!-- END OF BLOCk -->
-
-                <div class='clear h20'></div>
-
-                <div id='summary-block' class='block wauto'>
-                    <div class='content wauto float-left mb10'>
-                        <ext:Panel ID="UserPhoneCallsSummary"
-                            runat="server"
-                            Height="230"
-                            Width="465"
-                            Layout="AccordionLayout"
-                            Title="Summary">
-                            <Loader ID="SummaryLoader"
-                                runat="server"
-                                DirectMethod="#{DirectMethods}.GetSummaryData"
-                                Mode="Component">
-                                <LoadMask ShowMask="true" />
-                            </Loader>
-                        </ext:Panel>
-                    </div>
-                    <!-- END OF CONTENT -->
-                </div>
-                <!-- END OF BLOCk -->
-
-                <div class='clear h20'></div>
-
                 <div id='top-destination-countries' class='block wauto'>
                     <div class='content wauto float-left mb10'>
                          <ext:Panel
                             ID="TopDestinationCountriesPanel"
                             runat="server"
                             Width="465"
-                            Height="380"
+                            Height="360"
                             Header="True"
                             Title="Top Destination Countries"
                             Layout="FitLayout">
@@ -492,93 +333,90 @@
                         </ext:Panel>
                     </div>
                 </div>
+                <!-- END OF BLOCk -->
+
+                <div class='clear h20'></div>
+
+                <div id='summary-block' class='block wauto'>
+                    <div class='content wauto float-left mb10'>
+                        <ext:Panel ID="UserPhoneCallsSummary"
+                            runat="server"
+                            Height="230"
+                            Width="465"
+                            Layout="AccordionLayout"
+                            Title="Summary">
+                            <Loader ID="SummaryLoader"
+                                runat="server"
+                                DirectMethod="#{DirectMethods}.GetSummaryData"
+                                Mode="Component">
+                                <LoadMask ShowMask="true" />
+                            </Loader>
+                        </ext:Panel>
+                    </div>
+                    <!-- END OF CONTENT -->
+                </div>
+                <!-- END OF BLOCk -->
             </div>
             <!-- END OF LEFT COLUMN -->
 
             <!-- START OF RIGHT COLUMN -->
             <div style="float: right; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
-                <div id='brief-history-block' class='block wauto'>
+                <div id='TOP-Destination-Numbers-Block' class='block wauto'>
                     <div class='content wauto float-left mb10'>
                         <ext:GridPanel
-                            ID="PhoneCallsHistoryGrid"
+                            ID="TOPDestinationNumbersGrid"
                             runat="server"
-                            Title="History Brief"
+                            Title="Top Destination Numbers"
                             Width="465"
-                            Height="210"
+                            Height="180"
                             AutoScroll="true"
                             Header="true"
                             Scroll="Both"
                             Layout="FitLayout">
-
                             <Store>
                                 <ext:Store
-                                    ID="PhoneCallsHistoryStore"
+                                    ID="TopDestinationNumbersStore"
                                     runat="server"
                                     IsPagingStore="true">
                                     <Model>
-                                        <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
+                                        <ext:Model ID="TopDestinationNumbersModel" runat="server" IDProperty="SessionIdTime">
                                             <Fields>
-                                                <ext:ModelField Name="SessionIdTime" Type="String" />
-                                                <ext:ModelField Name="Marker_CallToCountry" Type="String" />
-                                                <ext:ModelField Name="DestinationNumberUri" Type="String" />
-                                                <ext:ModelField Name="Duration" Type="Float" />
+                                                <ext:ModelField Name="PhoneNumber" Type="String" />
+                                                <ext:ModelField Name="Internal" Type="String" />
+                                                <ext:ModelField Name="NumberOfPhoneCalls" Type="Int" />
                                             </Fields>
                                         </ext:Model>
                                     </Model>
                                 </ext:Store>
                             </Store>
 
-                            <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
+                            <ColumnModel ID="TOPDestinationNumbersColumnModel" runat="server" Flex="1">
                                 <Columns>
                                     <ext:Column
-                                        ID="SessionIdTime"
+                                        ID="PhoneNumber"
                                         runat="server"
-                                        Text="Date"
+                                        Text="Number"
                                         Width="160"
-                                        DataIndex="SessionIdTime">
-                                        <Renderer Fn="myDateRenderer" />
+                                        DataIndex="PhoneNumber">
                                     </ext:Column>
 
                                     <ext:Column
-                                        ID="Marker_CallToCountry"
+                                        ID="Internal"
                                         runat="server"
-                                        Text="Country"
-                                        Width="60"
-                                        DataIndex="Marker_CallToCountry"
-                                        Align="Center" />
+                                        Text="User"
+                                        Width="180"
+                                        DataIndex="Internal" />
 
                                     <ext:Column
-                                        ID="DestinationNumberUri"
+                                        ID="NumberOfPhoneCalls"
                                         runat="server"
-                                        Text="Destination"
-                                        Width="140"
-                                        DataIndex="DestinationNumberUri" />
-
-                                    <ext:Column
-                                        ID="Duration"
-                                        runat="server"
-                                        Text="Duration"
-                                        Width="100"
-                                        DataIndex="Duration">
-                                        <Renderer Fn="GetMinutes" />
-                                    </ext:Column>
+                                        Text="Number of Calls"
+                                        Width="120"
+                                        DataIndex="NumberOfPhoneCalls" />
                                 </Columns>
                             </ColumnModel>
-
-                            <TopBar>
-                                <ext:Toolbar ID="CallsHistoryGridToolbar" runat="server">
-                                    <Items>
-                                        <ext:Button ID="HistoryGridViewMore" runat="server" Text="View More..." Icon="ApplicationGo" Margins="0 0 0 365">
-                                            <Listeners>
-                                                <Click Handler="redirect_to('User_ViewHistory.aspx');" />
-                                            </Listeners>
-                                        </ext:Button>
-                                    </Items>
-                                </ext:Toolbar>
-                            </TopBar>
                         </ext:GridPanel>
                     </div>
-                    <!-- END OF CONTENT -->
                 </div>
                 <!-- END OF BLOCk -->
 
@@ -590,7 +428,7 @@
                             ID="DurationCostChartPanel"
                             runat="server"
                             Width="465"
-                            Height="380"
+                            Height="410"
                             Header="True"
                             Title="Personal Duration/Cost Report"
                             Layout="FitLayout">
@@ -679,66 +517,6 @@
                     <!-- END OF CONTENT -->
                 </div>
                 <!-- END OF BLOCk -->
-
-                <div class='clear h20'></div>
-
-                <div id='TOP-Destination-Numbers-Block' class='block wauto'>
-                    <div class='content wauto float-left mb10'>
-                        <ext:GridPanel
-                            ID="TOPDestinationNumbersGrid"
-                            runat="server"
-                            Title="TOP Destination Numbers"
-                            Width="465"
-                            Height="210"
-                            AutoScroll="true"
-                            Header="true"
-                            Scroll="Both"
-                            Layout="FitLayout">
-                            <Store>
-                                <ext:Store
-                                    ID="TOPDestinationNumbersStore"
-                                    runat="server"
-                                    IsPagingStore="true">
-                                    <Model>
-                                        <ext:Model ID="TOPDestinationNumbersModel" runat="server" IDProperty="SessionIdTime">
-                                            <Fields>
-                                                <ext:ModelField Name="PhoneNumber" Type="String" />
-                                                <ext:ModelField Name="Internal" Type="String" />
-                                                <ext:ModelField Name="NumberOfPhoneCalls" Type="Int" />
-                                            </Fields>
-                                        </ext:Model>
-                                    </Model>
-                                </ext:Store>
-                            </Store>
-
-                            <ColumnModel ID="TOPDestinationNumbersColumnModel" runat="server" Flex="1">
-                                <Columns>
-                                    <ext:Column
-                                        ID="PhoneNumber"
-                                        runat="server"
-                                        Text="Number"
-                                        Width="160"
-                                        DataIndex="PhoneNumber">
-                                    </ext:Column>
-
-                                    <ext:Column
-                                        ID="Internal"
-                                        runat="server"
-                                        Text="User"
-                                        Width="160"
-                                        DataIndex="Internal" />
-
-                                    <ext:Column
-                                        ID="NumberOfPhoneCalls"
-                                        runat="server"
-                                        Text="Number of Calls"
-                                        Width="140"
-                                        DataIndex="NumberOfPhoneCalls" />
-                                </Columns>
-                            </ColumnModel>
-                        </ext:GridPanel>
-                    </div>
-                </div>
             </div>
             <!-- END OF RIGHT COLUMN -->
         </div>

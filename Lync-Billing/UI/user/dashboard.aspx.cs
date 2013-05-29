@@ -24,27 +24,12 @@ namespace Lync_Billing.UI.user
             }
 
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            List<string> columns = new List<string>();
 
-            wherePart.Add("SourceUserUri", SipAccount);
-            wherePart.Add("marker_CallTypeID", 1);
-
-            columns.Add("SessionIdTime");
-            columns.Add("DestinationNumberUri");
-            columns.Add("Duration");
-            columns.Add("marker_CallToCountry");
-
-            PhoneCallsHistoryStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 5);
-            PhoneCallsHistoryStore.DataBind();
-
-
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.SipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
 
-            TOPDestinationNumbersStore.DataSource = TopDestinations.GetTopDestinations(SipAccount);
-            TOPDestinationNumbersStore.DataBind();
+            TopDestinationNumbersStore.DataSource = TopDestinations.GetTopDestinations(SipAccount);
+            TopDestinationNumbersStore.DataBind();
         }
 
         [DirectMethod]
@@ -53,9 +38,9 @@ namespace Lync_Billing.UI.user
             if (HttpContext.Current.Session.Contents["UserData"] != null)
             {
                 string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
-                
+
                 UsersCallsSummary userSummary = new UsersCallsSummary();
-                
+
                 userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
 
                 List<AbstractComponent> components = new List<AbstractComponent>();
@@ -102,7 +87,9 @@ namespace Lync_Billing.UI.user
                 return ComponentLoader.ToConfig(components);
             }
             else
+            {
                 return null;
+            }
         }
 
         public List<UsersCallsSummaryChartData> getChartData() 
@@ -110,22 +97,6 @@ namespace Lync_Billing.UI.user
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
             return UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
             
-        }
-
-        protected void PhoneCallsCostChartStore_Load(object sender, EventArgs e)
-        {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-                
-            //PhoneCallsCostChartStore.DataSource = getChartData();
-            //PhoneCallsCostChartStore.DataBind();
-        }
-
-        protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)
-        {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-
-            PhoneCallsDuartionChartStore.DataSource = getChartData();
-            PhoneCallsDuartionChartStore.DataBind();
         }
 
         protected void DurationCostChartStore_Load(object sender, EventArgs e)
