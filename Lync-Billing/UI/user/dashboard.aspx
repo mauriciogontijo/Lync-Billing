@@ -266,22 +266,12 @@
                         %>
                         <li id="accounting-tab" class="last">
                             <a title="Accounting Tools" href="#">Accounting Tools&nbsp;&nbsp;<img src="/UI/resources/images/header-ddl-icon.png"></a>
-                            <div class="more-container text-left">
-                                <a href="Accounting_ManageDisputes.aspx">
-                                    <div class="float-left ml5">Manage Disputed Calls</div>
-                                </a>
-                                <a href="Accounting_MonthlyUserReport.aspx">
-                                    <div class="float-left ml5">Monthly User Report</div>
-                                </a>
-                                <a href="Accounting_PeriodicalUserReport.aspx">
-                                    <div class="float-left ml5">Periodical User Report</div>
-                                </a>
-                                <a href="Accounting_MonthlySiteReport.aspx">
-                                    <div class="float-left ml5">Monthly Site Report</div>
-                                </a>
-                                <a href="Accounting_PeriodicalSiteReport.aspx">
-                                    <div class="float-left ml5">Periodical Site Report</div>
-                                </a>
+                            <div class="more-container">
+                                <a href="/UI/accounting/manage_disputes.aspx"><div class="float-left ml5">Manage Disputed Calls</div></a>
+                                <a href="/UI/accounting/monthly_user_reports.aspx"><div class="float-left ml5">Monthly User Report</div></a>
+                                <a href="/UI/accounting/periodical_user_reports.aspx"><div class="float-left ml5">Periodical User Report</div></a>
+                                <a href="/UI/accounting/monthly_site_reports.aspx"><div class="float-left ml5">Monthly Site Report</div></a>
+                                <a href="/UI/accounting/periodical_site_reports.aspx"><div class="float-left ml5">Periodical Site Report</div></a>
                             </div>
                         </li>
                         <% } %>
