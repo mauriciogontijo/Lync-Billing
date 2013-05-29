@@ -15,12 +15,12 @@ div#header-container div#nav-toolbar { width: 980px; height: 40px; display: bloc
 #toolbar .blackbox ul.ptabs li a { color: #FFFFFF; font-size: 13px; padding: 0 8px; text-decoration: none; }
 #toolbar .blackbox ul.ptabs li.drop, .blackbox ul.ptabs li.drop:hover, .blackbox ul.ptabs li:hover.drop { padding: 0 5px; }
 
-#toolbar .more-container { display: none; width: 170px; z-index:100000000; background: none repeat scroll 0 0 #282727; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; border-top: 4px solid #6DB14A; }
+#toolbar .more-container { display: none; width: 170px; z-index: 999000; background: none repeat scroll 0 0 #282727; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; border-top: 4px solid #6DB14A; }
 #toolbar .more-container a { border-bottom: 1px solid #2C2B2B; border-top: 1px solid #3E3E3E; clear: both; display: block; float: none; font-size: 13px; color: #FFFFFF !important; }
 #toolbar .more-container a:hover { background: none repeat scroll 0 0 #424242; }
 #toolbar .more-container a span { font-size:13px; }
 
-#toolbar .blackbox ul.ptabs li:hover .more-container { display: block; overflow: visible; padding-bottom: 4px; position: absolute; top: 30px; margin: 0px; z-index:100000000; }
+#toolbar .blackbox ul.ptabs li:hover .more-container { display: block; overflow: visible; padding-bottom: 4px; position: absolute; top: 30px; margin: 0px; }
 #toolbar .blackbox ul.ptabs li:hover, #toolbar .blackbox ul.ptabs li.selected, #toolbar .blackbox ul.ptabs li.selected-item { background-color: #6DB14A; background: -webkit-gradient(linear, left top, left bottom, from(#A8DBA8), to(#6DB14A)); background: -moz-linear-gradient(top, #A8DBA8, #6DB14A); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#6DB14A'); }
 #toolbar .blackbox ul.ptabs li:hover a, #toolbar .blackbox ul.ptabs li.selected a { color: #0B486B }
 /* END OF HEADER STYLING */
@@ -30,7 +30,7 @@ div#header-container div#nav-toolbar { width: 980px; height: 40px; display: bloc
 
 /* ********************************** */
 /* START OF MAIN BODY CONTENT STYLING */
-div#main { width: 1000px; margin: 40px auto; display: block; padding: 20px; border-left: 1px solid #CECFCE; border-right: 1px solid #CECFCE; border-bottom: 1px solid #CECFCE; overflow: hidden; z-index: 1000 !important; }
+div#main { width: 1000px; margin: 40px auto; display: block; padding: 20px; border-left: 1px solid #CECFCE; border-right: 1px solid #CECFCE; border-bottom: 1px solid #CECFCE; overflow: hidden; }
 div#footer .footer { width: auto; display: block; height: 24px; overflow: hidden; }
 div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
 /* ******************************** */
@@ -95,7 +95,7 @@ ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line
 
 .sidebar-section .sidebar-section-body { height: auto; width: auto; margin: 0 0 5px 15px; }
 .sidebar-section .sidebar-section-body p { font-size: 12px; line-height: 22px; }
-.sidebar-section .sidebar-section-body p a { font-size: inherit; text-decoration: none; color: #0B486B }
+.sidebar-section .sidebar-section-body p a { font-size: inherit; text-decoration: none; color: #330066 }
 .sidebar-section .sidebar-section-body p a:hover { color: green; }
 .sidebar-section .sidebar-section-body p a.selected { font-weight: bold; font-size: 12px; }
 /* end inner-pages sidebar text styling */
