@@ -25,8 +25,6 @@ namespace Lync_Billing.DB
 
             foreach (DataRow row in dt.Rows)
             {
-                announcement = new Announcements();
-
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.Announcements.ID) && row[column.ColumnName] != System.DBNull.Value)
