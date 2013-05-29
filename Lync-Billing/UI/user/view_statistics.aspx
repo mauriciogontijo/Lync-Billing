@@ -261,7 +261,7 @@
     <!-- *** END OF SIDEBAR *** -->
 
 
-    <!-- *** START OF PHONE CALLS HISTORY GRID *** -->
+    <!-- *** START OF STATISTICS CHARTS CONTAINER *** -->
     <div class="block float-right w80 h100p">
         <div id='personal-duration-cost-chart' class='block float-right w100p'>
             <div class="block-body pt5">
@@ -269,7 +269,7 @@
                     ID="DurationCostChartPanel"
                     runat="server"
                     Width="740"
-                    Height="450"
+                    Height="420"
                     Header="True"
                     Title="Personal Duration/Cost _reports"
                     Layout="FitLayout">
@@ -365,7 +365,7 @@
                     runat="server"
                     Title="Calls Duration _reports (Last 3 Months)"
                     Width="365"
-                    Height="360"
+                    Height="320"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
