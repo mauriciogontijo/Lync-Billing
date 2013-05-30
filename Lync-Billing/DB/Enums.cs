@@ -205,7 +205,7 @@ namespace Lync_Billing.DB
             [Description("ui_IsInvoiced")]
             UI_IsInvoiced,
             [Description("ac_DisputeStatus")]
-            ac_DisputeStatus
+            AC_DisputeStatus
         }
 
         public enum UsersCallsSummary
