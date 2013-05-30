@@ -1,0 +1,152 @@
+/*#################################Headers###########################*/
+h1 {font:normal 24px Arial, Helvetica, sans-serif }
+h2 {font:normal 18px Arial, Helvetica, sans-serif }
+h3 {font:normal 15px Arial, Helvetica, sans-serif }
+h4 {font:normal 12px Arial, Helvetica, sans-serif }
+h5 {font:normal 11px Arial, Helvetica, sans-serif }
+h6 {font:normal 10px Arial, Helvetica, sans-serif}
+/*#################################END HEADERS########################*/
+/*#################################SEPARATORS########################*/
+h1, h2, h3, h4, h5, h6, ul, ol,dl, p,blockquote,  {}
+h1, h2, h3, h4, h5, h6,img{padding-bottom:0px;}
+pre{margin: 10px;}
+table h1,table h2,table h3, table h4, table h5, table h6, table p, table ul, table ol, table dl{padding:0;}
+a {color: #0c5db8; text-decoration: none;}
+a:focus, a:hover {text-decoration: underline;}
+a:focus{}
+a:visited { }
+.ver-align-bot{vertical-align:text-bottom}
+.ver-align-middle{vertical-align:middle}
+.ver-align-sub{vertical-align:sub}
+.clb{clear:both}
+/*#################################END SEPARATORS########################*/
+/*################################DEFULT D1G COLORS###############################*/
+.white-color{color:#fff}
+.black-color{color:#000}
+.balck-s-color{color:#323232}
+.blue-color{color:#0c5db8}
+.gray-color{color:#606060}
+.gray-light-color{color:#bfbfbf}
+.gray-b-color{color:#6e6e6e}
+.green-color{color:#1a4d02}
+.gray-header{color:#323232}
+.red-color{color:#d20000}
+/*################################END DEFULT D1G COLORS###########################*/
+/*################################DEFULT BACKGROUNDS COLORS###########################*/
+.black-bg{background:#000}
+.white-bg{background:#fff}
+.gray-bg{background:#b9bbbb}
+/*################################END DEFULT BACKGROUNDS COLORS###########################*/
+/*#################################MARGINS########################*/
+/*all margins*/
+.m5{margin:5px}
+.m10{margin:10px}
+.m15{margin:15px}
+.m20{margin:20px}
+.m25{margin:25px}
+/*margin top*/
+.mt5{margin-top:5px}
+.mt10{margin-top:10px}
+.mt15{margin-top:15px}
+.mt20{margin-top:20px}
+.mt25{margin-top:25px}
+/*margin right*/
+.mr5{margin:0 5px 0 0}
+.mr10{margin:0 10px 0 0}
+.mr15{margin:0 15px 0 0}
+.mr20{margin:0 20px 0 0}
+.mr25{margin:0 25px 0 0}
+/*margin bottom*/
+.mb5{margin:0  0 5px 0}
+.mb10{margin:0  0 10px 0}
+.mb15{margin:0 0 15px 0}
+.mb20{margin:0 0 20px 0}
+.mb25{margin:0 0 25px 0}
+/*margin left*/
+.ml5{margin:0 0 0 5px}
+.ml10{margin:0  0 0 10px}
+.ml15{margin:0  0 0 15px}
+.ml20{margin:0  0 0 20px}
+.ml25{margin:0  0 0 25px}
+/*#################################END MARGINS########################*/
+/*#################################PADDINGS########################*/
+/*all paddings*/
+.p5{padding:5px}
+.p10{padding:10px}
+.p15{padding:15px}
+.p20{padding:20px}
+.p25{padding:25px}
+/*padding top*/
+.pt5{padding-top:5px}
+.pt10{padding-top:10px}
+.pt15{padding-top:15px}
+.pt20{padding-top:20px}
+.pt25{padding-top:25px}
+/*padding right*/
+.pr5{padding:0 5px 0 0}
+.pr10{padding:0 10px 0 0}
+.pr15{padding:0 15px 0 0}
+.pr20{padding:0 20px 0 0}
+.pr25{padding:0 25px 0 0}
+/*padding bottom*/
+.pb5{padding:0  0 5px  0}
+.pb10{padding:0 0 10px 0}
+.pb15{padding:0 0 15px 0}
+.pb20{padding:0 0 20px 0}
+.pb25{padding:0 0 25px 0}
+/*padding left*/
+.pl5{padding:0  0 0 5px}
+.pl10{padding:0  0 0 10px} 
+.pl15{padding:0  0 0 15px}
+.pl20{padding:0  0 0 20px}
+.pl25{padding:0  0 0 25px}
+/*#################################END PADDINGS########################*/
+/*#################################ALIGNMENT AND FLOATING########################*/
+.fl{float:left;}
+.fr{float:right;}
+.alignleft {text-align:left;}
+.alignright {text-align:right;}
+.aligncenter {text-align:center;}
+.aligjustify{text-align:justify}
+
+/*#################################END ALIGNMENT AND FLOATING########################*/
+/*#################################FONTS########################*/
+.fontz10{font-size:10px}.fontz11{font-size:11px}.fontz12{font-size:12px}.fontz13{font-size:13px}.fontz14{font-size:14px}.fontz15{font-size:15px}
+.fontz16{font-size:16px}.fontz17{font-size:17px}.fontz18{font-size:18px}.fontz19{font-size:19px}.fontz24{font-size:20px}.fontz30{font-size:30px}.fontz35{font-size:35px}
+.bold-fw{font-weight:bold}
+/*#################################END FONTS########################*/
+/*#################################DISPLAY########################*/
+.dis-none{display:none}.dis-block{display:block}.dis-inline{display:inline}.dis-inblock{display:inline-block;}
+/*#################################POSITIONS########################*/
+.pos-rel{position:relative}.pos-abs{position:absolute}.pos-fixed{position:fixed} .pos-static{position:static !important}
+/*#################################END POSITION########################*/
+/*#################################END DISPLAY########################*/
+/*#################################OVERFLOW########################*/
+.over-h{overflow:hidden}.over-auto{overflow:auto}
+/*#################################END OVERFLOW########################*/
+/*#################################D1G FONT########################*/
+@font-face { font-family: etisalat; src: url('fonts/GE SS TWO ETISALAT.otf'); } 
+@font-face { font-family:  etisalat-light; src: url('fonts/GE SS TWO LIGHT.otf'); } 
+.etisalat-bold{font-family:etisalat ,Arial, Helvetica, sans-serif}
+.etisalat-light{font-family:etisalat-light ,Arial, Helvetica, sans-serif}
+/*#################################END D1G FONT########################*/
+/*#################################BOEDER RADIUS########################*/
+.radius5{-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
+.radius10{-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
+.radius15{-webkit-border-radius: 15px;-moz-border-radius: 15px;border-radius: 15px;}
+.radius20{-webkit-border-radius: 20px;-moz-border-radius: 20px;border-radius: 20px;}
+.radius-b-lr5{-webkit-border-bottom-right-radius: 5px;
+-webkit-border-bottom-left-radius: 5px;
+-moz-border-radius-bottomright: 5px;
+-moz-border-radius-bottomleft: 5px;
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;}
+.text-shadow{text-shadow: 4px 4px 5px rgba(195, 195, 195, 1);}
+.mbox-shadow{-webkit-box-shadow: 0px 1px 10px rgba(85, 85, 85, 0.5);
+-moz-box-shadow:    0px 1px 10px rgba(85, 85, 85, 0.5);
+box-shadow:         0px 1px 10px rgba(85, 85, 85, 0.5); border:1px solid #8a8888\9}
+.foot-text-shadow{text-shadow:-1px 3px 2px #000000}
+.box-border{border:1px solid #ccc; overflow:hidden}
+/*#################################END BOEDER RADIUS########################*/
+.responsive-img{width:100%; height:auto;}
+
