@@ -92,6 +92,7 @@ namespace Lync_Billing.UI.user
             foreach (PhoneCall phoneCall in phoneCalls)
             {
                 phoneCall.UI_Dispute = "YES";
+                phoneCall.AC_DisputeStatus = "PENDING";
                 phoneCall.UI_MarkedOn = DateTime.Now;
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
