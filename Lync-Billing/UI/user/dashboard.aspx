@@ -24,12 +24,6 @@
 		<link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
 	<![endif]-->
 
-    <!--[if lt IE 8]>
-		<style type="text/css">
-			#main { padding-top: 65px !important; }
-		</style>
-	<![endif]-->
-
     <script type="text/javascript">
         BrowserDetect.init();
 
@@ -205,7 +199,7 @@
     <form id="form1" runat="server">
         <ext:ResourceManager ID="resourceManager" runat="server" Theme="Gray" />
 
-        <div class="block tool-dark-bg liquid toolbar" >
+        <div class="smart-block tool-dark-bg liquid toolbar" >
             <div class="hwrapper rtl ">
                 <div class="col size1of2">
                     <div class="ie7flot-fix" ><!--ie7 fix-->
