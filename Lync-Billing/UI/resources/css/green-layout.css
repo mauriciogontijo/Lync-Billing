@@ -3,7 +3,7 @@ body { font-family: tahoma; font-size: 14px; color: #FFFFFF; }
 
 /* ********************************** */
 /* START OF MAIN BODY CONTENT STYLING */
-div#main { width: 1000px; margin: 40px auto; display: block; padding: 20px; border-left: 1px solid #CECFCE; border-right: 1px solid #CECFCE; border-bottom: 1px solid #CECFCE; overflow: hidden; }
+div#main, div.main { width: 1000px; margin: 0 auto; padding: 25px 20px 20px 20px; border-left: 1px solid #CECFCE; border-right: 1px solid #CECFCE; border-bottom: 1px solid #CECFCE; overflow: hidden; }
 div#footer .footer { width: auto; display: block; height: 24px; overflow: hidden; }
 div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
 /* ******************************** */
@@ -17,25 +17,6 @@ div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; bord
 .block-body { position: relative; width: auto; margin: 5px; display: block; padding-top: 5px; color: #000000; overflow: hidden; }
 .block-header { position: relative; width: auto; min-height: 27px; max-height: 27px; margin: 5px 5px 0 5px; display: block; padding: 5px; background: #79BD9A; background: -webkit-gradient(linear, left top, left bottom, from(#A8DBA8), to(#79BD9A)); background: -moz-linear-gradient(top,  #A8DBA8,  #79BD9A); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#79BD9A'); color: #000000; clear: both; overflow: hidden; }
 /* end content-blocks styling */
-/* ************************** */
-
-
-
-/* **************************** */
-/* start navigation bar styling */
-.logo { display: block; line-height: 30px; height: 34px; margin: 0; padding: 0; }
-.logo a { text-decoration: none; color: #FFFFFF; font-size: 22px; font-weight: bold; line-height: 30px; text-align: left; text-shadow: 0 2px 4px #000000; }
-ul#nav-buttons { width: 350px; list-style:none outside none; margin: 0; padding: 0; float: right;}
-ul#nav-buttons li.nav-button { width: 40px; float: right; margin-left: 10px; display: inline; }
-ul#nav-buttons li.nav-button a { width: 40px; height: 40px; display: block; line-height: 40px; text-decoration: none; padding: 1px; }
-#settings-more-list-container { position: relative; right: 130.05px; top: 44px; width: 150px; background: none repeat scroll 0 0 #000000; border: 1px solid #333333; line-height: 28px; z-index: 500; overflow: hidden; }
-#settings-more-list-container a { color: #999999; font-size: 14px; text-decoration: none; }
-#settings-more-list-container ol, ul { list-style-type: none; width: auto; overflow: hidden; }
-#settings-more-list { overflow: hidden; }
-#settings-more-list li { width: auto; clear: both; float: right; margin-right: 10px; display: inline; text-align: right; }
-#settings-more-list li a.settings-menu-text { width: auto !important; height: 40px !important; display: block !important; line-height: 40px !important; text-decoration: none !important; padding: 1px !important; }
-.separator { display: block; width: 2px; height: 40px; border-left: 1px solid #333333; }
-/* end navigation bar styling */
 /* ************************** */
 
 
