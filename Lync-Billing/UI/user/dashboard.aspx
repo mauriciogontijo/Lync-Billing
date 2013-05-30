@@ -2,16 +2,21 @@
 <%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
 
 <?xml version="1.1" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
     <title>eBill | User Homepage</title>
 
-    <link rel="stylesheet" type="text/css" href="../resources/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/green-layout.css" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/toolkit.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../resources/css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../resources/css/layouts.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../resources/css/toolkit.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../resources/css/global.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../resources/css/green-layout.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../resources/css/dropdown-menu.css" />
+
     <script type="text/javascript" src="../resources/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../resources/js/browserdetector.js"></script>
 
@@ -200,66 +205,46 @@
     <form id="form1" runat="server">
         <ext:ResourceManager ID="resourceManager" runat="server" Theme="Gray" />
 
-        <div id="toolbar">
-            <style type="text/css">
-                .more-container {
-                    margin: 5px -3px 5px -3px;
-                }
-
-                .ptabs {
-                    width: auto;
-                }
-            </style>
-
-            <div style="margin-bottom: 100px !important;" class="greenbox">
-                <div class="center-piece">
-                    <div id='logo' class='logo float-left'>
-                        <a href='/UI/user/dashboard.aspx'>eBill</a>
+        <div class="block tool-dark-bg liquid toolbar" >
+            <div class="hwrapper rtl ">
+                <div class="col size1of2">
+                    <div class="ie7flot-fix" ><!--ie7 fix-->
+                        <ul class="vertical-navigation">
+                            <li class="">
+                                <a title="Logout" href="/UI/session/logout.aspx">Logout</a>
+                            </li>
+                            <li class="">
+                                <a title="Home" href="/UI/user/dashboard.aspx">Home</a>
+                            </li>
+                            <li class="">
+                                <a title="Manage My Phone Calls" href="/UI/user/manage_phone_calls.aspx">My Phone Calls</a>
+                            </li>
+                            <% 
+                                bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                                if (condition) { 
+                            %>
+                                <li class="">
+                                    <a href="#">Accounting Tools<span class="drop"></span></a>
+                                    <ul>
+                                        <li class=""><a href="/UI/accounting/manage_disputes.aspx">Manage Disputed Calls</a></li>
+                                        <li class=""><a href="/UI/accounting/monthly_user_reports.aspx">Monthly User Report</a></li>
+                                        <li class=""><a href="/UI/accounting/periodical_user_reports.aspx">Periodical User Report</a></li>
+                                        <li class=""><a href="/UI/accounting/monthly_site_reports.aspx">Monthly Site Report</a></li>
+                                        <li class="last-child"><a href="/UI/accounting/periodical_site_reports.aspx">Periodical Site Report</a></li>
+                                    </ul>
+                                </li>
+                            <% } %>
+                        </ul>
                     </div>
-
-                    <ul id="navigation-tabs" style="width: auto" class="ptabs">
-                        <li id="logout-tab">
-                            <a title="Logout" href="/UI/session/logout.aspx">Logout</a>
-                        </li>
-
-                        <li id="home-tab" class="selected">
-                            <a title="Home" href="/UI/user/dashboard.aspx">Home</a>
-                        </li>
-
-                        <li id="manage-phonecalls-tab">
-                            <a title="Manage My Phone Calls" href="/UI/user/manage_phone_calls.aspx">My Phone Calls</a>
-                        </li>
-
-                        <% 
-                            bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                            if (condition)
-                            { 
-                        %>
-                        <li id="accounting-tab" class="last">
-                            <a title="Accounting Tools" href="#">Accounting Tools&nbsp;&nbsp;<img src="/UI/resources/images/header-ddl-icon.png"></a>
-                            <div class="more-container">
-                                <a href="/UI/accounting/manage_disputes.aspx">
-                                    <div class="float-left ml5">Manage Disputed Calls</div>
-                                </a>
-                                <a href="/UI/accounting/monthly_user_reports.aspx">
-                                    <div class="float-left ml5">Monthly User Report</div>
-                                </a>
-                                <a href="/UI/accounting/periodical_user_reports.aspx">
-                                    <div class="float-left ml5">Periodical User Report</div>
-                                </a>
-                                <a href="/UI/accounting/monthly_site_reports.aspx">
-                                    <div class="float-left ml5">Monthly Site Report</div>
-                                </a>
-                                <a href="/UI/accounting/periodical_site_reports.aspx">
-                                    <div class="float-left ml5">Periodical Site Report</div>
-                                </a>
-                            </div>
-                        </li>
-                        <% } %>
-                    </ul>
+                </div>
+                <!--end toolbar right nav-->
+                <div class="col size1of2 lastcol">
+                    <a class="logo fl" href='/UI/user/dashboard.aspx'>eBill</a>
                 </div>
             </div>
+            <!--end toolbar wrapper--> 
         </div>
+        <!-- toolbar block-->
 
         <div id='main' class='main bottom-rounded'>
             <div id='announcements' class='announcements shadow mb20 p10'>
