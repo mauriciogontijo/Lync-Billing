@@ -39,6 +39,7 @@ namespace Lync_Billing.DB
         public string UI_IsPersonal { set; get; }
         public string UI_Dispute { set; get; }
         public string UI_IsInvoiced { set; get; }
+        public string AC_DisputeStatus { set; get; }
 
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
@@ -125,7 +126,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_IsInvoiced) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_IsInvoiced = (string)row[column.ColumnName];
-                   
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneCall.AC_DisputeStatus = (string)row[column.ColumnName];
                     
                 }
                 
@@ -161,7 +164,9 @@ namespace Lync_Billing.DB
 
             if (phoneCall.UI_IsInvoiced != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_IsInvoiced), phoneCall.UI_IsInvoiced);
-               
+
+            if (phoneCall.AC_DisputeStatus != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus), phoneCall.AC_DisputeStatus);
 
             //Execute Update
             status = DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneCalls.TableName), setPart, wherePart);
