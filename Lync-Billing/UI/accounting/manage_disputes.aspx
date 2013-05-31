@@ -212,6 +212,7 @@
                                 <Fields>
                                     <ext:ModelField Name="SessionIdTime" Type="String" />
                                     <ext:ModelField Name="SessionIdSeq" Type="Int" />
+                                    <ext:ModelField Name="SourceUserUri" Type="String" />
                                     <ext:ModelField Name="ResponseTime" Type="String"/>
                                     <ext:ModelField Name="SessionEndTime" Type="String"/>
                                     <ext:ModelField Name="Marker_CallToCountry" Type="String" />
@@ -233,10 +234,17 @@
                             ID="SessionIdTime"
                             runat="server"
                             Text="Date"
-                            Width="160"
+                            Width="130"
                             DataIndex="SessionIdTime">
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
+
+                         <ext:Column
+                            ID="SourceUserUri"
+                            runat="server"
+                            Text="User"
+                            Width="160"
+                            DataIndex="SourceUserUri" />
 
                         <ext:Column
                             ID="Marker_CallToCountry"
@@ -250,7 +258,7 @@
                             ID="DestinationNumberUri"
                             runat="server"
                             Text="Destination"
-                            Width="130"
+                            Width="100"
                             DataIndex="DestinationNumberUri" />
 
                         <ext:Column
@@ -275,7 +283,7 @@
                             ID="UI_MarkedOn"
                             runat="server"
                             Text="Marked On"
-                            Width="100"
+                            Width="80"
                             DataIndex="UI_MarkedOn">
                             <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');" />
                         </ext:Column>
@@ -284,7 +292,7 @@
                             ID="AC_DisputeStatus"
                             runat="server"
                             Text="Status"
-                            Width="100"
+                            Width="90"
                             DataIndex="AC_DisputeStatus">
                              <Renderer fn="getRowClassForstatus" />
                         </ext:Column>
