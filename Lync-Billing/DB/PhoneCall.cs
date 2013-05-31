@@ -45,6 +45,7 @@ namespace Lync_Billing.DB
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
 
+
         public static List<PhoneCall> GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             PhoneCall phoneCall;
@@ -52,8 +53,8 @@ namespace Lync_Billing.DB
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
-           
-            foreach(DataRow row in dt.Rows)
+
+            foreach (DataRow row in dt.Rows)
             {
                 phoneCall = new PhoneCall();
                
