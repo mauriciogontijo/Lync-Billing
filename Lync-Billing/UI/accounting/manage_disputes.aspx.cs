@@ -92,7 +92,7 @@ namespace Lync_Billing.UI.accounting
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                phoneCall.AC_DisputeStatus = "ACCEPTED";
+                phoneCall.AC_DisputeStatus = "Accepted";
                 phoneCall.AC_DisputeResolvedOn = DateTime.Now;
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
@@ -117,7 +117,7 @@ namespace Lync_Billing.UI.accounting
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                phoneCall.AC_DisputeStatus = "REJECTED";
+                phoneCall.AC_DisputeStatus = "Rejected";
                 phoneCall.AC_DisputeResolvedOn = DateTime.Now;
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);

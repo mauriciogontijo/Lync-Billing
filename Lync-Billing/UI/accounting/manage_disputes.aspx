@@ -70,10 +70,10 @@
         }
 
         function getRowClassForstatus(value, meta, record, rowIndex, colIndex, store) {
-            if (record.data.AC_DisputeStatus == 'Accepted') {
+            if (record.data.AC_DisputeStatus == 'Rejected') {
                 meta.style = "color: rgb(201, 20, 20);";
             }
-            if (record.data.AC_DisputeStatus == 'Rejected') {
+            if (record.data.AC_DisputeStatus == 'Accepted') {
                 meta.style = "color: rgb(46, 143, 42);";
             }
             return value
