@@ -129,5 +129,35 @@ namespace Lync_Billing.UI.accounting
             //ManagePhoneCallsGrid.GetStore().CommitChanges();
             ManageDisputesGrid.GetSelectionModel().DeselectAll();
         }
+
+        public string GetSiteName(int siteID)
+        {
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            wherePart.Add("SiteID", siteID);
+
+            List<Site> sites = DB.Site.GetSites(null, wherePart, 0);
+
+            return sites[0].SiteName;
+        }
+
+        public List<string> GetAccountantSiteName(string sipAccount)
+        {
+            List<string> accountantSites = new List<string>();
+
+            UserSession session = (UserSession)Session.Contents["UserData"];
+
+            List<UserRole> userRoles = session.Roles;
+
+            foreach (UserRole role in userRoles)
+            {
+                if ((role.RoleID == 7 || role.RoleID == 1 )) 
+                {
+                    accountantSites.Add(GetSiteName(role.SiteID));
+                }
+                    
+            }
+            return accountantSites;
+        }
+      
     }
 }
