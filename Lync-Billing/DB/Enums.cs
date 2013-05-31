@@ -198,19 +198,16 @@ namespace Lync_Billing.DB
             UI_MarkedOn,
             [Description("ui_UpdatedByUser")]
             UI_UpdatedByUser,
-            [Description("ui_IsPersonal")]
-            UI_IsPersonal,
-            [Description("ui_Dispute")]
-            UI_Dispute,
-            [Description("ui_IsInvoiced")]
-            UI_IsInvoiced,
+            [Description("ui_CallType")]
+            ui_CallType,
             [Description("ac_DisputeStatus")]
-            AC_DisputeStatus,
-            [Description("ac_ResolvedOn")]
-            AC_ResolvedOn,
-            [Description("ac_InvoicedDate")]
-            AC_InvoicedOn
-             
+            ac_DisputeStatus,
+            [Description("ac_DisputeResolvedOn")]
+            ac_DisputeResolvedOn,
+            [Description("ac_IsInvoiced")]
+            ac_IsInvoiced,
+            [Description("ac_InvoiceDate")]
+            ac_InvoiceDate
         }
 
         public enum UsersCallsSummary
