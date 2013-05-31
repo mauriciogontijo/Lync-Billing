@@ -40,6 +40,8 @@ namespace Lync_Billing.DB
         public string UI_Dispute { set; get; }
         public string UI_IsInvoiced { set; get; }
         public string AC_DisputeStatus { set; get; }
+        public DateTime AC_ResolvedOn { set; get; }
+        public DateTime AC_InvoicedOn { set; get; }
 
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
