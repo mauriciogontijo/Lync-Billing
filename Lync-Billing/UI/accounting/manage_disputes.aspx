@@ -8,6 +8,67 @@
             $('#navigation-tabs>li.selected').removeClass('selected');
             $('#accounting-tab').addClass('selected');
         });
+
+        var myDateRenderer = function (value) {
+            if (typeof value != undefined && value != 0) {
+                if (BrowserDetect.browser != "Explorer") {
+                    value = Ext.util.Format.date(value, "d M Y h:i A");
+                    return value;
+                } else {
+                    var my_date = {};
+                    var value_array = value.split(' ');
+                    var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+                    my_date["date"] = value_array[0];
+                    my_date["time"] = value_array[1];
+
+                    var date_parts = my_date["date"].split('-');
+                    my_date["date"] = {
+                        year: date_parts[0],
+                        month: months[parseInt(date_parts[1])],
+                        day: date_parts[2]
+                    }
+
+                    var time_parts = my_date["time"].split(':');
+                    my_date["time"] = {
+                        hours: time_parts[0],
+                        minutes: time_parts[1],
+                        period: (time_parts[0] < 12 ? 'AM' : 'PM')
+                    }
+
+                    //var date_format = Date(my_date["date"].year, my_date["date"].month, my_date["date"].day, my_date["time"].hours, my_date["time"].minutes);
+                    return (
+                        my_date.date.day + " " + my_date.date.month + " " + my_date.date.year + " " +
+                        my_date.time.hours + ":" + my_date.time.minutes + " " + my_date.time.period
+                    );
+                }//END ELSE
+            }//END OUTER IF
+        }
+
+        function RoundCost(value, meta, record, rowIndex, colIndex, store) {
+            return Math.round(record.data.Marker_CallCost * 100) / 100;
+        }
+
+        function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
+
+            var sec_num = parseInt(record.data.Duration, 10);
+            var hours = Math.floor(sec_num / 3600);
+            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+            var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+
+            return hours + ':' + minutes + ':' + seconds;;
+        }
+
     </script>
 </asp:Content>
 
@@ -112,7 +173,194 @@
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='Div2' class='block float-right wauto h100p'>
         <div class="block-body pt5">
-            <p class="font-18">Accounting Dashboard!</p>
+             <ext:GridPanel
+                ID="ManageDisputesGrid"
+                runat="server"
+                Title="Manage Disputes"
+                Width="740"
+                Height="750"
+                AutoScroll="true"
+                Header="true"
+                Scroll="Both"
+                Layout="FitLayout">
+
+                <Store>
+                    <ext:Store 
+                        ID="DisputesStore" 
+                        runat="server" 
+                        IsPagingStore="true" 
+                        PageSize="25"
+                        OnLoad="DisputesStore_Load"
+                        OnSubmitData="DisputesStore_SubmitData"
+                        OnReadData="DisputesStore_ReadData">
+                        <Model>
+                            <ext:Model ID="DisputesModel" runat="server" IDProperty="SessionIdTime">
+                                <Fields>
+                                    <ext:ModelField Name="SessionIdTime" Type="String" />
+                                    <ext:ModelField Name="SessionIdSeq" Type="Int" />
+                                    <ext:ModelField Name="ResponseTime" Type="String"/>
+                                    <ext:ModelField Name="SessionEndTime" Type="String"/>
+                                    <ext:ModelField Name="Marker_CallToCountry" Type="String" />
+                                    <ext:ModelField Name="DestinationNumberUri" Type="String" />
+                                    <ext:ModelField Name="Duration" Type="Float" />
+                                    <ext:ModelField Name="Marker_CallCost" Type="Float" />
+                                    <ext:ModelField Name="UI_IsDispute" Type="String" />
+                                    <ext:ModelField Name="UI_MarkedOn" Type="Date" />
+                                    <ext:ModelField Name="AC_DisputeStatus" Type="String" />
+                                </Fields>
+                            </ext:Model>
+                        </Model>
+                    </ext:Store>
+                </Store>
+
+                <ColumnModel ID="DisputesColumnModel" runat="server" Flex="1">
+                    <Columns>
+                        <ext:Column
+                            ID="SessionIdTime"
+                            runat="server"
+                            Text="Date"
+                            Width="160"
+                            DataIndex="SessionIdTime">
+                            <Renderer Fn="myDateRenderer" />
+                        </ext:Column>
+
+                        <ext:Column
+                            ID="Marker_CallToCountry"
+                            runat="server"
+                            Text="Country Code"
+                            Width="90"
+                            DataIndex="Marker_CallToCountry"
+                            Align="Center" />
+
+                        <ext:Column
+                            ID="DestinationNumberUri"
+                            runat="server"
+                            Text="Destination"
+                            Width="130"
+                            DataIndex="DestinationNumberUri" />
+
+                        <ext:Column
+                            ID="Duration"
+                            runat="server"
+                            Text="Duration"
+                            Width="70"
+                            DataIndex="Duration">
+                            <Renderer Fn="GetMinutes" />
+                        </ext:Column>
+
+                        <ext:Column
+                            ID="Marker_CallCost"
+                            runat="server"
+                            Text="Cost"
+                            Width="60"
+                            DataIndex="Marker_CallCost">
+                            <Renderer Fn="RoundCost"/>
+                        </ext:Column>
+
+                        <ext:Column ID="UI_IsDispute"
+                            runat="server"
+                            Text="Is Personal"
+                            Width="80"
+                            DataIndex="UI_IsDispute">
+                        </ext:Column>
+
+                        <ext:Column
+                            ID="UI_MarkedOn"
+                            runat="server"
+                            Text="Marked On"
+                            Width="100"
+                            DataIndex="UI_MarkedOn">
+                            <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');" />
+                        </ext:Column>
+
+                         <ext:Column
+                            ID="AC_DisputeStatus"
+                            runat="server"
+                            Text="Status"
+                            Width="100"
+                            DataIndex="UI_MarkedOn">
+                        </ext:Column>
+                    </Columns>
+                </ColumnModel>
+
+                <SelectionModel>
+                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1" 
+                        runat="server" 
+                        Mode="Multi" 
+                        AllowDeselect="true"
+                        IgnoreRightMouseSelection="true"
+                        CheckOnly="true">
+
+                    </ext:CheckboxSelectionModel>
+                </SelectionModel>
+
+                <TopBar>
+                    <ext:Toolbar ID="Toolbar1" runat="server">
+                        <Items>
+                           <ext:Label runat="server" ID="button_group_lable" Margin="5">
+                                <Content>Mark Selected As:</Content>
+                            </ext:Label>
+
+                            <ext:ButtonGroup ID="MarkingBottonsGroup"
+                                runat="server"
+                                Layout="TableLayout"
+                                Width="250"
+                                Frame="false"
+                                ButtonAlign="Right">
+                                <Buttons>
+                                    <ext:Button ID="Business" Text="Business" runat="server">
+                                        <DirectEvents>
+                                            <Click OnEvent="AssignBusiness">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
+                                    </ext:Button>
+
+                                    <ext:Button ID="Personal" Text="Personal" runat="server">
+                                        <DirectEvents>
+                                            <Click OnEvent="AssignPersonal">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
+                                    </ext:Button>
+
+                                    <ext:Button ID="Dispute" Text="Dispute" runat="server">
+                                        <DirectEvents>
+                                            <Click OnEvent="AssignDispute">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
+                                    </ext:Button>
+                                </Buttons>
+                            </ext:ButtonGroup>
+                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 300">
+                                 <Listeners>
+                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
+                                </Listeners>
+                            </ext:Button>
+                        </Items>
+                    </ext:Toolbar>
+                </TopBar>
+
+                <BottomBar>
+                    <ext:PagingToolbar
+                        ID="PagingToolbar1"
+                        runat="server"
+                        StoreID="PhoneCallStore"
+                        DisplayInfo="true"
+                        Weight="25"
+                        DisplayMsg="Phone Calls {0} - {1} of {2}" />
+                </BottomBar>
+            </ext:GridPanel>
         </div>
     </div>
     <!-- *** END OF ACCOUNTING MAIN BODY *** -->

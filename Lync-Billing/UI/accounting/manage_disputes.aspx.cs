@@ -33,5 +33,20 @@ namespace Lync_Billing.UI.accounting
                 }
             }
         }
+
+        protected void DisputesStore_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void DisputesStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
+        {
+
+        }
+
+        protected void DisputesStore_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+
+        }
     }
 }
