@@ -199,15 +199,15 @@ namespace Lync_Billing.DB
             [Description("ui_UpdatedByUser")]
             UI_UpdatedByUser,
             [Description("ui_CallType")]
-            ui_CallType,
+            UI_CallType,
             [Description("ac_DisputeStatus")]
-            ac_DisputeStatus,
+            AC_DisputeStatus,
             [Description("ac_DisputeResolvedOn")]
-            ac_DisputeResolvedOn,
+            AC_DisputeResolvedOn,
             [Description("ac_IsInvoiced")]
-            ac_IsInvoiced,
+            AC_IsInvoiced,
             [Description("ac_InvoiceDate")]
-            ac_InvoiceDate
+            AC_InvoiceDate
         }
 
         public enum UsersCallsSummary
