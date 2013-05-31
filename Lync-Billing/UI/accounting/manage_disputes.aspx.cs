@@ -44,7 +44,7 @@ namespace Lync_Billing.UI.accounting
             wherePart.Add("SourceUserUri", userSession.SipAccount);
             wherePart.Add("marker_CallTypeID", 1);
             wherePart.Add("ac_IsInvoiced", "NO");
-            wherePart.Add("ui_Dispute", "YES");
+            wherePart.Add("ui_CallType", "Dispute");
 
             columns.Add("SessionIdTime");
             columns.Add("SessionIdSeq");
