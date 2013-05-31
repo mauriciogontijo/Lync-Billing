@@ -130,22 +130,22 @@ namespace Lync_Billing.UI.accounting {
         protected global::Ext.Net.Column AC_DisputeStatus;
         
         /// <summary>
-        /// CheckboxSelectionModel1 control.
+        /// DisputesCheckboxSelectionModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.CheckboxSelectionModel CheckboxSelectionModel1;
+        protected global::Ext.Net.CheckboxSelectionModel DisputesCheckboxSelectionModel;
         
         /// <summary>
-        /// Toolbar1 control.
+        /// DisputesToolbar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Toolbar Toolbar1;
+        protected global::Ext.Net.Toolbar DisputesToolbar;
         
         /// <summary>
         /// button_group_lable control.
@@ -157,40 +157,31 @@ namespace Lync_Billing.UI.accounting {
         protected global::Ext.Net.Label button_group_lable;
         
         /// <summary>
-        /// MarkingBottonsGroup control.
+        /// DisputesMarkingBottonsGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ButtonGroup MarkingBottonsGroup;
+        protected global::Ext.Net.ButtonGroup DisputesMarkingBottonsGroup;
         
         /// <summary>
-        /// Business control.
+        /// Accepted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button Business;
+        protected global::Ext.Net.Button Accepted;
         
         /// <summary>
-        /// Personal control.
+        /// Reject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button Personal;
-        
-        /// <summary>
-        /// Dispute control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button Dispute;
+        protected global::Ext.Net.Button Reject;
         
         /// <summary>
         /// ExportToExcel control.
@@ -202,12 +193,12 @@ namespace Lync_Billing.UI.accounting {
         protected global::Ext.Net.Button ExportToExcel;
         
         /// <summary>
-        /// PagingToolbar1 control.
+        /// DisputesPagingToolbar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.PagingToolbar PagingToolbar1;
+        protected global::Ext.Net.PagingToolbar DisputesPagingToolbar;
     }
 }

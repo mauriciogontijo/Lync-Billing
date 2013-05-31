@@ -278,64 +278,52 @@
                             runat="server"
                             Text="Status"
                             Width="100"
-                            DataIndex="UI_MarkedOn">
+                            DataIndex="AC_DisputeStatus">
                         </ext:Column>
                     </Columns>
                 </ColumnModel>
 
                 <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1" 
+                    <ext:CheckboxSelectionModel ID="DisputesCheckboxSelectionModel" 
                         runat="server" 
                         Mode="Multi" 
                         AllowDeselect="true"
                         IgnoreRightMouseSelection="true"
                         CheckOnly="true">
-
                     </ext:CheckboxSelectionModel>
                 </SelectionModel>
 
                 <TopBar>
-                    <ext:Toolbar ID="Toolbar1" runat="server">
+                    <ext:Toolbar ID="DisputesToolbar" runat="server">
                         <Items>
                            <ext:Label runat="server" ID="button_group_lable" Margin="5">
                                 <Content>Mark Selected As:</Content>
                             </ext:Label>
 
-                            <ext:ButtonGroup ID="MarkingBottonsGroup"
+                            <ext:ButtonGroup ID="DisputesMarkingBottonsGroup"
                                 runat="server"
                                 Layout="TableLayout"
                                 Width="250"
                                 Frame="false"
                                 ButtonAlign="Right">
                                 <Buttons>
-                                    <ext:Button ID="Business" Text="Business" runat="server">
+                                    <ext:Button ID="Accepted" Text="Accept" runat="server">
                                         <DirectEvents>
-                                            <Click OnEvent="AssignBusiness">
+                                            <Click OnEvent="AcceptDispute">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManageDisputesGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
                                                 </ExtraParams>
                                             </Click>
                                         </DirectEvents>
                                     </ext:Button>
 
-                                    <ext:Button ID="Personal" Text="Personal" runat="server">
+                                    <ext:Button ID="Reject" Text="Reject" runat="server">
                                         <DirectEvents>
-                                            <Click OnEvent="AssignPersonal">
+                                            <Click OnEvent="RejectDispute">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
-                                    </ext:Button>
-
-                                    <ext:Button ID="Dispute" Text="Dispute" runat="server">
-                                        <DirectEvents>
-                                            <Click OnEvent="AssignDispute">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManageDisputesGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
                                                 </ExtraParams>
                                             </Click>
                                         </DirectEvents>
@@ -344,7 +332,7 @@
                             </ext:ButtonGroup>
                             <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 300">
                                  <Listeners>
-                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
+                                    <Click Handler="submitValue(#{ManageDisputesGrid}, 'xls');" />
                                 </Listeners>
                             </ext:Button>
                         </Items>
@@ -353,12 +341,12 @@
 
                 <BottomBar>
                     <ext:PagingToolbar
-                        ID="PagingToolbar1"
+                        ID="DisputesPagingToolbar"
                         runat="server"
-                        StoreID="PhoneCallStore"
+                        StoreID="DisputesStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Phone Calls {0} - {1} of {2}" />
+                        DisplayMsg="Disputes {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
         </div>
