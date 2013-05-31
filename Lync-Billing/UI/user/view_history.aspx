@@ -105,27 +105,27 @@
                 var FilterValue = #{FilterTypeComboBox}.getValue() || "";
                 switch(FilterValue) {
                     case "2":
-                        f.push({ filter: function (record) { return filterMarkedCriteria("Marked", 'UI_IsPersonal', record); }});
+                        f.push({ filter: function (record) { return filterMarkedCriteria("Marked", 'UI_CallType', record); }});
                         break;
 
                     case "3":
-                        f.push({ filter: function (record) { return filterMarkedCriteria("Unmarked", 'UI_IsPersonal', record); }});
+                        f.push({ filter: function (record) { return filterMarkedCriteria("Unmarked", 'UI_CallType', record); }});
                         break;
 
                     case "4":
-                        f.push({ filter: function (record) { return filterString('NO', 'UI_IsPersonal', record); }});
+                        f.push({ filter: function (record) { return filterString('Business', 'UI_CallType', record); }});
                         break;
 
                     case "5":
-                        f.push({ filter: function (record) { return filterString('YES', 'UI_IsPersonal', record); }});
+                        f.push({ filter: function (record) { return filterString('Personal', 'UI_CallType', record); }});
                         break;
 
                     case "6":
-                        f.push({ filter: function (record) { return filterInvoiceCriteria("Charged", 'UI_IsInvoiced', record); }});
+                        f.push({ filter: function (record) { return filterInvoiceCriteria("YES", 'UI_IsInvoiced', record); }});
                         break;
 
                     case "7":
-                        f.push({ filter: function (record) { return filterInvoiceCriteria("Uncharged", 'UI_IsInvoiced', record); }});
+                        f.push({ filter: function (record) { return filterInvoiceCriteria("NO", 'UI_IsInvoiced', record); }});
                         break;
                 }
                 
@@ -359,7 +359,7 @@
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
                                     <ext:ModelField Name="Marker_CallCost" Type="Float" />
-                                    <ext:ModelField Name="UI_IsPersonal" Type="String" />
+                                    <ext:ModelField Name="UI_CallType" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                 </Fields>
                          </ext:Model>
@@ -410,9 +410,9 @@
                             <Renderer Fn="RoundCost"/>
                         </ext:Column>
 
-                        <ext:Column ID="UI_IsPersonal"
+                        <ext:Column ID="UI_CallType"
                             runat="server"
-                            Text="Is Personal"
+                            Text="Type"
                             Width="80"
                             DataIndex="UI_IsPersonal" 
                             Groupable="false">
