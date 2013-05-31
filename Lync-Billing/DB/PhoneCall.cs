@@ -36,12 +36,11 @@ namespace Lync_Billing.DB
         //User UI update Fields
         public string UI_UpdatedByUser { set; get; }
         public DateTime UI_MarkedOn { set; get; }
-        public string UI_IsPersonal { set; get; }
-        public string UI_Dispute { set; get; }
-        public string UI_IsInvoiced { set; get; }
+        public string UI_CallType { set; get; }
         public string AC_DisputeStatus { set; get; }
-        public DateTime AC_ResolvedOn { set; get; }
-        public DateTime AC_InvoicedOn { set; get; }
+        public DateTime AC_DisputeResolvedOn { set; get; }
+        public string AC_IsInvoiced { set; get; }
+        public DateTime AC_InvoicedDate { set; get; }
 
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
