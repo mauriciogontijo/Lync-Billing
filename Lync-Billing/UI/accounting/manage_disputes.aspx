@@ -69,6 +69,20 @@
             return hours + ':' + minutes + ':' + seconds;;
         }
 
+        function getRowClassForstatus(value, meta, record, rowIndex, colIndex, store) {
+            if (record.data.UI_IsPersonal == 'YES' || record.data.UI_IsPersonal == 'Accepted') {
+                meta.style = "color: rgb(201, 20, 20);";
+            }
+            if (record.data.UI_IsPersonal == 'NO' || record.data.UI_IsPersonal == 'Rejected') {
+                meta.style = "color: rgb(46, 143, 42);";
+            }
+            return value
+        }
+
+        var submitValue = function (grid, hiddenFormat, format) {
+            grid.submitData(false, { isUpload: true });
+        };
+
     </script>
 </asp:Content>
 
