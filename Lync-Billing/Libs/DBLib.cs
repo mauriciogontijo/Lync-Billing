@@ -117,7 +117,7 @@ namespace Lync_Billing.Libs
                    }
                    else
                    {
-                       whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' OLLATE SQL_Latin1_General_CP1_CI_AS AND ");
+                       whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' COLLATE SQL_Latin1_General_CP1_CI_AS AND ");
                    }
                }
                whereStatement.Remove(whereStatement.Length-5, 5);
