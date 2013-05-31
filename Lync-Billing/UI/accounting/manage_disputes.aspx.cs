@@ -176,9 +176,8 @@ namespace Lync_Billing.UI.accounting
             List<Users> users = new List<Users>();
 
             whereStatement.Add("SipAccount", sipAccount);
-
-
             users = Users.GetUsers(null, whereStatement, 0);
+               
             return users[0].SiteName;
         }
       
