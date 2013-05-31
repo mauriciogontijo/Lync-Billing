@@ -22,7 +22,7 @@
         <script type="text/javascript" src="/UI/resources/js/browserdetector.js"></script>
 
 		<!--[if lte IE 9]>
-		    <link rel="stylesheet" type="text/css" href="/UI/resources/css/green-layout-ie-8.css" />
+		    <link rel="stylesheet" type="text/css" href="/UI/resources/css/green-layout-ie-hacks.css" />
 	    <![endif]-->
 
 	    <!--[if lt IE 8]>
