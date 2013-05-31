@@ -146,10 +146,10 @@ namespace Lync_Billing.DB
             
             foreach (DataRow row in dt.Rows)
             {
-                if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "NO")
+                if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Business")
                 {
                     if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
-                        userSummary.BusinessCallsCount = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
+                        userSummary.BusinessCallsCount = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
                     else
                         userSummary.BusinessCallsCount = 0;
 
@@ -164,9 +164,9 @@ namespace Lync_Billing.DB
                         userSummary.BusinessCallsDuration = 0;
                 }
 
-                else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "YES")
+                else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Personal")
                 {
-                    if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
+                    if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
                         userSummary.PersonalCallsCount = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
                     else
                         userSummary.PersonalCallsCount = 0;
@@ -184,8 +184,8 @@ namespace Lync_Billing.DB
 
                 else if (row[dt.Columns["PhoneCallType"]] == System.DBNull.Value)
                 {
-                    if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
-                        userSummary.UnmarkedCallsCount = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
+                    if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
+                        userSummary.UnmarkedCallsCount = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
                     else
                         userSummary.UnmarkedCallsCount = 0;
 
