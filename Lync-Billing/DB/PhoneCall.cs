@@ -40,7 +40,7 @@ namespace Lync_Billing.DB
         public string AC_DisputeStatus { set; get; }
         public DateTime AC_DisputeResolvedOn { set; get; }
         public string AC_IsInvoiced { set; get; }
-        public DateTime AC_InvoicedDate { set; get; }
+        public DateTime AC_InvoiceDate { set; get; }
 
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
@@ -119,23 +119,20 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_UpdatedByUser = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_IsPersonal) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.UI_IsPersonal = (string)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_Dispute) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.UI_Dispute = (string)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_IsInvoiced) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.UI_IsInvoiced = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_CallType) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneCall.UI_CallType = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.AC_DisputeStatus = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_ResolvedOn) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.AC_ResolvedOn = (DateTime)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneCall.AC_DisputeResolvedOn = (DateTime)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_InvoicedOn) && row[column.ColumnName] != System.DBNull.Value)
-                        phoneCall.AC_InvoicedOn = (DateTime)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneCall.AC_IsInvoiced = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneCall.AC_InvoiceDate = (DateTime)row[column.ColumnName];
                     
                 }
                 
