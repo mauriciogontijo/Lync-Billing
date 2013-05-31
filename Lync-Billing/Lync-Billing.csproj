@@ -113,7 +113,7 @@
     <Content Include="UI\resources\images\tool-bg.png" />
     <Content Include="UI\resources\images\x_block_bg.png" />
     <Content Include="UI\session\login.aspx" />
-    <Content Include="UI\resources\css\green-layout-ie-8.css" />
+    <Content Include="UI\resources\css\green-layout-ie-hacks.css" />
     <Content Include="UI\resources\css\green-layout.css" />
     <Content Include="UI\resources\css\reset.css" />
     <Content Include="UI\resources\css\toolkit.css" />
