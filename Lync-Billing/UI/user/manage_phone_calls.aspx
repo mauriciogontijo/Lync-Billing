@@ -62,10 +62,10 @@
         }
 
         function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
-            if (record.data.UI_CallType == 'YES') {
+            if (record.data.UI_CallType == 'Personal') {
                 meta.style = "color: rgb(201, 20, 20);";
             }
-            if (record.data.UI_CallType == 'NO') {
+            if (record.data.UI_CallType == 'Business') {
                 meta.style = "color: rgb(46, 143, 42);";
             }
             return value
