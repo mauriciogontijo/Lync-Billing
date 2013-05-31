@@ -160,23 +160,20 @@ namespace Lync_Billing.DB
             if (phoneCall.UI_UpdatedByUser != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser), phoneCall.UI_UpdatedByUser);
 
-            if (phoneCall.UI_IsPersonal != null)
-                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_IsPersonal), phoneCall.UI_IsPersonal);
-
-            if (phoneCall.UI_Dispute != null)
-                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_Dispute), phoneCall.UI_Dispute);
-
-            if (phoneCall.UI_IsInvoiced != null)
-                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_IsInvoiced), phoneCall.UI_IsInvoiced);
+            if (phoneCall.UI_CallType != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), phoneCall.UI_CallType);
 
             if (phoneCall.AC_DisputeStatus != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus), phoneCall.AC_DisputeStatus);
 
-            if (phoneCall.AC_ResolvedOn != null)
-                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_ResolvedOn), phoneCall.AC_ResolvedOn);
+            if (phoneCall.AC_DisputeResolvedOn != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn), phoneCall.AC_DisputeResolvedOn);
 
-            if (phoneCall.AC_InvoicedOn != null)
-                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoicedOn), phoneCall.AC_InvoicedOn);
+            if (phoneCall.AC_IsInvoiced != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), phoneCall.AC_IsInvoiced);
+
+            if (phoneCall.AC_InvoiceDate != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), phoneCall.AC_InvoiceDate);
 
             //Execute Update
             status = DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneCalls.TableName), setPart, wherePart);
