@@ -70,10 +70,10 @@
         }
 
         function getRowClassForstatus(value, meta, record, rowIndex, colIndex, store) {
-            if (record.data.ui_CallType == 'YES' || record.data.ui_CallType == 'Accepted') {
+            if (record.data.AC_DisputeStatus == 'Accepted') {
                 meta.style = "color: rgb(201, 20, 20);";
             }
-            if (record.data.ui_CallType == 'NO' || record.data.ui_CallType == 'Rejected') {
+            if (record.data.AC_DisputeStatus == 'Rejected') {
                 meta.style = "color: rgb(46, 143, 42);";
             }
             return value
@@ -286,6 +286,7 @@
                             Text="Status"
                             Width="100"
                             DataIndex="AC_DisputeStatus">
+                             <Renderer fn="getRowClassForstatus" />
                         </ext:Column>
                     </Columns>
                 </ColumnModel>
