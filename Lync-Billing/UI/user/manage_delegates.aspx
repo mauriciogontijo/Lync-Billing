@@ -61,10 +61,10 @@
         }
 
         function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
-            if (record.data.ui_CallType == 'YES' || record.data.ui_CallType == 'Yes') {
+            if (record.data.ui_CallType == 'Personal') {
                 meta.style = "color: rgb(201, 20, 20);";
             }
-            if (record.data.ui_CallType == 'NO' || record.data.ui_CallType == 'No') {
+            if (record.data.ui_CallType == 'Business') {
                 meta.style = "color: rgb(46, 143, 42);";
             }
             return value
@@ -313,7 +313,6 @@
                                     <ext:ModelField Name="Marker_CallCost" Type="Float" />
                                     <ext:ModelField Name="ui_CallType" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
-                                    <ext:ModelField Name="ui_CallType" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
