@@ -35,4 +35,22 @@ div#header-container {
     text-rendering: optimizeLegibility;
 }
 
-.x-panel-header-default { filter: none; background-image: url();}
+.x-panel-header-default {
+    filter: none;
+    background-image: url("/UI/resources/images/x_block_bg.png") !important;
+    background-repeat: repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto;
+    background-origin: padding-box;
+    background-clip: border-box;
+    background-color: transparent !important; 
+}
+
+.x-accordion-item .x-accordion-hd {
+    filter: none;
+    background: #e5e5e5 !important;
+    border-top-color: #ececec !important;
+    padding: 4px 5px 5px 5px;
+    background-image: none !important;
+}
