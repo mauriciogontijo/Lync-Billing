@@ -70,10 +70,10 @@
         }
 
         function getRowClassForstatus(value, meta, record, rowIndex, colIndex, store) {
-            if (record.data.UI_IsPersonal == 'YES' || record.data.UI_IsPersonal == 'Accepted') {
+            if (record.data.ui_CallType == 'YES' || record.data.ui_CallType == 'Accepted') {
                 meta.style = "color: rgb(201, 20, 20);";
             }
-            if (record.data.UI_IsPersonal == 'NO' || record.data.UI_IsPersonal == 'Rejected') {
+            if (record.data.ui_CallType == 'NO' || record.data.ui_CallType == 'Rejected') {
                 meta.style = "color: rgb(46, 143, 42);";
             }
             return value
