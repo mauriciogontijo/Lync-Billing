@@ -73,7 +73,7 @@ namespace Lync_Billing.UI.user
             columns.Add("marker_CallCost");
             columns.Add("ui_CallType");
             columns.Add("ui_MarkedOn");
-            columns.Add("ui_IsInvoiced");
+            columns.Add("ac_IsInvoiced");
               
             PhoneCallStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             PhoneCallStore.DataBind();

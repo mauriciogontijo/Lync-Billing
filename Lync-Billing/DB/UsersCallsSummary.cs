@@ -42,8 +42,8 @@ namespace Lync_Billing.DB
                 {
                     userSummary.Name = "Business";
 
-                    if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
-                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
+                    if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
+                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
                     else
                         userSummary.TotalCalls = 0;
 
@@ -62,8 +62,8 @@ namespace Lync_Billing.DB
                 {
                     userSummary.Name = "Personal";
 
-                    if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
-                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
+                    if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
+                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
                     else
                         userSummary.TotalCalls = 0;
 
@@ -82,8 +82,8 @@ namespace Lync_Billing.DB
                 else if (row[dt.Columns["PhoneCallType"]] == System.DBNull.Value)
                 {
                     userSummary.Name = "Unmarked"; 
-                    if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
-                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
+                    if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
+                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
                     else
                         userSummary.TotalCalls = 0;
 
@@ -148,7 +148,7 @@ namespace Lync_Billing.DB
             {
                 if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Business")
                 {
-                    if (row[dt.Columns["ui_IsPersonal"]] != System.DBNull.Value)
+                    if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
                         userSummary.BusinessCallsCount = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
                     else
                         userSummary.BusinessCallsCount = 0;
@@ -167,7 +167,7 @@ namespace Lync_Billing.DB
                 else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Personal")
                 {
                     if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
-                        userSummary.PersonalCallsCount = Convert.ToInt32(row[dt.Columns["ui_IsPersonal"]]);
+                        userSummary.PersonalCallsCount = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
                     else
                         userSummary.PersonalCallsCount = 0;
 

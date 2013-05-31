@@ -62,10 +62,10 @@
         }
 
         function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
-            if (record.data.UI_IsPersonal == 'YES' || record.data.UI_IsPersonal == 'Yes') {
+            if (record.data.UI_CallType == 'YES') {
                 meta.style = "color: rgb(201, 20, 20);";
             }
-            if (record.data.UI_IsPersonal == 'NO' || record.data.UI_IsPersonal == 'No') {
+            if (record.data.UI_CallType == 'NO') {
                 meta.style = "color: rgb(46, 143, 42);";
             }
             return value
@@ -73,10 +73,10 @@
 
 
         function getRowClassForIsInvoiced(value, meta, record, rowIndex, colIndex, store) {
-            if (record.data.UI_IsInvoiced == 'Pending' || record.data.UI_IsInvoiced == 'PENDING') {
+            if (record.data.AC_IsInvoiced == 'NO') {
                 meta.style = "color: rgb(201, 20, 20);";
             }
-            if (record.data.UI_IsInvoiced == 'Charged' || record.data.UI_IsInvoiced == 'CHARGED') {
+            if (record.data.AC_IsInvoiced == 'YES') {
                 meta.style = "color: rgb(46, 143, 42);";
             }
             return value

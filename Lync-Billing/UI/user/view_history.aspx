@@ -57,10 +57,10 @@
 		}
                
 		function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
-		    if (record.data.UI_IsPersonal == 'YES' || record.data.UI_IsPersonal == 'Yes') {
+		    if (record.data.ui_CallType == 'YES' || record.data.ui_CallType == 'Yes') {
 		        meta.style = "color: rgb(201, 20, 20);";
 		    }
-		    if (record.data.UI_IsPersonal == 'NO' || record.data.UI_IsPersonal == 'No') {
+		    if (record.data.ui_CallType == 'NO' || record.data.ui_CallType == 'No') {
 		        meta.style = "color: rgb(46, 143, 42);";
 		    }
 		    return value
@@ -121,11 +121,11 @@
                         break;
 
                     case "6":
-                        f.push({ filter: function (record) { return filterInvoiceCriteria("YES", 'UI_IsInvoiced', record); }});
+                        f.push({ filter: function (record) { return filterInvoiceCriteria("YES", 'AC_IsInvoiced', record); }});
                         break;
 
                     case "7":
-                        f.push({ filter: function (record) { return filterInvoiceCriteria("NO", 'UI_IsInvoiced', record); }});
+                        f.push({ filter: function (record) { return filterInvoiceCriteria("NO", 'AC_IsInvoiced', record); }});
                         break;
                 }
                 
@@ -414,7 +414,7 @@
                             runat="server"
                             Text="Type"
                             Width="80"
-                            DataIndex="UI_IsPersonal" 
+                            DataIndex="ui_CallType" 
                             Groupable="false">
                             <Renderer Fn="getRowClassForIsPersonal" />
                         </ext:Column>
