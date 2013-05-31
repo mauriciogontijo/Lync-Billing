@@ -242,13 +242,12 @@
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
 
-                         <%--<ext:Column
+                      <%--   <ext:Column
                             ID="SourceUserUri"
                             runat="server"
                             Text="User"
                             Width="120"
-                            DataIndex="SourceUserUri"
-                             Groupable="true" />--%>
+                            DataIndex="SourceUserUri"/>--%>
 
                         <ext:Column
                             ID="Marker_CallToCountry"
@@ -371,8 +370,9 @@
                  <Features>               
                    <ext:Grouping ID="Grouping1" 
                     runat="server" 
-                    HideGroupedHeader="true" 
-                    GroupHeaderTplString='URI : {SourceUserUri} ({[values.rows.length]} {[values.rows.length > 1 ? "Disputes" : "Dispute"]})' />
+                    HideGroupedHeader="false" 
+                    EnableGroupingMenu="false"
+                    GroupHeaderTplString='{name} : ({[values.rows.length]} {[values.rows.length > 1 ? "Disputes" : "Dispute"]})'/>
                  </Features>
 
             </ext:GridPanel>
