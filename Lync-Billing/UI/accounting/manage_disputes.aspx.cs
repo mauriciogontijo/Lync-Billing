@@ -41,7 +41,8 @@ namespace Lync_Billing.UI.accounting
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            
+            List<PhoneCall> usersCalls = new List<PhoneCall>();
+            List<PhoneCall> accountantView = new List<PhoneCall>();
 
             wherePart.Add("marker_CallTypeID", 1);
             wherePart.Add("ac_IsInvoiced", "NO");
@@ -58,7 +59,15 @@ namespace Lync_Billing.UI.accounting
             columns.Add("ac_DisputeStatus");
             columns.Add("ui_MarkedOn");
 
-            DisputesStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            usersCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+
+            foreach (PhoneCall phoneCall in usersCalls) 
+            {
+                if ((GetAccountantSiteName(userSession.SipAccount)).Contains(GetSipAccountSite(phoneCall.SourceUserUri)))
+                    accountantView.Add(phoneCall);
+            }
+
+            DisputesStore.DataSource = accountantView;
             DisputesStore.DataBind();
         }
 
@@ -157,6 +166,19 @@ namespace Lync_Billing.UI.accounting
                     
             }
             return accountantSites;
+        }
+
+        public string GetSipAccountSite(string sipAccount)
+        {
+            Dictionary<string, object> whereStatement = new Dictionary<string, object>();
+            // List<string> fields = new List<string>();
+            List<Users> users = new List<Users>();
+
+            whereStatement.Add("SipAccount", sipAccount);
+
+
+            users = Users.GetUsers(null, whereStatement, 0);
+            return users[0].SiteName;
         }
       
     }
