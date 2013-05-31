@@ -26,6 +26,7 @@
                         TextMode="Email"
                         runat="server" 
                         id="email" 
+                        Width="160"
                         TabIndex="1" />
 					<asp:label ID="Label1" 
                         Text="Email" 
@@ -38,6 +39,7 @@
                         id="password" 
                         runat="server" 
                         TextMode="Password" 
+                        Width="160"
                         tabindex="2" />
                 	<asp:label ID="Label2" 
                         Text="Password"  
