@@ -50,7 +50,7 @@ namespace Lync_Billing.UI.user
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                phoneCall.UI_IsPersonal = "NO";
+                phoneCall.UI_CallType = "Business";
                 phoneCall.UI_MarkedOn = DateTime.Now;
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
@@ -75,7 +75,7 @@ namespace Lync_Billing.UI.user
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                phoneCall.UI_IsPersonal = "YES";
+                phoneCall.UI_CallType = "Personal";
                 phoneCall.UI_MarkedOn = DateTime.Now;
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
@@ -100,7 +100,7 @@ namespace Lync_Billing.UI.user
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                phoneCall.UI_Dispute = "YES";
+                phoneCall.UI_CallType = "Dispute";
                 phoneCall.UI_MarkedOn = DateTime.Now;
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
@@ -190,7 +190,7 @@ namespace Lync_Billing.UI.user
                 columns.Add("DestinationNumberUri");
                 columns.Add("Duration");
                 columns.Add("marker_CallCost");
-                columns.Add("ui_IsPersonal");
+                columns.Add("ui_CallType");
                 columns.Add("ui_MarkedOn");
 
                 PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
