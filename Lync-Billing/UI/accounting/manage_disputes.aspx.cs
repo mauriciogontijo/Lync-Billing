@@ -43,6 +43,7 @@ namespace Lync_Billing.UI.accounting
 
             List<PhoneCall> usersCalls = new List<PhoneCall>();
             List<PhoneCall> accountantView = new List<PhoneCall>();
+            List<string> sites = GetAccountantSiteName(userSession.SipAccount);
 
             wherePart.Add("marker_CallTypeID", 1);
             wherePart.Add("ac_IsInvoiced", "NO");
@@ -63,7 +64,7 @@ namespace Lync_Billing.UI.accounting
 
             foreach (PhoneCall phoneCall in usersCalls) 
             {
-                if ((GetAccountantSiteName(userSession.SipAccount)).Contains(GetSipAccountSite(phoneCall.SourceUserUri)))
+                if (sites.Contains(GetSipAccountSite(phoneCall.SourceUserUri)))
                     accountantView.Add(phoneCall);
             }
 
