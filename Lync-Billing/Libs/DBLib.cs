@@ -243,7 +243,7 @@ namespace Lync_Billing.Libs
             }
 
             selectQuery = String.Format(
-                "SELECT COUNT(*) ui_IsPersonal, ui_IsPersonal as PhoneCallType, SUM([PhoneCalls].[Duration]) as TotalDuration, SUM([PhoneCalls].[marker_CallCost]) as TotalCost from PhoneCalls {0} group by ui_IsPersonal",
+                "SELECT COUNT(*) ui_CallType, ui_CallType as PhoneCallType, SUM([PhoneCalls].[Duration]) as TotalDuration, SUM([PhoneCalls].[marker_CallCost]) as TotalCost from PhoneCalls {0} group by ui_CallType",
                 whereStatement.ToString()
             );
 
@@ -335,6 +335,8 @@ namespace Lync_Billing.Libs
 
                 if (valueType == typeof(int) || valueType == typeof(Double))
                     fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");
+                else if (valueType == typeof(DateTime) && (DateTime)pair.Value == DateTime.MinValue)
+                    continue;
                 else
                     fieldsValues.Append(pair.Key + "=" + "'" + pair.Value + "'" + ",");
             }
@@ -381,9 +383,11 @@ namespace Lync_Billing.Libs
                 Type valueType = pair.Value.GetType();
 
                 if (valueType == typeof(int) || valueType == typeof(Double))
-                    fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");              
+                    fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");
+                else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+                    continue;
                 else
-                    fieldsValues.Append("[" +pair.Key + "]=" + "'" + pair.Value  + "'" + ",");  
+                    fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value + "'" + ",");  
             }
             
             fieldsValues.Remove(fieldsValues.Length - 1, 1);
@@ -392,8 +396,14 @@ namespace Lync_Billing.Libs
             {
                 Type valueType = pair.Value.GetType();
 
+                if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue)){}
+
+
+
                 if (valueType == typeof(int) || valueType == typeof(Double))
                     whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+                    continue;
                 else
                     whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
 
