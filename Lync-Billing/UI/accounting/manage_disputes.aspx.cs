@@ -49,7 +49,7 @@ namespace Lync_Billing.UI.accounting
             columns.Add("SessionIdTime");
             columns.Add("SessionIdSeq");
             columns.Add("ResponseTime");
-            columns.Add("SessionEndTime");
+            columns.Add("SourceUserUri");
             columns.Add("marker_CallToCountry");
             columns.Add("DestinationNumberUri");
             columns.Add("Duration");

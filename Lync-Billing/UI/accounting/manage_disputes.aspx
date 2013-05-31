@@ -234,7 +234,7 @@
                             ID="SessionIdTime"
                             runat="server"
                             Text="Date"
-                            Width="130"
+                            Width="125"
                             DataIndex="SessionIdTime">
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
@@ -243,7 +243,7 @@
                             ID="SourceUserUri"
                             runat="server"
                             Text="User"
-                            Width="160"
+                            Width="120"
                             DataIndex="SourceUserUri" />
 
                         <ext:Column
@@ -274,7 +274,7 @@
                             ID="Marker_CallCost"
                             runat="server"
                             Text="Cost"
-                            Width="60"
+                            Width="50"
                             DataIndex="Marker_CallCost">
                             <Renderer Fn="RoundCost"/>
                         </ext:Column>
@@ -292,7 +292,7 @@
                             ID="AC_DisputeStatus"
                             runat="server"
                             Text="Status"
-                            Width="90"
+                            Width="75"
                             DataIndex="AC_DisputeStatus">
                              <Renderer fn="getRowClassForstatus" />
                         </ext:Column>
