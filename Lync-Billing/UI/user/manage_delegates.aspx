@@ -336,8 +336,7 @@
                             runat="server"
                             Text="Country Code"
                             Width="90"
-                            DataIndex="Marker_CallToCountry"
-                            Align="Center" />
+                            DataIndex="Marker_CallToCountry" />
 
                         <ext:Column
                             ID="DestinationNumberUri"
