@@ -209,7 +209,7 @@ namespace Lync_Billing.DB
             [Description("ac_ResolvedOn")]
             AC_ResolvedOn,
             [Description("ac_InvoicedDate")]
-            Ac_InvoicedDate
+            AC_InvoicedOn
              
         }
 
