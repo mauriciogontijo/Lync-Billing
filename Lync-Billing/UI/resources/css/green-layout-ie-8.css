@@ -54,3 +54,21 @@ div#header-container {
     padding: 4px 5px 5px 5px;
     background-image: none !important;
 }
+
+.x-nlg .x-toolbar-default {
+    background-image: url("/extjs/resources/ext_theme_gray/images/toolbar/toolbar-default-bg-gif/ext.axd");
+    background-repeat: repeat;
+    background-size: cover;
+    background-position-x: 0%;
+    background-position-y: 0%;
+}
+
+.x-nlg .x-grid-header-ct, .x-nlg .x-column-header {
+    background-image: url("/extjs/resources/ext_theme_gray/images/grid/column-header-bg-gif/ext.axd");
+    background-attachment: scroll;
+    background-repeat: repeat;
+    background-size: contain;
+    background-origin: padding-box;
+    background-clip: border-box;
+    background-color: transparent;
+}
