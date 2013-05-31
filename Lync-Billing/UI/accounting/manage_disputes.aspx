@@ -83,6 +83,8 @@
             grid.submitData(false, { isUpload: true });
         };
 
+
+
     </script>
 </asp:Content>
 
@@ -197,13 +199,14 @@
                 Header="true"
                 Scroll="Both"
                 Layout="FitLayout">
-
+                
                 <Store>
                     <ext:Store 
                         ID="DisputesStore" 
                         runat="server" 
                         IsPagingStore="true" 
                         PageSize="25"
+                        GroupField="SourceUserUri"
                         OnLoad="DisputesStore_Load"
                         OnSubmitData="DisputesStore_SubmitData"
                         OnReadData="DisputesStore_ReadData">
@@ -234,17 +237,18 @@
                             ID="SessionIdTime"
                             runat="server"
                             Text="Date"
-                            Width="125"
+                            Width="150"
                             DataIndex="SessionIdTime">
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
 
-                         <ext:Column
+                         <%--<ext:Column
                             ID="SourceUserUri"
                             runat="server"
                             Text="User"
                             Width="120"
-                            DataIndex="SourceUserUri" />
+                            DataIndex="SourceUserUri"
+                             Groupable="true" />--%>
 
                         <ext:Column
                             ID="Marker_CallToCountry"
@@ -258,14 +262,14 @@
                             ID="DestinationNumberUri"
                             runat="server"
                             Text="Destination"
-                            Width="100"
+                            Width="120"
                             DataIndex="DestinationNumberUri" />
 
                         <ext:Column
                             ID="Duration"
                             runat="server"
                             Text="Duration"
-                            Width="70"
+                            Width="80"
                             DataIndex="Duration">
                             <Renderer Fn="GetMinutes" />
                         </ext:Column>
@@ -274,7 +278,7 @@
                             ID="Marker_CallCost"
                             runat="server"
                             Text="Cost"
-                            Width="50"
+                            Width="60"
                             DataIndex="Marker_CallCost">
                             <Renderer Fn="RoundCost"/>
                         </ext:Column>
@@ -283,7 +287,7 @@
                             ID="UI_MarkedOn"
                             runat="server"
                             Text="Marked On"
-                            Width="80"
+                            Width="100"
                             DataIndex="UI_MarkedOn">
                             <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');" />
                         </ext:Column>
@@ -292,7 +296,7 @@
                             ID="AC_DisputeStatus"
                             runat="server"
                             Text="Status"
-                            Width="75"
+                            Width="90"
                             DataIndex="AC_DisputeStatus">
                              <Renderer fn="getRowClassForstatus" />
                         </ext:Column>
@@ -364,6 +368,13 @@
                         Weight="25"
                         DisplayMsg="Disputes {0} - {1} of {2}" />
                 </BottomBar>
+                 <Features>               
+                   <ext:Grouping ID="Grouping1" 
+                    runat="server" 
+                    HideGroupedHeader="true" 
+                    GroupHeaderTplString='URI : {SourceUserUri} ({[values.rows.length]} {[values.rows.length > 1 ? "Disputes" : "Dispute"]})' />
+                 </Features>
+
             </ext:GridPanel>
         </div>
     </div>
