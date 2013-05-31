@@ -71,7 +71,7 @@ namespace Lync_Billing.UI.user
             columns.Add("DestinationNumberUri");
             columns.Add("Duration");
             columns.Add("marker_CallCost");
-            columns.Add("ui_IsPersonal");
+            columns.Add("ui_CallType");
             columns.Add("ui_MarkedOn");
             columns.Add("ui_IsInvoiced");
               
