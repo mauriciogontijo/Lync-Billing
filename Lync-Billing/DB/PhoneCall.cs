@@ -131,6 +131,12 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.AC_DisputeStatus = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_ResolvedOn) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneCall.AC_ResolvedOn = (DateTime)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_InvoicedOn) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneCall.AC_InvoicedOn = (DateTime)row[column.ColumnName];
                     
                 }
                 
@@ -169,6 +175,12 @@ namespace Lync_Billing.DB
 
             if (phoneCall.AC_DisputeStatus != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus), phoneCall.AC_DisputeStatus);
+
+            if (phoneCall.AC_ResolvedOn != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_ResolvedOn), phoneCall.AC_ResolvedOn);
+
+            if (phoneCall.AC_InvoicedOn != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoicedOn), phoneCall.AC_InvoicedOn);
 
             //Execute Update
             status = DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneCalls.TableName), setPart, wherePart);
