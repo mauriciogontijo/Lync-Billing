@@ -1,0 +1,74 @@
+div#header-container {
+	background: #0B486B; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3B8686', endColorstr='#0B486B'); /* for IE */
+}
+
+.block-header {
+	background: #79BD9A; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#79BD9A'); /* for IE */
+}
+
+.front-welcome-text {
+    display: block;
+    font-size: 22px;
+    font-weight: bolder;
+    line-height: 20px;
+    text-align: left;
+    width: 26.5em;
+    color: #0B486B;
+}
+
+.front-welcome-text p {
+    font-size: 18px;
+    line-height: 28px;
+    min-height: 32px;
+    text-align: left;
+    color: inherit;
+}
+
+.front-welcome-text h1 {
+    font-size: 26px;
+    line-height: 22px;
+    min-height: 40px;
+    margin: 0;
+    color: #000000;
+    text-rendering: optimizeLegibility;
+}
+
+.x-panel-header-default {
+    filter: none;
+    background-image: url("/UI/resources/images/x_block_bg.png") !important;
+    background-repeat: repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto;
+    background-origin: padding-box;
+    background-clip: border-box;
+    background-color: transparent !important; 
+}
+
+.x-accordion-item .x-accordion-hd {
+    filter: none;
+    background: #e5e5e5 !important;
+    border-top-color: #ececec !important;
+    padding: 4px 5px 5px 5px;
+    background-image: none !important;
+}
+
+.x-nlg .x-toolbar-default {
+    background-image: url("/extjs/resources/ext_theme_gray/images/toolbar/toolbar-default-bg-gif/ext.axd");
+    background-repeat: repeat;
+    background-size: cover;
+    background-position-x: 0%;
+    background-position-y: 0%;
+}
+
+.x-nlg .x-grid-header-ct, .x-nlg .x-column-header {
+    background-image: url("/extjs/resources/ext_theme_gray/images/grid/column-header-bg-gif/ext.axd");
+    background-attachment: scroll;
+    background-repeat: repeat;
+    background-size: contain;
+    background-origin: padding-box;
+    background-clip: border-box;
+    background-color: transparent;
+}
