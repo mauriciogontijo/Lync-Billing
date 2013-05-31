@@ -126,16 +126,16 @@ namespace Lync_Billing.Libs
             if (limits == 0)
             {
                 if (whereClause !=null)
-                    selectQuery = string.Format("SELECT {0} FROM  [{1}] {2} {3}", selectedfields.ToString(), tableName, whereStatement.ToString(), orderBy);
+                    selectQuery = string.Format("SELECT {0} FROM  [{1}] {2} {3} COLLATE SQL_Latin1_General_CP1_CI_AS", selectedfields.ToString(), tableName, whereStatement.ToString(), orderBy);
                 else
-                    selectQuery = string.Format("SELECT {0} FROM  ['{1}'] {2}", selectedfields.ToString(), tableName, orderBy);
+                    selectQuery = string.Format("SELECT {0} FROM  ['{1}'] {2} COLLATE SQL_Latin1_General_CP1_CI_AS", selectedfields.ToString(), tableName, orderBy);
             }
             else
             {
                 if (whereClause != null)
-                    selectQuery = string.Format("SELECT TOP({0}) {1} FROM [{2}] {3} {4}", limits, selectedfields.ToString(), tableName, whereStatement.ToString(), orderBy);
+                    selectQuery = string.Format("SELECT TOP({0}) {1} FROM [{2}] {3} {4} COLLATE SQL_Latin1_General_CP1_CI_AS", limits, selectedfields.ToString(), tableName, whereStatement.ToString(), orderBy);
                 else
-                    selectQuery = string.Format("SELECT TOP({0}) {1} FROM [{2}] {3}", limits, selectedfields.ToString(), tableName, orderBy);
+                    selectQuery = string.Format("SELECT TOP({0}) {1} FROM [{2}] {3} COLLATE SQL_Latin1_General_CP1_CI_AS", limits, selectedfields.ToString(), tableName, orderBy);
             }
                     
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
