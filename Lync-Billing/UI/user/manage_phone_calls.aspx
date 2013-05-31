@@ -246,9 +246,8 @@
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
                                     <ext:ModelField Name="Marker_CallCost" Type="Float" />
-                                    <ext:ModelField Name="UI_IsPersonal" Type="String" />
+                                    <ext:ModelField Name="UI_CallType" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
-                                    <ext:ModelField Name="UI_IsPersonal" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
@@ -298,11 +297,11 @@
                             <Renderer Fn="RoundCost"/>
                         </ext:Column>
 
-                        <ext:Column ID="UI_IsPersonal"
+                        <ext:Column ID="UI_CallType"
                             runat="server"
-                            Text="Is Personal"
+                            Text="Type"
                             Width="80"
-                            DataIndex="UI_IsPersonal">
+                            DataIndex="UI_CallType">
                             <Renderer Fn="getRowClassForIsPersonal" />
                         </ext:Column>
 
