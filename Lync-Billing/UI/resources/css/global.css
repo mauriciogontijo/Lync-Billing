@@ -12,7 +12,7 @@ h1, h2, h3, h4, h5, h6,img{padding-bottom:0px;}
 pre{margin: 10px;}
 table h1,table h2,table h3, table h4, table h5, table h6, table p, table ul, table ol, table dl{padding:0;}
 a {color: #0c5db8; text-decoration: none;}
-a:focus, a:hover {text-decoration: underline;}
+a:focus, a:hover {text-decoration: none;}
 a:focus{}
 a:visited { }
 .ver-align-bot{vertical-align:text-bottom}
