@@ -48,5 +48,9 @@ namespace Lync_Billing.UI.accounting
         {
 
         }
+
+        protected void AcceptDispute(object sender, DirectEventArgs e) { }
+
+        protected void RejectDispute(object sender, DirectEventArgs e) { }
     }
 }

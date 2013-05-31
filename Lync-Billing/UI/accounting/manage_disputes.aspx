@@ -257,13 +257,6 @@
                             <Renderer Fn="RoundCost"/>
                         </ext:Column>
 
-                        <ext:Column ID="UI_IsDispute"
-                            runat="server"
-                            Text="Is Personal"
-                            Width="80"
-                            DataIndex="UI_IsDispute">
-                        </ext:Column>
-
                         <ext:Column
                             ID="UI_MarkedOn"
                             runat="server"
