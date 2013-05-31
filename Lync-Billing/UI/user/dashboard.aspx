@@ -7,6 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
 
     <title>eBill | User Homepage</title>
 
@@ -20,8 +21,8 @@
     <script type="text/javascript" src="../resources/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../resources/js/browserdetector.js"></script>
 
-    <!--[if lt IE 9]>
-		<link rel="stylesheet" type="text/css" href="css/green-layout-ie-8.css" />
+    <!--[if lte IE 9]>
+	    <link rel="stylesheet" type="text/css" href="/UI/resources/css/green-layout-ie-8.css" />
 	<![endif]-->
 
     <script type="text/javascript">
