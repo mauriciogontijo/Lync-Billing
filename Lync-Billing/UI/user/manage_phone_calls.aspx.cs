@@ -129,7 +129,7 @@ namespace Lync_Billing.UI.user
 
             wherePart.Add("SourceUserUri", userSession.SipAccount);
             wherePart.Add("marker_CallTypeID", 1);
-            wherePart.Add("ui_IsInvoiced", "NO");
+            wherePart.Add("ac_IsInvoiced", "NO");
 
             columns.Add("SessionIdTime");
             columns.Add("SessionIdSeq");
