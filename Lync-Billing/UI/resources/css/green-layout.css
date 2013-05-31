@@ -28,9 +28,9 @@ div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; bord
 .front-signin { display: block; position: absolute; top: 0px; right: 0px; /*width: 210px;*/ /*height: 108px;*/ width: auto; height: auto; background: #fff; background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#fff),color-stop(100%,#ddd)); background: -webkit-linear-gradient(top,#fff 0,#ddd 100%); background: -moz-linear-gradient(top,#fff 0,#ddd 100%); background: -ms-linear-gradient(top,#fff 0,#ddd 100%); background: -o-linear-gradient(top,#fff 0,#ddd 100%); background: linear-gradient(top,#fff 0,#ddd 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#dddddd',GradientType=0); border-left: solid 1px #eee; border-right: solid 1px #eee; border-bottom: solid 1px #ccc; -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1); -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1); box-shadow: 0 1px 0 rgba(0,0,0,.1); }
 .front-signin .placeholding-input { height: 28px; color: #333; }
 
-.front-welcome-text { font-size: 20px !important; font-weight: 300; line-height: 22px; text-align: left; text-shadow: -1px -1px 0px #A8DBA8; width: 26.5em; color: #0B486B; }
-.front-welcome-text p { display: block; font-size: 20px !important; font-weight: 300; line-height: 24px; text-align: left; -webkit-margin-before: 1em; -webkit-margin-after: 1em; -webkit-margin-start: 0px; -webkit-margin-end: 0px; color: inherit; }
-.front-welcome-text h1 { font-size: 26px; font-weight: bold; margin: 0; text-rendering: optimizeLegibility; color: inherit; }
+.front-welcome-text { font-size: 20px !important; font-weight: 300; line-height: 22px; text-align: left; width: 26.5em; color: #0B486B; }
+.front-welcome-text p { display: block; font-size: 20px !important; font-weight: 300; line-height: 24px; min-height: 28px; text-align: left; -webkit-margin-before: 1em; -webkit-margin-after: 1em; -webkit-margin-start: 0px; -webkit-margin-end: 0px; color: inherit; }
+.front-welcome-text h1 { font-size: 26px; font-weight: bold; margin: 0; text-shadow: -1px -1px 0px #A8DBA8; text-rendering: optimizeLegibility; color: inherit; }
 
 .front-welcome, .front-signin { -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
 /* end the login box styling */
@@ -59,7 +59,7 @@ div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; bord
 
 /* ****************************** */
 /* start asp & ext blocks styling */
-.x-panel-header-default { background-image: none; background-color: #79BD9A; background-image: -webkit-gradient(linear, left top, left bottom, from(#A8DBA8), to(#79BD9A)); background-image: -webkit-linear-gradient(top, #A8DBA8, #79BD9A); background-image: -moz-linear-gradient(top, #A8DBA8, #79BD9A); background-image: -o-linear-gradient(top, #A8DBA8, #79BD9A); background-image: linear-gradient(top, #A8DBA8, #79BD9A); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#79BD9A'); border-top-left-radius: 5px; border-top-right-radius: 5px; }
+.x-panel-header-default { border-top-left-radius: 5px; border-top-right-radius: 5px; background-image: none; background-color: #79BD9A; background-image: -webkit-gradient(linear, left top, left bottom, from(#A8DBA8), to(#79BD9A)); background-image: -webkit-linear-gradient(top, #A8DBA8, #79BD9A); background-image: -moz-linear-gradient(top, #A8DBA8, #79BD9A); background-image: -o-linear-gradient(top, #A8DBA8, #79BD9A); background-image: linear-gradient(top, #A8DBA8, #79BD9A); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#79BD9A'); }
 .x-accordion-item .x-accordion-hd { background: #e5e5e5; filter: none; border-top-color: #ececec; padding: 4px 5px 5px 5px; }
 .x-panel-header-default-top { -webkit-box-shadow: #ececec 0 1px 0 0 inset; -moz-box-shadow: #ececec 0 1px 0 0 inset; box-shadow: #ececec 0 1px 0 0 inset; }
 .x-panel-header-default-horizontal { padding: 4px 5px 4px 5px; }

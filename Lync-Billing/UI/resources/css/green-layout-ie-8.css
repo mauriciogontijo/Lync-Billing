@@ -8,12 +8,6 @@ div#header-container {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#79BD9A'); /* for IE */
 }
 
-.block-body {
-    border-left: 1px solid #CECFCE !important;
-	border-right: 1px solid #CECFCE !important;
-	border-bottom: 1px solid #CECFCE !important;
-}
-
 .front-welcome-text {
     display: block;
     font-size: 22px;
@@ -27,7 +21,7 @@ div#header-container {
 .front-welcome-text p {
     font-size: 18px;
     line-height: 28px;
-    height: 32px;
+    min-height: 32px;
     text-align: left;
     color: inherit;
 }
@@ -35,7 +29,10 @@ div#header-container {
 .front-welcome-text h1 {
     font-size: 26px;
     line-height: 22px;
-    height: 36px;
+    min-height: 40px;
     margin: 0;
     color: #000000;
+    text-rendering: optimizeLegibility;
 }
+
+.x-panel-header-default { filter: none; background-image: url();}
