@@ -39,10 +39,10 @@ link of each child item
 .toolbar  .vertical-navigation li:last-child { border-left: 1px solid #535252;  }/*rtl margin*/
 .toolbar  .vertical-navigation li a { color:#fff;text-shadow: 2px 2px 3px rgba(195, 195, 195, .30);padding:0 10px }
 .toolbar  .vertical-navigation li .drop { background:url(../images/drop-arrow.png)  no-repeat; display:inline-block; vertical-align:middle; width:12px; height:8px; margin:0 5px 0 0 }
-.toolbar  .vertical-navigation li ul { position: absolute; top: 34px; width:180px; background:#252424; color:#fff; border-top:3px solid #999; -webkit-border-bottom-right-radius: 10px; -webkit-border-bottom-left-radius: 10px;-moz-border-radius-bottomright: 10px;-moz-border-radius-bottomleft: 10px; border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;}
+.toolbar  .vertical-navigation li ul { position: absolute; top: 34px; width:180px; background:#252424; color:#fff; border-top:3px solid #3B8686; -webkit-border-bottom-right-radius: 10px; -webkit-border-bottom-left-radius: 10px;-moz-border-radius-bottomright: 10px;-moz-border-radius-bottomleft: 10px; border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;}
 
 .vertical-navigation li:hover a,
-.vertical-navigation li a:hover { background: #999; color: #fff; }
+.vertical-navigation li a:hover { background: #3B8686; color: #fff; }
 .vertical-navigation li.selected {background: #6DB14A; color: #fff;}
 
 .toolbar .vertical-navigation li:hover ul li a:hover, 
