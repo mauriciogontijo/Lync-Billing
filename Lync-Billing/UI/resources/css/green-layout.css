@@ -50,7 +50,7 @@ div#announcements { width: auto; display: block; border: 1px solid #B6C0D2; bord
 .sidebar-section .sidebar-section-body { height: auto; width: auto; margin: 0 0 5px 15px; }
 .sidebar-section .sidebar-section-body p { font-size: 12px; line-height: 22px; }
 .sidebar-section .sidebar-section-body p a { font-size: inherit; text-decoration: none; color: #330066 }
-.sidebar-section .sidebar-section-body p a:hover { color: green; }
+.sidebar-section .sidebar-section-body p a:hover { color: #008000; }
 .sidebar-section .sidebar-section-body p a.selected { font-weight: bold; font-size: 12px; }
 /* end inner-pages sidebar text styling */
 /* ************************************ */
