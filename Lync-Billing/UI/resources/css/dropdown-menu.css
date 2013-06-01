@@ -43,8 +43,8 @@ link of each child item
     position: absolute;
     top: 34px;
     width: 180px;
-    background: #fff; /*background:#252424;*/
-    color: #252424;
+    background: #0B486B; /*background:#252424;*/
+    color: #fff;
     border: 1px #3B8686 solid;
     border-top: 4px solid #3B8686 !important;
     -webkit-border-bottom-right-radius: 10px;
@@ -65,11 +65,11 @@ link of each child item
 /* default value of links colors in the sub menu */
 .toolbar .vertical-navigation li:hover ul li { border-right: none;}
 .toolbar .vertical-navigation li:hover ul li a,
-.toolbar .vertical-navigation ul li a { color: #252424; background: #fff }
-/* end of default value of links colors in the sub menu */
+.toolbar .vertical-navigation ul li a { color: #fff; }
 
 .toolbar .vertical-navigation li:hover ul li a:hover, 
-.toolbar .vertical-navigation ul li a:hover { background-color: #6DB14A; color: #fff; }
+.toolbar .vertical-navigation ul li a:hover { background-color: #3B8686; color: #fff; }
+/* end of default value of links colors in the sub menu */
 
 .toolbar  .vertical-navigation ul li{border-bottom: 1px solid #525252 ; padding:0 }
 .toolbar  .vertical-navigation ul li.last-child{border:none; margin-bottom:10px !important; }
@@ -77,3 +77,5 @@ link of each child item
 /*#################################END VERTICAL DROPDOWN MENU DEFAULT SKIN ###########################*/
 .logo{color: #FFFFFF;font-size: 22px;font-weight: bold;line-height: 32px;text-decoration: none;text-shadow: 0 2px 4px #000000;}
 .logo:hover{text-decoration:none}
+
+/*from(#3B8686), to(#0B486B));*/
