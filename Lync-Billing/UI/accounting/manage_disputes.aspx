@@ -242,13 +242,6 @@
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
 
-                      <%--   <ext:Column
-                            ID="SourceUserUri"
-                            runat="server"
-                            Text="User"
-                            Width="120"
-                            DataIndex="SourceUserUri"/>--%>
-
                         <ext:Column
                             ID="Marker_CallToCountry"
                             runat="server"
@@ -315,7 +308,11 @@
                 <TopBar>
                     <ext:Toolbar ID="DisputesToolbar" runat="server">
                         <Items>
-                           <ext:Label runat="server" ID="button_group_lable" Margin="5">
+                           <ext:Label
+                               runat="server"
+                               ID="button_group_lable"
+                               Margins="5 0 0 5"
+                               Width="90">
                                 <Content>Mark Selected As:</Content>
                             </ext:Label>
 
@@ -324,9 +321,9 @@
                                 Layout="TableLayout"
                                 Width="250"
                                 Frame="false"
-                                ButtonAlign="Right">
+                                ButtonAlign="Left">
                                 <Buttons>
-                                    <ext:Button ID="Accepted" Text="Accept" runat="server">
+                                    <ext:Button ID="Accepted" Text="Accepted" runat="server">
                                         <DirectEvents>
                                             <Click OnEvent="AcceptDispute">
                                                 <EventMask ShowMask="true" />
@@ -337,7 +334,7 @@
                                         </DirectEvents>
                                     </ext:Button>
 
-                                    <ext:Button ID="Reject" Text="Reject" runat="server">
+                                    <ext:Button ID="Reject" Text="Rejected" runat="server">
                                         <DirectEvents>
                                             <Click OnEvent="RejectDispute">
                                                 <EventMask ShowMask="true" />
@@ -349,7 +346,7 @@
                                     </ext:Button>
                                 </Buttons>
                             </ext:ButtonGroup>
-                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 300">
+                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 310">
                                  <Listeners>
                                     <Click Handler="submitValue(#{ManageDisputesGrid}, 'xls');" />
                                 </Listeners>
