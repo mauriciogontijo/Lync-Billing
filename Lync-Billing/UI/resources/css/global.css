@@ -125,8 +125,8 @@ a:visited { }
 .over-h{overflow:hidden}.over-auto{overflow:auto}
 /*#################################END OVERFLOW########################*/
 /*#################################D1G FONT########################*/
-@font-face { font-family: etisalat; src: url('fonts/GE SS TWO ETISALAT.otf'); } 
-@font-face { font-family:  etisalat-light; src: url('fonts/GE SS TWO LIGHT.otf'); } 
+/*@font-face { font-family: etisalat; src: url('fonts/GE SS TWO ETISALAT.otf'); } 
+@font-face { font-family:  etisalat-light; src: url('fonts/GE SS TWO LIGHT.otf'); } */
 .etisalat-bold{font-family:etisalat ,Arial, Helvetica, sans-serif}
 .etisalat-light{font-family:etisalat-light ,Arial, Helvetica, sans-serif}
 /*#################################END D1G FONT########################*/
