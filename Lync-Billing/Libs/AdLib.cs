@@ -18,6 +18,7 @@ namespace Lync_Billing.Libs
         private static string ResourceGCUsername = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainUser"];
         private static string ResourceGCPassword = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainPassword"];
         private static string ADSearchFilter = System.Configuration.ConfigurationManager.AppSettings["ADSearchFilter"];
+        
 
         //INIT LOCAL GC
         private static DirectoryEntry forestResource = new DirectoryEntry(ResourceGCUri, ResourceGCUsername, ResourceGCPassword);
@@ -140,6 +141,27 @@ namespace Lync_Billing.Libs
                 userInfo.Telephone = (string)resourceForestResult.Properties["msrtcsip-line"][0];
                 userInfo.PrimaryHomeServerDN = ((string)resourceForestResult.Properties["msrtcsip-primaryhomeserver"][0]).Replace("CN=Lc Services,CN=Microsoft,", "");
                
+            }
+            return userInfo;
+        }
+
+        public ADUserInfo getUsersAttributesFromPhone(string phoneNumber) 
+        {
+            ADUserInfo userInfo = new ADUserInfo();
+
+            string searchFilter = "(&(objectClass=user)(objectCategory=person)(msrtcsip-line=Tel:{0}))";
+            string resourceFilter = string.Format(searchFilter, phoneNumber);
+
+            resourceSearcher.Filter = resourceFilter;
+            SearchResult resourceForestResult = resourceSearcher.FindOne();
+
+            if (resourceForestResult != null)
+            {
+                userInfo.Title = (string)resourceForestResult.Properties["title"][0];
+                userInfo.FirstName = (string)resourceForestResult.Properties["givenName"][0];
+                userInfo.LastName = (string)resourceForestResult.Properties["sn"][0];
+                userInfo.DisplayName = (string)resourceForestResult.Properties["cn"][0];
+                userInfo.Telephone = (string)resourceForestResult.Properties["msrtcsip-line"][0];
             }
             return userInfo;
         }
