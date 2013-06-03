@@ -376,7 +376,7 @@
                                     <ext:Column
                                         ID="PhoneNumber"
                                         runat="server"
-                                        Text="Number"
+                                        Text="Number / Email"
                                         Width="160"
                                         DataIndex="PhoneNumber">
                                     </ext:Column>
