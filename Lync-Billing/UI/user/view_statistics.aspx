@@ -42,6 +42,7 @@
                 business_duration = 0,
                 personal_duration = 0,
                 unmarked_duration = 0,
+                dispute_duration = 0,
                 chart_element_id = "main_content_place_holder_" + "PhoneCallsDuartionChart";
 
 	        //App.PhoneCallsDuartionChart
@@ -55,7 +56,7 @@
 	                personal_duration = rec.get('TotalDuration');
 	            }
 	            else if (rec.get('Name') == 'Dispute') {
-	                personal_duration = rec.get('TotalDuration');
+	                dispute_duration = rec.get('TotalDuration');
 	            }
 	            else if (rec.get('Name') == 'Unmarked') {
 	                unmarked_duration = rec.get('TotalDuration');
@@ -72,6 +73,10 @@
 	        }
 	        else if (storeItem == "Unmarked") {
 	            return ((unmarked_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
+	            //return unmarked_duration;
+	        }
+	        else if (storeItem == "Dispute") {
+	            return ((dispute_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
 	            //return unmarked_duration;
 	        }
 	    };
@@ -103,6 +108,7 @@
                 business_cost = 0,
                 personal_cost = 0,
                 unmarked_cost = 0,
+                dispute_cost = 0,
                 chart_element_id = "main_content_place_holder_" + "PhoneCallsCostChart";
 
 	        //App.PhoneCallsDuartionChart
@@ -116,7 +122,7 @@
 	                personal_cost = rec.get('TotalCost');
 	            }
 	            else if (rec.get('Name') == 'Dispute') {
-	                personal_cost = rec.get('TotalCost');
+	                dispute_cost = rec.get('TotalCost');
 	            }
 	            else if (rec.get('Name') == 'Unmarked') {
 	                unmarked_cost = rec.get('TotalCost');
@@ -131,6 +137,9 @@
 	        }
 	        else if (storeItem == "Unmarked") {
 	            return ((unmarked_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
+	        }
+	        else if (storeItem == "Dispute") {
+	            return ((dispute_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
 	        }
 	    };
 
