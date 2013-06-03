@@ -112,13 +112,13 @@ namespace Lync_Billing.UI {
         protected global::Ext.Net.Column marker_CallCost;
         
         /// <summary>
-        /// UI_IsPersonal control.
+        /// ui_CallType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column UI_IsPersonal;
+        protected global::Ext.Net.Column ui_CallType;
         
         /// <summary>
         /// UI_MarkedOn control.

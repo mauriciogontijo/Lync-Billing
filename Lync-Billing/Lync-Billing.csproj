@@ -140,6 +140,7 @@
   <ItemGroup>
     <Compile Include="DB\Announcements.cs" />
     <Compile Include="DB\CallsStatistics.cs" />
+    <Compile Include="DB\PhoneBook.cs" />
     <Compile Include="DB\UsersDelegates.cs" />
     <Compile Include="DB\UsersCallsSummary.cs" />
     <Compile Include="DB\GatewayDetail.cs" />

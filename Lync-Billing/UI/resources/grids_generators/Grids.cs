@@ -114,9 +114,9 @@ namespace Lync_Billing.UI
                             },
                             new Column 
                             {
-                                ID = "ui_IsPersonal",
-                                Text = "ui_IsPersonal",
-                                DataIndex = "ui_IsPersonal"
+                                ID = "ui_CallType",
+                                Text = "ui_CallType",
+                                DataIndex = "ui_CallType"
                             },
                             new Column 
                             {
@@ -126,9 +126,9 @@ namespace Lync_Billing.UI
                             },
                             new Column 
                             {
-                                ID = "ui_IsInvoiced",
-                                Text = "ui_IsInvoiced",
-                                DataIndex = "ui_IsInvoiced"
+                                ID = "ac_IsInvoiced",
+                                Text = "ac_IsInvoiced",
+                                DataIndex = "ac_IsInvoiced"
                             }
                         }
                     }

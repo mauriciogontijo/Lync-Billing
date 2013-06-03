@@ -50,9 +50,9 @@ namespace Lync_Billing.UI
                         new ModelField("marker_CallCost"),
                         new ModelField("ui_UpdatedByUser"),
                         new ModelField("ui_MarkedOn"),
-                        new ModelField("ui_IsPersonal"),
+                        new ModelField("ui_CallType"),
                         new ModelField("ui_Dispute"),
-                        new ModelField("ui_IsInvoiced")
+                        new ModelField("ac_IsInvoiced")
                     }
                 };
             }
