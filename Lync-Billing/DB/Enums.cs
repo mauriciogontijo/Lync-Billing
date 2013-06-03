@@ -262,6 +262,22 @@ namespace Lync_Billing.DB
             AnnouncementDate
         }
 
+        public enum PhoneBook
+        {
+            [Description("PhoneBook")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("SipAccount")]
+            SipAccount,
+            [Description("DestinationNumber")]
+            DestinationNumber,
+            [Description("Type")]
+            Type,
+            [Description("Name")]
+            Name
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
