@@ -38,7 +38,7 @@ namespace Lync_Billing.DB
             foreach (DataRow row in dt.Rows)
             {
                 userSummary = new UsersCallsSummaryChartData();
-                if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "NO")
+                if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Business")
                 {
                     userSummary.Name = "Business";
 
@@ -58,7 +58,7 @@ namespace Lync_Billing.DB
                         userSummary.TotalCost = 0;
                 }
 
-                else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "YES")
+                else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Personal")
                 {
                     userSummary.Name = "Personal";
 
@@ -77,6 +77,27 @@ namespace Lync_Billing.DB
                     else
                         userSummary.TotalCost = 0;
                    
+                }
+
+                else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Dispute")
+                {
+                    userSummary.Name = "Dispute";
+
+                    if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
+                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
+                    else
+                        userSummary.TotalCalls = 0;
+
+                    if (row[dt.Columns["TotalDuration"]] != System.DBNull.Value)
+                        userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns["TotalDuration"]]);
+                    else
+                        userSummary.TotalDuration = 0;
+
+                    if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
+                        userSummary.TotalCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
+                    else
+                        userSummary.TotalCost = 0;
+
                 }
 
                 else if (row[dt.Columns["PhoneCallType"]] == System.DBNull.Value)
