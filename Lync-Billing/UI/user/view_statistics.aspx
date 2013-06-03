@@ -54,6 +54,9 @@
 	            else if (rec.get('Name') == 'Personal') {
 	                personal_duration = rec.get('TotalDuration');
 	            }
+	            else if (rec.get('Name') == 'Dispute') {
+	                personal_duration = rec.get('TotalDuration');
+	            }
 	            else if (rec.get('Name') == 'Unmarked') {
 	                unmarked_duration = rec.get('TotalDuration');
 	            }
@@ -110,6 +113,9 @@
 	                business_cost = rec.get('TotalCost');
 	            }
 	            else if (rec.get('Name') == 'Personal') {
+	                personal_cost = rec.get('TotalCost');
+	            }
+	            else if (rec.get('Name') == 'Dispute') {
 	                personal_cost = rec.get('TotalCost');
 	            }
 	            else if (rec.get('Name') == 'Unmarked') {
