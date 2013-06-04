@@ -136,13 +136,7 @@
                         </div>
                         <div class="sidebar-section-body">
                             <p><a href='/UI/user/manage_phone_calls.aspx'>My Phone Calls</a></p>
-                            
-                            <%
-                                bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                                if (condition) {
-                            %>
-                                <p><a href='/UI/user/manage_delegates.aspx' class="selected">My Delegated Users</a></p>
-                            <% } %>
+                            <p><a href='/UI/user/manage_delegates.aspx' class="selected">My Delegated Users</a></p>
 
                             <% if(false) { %>
                                 <p><a href='#'>Address Book</a></p>
