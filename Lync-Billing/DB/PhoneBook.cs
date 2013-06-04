@@ -12,6 +12,7 @@ namespace Lync_Billing.DB
         public int ID { get; set; }
         public string SipAccount { get; set; }
         public string DestinationNumber { get; set; }
+        public string DestinationCountry { get; set; }
         public string Type { get; set; }
         public string Name { get; set; }
 
@@ -94,6 +95,40 @@ namespace Lync_Billing.DB
                 setPart.Add(Enums.GetDescription(Enums.PhoneBook.Name), phoneBookEntry.Name);
 
             DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneBook.TableName), setPart, wherePart);
+        }
+
+        public static Dictionary<string, string> GetDestinationNumbers(string sipAccount) 
+        {
+            List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
+            List<object> param = new List<object>();
+
+            DataTable dt = new DataTable();
+
+            PhoneBook phoneBookEntry;
+
+            param.Add(sipAccount);
+
+            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetDistinctCallsForAUser",param,null);
+            
+            foreach (DataRow row in dt.Rows)
+            {
+                phoneBookEntry = new PhoneBook();
+
+                foreach (DataColumn column in dt.Columns) 
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneBook.DestinationNumber) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneBookEntry.DestinationNumber = (string)row[column.ColumnName];
+                    else
+                        break;
+
+                    if (column.ColumnName == "marker_CallCountry" && row[column.ColumnName] != System.DBNull.Value)
+                        value = (string)row[column.ColumnName];
+                    else
+                        value = "NA";
+                }
+                destinations.Add(key, value);
+           }
+            return destinations;
         }
     }
 }
