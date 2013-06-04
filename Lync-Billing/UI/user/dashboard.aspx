@@ -220,14 +220,15 @@
                             <li id="user-tab" class="">
                                 <a href="#">More User Tools<span class="drop"></span></a>
                                 <ul class="w200">
+                                    <li class=""><a href="/UI/user/manage_address_book.aspx">My Address Book</a></li>
                                     <%
                                         bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                         if (is_delegate) {
                                     %>
-                                        <li class=""><a href="/UI/user/manage_delegates.aspx">Manage My Delegated Users</a></li>
+                                        <li class=""><a href="/UI/user/manage_delegates.aspx">My Delegated Users</a></li>
                                     <% } %>
-                                    <li class=""><a href="/UI/user/view_history.aspx">View My History</a></li>
-                                    <li class="last-child"><a href="/UI/user/view_statistics.aspx">View My Statistics</a></li>
+                                    <li class=""><a href="/UI/user/view_history.aspx">Phone Calls History</a></li>
+                                    <li class="last-child"><a href="/UI/user/view_statistics.aspx">Phone Calls Statistics</a></li>
                                 </ul>
                             </li>
 
