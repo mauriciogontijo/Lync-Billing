@@ -78,6 +78,22 @@ namespace Lync_Billing.DB
 
         public static void UpdatePhoneBookEntry(PhoneBook phoneBookEntry) 
         {
+            DataTable dt = new DataTable();
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+
+            //Where Part
+            wherePart.Add(Enums.GetDescription(Enums.PhoneBook.SipAccount), phoneBookEntry.SipAccount);
+            wherePart.Add(Enums.GetDescription(Enums.PhoneBook.DestinationNumber), phoneBookEntry.DestinationNumber);
+
+            //Set Part
+            if (phoneBookEntry.Type != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneBook.Type), phoneBookEntry.Type);
+           
+            if (phoneBookEntry.Name != null)
+                setPart.Add(Enums.GetDescription(Enums.PhoneBook.Name), phoneBookEntry.Name);
+
+            DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneBook.TableName), setPart, wherePart);
 
         }
     }
