@@ -195,20 +195,6 @@ namespace Lync_Billing.DB
             return phoneCalls.Skip(start).Take(limit).ToList();
             
         }
-
-        //public static Dictionary<string, string> GetAllDestinations(string sipAccount) 
-        //{
-        //    List<string> columns = new List<string>();
-        //    Dictionary<string, object> wherePart = new Dictionary<string,object>();
-        //    Dictionary<string, string> destinations = new Dictionary<string, string>();
-            
-        //    DataTable dt = new DataTable();
-
-        //    wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount);
-            
-
-        //    dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, 0);
-
-        //}
+        
     }
 }
