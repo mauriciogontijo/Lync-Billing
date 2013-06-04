@@ -218,7 +218,7 @@
                             </li>
 
                             <li id="user-tab" class="">
-                                <a href="#">More User Tools<span class="drop"></span></a>
+                                <a href="#">User Tools<span class="drop"></span></a>
                                 <ul id="user-dropdown">
                                     <li class=""><a href="/UI/user/manage_address_book.aspx">Address Book</a></li>
                                     <%
