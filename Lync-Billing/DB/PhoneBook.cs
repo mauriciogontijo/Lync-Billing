@@ -94,7 +94,6 @@ namespace Lync_Billing.DB
                 setPart.Add(Enums.GetDescription(Enums.PhoneBook.Name), phoneBookEntry.Name);
 
             DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneBook.TableName), setPart, wherePart);
-
         }
     }
 }
