@@ -235,7 +235,7 @@
         <div class="block-body">
             <ext:Panel ID="UserToolsSidebar"
                 runat="server"
-                Height="305"
+                Height="330"
                 Width="180"
                 Title="User Tools"
                 Collapsed="false"
