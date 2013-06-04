@@ -72,3 +72,8 @@ div#header-container {
     background-clip: border-box;
     background-color: transparent;
 }
+
+.x-btn-group, .x-btn-group-default { 
+    border: none !important;
+    box-shadow: none !important;
+}
