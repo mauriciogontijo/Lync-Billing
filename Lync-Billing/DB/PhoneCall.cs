@@ -196,19 +196,19 @@ namespace Lync_Billing.DB
             
         }
 
-        public static Dictionary<string, string> GetAllDestinations(string sipAccount) 
-        {
-            List<string> columns = new List<string>();
-            Dictionary<string, object> wherePart = new Dictionary<string,object>();
-            Dictionary<string, string> destinations = new Dictionary<string, string>();
+        //public static Dictionary<string, string> GetAllDestinations(string sipAccount) 
+        //{
+        //    List<string> columns = new List<string>();
+        //    Dictionary<string, object> wherePart = new Dictionary<string,object>();
+        //    Dictionary<string, string> destinations = new Dictionary<string, string>();
             
-            DataTable dt = new DataTable();
+        //    DataTable dt = new DataTable();
 
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount);
+        //    wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount);
             
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, 0);
+        //    dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, 0);
 
-        }
+        //}
     }
 }
