@@ -202,21 +202,38 @@
 
         <div class="smart-block tool-dark-bg liquid toolbar" >
             <div class="hwrapper rtl ">
-                <div class="col size1of2">
+                <div class="col size2of3">
                     <div class="ie7flot-fix" ><!--ie7 fix-->
                         <ul id="navigation-tabs" class="vertical-navigation">
                             <li class="">
                                 <a title="Logout" href="/UI/session/logout.aspx">Logout</a>
                             </li>
+
                             <li id="home-tab" class="selected">
                                 <a title="Home" href="/UI/user/dashboard.aspx">Home</a>
                             </li>
+
                             <li id="manage-phonecalls-tab" class="">
                                 <a title="Manage My Phone Calls" href="/UI/user/manage_phone_calls.aspx">My Phone Calls</a>
                             </li>
+
+                            <li id="user-tab" class="">
+                                <a href="#">More User Tools<span class="drop"></span></a>
+                                <ul class="w200">
+                                    <%
+                                        bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                                        if (is_delegate) {
+                                    %>
+                                        <li class=""><a href="/UI/user/manage_delegates.aspx">Manage My Delegated Users</a></li>
+                                    <% } %>
+                                    <li class=""><a href="/UI/user/view_history.aspx">View My History</a></li>
+                                    <li class="last-child"><a href="/UI/user/view_statistics.aspx">View My Statistics</a></li>
+                                </ul>
+                            </li>
+
                             <% 
-                                bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                                if (condition) { 
+                                bool is_accounting = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                                if (is_accounting) {
                             %>
                                 <li id="accounting-tab" class="">
                                     <a href="#">Accounting Tools<span class="drop"></span></a>
@@ -233,7 +250,7 @@
                     </div>
                 </div>
                 <!--end toolbar right nav-->
-                <div class="col size1of2 lastcol">
+                <div class="col size1of3 lastcol">
                     <a class="logo fl" href='/UI/user/dashboard.aspx'>eBill</a>
                 </div>
             </div>
