@@ -349,17 +349,6 @@
                                                             </Click>
                                                         </DirectEvents>
                                                     </ext:Button>
-
-                                                    <ext:Button ID="Dispute" Text="Dispute" runat="server">
-                                                        <DirectEvents>
-                                                            <Click OnEvent="AssignDispute">
-                                                                <EventMask ShowMask="true" />
-                                                                <ExtraParams>
-                                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                                </ExtraParams>
-                                                            </Click>
-                                                        </DirectEvents>
-                                                    </ext:Button>
                                                 </Buttons>
                                             </ext:ButtonGroup>
                                             <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 310">
