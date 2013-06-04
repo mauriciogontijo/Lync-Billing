@@ -272,6 +272,8 @@ namespace Lync_Billing.DB
             SipAccount,
             [Description("DestinationNumber")]
             DestinationNumber,
+            [Description("DestinationCountry")]
+            DestinationCountry,
             [Description("Type")]
             Type,
             [Description("Name")]
