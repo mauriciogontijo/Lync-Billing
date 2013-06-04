@@ -46,6 +46,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneBook.Name) && row[column.ColumnName] != System.DBNull.Value)
                         phoneBookEntry.Name = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneBook.DestinationCountry) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneBookEntry.DestinationCountry = (string)row[column.ColumnName];
                 }
 
                 phoneBookEntries.Add(phoneBookEntry.DestinationNumber,phoneBookEntry);
@@ -73,6 +76,9 @@ namespace Lync_Billing.DB
                 if (phoneBookEntry.Name != null)
                     ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.Name), phoneBookEntry.Name);
 
+                if (phoneBookEntry.DestinationCountry != null)
+                    ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.DestinationCountry), phoneBookEntry.DestinationCountry);
+
                 DBRoutines.INSERT(Enums.GetDescription(Enums.PhoneBook.TableName), ColumnValues, Enums.GetDescription(Enums.PhoneBook.ID));
             }
         }
@@ -97,7 +103,7 @@ namespace Lync_Billing.DB
             DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneBook.TableName), setPart, wherePart);
         }
 
-        public static Dictionary<string, string> GetDestinationNumbers(string sipAccount) 
+        public static List<PhoneBook> GetDestinationNumbers(string sipAccount) 
         {
             List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
             List<object> param = new List<object>();
@@ -116,19 +122,19 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns) 
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneBook.DestinationNumber) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == "DestinationNumberUri" && row[column.ColumnName] != System.DBNull.Value)
                         phoneBookEntry.DestinationNumber = (string)row[column.ColumnName];
                     else
                         break;
 
                     if (column.ColumnName == "marker_CallCountry" && row[column.ColumnName] != System.DBNull.Value)
-                        value = (string)row[column.ColumnName];
+                        phoneBookEntry.DestinationCountry = (string)row[column.ColumnName];
                     else
-                        value = "NA";
+                        phoneBookEntry.DestinationCountry = "NA";
                 }
-                destinations.Add(key, value);
+                phoneBookEntries.Add(phoneBookEntry);
            }
-            return destinations;
+            return phoneBookEntries;
         }
     }
 }
