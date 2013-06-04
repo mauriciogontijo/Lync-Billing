@@ -128,6 +128,7 @@
     <Content Include="UI\resources\js\jquery-1.9.1.min.js" />
     <Content Include="UI\resources\js\stacktrace.js" />
     <Content Include="UI\user\dashboard.aspx" />
+    <Content Include="UI\user\manage_address_book.aspx" />
     <Content Include="UI\user\manage_delegates.aspx" />
     <Content Include="UI\user\view_history.aspx" />
     <Content Include="UI\user\manage_phone_calls.aspx" />
@@ -234,6 +235,13 @@
     </Compile>
     <Compile Include="UI\user\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\user\manage_address_book.aspx.cs">
+      <DependentUpon>manage_address_book.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\user\manage_address_book.aspx.designer.cs">
+      <DependentUpon>manage_address_book.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\user\manage_delegates.aspx.cs">
       <DependentUpon>manage_delegates.aspx</DependentUpon>

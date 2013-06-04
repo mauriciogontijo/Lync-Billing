@@ -49,7 +49,25 @@ namespace Lync_Billing.UI.user
 
         protected void PhoneCallsStore_Load(object sender, EventArgs e)
         {
-            
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+
+            wherePart.Add("SourceUserUri", userSession.SipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("ac_IsInvoiced", "NO");
+
+            columns.Add("SessionIdTime");
+            columns.Add("SessionIdSeq");
+            columns.Add("ResponseTime");
+            columns.Add("SessionEndTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+            columns.Add("ui_CallType");
+            columns.Add("ui_MarkedOn");
+
+            PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            PhoneCallsStore.DataBind();
         }
     }
 }
