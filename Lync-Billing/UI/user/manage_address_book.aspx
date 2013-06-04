@@ -187,7 +187,7 @@
             <ext:TabPanel ID="AddressBookTabPanel" 
                 runat="server" 
                 Width="750"
-                Height="600"
+                Height="750"
                 Margins="0 0 20 0"
                 Frame="true">
                 <Defaults>
