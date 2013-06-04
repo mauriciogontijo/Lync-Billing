@@ -44,8 +44,6 @@ namespace Lync_Billing.DB
 
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
-
-
         public static List<PhoneCall> GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             PhoneCall phoneCall;
@@ -188,7 +186,6 @@ namespace Lync_Billing.DB
             return status;
         }
 
-
         public static List<PhoneCall> GetPhoneCallsFilter(List<string> columns, Dictionary<string, object> wherePart, int start, int limit, out int count)
         {
             List<PhoneCall> phoneCalls = GetPhoneCalls(columns, wherePart, 0);
@@ -197,6 +194,21 @@ namespace Lync_Billing.DB
 
             return phoneCalls.Skip(start).Take(limit).ToList();
             
+        }
+
+        public static Dictionary<string, string> GetAllDestinations(string sipAccount) 
+        {
+            List<string> columns = new List<string>();
+            Dictionary<string, object> wherePart = new Dictionary<string,object>();
+            Dictionary<string, string> destinations = new Dictionary<string, string>();
+            
+            DataTable dt = new DataTable();
+
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount);
+            
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, 0);
+
         }
     }
 }
