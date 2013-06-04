@@ -184,6 +184,8 @@ h1, h2, h3, h4, h5, h6 { margin: 0; color: #333; text-rendering: optimizeLegibil
 .w40 { width: 40px; }
 .w45 { width: 45px; }
 .w50 { width: 50px; }
+.w50 { width: 50px; }
+.w150 { width: 150px; }
 
 .w10p { width: 10%; }
 .w15p { width: 15%; }

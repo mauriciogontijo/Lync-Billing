@@ -56,9 +56,8 @@ link of each child item
     border-bottom-left-radius: 10px;
 }
 
-.toolbar .vertical-navigation li ul.w200 {
-    width: 200px;
-}
+.toolbar .vertical-navigation li ul#user-dropdown { width: 150px !important; }
+.toolbar .vertical-navigation li ul#accounting-dropdown { width: 180px !important; }
 
 .toolbar .vertical-navigation li:hover a,
 .toolbar .vertical-navigation li a:hover {color: #fff; }

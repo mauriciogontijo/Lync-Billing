@@ -60,17 +60,17 @@
                                     </li>
 
                                     <li id="user-tab" class="">
-                                        <a href="#">More User Tools<span class="drop"></span></a>
-                                        <ul class="w200">
-                                            <li class=""><a href="/UI/user/manage_address_book.aspx">My Address Book</a></li>
+                                        <a href="#">User Tools<span class="drop"></span></a>
+                                        <ul id="user-dropdown">
+                                            <li class=""><a href="/UI/user/manage_address_book.aspx">Address Book</a></li>
                                             <%
                                                 bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                                 if (is_delegate) {
                                             %>
-                                                <li class=""><a href="/UI/user/manage_delegates.aspx">My Delegated Users</a></li>
+                                                <li class=""><a href="/UI/user/manage_delegates.aspx">Delegated Users</a></li>
                                             <% } %>
-                                            <li class=""><a href="/UI/user/view_history.aspx">Phone Calls History</a></li>
-                                            <li class="last-child"><a href="/UI/user/view_statistics.aspx">Phone Calls Statistics</a></li>
+                                            <li class=""><a href="/UI/user/view_history.aspx">Calls History</a></li>
+                                            <li class="last-child"><a href="/UI/user/view_statistics.aspx">Calls Statistics</a></li>
                                         </ul>
                                     </li>
 
@@ -80,7 +80,7 @@
                                     %>
                                         <li id="accounting-tab" class="">
                                             <a href="#">Accounting Tools<span class="drop"></span></a>
-                                            <ul>
+                                            <ul id="accounting-dropdown">
                                                 <li class=""><a href="/UI/accounting/manage_disputes.aspx">Manage Disputed Calls</a></li>
                                                 <li class=""><a href="/UI/accounting/monthly_user_reports.aspx">Monthly User Report</a></li>
                                                 <li class=""><a href="/UI/accounting/periodical_user_reports.aspx">Periodical User Report</a></li>
