@@ -44,7 +44,8 @@ namespace Lync_Billing.UI.user
 
         protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
-            
+            this.PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            this.PhoneCallsStore.DataBind();
         }
 
         protected void PhoneCallsStore_Load(object sender, EventArgs e)
