@@ -297,6 +297,8 @@
                                                 <Fields>
                                                     <ext:ModelField Name="DestinationNumber" Type="String" />
                                                     <ext:ModelField Name="DestinationCountry" Type="String"/>
+                                                    <ext:ModelField Name="Name" Type="String"/>
+                                                    <ext:ModelField Name="Type" Type="String"/>
                                                 </Fields>
                                             </ext:Model>
                                         </Model>
@@ -322,14 +324,16 @@
                                         <ext:ComponentColumn
                                             ID="ImportedContacName" 
                                             runat="server" 
+                                            DataIndex="Name"
                                             Editor="true"
-                                            DataIndex="TextField"
                                             Width="270"
                                             Flex="1"
-                                            Text="Contact Name">
+                                            Text="Contact Name"
+                                            OverOnly="true"
+                                            PinEvents="expand"
+                                            UnpinEvents="collapse">
                                             <Component>
                                                 <ext:TextField 
-                                                    ID="ImpotedContactNameText"
                                                     runat="server"
                                                     EmptyText="Example: John Smith" />
                                             </Component>
@@ -338,21 +342,22 @@
                                         <ext:ComponentColumn
                                             ID="ImpotedContactType"
                                             runat="server" 
+                                            DataIndex="Type" 
                                             Editor="false"
-                                            DataIndex="ComboField"
                                             Flex="1"
                                             Text="Contact Type"
-                                            Width="140">
+                                            Width="140"
+                                            OverOnly="true"
+                                            PinEvents="expand"
+                                            UnpinEvents="collapse">
                                             <Component>
                                                 <ext:ComboBox
-                                                    ID="ImpotedContactTypeCombo"
                                                     runat="server"
-                                                    Width="120"
                                                     Editable="false"
                                                     EmptyText="Please Select Type">
                                                     <Items>
-                                                        <ext:ListItem Text="Personal" Value="1" Mode="Raw" />
-                                                        <ext:ListItem Text="Business" Value="2" Mode="Raw" />
+                                                        <ext:ListItem Text="Personal" Value="1" Mode="Value" />
+                                                        <ext:ListItem Text="Business" Value="2" Mode="Value" />
                                                     </Items>
                                                 </ext:ComboBox>
                                             </Component>
@@ -373,7 +378,7 @@
                                                     <Click OnEvent="ImportContactsFromHistory">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues())" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues(false, false, true))" Mode="Raw" />
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>

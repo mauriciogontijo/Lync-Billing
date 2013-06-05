@@ -35,13 +35,12 @@ namespace Lync_Billing.UI.user
             List<PhoneBook> all_address_book_items = new List<PhoneBook>();
             List<PhoneBook> filtered_address_book_items = new List<PhoneBook>();
 
-            RowSelectionModel sm = ImportContactsGrid.GetSelectionModel() as RowSelectionModel;
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             all_address_book_items = serializer.Deserialize<List<PhoneBook>>(json);
 
             foreach (PhoneBook entry in all_address_book_items) {
-                if((entry.Name != null && entry.Type != null) || (entry.Name != "" && entry.Type != "")) {
+                if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != "")) {
                     filtered_address_book_items.Add(entry);
                 }
             }

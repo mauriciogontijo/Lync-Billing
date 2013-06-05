@@ -193,15 +193,6 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.ComponentColumn ImportedContacName;
         
         /// <summary>
-        /// ImpotedContactNameText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TextField ImpotedContactNameText;
-        
-        /// <summary>
         /// ImpotedContactType control.
         /// </summary>
         /// <remarks>
@@ -209,15 +200,6 @@ namespace Lync_Billing.UI.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.ComponentColumn ImpotedContactType;
-        
-        /// <summary>
-        /// ImpotedContactTypeCombo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ComboBox ImpotedContactTypeCombo;
         
         /// <summary>
         /// ImportContactsToolbar control.
