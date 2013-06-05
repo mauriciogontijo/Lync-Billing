@@ -46,10 +46,10 @@ namespace Lync_Billing.UI.user
 
             if (filtered_address_book_items.Count > 0) {
                 PhoneBook.AddPhoneBookEntries(filtered_address_book_items);
-            }
 
-            ImportContactsStore.DataSource = PhoneBook.GetDestinationNumbers(SipAccount);
-            ImportContactsStore.DataBind();
+                ImportContactsStore.DataSource = PhoneBook.GetDestinationNumbers(SipAccount);
+                ImportContactsStore.DataBind();
+            }
         }
 
         /*
