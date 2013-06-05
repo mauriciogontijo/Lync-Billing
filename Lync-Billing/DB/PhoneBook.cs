@@ -122,18 +122,21 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns) 
                 {
-                    if (column.ColumnName == "DestinationNumberUri" && row[column.ColumnName] != System.DBNull.Value) {
-                        phoneBookEntry.DestinationNumber = (string)row[column.ColumnName];
-                    }
-                    else if (column.ColumnName == "DestinationNumberUri" && row[column.ColumnName] == System.DBNull.Value) {
-                        break;
+                    if (column.ColumnName == "DestinationNumberUri") {
+                        if (row[column.ColumnName] != System.DBNull.Value) {
+                            phoneBookEntry.DestinationNumber = (string)row[column.ColumnName];
+                        } else { 
+                            break; 
+                        }
                     }
                     
-                    else if (column.ColumnName == "marker_CallCountry" && row[column.ColumnName] != System.DBNull.Value) {
-                        phoneBookEntry.DestinationCountry = (string)row[column.ColumnName];
-                    }
-                    else if (column.ColumnName == "marker_CallCountry" && row[column.ColumnName] == System.DBNull.Value) {
-                        phoneBookEntry.DestinationCountry = "NA";
+                    else if (column.ColumnName == "marker_CallCountry") {
+                        if (row[column.ColumnName] != System.DBNull.Value) {
+                            phoneBookEntry.DestinationCountry = (string)row[column.ColumnName];
+                        }
+                        else {
+                            phoneBookEntry.DestinationCountry = "NA";
+                        }
                     }
                 }
                 phoneBookEntries.Add(phoneBookEntry);
