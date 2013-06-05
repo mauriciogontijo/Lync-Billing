@@ -356,8 +356,8 @@
                                                     Editable="false"
                                                     EmptyText="Please Select Type">
                                                     <Items>
-                                                        <ext:ListItem Text="Personal" Value="1" Mode="Value" />
-                                                        <ext:ListItem Text="Business" Value="2" Mode="Value" />
+                                                        <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
+                                                        <ext:ListItem Text="Business" Value="Business" Mode="Value" />
                                                     </Items>
                                                 </ext:ComboBox>
                                             </Component>
