@@ -29,11 +29,13 @@ namespace Lync_Billing.UI.user
 
         protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
         {
-            RowSelectionModel sm = ImportContactsGrid.GetSelectionModel() as RowSelectionModel;
-
             string json = e.ExtraParams["Values"];
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
             List<PhoneBook> all_address_book_items = new List<PhoneBook>();
             List<PhoneBook> filtered_address_book_items = new List<PhoneBook>();
+
+            RowSelectionModel sm = ImportContactsGrid.GetSelectionModel() as RowSelectionModel;
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             all_address_book_items = serializer.Deserialize<List<PhoneBook>>(json);
@@ -45,13 +47,11 @@ namespace Lync_Billing.UI.user
             }
 
             if (filtered_address_book_items.Count > 0) {
-
-                ImportContactsGrid.GetStore().Find("DestinationNumber", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                ImportContactsGrid.GetStore().Find("DestinationNumber", phoneCall.SessionIdTime.ToString()).Commit();
+                PhoneBook.AddPhoneBookEntries(filtered_address_book_items);
             }
 
-            //ManagePhoneCallsGrid.GetStore().CommitChanges();
-            ImportContactsGrid.GetSelectionModel().DeselectAll();
+            ImportContactsStore.DataSource = PhoneBook.GetDestinationNumbers(SipAccount);
+            ImportContactsStore.DataBind();
         }
 
         /*
