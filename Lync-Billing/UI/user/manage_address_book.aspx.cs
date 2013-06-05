@@ -15,8 +15,9 @@ namespace Lync_Billing.UI.user
 {
     public partial class manage_address_book : System.Web.UI.Page
     {
-        Dictionary<string, object> wherePart = new Dictionary<string, object>();
-        List<string> columns = new List<string>();
+        Dictionary<string, PhoneBook> AddressBookData = new Dictionary<string, PhoneBook>();
+        List<PhoneBook> HistoryDestinationNumbers = new List<PhoneBook>();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,6 +26,10 @@ namespace Lync_Billing.UI.user
             {
                 Response.Redirect("~/UI/session/login.aspx");
             }
+
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            AddressBookData = PhoneBook.GetAddressBook(SipAccount);
+            HistoryDestinationNumbers = PhoneBook.GetDestinationNumbers(SipAccount);
         }
 
         protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
@@ -40,6 +45,7 @@ namespace Lync_Billing.UI.user
 
             foreach (PhoneBook entry in all_address_book_items) {
                 if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != "")) {
+                    entry.SipAccount = SipAccount;
                     filtered_address_book_items.Add(entry);
                 }
             }
@@ -57,9 +63,7 @@ namespace Lync_Billing.UI.user
          */
         protected void AddressBookStore_Load(object sender, EventArgs e)
         {
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-
-            AddressBookStore.DataSource = PhoneBook.GetAddressBook(SipAccount);
+            AddressBookStore.DataSource = AddressBookData;
             AddressBookStore.DataBind();
         }
 
@@ -68,9 +72,7 @@ namespace Lync_Billing.UI.user
          */
         protected void ImportContactsStore_Load(object sender, EventArgs e)
         {
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-
-            ImportContactsStore.DataSource = PhoneBook.GetDestinationNumbers(SipAccount);
+            ImportContactsStore.DataSource = HistoryDestinationNumbers;
             ImportContactsStore.DataBind();
         }
     }
