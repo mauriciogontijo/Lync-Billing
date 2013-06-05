@@ -55,34 +55,12 @@ namespace Lync_Billing.UI.user
         /*
          * AddressBook Data Binding
          */
-        protected void AddressBookStore_ReadData(object sender, StoreReadDataEventArgs e)
-        {
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-
-            AddressBookStore.DataSource = PhoneBook.GetAddressBook(SipAccount);
-            AddressBookStore.DataBind();
-        }
-
-        /*
-         * AddressBook Data Binding
-         */
         protected void AddressBookStore_Load(object sender, EventArgs e)
         {
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
 
             AddressBookStore.DataSource = PhoneBook.GetAddressBook(SipAccount);
             AddressBookStore.DataBind();
-        }
-
-        /*
-         * ImportContacts Data Binding
-         */
-        protected void ImportContactsStore_ReadData(object sender, StoreReadDataEventArgs e)
-        {
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-
-            ImportContactsStore.DataSource = PhoneBook.GetDestinationNumbers(SipAccount);
-            ImportContactsStore.DataBind();
         }
 
         /*

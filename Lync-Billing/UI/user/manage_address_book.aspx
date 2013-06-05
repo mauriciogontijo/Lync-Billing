@@ -169,8 +169,7 @@
                                         runat="server"
                                         IsPagingStore="true"
                                         PageSize="25"
-                                        OnLoad="AddressBookStore_Load"
-                                        OnReadData="AddressBookStore_ReadData">
+                                        OnLoad="AddressBookStore_Load">
                                         <Model>
                                             <ext:Model ID="AddressBookStoreModel" runat="server" IDProperty="DestinationNumber">
                                                 <Fields>
@@ -248,8 +247,7 @@
                                         runat="server"
                                         IsPagingStore="true"
                                         PageSize="24"
-                                        OnLoad="ImportContactsStore_Load"
-                                        OnReadData="ImportContactsStore_ReadData">
+                                        OnLoad="ImportContactsStore_Load">
                                         <Model>
                                             <ext:Model ID="ImportContactsStoreModel" runat="server" IDProperty="DestinationNumber">
                                                 <Fields>
