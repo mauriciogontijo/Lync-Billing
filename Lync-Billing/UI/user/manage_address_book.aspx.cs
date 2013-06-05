@@ -36,7 +36,6 @@ namespace Lync_Billing.UI.user
             List<PhoneBook> filtered_address_book_items = new List<PhoneBook>();
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-
             all_address_book_items = serializer.Deserialize<List<PhoneBook>>(json);
 
             foreach (PhoneBook entry in all_address_book_items) {
