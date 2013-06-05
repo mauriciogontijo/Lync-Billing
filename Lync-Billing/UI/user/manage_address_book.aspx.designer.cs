@@ -202,6 +202,24 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.ComponentColumn ImpotedContactType;
         
         /// <summary>
+        /// ImportPhoneBookComponentColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComponentColumn ImportPhoneBookComponentColumn;
+        
+        /// <summary>
+        /// EditPhoneBookButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button EditPhoneBookButton;
+        
+        /// <summary>
         /// ImportContactsToolbar control.
         /// </summary>
         /// <remarks>

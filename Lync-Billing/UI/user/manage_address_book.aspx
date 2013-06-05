@@ -23,6 +23,19 @@
         var submitValue = function (grid) {
             grid.submitData(false, { isUpload: true });
         };
+
+        var pinEditors = function (btn, pressed) {
+            var columnConfig = btn.column,
+                column = columnConfig.column;
+
+            if (pressed) {
+                column.pinOverComponent();
+                column.showComponent(columnConfig.record, true);
+            } else {
+                column.unpinOverComponent();
+                column.hideComponent(true);
+            }
+        };
     </script>
 </asp:Content>
 
@@ -256,7 +269,7 @@
                                             ID="ImportedContactNumber"
                                             runat="server"
                                             Text="Number"
-                                            Width="180"
+                                            Width="150"
                                             DataIndex="DestinationNumber" />
 
                                         <ext:Column
@@ -274,9 +287,8 @@
                                             Width="270"
                                             Flex="1"
                                             Text="Contact Name"
-                                            OverOnly="false"
-                                            PinEvents="expand"
-                                            UnpinEvents="collapse">
+                                            Pin="true"
+                                            OverOnly="true">
                                             <Component>
                                                 <ext:TextField 
                                                     runat="server"
@@ -288,17 +300,15 @@
                                             ID="ImpotedContactType"
                                             runat="server" 
                                             DataIndex="Type" 
-                                            Editor="false"
+                                            Editor="true"
                                             Flex="1"
                                             Text="Contact Type"
-                                            Width="140"
-                                            OverOnly="false"
-                                            PinEvents="expand"
-                                            UnpinEvents="collapse">
+                                            Width="120"
+                                            Pin="true"
+                                            OverOnly="true">
                                             <Component>
                                                 <ext:ComboBox
                                                     runat="server"
-                                                    Editable="false"
                                                     EmptyText="Please Select Type">
                                                     <Items>
                                                         <ext:ListItem Text="Personal" Value="1" Mode="Raw" />
@@ -307,8 +317,31 @@
                                                 </ext:ComboBox>
                                             </Component>
                                         </ext:ComponentColumn>
+                                        <ext:ComponentColumn
+                                            ID="ImportPhoneBookComponentColumn" 
+                                            runat="server"
+                                            Width="25"
+                                            PinAllColumns="false"
+                                            AutoWidthComponent="false"
+                                            OverOnly="true">
+                                        <Component>
+                                            <ext:Button ID="EditPhoneBookButton" 
+                                                runat="server" 
+                                                ToolTip="Pin editors" 
+                                                Icon="Pencil" 
+                                                AllowDepress="true" 
+                                                EnableToggle="true">
+                                                <Listeners>
+                                                    <Toggle Fn="pinEditors" />
+                                                </Listeners>
+                                            </ext:Button>
+                                        </Component>
+                                    </ext:ComponentColumn>
+
                                     </Columns>
                                 </ColumnModel>
+
+
 
                                 <TopBar>
                                     <ext:Toolbar
