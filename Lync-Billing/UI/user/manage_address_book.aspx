@@ -75,7 +75,7 @@
             return value
         }
 
-        var submitValue = function (grid, hiddenFormat, format) {
+        var submitValue = function (grid) {
             grid.submitData(false, { isUpload: true });
         };
     </script>
@@ -181,38 +181,176 @@
     <!-- *** END OF SIDEBAR *** -->
 
 
-    <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
+    <!-- *** START OF ADDRESS BOOK PANEL *** -->
     <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
             <ext:TabPanel ID="AddressBookTabPanel" 
                 runat="server" 
-                Width="750"
-                Height="750"
+                Width="740"
+                Height="760"
                 Margins="0 0 20 0"
                 Frame="true">
                 <Defaults>
                     <ext:Parameter Name="bodyPadding" Value="10" Mode="Raw" />
                     <ext:Parameter Name="autoScroll" Value="true" Mode="Raw" />
                 </Defaults>
-
                 <Items>
                     <ext:Panel ID="AddressBook"
                         runat="server"
-                        Title="My Address Book"
-                        Html="My Address Book Grid......"
+                        Title="Address Book"
                         AutoDataBind="true">
-                        <Items></Items>
+                        <Items>
+                            <ext:GridPanel
+                                ID="AddressBookGrid"
+                                runat="server"
+                                Header="false"
+                                Layout="FitLayout">
+                                <Store>
+                                    <ext:Store
+                                        ID="AddressBookStore"
+                                        runat="server"
+                                        IsPagingStore="true"
+                                        PageSize="25"
+                                        OnLoad="AddressBookStore_Load"
+                                        OnReadData="AddressBookStore_ReadData">
+                                        <Model>
+                                            <ext:Model ID="AddressBookStoreModel" runat="server" IDProperty="DestinationNumber">
+                                                <Fields>
+                                                    <ext:ModelField Name="DestinationNumber" Type="String" />
+                                                    <ext:ModelField Name="Name" Type="String" />
+                                                    <ext:ModelField Name="Type" Type="String"/>
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
+
+                                <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
+                                    <Columns>
+                                        <ext:Column
+                                            ID="DestinationNumber"
+                                            runat="server"
+                                            Text="Number"
+                                            Width="200"
+                                            DataIndex="DestinationNumber" />
+
+                                        <ext:Column
+                                            ID="DestinationCountry"
+                                            runat="server"
+                                            Text="Country"
+                                            Width="90"
+                                            DataIndex="DestinationCountry" />
+
+                                        <ext:Column
+                                            ID="Name"
+                                            runat="server"
+                                            Text="Name"
+                                            Width="240"
+                                            DataIndex="Name" />
+
+                                        <ext:Column
+                                            ID="Type"
+                                            runat="server"
+                                            Text="Type"
+                                            Width="200"
+                                            DataIndex="Type" />
+                                    </Columns>
+                                </ColumnModel>
+                            </ext:GridPanel>
+                        </Items>
+                        <BottomBar>
+                            <ext:Toolbar ID="Toolbar1" runat="server">
+                                <Items>
+                                    <ext:Button ID="SubmitChanges" runat="server" Text="Save Changes" Icon="ScriptAdd" Margins="0 0 0 635">
+                                        <Listeners>
+                                            <Click Handler="console.log('semsem');" />
+                                        </Listeners>
+                                    </ext:Button>
+                                </Items>
+                            </ext:Toolbar>
+                        </BottomBar>
                     </ext:Panel>
+
 
                     <ext:Panel ID="ImportFromHistoryTab"
                         runat="server" 
-                        Title="Import Contacts from History" 
-                        Html="Import Contacts from History Grid......" 
+                        Title="Import Contacts from History"  
                         AutoDataBind="true">
+                        <Items>
+                            <ext:GridPanel
+                                ID="ImportContactsGrid"
+                                runat="server"
+                                Header="false"
+                                Layout="FitLayout"
+                                Height="700">
+                                <Store>
+                                    <ext:Store
+                                        ID="ImportContactsStore"
+                                        runat="server"
+                                        IsPagingStore="true"
+                                        PageSize="24"
+                                        OnLoad="ImportContactsStore_Load"
+                                        OnReadData="ImportContactsStore_ReadData">
+                                        <Model>
+                                            <ext:Model ID="ImportContactsStoreModel" runat="server" IDProperty="DestinationNumber">
+                                                <Fields>
+                                                    <ext:ModelField Name="DestinationNumber" Type="String" />
+                                                    <ext:ModelField Name="DestinationCountry" Type="String"/>
+                                                    <ext:ModelField Name="Name" Type="String" />
+                                                    <ext:ModelField Name="Type" Type="String"/>
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
+
+                                <ColumnModel ID="ImportContactsColumnModel" runat="server" Flex="1">
+                                    <Columns>
+                                        <ext:Column
+                                            ID="ImportedContactNumber"
+                                            runat="server"
+                                            Text="Number"
+                                            Width="150"
+                                            DataIndex="DestinationNumber" />
+
+                                        <ext:Column
+                                            ID="ImportedContactDestinationCountry"
+                                            runat="server"
+                                            Text="Country"
+                                            Width="90"
+                                            DataIndex="DestinationCountry" />
+                                        
+                                        <ext:Column
+                                            ID="ImportedContactName"
+                                            runat="server"
+                                            Text="Name"
+                                            Width="180"
+                                            DataIndex="Name" />
+
+                                        <ext:Column
+                                            ID="ImportedContactType"
+                                            runat="server"
+                                            Text="Type"
+                                            Width="120"
+                                            DataIndex="Type" />
+                                    </Columns>
+                                </ColumnModel>
+                                
+                                <BottomBar>
+                                    <ext:PagingToolbar
+                                        ID="PagingToolbar1"
+                                        runat="server"
+                                        StoreID="PhoneCallStore"
+                                        DisplayInfo="true"
+                                        Weight="25"
+                                        DisplayMsg="Contacts {0} - {1} of {2}" />
+                                </BottomBar>
+                            </ext:GridPanel>
+                        </Items>
                     </ext:Panel>
                 </Items>
             </ext:TabPanel>
         </div>
     </div>
-    <!-- *** END OF MANAGE PHONE CALLS GRID *** -->
+    <!-- *** END OF ADDRESS BOOK PANEL *** -->
 </asp:Content>
