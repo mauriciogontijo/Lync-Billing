@@ -18,9 +18,9 @@ namespace Lync_Billing.DB
 
         private static DBLib DBRoutines = new DBLib();
 
-        public static Dictionary<string, PhoneBook> GetAddressBook(string sipAccount)
+        public static List<PhoneBook> GetAddressBook(string sipAccount)
         {
-            Dictionary<string, PhoneBook> phoneBookEntries = new Dictionary<string, PhoneBook>();
+            List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
             DataTable dt = new DataTable();
             PhoneBook phoneBookEntry;
 
@@ -51,8 +51,8 @@ namespace Lync_Billing.DB
                         phoneBookEntry.DestinationCountry = (string)row[column.ColumnName];
                 }
 
-                if(!phoneBookEntries.ContainsKey(phoneBookEntry.DestinationNumber)) { 
-                    phoneBookEntries.Add(phoneBookEntry.DestinationNumber, phoneBookEntry); 
+                if(!phoneBookEntries.Contains(phoneBookEntry)) { 
+                    phoneBookEntries.Add(phoneBookEntry); 
                 }
             }
 
