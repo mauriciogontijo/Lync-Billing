@@ -301,8 +301,8 @@
                                                     Editable="false"
                                                     EmptyText="Please Select Type">
                                                     <Items>
-                                                        <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
-                                                        <ext:ListItem Text="Business" Value="Business" Mode="Value" />
+                                                        <ext:ListItem Text="Personal" Value="1" Mode="Raw" />
+                                                        <ext:ListItem Text="Business" Value="2" Mode="Raw" />
                                                     </Items>
                                                 </ext:ComboBox>
                                             </Component>
@@ -322,6 +322,9 @@
                                                 <DirectEvents>
                                                     <Click OnEvent="ImportContactsFromHistory">
                                                         <EventMask ShowMask="true" />
+                                                        <ExtraParams>
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues({dirtyOnly:true}))" Mode="Raw" />
+                                                        </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
                                             </ext:Button>
