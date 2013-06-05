@@ -15,7 +15,7 @@ namespace Lync_Billing.UI.user
 {
     public partial class manage_address_book : System.Web.UI.Page
     {
-        Dictionary<string, PhoneBook> AddressBookData = new Dictionary<string, PhoneBook>();
+        List<PhoneBook> AddressBookData = new List<PhoneBook>();
         List<PhoneBook> HistoryDestinationNumbers = new List<PhoneBook>();
 
 
@@ -42,7 +42,7 @@ namespace Lync_Billing.UI.user
                 
                 //Normalize the History: Remove AddressBooks entries.
                 foreach (PhoneBook entry in EnumerableData) {
-                    if (!AddressBookData.ContainsKey(entry.DestinationNumber)) {
+                    if (!AddressBookData.Contains(entry)) {
                         HistoryDestinationNumbers.Add(entry);
                     }
                 }

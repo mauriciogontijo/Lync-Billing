@@ -162,7 +162,8 @@
                                 ID="AddressBookGrid"
                                 runat="server"
                                 Header="false"
-                                Layout="FitLayout">
+                                Layout="FitLayout"
+                                Height="700">
                                 <Store>
                                     <ext:Store
                                         ID="AddressBookStore"
@@ -174,7 +175,8 @@
                                             <ext:Model ID="AddressBookStoreModel" runat="server" IDProperty="DestinationNumber">
                                                 <Fields>
                                                     <ext:ModelField Name="DestinationNumber" Type="String" />
-                                                    <ext:ModelField Name="Name" Type="String" />
+                                                    <ext:ModelField Name="DestinationCountry" Type="String"/>
+                                                    <ext:ModelField Name="Name" Type="String"/>
                                                     <ext:ModelField Name="Type" Type="String"/>
                                                 </Fields>
                                             </ext:Model>
@@ -185,28 +187,28 @@
                                 <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
                                     <Columns>
                                         <ext:Column
-                                            ID="DestinationNumber"
+                                            ID="DestNumber"
                                             runat="server"
                                             Text="Number"
-                                            Width="180"
+                                            Width="150"
                                             DataIndex="DestinationNumber" />
 
                                         <ext:Column
-                                            ID="DestinationCountry"
+                                            ID="DestCountry"
                                             runat="server"
                                             Text="Country"
                                             Width="100"
                                             DataIndex="DestinationCountry" />
 
                                         <ext:Column
-                                            ID="Name"
+                                            ID="ContactName"
                                             runat="server"
                                             Text="Contact Name"
                                             Width="260"
                                             DataIndex="Name" />
 
                                         <ext:Column
-                                            ID="Type"
+                                            ID="ContactType"
                                             runat="server"
                                             Text="Contact Type"
                                             Width="160"
@@ -215,18 +217,6 @@
                                 </ColumnModel>
                             </ext:GridPanel>
                         </Items>
-
-                        <BottomBar>
-                            <ext:Toolbar ID="Toolbar1" runat="server">
-                                <Items>
-                                    <ext:Button ID="SubmitChanges" runat="server" Text="Save Changes" Icon="ScriptAdd" Margins="0 0 0 635">
-                                        <Listeners>
-                                            <Click Handler="console.log('semsem');" />
-                                        </Listeners>
-                                    </ext:Button>
-                                </Items>
-                            </ext:Toolbar>
-                        </BottomBar>
                     </ext:Panel>
 
 

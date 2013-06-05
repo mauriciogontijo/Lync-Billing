@@ -76,58 +76,40 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Model AddressBookStoreModel;
         
         /// <summary>
-        /// DestinationNumber control.
+        /// DestNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column DestinationNumber;
+        protected global::Ext.Net.Column DestNumber;
         
         /// <summary>
-        /// DestinationCountry control.
+        /// DestCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column DestinationCountry;
+        protected global::Ext.Net.Column DestCountry;
         
         /// <summary>
-        /// Name control.
+        /// ContactName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Name;
+        protected global::Ext.Net.Column ContactName;
         
         /// <summary>
-        /// Type control.
+        /// ContactType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Type;
-        
-        /// <summary>
-        /// Toolbar1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Toolbar Toolbar1;
-        
-        /// <summary>
-        /// SubmitChanges control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button SubmitChanges;
+        protected global::Ext.Net.Column ContactType;
         
         /// <summary>
         /// ImportContactsFromHistoryTab control.
