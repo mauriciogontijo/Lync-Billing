@@ -351,6 +351,7 @@
                                             <ext:Button
                                                 ID="ImportItems"
                                                 Text="Import Edited Items"
+                                                Icon="Add"
                                                 runat="server">
                                                 <DirectEvents>
                                                     <Click OnEvent="ImportContactsFromHistory">
