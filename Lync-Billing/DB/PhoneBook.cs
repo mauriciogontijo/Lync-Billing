@@ -125,8 +125,15 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == "DestinationNumberUri" && row[column.ColumnName] != System.DBNull.Value) {
                         phoneBookEntry.DestinationNumber = (string)row[column.ColumnName];
                     }
+                    else if (column.ColumnName == "DestinationNumberUri" && row[column.ColumnName] == System.DBNull.Value) {
+                        break;
+                    }
+                    
                     else if (column.ColumnName == "marker_CallCountry" && row[column.ColumnName] != System.DBNull.Value) {
                         phoneBookEntry.DestinationCountry = (string)row[column.ColumnName];
+                    }
+                    else if (column.ColumnName == "marker_CallCountry" && row[column.ColumnName] != System.DBNull.Value) {
+                        phoneBookEntry.DestinationCountry = "NA";
                     }
                 }
                 phoneBookEntries.Add(phoneBookEntry);
