@@ -130,7 +130,7 @@ namespace Lync_Billing.DB
                         }
                     }
                     
-                    else if (column.ColumnName == "marker_CallCountry") {
+                    else if (column.ColumnName == "marker_CallToCountry") {
                         if (row[column.ColumnName] != System.DBNull.Value) {
                             phoneBookEntry.DestinationCountry = (string)row[column.ColumnName];
                         }
