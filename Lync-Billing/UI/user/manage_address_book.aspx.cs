@@ -53,10 +53,7 @@ namespace Lync_Billing.UI.user
             AddressBookStore.DataSource = AddressBookData;
             ImportContactsStore.DataSource = HistoryDestinationNumbers;
 
-            AddressBookStore.CommitChanges();
             AddressBookStore.DataBind();
-            
-            ImportContactsStore.CommitChanges();
             ImportContactsStore.DataBind();
         }
 
