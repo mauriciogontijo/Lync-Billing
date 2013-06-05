@@ -51,7 +51,9 @@ namespace Lync_Billing.DB
                         phoneBookEntry.DestinationCountry = (string)row[column.ColumnName];
                 }
 
-                phoneBookEntries.Add(phoneBookEntry.DestinationNumber,phoneBookEntry);
+                if(!phoneBookEntries.ContainsKey(phoneBookEntry.DestinationNumber)) { 
+                    phoneBookEntries.Add(phoneBookEntry.DestinationNumber, phoneBookEntry); 
+                }
             }
 
             return phoneBookEntries;
