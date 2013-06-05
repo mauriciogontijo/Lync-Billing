@@ -130,13 +130,13 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Button SubmitChanges;
         
         /// <summary>
-        /// ImportFromHistoryTab control.
+        /// ImportContactsFromHistoryTab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel ImportFromHistoryTab;
+        protected global::Ext.Net.Panel ImportContactsFromHistoryTab;
         
         /// <summary>
         /// ImportContactsGrid control.
@@ -184,30 +184,66 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Column ImportedContactDestinationCountry;
         
         /// <summary>
-        /// ImportedContactName control.
+        /// ImportedContacName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column ImportedContactName;
+        protected global::Ext.Net.ComponentColumn ImportedContacName;
         
         /// <summary>
-        /// ImportedContactType control.
+        /// ImpotedContactNameText control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column ImportedContactType;
+        protected global::Ext.Net.TextField ImpotedContactNameText;
         
         /// <summary>
-        /// PagingToolbar1 control.
+        /// ImpotedContactType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.PagingToolbar PagingToolbar1;
+        protected global::Ext.Net.ComponentColumn ImpotedContactType;
+        
+        /// <summary>
+        /// ImpotedContactTypeCombo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox ImpotedContactTypeCombo;
+        
+        /// <summary>
+        /// ImportContactsToolbar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Toolbar ImportContactsToolbar;
+        
+        /// <summary>
+        /// ImportItems control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button ImportItems;
+        
+        /// <summary>
+        /// ImportContactsPagingBottomBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.PagingToolbar ImportContactsPagingBottomBar;
     }
 }

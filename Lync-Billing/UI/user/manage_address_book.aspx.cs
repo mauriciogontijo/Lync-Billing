@@ -27,54 +27,31 @@ namespace Lync_Billing.UI.user
             }
         }
 
-        protected void AssignBusiness(object sender, DirectEventArgs e)
+        protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
         {
-            /*RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+            RowSelectionModel sm = ImportContactsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
-            List<PhoneCall> phoneCalls = new List<PhoneCall>();
-
+            List<PhoneBook> all_address_book_items = new List<PhoneBook>();
+            List<PhoneBook> filtered_address_book_items = new List<PhoneBook>();
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
-            phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+            all_address_book_items = serializer.Deserialize<List<PhoneBook>>(json);
 
-            foreach (PhoneCall phoneCall in phoneCalls)
-            {
-                phoneCall.UI_CallType = "Business";
-                phoneCall.UI_MarkedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
-                PhoneCall.UpdatePhoneCall(phoneCall);
-
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
+            foreach (PhoneBook entry in all_address_book_items) {
+                if((entry.Name != null && entry.Type != null) || (entry.Name != "" && entry.Type != "")) {
+                    filtered_address_book_items.Add(entry);
+                }
             }
-            //ManagePhoneCallsGrid.GetStore().CommitChanges();
-            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();*/
-        }
 
-        protected void AssignPersonal(object sender, DirectEventArgs e)
-        {
-            /*RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+            if (filtered_address_book_items.Count > 0) {
 
-            string json = e.ExtraParams["Values"];
-            List<PhoneCall> phoneCalls = new List<PhoneCall>();
-
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-
-            phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
-
-            foreach (PhoneCall phoneCall in phoneCalls)
-            {
-                phoneCall.UI_CallType = "Personal";
-                phoneCall.UI_MarkedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
-                PhoneCall.UpdatePhoneCall(phoneCall);
-
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
+                ImportContactsGrid.GetStore().Find("DestinationNumber", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                ImportContactsGrid.GetStore().Find("DestinationNumber", phoneCall.SessionIdTime.ToString()).Commit();
             }
+
             //ManagePhoneCallsGrid.GetStore().CommitChanges();
-            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();*/
+            ImportContactsGrid.GetSelectionModel().DeselectAll();
         }
 
         /*

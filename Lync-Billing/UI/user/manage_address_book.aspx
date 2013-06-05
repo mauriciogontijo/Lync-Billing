@@ -231,33 +231,34 @@
                                             ID="DestinationNumber"
                                             runat="server"
                                             Text="Number"
-                                            Width="200"
+                                            Width="180"
                                             DataIndex="DestinationNumber" />
 
                                         <ext:Column
                                             ID="DestinationCountry"
                                             runat="server"
                                             Text="Country"
-                                            Width="90"
+                                            Width="100"
                                             DataIndex="DestinationCountry" />
 
                                         <ext:Column
                                             ID="Name"
                                             runat="server"
-                                            Text="Name"
-                                            Width="240"
+                                            Text="Contact Name"
+                                            Width="260"
                                             DataIndex="Name" />
 
                                         <ext:Column
                                             ID="Type"
                                             runat="server"
-                                            Text="Type"
-                                            Width="200"
+                                            Text="Contact Type"
+                                            Width="160"
                                             DataIndex="Type" />
                                     </Columns>
                                 </ColumnModel>
                             </ext:GridPanel>
                         </Items>
+
                         <BottomBar>
                             <ext:Toolbar ID="Toolbar1" runat="server">
                                 <Items>
@@ -272,7 +273,7 @@
                     </ext:Panel>
 
 
-                    <ext:Panel ID="ImportFromHistoryTab"
+                    <ext:Panel ID="ImportContactsFromHistoryTab"
                         runat="server" 
                         Title="Import Contacts from History"  
                         AutoDataBind="true">
@@ -296,8 +297,6 @@
                                                 <Fields>
                                                     <ext:ModelField Name="DestinationNumber" Type="String" />
                                                     <ext:ModelField Name="DestinationCountry" Type="String"/>
-                                                    <ext:ModelField Name="Name" Type="String" />
-                                                    <ext:ModelField Name="Type" Type="String"/>
                                                 </Fields>
                                             </ext:Model>
                                         </Model>
@@ -310,35 +309,82 @@
                                             ID="ImportedContactNumber"
                                             runat="server"
                                             Text="Number"
-                                            Width="150"
+                                            Width="180"
                                             DataIndex="DestinationNumber" />
 
                                         <ext:Column
                                             ID="ImportedContactDestinationCountry"
                                             runat="server"
                                             Text="Country"
-                                            Width="90"
+                                            Width="100"
                                             DataIndex="DestinationCountry" />
-                                        
-                                        <ext:Column
-                                            ID="ImportedContactName"
-                                            runat="server"
-                                            Text="Name"
-                                            Width="180"
-                                            DataIndex="Name" />
 
-                                        <ext:Column
-                                            ID="ImportedContactType"
-                                            runat="server"
-                                            Text="Type"
-                                            Width="120"
-                                            DataIndex="Type" />
+                                        <ext:ComponentColumn
+                                            ID="ImportedContacName" 
+                                            runat="server" 
+                                            Editor="true"
+                                            DataIndex="TextField"
+                                            Width="270"
+                                            Flex="1"
+                                            Text="Contact Name">
+                                            <Component>
+                                                <ext:TextField 
+                                                    ID="ImpotedContactNameText"
+                                                    runat="server"
+                                                    EmptyText="Example: John Smith" />
+                                            </Component>
+                                        </ext:ComponentColumn>
+
+                                        <ext:ComponentColumn
+                                            ID="ImpotedContactType"
+                                            runat="server" 
+                                            Editor="false"
+                                            DataIndex="ComboField"
+                                            Flex="1"
+                                            Text="Contact Type"
+                                            Width="140">
+                                            <Component>
+                                                <ext:ComboBox
+                                                    ID="ImpotedContactTypeCombo"
+                                                    runat="server"
+                                                    Width="120"
+                                                    Editable="false"
+                                                    EmptyText="Please Select Type">
+                                                    <Items>
+                                                        <ext:ListItem Text="Personal" Value="1" Mode="Raw" />
+                                                        <ext:ListItem Text="Business" Value="2" Mode="Raw" />
+                                                    </Items>
+                                                </ext:ComboBox>
+                                            </Component>
+                                        </ext:ComponentColumn>
                                     </Columns>
                                 </ColumnModel>
+
+                                <TopBar>
+                                    <ext:Toolbar
+                                        ID="ImportContactsToolbar"
+                                        runat="server">
+                                        <Items>
+                                            <ext:Button
+                                                ID="ImportItems"
+                                                Text="Import Edited Items"
+                                                runat="server">
+                                                <DirectEvents>
+                                                    <Click OnEvent="ImportContactsFromHistory">
+                                                        <EventMask ShowMask="true" />
+                                                        <ExtraParams>
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues())" Mode="Raw" />
+                                                        </ExtraParams>
+                                                    </Click>
+                                                </DirectEvents>
+                                            </ext:Button>
+                                        </Items>
+                                    </ext:Toolbar>
+                                </TopBar>
                                 
                                 <BottomBar>
                                     <ext:PagingToolbar
-                                        ID="PagingToolbar1"
+                                        ID="ImportContactsPagingBottomBar"
                                         runat="server"
                                         StoreID="PhoneCallStore"
                                         DisplayInfo="true"
