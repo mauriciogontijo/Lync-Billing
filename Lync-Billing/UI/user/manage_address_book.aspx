@@ -278,7 +278,7 @@
                                             DataIndex="DestinationCountry" />
 
                                         <ext:ComponentColumn
-                                            ID="ImportedContacName" 
+                                            ID="ImportedContactName" 
                                             runat="server" 
                                             DataIndex="Name"
                                             Editor="true"

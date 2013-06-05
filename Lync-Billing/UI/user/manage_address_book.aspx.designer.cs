@@ -184,13 +184,13 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Column ImportedContactDestinationCountry;
         
         /// <summary>
-        /// ImportedContacName control.
+        /// ImportedContactName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComponentColumn ImportedContacName;
+        protected global::Ext.Net.ComponentColumn ImportedContactName;
         
         /// <summary>
         /// ImpotedContactType control.

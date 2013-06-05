@@ -68,14 +68,17 @@ namespace Lync_Billing.UI.user
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             all_address_book_items = serializer.Deserialize<List<PhoneBook>>(json);
 
-            foreach (PhoneBook entry in all_address_book_items) {
-                if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != "")) {
+            foreach (PhoneBook entry in all_address_book_items)
+            {
+                if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != ""))
+                {
                     entry.SipAccount = SipAccount;
                     filtered_address_book_items.Add(entry);
                 }
             }
 
-            if (filtered_address_book_items.Count > 0) {
+            if (filtered_address_book_items.Count > 0)
+            {
                 PhoneBook.AddPhoneBookEntries(filtered_address_book_items);
                 BindDataToGrids(true);
             }
