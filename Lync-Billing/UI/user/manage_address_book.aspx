@@ -311,8 +311,8 @@
                                                     runat="server"
                                                     EmptyText="Please Select Type">
                                                     <Items>
-                                                        <ext:ListItem Text="Personal" Value="Personal" Mode="Raw" />
-                                                        <ext:ListItem Text="Business" Value="Business" Mode="Raw" />
+                                                        <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
+                                                        <ext:ListItem Text="Business" Value="Business" Mode="Value" />
                                                     </Items>
                                                 </ext:ComboBox>
                                             </Component>
