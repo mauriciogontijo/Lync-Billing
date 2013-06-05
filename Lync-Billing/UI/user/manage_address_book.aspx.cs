@@ -34,20 +34,29 @@ namespace Lync_Billing.UI.user
         {
             if (GetFreshData == true)
             {
-                List<PhoneBook> EnumerableData = new List<PhoneBook>();
+                List<PhoneBook> TempHistoryData = new List<PhoneBook>();
+                Dictionary<string, PhoneBook> TempAddressBookData = new Dictionary<string, PhoneBook>();
 
                 string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-                AddressBookData = PhoneBook.GetAddressBook(SipAccount);
-                EnumerableData = PhoneBook.GetDestinationNumbers(SipAccount);
+                TempAddressBookData = PhoneBook.GetAddressBook(SipAccount);
+                TempHistoryData = PhoneBook.GetDestinationNumbers(SipAccount);
                 
+                //Normalize the Address Book Data: Convert it from Dictionary to List.
+                foreach (KeyValuePair<string, PhoneBook> entry in TempAddressBookData)
+                {
+                    AddressBookData.Add(entry.Value);
+                }
+
                 //Normalize the History: Remove AddressBooks entries.
-                foreach (PhoneBook entry in EnumerableData) {
-                    if (!AddressBookData.Contains(entry)) {
+                foreach (PhoneBook entry in TempHistoryData)
+                {
+                    if (!TempAddressBookData.ContainsKey(entry.DestinationNumber))
+                    {
                         HistoryDestinationNumbers.Add(entry);
                     }
                 }
 
-                EnumerableData.Clear();
+                TempHistoryData.Clear();
             }
 
             AddressBookStore.DataSource = AddressBookData;
