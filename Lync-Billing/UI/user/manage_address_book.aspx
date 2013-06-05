@@ -292,7 +292,8 @@
                                             <Component>
                                                 <ext:TextField 
                                                     runat="server"
-                                                    EmptyText="Example: John Smith" />
+                                                    EmptyText="Example: John Smith" 
+                                                    DataIndex="Name" />
                                             </Component>
                                         </ext:ComponentColumn>
 
@@ -309,7 +310,8 @@
                                             <Component>
                                                 <ext:ComboBox
                                                     runat="server"
-                                                    EmptyText="Please Select Type">
+                                                    EmptyText="Please Select Type"
+                                                    DataIndex="Type">
                                                     <Items>
                                                         <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
                                                         <ext:ListItem Text="Business" Value="Business" Mode="Value" />
@@ -317,6 +319,7 @@
                                                 </ext:ComboBox>
                                             </Component>
                                         </ext:ComponentColumn>
+
                                         <ext:ComponentColumn
                                             ID="ImportPhoneBookComponentColumn" 
                                             runat="server"
@@ -324,24 +327,21 @@
                                             PinAllColumns="false"
                                             AutoWidthComponent="false"
                                             OverOnly="true">
-                                        <Component>
-                                            <ext:Button ID="EditPhoneBookButton" 
-                                                runat="server" 
-                                                ToolTip="Pin editors" 
-                                                Icon="Pencil" 
-                                                AllowDepress="true" 
-                                                EnableToggle="true">
-                                                <Listeners>
-                                                    <Toggle Fn="pinEditors" />
-                                                </Listeners>
-                                            </ext:Button>
-                                        </Component>
+                                            <Component>
+                                                <ext:Button ID="EditPhoneBookButton" 
+                                                    runat="server" 
+                                                    ToolTip="Pin editors" 
+                                                    Icon="Pencil" 
+                                                    AllowDepress="true" 
+                                                    EnableToggle="true">
+                                                    <Listeners>
+                                                        <Toggle Fn="pinEditors" />
+                                                    </Listeners>
+                                                </ext:Button>
+                                            </Component>
                                     </ext:ComponentColumn>
-
                                     </Columns>
                                 </ColumnModel>
-
-
 
                                 <TopBar>
                                     <ext:Toolbar

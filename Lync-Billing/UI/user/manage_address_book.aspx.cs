@@ -39,6 +39,9 @@ namespace Lync_Billing.UI.user
             all_address_book_items = serializer.Deserialize<List<PhoneBook>>(json);
 
             foreach (PhoneBook entry in all_address_book_items) {
+                if (entry.Name != null) {
+                    //come here
+                }
                 if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != "")) {
                     filtered_address_book_items.Add(entry);
                 }
