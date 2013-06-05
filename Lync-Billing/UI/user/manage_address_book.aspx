@@ -356,7 +356,7 @@
                                                     <Click OnEvent="ImportContactsFromHistory">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues({dirtyOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues(true))" Mode="Raw" />
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
