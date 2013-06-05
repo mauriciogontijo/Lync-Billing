@@ -59,10 +59,11 @@ namespace Lync_Billing.DB
 
         public static void AddPhoneBookEntries(List<PhoneBook> phoneBookEntries) 
         {
-            Dictionary<string, object> ColumnValues = new Dictionary<string, object>();
+            Dictionary<string, object> ColumnValues;
 
             foreach (PhoneBook phoneBookEntry in phoneBookEntries)
             {
+                ColumnValues = new Dictionary<string, object>();
                 //Set Part
                 if (phoneBookEntry.SipAccount != null)
                     ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.SipAccount), phoneBookEntry.SipAccount);
