@@ -139,7 +139,7 @@ namespace Lync_Billing.UI.user
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            DelegatedUsersStore.DataSource = UsersDelegates.GetSipAccounts(userSession.SipAccount);
+            DelegatedUsersStore.DataSource = delegates;
             DelegatedUsersStore.DataBind();
             ResourceManager res = new ResourceManager();
         }
@@ -186,7 +186,8 @@ namespace Lync_Billing.UI.user
             }
             else 
             {
-
+                DelegatedUsersStore.DataSource = delegates;
+                DelegatedUsersStore.DataBind();
             }
         }
     
