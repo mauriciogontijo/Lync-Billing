@@ -258,25 +258,34 @@
         <!-- toolbar block-->
 
         <div id='main' class='main-container bottom-rounded'>
-            <div id='announcements' class='announce-block shadow mb20 p10'>
-                <div class='m10'>
-                    <p class='font-18'>ANNOUNCEMENTS!</p>
+            <% if (false) { %>
+                <div id='announcements' class='announce-block shadow mb20 p10'>
+                    <div class='m10'>
+                        <p class='font-18'>ANNOUNCEMENTS!</p>
+                    </div>
+                    <div class="block-body">
+                        <p class='font-14'>Welcome to the new eBill, it's now more customized and personal. Please take your time going through your personal analytics and have a look at our new personal management tools.</p>
+                    </div>
                 </div>
-                <div class="block-body">
-                    <p class='font-14'>Welcome to the new eBill, it's now more customized and personal. Please take your time going through your personal analytics and have a look at our new personal management tools.</p>
-                </div>
-            </div>
+                
+                <div class='clear h25'></div>
+            <% } %>
 
-            <div class='clear h25'></div>
-            
-            <div id='information-block' class='info-block shadow mb20 p10'>
-                <div class="block-body">
-                    <span class="info-icon"></span>
-                    <p class="info-message">asdasdasdasdasdasd asdasdasasdaasdasasddas.</p>
-                </div>
-            </div>
+            <% if(unmarked_calls_count != null) { %>
+                <div id='information-block' class='info-block shadow mb20 p10'>
+                    <div class="block-body">
+                        <span class="info-icon"></span>
 
-            <div class='clear h25'></div>
+                        <% if(unmarked_calls_count > 0) { %>
+                            <p class="info-message"><%# String.Format("You have a total of {0} unmarked call, to mark them pleas click <a class='info-link' href='/UI/user/manage_phone_calls.aspx'>here.</a>", unmarked_calls_count) %></p>
+                        <% } else { %>
+                            <p class="info-message">All of your phone calls are marked. Thank you for keeping your phone calls updated!</p>
+                        <% } %>
+                    </div>
+                </div>
+                
+                <div class='clear h25'></div>
+            <% } %>
 
             <!-- START OF LEFT COLUMN -->
             <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
