@@ -430,7 +430,6 @@
             <div class="block-body">
                 <ext:Panel ID="PhoneCallsDuartionChartPanel"
                     runat="server"
-                    Title="Calls Duration Reports (Last 3 Months)"
                     Width="360"
                     Height="320"
                     Layout="FitLayout">
@@ -488,7 +487,6 @@
             <div class="block-body">
                 <ext:Panel ID="PhoneCallsCostChartPanel"
                     runat="server"
-                    Title="Calls Duration Reports (Last 3 Months)"
                     Width="360"
                     Height="320"
                     Layout="FitLayout">
