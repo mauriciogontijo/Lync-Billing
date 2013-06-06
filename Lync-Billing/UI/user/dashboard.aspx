@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.UI.user.dashboard" %>
 <%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
 
+<%-- USER DASHBOARD --%>
+
 <?xml version="1.1" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -203,11 +205,20 @@
                 <div class="col size2of3">
                     <div class="ie7flot-fix" ><!--ie7 fix-->
                         <ul id="navigation-tabs" class="vertical-navigation">
-                            <li id="home-tab" class="selected">
-                                <a title="Home" href="/UI/user/dashboard.aspx">Home</a>
+                            <li id="settings-tab" class="">
+                                <a href="#"><span class="settings"></span>&nbsp;<span class="drop"></span></a>
+                                <ul id="settings-dropdown">
+                                    <% 
+                                        bool is_accounting = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                                        if (is_accounting) {
+                                    %>
+                                        <li class="separator-bottom"><a title="Escalate to Accounting Access" href="/UI/accounting/dashboard.aspx">Switch to Accounting Role</a></li>
+                                    <% } %>
+                                    <li class=""><a title="Logout" href="/UI/session/logout.aspx">Logout</a></li>
+                                </ul>
                             </li>
 
-                            <li id="settings-tab" class="">
+                            <li id="user-tab" class="">
                                 <a href="#">User Tools<span class="drop"></span></a>
                                 <!--<a title="User Tools" href="#"><span class="settings"></span></a>-->
                                 <ul id="user-dropdown">
@@ -220,26 +231,13 @@
                                         <li class="separator-bottom"><a href="/UI/user/manage_delegates.aspx">Delegated Users</a></li>
                                     <% } %>
                                     <li class=""><a title="Call History" href="/UI/user/view_history.aspx">Calls History</a></li>
-                                    <li class="separator-bottom"><a title="Call Statistics" href="/UI/user/view_statistics.aspx">Calls Statistics</a></li>
-                                    <li class="last-child"><a title="Logout" href="/UI/session/logout.aspx">Logout</a></li>
+                                    <li class="separator-bottom last-child"><a title="Call Statistics" href="/UI/user/view_statistics.aspx">Calls Statistics</a></li>
                                 </ul>
                             </li>
 
-                            <% 
-                                bool is_accounting = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                                if (is_accounting) {
-                            %>
-                                <li id="accounting-tab" class="">
-                                    <a href="#">Accounting Tools<span class="drop"></span></a>
-                                    <ul id="accounting-dropdown">
-                                        <li class=""><a href="/UI/accounting/manage_disputes.aspx">Manage Disputed Calls</a></li>
-                                        <li class=""><a href="/UI/accounting/monthly_user_reports.aspx">Monthly User Report</a></li>
-                                        <li class=""><a href="/UI/accounting/periodical_user_reports.aspx">Periodical User Report</a></li>
-                                        <li class=""><a href="/UI/accounting/monthly_site_reports.aspx">Monthly Site Report</a></li>
-                                        <li class="last-child"><a href="/UI/accounting/periodical_site_reports.aspx">Periodical Site Report</a></li>
-                                    </ul>
-                                </li>
-                            <% } %>
+                            <li id="home-tab" class="selected">
+                                <a title="Home" href="/UI/user/dashboard.aspx">Home</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

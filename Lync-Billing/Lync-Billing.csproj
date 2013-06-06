@@ -99,6 +99,7 @@
     <Content Include="Global.asax" />
     <Content Include="Resources\Csv.xsl" />
     <Content Include="Resources\excel.xsl" />
+    <Content Include="UI\accounting\dashboard.aspx" />
     <Content Include="UI\accounting\manage_disputes.aspx" />
     <Content Include="UI\accounting\monthly_site_reports.aspx" />
     <Content Include="UI\accounting\monthly_user_reports.aspx" />
@@ -167,6 +168,13 @@
     <Compile Include="Libs\PDFLib.cs" />
     <Compile Include="Libs\Statistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\accounting\dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\accounting\dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UI\accounting\manage_disputes.aspx.cs">
       <DependentUpon>manage_disputes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
