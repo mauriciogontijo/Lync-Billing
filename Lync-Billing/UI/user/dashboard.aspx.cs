@@ -120,30 +120,24 @@ namespace Lync_Billing.UI.user
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
            
             topDestinations = TopDestinations.GetTopDestinations(userSession.SipAccount);
-            List<TopDestinations> topDestinationsStore = new List<TopDestinations>();
 
             foreach (TopDestinations destination in topDestinations) 
             {
                 if (GetUserNameBySip(destination.PhoneNumber) != string.Empty)
                 {
                     destination.UserName = GetUserNameBySip(destination.PhoneNumber);
-                    topDestinationsStore.Add(destination);
                     continue;
                 }
 
                 if (GetUserNameByNumber(destination.PhoneNumber) != string.Empty)
                 {
                     destination.UserName = GetUserNameByNumber(destination.PhoneNumber);
-                    topDestinationsStore.Add(destination);
                     continue;
                 }
-
                 destination.UserName = "NA";
-                topDestinationsStore.Add(destination);
-                
             }
 
-            TopDestinationNumbersStore.DataSource = topDestinationsStore;
+            TopDestinationNumbersStore.DataSource = topDestinations;
             TopDestinationNumbersStore.DataBind();
         }
 
