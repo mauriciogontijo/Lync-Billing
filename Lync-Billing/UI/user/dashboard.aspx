@@ -268,12 +268,12 @@
                     </div>
                 </div>
                 
-                <div class='clear h15'></div>
+                <div class='clear h20'></div>
             <% } %>
 
             <% if(unmarked_calls_count != null) { %>
                 <% if(unmarked_calls_count > 0) { %>
-                    <div id='warning-block' class='warning-block block-body mt10 mb10 shadow'>
+                    <div id='warning-block' class='warning-block shadow'>
                         <p class="info-message"><%= String.Format("You have a total of {0} unmarked calls, to mark them pleas click <a class='link' href='/UI/user/manage_phone_calls.aspx'>here.</a>", unmarked_calls_count) %></p>
                     </div>
                 <% } else { %>
@@ -282,7 +282,7 @@
                     </div>
                 <% } %>
                 
-                <div class='clear h15'></div>
+                <div class='clear h20'></div>
             <% } %>
 
             <!-- START OF LEFT COLUMN -->

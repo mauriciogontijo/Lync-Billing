@@ -8,8 +8,9 @@ body { font-family: tahoma; font-size: 14px; color: #FFFFFF; }
 .announce-block { width: auto; display: block; border: 1px solid #B6C0D2; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
 
 .info-block, .warning-block { width: auto; height: 64px; display: block; padding: 15px 10px 15px 55px; margin: 10px 0 10px 0; border: 1px solid #B6C0D2; background-repeat: no-repeat; background-position: 10px center; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
+.info-block p.message, .warning-block p.message { height:60px; line-height: 30px; font-size: 16px; float: left; display: inline-block; }
 .info-block { background-image: url(../images/info.png); background-color: #BDE5F8; color:#00529B; }
-.info-block p.info-message { height:60px; line-height: 30px; font-size: 16px; float: left; display: inline-block; color: #00529B; }
+.warning-block { background-image: url(../images/warning.png); background-color: #FEEFB3; color:#9F6000; }
 
 .block { width: auto; margin: 0 auto; color: #FFFFFF; display: block; overflow: hidden; }
 .block-body { position: relative; width: auto; margin: 5px; display: block; padding-top: 5px; color: #000000; overflow: hidden; }

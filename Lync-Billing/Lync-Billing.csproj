@@ -113,6 +113,7 @@
     <Content Include="UI\resources\images\header-ddl-icon.png" />
     <Content Include="UI\resources\images\info.png" />
     <Content Include="UI\resources\images\tool-bg.png" />
+    <Content Include="UI\resources\images\warning.png" />
     <Content Include="UI\resources\images\x_block_bg.png" />
     <Content Include="UI\session\login.aspx" />
     <Content Include="UI\resources\css\green-layout-ie-hacks.css" />
