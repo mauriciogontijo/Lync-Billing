@@ -153,32 +153,45 @@ namespace Lync_Billing.UI.user
 
             if (DelegatedUsersComboBox.SelectedItem.Value != null)
             {
-                string SipAccount = DelegatedUsersComboBox.SelectedItem.Value.ToString();
 
-                wherePart.Add("SourceUserUri", SipAccount);
-                wherePart.Add("marker_CallTypeID", 1);
-                wherePart.Add("ac_IsInvoiced", "NO");
+                UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+                List<UsersDelegates> delegates = new List<UsersDelegates>();
+                delegates = UsersDelegates.GetSipAccounts(userSession.SipAccount);
 
-                columns.Add("SessionIdTime");
-                columns.Add("SessionIdSeq");
-                columns.Add("ResponseTime");
-                columns.Add("SessionEndTime");
-                columns.Add("marker_CallToCountry");
-                columns.Add("DestinationNumberUri");
-                columns.Add("Duration");
-                columns.Add("marker_CallCost");
-                columns.Add("ui_CallType");
-                columns.Add("ui_MarkedOn");
+                foreach (UsersDelegates userDelegate in delegates)
+                {
+                    if (userDelegate.SipAccount == DelegatedUsersComboBox.SelectedItem.Value)
+                    {
+                        string SipAccount = DelegatedUsersComboBox.SelectedItem.Value.ToString();
 
-                PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-                PhoneCallsStore.DataBind();
+                        wherePart.Add("SourceUserUri", SipAccount);
+                        wherePart.Add("marker_CallTypeID", 1);
+                        wherePart.Add("ac_IsInvoiced", "NO");
 
-                GetDelegatedUserCallsButton.Disabled = true;
+                        columns.Add("SessionIdTime");
+                        columns.Add("SessionIdSeq");
+                        columns.Add("ResponseTime");
+                        columns.Add("SessionEndTime");
+                        columns.Add("marker_CallToCountry");
+                        columns.Add("DestinationNumberUri");
+                        columns.Add("Duration");
+                        columns.Add("marker_CallCost");
+                        columns.Add("ui_CallType");
+                        columns.Add("ui_MarkedOn");
+
+                        PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                        PhoneCallsStore.DataBind();
+
+                        GetDelegatedUserCallsButton.Disabled = true;
+                    }
+                }
             }
         }
-
+    
         public void OnComboboxSelection_Change(object sender, DirectEventArgs e)
         {
+           
+
             PhoneCallsStore.RemoveAll();
             PhoneCallsStore.Dispose();
         }
