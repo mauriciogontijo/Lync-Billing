@@ -114,29 +114,19 @@
         };
 
         var onShow = function (toolTip, grid) {
+            debugger;
+
             var view = grid.getView(),
                 store = grid.getStore(),
                 record = view.getRecord(view.findItemByChild(toolTip.triggerElement)),
                 column = view.getHeaderByCell(toolTip.triggerElement),
-                data = "";
+                data = record.get(column.dataIndex);
 
             if (column.id == "main_content_place_holder_DestinationNumberUri") {
-                window.toolTipData.sip_account = "<%= ((Lync_Billing.DB.UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount %>";
-
-                Lync_Billing.Libs.BillingAPI.GetUserByNumber(
-                    window.toolTipData.sip_account,
-                    record.get("DestinationNumberUri"),
-                    function (onSuccessData) {
-                        window.toolTipData.name = onSuccessData;
-                    }
-                );
-
-                data = window.toolTipData.name;
-                toolTip.update(data);
-            } else {
-                data = record.get(column.dataIndex)
-                toolTip.update(data);
+                data = record.get("PhoneBookName");
             }
+
+            toolTip.update(data);
         };
 
     </script>

@@ -134,7 +134,7 @@ namespace Lync_Billing.UI.user
                     destination.UserName = GetUserNameByNumber(destination.PhoneNumber);
                     continue;
                 }
-                destination.UserName = "NA";
+                destination.UserName = "N/A";
             }
 
             TopDestinationNumbersStore.DataSource = topDestinations;

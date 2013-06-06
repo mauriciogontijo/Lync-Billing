@@ -151,8 +151,8 @@ namespace Lync_Billing.UI.user
             foreach (PhoneCall phoneCall in phoneCalls) 
             {
                 phoneCall.PhoneBookName = GetUserNameByNumber(phoneCall.DestinationNumberUri);
-                if(phoneCall.PhoneBookName == null)
-                       phoneCall.PhoneBookName  = "N-A";
+                if (phoneCall.PhoneBookName == null || phoneCall.PhoneBookName == string.Empty)
+                       phoneCall.PhoneBookName  = "N/A";
             }
 
             PhoneCallsStore.DataSource = phoneCalls;
