@@ -149,6 +149,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0; color: #333; text-rendering: optimizeLegibil
 .text-center { text-align: center; }
 .text-left { text-align: left; }
 .text-right { text-align: right; }
+.vertical-center { vertical-align: central; } 
 /* end text alingment */
 
 
@@ -223,6 +224,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0; color: #333; text-rendering: optimizeLegibil
 .h20 { height: 20px; }
 .h25 { height: 25px; }
 .h30 { height: 30px; }
+.h32 { height: 32px; }
 .h35 { height: 35px; }
 .h40 { height: 40px; }
 .h45 { height: 45px; }

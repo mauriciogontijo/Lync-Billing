@@ -90,7 +90,7 @@
         //Pie Chart Data-Lable Renderer for Countries Destinations Calls
         var TopCountries_LableRenderer = function (storeItem, item) {
             var total = 0, all_countries_data = {};
-
+            debugger;
             App.TopDestinationCountriesChart.getStore().each(function (rec) {
                 total += rec.get('TotalDuration');
 
@@ -101,7 +101,7 @@
             });
 
             if (all_countries_data[storeItem] != undefined) {
-                return ((all_countries_data[storeItem] / total).toFixed(4) * 100.0).toFixed(2) + '%';
+                return ((all_countries_data[storeItem] * 1.0 / total).toFixed(4) * 100.0).toFixed(2) + '%';
             }
         };
 
@@ -132,8 +132,7 @@
         };
 
         var redirect_to_manage_phonecalls = function () {
-            to = "/UI/user/view_statistics.aspx"
-            window.location = to;
+            //window.location = 'dashboard.aspx';
         };
 
         var redirect_to = function (destination) {
@@ -259,8 +258,8 @@
         </div>
         <!-- toolbar block-->
 
-        <div id='main' class='main bottom-rounded'>
-            <div id='announcements' class='announcements shadow mb20 p10'>
+        <div id='main' class='main-container bottom-rounded'>
+            <div id='announcements' class='announcements-block shadow mb20 p10'>
                 <div class='m10'>
                     <p class='font-18'>ANNOUNCEMENTS!</p>
                 </div>
@@ -269,7 +268,16 @@
                 </div>
             </div>
 
-            <div class='clear h15'></div>
+            <div class='clear h25'></div>
+
+            <div id='information-block' class='info-block shadow mb20 p10'>
+                <div class="block-body">
+                    <span class="float-left info-icon"></span>
+                    <p class='float-left font-14 vertical-center'>asdasdasdasdasdasd asdasdasasdaasdasasddas.</p>
+                </div>
+            </div>
+
+            <div class='clear h25'></div>
 
             <!-- START OF LEFT COLUMN -->
             <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
@@ -311,7 +319,7 @@
                                     </Store>
                                     <Series>
                                         <ext:PieSeries
-                                            AngleField="TotalCost"
+                                            AngleField="TotalDuration"
                                             ShowInLegend="true"
                                             Donut="30"
                                             Highlight="true"
@@ -522,7 +530,7 @@
 
         <div class='clear h10'></div>
 
-        <div id='footer' class='footer'>
+        <div id='footer' class='footer-container'>
         </div>
     </form>
 </body>
