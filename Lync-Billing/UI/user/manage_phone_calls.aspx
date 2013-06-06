@@ -13,6 +13,9 @@
     </style>
 
     <script type="text/javascript">
+        toolTipData = { "name": {}, "sip_account": "" };
+        window.toolTipData = toolTipData;
+
         BrowserDetect.init();
 
         $(document).ready(function () {
@@ -116,6 +119,21 @@
                 record = view.getRecord(view.findItemByChild(toolTip.triggerElement)),
                 column = view.getHeaderByCell(toolTip.triggerElement),
                 data = record.get(column.dataIndex);
+
+            if (column.id == "main_content_place_holder_DestinationNumberUri") {
+                window.toolTipData.sip_account = "<%= ((Lync_Billing.DB.UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount %>";
+
+                Lync_Billing.Libs.BillingAPI.GetUserByNumber(
+                    window.toolTipData.sip_account,
+                    record.get("DestinationNumberUri"),
+                    function (onSuccessData) {
+                        window.toolTipData = onSuccessData;
+                    }
+                );
+
+                data = window.toolTipData;
+            }
+
             toolTip.update(data);
         };
 
@@ -409,13 +427,6 @@
                 Target="={#{ManagePhoneCallsGrid}.getView().el}"
                 Delegate=".x-grid-cell"
                 TrackMouse="true">
-                 <DirectEvents>
-                     <Show OnEvent="ToolTipShow_Event" >
-                         <ExtraParams>
-                             <ext:Parameter Name="Grid" Value="#{ManagePhoneCallsGrid});" />
-                         </ExtraParams>
-                     </Show>
-                 </DirectEvents>
                 <Listeners>
                     <Show Handler="onShow(this, #{ManagePhoneCallsGrid});" /> 
                 </Listeners>
