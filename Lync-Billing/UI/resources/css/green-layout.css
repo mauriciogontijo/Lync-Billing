@@ -8,7 +8,7 @@ body { font-family: tahoma; font-size: 14px; color: #FFFFFF; }
 .announce-block { width: auto; display: block; border: 1px solid #B6C0D2; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
 
 .info-block { width: auto; display: block; background-image: none; background-color: #BDE5F8; border: 1px solid #B6C0D2; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
-.info-block p.info-message { line-height: 30px; font-size: 14px; float: left; display: inline-block; }
+.info-block p.info-message { line-height: 30px; font-size: 14px; float: left; display: inline-block; color: #00529B; }
 .info-block span.info-icon { background:url(../images/info-4.png) no-repeat; display:inline-block; vertical-align:middle; width:32px; height:32px; margin:0 15px 0 0; float: left;}
 
 .block { width: auto; margin: 0 auto; color: #FFFFFF; display: block; overflow: hidden; }
