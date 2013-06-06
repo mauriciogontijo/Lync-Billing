@@ -116,7 +116,7 @@
                 record = view.getRecord(view.findItemByChild(toolTip.triggerElement)),
                 column = view.getHeaderByCell(toolTip.triggerElement),
                 data = record.get(column.dataIndex);
-                toolTip.update(data);
+            toolTip.update(data);
         };
 
     </script>
@@ -234,11 +234,7 @@
                 AutoScroll="true"
                 Header="true"
                 Scroll="Both"
-                Layout="FitLayout"
-                >
-                <DirectEvents>
-                    <ItemMouseEnter OnEvent="GridFocus_Event" />
-                </DirectEvents>
+                Layout="FitLayout">
 
                 <Store>
                     <ext:Store 
@@ -413,9 +409,9 @@
                 Target="={#{ManagePhoneCallsGrid}.getView().el}"
                 Delegate=".x-grid-cell"
                 TrackMouse="true">
-               <%-- <DirectEvents>
-                    <BeforeShow OnEvent="ToolTip_Event" />
-                </DirectEvents>--%>
+                <Listeners>
+                    <Show Handler="onShow(this, #{ManagePhoneCallsGrid});" /> 
+                </Listeners>
         </ext:ToolTip>     
         </div>
     </div>
