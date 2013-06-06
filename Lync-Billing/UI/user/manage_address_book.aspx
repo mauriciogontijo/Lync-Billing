@@ -172,6 +172,9 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
+                                 <Plugins>
+                                    <ext:RowEditing ID="RowEditing2" runat="server" ClicksToMoveEditor="1" AutoCancel="false" />
+                                </Plugins> 
                                     <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
                                     <Columns>
                                         <ext:Column
@@ -189,18 +192,36 @@
                                             DataIndex="DestinationCountry" />
 
                                         <ext:Column
-                                            ID="ContactName"
                                             runat="server"
                                             Text="Contact Name"
                                             Width="260"
-                                            DataIndex="Name" />
+                                            DataIndex="Name">
+                                              <Editor>
+                                                <ext:TextField ID="ContactName" 
+                                                    runat="server"
+                                                    EmptyText="Example: John Smith" 
+                                                    DataIndex="Name" />
+                                                </Editor>
+                                             </ext:Column>
 
                                         <ext:Column
                                             ID="ContactType"
                                             runat="server"
                                             Text="Contact Type"
                                             Width="160"
-                                            DataIndex="Type" />
+                                            DataIndex="Type">
+                                            <Editor>
+                                                <ext:ComboBox ID="ComboBox1"
+                                                    runat="server"
+                                                    EmptyText="Please Select Type"
+                                                    DataIndex="Type">
+                                                    <Items>
+                                                        <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
+                                                        <ext:ListItem Text="Business" Value="Business" Mode="Value" />
+                                                    </Items>
+                                                </ext:ComboBox>
+                                            </Editor>
+                                        </ext:Column>
                                     </Columns>
                                 </ColumnModel>
 
