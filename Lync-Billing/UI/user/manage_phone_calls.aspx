@@ -278,6 +278,7 @@
                                     <ext:ModelField Name="Marker_CallCost" Type="Float" />
                                     <ext:ModelField Name="UI_CallType" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
+                                    <ext:ModelField Name="PhoneBookName" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
