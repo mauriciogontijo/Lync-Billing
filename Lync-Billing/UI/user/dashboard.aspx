@@ -211,22 +211,19 @@
                                 <a title="Home" href="/UI/user/dashboard.aspx">Home</a>
                             </li>
 
-                            <li id="manage-phonecalls-tab" class="">
-                                <a title="Manage My Phone Calls" href="/UI/user/manage_phone_calls.aspx">My Phone Calls</a>
-                            </li>
-
                             <li id="user-tab" class="">
                                 <a href="#">User Tools<span class="drop"></span></a>
                                 <ul id="user-dropdown">
-                                    <li class=""><a href="/UI/user/manage_address_book.aspx">Address Book</a></li>
+                                    <li id="manage-phonecalls-tab" class="seperate-down"><a title="Manage My Phone Calls" href="/UI/user/manage_phone_calls.aspx">Phone Calls</a></li>
+                                    <li class=""><a title="Address Book" href="/UI/user/manage_address_book.aspx">Address Book</a></li>
                                     <%
                                         bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                         if (is_delegate) {
                                     %>
                                         <li class=""><a href="/UI/user/manage_delegates.aspx">Delegated Users</a></li>
                                     <% } %>
-                                    <li class=""><a href="/UI/user/view_history.aspx">Calls History</a></li>
-                                    <li class="last-child"><a href="/UI/user/view_statistics.aspx">Calls Statistics</a></li>
+                                    <li class=""><a title="Call History" href="/UI/user/view_history.aspx">Calls History</a></li>
+                                    <li class="last-child"><a title="Call Statistics" href="/UI/user/view_statistics.aspx">Calls Statistics</a></li>
                                 </ul>
                             </li>
 
