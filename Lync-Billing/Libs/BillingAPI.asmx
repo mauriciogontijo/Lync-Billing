@@ -147,7 +147,7 @@ namespace Lync_Billing.Libs
             if (phoneBookEntries.ContainsKey(phoneNumber))
                 return phoneBookEntries[phoneNumber].Name;
             else
-                return string.Empty;
+                return "N-A";
         }
 
         /// <summary>
