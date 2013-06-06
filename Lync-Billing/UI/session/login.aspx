@@ -15,7 +15,7 @@
 		<div class="front-welcome float-left p10">
 			<div class="front-welcome-text">
 			    <h1>Welcome to eBill</h1>
-			    <p>Manage your phone calls, bills and your phone calls history from one place.</p>
+			    <p>Manage your phone calls, bills, your phone calls statistics and history from one place, now!</p>
 			</div>
 		</div>
 

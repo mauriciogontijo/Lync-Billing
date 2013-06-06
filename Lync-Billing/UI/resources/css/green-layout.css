@@ -23,7 +23,7 @@ body { font-family: tahoma; font-size: 14px; color: #FFFFFF; }
 /* *************************** */
 /* start the login box styling */
 .front-container { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: none; min-height: 545px; max-height: 750px; }
-.front-card { display: block; position: absolute; left: 50%; top: 50%; height: 140px; width: 960px; margin: -150px 0 0 -490px; z-index: 10; }
+.front-card { display: block; position: absolute; left: 50%; top: 50%; height: 140px; width: 930px; margin: -150px 0 0 -480px; z-index: 10; }
 .front-signin { display: block; position: absolute; top: 0px; right: 0px; /*width: 210px;*/ /*height: 108px;*/ width: auto; height: auto; background: #fff; background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#fff),color-stop(100%,#ddd)); background: -webkit-linear-gradient(top,#fff 0,#ddd 100%); background: -moz-linear-gradient(top,#fff 0,#ddd 100%); background: -ms-linear-gradient(top,#fff 0,#ddd 100%); background: -o-linear-gradient(top,#fff 0,#ddd 100%); background: linear-gradient(top,#fff 0,#ddd 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#dddddd',GradientType=0); border-left: solid 1px #eee; border-right: solid 1px #eee; border-bottom: solid 1px #ccc; -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1); -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1); box-shadow: 0 1px 0 rgba(0,0,0,.1); }
 .front-signin .placeholding-input { height: 28px; color: #333; }
 
