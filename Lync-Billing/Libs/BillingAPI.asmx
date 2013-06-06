@@ -27,7 +27,7 @@ namespace Lync_Billing.Libs
         [WebMethod]
         public object GetUserSession() 
         {
-            return (UserSession)HttpContext.Current.Session.Contents["UserData"];
+            return ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
         }  
         /// <summary>
         /// Authenticate user based on Email Address and Password
