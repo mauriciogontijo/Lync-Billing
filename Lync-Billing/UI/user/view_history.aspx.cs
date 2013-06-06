@@ -65,7 +65,7 @@ namespace Lync_Billing.UI.user
 
             wherePart.Add("SourceUserUri", SipAccount);
             wherePart.Add("marker_CallTypeID", 1);
-            //wherePart.Add("ac_IsInvoiced", "NO");
+            //wherePart.Add("ac_IsInvoiced", "YES");
                
             columns.Add("SessionIdTime");
             columns.Add("marker_CallToCountry");
