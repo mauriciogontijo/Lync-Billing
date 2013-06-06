@@ -390,7 +390,6 @@
                                 <ext:Store
                                     ID="TopDestinationNumbersStore"
                                     runat="server"
-                                    IsPagingStore="true"
                                     OnLoad="TopDestinationNumbersStore_Load">
                                     <Model>
                                         <ext:Model ID="TopDestinationNumbersModel" runat="server" IDProperty="SessionIdTime">
@@ -409,7 +408,7 @@
                                     <ext:Column
                                         ID="PhoneNumber"
                                         runat="server"
-                                        Text="Number / Email"
+                                        Text="Number / Sip"
                                         Width="160"
                                         DataIndex="PhoneNumber">
                                     </ext:Column>
