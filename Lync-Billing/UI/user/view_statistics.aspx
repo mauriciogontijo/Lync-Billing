@@ -14,6 +14,7 @@
 
 	    $(document).ready(function () {
 	        $('#navigation-tabs>li.selected').removeClass('selected');
+	        $('#user-tab').addClass('selected');
 	    });
 
 	    var GetHoursFromMinutes = function (value) {

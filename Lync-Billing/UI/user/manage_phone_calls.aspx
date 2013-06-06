@@ -17,7 +17,7 @@
 
         $(document).ready(function () {
             $('#navigation-tabs>li.selected').removeClass('selected');
-            $('#manage-phonecalls-tab').addClass('selected');
+            $('#user-tab').addClass('selected');
         });
 
         function RoundCost(value, meta, record, rowIndex, colIndex, store) {
