@@ -144,10 +144,10 @@
                                 runat="server" 
                                 Vtype="text"
                                 FieldLabel="User Group Number:"
-                                LabelWidth="100"
+                                LabelWidth="110"
                                 EmptyText="Number Only"
-                                Margins="0 15 0 5"
-                                Width="185"
+                                Margins="0 10 0 5"
+                                Width="195"
                                 EnableKeyEvents="true" />
 
                             <ext:DateField 
@@ -157,7 +157,7 @@
                                 FieldLabel="Starting Date:"
                                 LabelWidth="70"
                                 EmptyText="Empty Date"
-                                Margins="0 15 0 5"
+                                Margins="0 10 0 5"
                                 Width="190"
                                 EnableKeyEvents="true">
                                 <CustomConfig>

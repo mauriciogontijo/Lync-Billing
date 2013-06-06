@@ -143,7 +143,7 @@
                                 ID="GroupNumberField"
                                 runat="server" 
                                 FieldLabel="User Group Number:"
-                                LabelWidth="100"
+                                LabelWidth="115"
                                 EmptyText="Number Only"
                                 Margins="0 25 0 5" />
 
@@ -155,7 +155,7 @@
                                 LabelWidth="115"
                                 EmptyText="Empty Date"
                                 Width="300"
-                                Margins="0 55 0 5">
+                                Margins="0 40 0 5">
                                 <CustomConfig>
                                     <ext:ConfigItem Name="DateField" Value="DateField1" Mode="Value" />
                                 </CustomConfig>
