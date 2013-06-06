@@ -15,9 +15,11 @@ namespace Lync_Billing.UI.user
 {
     public partial class manage_phone_calls : System.Web.UI.Page
     {
-        Dictionary<string, object> wherePart = new Dictionary<string, object>();
-        List<string> columns = new List<string>();
-        
+        public Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        public Dictionary<string, PhoneBook> phoneBookEntries;
+        public List<string> columns = new List<string>();
+        public List<PhoneCall> phoneCalls;
+        string sipAccount = string.Empty;
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,6 +28,9 @@ namespace Lync_Billing.UI.user
             {
                 Response.Redirect("~/UI/session/login.aspx");
             }
+            
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+            phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
         }
 
         protected void AssignBusiness(object sender, DirectEventArgs e)
@@ -142,8 +147,26 @@ namespace Lync_Billing.UI.user
             columns.Add("ui_CallType");
             columns.Add("ui_MarkedOn");
 
-            PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            foreach (PhoneCall phoneCall in phoneCalls) 
+            {
+                phoneCall.PhoneBookName = (GetUserNameByNumber(phoneCall.DestinationNumberUri)
+                if(phoneCall.PhoneBookName == null)
+                       phoneCall.PhoneBookName  = "N-A";
+            }
+
+            PhoneCallsStore.DataSource = phoneCalls;
+
+
             PhoneCallsStore.DataBind();
+        }
+
+        private string GetUserNameByNumber(string phoneNumber)
+        {
+            if (phoneBookEntries.ContainsKey(phoneNumber))
+                return phoneBookEntries[phoneNumber].Name;
+            else
+                return string.Empty;
         }
     }
 }
