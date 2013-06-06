@@ -127,16 +127,16 @@
                     window.toolTipData.sip_account,
                     record.get("DestinationNumberUri"),
                     function (onSuccessData) {
-                        window.toolTipData = onSuccessData;
+                        window.toolTipData.name = onSuccessData;
                     }
                 );
 
-                data = window.toolTipData;
+                data = window.toolTipData.name;
+                toolTip.update(data);
             } else {
                 data = record.get(column.dataIndex)
+                toolTip.update(data);
             }
-
-            toolTip.update(data);
         };
 
     </script>
