@@ -90,7 +90,6 @@
         //Pie Chart Data-Lable Renderer for Countries Destinations Calls
         var TopCountries_LableRenderer = function (storeItem, item) {
             var total = 0, all_countries_data = {};
-            debugger;
             App.TopDestinationCountriesChart.getStore().each(function (rec) {
                 total += rec.get('TotalDuration');
 
@@ -259,7 +258,7 @@
         <!-- toolbar block-->
 
         <div id='main' class='main-container bottom-rounded'>
-            <div id='announcements' class='announcements-block shadow mb20 p10'>
+            <div id='announcements' class='announce-block shadow mb20 p10'>
                 <div class='m10'>
                     <p class='font-18'>ANNOUNCEMENTS!</p>
                 </div>
@@ -269,11 +268,11 @@
             </div>
 
             <div class='clear h25'></div>
-
+            
             <div id='information-block' class='info-block shadow mb20 p10'>
                 <div class="block-body">
-                    <span class="float-left info-icon"></span>
-                    <p class='float-left font-14 vertical-center'>asdasdasdasdasdasd asdasdasasdaasdasasddas.</p>
+                    <span class="info-icon"></span>
+                    <p class="info-message">asdasdasdasdasdasd asdasdasasdaasdasasddas.</p>
                 </div>
             </div>
 

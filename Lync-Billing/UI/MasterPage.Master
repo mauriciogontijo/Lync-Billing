@@ -114,14 +114,14 @@
                 <!-- toolbar block-->
             <% } %>
 
-            <div id='main' class='main bottom-rounded'>
+            <div id='main' class='main-container bottom-rounded'>
                 <asp:ContentPlaceHolder ID="main_content_place_holder" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
 
             <div class='clear h10'></div>
 
-		    <div id='footer' class='footer'>
+		    <div id='footer' class='footer-container'>
 		    </div>
         </form>
     </body>

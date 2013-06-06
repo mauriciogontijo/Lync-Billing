@@ -14,7 +14,8 @@ namespace Lync_Billing.UI.user
 {
     public partial class dashboard : System.Web.UI.Page
     {
-        
+        public int unmarked_calls_count = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -23,12 +24,16 @@ namespace Lync_Billing.UI.user
                 Response.Redirect("~/UI/session/login.aspx");
             }
 
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            string sip_account = string.Empty;
+            int unmarked_calls_count = 0;
 
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, 1, 12);
+            sip_account = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+            unmarked_calls_count = UsersCallsSummary.GetUsersCallsSummary(sip_account, DateTime.Now.AddMonths(-3), DateTime.Now).UnmarkedCallsCount;
+
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sip_account, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
 
-            TopDestinationNumbersStore.DataSource = TopDestinations.GetTopDestinations(SipAccount);
+            TopDestinationNumbersStore.DataSource = TopDestinations.GetTopDestinations(sip_account);
             TopDestinationNumbersStore.DataBind();
         }
 
@@ -37,13 +42,12 @@ namespace Lync_Billing.UI.user
         {
             if (HttpContext.Current.Session.Contents["UserData"] != null)
             {
-                string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
-
-                UsersCallsSummary userSummary = new UsersCallsSummary();
-
-                userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
-
                 List<AbstractComponent> components = new List<AbstractComponent>();
+                UsersCallsSummary userSummary = new UsersCallsSummary();
+                string SipAccount = string.Empty;
+                
+                SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+                userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
 
                 Ext.Net.Panel personalPanel = new Ext.Net.Panel()
                 {
