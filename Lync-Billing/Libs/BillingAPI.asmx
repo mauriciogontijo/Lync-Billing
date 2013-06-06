@@ -148,7 +148,6 @@ namespace Lync_Billing.Libs
         [WebMethod]
         public object GetUserByNumber(string sipAccount, string phoneNumber) 
         {
-            string sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
             Dictionary<string, PhoneBook> phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
             if (phoneBookEntries.ContainsKey(phoneNumber))
                 return serializer.Serialize(phoneBookEntries[phoneNumber].Name);
