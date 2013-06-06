@@ -121,13 +121,13 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Column PhoneNumber;
         
         /// <summary>
-        /// Internal control.
+        /// UserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Internal;
+        protected global::Ext.Net.Column UserName;
         
         /// <summary>
         /// NumberOfPhoneCalls control.

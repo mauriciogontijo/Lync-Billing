@@ -396,7 +396,7 @@
                                         <ext:Model ID="TopDestinationNumbersModel" runat="server" IDProperty="SessionIdTime">
                                             <Fields>
                                                 <ext:ModelField Name="PhoneNumber" Type="String" />
-                                                <ext:ModelField Name="Internal" Type="String" />
+                                                <ext:ModelField Name="UserName" Type="String" />
                                                 <ext:ModelField Name="NumberOfPhoneCalls" Type="Int" />
                                             </Fields>
                                         </ext:Model>
@@ -415,11 +415,11 @@
                                     </ext:Column>
 
                                     <ext:Column
-                                        ID="Internal"
+                                        ID="UserName"
                                         runat="server"
                                         Text="User"
                                         Width="180"
-                                        DataIndex="Internal" />
+                                        DataIndex="UserName" />
 
                                     <ext:Column
                                         ID="NumberOfPhoneCalls"

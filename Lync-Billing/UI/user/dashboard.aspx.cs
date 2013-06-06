@@ -120,7 +120,30 @@ namespace Lync_Billing.UI.user
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
            
             topDestinations = TopDestinations.GetTopDestinations(userSession.SipAccount);
-            TopDestinationNumbersStore.DataSource = topDestinations;
+            List<TopDestinations> topDestinationsStore = new List<TopDestinations>();
+
+            foreach (TopDestinations destination in topDestinations) 
+            {
+                if (GetUserNameBySip(destination.PhoneNumber) != string.Empty)
+                {
+                    destination.UserName = GetUserNameBySip(destination.PhoneNumber);
+                    topDestinationsStore.Add(destination);
+                    continue;
+                }
+
+                if (GetUserNameByNumber(destination.PhoneNumber) != string.Empty)
+                {
+                    destination.UserName = GetUserNameByNumber(destination.PhoneNumber);
+                    topDestinationsStore.Add(destination);
+                    continue;
+                }
+
+                destination.UserName = "NA";
+                topDestinationsStore.Add(destination);
+                
+            }
+
+            TopDestinationNumbersStore.DataSource = topDestinationsStore;
             TopDestinationNumbersStore.DataBind();
         }
 
@@ -142,7 +165,7 @@ namespace Lync_Billing.UI.user
             return UsersCallsSummary.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, fromDate, DateTime.Now).UnmarkedCallsCount;
         }
 
-        protected string GetUserNameByNumber(string phoneNumber) 
+        private string GetUserNameByNumber(string phoneNumber) 
         {
             if (phoneBookEntries.ContainsKey(phoneNumber))
                 return phoneBookEntries[phoneNumber].Name;
@@ -150,7 +173,7 @@ namespace Lync_Billing.UI.user
                 return string.Empty;
         }
      
-        protected string GetUserNameBySip(string sipAccount) 
+        private string GetUserNameBySip(string sipAccount) 
         {
             AdLib adRoutines = new AdLib();
             string DisplayName = adRoutines.getUserAttributes(sipAccount).DisplayName;
