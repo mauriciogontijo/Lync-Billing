@@ -93,6 +93,33 @@ namespace Lync_Billing.UI.user
             }
         }
 
+        protected void DeleteFromAddressBook(object sender, DirectEventArgs e)
+        {
+            string json = e.ExtraParams["Values"];
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+            List<PhoneBook> to_be_deleted_entries = new List<PhoneBook>();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            to_be_deleted_entries = serializer.Deserialize<List<PhoneBook>>(json);
+
+            if (to_be_deleted_entries.Count > 0)
+            {
+                //Delete these items
+                //...
+                //...
+
+                //Then, update the grid
+                /*foreach (PhoneBook entry in to_be_deleted_entries)
+                {
+                    AddressBookGrid.GetStore().Find("DestinationNumber", entry.DestinationNumber.ToString()).Destroy();
+                    AddressBookGrid.GetStore().Find("DestinationNumber", entry.DestinationNumber.ToString()).Commit();
+                }*/
+            }
+            BindDataToGrids(true);
+            AddressBookGrid.GetSelectionModel().DeselectAll();
+        }
+
         /*
          * AddressBook Data Binding
          */

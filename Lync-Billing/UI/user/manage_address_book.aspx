@@ -215,6 +215,39 @@
                                             DataIndex="Type" />
                                     </Columns>
                                 </ColumnModel>
+
+                                <SelectionModel>
+                                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1" 
+                                        runat="server" 
+                                        Mode="Multi" 
+                                        AllowDeselect="true"
+                                        IgnoreRightMouseSelection="true"
+                                        CheckOnly="true">
+                                    </ext:CheckboxSelectionModel>
+                                </SelectionModel>
+
+                                <TopBar>
+                                    <ext:Toolbar
+                                        ID="Toolbar1"
+                                        runat="server">
+                                        <Items>
+                                            <ext:Button
+                                                ID="Button1"
+                                                Text="Delete Selected"
+                                                Icon="Delete"
+                                                runat="server">
+                                                <DirectEvents>
+                                                    <Click OnEvent="DeleteFromAddressBook">
+                                                        <EventMask ShowMask="true" />
+                                                        <ExtraParams>
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{AddressBookGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                        </ExtraParams>
+                                                    </Click>
+                                                </DirectEvents>
+                                            </ext:Button>
+                                        </Items>
+                                    </ext:Toolbar>
+                                </TopBar>
                             </ext:GridPanel>
                         </Items>
                     </ext:Panel>
@@ -338,7 +371,7 @@
                                         <Items>
                                             <ext:Button
                                                 ID="ImportItems"
-                                                Text="Import Edited Items"
+                                                Text="Import To Address Book"
                                                 Icon="Add"
                                                 runat="server">
                                                 <DirectEvents>
