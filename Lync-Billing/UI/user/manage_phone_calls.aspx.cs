@@ -146,7 +146,7 @@ namespace Lync_Billing.UI.user
             PhoneCallsStore.DataBind();
         }
 
-        protected void GridFocus_Event(View view, Model record, object item, DirectEventArgs e, object sender)
+        protected void GridFocus_Event(object sender, DirectEventArgs e)
         {
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
             
