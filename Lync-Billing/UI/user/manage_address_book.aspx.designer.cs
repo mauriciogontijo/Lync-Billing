@@ -85,6 +85,15 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.RowEditing RowEditing2;
         
         /// <summary>
+        /// RowNumbererColumn2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
+        
+        /// <summary>
         /// DestNumber control.
         /// </summary>
         /// <remarks>

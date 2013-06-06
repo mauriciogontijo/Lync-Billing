@@ -177,24 +177,25 @@
                                 </Plugins> 
                                     <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
                                     <Columns>
+                                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
                                         <ext:Column
                                             ID="DestNumber"
                                             runat="server"
                                             Text="Number"
-                                            Width="150"
+                                            Width="120"
                                             DataIndex="DestinationNumber" />
 
                                         <ext:Column
                                             ID="DestCountry"
                                             runat="server"
                                             Text="Country"
-                                            Width="100"
+                                            Width="150"
                                             DataIndex="DestinationCountry" />
 
                                         <ext:Column
                                             runat="server"
                                             Text="Contact Name"
-                                            Width="260"
+                                            Width="220"
                                             DataIndex="Name">
                                               <Editor>
                                                 <ext:TextField ID="ContactName" 
@@ -214,6 +215,7 @@
                                                 <ext:ComboBox ID="ComboBox1"
                                                     runat="server"
                                                     EmptyText="Please Select Type"
+                                                    Width="140"
                                                     DataIndex="Type">
                                                     <Items>
                                                         <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
