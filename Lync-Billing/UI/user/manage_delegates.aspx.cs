@@ -17,6 +17,7 @@ namespace Lync_Billing.UI.user
     {
         Dictionary<string, object> wherePart = new Dictionary<string, object>();
         List<string> columns = new List<string>();
+        List<UsersDelegates> delegates = new List<UsersDelegates>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,6 +35,8 @@ namespace Lync_Billing.UI.user
                 {
                     Response.Redirect("~/UI/User_Dashboard.aspx");
                 }
+
+                delegates = UsersDelegates.GetSipAccounts(session.SipAccount);
             }
         }
 
@@ -152,9 +155,9 @@ namespace Lync_Billing.UI.user
             PhoneCallsStore.Dispose();
             
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            string DelegatedAccount = UsersDelegates.GetDelegateAccount(DelegatedUsersComboBox.SelectedItem.Value).DelegeeAccount;
 
-            if (DelegatedUsersComboBox.SelectedItem.Value != null &&
-                UsersDelegates.GetDelegateAccount(userSession.SipAccount).SipAccount == DelegatedUsersComboBox.SelectedItem.Value)
+            if (DelegatedUsersComboBox.SelectedItem.Value != null && DelegatedAccount == userSession.SipAccount)
             {
                 UsersDelegates userDelegate = new UsersDelegates();
                 userDelegate = UsersDelegates.GetDelegateAccount(userSession.SipAccount);
@@ -180,6 +183,10 @@ namespace Lync_Billing.UI.user
                 PhoneCallsStore.DataBind();
 
                 GetDelegatedUserCallsButton.Disabled = true;
+            }
+            else 
+            {
+
             }
         }
     
