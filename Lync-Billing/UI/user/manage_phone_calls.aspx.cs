@@ -153,5 +153,11 @@ namespace Lync_Billing.UI.user
             ToolTip1.Data = "test";
             ToolTip1.Show();
         }
+
+        protected void ToolTipShow_Event(object sender, DirectEventArgs e)
+        {
+            ToolTip1.Data = "test";
+            ToolTip1.Show();
+        }
     }
 }

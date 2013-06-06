@@ -409,6 +409,13 @@
                 Target="={#{ManagePhoneCallsGrid}.getView().el}"
                 Delegate=".x-grid-cell"
                 TrackMouse="true">
+                 <DirectEvents>
+                     <Show OnEvent="ToolTipShow_Event" >
+                         <ExtraParams>
+                             <ext:Parameter Name="Grid" Value="#{ManagePhoneCallsGrid});" />
+                         </ExtraParams>
+                     </Show>
+                 </DirectEvents>
                 <Listeners>
                     <Show Handler="onShow(this, #{ManagePhoneCallsGrid});" /> 
                 </Listeners>
