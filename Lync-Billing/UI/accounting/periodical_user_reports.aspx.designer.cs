@@ -11,7 +11,7 @@ namespace Lync_Billing.UI.accounting {
     
     
     public partial class periodical_user_reports {
-        
+        /*
         /// <summary>
         /// UserToolsSidebar control.
         /// </summary>
@@ -83,5 +83,6 @@ namespace Lync_Billing.UI.accounting {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button Button1;
+         * */
     }
 }
