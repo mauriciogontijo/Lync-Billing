@@ -41,7 +41,7 @@ namespace Lync_Billing.DB
         public DateTime AC_DisputeResolvedOn { set; get; }
         public string AC_IsInvoiced { set; get; }
         public DateTime AC_InvoiceDate { set; get; }
-        public string AddressBookName { set; get; }
+        public string PhoneBookName { set; get; }
 
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
