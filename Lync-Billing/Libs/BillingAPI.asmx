@@ -23,7 +23,12 @@ namespace Lync_Billing.Libs
         public BillingAPI() { }
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         #region Users Related
-        
+
+        [WebMethod]
+        public object getSession() 
+        {
+            return HttpContext.Current.Session.Contents["UserData"];
+        }  
         /// <summary>
         /// Authenticate user based on Email Address and Password
         /// If Success Get User Information
