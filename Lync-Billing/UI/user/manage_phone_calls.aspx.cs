@@ -150,7 +150,7 @@ namespace Lync_Billing.UI.user
             phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             foreach (PhoneCall phoneCall in phoneCalls) 
             {
-                phoneCall.PhoneBookName = (GetUserNameByNumber(phoneCall.DestinationNumberUri)
+                phoneCall.PhoneBookName = GetUserNameByNumber(phoneCall.DestinationNumberUri);
                 if(phoneCall.PhoneBookName == null)
                        phoneCall.PhoneBookName  = "N-A";
             }
