@@ -105,6 +105,7 @@
     <Content Include="UI\accounting\monthly_user_reports.aspx" />
     <Content Include="UI\accounting\periodical_site_reports.aspx" />
     <Content Include="UI\accounting\periodical_user_reports.aspx" />
+    <Content Include="UI\resources\css\dropdown-menu-white.css" />
     <Content Include="UI\resources\css\dropdown-menu.css" />
     <Content Include="UI\resources\css\global.css" />
     <Content Include="UI\resources\css\layouts.css" />

@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.UI.user.dashboard" %>
 <%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
 
-<%-- USER DASHBOARD --%>
-
 <?xml version="1.1" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -18,7 +16,8 @@
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/toolkit.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/global.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/green-layout.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="../resources/css/dropdown-menu.css" />
+    <!--<link rel="stylesheet" type="text/css" media="all" href="/UI/resources/css/dropdown-menu.css" />-->
+    <link rel="stylesheet" type="text/css" media="all" href="/UI/resources/css/dropdown-menu-white.css" />
 
     <script type="text/javascript" src="../resources/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../resources/js/browserdetector.js"></script>
@@ -205,24 +204,12 @@
                 <div class="col size2of3">
                     <div class="ie7flot-fix" ><!--ie7 fix-->
                         <ul id="navigation-tabs" class="vertical-navigation">
-                            <li id="settings-tab" class="">
-                                <a href="#"><span class="settings"></span>&nbsp;<span class="drop"></span></a>
-                                <ul id="settings-dropdown">
-                                    <% 
-                                        bool is_accounting = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                                        if (is_accounting) {
-                                    %>
-                                        <li class="separator-bottom"><a title="Escalate to Accounting Access" href="/UI/accounting/dashboard.aspx">Switch to Accounting Role</a></li>
-                                    <% } %>
-                                    <li class=""><a title="Logout" href="/UI/session/logout.aspx">Logout</a></li>
-                                </ul>
-                            </li>
-
                             <li id="user-tab" class="">
-                                <a href="#">User Tools<span class="drop"></span></a>
-                                <!--<a title="User Tools" href="#"><span class="settings"></span></a>-->
+                                <a href="#"><%= ((Lync_Billing.DB.UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName %><span class="drop"></span></a>
                                 <ul id="user-dropdown">
-                                    <li id="manage-phonecalls-tab"><a title="Manage My Phone Calls" href="/UI/user/manage_phone_calls.aspx">Phone Calls</a></li>
+                                    <!--<li class="separator-bottom"><a title="Home" href="/UI/user/dashboard.aspx">Dashboard</a></li>-->
+
+                                    <li class="first-child"><a title="Manage My Phone Calls" href="/UI/user/manage_phone_calls.aspx">Phone Calls</a></li>
                                     <li class=""><a title="Address Book" href="/UI/user/manage_address_book.aspx">Address Book</a></li>
                                     <%
                                         bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
@@ -231,13 +218,30 @@
                                         <li class="separator-bottom"><a href="/UI/user/manage_delegates.aspx">Delegated Users</a></li>
                                     <% } %>
                                     <li class=""><a title="Call History" href="/UI/user/view_history.aspx">Calls History</a></li>
-                                    <li class="separator-bottom last-child"><a title="Call Statistics" href="/UI/user/view_statistics.aspx">Calls Statistics</a></li>
+                                    <li class="separator-bottom"><a title="Call Statistics" href="/UI/user/view_statistics.aspx">Calls Statistics</a></li>
+                                    <li class="last-child"><a title="Logout" href="/UI/session/logout.aspx">Logout</a></li>
                                 </ul>
                             </li>
 
                             <li id="home-tab" class="selected">
                                 <a title="Home" href="/UI/user/dashboard.aspx">Home</a>
                             </li>
+
+                            <% 
+                                bool is_accounting = false; //((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                                if (is_accounting) {
+                            %>
+                                <li id="accounting-tab" class="">
+                                    <a href="#">Accounting Tools<span class="drop"></span></a>
+                                    <ul id="accounting-dropdown">
+                                        <li class=""><a href="/UI/accounting/manage_disputes.aspx">Manage Disputed Calls</a></li>
+                                        <li class=""><a href="/UI/accounting/monthly_user_reports.aspx">Monthly User Report</a></li>
+                                        <li class=""><a href="/UI/accounting/periodical_user_reports.aspx">Periodical User Report</a></li>
+                                        <li class=""><a href="/UI/accounting/monthly_site_reports.aspx">Monthly Site Report</a></li>
+                                        <li class="last-child"><a href="/UI/accounting/periodical_site_reports.aspx">Periodical Site Report</a></li>
+                                    </ul>
+                                </li>
+                            <% } %>
                         </ul>
                     </div>
                 </div>
