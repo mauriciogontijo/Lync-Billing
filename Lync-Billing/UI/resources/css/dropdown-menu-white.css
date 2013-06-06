@@ -71,11 +71,11 @@ link of each child item
 .toolbar .vertical-navigation li:hover ul li { border-right: none;}
 .toolbar .vertical-navigation li:hover ul li a, .toolbar .vertical-navigation ul li a { color: #000; }
 
-.toolbar  .vertical-navigation ul li { height: 36px; border-bottom: 1px solid #B6C0D2; }
+.toolbar  .vertical-navigation ul li { height: 36px; border-bottom: 1px solid #B6C0D2; margin-left: 10px; }
 .toolbar  .vertical-navigation ul li a { height: 36px; line-height: 36px; float: left; text-align: left; display: inline;  }
 .toolbar .vertical-navigation li:hover ul li a:hover, 
 .toolbar .vertical-navigation ul li a:hover,
-.toolbar .vertical-navigation ul li:hover a { background-color: #fff; background-image: -webkit-linear-gradient(top, #A8DBA8, #79BD9A); color: #000; margin-left: 10px;}
+.toolbar .vertical-navigation ul li:hover a { background-color: #fff; background-image: -webkit-linear-gradient(top, #A8DBA8, #79BD9A); color: #000; }
 
 .toolbar  .vertical-navigation ul li.first-child{margin-top:3px !important; }
 .toolbar  .vertical-navigation ul li.last-child{border:none; margin-bottom:3px !important; }
