@@ -9,6 +9,7 @@ using Lync_Billing.DB;
 using Ext.Net;
 using System.Web.SessionState;
 using Lync_Billing.Libs;
+using System.Globalization;
 
 namespace Lync_Billing.UI.user
 {
@@ -36,7 +37,10 @@ namespace Lync_Billing.UI.user
 
         public List<UsersCallsSummaryChartData> getChartData(string SipAccount = "")
         {
-            return UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            DateTime toDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
+
+            return UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, toDate, DateTime.Now);
         }
 
         protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)
