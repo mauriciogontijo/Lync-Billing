@@ -64,7 +64,6 @@ namespace Lync_Billing.DB
     {
         public string PhoneNumber { private set; get; }
         public string UserName { private get; set; }
-        public string Internal { private set; get; }
         public long NumberOfPhoneCalls { private set; get; }
 
         public static List<TopDestinations> GetTopDestinations(string sipAccount)
@@ -95,8 +94,6 @@ namespace Lync_Billing.DB
                         else
                             topDestination.PhoneNumber = (string)row[column.ColumnName];
                     }
-                    if (column.ColumnName == "Internal")
-                        topDestination.Internal = (string)row[column.ColumnName];
 
                     if (column.ColumnName == "NumberOfPhoneCalls")
                         topDestination.NumberOfPhoneCalls = (int)row[column.ColumnName];
