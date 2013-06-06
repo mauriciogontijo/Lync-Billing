@@ -268,7 +268,7 @@
                     </div>
                 </div>
                 
-                <div class='clear h25'></div>
+                <div class='clear h15'></div>
             <% } %>
 
             <% if(unmarked_calls_count != null) { %>
@@ -284,7 +284,7 @@
                     </div>
                 </div>
                 
-                <div class='clear h25'></div>
+                <div class='clear h15'></div>
             <% } %>
 
             <!-- START OF LEFT COLUMN -->
