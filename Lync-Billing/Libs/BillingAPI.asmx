@@ -148,8 +148,6 @@ namespace Lync_Billing.Libs
                 return phoneBookEntries[phoneNumber].Name;
             else
                 return string.Empty;
-        
-            
         }
 
         /// <summary>
