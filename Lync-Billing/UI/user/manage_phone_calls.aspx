@@ -234,7 +234,11 @@
                 AutoScroll="true"
                 Header="true"
                 Scroll="Both"
-                Layout="FitLayout">
+                Layout="FitLayout"
+                >
+                <DirectEvents>
+                    <ItemMouseEnter OnEvent="GridFocus_Event" />
+                </DirectEvents>
 
                 <Store>
                     <ext:Store 
@@ -409,9 +413,9 @@
                 Target="={#{ManagePhoneCallsGrid}.getView().el}"
                 Delegate=".x-grid-cell"
                 TrackMouse="true">
-                <Listeners>
-                    <Show Handler="onShow(this, #{ManagePhoneCallsGrid});" /> 
-                </Listeners>
+               <%-- <DirectEvents>
+                    <BeforeShow OnEvent="ToolTip_Event" />
+                </DirectEvents>--%>
         </ext:ToolTip>     
         </div>
     </div>
