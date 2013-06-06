@@ -110,6 +110,16 @@
             grid.submitData(false, { isUpload: true });
         };
 
+        var onShow = function (toolTip, grid) {
+            var view = grid.getView(),
+                store = grid.getStore(),
+                record = view.getRecord(view.findItemByChild(toolTip.triggerElement)),
+                column = view.getHeaderByCell(toolTip.triggerElement),
+                data = record.get(column.dataIndex);
+
+            toolTip.update(data);
+        };
+
     </script>
 </asp:Content>
 
