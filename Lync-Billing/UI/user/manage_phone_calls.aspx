@@ -405,6 +405,15 @@
                         DisplayMsg="Phone Calls {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
+             <ext:ToolTip ID="ToolTip1" 
+                runat="server" 
+                Target="={#{ManagePhoneCallsGrid}.getView().el}"
+                Delegate=".x-grid-cell"
+                TrackMouse="true">
+                <Listeners>
+                    <Show Handler="onShow(this, #{GridPanel1});" /> 
+                </Listeners>
+        </ext:ToolTip>     
         </div>
     </div>
     <!-- *** END OF MANAGE PHONE CALLS GRID *** -->
