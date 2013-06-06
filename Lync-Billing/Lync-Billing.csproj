@@ -111,9 +111,6 @@
     <Content Include="UI\resources\images\get_info-3.png" />
     <Content Include="UI\resources\images\header-bg.gif" />
     <Content Include="UI\resources\images\header-ddl-icon.png" />
-    <Content Include="UI\resources\images\info-2.png" />
-    <Content Include="UI\resources\images\info-3.png" />
-    <Content Include="UI\resources\images\info-4.png" />
     <Content Include="UI\resources\images\info.png" />
     <Content Include="UI\resources\images\tool-bg.png" />
     <Content Include="UI\resources\images\x_block_bg.png" />

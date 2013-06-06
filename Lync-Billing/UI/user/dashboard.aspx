@@ -272,17 +272,15 @@
             <% } %>
 
             <% if(unmarked_calls_count != null) { %>
-                <div id='information-block' class='info-block shadow mb20 p10'>
-                    <div class="block-body">
-                        <span class="info-icon"></span>
-
-                        <% if(unmarked_calls_count > 0) { %>
-                            <p class="info-message"><%# String.Format("You have a total of {0} unmarked call, to mark them pleas click <a class='info-link' href='/UI/user/manage_phone_calls.aspx'>here.</a>", unmarked_calls_count) %></p>
-                        <% } else { %>
-                            <p class="info-message">All of your phone calls are marked. Thank you for keeping your phone calls updated!</p>
-                        <% } %>
+                <% if(unmarked_calls_count > 0) { %>
+                    <div id='warning-block' class='warning-block block-body mt10 mb10 shadow'>
+                        <p class="info-message"><%= String.Format("You have a total of {0} unmarked calls, to mark them pleas click <a class='link' href='/UI/user/manage_phone_calls.aspx'>here.</a>", unmarked_calls_count) %></p>
                     </div>
-                </div>
+                <% } else { %>
+                    <div id='information-block' class='info-block shadow'>
+                        <p class="info-message">All of your phone calls are marked. Thank you for keeping your phone calls updated!</p>
+                    </div>
+                <% } %>
                 
                 <div class='clear h15'></div>
             <% } %>
