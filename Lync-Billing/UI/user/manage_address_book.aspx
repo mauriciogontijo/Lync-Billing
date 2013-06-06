@@ -195,7 +195,7 @@
                                         <ext:Column
                                             runat="server"
                                             Text="Contact Name"
-                                            Width="250"
+                                            Width="240"
                                             DataIndex="Name">
                                               <Editor>
                                                 <ext:TextField ID="ContactName" 
@@ -320,7 +320,7 @@
                                         <ext:Column
                                             runat="server" 
                                             DataIndex="Name"
-                                            Width="250"
+                                            Width="240"
                                             Text="Contact Name">
                                             <Editor>
                                                 <ext:TextField 
