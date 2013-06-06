@@ -195,7 +195,7 @@
                                         <ext:Column
                                             runat="server"
                                             Text="Contact Name"
-                                            Width="220"
+                                            Width="250"
                                             DataIndex="Name">
                                               <Editor>
                                                 <ext:TextField ID="ContactName" 
@@ -209,13 +209,13 @@
                                             ID="ContactType"
                                             runat="server"
                                             Text="Contact Type"
-                                            Width="160"
+                                            Width="130"
                                             DataIndex="Type">
                                             <Editor>
                                                 <ext:ComboBox ID="ComboBox1"
                                                     runat="server"
                                                     EmptyText="Please Select Type"
-                                                    Width="140"
+                                                    Width="110"
                                                     DataIndex="Type">
                                                     <Items>
                                                         <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
@@ -307,20 +307,20 @@
                                             ID="ImportedContactNumber"
                                             runat="server"
                                             Text="Number"
-                                            Width="150"
+                                            Width="140"
                                             DataIndex="DestinationNumber" />
 
                                         <ext:Column
                                             ID="ImportedContactDestinationCountry"
                                             runat="server"
                                             Text="Country"
-                                            Width="100"
+                                            Width="150"
                                             DataIndex="DestinationCountry" />
 
                                         <ext:Column
                                             runat="server" 
                                             DataIndex="Name"
-                                            Width="270"
+                                            Width="250"
                                             Text="Contact Name">
                                             <Editor>
                                                 <ext:TextField 
@@ -334,12 +334,13 @@
                                             runat="server" 
                                             DataIndex="Type" 
                                             Text="Contact Type"
-                                            Width="120">
+                                            Width="130">
                                            <Editor>
                                                 <ext:ComboBox
                                                     runat="server"
                                                     EmptyText="Please Select Type"
-                                                    DataIndex="Type">
+                                                    DataIndex="Type"
+                                                    Width="110">
                                                     <Items>
                                                         <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
                                                         <ext:ListItem Text="Business" Value="Business" Mode="Value" />
