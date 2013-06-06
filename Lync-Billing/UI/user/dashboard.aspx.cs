@@ -16,6 +16,10 @@ namespace Lync_Billing.UI.user
     public partial class dashboard : System.Web.UI.Page
     {
         public int unmarked_calls_count = 0;
+        public string sipAccount = string.Empty;
+
+        public Dictionary<string, PhoneBook> phoneBookEntries = new Dictionary<string,PhoneBook>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -24,16 +28,17 @@ namespace Lync_Billing.UI.user
                 Response.Redirect("~/UI/session/login.aspx");
             }
 
-            string sip_account = string.Empty;
-            sip_account = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
 
             unmarked_calls_count = getUnmarkedCallsCount();
 
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sip_account, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
 
-            TopDestinationNumbersStore.DataSource = TopDestinations.GetTopDestinations(sip_account);
+            TopDestinationNumbersStore.DataSource = TopDestinations.GetTopDestinations(sipAccount);
             TopDestinationNumbersStore.DataBind();
+
+            phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
         }
 
         [DirectMethod]
@@ -126,7 +131,13 @@ namespace Lync_Billing.UI.user
             return UsersCallsSummary.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, fromDate, DateTime.Now).UnmarkedCallsCount;
         }
 
-        //protected string GetUserNameByNumber(string phoneNumber) { }
+        protected string GetUserNameByNumber(string phoneNumber) 
+        {
+            if (phoneBookEntries.ContainsKey(phoneNumber))
+                return phoneBookEntries[phoneNumber].Name;
+            else
+                return string.Empty;
+        }
         protected string GetUserNameBySip(string sipAccount) 
         {
             AdLib adRoutines = new AdLib();
