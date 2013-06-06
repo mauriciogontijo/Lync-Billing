@@ -114,8 +114,6 @@
         };
 
         var onShow = function (toolTip, grid) {
-            debugger;
-
             var view = grid.getView(),
                 store = grid.getStore(),
                 record = view.getRecord(view.findItemByChild(toolTip.triggerElement)),
