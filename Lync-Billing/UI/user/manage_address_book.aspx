@@ -313,7 +313,8 @@
                                             Flex="1"
                                             Text="Contact Name"
                                             Pin="true"
-                                            OverOnly="true">
+                                            OverOnly="true"
+                                            MoveEditorOnTab="true">
                                             <Component>
                                                 <ext:TextField 
                                                     runat="server"
@@ -358,9 +359,10 @@
                                                     ToolTip="Pin editors" 
                                                     Icon="Pencil" 
                                                     AllowDepress="true" 
-                                                    EnableToggle="true">
+                                                    EnableToggle="true"
+                                                    FocusOnToFront="true">
                                                     <Listeners>
-                                                        <Toggle Fn="pinEditors" />
+                                                        <Focus Fn="pinEditors" />
                                                     </Listeners>
                                                 </ext:Button>
                                             </Component>
