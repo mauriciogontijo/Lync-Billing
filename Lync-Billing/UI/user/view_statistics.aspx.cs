@@ -55,13 +55,6 @@ namespace Lync_Billing.UI.user
             PhoneCallsCostChartStore.DataBind();
         }
 
-        protected void DurationCostChartStore_Load(object sender, EventArgs e)
-        {
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
-
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, 1, 12);
-            DurationCostChartStore.DataBind();
-
-        }
+        //DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, 1, 12);
     }
 }
