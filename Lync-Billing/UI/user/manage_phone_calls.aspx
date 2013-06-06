@@ -116,8 +116,7 @@
                 record = view.getRecord(view.findItemByChild(toolTip.triggerElement)),
                 column = view.getHeaderByCell(toolTip.triggerElement),
                 data = record.get(column.dataIndex);
-
-            toolTip.update(data);
+                toolTip.update(data);
         };
 
     </script>
@@ -411,7 +410,7 @@
                 Delegate=".x-grid-cell"
                 TrackMouse="true">
                 <Listeners>
-                    <Show Handler="onShow(this, #{GridPanel1});" /> 
+                    <Show Handler="onShow(this, #{ManagePhoneCallsGrid});" /> 
                 </Listeners>
         </ext:ToolTip>     
         </div>
