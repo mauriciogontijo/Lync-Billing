@@ -237,9 +237,7 @@
                                 runat="server" 
                                 Icon="User" 
                                 TriggerAction="All" 
-                                QueryMode="Local" 
-                               
-                               
+                                QueryMode="Single"
                                 DisplayField="SipAccount" 
                                 ValueField="SipAccount"
                                 FieldLabel="<p class='ml5 float-left'>User Account</p>"
