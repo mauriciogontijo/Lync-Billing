@@ -140,6 +140,18 @@ namespace Lync_Billing.Libs
            return serializer.Serialize(userInfo);
         }
 
+        [WebMethod]
+        public object GetUserByNumber(string sipAccount, string phoneNumber) 
+        {
+            Dictionary<string, PhoneBook> phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
+            if (phoneBookEntries.ContainsKey(phoneNumber))
+                return phoneBookEntries[phoneNumber].Name;
+            else
+                return string.Empty;
+        
+            
+        }
+
         /// <summary>
         /// Insert Users in Users Table only if Users are not there
         /// </summary>
