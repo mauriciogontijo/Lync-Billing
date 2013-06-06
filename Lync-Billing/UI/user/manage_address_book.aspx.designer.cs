@@ -175,6 +175,24 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Model ImportContactsStoreModel;
         
         /// <summary>
+        /// RowEditing1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.RowEditing RowEditing1;
+        
+        /// <summary>
+        /// RowNumbererColumn1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.RowNumbererColumn RowNumbererColumn1;
+        
+        /// <summary>
         /// ImportedContactNumber control.
         /// </summary>
         /// <remarks>
@@ -193,40 +211,13 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Column ImportedContactDestinationCountry;
         
         /// <summary>
-        /// ImportedContactName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ComponentColumn ImportedContactName;
-        
-        /// <summary>
         /// ImpotedContactType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComponentColumn ImpotedContactType;
-        
-        /// <summary>
-        /// ImportPhoneBookComponentColumn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ComponentColumn ImportPhoneBookComponentColumn;
-        
-        /// <summary>
-        /// EditPhoneBookButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button EditPhoneBookButton;
+        protected global::Ext.Net.Column ImpotedContactType;
         
         /// <summary>
         /// ImportContactsToolbar control.

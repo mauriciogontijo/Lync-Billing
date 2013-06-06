@@ -287,9 +287,13 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
+                                 <Plugins>
+                                    <ext:RowEditing ID="RowEditing1" runat="server" ClicksToMoveEditor="1" AutoCancel="false" />
+                                </Plugins> 
 
                                 <ColumnModel ID="ImportContactsColumnModel" runat="server" Flex="1">
                                     <Columns>
+                                        <ext:RowNumbererColumn ID="RowNumbererColumn1" runat="server" Width="25" />
                                         <ext:Column
                                             ID="ImportedContactNumber"
                                             runat="server"
@@ -304,27 +308,22 @@
                                             Width="100"
                                             DataIndex="DestinationCountry" />
 
-                                        <ext:ComponentColumn
-                                            ID="ImportedContactName" 
+                                        <ext:Column
                                             runat="server" 
                                             DataIndex="Name"
                                             Editor="true"
                                             Width="270"
                                             Flex="1"
-                                            Text="Contact Name"
-                                            Pin="true"
-                                            OverOnly="true"
-                                            MoveEditorOnTab="true">
-                                            <Component>
+                                            Text="Contact Name">
+                                            <Editor>
                                                 <ext:TextField 
                                                     runat="server"
                                                     EmptyText="Example: John Smith" 
                                                     DataIndex="Name" />
-                                            </Component>
-                                        </ext:ComponentColumn>
+                                                </Editor>
+                                        </ext:Column>
 
-                                        <ext:ComponentColumn
-                                            ID="ImpotedContactType"
+                                        <ext:Column
                                             runat="server" 
                                             DataIndex="Type" 
                                             Editor="true"
@@ -333,7 +332,7 @@
                                             Width="120"
                                             Pin="true"
                                             OverOnly="true">
-                                            <Component>
+                                           <Editor>
                                                 <ext:ComboBox
                                                     runat="server"
                                                     EmptyText="Please Select Type"
@@ -343,30 +342,8 @@
                                                         <ext:ListItem Text="Business" Value="Business" Mode="Value" />
                                                     </Items>
                                                 </ext:ComboBox>
-                                            </Component>
-                                        </ext:ComponentColumn>
-
-                                        <ext:ComponentColumn
-                                            ID="ImportPhoneBookComponentColumn" 
-                                            runat="server"
-                                            Width="25"
-                                            PinAllColumns="false"
-                                            AutoWidthComponent="false"
-                                            OverOnly="true">
-                                            <Component>
-                                                <ext:Button ID="EditPhoneBookButton" 
-                                                    runat="server" 
-                                                    ToolTip="Pin editors" 
-                                                    Icon="Pencil" 
-                                                    AllowDepress="true" 
-                                                    EnableToggle="true"
-                                                    FocusOnToFront="true">
-                                                    <Listeners>
-                                                        <Focus Fn="pinEditors" />
-                                                    </Listeners>
-                                                </ext:Button>
-                                            </Component>
-                                    </ext:ComponentColumn>
+                                            </Editor>
+                                        </ext:Column>
                                     </Columns>
                                 </ColumnModel>
 
