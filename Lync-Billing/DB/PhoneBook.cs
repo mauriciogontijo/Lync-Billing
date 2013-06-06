@@ -106,6 +106,14 @@ namespace Lync_Billing.DB
             DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneBook.TableName), setPart, wherePart);
         }
 
+        public static void DeleteFromPhoneBook(List<PhoneBook> phoneBookEntries) 
+        {
+            foreach (PhoneBook phoneBookEntry in phoneBookEntries) 
+            {
+                DBRoutines.DELETE(Enums.GetDescription(Enums.PhoneBook.TableName),"ID", phoneBookEntry.ID);
+            }
+        }
+
         public static List<PhoneBook> GetDestinationNumbers(string sipAccount) 
         {
             List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
