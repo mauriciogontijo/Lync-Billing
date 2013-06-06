@@ -25,7 +25,7 @@ namespace Lync_Billing.Libs
         #region Users Related
 
         [WebMethod]
-        public object getSession() 
+        public object GetUserSession() 
         {
             return HttpContext.Current.Session.Contents["UserData"];
         }  
