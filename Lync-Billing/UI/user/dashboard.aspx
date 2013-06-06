@@ -390,7 +390,8 @@
                                 <ext:Store
                                     ID="TopDestinationNumbersStore"
                                     runat="server"
-                                    IsPagingStore="true">
+                                    IsPagingStore="true"
+                                    OnLoad="TopDestinationNumbersStore_Load">
                                     <Model>
                                         <ext:Model ID="TopDestinationNumbersModel" runat="server" IDProperty="SessionIdTime">
                                             <Fields>

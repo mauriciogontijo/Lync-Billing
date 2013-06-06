@@ -18,7 +18,9 @@ namespace Lync_Billing.UI.user
         public int unmarked_calls_count = 0;
         public string sipAccount = string.Empty;
 
-        public Dictionary<string, PhoneBook> phoneBookEntries = new Dictionary<string,PhoneBook>();
+        public Dictionary<string, PhoneBook> phoneBookEntries;
+        public List<TopDestinations> topDestinations;
+        public List<TopCountries> topCountries;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,9 +36,6 @@ namespace Lync_Billing.UI.user
 
             DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
-
-            TopDestinationNumbersStore.DataSource = TopDestinations.GetTopDestinations(sipAccount);
-            TopDestinationNumbersStore.DataBind();
 
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
         }
@@ -116,10 +115,22 @@ namespace Lync_Billing.UI.user
 
         }
 
+        protected void TopDestinationNumbersStore_Load(object sender, EventArgs e)
+        {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+           
+            topDestinations = TopDestinations.GetTopDestinations(userSession.SipAccount);
+            TopDestinationNumbersStore.DataSource = topDestinations;
+            TopDestinationNumbersStore.DataBind();
+        }
+
         protected void TopDestinationCountriesStore_Load(object sender, EventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            TopDestinationCountriesStore.DataSource = TopCountries.GetTopDestinations(userSession.SipAccount);
+            
+            topCountries = TopCountries.GetTopDestinations(userSession.SipAccount);
+            TopDestinationCountriesStore.DataSource = topCountries;
+            
             TopDestinationCountriesStore.DataBind();
         }
 
@@ -138,6 +149,7 @@ namespace Lync_Billing.UI.user
             else
                 return string.Empty;
         }
+     
         protected string GetUserNameBySip(string sipAccount) 
         {
             AdLib adRoutines = new AdLib();
