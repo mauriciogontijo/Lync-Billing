@@ -118,7 +118,7 @@
                 store = grid.getStore(),
                 record = view.getRecord(view.findItemByChild(toolTip.triggerElement)),
                 column = view.getHeaderByCell(toolTip.triggerElement),
-                data = record.get(column.dataIndex);
+                data = "";
 
             if (column.id == "main_content_place_holder_DestinationNumberUri") {
                 window.toolTipData.sip_account = "<%= ((Lync_Billing.DB.UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount %>";
@@ -132,6 +132,8 @@
                 );
 
                 data = window.toolTipData;
+            } else {
+                data = record.get(column.dataIndex)
             }
 
             toolTip.update(data);
