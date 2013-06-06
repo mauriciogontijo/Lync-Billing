@@ -131,6 +131,7 @@ namespace Lync_Billing.UI.user
         {
             AdLib adRoutines = new AdLib();
             string DisplayName = adRoutines.getUserAttributes(sipAccount).DisplayName;
+            
             if (DisplayName != null)
                 return DisplayName;
             else
