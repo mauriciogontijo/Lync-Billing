@@ -63,6 +63,7 @@ namespace Lync_Billing.DB
     public class TopDestinations 
     {
         public string PhoneNumber { private set; get; }
+        public string UserName { private get; set; }
         public string Internal { private set; get; }
         public long NumberOfPhoneCalls { private set; get; }
 
