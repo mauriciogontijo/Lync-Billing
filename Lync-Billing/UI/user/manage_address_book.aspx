@@ -322,16 +322,14 @@
                                                     DataIndex="Name" />
                                                 </Editor>
                                         </ext:Column>
-
+                                        
                                         <ext:Column
                                             runat="server" 
                                             DataIndex="Type" 
                                             Editor="true"
                                             Flex="1"
                                             Text="Contact Type"
-                                            Width="120"
-                                            Pin="true"
-                                            OverOnly="true">
+                                            Width="120">
                                            <Editor>
                                                 <ext:ComboBox
                                                     runat="server"
@@ -346,7 +344,6 @@
                                         </ext:Column>
                                     </Columns>
                                 </ColumnModel>
-
                                 <TopBar>
                                     <ext:Toolbar
                                         ID="ImportContactsToolbar"
