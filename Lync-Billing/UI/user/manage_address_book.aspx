@@ -23,19 +23,6 @@
         var submitValue = function (grid) {
             grid.submitData(false, { isUpload: true });
         };
-
-        var pinEditors = function (btn, pressed) {
-            var columnConfig = btn.column,
-                column = columnConfig.column;
-
-            if (pressed) {
-                column.pinOverComponent();
-                column.showComponent(columnConfig.record, true);
-            } else {
-                column.unpinOverComponent();
-                column.hideComponent(true);
-            }
-        };
     </script>
 </asp:Content>
 
@@ -185,8 +172,7 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
-
-                                <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
+                                    <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
                                     <Columns>
                                         <ext:Column
                                             ID="DestNumber"
@@ -311,9 +297,7 @@
                                         <ext:Column
                                             runat="server" 
                                             DataIndex="Name"
-                                            Editor="true"
                                             Width="270"
-                                            Flex="1"
                                             Text="Contact Name">
                                             <Editor>
                                                 <ext:TextField 
@@ -326,8 +310,6 @@
                                         <ext:Column
                                             runat="server" 
                                             DataIndex="Type" 
-                                            Editor="true"
-                                            Flex="1"
                                             Text="Contact Type"
                                             Width="120">
                                            <Editor>
