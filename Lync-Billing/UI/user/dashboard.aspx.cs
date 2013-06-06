@@ -126,11 +126,15 @@ namespace Lync_Billing.UI.user
             return UsersCallsSummary.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, fromDate, DateTime.Now).UnmarkedCallsCount;
         }
 
-        protected string GetUserNameByNumber(string phoneNumber) { }
+        //protected string GetUserNameByNumber(string phoneNumber) { }
         protected string GetUserNameBySip(string sipAccount) 
         {
             AdLib adRoutines = new AdLib();
             string DisplayName = adRoutines.getUserAttributes(sipAccount).DisplayName;
+            if (DisplayName != null)
+                return DisplayName;
+            else
+                return string.Empty;
         }
     }
 }
