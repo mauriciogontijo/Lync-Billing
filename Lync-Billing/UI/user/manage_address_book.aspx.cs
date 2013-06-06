@@ -17,8 +17,7 @@ namespace Lync_Billing.UI.user
     {
         List<PhoneBook> AddressBookData = new List<PhoneBook>();
         List<PhoneBook> HistoryDestinationNumbers = new List<PhoneBook>();
-
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -27,20 +26,25 @@ namespace Lync_Billing.UI.user
                 Response.Redirect("~/UI/session/login.aspx");
             }
 
-            BindDataToGrids(true);
+            GridsDataManager(true);
         }
 
-        protected void BindDataToGrids(bool GetFreshData = false)
+        protected void GridsDataManager(bool GetFreshData = false, bool BindData = true)
         {
-            if (GetFreshData == true)
+            if(GetFreshData == true)
             {
                 List<PhoneBook> TempHistoryData = new List<PhoneBook>();
                 Dictionary<string, PhoneBook> TempAddressBookData = new Dictionary<string, PhoneBook>();
-
-                string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                string SipAccount = string.Empty;
+                
+                SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount.ToString();
                 TempAddressBookData = PhoneBook.GetAddressBook(SipAccount);
                 TempHistoryData = PhoneBook.GetDestinationNumbers(SipAccount);
-                
+
+                //Always clear the contents of the data containers
+                AddressBookData.Clear();
+                HistoryDestinationNumbers.Clear();
+
                 //Normalize the Address Book Data: Convert it from Dictionary to List.
                 foreach (KeyValuePair<string, PhoneBook> entry in TempAddressBookData)
                 {
@@ -57,13 +61,17 @@ namespace Lync_Billing.UI.user
                 }
 
                 TempHistoryData.Clear();
+                TempAddressBookData.Clear();
             }
 
-            AddressBookStore.DataSource = AddressBookData;
-            ImportContactsStore.DataSource = HistoryDestinationNumbers;
+            if (BindData == true)
+            {
+                AddressBookStore.DataSource = AddressBookData;
+                AddressBookStore.DataBind();
 
-            AddressBookStore.DataBind();
-            ImportContactsStore.DataBind();
+                ImportContactsStore.DataSource = HistoryDestinationNumbers;
+                ImportContactsStore.DataBind();
+            }
         }
 
         protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
@@ -89,7 +97,10 @@ namespace Lync_Billing.UI.user
             if (filtered_address_book_items.Count > 0)
             {
                 PhoneBook.AddPhoneBookEntries(filtered_address_book_items);
-                BindDataToGrids(true);
+                GridsDataManager(true);
+
+                AddressBookGrid.GetStore().Reload();
+                ImportContactsGrid.GetStore().Reload();
             }
         }
 
@@ -105,18 +116,12 @@ namespace Lync_Billing.UI.user
 
             if (to_be_deleted_entries.Count > 0)
             {
-                //Delete these items
-                //...
-                //...
+                PhoneBook.DeleteFromPhoneBook(to_be_deleted_entries);
+                GridsDataManager(true);
 
-                //Then, update the grid
-                /*foreach (PhoneBook entry in to_be_deleted_entries)
-                {
-                    AddressBookGrid.GetStore().Find("DestinationNumber", entry.DestinationNumber.ToString()).Destroy();
-                    AddressBookGrid.GetStore().Find("DestinationNumber", entry.DestinationNumber.ToString()).Commit();
-                }*/
+                AddressBookGrid.GetStore().Reload();
+                ImportContactsGrid.GetStore().Reload();
             }
-            BindDataToGrids(true);
             AddressBookGrid.GetSelectionModel().DeselectAll();
         }
 
@@ -125,7 +130,7 @@ namespace Lync_Billing.UI.user
          */
         protected void AddressBookStore_Load(object sender, EventArgs e)
         {
-            BindDataToGrids();
+            GridsDataManager(false);
         }
 
         /*
@@ -133,7 +138,7 @@ namespace Lync_Billing.UI.user
          */
         protected void ImportContactsStore_Load(object sender, EventArgs e)
         {
-            BindDataToGrids();
+            GridsDataManager(false);
         }
     }
 }

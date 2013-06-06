@@ -174,6 +174,8 @@
                                         <Model>
                                             <ext:Model ID="AddressBookStoreModel" runat="server" IDProperty="DestinationNumber">
                                                 <Fields>
+                                                    <ext:ModelField Name="ID" Type="Int" />
+                                                    <ext:ModelField Name="SipAccount" Type="String"/>
                                                     <ext:ModelField Name="DestinationNumber" Type="String" />
                                                     <ext:ModelField Name="DestinationCountry" Type="String"/>
                                                     <ext:ModelField Name="Name" Type="String"/>
@@ -274,6 +276,8 @@
                                         <Model>
                                             <ext:Model ID="ImportContactsStoreModel" runat="server" IDProperty="DestinationNumber">
                                                 <Fields>
+                                                    <ext:ModelField Name="ID" Type="Int"/>
+                                                    <ext:ModelField Name="SipAccount" Type="String"/>
                                                     <ext:ModelField Name="DestinationNumber" Type="String" />
                                                     <ext:ModelField Name="DestinationCountry" Type="String"/>
                                                     <ext:ModelField Name="Name" Type="String"/>
