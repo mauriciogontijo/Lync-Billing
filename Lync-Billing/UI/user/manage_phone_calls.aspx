@@ -147,7 +147,7 @@
                             <p>History</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='/UI/user/view_history.aspx'>View Phone Calls History</a></p>
+                            <p><a href='/UI/user/view_history.aspx'>View Calls History</a></p>
                         </div>
                     </div>
 
@@ -156,7 +156,7 @@
                             <p>Statistics</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='/UI/user/view_statistics.aspx'>View Phone Calls Statistics</a></p>
+                            <p><a href='/UI/user/view_statistics.aspx'>View Calls Statistics</a></p>
                         </div>
                     </div>
                 </Content>
