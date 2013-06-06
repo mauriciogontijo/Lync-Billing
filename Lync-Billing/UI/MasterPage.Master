@@ -16,8 +16,8 @@
         <link rel="stylesheet" type="text/css" media="all" href="/UI/resources/css/toolkit.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/UI/resources/css/global.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/UI/resources/css/green-layout.css" />
-        <!--<link rel="stylesheet" type="text/css" media="all" href="/UI/resources/css/dropdown-menu.css" />-->
-        <link rel="stylesheet" type="text/css" media="all" href="/UI/resources/css/dropdown-menu-white.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/UI/resources/css/dropdown-menu.css" />
+        <!--<link rel="stylesheet" type="text/css" media="all" href="/UI/resources/css/dropdown-menu-white.css" />-->
 
         <script type="text/javascript" src="/UI/resources/js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="/UI/resources/js/browserdetector.js"></script>
