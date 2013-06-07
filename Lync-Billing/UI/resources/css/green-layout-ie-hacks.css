@@ -37,7 +37,7 @@ div#header-container {
 
 .x-panel-header-default {
     filter: none;
-    background-image: url("/UI/resources/images/x_block_bg.png") !important;
+    background-image: url("../images/x_block_bg.png") !important;
     background-repeat: repeat;
     background-position-x: 0%;
     background-position-y: 0%;
