@@ -226,22 +226,6 @@
                             <li id="home-tab" class="selected">
                                 <a title="Home" href="../user/dashboard.aspx">Home</a>
                             </li>
-
-                            <% 
-                                bool is_accounting = false; //((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                                if (is_accounting) {
-                            %>
-                                <li id="accounting-tab" class="">
-                                    <a href="#">Accounting Tools<span class="drop"></span></a>
-                                    <ul id="accounting-dropdown">
-                                        <li class=""><a href="/UI/accounting/manage_disputes.aspx">Manage Disputed Calls</a></li>
-                                        <li class=""><a href="/UI/accounting/monthly_user_reports.aspx">Monthly User Report</a></li>
-                                        <li class=""><a href="/UI/accounting/periodical_user_reports.aspx">Periodical User Report</a></li>
-                                        <li class=""><a href="/UI/accounting/monthly_site_reports.aspx">Monthly Site Report</a></li>
-                                        <li class="last-child"><a href="/UI/accounting/periodical_site_reports.aspx">Periodical Site Report</a></li>
-                                    </ul>
-                                </li>
-                            <% } %>
                         </ul>
                     </div>
                 </div>
