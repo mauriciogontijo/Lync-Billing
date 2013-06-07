@@ -69,7 +69,8 @@ body { font-family: tahoma; font-size: 14px; color: #FFFFFF; }
 div#main_content_place_holder_PhoneCallsHistoryGrid *,
 div#main_content_place_holder_GenerateReportPanel *,
 div#main_content_place_holder_SelectDelegatedAccountsPanel *,
-div#main_content_place_holder_ImportContactsGrid * { 
+div#main_content_place_holder_ImportContactsGrid *,
+div#main_content_place_holder_AddressBookGrid * { 
     vertical-align: bottom; 
 }
 /* end asp & ext blocks styling */

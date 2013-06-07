@@ -104,7 +104,49 @@ namespace Lync_Billing.UI.user
             }
         }
 
-        protected void DeleteFromAddressBook(object sender, DirectEventArgs e)
+
+        /*
+         * Update edited contacts in Address Book
+         */
+        protected void AddressBookUpdateContacts(object sender, DirectEventArgs e)
+        {
+            string json = e.ExtraParams["Values"];
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+            List<PhoneBook> all_address_book_items = new List<PhoneBook>();
+            List<PhoneBook> filtered_address_book_items = new List<PhoneBook>();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            all_address_book_items = serializer.Deserialize<List<PhoneBook>>(json);
+
+            foreach (PhoneBook entry in all_address_book_items) {
+                if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != "")) {
+                    if (entry.SipAccount == null || entry.SipAccount == string.Empty) {
+                        entry.SipAccount = SipAccount;
+                    }
+
+                    filtered_address_book_items.Add(entry);
+                }
+            }
+
+            if (filtered_address_book_items.Count > 0)
+            {
+                foreach(PhoneBook entry in filtered_address_book_items) {
+                    PhoneBook.UpdatePhoneBookEntry(entry);
+                }
+
+                GridsDataManager(true);
+
+                AddressBookGrid.GetStore().Reload();
+                ImportContactsGrid.GetStore().Reload();
+            }
+        }
+
+
+        /*
+         * Delete selected contacts from Address Book
+         */
+        protected void AddressBookDeleteContacts(object sender, DirectEventArgs e)
         {
             string json = e.ExtraParams["Values"];
             string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
@@ -124,6 +166,7 @@ namespace Lync_Billing.UI.user
             }
             AddressBookGrid.GetSelectionModel().DeselectAll();
         }
+
 
         /*
          * AddressBook Data Binding

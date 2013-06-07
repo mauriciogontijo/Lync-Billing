@@ -172,10 +172,12 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
-                                 <Plugins>
+                                
+                                <Plugins>
                                     <ext:RowEditing ID="RowEditing2" runat="server" ClicksToMoveEditor="1" AutoCancel="false" />
-                                </Plugins> 
-                                    <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
+                                </Plugins>
+
+                                <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
                                     <Columns>
                                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
                                         <ext:Column
@@ -243,12 +245,28 @@
                                         runat="server">
                                         <Items>
                                             <ext:Button
+                                                ID="UpdateAddressBookButton"
+                                                Text="Update Edited Contacts"
+                                                Icon="Add"
+                                                runat="server"
+                                                Margins="5 15 0 5">
+                                                <DirectEvents>
+                                                    <Click OnEvent="AddressBookUpdateContacts">
+                                                        <EventMask ShowMask="true" />
+                                                        <ExtraParams>
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{AddressBookGrid}.getRowsValues(true))" Mode="Raw" />
+                                                        </ExtraParams>
+                                                    </Click>
+                                                </DirectEvents>
+                                            </ext:Button>
+
+                                            <ext:Button
                                                 ID="Button1"
                                                 Text="Delete Selected"
                                                 Icon="Delete"
                                                 runat="server">
                                                 <DirectEvents>
-                                                    <Click OnEvent="DeleteFromAddressBook">
+                                                    <Click OnEvent="AddressBookDeleteContacts">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
                                                             <ext:Parameter Name="Values" Value="Ext.encode(#{AddressBookGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
@@ -335,7 +353,7 @@
                                             DataIndex="Type" 
                                             Text="Contact Type"
                                             Width="130">
-                                           <Editor>
+                                            <Editor>
                                                 <ext:ComboBox
                                                     runat="server"
                                                     EmptyText="Please Select Type"

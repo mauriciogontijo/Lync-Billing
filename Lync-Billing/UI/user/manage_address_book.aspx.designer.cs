@@ -157,6 +157,15 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Toolbar Toolbar1;
         
         /// <summary>
+        /// UpdateAddressBookButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button UpdateAddressBookButton;
+        
+        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
