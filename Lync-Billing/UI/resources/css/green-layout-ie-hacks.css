@@ -56,7 +56,7 @@ div#header-container {
 }
 
 .x-nlg .x-toolbar-default {
-    background-image: url("/extjs/resources/ext_theme_gray/images/toolbar/toolbar-default-bg-gif/ext.axd");
+    background-image: url("../../../extjs/resources/ext_theme_gray/images/toolbar/toolbar-default-bg-gif/ext.axd"); /* this fixes the bug of accessing the extjs resources directory from the website root */
     background-repeat: repeat;
     background-size: cover;
     background-position-x: 0%;
@@ -64,7 +64,7 @@ div#header-container {
 }
 
 .x-nlg .x-grid-header-ct, .x-nlg .x-column-header {
-    background-image: url("/extjs/resources/ext_theme_gray/images/grid/column-header-bg-gif/ext.axd");
+    background-image: url("../../../extjs/resources/ext_theme_gray/images/grid/column-header-bg-gif/ext.axd"); /* this fixes the bug of accessing the extjs resources directory from the website root */
     background-attachment: scroll;
     background-repeat: repeat;
     background-size: contain;
