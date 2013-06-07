@@ -16,14 +16,14 @@
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/toolkit.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/global.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/green-layout.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="..resources/css/dropdown-menu.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../resources/css/dropdown-menu.css" />
     <!--<link rel="stylesheet" type="text/css" media="all" href="../resources/css/dropdown-menu-white.css" />-->
 
     <script type="text/javascript" src="../resources/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../resources/js/browserdetector.js"></script>
 
     <!--[if lte IE 9]>
-	    <link rel="stylesheet" type="text/css" href="/UI/resources/css/green-layout-ie-hacks.css" />
+	    <link rel="stylesheet" type="text/css" href="../resources/css/green-layout-ie-hacks.css" />
 	<![endif]-->
 
     <script type="text/javascript">
@@ -207,24 +207,24 @@
                             <li id="user-tab" class="">
                                 <a href="#"><%= ((Lync_Billing.DB.UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName %><span class="drop"></span></a>
                                 <ul id="user-dropdown">
-                                    <!--<li class="separator-bottom"><a title="Home" href="/UI/user/dashboard.aspx">Dashboard</a></li>-->
+                                    <!--<li class="separator-bottom"><a title="Home" href="../user/dashboard.aspx">Dashboard</a></li>-->
 
-                                    <li class="first-child"><a title="Manage My Phone Calls" href="/UI/user/manage_phone_calls.aspx">Phone Calls</a></li>
-                                    <li class=""><a title="Address Book" href="/UI/user/manage_address_book.aspx">Address Book</a></li>
+                                    <li class="first-child"><a title="Manage My Phone Calls" href="../user/manage_phone_calls.aspx">Phone Calls</a></li>
+                                    <li class=""><a title="Address Book" href="../user/manage_address_book.aspx">Address Book</a></li>
                                     <%
                                         bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                         if (is_delegate) {
                                     %>
-                                        <li class="separator-bottom"><a href="/UI/user/manage_delegates.aspx">Delegated Users</a></li>
+                                        <li class="separator-bottom"><a href="../user/manage_delegates.aspx">Delegated Users</a></li>
                                     <% } %>
-                                    <li class=""><a title="Call History" href="/UI/user/view_history.aspx">Calls History</a></li>
-                                    <li class="separator-bottom"><a title="Call Statistics" href="/UI/user/view_statistics.aspx">Calls Statistics</a></li>
-                                    <li class="last-child"><a title="Logout" href="/UI/session/logout.aspx">Logout</a></li>
+                                    <li class=""><a title="Call History" href="../user/view_history.aspx">Calls History</a></li>
+                                    <li class="separator-bottom"><a title="Call Statistics" href="../user/view_statistics.aspx">Calls Statistics</a></li>
+                                    <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                 </ul>
                             </li>
 
                             <li id="home-tab" class="selected">
-                                <a title="Home" href="/UI/user/dashboard.aspx">Home</a>
+                                <a title="Home" href="../user/dashboard.aspx">Home</a>
                             </li>
 
                             <% 
@@ -247,7 +247,7 @@
                 </div>
                 <!--end toolbar right nav-->
                 <div class="col size1of3 lastcol">
-                    <a class="logo fl" href='/UI/user/dashboard.aspx'>eBill</a>
+                    <a class="logo fl" href='../user/dashboard.aspx'>eBill</a>
                 </div>
             </div>
             <!--end toolbar wrapper--> 
@@ -271,7 +271,7 @@
             <% if(unmarked_calls_count != null) { %>
                 <% if(unmarked_calls_count > 0) { %>
                     <div id='warning-block' class='warning-block shadow'>
-                        <p class="message"><%= String.Format("You have a total of <span class='bold'>{0}&nbsp;unmarked</span> calls, please click <a class='link bold' href='/UI/user/manage_phone_calls.aspx'>here</a> to mark them.", unmarked_calls_count) %></p>
+                        <p class="message"><%= String.Format("You have a total of <span class='bold'>{0}&nbsp;unmarked</span> calls, please click <a class='link bold' href='../user/manage_phone_calls.aspx'>here</a> to mark them.", unmarked_calls_count) %></p>
                     </div>
                 <% } else { %>
                     <div id='information-block' class='info-block shadow'>

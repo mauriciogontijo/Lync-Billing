@@ -147,14 +147,14 @@
                             <p>Manage</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='/UI/user/manage_phone_calls.aspx' class="selected">Phone Calls</a></p>
-                            <p><a href="/UI/user/manage_address_book.aspx">Address Book</a></p>
+                            <p><a href='../user/manage_phone_calls.aspx' class="selected">Phone Calls</a></p>
+                            <p><a href="../user/manage_address_book.aspx">Address Book</a></p>
 
                             <%
                                 bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                 if (condition) {
                             %>
-                                <p><a href='/UI/user/manage_delegates.aspx'>Delegated Users</a></p>
+                                <p><a href='../user/manage_delegates.aspx'>Delegated Users</a></p>
                             <% } %>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                             <p>History</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='/UI/user/view_history.aspx'>View Calls History</a></p>
+                            <p><a href='../user/view_history.aspx'>View Calls History</a></p>
                         </div>
                     </div>
 
@@ -173,7 +173,7 @@
                             <p>Statistics</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='/UI/user/view_statistics.aspx'>View Calls Statistics</a></p>
+                            <p><a href='../user/view_statistics.aspx'>View Calls Statistics</a></p>
                         </div>
                     </div>
                 </Content>
