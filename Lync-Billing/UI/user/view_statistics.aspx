@@ -431,7 +431,7 @@
             <div class="block-body">
                 <ext:Panel ID="PhoneCallsDuartionChartPanel"
                     runat="server"
-                    Width="360"
+                    Width="364"
                     Height="320"
                     Layout="FitLayout">
                     <Items>
@@ -488,7 +488,7 @@
             <div class="block-body">
                 <ext:Panel ID="PhoneCallsCostChartPanel"
                     runat="server"
-                    Width="360"
+                    Width="364"
                     Height="320"
                     Layout="FitLayout">
                     <Items>
