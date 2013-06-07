@@ -271,7 +271,7 @@
             <% if(unmarked_calls_count != null) { %>
                 <% if(unmarked_calls_count > 0) { %>
                     <div id='warning-block' class='warning-block shadow'>
-                        <p class="message"><%= String.Format("You have a total of <span class='bold'>{0}&nbsp;unmarked</span> calls, please click <a class='link bold' href='/UI/user/manage_phone_calls.aspx'>here.</a> to mark them", unmarked_calls_count) %></p>
+                        <p class="message"><%= String.Format("You have a total of <span class='bold'>{0}&nbsp;unmarked</span> calls, please click <a class='link bold' href='/UI/user/manage_phone_calls.aspx'>here</a> to mark them.", unmarked_calls_count) %></p>
                     </div>
                 <% } else { %>
                     <div id='information-block' class='info-block shadow'>
