@@ -19,7 +19,10 @@ namespace Lync_Billing.UI.user
         public Dictionary<string, PhoneBook> phoneBookEntries;
         public List<string> columns = new List<string>();
         public List<PhoneCall> phoneCalls;
+        List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
+        
         string sipAccount = string.Empty;
+
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,6 +34,13 @@ namespace Lync_Billing.UI.user
             
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
+
+
+            foreach (PhoneCall autoMarkedPhonecall in AutoMarkedPhoneCalls)
+            {
+                //ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", autoMarkedPhonecall.SessionIdTime.ToString()).SetDirty();
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", autoMarkedPhonecall.SessionIdTime.ToString()).Set(autoMarkedPhonecall);
+            }
         }
 
         protected void AssignBusiness(object sender, DirectEventArgs e)
@@ -150,25 +160,26 @@ namespace Lync_Billing.UI.user
             phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             
             PhoneBook phoneBookentry;
+
+            PhoneCallsStore.DataSource = phoneCalls;
+            
             foreach (PhoneCall phoneCall in phoneCalls) 
             {
                 phoneBookentry = new PhoneBook();
                 phoneBookentry = GetUserNameByNumber(phoneCall.DestinationNumberUri);
               
-                if(phoneBookentry != null)
+                if(phoneBookentry != null && phoneCall.UI_CallType == null)
                 {
                     phoneCall.PhoneBookName = phoneBookentry.Name;
                     phoneCall.UI_CallType = phoneBookentry.Type;
-                }else
+                    phoneCall.UI_MarkedOn = DateTime.Now;
+                    AutoMarkedPhoneCalls.Add(phoneCall);
+                }
+                else
                 {
                      phoneCall.PhoneBookName  = "N/A";
                 }
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
             }
-
-            PhoneCallsStore.DataSource = phoneCalls;
-
-
             PhoneCallsStore.DataBind();
         }
 
