@@ -9,7 +9,7 @@ Change background color and font color
 of parent items when mouse hover 
 */
 .vertical-navigation li:hover a,
-.vertical-navigation li a:hover { background: #990; color: #fff; }
+.vertical-navigation li a:hover { background: #3B8686; color: #fff; }
 .vertical-navigation li.selected {background: #999; color: #fff;}
 /* 
 Apply to group of Child Items
@@ -18,15 +18,14 @@ Each Child Item will be invisible by default
 .vertical-navigation ul {display: none;}
 /* Each Child Item will be visible if mouse hover */
 .vertical-navigation li:hover ul {display: block;}
-.vertical-navigation ul{float: none;position: absolute;list-style: none;margin: 0;padding: 0;top:28px;top:26px\9;*top:26px;right: 0;/*ltr*/	left:0;/*already worked in ltr but keep this for ltr*/
-}
+.vertical-navigation ul{float: none;position: absolute;list-style: none;margin: 0;padding: 0;top:28px;top:26px\9;*top:26px;right: 0;/*ltr*/	left:0;/*already worked in ltr but keep this for ltr*/ }
 .vertical-navigation ul li{float: none;clear: none;margin: 0;padding: 0;width: auto;color: #999;}
 /* 
 Reset and re style 
 link of each child item
 */
 .vertical-navigation li:hover ul li a,
-.vertical-navigation ul li a{line-height: 200%;display: block;padding: 0 6px 0 6px; float: none; color: #999; background: none;}
+.vertical-navigation ul li a{display: block;padding: 0 6px 0 6px; float: none; color: #999; background: none;}
 .vertical-navigation li:hover ul li a:hover,
 .vertical-navigation ul li a:hover{background: none;color: #000;}
 .vertical-navigation li ul {background:none; width:200px; }
@@ -41,17 +40,17 @@ link of each child item
 .toolbar  .vertical-navigation li .drop { background:url(../images/drop-arrow.png) no-repeat; display:inline-block; vertical-align:middle; width:12px; height:8px; margin:0 5px 0 0 }
 .toolbar  .vertical-navigation li .settings { background:url(../images/settings.png) no-repeat; background-size:contain; display:inline-block; vertical-align:middle; width:30px; height:34px; margin:0 5px 0 0 }
 .toolbar  .vertical-navigation li ul {
-    z-index: 1;
+    z-index: 1000;
     position: absolute;
     top: 34px;
     width: 180px;
     background: #fff !important; /*background:#252424;*/
     color: #0B486B !important;
-    -webkit-box-shadow: #666 3px 4px 11px;
-    -moz-box-shadow: #666 3px 4px 11px;
-    box-shadow: #666 3px 4px 11px;
+    -webkit-box-shadow: #3B8686 1px 2px 6px; /* #666 */
+    -moz-box-shadow: #3B8686 1px 2px 6px; /* #666 */
+    box-shadow: #3B8686 1px 2px 6px; /* #666 */
     border: 1px #B6C0D2 solid;
-    border-top: 3px #B6C0D2 solid;
+    border-top: 3px #3B8686 solid;
     -webkit-border-bottom-right-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
     -moz-border-radius-bottomright: 5px;
@@ -60,7 +59,7 @@ link of each child item
     border-bottom-left-radius: 5px;
 }
 
-.toolbar .vertical-navigation li ul#user-dropdown { width: 150px !important; }
+.toolbar .vertical-navigation li ul#user-dropdown { width: 160px !important; }
 .toolbar .vertical-navigation li ul#accounting-dropdown { width: 180px !important; }
 .toolbar .vertical-navigation li ul li.separator-bottom { border-bottom: 1px solid #B6C0D2 !important; }
 
@@ -68,21 +67,21 @@ link of each child item
 .toolbar .vertical-navigation li a:hover {color: #fff; }
 
 .vertical-navigation li:hover a,
-.vertical-navigation li a:hover { background: #0B486B /*#3B8686*/; color: #fff; }
+.vertical-navigation li a:hover { background: #3B8686 /*#0B486B*/; color: #fff; }
 .vertical-navigation li.selected {background: #6DB14A; color: #fff;}
 
 /* default value of links colors in the sub menu */
 .toolbar .vertical-navigation li:hover ul li { border-right: none;}
 .toolbar .vertical-navigation li:hover ul li a, .toolbar .vertical-navigation ul li a { color: #000; }
 
-.toolbar  .vertical-navigation ul li { height: 36px; border-bottom: 1px solid #B6C0D2; }
-.toolbar  .vertical-navigation ul li a { height: 36px; line-height: 36px; float: left; text-align: left; display: inline;  }
+.toolbar .vertical-navigation ul li { height: 32px; /*border-bottom: 1px solid #B6C0D2;*/ }
+.toolbar .vertical-navigation ul li a { height: 32px; line-height: 30px; float: left; text-align: left; display: inline;  }
 .toolbar .vertical-navigation li:hover ul li a:hover, 
 .toolbar .vertical-navigation ul li a:hover,
-.toolbar .vertical-navigation ul li:hover a { background-color: #fff; background-image: -webkit-linear-gradient(top, #A8DBA8, #79BD9A); color: #000; font-weight: bold; }
+.toolbar .vertical-navigation ul li:hover a { background-color: #ececec; color: #000; font-weight: bold; }
 
-.toolbar  .vertical-navigation ul li.first-child{margin-top:3px !important; }
-.toolbar  .vertical-navigation ul li.last-child{border:none; margin-bottom:3px !important; }
+.toolbar .vertical-navigation ul li.first-child{margin-top:3px !important; }
+.toolbar .vertical-navigation ul li.last-child{border:none; margin-bottom:3px !important; }
 
 .toolbar  .left0{left:0%}
 /*#################################END VERTICAL DROPDOWN MENU DEFAULT SKIN ###########################*/

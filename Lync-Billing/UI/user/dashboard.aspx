@@ -16,8 +16,8 @@
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/toolkit.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/global.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/green-layout.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="../resources/css/dropdown-menu.css" />
-    <!--<link rel="stylesheet" type="text/css" media="all" href="../resources/css/dropdown-menu-white.css" />-->
+    <!--<link rel="stylesheet" type="text/css" media="all" href="../resources/css/dropdown-menu.css" />-->
+    <link rel="stylesheet" type="text/css" media="all" href="../resources/css/dropdown-menu-white.css" />
 
     <script type="text/javascript" src="../resources/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../resources/js/browserdetector.js"></script>
@@ -25,6 +25,13 @@
     <!--[if lte IE 9]>
 	    <link rel="stylesheet" type="text/css" href="../resources/css/green-layout-ie-hacks.css" />
 	<![endif]-->
+
+    <!--[if lt IE 8]>
+        <style type='text/css'>
+            .info-block p.message, .warning-block p.message { line-height: 35px; height: 35px; font-size: 14px; float: left; display: inline-block; }
+            .info-block, .warning-block { height: 35px; background-position-x: 10px; background-position-y: 15px; }
+        </style>
+    <![endif]-->
 
     <script type="text/javascript">
         BrowserDetect.init();
@@ -207,10 +214,8 @@
                             <li id="user-tab" class="">
                                 <a href="#"><%= ((Lync_Billing.DB.UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName %><span class="drop"></span></a>
                                 <ul id="user-dropdown">
-                                    <!--<li class="separator-bottom"><a title="Home" href="../user/dashboard.aspx">Dashboard</a></li>-->
-
                                     <li class="first-child"><a title="Manage My Phone Calls" href="../user/manage_phone_calls.aspx">Phone Calls</a></li>
-                                    <li class=""><a title="Address Book" href="../user/manage_address_book.aspx">Address Book</a></li>
+                                    <li class="separator-bottom"><a title="Address Book" href="../user/manage_address_book.aspx">Address Book</a></li>
                                     <%
                                         bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                         if (is_delegate) {
