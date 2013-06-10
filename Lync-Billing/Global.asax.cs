@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.Web.Routing;
 
 namespace Lync_Billing
 {
@@ -59,5 +60,10 @@ namespace Lync_Billing
         {
 
         }
+
+        //protected static void RegisterRoutes(RouteCollection routes) 
+        //{
+            
+        //}
     }
 }
