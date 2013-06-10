@@ -110,14 +110,21 @@ namespace Lync_Billing.Libs
                whereStatement.Append("WHERE ");
                foreach (KeyValuePair<string, object> pair in whereClause)
                {
-                   Type valueType = pair.Value.GetType();
-                   if (valueType == typeof(int) || valueType == typeof(Double))
+                   if (pair.Value == null)
                    {
-                       whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                       whereStatement.Append("[" + pair.Key + "] IS NULL" + " AND ");
                    }
                    else
                    {
-                       whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' COLLATE SQL_Latin1_General_CP1_CI_AS AND ");
+                       Type valueType = pair.Value.GetType();
+                       if (valueType == typeof(int) || valueType == typeof(Double))
+                       {
+                           whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                       }
+                       else
+                       {
+                           whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' COLLATE SQL_Latin1_General_CP1_CI_AS AND ");
+                       }
                    }
                }
                whereStatement.Remove(whereStatement.Length-5, 5);

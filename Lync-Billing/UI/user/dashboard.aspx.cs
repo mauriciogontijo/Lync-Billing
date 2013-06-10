@@ -15,7 +15,7 @@ namespace Lync_Billing.UI.user
 {
     public partial class dashboard : System.Web.UI.Page
     {
-        public int unmarked_calls_count = -1;
+        public int unmarked_calls_count = 0;
         public string sipAccount = string.Empty;
 
         public Dictionary<string, PhoneBook> phoneBookEntries;
@@ -36,9 +36,7 @@ namespace Lync_Billing.UI.user
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
 
-            if (unmarked_calls_count == -1) {
-                unmarked_calls_count = getUnmarkedCallsCount();
-            }
+            unmarked_calls_count = getUnmarkedCallsCount();
 
             DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
@@ -167,18 +165,18 @@ namespace Lync_Billing.UI.user
 
             wherePart.Add("SourceUserUri", sipAccount);
             wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("ui_CallType", null);
             wherePart.Add("ac_IsInvoiced", "NO");
-            columns.Add("ui_CallType");
 
             phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
 
-            foreach (PhoneCall entry in phoneCalls) {
+            /*foreach (PhoneCall entry in phoneCalls) {
                 if (entry.UI_CallType == null) {
                     count += 1;
                 }
-            }
+            }*/
 
-            return count;
+            return phoneCalls.Count;
         }
 
         private string GetUserNameByNumber(string phoneNumber) 
