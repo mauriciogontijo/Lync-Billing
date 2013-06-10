@@ -36,13 +36,7 @@ namespace Lync_Billing.UI.user
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
 
-            if (AutoMarkedPhoneCalls.Count < 0)
-            {
-                foreach (PhoneCall autoMarkedPhonecall in AutoMarkedPhoneCalls)
-                {
-                    PhoneCall.UpdatePhoneCall(autoMarkedPhonecall);
-                }
-            }
+         
         }
 
         protected void AssignBusiness(object sender, DirectEventArgs e)
@@ -170,12 +164,16 @@ namespace Lync_Billing.UI.user
                 phoneBookentry = new PhoneBook();
                 phoneBookentry = GetUserNameByNumber(phoneCall.DestinationNumberUri);
               
-                if(phoneBookentry != null && phoneCall.UI_CallType == null)
+                if(phoneBookentry != null)
                 {
                     phoneCall.PhoneBookName = phoneBookentry.Name;
-                    phoneCall.UI_CallType = phoneBookentry.Type;
-                    phoneCall.UI_MarkedOn = DateTime.Now;
-                    AutoMarkedPhoneCalls.Add(phoneCall);
+
+                    if (phoneCall.UI_CallType == null)
+                    {
+                        phoneCall.UI_CallType = phoneBookentry.Type;
+                        phoneCall.UI_MarkedOn = DateTime.Now;
+                        AutoMarkedPhoneCalls.Add(phoneCall);
+                    }
                 }
                 else
                 {
@@ -183,6 +181,14 @@ namespace Lync_Billing.UI.user
                 }
             }
             PhoneCallsStore.DataBind();
+
+            if (AutoMarkedPhoneCalls.Count > 0)
+            {
+                foreach (PhoneCall autoMarkedPhonecall in AutoMarkedPhoneCalls)
+                {
+                    PhoneCall.UpdatePhoneCall(autoMarkedPhonecall);
+                }
+            }
         }
 
         private PhoneBook GetUserNameByNumber(string phoneNumber)
