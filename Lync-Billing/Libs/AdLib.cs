@@ -124,22 +124,47 @@ namespace Lync_Billing.Libs
 
             if (localForestResult != null && resourceForestResult != null)
             {
-                userInfo.Title = (string)localForestResult.Properties["title"][0];
-                userInfo.FirstName = (string)localForestResult.Properties["givenName"][0];
-                userInfo.LastName = (string)localForestResult.Properties["sn"][0];
-                userInfo.DisplayName = (string)localForestResult.Properties["cn"][0];
+                if (localForestResult.Properties.Contains("title"))
+                    userInfo.Title = (string)localForestResult.Properties["title"][0];
 
-                userInfo.SamAccountName = (string)localForestResult.Properties["samaccountname"][0];
-                userInfo.Upn = (string)localForestResult.Properties["userprincipalname"][0];
-                userInfo.EmailAddress = (string)localForestResult.Properties["mail"][0];
-                userInfo.EmployeeID = (string)localForestResult.Properties["employeeid"][0];
-                userInfo.Department = (string)localForestResult.Properties["department"][0];
-                userInfo.BusinessPhone = (string)localForestResult.Properties["telephonenumber"][0];
-                userInfo.physicalDeliveryOfficeName = (string)localForestResult.Properties["physicalDeliveryOfficeName"][0];
+                if (localForestResult.Properties.Contains("givenName"))
+                    userInfo.FirstName = (string)localForestResult.Properties["givenName"][0];
 
-                userInfo.SipAccount = (string)resourceForestResult.Properties["msrtcsip-primaryuseraddress"][0];
-                userInfo.Telephone = (string)resourceForestResult.Properties["msrtcsip-line"][0];
-                userInfo.PrimaryHomeServerDN = ((string)resourceForestResult.Properties["msrtcsip-primaryhomeserver"][0]).Replace("CN=Lc Services,CN=Microsoft,", "");
+                if (localForestResult.Properties.Contains("sn"))
+                    userInfo.LastName = (string)localForestResult.Properties["sn"][0];
+
+                if (localForestResult.Properties.Contains("cn"))
+                    userInfo.DisplayName = (string)localForestResult.Properties["cn"][0];
+
+                if (localForestResult.Properties.Contains("samaccountname"))
+                    userInfo.SamAccountName = (string)localForestResult.Properties["samaccountname"][0];
+
+                if (localForestResult.Properties.Contains("userprincipalname"))
+                    userInfo.Upn = (string)localForestResult.Properties["userprincipalname"][0];
+
+                if (localForestResult.Properties.Contains("mail"))
+                    userInfo.EmailAddress = (string)localForestResult.Properties["mail"][0];
+
+                if (localForestResult.Properties.Contains("employeeid"))
+                    userInfo.EmployeeID = (string)localForestResult.Properties["employeeid"][0];
+
+                if (localForestResult.Properties.Contains("department"))
+                    userInfo.Department = (string)localForestResult.Properties["department"][0];
+
+                if (localForestResult.Properties.Contains("telephonenumber"))
+                    userInfo.BusinessPhone = (string)localForestResult.Properties["telephonenumber"][0];
+
+                if (localForestResult.Properties.Contains("physicalDeliveryOfficeName"))
+                    userInfo.physicalDeliveryOfficeName = (string)localForestResult.Properties["physicalDeliveryOfficeName"][0];
+
+                if (localForestResult.Properties.Contains("msrtcsip-primaryuseraddress"))
+                    userInfo.SipAccount = (string)resourceForestResult.Properties["msrtcsip-primaryuseraddress"][0];
+
+                if (localForestResult.Properties.Contains("msrtcsip-line"))
+                    userInfo.Telephone = (string)resourceForestResult.Properties["msrtcsip-line"][0];
+
+                if (localForestResult.Properties.Contains("msrtcsip-primaryhomeserver"))
+                    userInfo.PrimaryHomeServerDN = ((string)resourceForestResult.Properties["msrtcsip-primaryhomeserver"][0]).Replace("CN=Lc Services,CN=Microsoft,", "");
                
             }
             return userInfo;
