@@ -28,4 +28,6 @@ namespace Lync_Billing.DB
             Notification.Show(notificationConfig);
         }
     }
+
+    
 }
