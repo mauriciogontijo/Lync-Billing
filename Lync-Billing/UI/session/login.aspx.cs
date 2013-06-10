@@ -120,7 +120,6 @@ namespace Lync_Billing.UI.session
                     Session.Add("UserData", session);
                     Response.Redirect("~/UI/user/dashboard.aspx");
                 }
-
             }
         }//END OF FUNCTION
     }
