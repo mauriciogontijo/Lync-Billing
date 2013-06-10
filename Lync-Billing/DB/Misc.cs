@@ -14,24 +14,16 @@ namespace Lync_Billing.DB
 
             notificationConfig.Title = title;
             notificationConfig.Html = msg;
+            notificationConfig.HideDelay = 5000;
 
             if (type == "success") 
                 notificationConfig.Icon = Icon.Accept;
             else if(type == "info")
                 notificationConfig.Icon = Icon.Information;
             else if (type == "warning")
-            {
-
                 notificationConfig.Icon = Icon.AsteriskYellow;
-            }
             else if (type == "error")
-            {
                 notificationConfig.Icon = Icon.Error;
-            }
-
-
-
-                        
 
             Notification.Show(notificationConfig);
         }
