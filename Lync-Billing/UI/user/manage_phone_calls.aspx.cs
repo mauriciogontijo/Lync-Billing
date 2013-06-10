@@ -148,11 +148,22 @@ namespace Lync_Billing.UI.user
             columns.Add("ui_MarkedOn");
 
             phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            
+            PhoneBook phoneBookentry;
             foreach (PhoneCall phoneCall in phoneCalls) 
             {
-                phoneCall.PhoneBookName = GetUserNameByNumber(phoneCall.DestinationNumberUri);
-                if (phoneCall.PhoneBookName == null || phoneCall.PhoneBookName == string.Empty)
-                       phoneCall.PhoneBookName  = "N/A";
+                phoneBookentry = new PhoneBook();
+                phoneBookentry = GetUserNameByNumber(phoneCall.DestinationNumberUri);
+              
+                if(phoneBookentry != null)
+                {
+                    phoneCall.PhoneBookName = phoneBookentry.Name;
+                    phoneCall.UI_CallType = phoneBookentry.Type;
+                }else
+                {
+                     phoneCall.PhoneBookName  = "N/A";
+                }
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
             }
 
             PhoneCallsStore.DataSource = phoneCalls;
@@ -161,12 +172,12 @@ namespace Lync_Billing.UI.user
             PhoneCallsStore.DataBind();
         }
 
-        private string GetUserNameByNumber(string phoneNumber)
+        private PhoneBook GetUserNameByNumber(string phoneNumber)
         {
             if (phoneBookEntries.ContainsKey(phoneNumber))
-                return phoneBookEntries[phoneNumber].Name;
+                return phoneBookEntries[phoneNumber];
             else
-                return string.Empty;
+                return null;
         }
     }
 }
