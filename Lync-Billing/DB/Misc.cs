@@ -12,18 +12,8 @@ namespace Lync_Billing.DB
         {
             NotificationConfig notificationConfig = new NotificationConfig();
 
-            NotificationAlignConfig AlignCfg = new NotificationAlignConfig
-            {
-                ElementAnchor = AnchorPoint.TopRight,
-                TargetAnchor = AnchorPoint.TopRight,
-                OffsetX = -5,
-                OffsetY = 35
-            };
-
             notificationConfig.Title = title;
             notificationConfig.Html = msg;
-
-            notificationConfig.AlignCfg = AlignCfg;
 
             if (type == "success") 
                 notificationConfig.Icon = Icon.Accept;
