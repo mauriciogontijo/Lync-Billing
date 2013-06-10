@@ -15,12 +15,16 @@ namespace Lync_Billing.UI.user
 {
     public partial class dashboard : System.Web.UI.Page
     {
-        public int unmarked_calls_count = 0;
+        public int unmarked_calls_count = -1;
         public string sipAccount = string.Empty;
 
         public Dictionary<string, PhoneBook> phoneBookEntries;
         public List<TopDestinations> topDestinations;
         public List<TopCountries> topCountries;
+
+        public Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        public List<string> columns = new List<string>();
+        public List<PhoneCall> phoneCalls;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,7 +36,9 @@ namespace Lync_Billing.UI.user
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
 
-            unmarked_calls_count = getUnmarkedCallsCount();
+            if (unmarked_calls_count == -1) {
+                unmarked_calls_count = getUnmarkedCallsCount();
+            }
 
             DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
@@ -152,10 +158,27 @@ namespace Lync_Billing.UI.user
 
         protected int getUnmarkedCallsCount()
         {
-            CultureInfo provider = CultureInfo.InvariantCulture;
-            DateTime fromDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
+            //CultureInfo provider = CultureInfo.InvariantCulture;
+            //DateTime fromDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
+            //return UsersCallsSummary.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, fromDate, DateTime.Now).UnmarkedCallsCount;
 
-            return UsersCallsSummary.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, fromDate, DateTime.Now).UnmarkedCallsCount;
+            int count = 0;
+            sipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+            wherePart.Add("SourceUserUri", sipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("ac_IsInvoiced", "NO");
+            columns.Add("ui_CallType");
+
+            phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+
+            foreach (PhoneCall entry in phoneCalls) {
+                if (entry.UI_CallType == null) {
+                    count += 1;
+                }
+            }
+
+            return count;
         }
 
         private string GetUserNameByNumber(string phoneNumber) 
