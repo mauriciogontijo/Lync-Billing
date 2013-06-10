@@ -43,7 +43,7 @@ namespace Lync_Billing.UI.user
 
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
-            Misc.Message("Welcome " + ((UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName);
+            Misc.Message("Welcome","Welcome " + ((UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName,"info");
         }
 
         [DirectMethod]
