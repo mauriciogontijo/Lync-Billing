@@ -42,6 +42,8 @@ namespace Lync_Billing.UI.user
             DurationCostChartStore.DataBind();
 
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
+
+            Misc.Message("Welcome " + ((UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName);
         }
 
         [DirectMethod]
