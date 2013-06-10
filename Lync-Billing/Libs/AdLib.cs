@@ -157,13 +157,13 @@ namespace Lync_Billing.Libs
                 if (localForestResult.Properties.Contains("physicalDeliveryOfficeName"))
                     userInfo.physicalDeliveryOfficeName = (string)localForestResult.Properties["physicalDeliveryOfficeName"][0];
 
-                if (localForestResult.Properties.Contains("msrtcsip-primaryuseraddress"))
+                if (resourceForestResult.Properties.Contains("msrtcsip-primaryuseraddress"))
                     userInfo.SipAccount = (string)resourceForestResult.Properties["msrtcsip-primaryuseraddress"][0];
 
-                if (localForestResult.Properties.Contains("msrtcsip-line"))
+                if (resourceForestResult.Properties.Contains("msrtcsip-line"))
                     userInfo.Telephone = (string)resourceForestResult.Properties["msrtcsip-line"][0];
 
-                if (localForestResult.Properties.Contains("msrtcsip-primaryhomeserver"))
+                if (resourceForestResult.Properties.Contains("msrtcsip-primaryhomeserver"))
                     userInfo.PrimaryHomeServerDN = ((string)resourceForestResult.Properties["msrtcsip-primaryhomeserver"][0]).Replace("CN=Lc Services,CN=Microsoft,", "");
                
             }
