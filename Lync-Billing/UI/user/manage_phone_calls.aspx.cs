@@ -36,10 +36,12 @@ namespace Lync_Billing.UI.user
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
 
-            foreach (PhoneCall autoMarkedPhonecall in AutoMarkedPhoneCalls)
+            if (AutoMarkedPhoneCalls.Count < 0)
             {
-                //ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", autoMarkedPhonecall.SessionIdTime.ToString()).SetDirty();
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", autoMarkedPhonecall.SessionIdTime.ToString()).Set(autoMarkedPhonecall);
+                foreach (PhoneCall autoMarkedPhonecall in AutoMarkedPhoneCalls)
+                {
+                    PhoneCall.UpdatePhoneCall(autoMarkedPhonecall);
+                }
             }
         }
 
