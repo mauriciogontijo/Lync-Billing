@@ -168,7 +168,7 @@ namespace Lync_Billing.UI.user
                 {
                     phoneCall.PhoneBookName = phoneBookentry.Name;
 
-                    if (phoneCall.UI_CallType != null)
+                    if (phoneCall.UI_CallType == null)
                     {
                         phoneCall.UI_CallType = phoneBookentry.Type;
                         phoneCall.UI_MarkedOn = DateTime.Now;
