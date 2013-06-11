@@ -33,6 +33,8 @@ namespace Lync_Billing.DB
         public bool IsSuperAccountant { set; get; }
         public bool IsCountryAccountant { set; get; }
         public bool IsProjectAccountant { set; get; }
+        public string CurrentURL { set; get; }
+        public string ToURL { set; get; }
 
         //Delegate-capability check
         public bool IsDelegate { set; get; }
