@@ -280,6 +280,16 @@ namespace Lync_Billing.DB
             Name
         }
 
+        public static enum TypeOfUser
+        {
+            [Description("ACCOUNTANT")]
+            ACCOUNTANT,
+            [Description("USER")]
+            USER,
+            [Description("ADMIN")]
+            ADMIN
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
