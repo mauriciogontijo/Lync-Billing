@@ -231,6 +231,18 @@
                             <li id="home-tab" class="selected">
                                 <a title="Home" href="../user/dashboard.aspx">Home</a>
                             </li>
+
+                            <%
+                                bool is_accountant = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                                if (is_accountant) {
+                            %>
+                                <li id="switch-roles" class="">
+                                    <a href="#">Switch To<span class="drop"></span></a>
+                                    <ul id="roles-dropdown">
+                                        <li class="first-child last-child"><a title="Manage My Phone Calls" href="../accounting/dashboard.aspx">Accounting Dashboard</a></li>
+                                    </ul>
+                                </li>
+                            <% } %>
                         </ul>
                     </div>
                 </div>
