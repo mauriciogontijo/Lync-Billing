@@ -29,7 +29,6 @@ namespace Lync_Billing.UI.user
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
 
             unmarked_calls_count = getUnmarkedCallsCount();
