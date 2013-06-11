@@ -164,6 +164,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Libs\ADLib.cs" />
+    <Compile Include="Libs\UrlHandler.cs" />
     <Compile Include="Libs\DBLib.cs" />
     <Compile Include="DB\Enums.cs" />
     <Compile Include="Libs\JsonTranslator.cs" />
