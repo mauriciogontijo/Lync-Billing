@@ -14,33 +14,31 @@ namespace Lync_Billing.Libs
         public string CurrentURL { get; set; }
         public string RedirectToURL { get; private set; }
 
-        private static bool PageAuthorization(List<UserRole> roles, string URL) 
+        private static bool PageAuthorization(UserSession session, string URL) 
         {
             bool status = false;
-            
-            foreach (UserRole role in roles)
+
+            if (session.IsDelegate)
             {
-                if (role.RoleID.ToString() == Enums.GetDescription(Enums.TypeOfUser.USER))
-                {
-                    if (URL.Contains(@"/user/"))
-                        status = true;
-                }
-
-                if (role.RoleID.ToString() == Enums.GetDescription(Enums.TypeOfUser.ACCOUNTANT))
-                {
-                    if (URL.Contains(@"/accounting/"))
-                        status = true;
-                }
-
-                if (role.RoleID.ToString() == Enums.GetDescription(Enums.TypeOfUser.ADMIN))
-                {
-                    if (URL.Contains(@"/admin/"))
-                        status = true;
-                }
-
-                if (role.RoleID.ToString() == Enums.GetDescription(Enums.TypeOfUser.DEVELOPER))
+                if (URL.Contains(@"/manage_delegates"))
                     status = true;
             }
+
+            if (session.IsAccountant)
+            {
+                if (URL.Contains(@"/accounting/"))
+                    status = true;
+            }
+
+            if (session.IsAdmin)
+            {
+                if (URL.Contains(@"/admin/"))
+                    status = true;
+            }
+
+            if (session.IsDeveloper)
+                status = true;
+
             return status;
         }
 
@@ -48,9 +46,9 @@ namespace Lync_Billing.Libs
         {
             if (session != null)
             {
-                List<UserRole> roles = session.Roles;
+                //List<UserRole> roles = session.Roles;
 
-                if (PageAuthorization(roles, toURL) == true)
+                if (PageAuthorization(session, toURL) == true)
                     return 0;
                 else
                     return 1;
