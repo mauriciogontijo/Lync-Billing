@@ -187,10 +187,12 @@ h1, h2, h3, h4, h5, h6 { margin: 0; color: #333; text-rendering: optimizeLegibil
 .w50 { width: 50px; }
 .w50 { width: 50px; }
 .w150 { width: 150px; }
+.w740 { width: 740px; }
+.w750 { width: 750px; }
 
 .w10p { width: 10%; }
 .w15p { width: 15%; }
-.w20p { width: 20%; }
+.w20p { width: 20% !important; }
 .w25p { width: 25%; }
 .w30p { width: 30%; }
 .w35p { width: 35%; }
@@ -206,7 +208,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0; color: #333; text-rendering: optimizeLegibil
 .w65p { width: 65%; }
 .w70p { width: 70%; }
 .w75p { width: 75%; }
-.w80p { width: 80%; }
+.w80p { width: 80% !important; }
 .w85p { width: 85%; }
 .w90p { width: 90%; }
 .w95p { width: 95%; }
