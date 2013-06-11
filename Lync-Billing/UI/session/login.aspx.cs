@@ -16,14 +16,6 @@ namespace Lync_Billing.UI.session
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Dispatcher LocalDispatcher = new Dispatcher();
-
-            if (HttpContext.Current.Session != null || HttpContext.Current.Session.Contents["UserData"] != null)
-            {
-                UserSession usession = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-                string url = LocalDispatcher.DispatchRequestedURL(usession, "user", "dashboard");
-                Response.Redirect(url);
-            }
         }
 
         protected void SigninButton_Click(object sender, EventArgs e)
