@@ -33,56 +33,9 @@
     <!-- *** START OF SIDEBAR *** -->
     <div id='Div1' class='sidebar block float-left w20p'>
         <div class="block-body">
-            <ext:Panel ID="UserToolsSidebar"
-                runat="server"
-                Height="305"
-                Width="180"
-                Title="User Tools"
-                Collapsed="true"
-                Collapsible="true">
-                <Content>
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Manage</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='/UI/user/manage_phone_calls.aspx'>Phone Calls</a></p>
-                            <p><a href="/UI/user/manage_address_book.aspx">Address Book</a></p>
-
-                            <%
-                                bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                                if (condition) {
-                            %>
-                                <p><a href='/UI/user/manage_delegates.aspx'>Delegated Users</a></p>
-                            <% } %>
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>History</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='/UI/user/view_history.aspx'>View Calls History</a></p>
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Statistics</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='/UI/user/view_statistics.aspx'>View Calls Statistics</a></p>
-                        </div>
-                    </div>
-                </Content>
-            </ext:Panel>
-            
-            <div class="clear h20"></div>
-
             <ext:Panel ID="AccountingToolsSidebar"
                 runat="server"
-                Height="330"
+                Height="415"
                 Width="180"
                 Title="Accounting Tools"
                 Collapsed="false"
@@ -90,10 +43,19 @@
                 <Content>
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
+                            <p>Pages</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='../accounting/dashboard.aspx'>Dashboard</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
                             <p>Disputes</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='/UI/accounting/manage_disputes.aspx'>Manage Disputed Calls</a></p>
+                            <p><a href='../accounting/manage_disputes.aspx'>Manage Disputed Calls</a></p>
                         </div>
                     </div>
 
@@ -102,8 +64,8 @@
                             <p>Generate User Reportss</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='/UI/accounting/monthly_user_reports.aspx'>Monthly Users Reports</a></p>
-                            <p><a href='/UI/accounting/periodical_user_reports.aspx'>Periodical Users Reports</a></p>
+                            <p><a href='../accounting/monthly_user_reports.aspx'>Monthly Users Reports</a></p>
+                            <p><a href='../accounting/periodical_user_reports.aspx'>Periodical Users Reports</a></p>
                         </div>
                     </div>
 
@@ -112,8 +74,8 @@
                             <p>Generate Site Reportss</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='/UI/accounting/monthly_site_reports.aspx' class="selected">Monthly Sites Reports</a></p>
-                            <p><a href='/UI/accounting/periodical_site_reports.aspx'>Periodical Sites Reports</a></p>
+                            <p><a href='../accounting/monthly_site_reports.aspx' class="selected">Monthly Sites Reports</a></p>
+                            <p><a href='../accounting/periodical_site_reports.aspx'>Periodical Sites Reports</a></p>
                         </div>
                     </div>
                 </Content>

@@ -13,15 +13,6 @@ namespace Lync_Billing.UI.accounting {
     public partial class monthly_user_reports {
         
         /// <summary>
-        /// UserToolsSidebar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel UserToolsSidebar;
-        
-        /// <summary>
         /// AccountingToolsSidebar control.
         /// </summary>
         /// <remarks>
