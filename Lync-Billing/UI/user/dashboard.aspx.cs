@@ -31,7 +31,8 @@ namespace Lync_Billing.UI.user
             //If the user is not loggedin, redirect to Login page.
             if (Session.Contents["UserData"] == null || HttpContext.Current.Session.Count == 0)
             {
-                Response.Redirect("~/UI/session/login.aspx");
+                string redirect_to = "~/UI/user/dashboard.aspx";
+                Response.Redirect("~/UI/session/login.aspx?redirect_to=" + redirect_to);
             }
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;

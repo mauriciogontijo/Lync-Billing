@@ -24,7 +24,8 @@ namespace Lync_Billing.UI.user
             //If the user is not loggedin, redirect to Login page.
             if (Session.Contents["UserData"] == null)
             {
-                Response.Redirect("~/UI/session/login.aspx");
+                string redirect_to = "~/UI/user/dashboard.aspx";
+                Response.Redirect("~/UI/session/login.aspx?redirect_to=" + redirect_to);
             }
             else
             {
@@ -33,7 +34,7 @@ namespace Lync_Billing.UI.user
 
                 if (!session.IsDelegate && !session.IsDeveloper)
                 {
-                    Response.Redirect("~/UI/User_Dashboard.aspx");
+                    Response.Redirect("~/UI/user/dashboard.aspx");
                 }
 
                 delegates = UsersDelegates.GetSipAccounts(session.SipAccount);
