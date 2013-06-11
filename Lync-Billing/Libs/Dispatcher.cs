@@ -56,12 +56,7 @@ namespace Lync_Billing.Libs
                     return 1;
             }
             else 
-            {
-                session.CurrentURL = currentURL;
-                session.ToURL = toURL;
                 return -1;
-            }
-
         }
 
     }
