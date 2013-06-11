@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using System.Web.SessionState;
 using Lync_Billing.DB;
 
@@ -9,7 +11,7 @@ namespace Lync_Billing.Libs
 {
     public class Dispatcher
     {
-        private string URL { get; set; }
+        public string URL { get; set; }
         public static string RedirectTo { get; set; }
         public static readonly Dictionary<string, Dictionary<string, string>> Pages = new Dictionary<string, Dictionary<string, string>>();
 
