@@ -21,12 +21,18 @@ namespace Lync_Billing.Libs
                 return false;
         }
 
-        public string RedirectURL(string sipAccount, UserSession uSession, string url) 
+        public string RedirectURL(string sipAccount, UserSession uSession, string url)
         {
             if (ValidateUserSession(sipAccount, uSession) == true)
+            {
+                //TODO : Validate User Role
                 return url;
+            }
             else
+            {
+                //TODO: REDIRECT WHATEVER PAGE 
                 return string.Empty;
+            }
         }
 
         
