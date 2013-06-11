@@ -59,6 +59,10 @@ namespace Lync_Billing.Libs
                     {
                         URL = Pages["user"]["dashboard"];
                     }
+                    else if (page_context == "user" && page_name == "manage_delegates" && session.IsDelegate == false)
+                    {
+                        URL = Pages["user"]["dashboard"];
+                    }
                     else
                     {
                         URL = Pages[page_context][page_name];
