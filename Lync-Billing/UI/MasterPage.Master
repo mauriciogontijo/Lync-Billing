@@ -56,16 +56,16 @@
                                         <ul id="user-dropdown">
                                             <!--<li class="separator-bottom"><a title="Home" href="../user/dashboard.aspx">Dashboard</a></li>-->
 
-                                            <li id="manage-phonecalls-tab"><a title="Manage My Phone Calls" href="../user/manage_phone_calls.aspx">Phone Calls</a></li>
-                                            <li class=""><a title="Address Book" href="../user/manage_address_book.aspx">Address Book</a></li>
+                                            <li id="manage-phonecalls-tab"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
+                                            <li class=""><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
                                             <%
                                                 bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                                 if (is_delegate) {
                                             %>
                                                 <li class="separator-bottom"><a href="../user/manage_delegates.aspx">Delegated Users</a></li>
                                             <% } %>
-                                            <li class=""><a title="Call History" href="../user/view_history.aspx">Calls History</a></li>
-                                            <li class="separator-bottom"><a title="Call Statistics" href="../user/view_statistics.aspx">Calls Statistics</a></li>
+                                            <li class=""><a title="Call History" href="../user/history.aspx">Calls History</a></li>
+                                            <li class="separator-bottom"><a title="Call Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
                                             <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                         </ul>
                                     </li>

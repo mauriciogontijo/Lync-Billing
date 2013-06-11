@@ -14,12 +14,16 @@ using Lync_Billing.Libs;
 
 namespace Lync_Billing.UI.user
 {
-    public partial class manage_delegates : System.Web.UI.Page
+    public partial class phonecalls : System.Web.UI.Page
     {
-        Dictionary<string, object> wherePart = new Dictionary<string, object>();
-        List<string> columns = new List<string>();
-        List<UsersDelegates> delegates = new List<UsersDelegates>();
+        public Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        public Dictionary<string, PhoneBook> phoneBookEntries;
+        public List<string> columns = new List<string>();
+        public List<PhoneCall> phoneCalls;
+        List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
 
+        string sipAccount = string.Empty;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             Dispatcher LocalDispatcher = new Dispatcher();
@@ -27,14 +31,14 @@ namespace Lync_Billing.UI.user
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
-                //string redirect_to = "~/UI/user/dashboard.aspx";
+                //string redirect_to = "~/UI/user/phonecalls.aspx";
                 //Response.Redirect("~/UI/session/login.aspx?redirect_to=" + redirect_to);
                 string url = LocalDispatcher.DispatchRequestedURL(null, "user", "dashboard");
                 Response.Redirect(url);
             }
 
-            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-            delegates = UsersDelegates.GetSipAccounts(session.SipAccount);
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+            phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
         }
 
         protected void AssignBusiness(object sender, DirectEventArgs e)
@@ -81,7 +85,7 @@ namespace Lync_Billing.UI.user
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
+                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();  
             }
             //ManagePhoneCallsGrid.GetStore().CommitChanges();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
@@ -132,61 +136,69 @@ namespace Lync_Billing.UI.user
             this.PhoneCallsStore.DataBind();
         }
 
-        protected void DelegatedUsersStore_Load(object sender, EventArgs e)
+        protected void PhoneCallsStore_Load(object sender, EventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            DelegatedUsersStore.DataSource = delegates;
-            DelegatedUsersStore.DataBind();
-            ResourceManager res = new ResourceManager();
-        }
+            wherePart.Add("SourceUserUri", userSession.SipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("ac_IsInvoiced", "NO");
 
-        protected void GetDelegatedUserPhoneCalls()
-        {
+            columns.Add("SessionIdTime");
+            columns.Add("SessionIdSeq");
+            columns.Add("ResponseTime");
+            columns.Add("SessionEndTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+            columns.Add("ui_CallType");
+            columns.Add("ui_MarkedOn");
 
-        }
-
-        protected void GetDelegatedUserCallsButton_DirectClick(object sender, DirectEventArgs e)
-        {
-            PhoneCallsStore.RemoveAll();
-            PhoneCallsStore.Dispose();
+            phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            string DelegatedAccount = UsersDelegates.GetDelegateAccount(DelegatedUsersComboBox.SelectedItem.Value).DelegeeAccount;
+            PhoneBook phoneBookentry;
 
-            if (DelegatedUsersComboBox.SelectedItem.Value != null && DelegatedAccount == userSession.SipAccount)
+            PhoneCallsStore.DataSource = phoneCalls;
+            
+            foreach (PhoneCall phoneCall in phoneCalls) 
             {
-                UsersDelegates userDelegate = new UsersDelegates();
-                userDelegate = UsersDelegates.GetDelegateAccount(userSession.SipAccount);
+                phoneBookentry = new PhoneBook();
+                phoneBookentry = GetUserNameByNumber(phoneCall.DestinationNumberUri);
+              
+                if(phoneBookentry != null)
+                {
+                    phoneCall.PhoneBookName = phoneBookentry.Name;
 
-                string SipAccount = DelegatedUsersComboBox.SelectedItem.Value.ToString();
+                    if (phoneCall.UI_CallType == null)
+                    {
+                        phoneCall.UI_CallType = phoneBookentry.Type;
+                        phoneCall.UI_MarkedOn = DateTime.Now;
+                        AutoMarkedPhoneCalls.Add(phoneCall);
+                    }
+                }
+                else
+                {
+                     phoneCall.PhoneBookName  = "N/A";
+                }
+            }
+            PhoneCallsStore.DataBind();
 
-                wherePart.Add("SourceUserUri", SipAccount);
-                wherePart.Add("marker_CallTypeID", 1);
-                wherePart.Add("ac_IsInvoiced", "NO");
-
-                columns.Add("SessionIdTime");
-                columns.Add("SessionIdSeq");
-                columns.Add("ResponseTime");
-                columns.Add("SessionEndTime");
-                columns.Add("marker_CallToCountry");
-                columns.Add("DestinationNumberUri");
-                columns.Add("Duration");
-                columns.Add("marker_CallCost");
-                columns.Add("ui_CallType");
-                columns.Add("ui_MarkedOn");
-
-                PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-                PhoneCallsStore.DataBind();
-
-                GetDelegatedUserCallsButton.Disabled = true;
+            if (AutoMarkedPhoneCalls.Count > 0)
+            {
+                foreach (PhoneCall autoMarkedPhonecall in AutoMarkedPhoneCalls)
+                {
+                    PhoneCall.UpdatePhoneCall(autoMarkedPhonecall);
+                }
             }
         }
-    
-        public void OnComboboxSelection_Change(object sender, DirectEventArgs e)
+
+        private PhoneBook GetUserNameByNumber(string phoneNumber)
         {
-            PhoneCallsStore.RemoveAll();
-            PhoneCallsStore.Dispose();
+            if (phoneBookEntries.ContainsKey(phoneNumber))
+                return phoneBookEntries[phoneNumber];
+            else
+                return null;
         }
     }
 }

@@ -214,16 +214,16 @@
                             <li id="user-tab" class="">
                                 <a href="#"><%= ((Lync_Billing.DB.UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName %><span class="drop"></span></a>
                                 <ul id="user-dropdown">
-                                    <li class="first-child"><a title="Manage My Phone Calls" href="../user/manage_phone_calls.aspx">Phone Calls</a></li>
-                                    <li class="separator-bottom"><a title="Address Book" href="../user/manage_address_book.aspx">Address Book</a></li>
+                                    <li class="first-child"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
+                                    <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
                                     <%
                                         bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                         if (is_delegate) {
                                     %>
                                         <li class="separator-bottom"><a href="../user/manage_delegates.aspx">Delegated Users</a></li>
                                     <% } %>
-                                    <li class=""><a title="Call History" href="../user/view_history.aspx">Calls History</a></li>
-                                    <li class="separator-bottom"><a title="Call Statistics" href="../user/view_statistics.aspx">Calls Statistics</a></li>
+                                    <li class=""><a title="Call History" href="../user/history.aspx">Calls History</a></li>
+                                    <li class="separator-bottom"><a title="Call Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
                                     <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                 </ul>
                             </li>
@@ -239,7 +239,7 @@
                                 <li id="switch-roles" class="">
                                     <a href="#">Switch To<span class="drop"></span></a>
                                     <ul id="roles-dropdown">
-                                        <li class="first-child last-child"><a title="Manage My Phone Calls" href="../accounting/dashboard.aspx">Accounting Dashboard</a></li>
+                                        <li class="first-child last-child"><a title="Switch to Accounting Role" href="../accounting/dashboard.aspx">Accounting Dashboard</a></li>
                                     </ul>
                                 </li>
                             <% } %>
@@ -272,7 +272,7 @@
             <% if(unmarked_calls_count != null) { %>
                 <% if(unmarked_calls_count > 0) { %>
                     <div id='warning-block' class='warning-block shadow'>
-                        <p class="message"><%= String.Format("You have a total of <span class='bold'>{0}&nbsp;unmarked</span> calls, please click <a class='link bold' href='../user/manage_phone_calls.aspx'>here</a> to mark them.", unmarked_calls_count) %></p>
+                        <p class="message"><%= String.Format("You have a total of <span class='bold'>{0}&nbsp;unmarked</span> calls, please click <a class='link bold' href='../user/phonecalls.aspx'>here</a> to mark them.", unmarked_calls_count) %></p>
                     </div>
                 <% } else { %>
                     <div id='information-block' class='info-block shadow'>

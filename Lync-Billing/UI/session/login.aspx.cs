@@ -16,9 +16,13 @@ namespace Lync_Billing.UI.session
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session.Contents["UserData"] != null)
+            Dispatcher LocalDispatcher = new Dispatcher();
+
+            if (HttpContext.Current.Session != null || HttpContext.Current.Session.Contents["UserData"] != null)
             {
-                Response.Redirect("~/UI/user/dashboard.aspx");
+                UserSession usession = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+                string url = LocalDispatcher.DispatchRequestedURL(usession, "user", "dashboard");
+                Response.Redirect(url);
             }
         }
 

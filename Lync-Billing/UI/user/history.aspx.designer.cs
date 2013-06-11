@@ -10,7 +10,7 @@
 namespace Lync_Billing.UI.user {
     
     
-    public partial class manage_delegates {
+    public partial class history {
         
         /// <summary>
         /// XScript1 control.
@@ -31,40 +31,22 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Panel UserToolsSidebar;
         
         /// <summary>
-        /// SelectDelegatedAccountsPanel control.
+        /// PhoneCallsHistoryGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel SelectDelegatedAccountsPanel;
+        protected global::Ext.Net.GridPanel PhoneCallsHistoryGrid;
         
         /// <summary>
-        /// Toolbar2 control.
+        /// PhoneCallStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Toolbar Toolbar2;
-        
-        /// <summary>
-        /// DelegatedUsersComboBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ComboBox DelegatedUsersComboBox;
-        
-        /// <summary>
-        /// DelegatedUsersStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store DelegatedUsersStore;
+        protected global::Ext.Net.Store PhoneCallStore;
         
         /// <summary>
         /// Model1 control.
@@ -74,42 +56,6 @@ namespace Lync_Billing.UI.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Model Model1;
-        
-        /// <summary>
-        /// GetDelegatedUserCallsButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button GetDelegatedUserCallsButton;
-        
-        /// <summary>
-        /// ManagePhoneCallsGrid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridPanel ManagePhoneCallsGrid;
-        
-        /// <summary>
-        /// PhoneCallsStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store PhoneCallsStore;
-        
-        /// <summary>
-        /// Model2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Model Model2;
         
         /// <summary>
         /// SessionIdTime control.
@@ -175,67 +121,31 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Column UI_MarkedOn;
         
         /// <summary>
-        /// CheckboxSelectionModel1 control.
+        /// GroupingPhoneCallsHistory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.CheckboxSelectionModel CheckboxSelectionModel1;
+        protected global::Ext.Net.GroupingSummary GroupingPhoneCallsHistory;
         
         /// <summary>
-        /// Toolbar1 control.
+        /// FilterToolBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Toolbar Toolbar1;
+        protected global::Ext.Net.Toolbar FilterToolBar;
         
         /// <summary>
-        /// button_group_lable control.
+        /// FilterTypeComboBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Label button_group_lable;
-        
-        /// <summary>
-        /// MarkingBottonsGroup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ButtonGroup MarkingBottonsGroup;
-        
-        /// <summary>
-        /// Business control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button Business;
-        
-        /// <summary>
-        /// Personal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button Personal;
-        
-        /// <summary>
-        /// Dispute control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button Dispute;
+        protected global::Ext.Net.ComboBox FilterTypeComboBox;
         
         /// <summary>
         /// ExportToExcel control.
@@ -247,12 +157,21 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Button ExportToExcel;
         
         /// <summary>
-        /// PagingToolbar1 control.
+        /// PhoneCallsPagingToolbar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.PagingToolbar PagingToolbar1;
+        protected global::Ext.Net.PagingToolbar PhoneCallsPagingToolbar;
+        
+        /// <summary>
+        /// PhoneCallsCheckBoxColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CheckboxSelectionModel PhoneCallsCheckBoxColumn;
     }
 }

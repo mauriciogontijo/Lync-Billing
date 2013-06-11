@@ -9,32 +9,76 @@ namespace Lync_Billing.Libs
 {
     public class Dispatcher
     {
+        private string URL { get; set; }
+        public static string RedirectTo { get; set; }
+        public static readonly Dictionary<string, Dictionary<string, string>> Pages = new Dictionary<string, Dictionary<string, string>>();
 
-        public string URL { get; set; }
-        public UserSession USession {get; set;}
-
-        private static bool ValidateUserSession(string sipAccount,UserSession uSession) 
+        public Dispatcher()
         {
-            if (uSession != null && sipAccount == uSession.SipAccount)
-                return true;
-            else
-                return false;
+            if (Pages.Count == 0)
+            {
+                Dictionary<string, string> session_pages = new Dictionary<string, string>();
+                Dictionary<string, string> user_pages = new Dictionary<string, string>();
+                Dictionary<string, string> accounting_pages = new Dictionary<string, string>();
+
+                session_pages.Add("login", "~/UI/session/login.aspx");
+                session_pages.Add("logout", "~/UI/session/logout.aspx");
+
+                user_pages.Add("dashboard", "~/UI/user/dashboard.aspx");
+                user_pages.Add("phonecalls", "~/UI/user/phonecalls.aspx");
+                user_pages.Add("addressbook", "~/UI/user/addressbook.aspx");
+                user_pages.Add("manage_delegates", "~/UI/user/manage_delegates.aspx");
+                user_pages.Add("history", "~/UI/user/history.aspx");
+                user_pages.Add("statistics", "~/UI/user/statistics.aspx");
+
+                accounting_pages.Add("dashboard", "~/UI/accounting/dashboard.aspx");
+                accounting_pages.Add("manage_disputes", "~/UI/accounting/manage_disputes.aspx");
+                accounting_pages.Add("monthly_user_reports", "~/UI/accounting/monthly_user_reports.aspx");
+                accounting_pages.Add("periodical_user_reports", "~/UI/accounting/periodical_user_reports.aspx");
+                accounting_pages.Add("monthly_site_reports", "~/UI/accounting/monthly_site_reports.aspx");
+                accounting_pages.Add("periodical_site_reports", "~/UI/accounting/periodical_site_reports.aspx");
+
+                Pages.Add("session", session_pages);
+                Pages.Add("user", user_pages);
+                Pages.Add("accounting", accounting_pages);
+            }
         }
 
-        public string RedirectURL(string sipAccount, UserSession uSession, string url)
+        public string DispatchRequestedURL(UserSession session, string page_context, string page_name)
         {
-            if (ValidateUserSession(sipAccount, uSession) == true)
+            URL = string.Empty;
+            RedirectTo = string.Empty;
+
+            if (session != null && session.SipAccount != null && session.SipAccount != string.Empty)
             {
-                //TODO : Validate User Role
-                return url;
+                if (Pages.Keys.Contains(page_context) && Pages[page_context].Keys.Contains(page_name))
+                {
+                    if (page_context == "accounting" && session.IsAccountant == false)
+                    {
+                        URL = Pages["session"]["login"];
+                    }
+                    else
+                    {
+                        URL = Pages[page_context][page_name];
+                    }
+                }
+                else
+                {
+                    URL = Pages["session"]["login"];
+                }
             }
             else
             {
-                //TODO: REDIRECT WHATEVER PAGE 
-                return string.Empty;
+                //the @part of the following IF STATEMENT prevents looping inside the Login page.
+                //@part: page_context != "session"
+                if (Pages.Keys.Contains(page_context) && Pages[page_context].Keys.Contains(page_name) && page_context != "session")
+                {
+                    RedirectTo = Pages[page_context][page_name];
+                }
+                URL = Pages["session"]["login"];
             }
-        }
 
-        
+            return URL;
+        }
     }
 }
