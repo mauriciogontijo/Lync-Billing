@@ -11,12 +11,14 @@ namespace Lync_Billing.Libs
 {
     public class Dispatcher
     {
-        public string URL { get; set; }
+        public string URL { get; private set; }
         public static string RedirectTo { get; set; }
-        public static readonly Dictionary<string, Dictionary<string, string>> Pages = new Dictionary<string, Dictionary<string, string>>();
+        public static readonly Dictionary<string, Dictionary<string, string>> Pages { get; private set; }
 
         public Dispatcher()
         {
+            Pages = new Dictionary<string, Dictionary<string, string>>();
+
             if (Pages.Count == 0)
             {
                 Dictionary<string, string> session_pages = new Dictionary<string, string>();
