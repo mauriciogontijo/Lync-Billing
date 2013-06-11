@@ -57,7 +57,7 @@ namespace Lync_Billing.Libs
                 {
                     if (page_context == "accounting" && session.IsAccountant == false)
                     {
-                        URL = Pages["session"]["login"];
+                        URL = Pages["user"]["dashboard"];
                     }
                     else
                     {
