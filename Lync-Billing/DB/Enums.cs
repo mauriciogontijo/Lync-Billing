@@ -280,7 +280,7 @@ namespace Lync_Billing.DB
             Name
         }
 
-        public static enum TypeOfUser
+        public enum TypeOfUser
         {
             [Description("ACCOUNTANT")]
             ACCOUNTANT,
