@@ -49,7 +49,7 @@ namespace Lync_Billing.Libs
             return status;
         }
 
-        public static int Dispatch(UserSession session, string toURL) 
+        public static int Dispatch(UserSession session, string currentURL,string toURL) 
         {
             if (session != null)
             {
@@ -62,6 +62,8 @@ namespace Lync_Billing.Libs
             }
             else 
             {
+                session.CurrentURL = currentURL;
+                session.ToURL = toURL;
                 return -1;
             }
 
