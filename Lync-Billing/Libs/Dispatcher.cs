@@ -9,85 +9,63 @@ using Lync_Billing.DB;
 
 namespace Lync_Billing.Libs
 {
+
+    public static enum UserType 
+    {
+
+    }
     public class Dispatcher
     {
-        public string URL { get; private set; }
-        public static string RedirectTo { get; set; }
-        public static readonly Dictionary<string, Dictionary<string, string>> Pages { get; private set; }
+        public string CurrentURL { get; set; }
+        public string RedirectToURL { get; private set; }
 
-        public Dispatcher()
+        private static bool PageAuthorization(List<UserRole> roles, string URL) 
         {
-            Pages = new Dictionary<string, Dictionary<string, string>>();
-
-            if (Pages.Count == 0)
+            bool status = false;
+            
+            foreach (UserRole role in roles)
             {
-                Dictionary<string, string> session_pages = new Dictionary<string, string>();
-                Dictionary<string, string> user_pages = new Dictionary<string, string>();
-                Dictionary<string, string> accounting_pages = new Dictionary<string, string>();
+                if (role.RoleID.ToString() == Enums.GetDescription(Enums.TypeOfUser.USER))
+                {
+                    if (URL.Contains(@"/user/"))
+                        status = true;
+                }
 
-                session_pages.Add("login", "~/UI/session/login.aspx");
-                session_pages.Add("logout", "~/UI/session/logout.aspx");
+                if (role.RoleID.ToString() == Enums.GetDescription(Enums.TypeOfUser.ACCOUNTANT))
+                {
+                    if (URL.Contains(@"/accounting/"))
+                        status = true;
+                }
 
-                user_pages.Add("dashboard", "~/UI/user/dashboard.aspx");
-                user_pages.Add("phonecalls", "~/UI/user/phonecalls.aspx");
-                user_pages.Add("addressbook", "~/UI/user/addressbook.aspx");
-                user_pages.Add("manage_delegates", "~/UI/user/manage_delegates.aspx");
-                user_pages.Add("history", "~/UI/user/history.aspx");
-                user_pages.Add("statistics", "~/UI/user/statistics.aspx");
+                if (role.RoleID.ToString() == Enums.GetDescription(Enums.TypeOfUser.ADMIN))
+                {
+                    if (URL.Contains(@"/admin/"))
+                        status = true;
+                }
 
-                accounting_pages.Add("dashboard", "~/UI/accounting/dashboard.aspx");
-                accounting_pages.Add("manage_disputes", "~/UI/accounting/manage_disputes.aspx");
-                accounting_pages.Add("monthly_user_reports", "~/UI/accounting/monthly_user_reports.aspx");
-                accounting_pages.Add("periodical_user_reports", "~/UI/accounting/periodical_user_reports.aspx");
-                accounting_pages.Add("monthly_site_reports", "~/UI/accounting/monthly_site_reports.aspx");
-                accounting_pages.Add("periodical_site_reports", "~/UI/accounting/periodical_site_reports.aspx");
-
-                Pages.Add("session", session_pages);
-                Pages.Add("user", user_pages);
-                Pages.Add("accounting", accounting_pages);
+                if (role.RoleID.ToString() == Enums.GetDescription(Enums.TypeOfUser.DEVELOPER))
+                    status = true;
             }
+            return status;
         }
 
-        public string DispatchRequestedURL(UserSession session, string page_context, string page_name)
+        public static int Dispatch(UserSession session, string toURL) 
         {
-            URL = string.Empty;
-            RedirectTo = string.Empty;
-
-            if (session != null && session.SipAccount != null && session.SipAccount != string.Empty)
+            if (session != null)
             {
-                if (Pages.Keys.Contains(page_context) && Pages[page_context].Keys.Contains(page_name))
-                {
-                    if (page_context == "accounting" && session.IsAccountant == false)
-                    {
-                        URL = Pages["user"]["dashboard"];
-                    }
-                    else if (page_context == "user" && page_name == "manage_delegates" && session.IsDelegate == false)
-                    {
-                        URL = Pages["user"]["dashboard"];
-                    }
-                    else
-                    {
-                        URL = Pages[page_context][page_name];
-                    }
-                }
-                //if the requested page was not found and the user has a session redirect them to the User Dashboard
+                List<UserRole> roles = session.Roles;
+
+                if (PageAuthorization(roles, toURL) == true)
+                    return 0;
                 else
-                {
-                    URL = Pages["user"]["dashboard"];
-                }
+                    return 1;
             }
-            else
+            else 
             {
-                //the @part of the following IF STATEMENT prevents looping inside the Login page.
-                //@part: page_context != "session"
-                if (Pages.Keys.Contains(page_context) && Pages[page_context].Keys.Contains(page_name) && page_context != "session")
-                {
-                    RedirectTo = Pages[page_context][page_name];
-                }
-                URL = Pages["session"]["login"];
+                return -1;
             }
 
-            return URL;
         }
+
     }
 }
