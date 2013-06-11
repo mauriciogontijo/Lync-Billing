@@ -9,11 +9,6 @@ using Lync_Billing.DB;
 
 namespace Lync_Billing.Libs
 {
-
-    public static enum UserType 
-    {
-
-    }
     public class Dispatcher
     {
         public string CurrentURL { get; set; }
