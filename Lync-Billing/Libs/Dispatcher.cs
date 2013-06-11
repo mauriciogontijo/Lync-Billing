@@ -64,7 +64,7 @@ namespace Lync_Billing.Libs
                 }
                 else
                 {
-                    URL = Pages["session"]["login"];
+                    URL = Pages["user"]["dashboard"];
                 }
             }
             else
