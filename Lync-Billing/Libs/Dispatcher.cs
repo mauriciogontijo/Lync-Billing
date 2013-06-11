@@ -68,6 +68,7 @@ namespace Lync_Billing.Libs
                         URL = Pages[page_context][page_name];
                     }
                 }
+                //if the requested page was not found and the user has a session redirect them to the User Dashboard
                 else
                 {
                     URL = Pages["user"]["dashboard"];
