@@ -133,11 +133,11 @@
     <Content Include="UI\resources\js\jquery-1.9.1.min.js" />
     <Content Include="UI\resources\js\stacktrace.js" />
     <Content Include="UI\user\dashboard.aspx" />
-    <Content Include="UI\user\manage_address_book.aspx" />
+    <Content Include="UI\user\addressbook.aspx" />
     <Content Include="UI\user\manage_delegates.aspx" />
-    <Content Include="UI\user\view_history.aspx" />
-    <Content Include="UI\user\manage_phone_calls.aspx" />
-    <Content Include="UI\user\view_statistics.aspx" />
+    <Content Include="UI\user\history.aspx" />
+    <Content Include="UI\user\phonecalls.aspx" />
+    <Content Include="UI\user\statistics.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -250,12 +250,12 @@
     <Compile Include="UI\user\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\manage_address_book.aspx.cs">
-      <DependentUpon>manage_address_book.aspx</DependentUpon>
+    <Compile Include="UI\user\addressbook.aspx.cs">
+      <DependentUpon>addressbook.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\manage_address_book.aspx.designer.cs">
-      <DependentUpon>manage_address_book.aspx</DependentUpon>
+    <Compile Include="UI\user\addressbook.aspx.designer.cs">
+      <DependentUpon>addressbook.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\user\manage_delegates.aspx.cs">
       <DependentUpon>manage_delegates.aspx</DependentUpon>
@@ -264,26 +264,26 @@
     <Compile Include="UI\user\manage_delegates.aspx.designer.cs">
       <DependentUpon>manage_delegates.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\view_history.aspx.cs">
-      <DependentUpon>view_history.aspx</DependentUpon>
+    <Compile Include="UI\user\history.aspx.cs">
+      <DependentUpon>history.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\view_history.aspx.designer.cs">
-      <DependentUpon>view_history.aspx</DependentUpon>
+    <Compile Include="UI\user\history.aspx.designer.cs">
+      <DependentUpon>history.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\manage_phone_calls.aspx.cs">
-      <DependentUpon>manage_phone_calls.aspx</DependentUpon>
+    <Compile Include="UI\user\phonecalls.aspx.cs">
+      <DependentUpon>phonecalls.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\manage_phone_calls.aspx.designer.cs">
-      <DependentUpon>manage_phone_calls.aspx</DependentUpon>
+    <Compile Include="UI\user\phonecalls.aspx.designer.cs">
+      <DependentUpon>phonecalls.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\view_statistics.aspx.cs">
-      <DependentUpon>view_statistics.aspx</DependentUpon>
+    <Compile Include="UI\user\statistics.aspx.cs">
+      <DependentUpon>statistics.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\view_statistics.aspx.designer.cs">
-      <DependentUpon>view_statistics.aspx</DependentUpon>
+    <Compile Include="UI\user\statistics.aspx.designer.cs">
+      <DependentUpon>statistics.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
