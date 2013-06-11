@@ -282,12 +282,12 @@ namespace Lync_Billing.DB
 
         public enum TypeOfUser
         {
-            [Description("ACCOUNTANT")]
-            ACCOUNTANT,
-            [Description("USER")]
-            USER,
-            [Description("ADMIN")]
-            ADMIN
+            [Description("DEVELOPER")]
+            DEVELOPER,
+            [Description("PROJECT-ADMIN")]
+            ADMIN,
+            [Description("PROJECT-ACCOUNTANT")]
+            ACCOUNTANT
         }
 
         /// <summary>
