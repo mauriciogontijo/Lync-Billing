@@ -138,8 +138,7 @@ namespace Lync_Billing.UI.user
 
             
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-
-            ManagePhoneCallsGrid.ClearContent();
+            
             ManagePhoneCallsGrid.SetLoading("Loading PhoneCalls");
 
             wherePart.Add("SourceUserUri", userSession.SipAccount);
