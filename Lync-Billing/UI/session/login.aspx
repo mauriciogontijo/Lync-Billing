@@ -54,7 +54,7 @@
                         ID="signin_submit" 
                         runat="server" 
                         Text="Signin" 
-                        OnClick="SigninButton_Click" />
+                        OnClick="SigninButton_Click"/>
 				</div>
 			</div>
 		</div>
