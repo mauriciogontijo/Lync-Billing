@@ -204,7 +204,9 @@
                 Header="true"
                 Scroll="Both"
                 Layout="FitLayout">
-
+                <Loader ID="ManagePhoneCallsLoader" runat="server">
+                    <LoadMask Msg="Loading PhoneCalls" ShowMask="true" StoreID="PhoneCallsStore" />
+                </Loader>
                 <Store>
                     <ext:Store 
                         ID="PhoneCallsStore" 
@@ -231,8 +233,9 @@
                                 </Fields>
                             </ext:Model>
                         </Model>
+                    
                     </ext:Store>
-                </Store>
+                    </Store>
 
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                     <Columns>

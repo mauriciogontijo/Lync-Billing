@@ -136,10 +136,10 @@ namespace Lync_Billing.UI.user
         protected void PhoneCallsStore_Load(object sender, EventArgs e)
         {
 
-            
+
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            
-            ManagePhoneCallsGrid.SetLoading("Loading PhoneCalls");
+
+            ManagePhoneCallsGrid.Loader.LoadMask.ShowMask = true;
 
             wherePart.Add("SourceUserUri", userSession.SipAccount);
             wherePart.Add("marker_CallTypeID", 1);
@@ -157,17 +157,17 @@ namespace Lync_Billing.UI.user
             columns.Add("ui_MarkedOn");
 
             phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-            
+
             PhoneBook phoneBookentry;
 
             PhoneCallsStore.DataSource = phoneCalls;
-            
-            foreach (PhoneCall phoneCall in phoneCalls) 
+
+            foreach (PhoneCall phoneCall in phoneCalls)
             {
                 phoneBookentry = new PhoneBook();
                 phoneBookentry = GetUserNameByNumber(phoneCall.DestinationNumberUri);
-              
-                if(phoneBookentry != null)
+
+                if (phoneBookentry != null)
                 {
                     phoneCall.PhoneBookName = phoneBookentry.Name;
 
@@ -180,9 +180,9 @@ namespace Lync_Billing.UI.user
                 }
                 else
                 {
-                     phoneCall.PhoneBookName  = "N/A";
+                    phoneCall.PhoneBookName = "N/A";
                 }
-                
+
             }
             PhoneCallsStore.DataBind();
 
@@ -195,7 +195,7 @@ namespace Lync_Billing.UI.user
             }
             ManagePhoneCallsGrid.SetLoading(false);
         }
-
+      
         private PhoneBook GetUserNameByNumber(string phoneNumber)
         {
             if (phoneBookEntries.ContainsKey(phoneNumber))
