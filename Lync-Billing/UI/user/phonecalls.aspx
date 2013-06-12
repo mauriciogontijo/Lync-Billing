@@ -230,8 +230,9 @@
                                 </Fields>
                             </ext:Model>
                         </Model>
+                    
                     </ext:Store>
-                </Store>
+                    </Store>
 
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                     <Columns>
@@ -372,9 +373,6 @@
                         Weight="25"
                         DisplayMsg="Phone Calls {0} - {1} of {2}" />
                 </BottomBar>
-                <View>
-                        <ext:GridView ID="GridView1" runat="server" LoadMask="true" LoadingText="Loading PhoneCalls" />
-                </View>
             </ext:GridPanel>
              <ext:ToolTip ID="ToolTip1" 
                 runat="server" 
