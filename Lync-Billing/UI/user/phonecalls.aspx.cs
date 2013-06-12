@@ -136,10 +136,8 @@ namespace Lync_Billing.UI.user
         protected void PhoneCallsStore_Load(object sender, EventArgs e)
         {
 
-
+            
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-
-            ManagePhoneCallsGrid.Loader.LoadMask.ShowMask = true;
 
             wherePart.Add("SourceUserUri", userSession.SipAccount);
             wherePart.Add("marker_CallTypeID", 1);
