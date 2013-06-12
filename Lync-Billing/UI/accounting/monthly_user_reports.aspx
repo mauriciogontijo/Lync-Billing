@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="monthly_user_reports.aspx.cs" Inherits="Lync_Billing.UI.accounting.monthly_user_reports" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/AccountingMaster.Master" AutoEventWireup="true" CodeBehind="monthly_user_reports.aspx.cs" Inherits="Lync_Billing.UI.accounting.monthly_user_reports" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Monthly Users Report</title>

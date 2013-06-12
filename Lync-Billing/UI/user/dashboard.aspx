@@ -211,6 +211,10 @@
                 <div class="col size2of3">
                     <div class="ie7flot-fix" ><!--ie7 fix-->
                         <ul id="navigation-tabs" class="vertical-navigation">
+                            <li id="home-tab" class="selected">
+                                <a title="Home" href="../user/dashboard.aspx">Home</a>
+                            </li>
+
                             <li id="user-tab" class="">
                                 <a href="#"><%= ((Lync_Billing.DB.UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName %><span class="drop"></span></a>
                                 <ul id="user-dropdown">
@@ -228,18 +232,18 @@
                                 </ul>
                             </li>
 
-                            <li id="home-tab" class="selected">
-                                <a title="Home" href="../user/dashboard.aspx">Home</a>
-                            </li>
-
                             <%
-                                bool is_accountant = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                                if (is_accountant) {
+                                bool higher_access = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAdmin;
+                                if (higher_access) {
                             %>
                                 <li id="switch-roles" class="">
-                                    <a href="#">Switch To<span class="drop"></span></a>
+                                    <a href="#">Elevate Access<span class="drop"></span></a>
                                     <ul id="roles-dropdown">
-                                        <li class="first-child last-child"><a title="Switch to Accounting Role" href="../accounting/dashboard.aspx">Accounting Dashboard</a></li>
+                                        <% if(((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper) { %>
+                                            <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../accounting/dashboard.aspx">Accounting Role</a></li>
+                                        <% } if (((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAdmin || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper) { %>
+                                            <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="#">Administrator Role</a></li>
+                                        <% } %>
                                     </ul>
                                 </li>
                             <% } %>

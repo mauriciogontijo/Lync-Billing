@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="manage_disputes.aspx.cs" Inherits="Lync_Billing.UI.accounting.manage_disputes" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/UI/AccountingMaster.Master" AutoEventWireup="true" CodeBehind="manage_disputes.aspx.cs" Inherits="Lync_Billing.UI.accounting.manage_disputes" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Accounting Mainpage</title>

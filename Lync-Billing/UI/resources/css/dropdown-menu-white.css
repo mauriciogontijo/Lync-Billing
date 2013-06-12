@@ -39,6 +39,7 @@ link of each child item
 .toolbar  .vertical-navigation li a { color:#fff;text-shadow: 2px 2px 3px rgba(195, 195, 195, .30);padding:0 10px }
 .toolbar  .vertical-navigation li .drop { background:url(../images/drop-arrow.png) no-repeat; display:inline-block; vertical-align:middle; width:12px; height:8px; margin:0 5px 0 0 }
 .toolbar  .vertical-navigation li .settings { background:url(../images/settings.png) no-repeat; background-size:contain; display:inline-block; vertical-align:middle; width:30px; height:34px; margin:0 5px 0 0 }
+.toolbar  .vertical-navigation li .shutdown { background:url(../images/shutdown.png) no-repeat; background-size:contain; display:inline-block; vertical-align:middle; width:26px; height:30px; margin:0 5px 0 0 }
 .toolbar  .vertical-navigation li ul {
     z-index: 1000;
     position: absolute;
@@ -61,6 +62,7 @@ link of each child item
 
 .toolbar .vertical-navigation li ul#user-dropdown { width: 160px !important; }
 .toolbar .vertical-navigation li ul#accounting-dropdown { width: 180px !important; }
+.toolbar .vertical-navigation li ul#roles-dropdown { width: 160px !important; }
 .toolbar .vertical-navigation li ul li.separator-bottom { border-bottom: 1px solid #B6C0D2 !important; }
 
 .toolbar .vertical-navigation li:hover a,
