@@ -56,5 +56,14 @@ namespace Lync_Billing.UI.session {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button signin_submit;
+        
+        /// <summary>
+        /// redirect_to_url control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField redirect_to_url;
     }
 }

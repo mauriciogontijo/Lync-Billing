@@ -22,9 +22,27 @@ namespace Lync_Billing.UI.user
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-            delegates = UsersDelegates.GetSipAccounts(session.SipAccount);
+            //If the user is not loggedin, redirect to Login page.
+            if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
+            {
+                string redirect_to = @"~/UI/user/manage_delegates.aspx";
+                string url = @"~/UI/session/login.aspx?redirect_to=" + redirect_to;
+                Response.Redirect(url);
+            }
+            //but if the user is actually logged in we only need to check if he is marked as a delegate user
+            else
+            {
+                UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+                if (session.IsDelegate == true)
+                {
+                    delegates = UsersDelegates.GetSipAccounts(session.SipAccount);
+                }
+                else
+                {
+                    //We redirect the users to the User Dashboard page if they have requested the Manage Delegates page without being marked as delegates themselves
+                    Response.Redirect("~/UI/session/login.aspx");
+                }
+            }
         }
 
         protected void AssignBusiness(object sender, DirectEventArgs e)

@@ -16,6 +16,25 @@ namespace Lync_Billing.UI.session
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //If the user is not loggedin, redirect to Login page.
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session.Contents["UserData"] != null)
+            {
+                Response.Redirect("~/UI/user/dashboard.aspx");
+            }
+
+            //Check if a redirect_to value has been passed and validate it's link
+            if (Request.QueryString["redirect_to"] != null && Request.QueryString["redirect_to"] != string.Empty)
+            {
+                //This statement validates that the link must contain the application root path and the page extension at the end of it
+                if (Request.QueryString["redirect_to"].Contains(@"~/UI/") && Request.QueryString["redirect_to"].Contains(@".aspx"))
+                {
+                    this.redirect_to_url.Value = Request.QueryString["redirect_to"];
+                }
+                else
+                {
+                    this.redirect_to_url.Value = string.Empty;
+                }
+            }
         }
 
         protected void SigninButton_Click(object sender, EventArgs e)
@@ -114,7 +133,18 @@ namespace Lync_Billing.UI.session
                     }
 
                     Session.Add("UserData", session);
-                    Response.Redirect("~/UI/user/dashboard.aspx");
+
+                    if (this.redirect_to_url != null && this.redirect_to_url.Value != string.Empty)
+                    {
+                        if (Request.QueryString["redirect_to"].Contains(@"~/UI/") && Request.QueryString["redirect_to"].Contains(@".aspx"))
+                        {
+                            Response.Redirect(this.redirect_to_url.Value);
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect("~/UI/user/dashboard.aspx");
+                    }
                 }
             }
         }//END OF FUNCTION

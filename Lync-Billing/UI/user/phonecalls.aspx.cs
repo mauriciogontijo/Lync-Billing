@@ -26,6 +26,13 @@ namespace Lync_Billing.UI.user
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            //If the user is not loggedin, redirect to Login page.
+            if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
+            {
+                string redirect_to = @"~/UI/user/phonecalls.aspx";
+                string url = @"~/UI/session/login.aspx?redirect_to=" + redirect_to;
+                Response.Redirect(url);
+            }
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);

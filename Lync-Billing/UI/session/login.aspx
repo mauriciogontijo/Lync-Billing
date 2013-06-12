@@ -57,5 +57,7 @@
 				</div>
 			</div>
 		</div>
+
+        <asp:HiddenField ID="redirect_to_url" runat="server" />
 	</div>
 </asp:Content>
