@@ -20,19 +20,19 @@ namespace Lync_Billing.Libs
 
             if (session.IsDelegate)
             {
-                if (URL.Contains(@"/manage_delegates"))
+                if (URL.Contains(@"/manage_delegates") || URL.Contains(@"/user/"))
                     status = true;
             }
 
             if (session.IsAccountant)
             {
-                if (URL.Contains(@"/accounting/"))
+                if (URL.Contains(@"/accounting/") || URL.Contains(@"/user/"))
                     status = true;
             }
 
             if (session.IsAdmin)
             {
-                if (URL.Contains(@"/admin/"))
+                if (URL.Contains(@"/admin/") || URL.Contains(@"/user/"))
                     status = true;
             }
 
