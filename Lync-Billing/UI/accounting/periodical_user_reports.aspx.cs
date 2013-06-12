@@ -15,7 +15,7 @@ namespace Lync_Billing.UI.accouting
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
-            if (Session.Contents["UserData"] == null)
+            if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
                 Response.Redirect("~/UI/session/login.aspx");
             }
