@@ -45,7 +45,6 @@
                         Text="Password"  
                         CssClass="placeholder" 
                         runat="server">
-
                 	</asp:label>
               	</div>
 
