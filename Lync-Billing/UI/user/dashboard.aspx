@@ -205,7 +205,7 @@
 <body>
     <form id="form1" runat="server">
         <ext:ResourceManager ID="resourceManager" runat="server" Theme="Gray" />
-
+       
         <div class="smart-block tool-dark-bg liquid toolbar" >
             <div class="hwrapper rtl ">
                 <div class="col size2of3">
