@@ -38,11 +38,11 @@
 
     <body>
         <form id="form1" runat="server">
-            <asp:ScriptManager ID="ScriptManager1" runat="server">
+           <%-- <asp:ScriptManager ID="ScriptManager1" runat="server">
                 <Services>
                     <asp:ServiceReference Path="~/Libs/BillingAPI.asmx" />
                 </Services>
-            </asp:ScriptManager>
+            </asp:ScriptManager>--%>
             <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
 
             <% if(Session.Contents["UserData"] != null) { %>
