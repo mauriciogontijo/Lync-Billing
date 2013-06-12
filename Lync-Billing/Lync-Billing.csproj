@@ -114,6 +114,7 @@
     <Content Include="UI\resources\images\header-bg.gif" />
     <Content Include="UI\resources\images\header-ddl-icon.png" />
     <Content Include="UI\resources\images\info.png" />
+    <Content Include="UI\resources\images\shutdown.png" />
     <Content Include="UI\resources\images\tool-bg.png" />
     <Content Include="UI\resources\images\warning.png" />
     <Content Include="UI\resources\images\x_block_bg.png" />
@@ -171,6 +172,13 @@
     <Compile Include="Libs\PDFLib.cs" />
     <Compile Include="Libs\Statistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\AccountingMaster.Master.cs">
+      <DependentUpon>AccountingMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\AccountingMaster.Master.designer.cs">
+      <DependentUpon>AccountingMaster.Master</DependentUpon>
+    </Compile>
     <Compile Include="UI\accounting\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -290,6 +298,7 @@
     <Content Include="UI\MasterPage.Master" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\TBill-Bublisher.pubxml" />
+    <Content Include="UI\AccountingMaster.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
