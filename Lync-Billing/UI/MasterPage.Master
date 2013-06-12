@@ -43,7 +43,12 @@
                     <asp:ServiceReference Path="~/Libs/BillingAPI.asmx" />
                 </Services>
             </asp:ScriptManager>--%>
-            <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
+            <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" >
+                <Listeners>
+                    <BeforeAjaxRequest Handler="Ext.net.Mask.show();" />
+                    <AjaxRequestComplete Handler="Ext.net.Mask.hide();" />
+            </Listeners>
+            </ext:ResourceManager>
 
             <% if(Session.Contents["UserData"] != null) { %>
                 <div  class="smart-block tool-dark-bg liquid toolbar " >
