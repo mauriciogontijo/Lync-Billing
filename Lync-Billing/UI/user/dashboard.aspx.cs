@@ -47,11 +47,13 @@ namespace Lync_Billing.UI.user
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
             Misc.Message("Welcome","Welcome " + ((UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName,"info");
+            
         }
 
         [DirectMethod]
         public static string GetSummaryData()
         {
+           
             if (HttpContext.Current.Session.Contents["UserData"] != null)
             {
                 List<AbstractComponent> components = new List<AbstractComponent>();
@@ -98,6 +100,7 @@ namespace Lync_Billing.UI.user
                 components.Add(unmarkedPanel);
                 components.Add(personalPanel);
                 components.Add(businessPanel);
+                                  
 
                 return ComponentLoader.ToConfig(components);
             }
@@ -105,14 +108,16 @@ namespace Lync_Billing.UI.user
             {
                 return null;
             }
+            
         }
 
         public List<UsersCallsSummaryChartData> getChartData(string typeOfSummary = "")
         {
             CultureInfo provider = CultureInfo.InvariantCulture;
             DateTime fromDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
+            List<UsersCallsSummaryChartData> chartData = UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, fromDate, DateTime.Now);
 
-            return UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, fromDate, DateTime.Now);
+            return chartData;
         }
 
         protected void DurationCostChartStore_Load(object sender, EventArgs e)
@@ -129,7 +134,7 @@ namespace Lync_Billing.UI.user
            
             topDestinations = TopDestinations.GetTopDestinations(userSession.SipAccount);
 
-            foreach (TopDestinations destination in topDestinations) 
+            foreach (TopDestinations destination in topDestinations)
             {
                 if (GetUserNameBySip(destination.PhoneNumber) != string.Empty)
                 {
@@ -161,11 +166,6 @@ namespace Lync_Billing.UI.user
 
         protected int getUnmarkedCallsCount()
         {
-            //CultureInfo provider = CultureInfo.InvariantCulture;
-            //DateTime fromDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
-            //return UsersCallsSummary.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, fromDate, DateTime.Now).UnmarkedCallsCount;
-
-            int count = 0;
             sipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
 
             wherePart.Add("SourceUserUri", sipAccount);
@@ -174,12 +174,6 @@ namespace Lync_Billing.UI.user
             wherePart.Add("ac_IsInvoiced", "NO");
 
             phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-
-            /*foreach (PhoneCall entry in phoneCalls) {
-                if (entry.UI_CallType == null) {
-                    count += 1;
-                }
-            }*/
 
             return phoneCalls.Count;
         }
