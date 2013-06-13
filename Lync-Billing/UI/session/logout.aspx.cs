@@ -11,7 +11,8 @@ namespace Lync_Billing.UI.session
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session.Abandon();
+            //Session.Abandon();
+            HttpContext.Current.Session.Abandon();
             HttpContext.Current.Response.ClearContent();
             HttpContext.Current.Response.ClearHeaders();
 
