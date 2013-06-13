@@ -25,7 +25,7 @@
 	    var myDateRenderer = function (value) {
 	        if (typeof value != undefined && value != 0) {
 	            if (BrowserDetect.browser != "Explorer") {
-	                value = Ext.util.Format.date(value, "Y-m");
+	                value = Ext.util.Format.date(value, "M, Y");
 	                return value;
 	            } else {
 	                var my_date = {};
