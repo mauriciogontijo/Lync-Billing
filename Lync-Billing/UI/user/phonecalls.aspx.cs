@@ -38,6 +38,7 @@ namespace Lync_Billing.UI.user
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
+
         }
       
         protected void AssignBusiness(object sender, DirectEventArgs e)
