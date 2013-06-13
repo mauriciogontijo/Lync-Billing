@@ -20,7 +20,7 @@ namespace Lync_Billing.UI.user
         private Dictionary<string, object> wherePart = new Dictionary<string, object>();
         private List<string> columns = new List<string>();
         private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
-        private static Dictionary<string, PhoneBook> phoneBookEntries = new Dictionary<string, PhoneBook>();
+        private Dictionary<string, PhoneBook> phoneBookEntries = new Dictionary<string, PhoneBook>();
         private List<PhoneCall> totalCalls = new List<PhoneCall>();
         
         private StoreReadDataEventArgs e;
