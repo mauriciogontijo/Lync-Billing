@@ -20,8 +20,6 @@ namespace Lync_Billing.UI.user
         private Dictionary<string, object> wherePart = new Dictionary<string, object>();
         private List<string> columns = new List<string>();
         private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
-        private Dictionary<string, PhoneBook> phoneBookEntries = new Dictionary<string, PhoneBook>();
-        private List<PhoneCall> totalCalls = new List<PhoneCall>();
         
         private StoreReadDataEventArgs e;
 
@@ -79,6 +77,8 @@ namespace Lync_Billing.UI.user
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
+                var item = 
+
                 phoneCall.UI_CallType = "Business";
                 phoneCall.UI_MarkedOn = DateTime.Now;
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
