@@ -233,29 +233,14 @@ namespace Lync_Billing.UI.user
             {
                 ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
 
-                if (sort.Property == "SessionIdTime")
+                Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
+                if (sort.Direction == Ext.Net.SortDirection.DESC)
                 {
-                    Expression<Func<PhoneCall, DateTime?>> sortExpression = Expression.Lambda<Func<PhoneCall, DateTime?>>(Expression.Property(param, sort.Property), param);
-                    if (sort.Direction == Ext.Net.SortDirection.DESC)
-                    {
-                        result = result.OrderByDescending(sortExpression);
-                    }
-                    else
-                    {
-                        result = result.OrderBy(sortExpression);
-                    }
+                    result = result.OrderByDescending(sortExpression);
                 }
                 else
                 {
-                    Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
-                    if (sort.Direction == Ext.Net.SortDirection.DESC)
-                    {
-                        result = result.OrderByDescending(sortExpression);
-                    }
-                    else
-                    {
-                        result = result.OrderBy(sortExpression);
-                    }
+                    result = result.OrderBy(sortExpression);
                 }
             }
 
