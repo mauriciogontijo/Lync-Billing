@@ -36,6 +36,7 @@ namespace Lync_Billing.UI.user
                 string url = @"~/UI/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
             }
+           
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
             ((UserSession)HttpContext.Current.Session.Contents["UserData"]).phoneBook = PhoneBook.GetAddressBook(sipAccount);
         }
