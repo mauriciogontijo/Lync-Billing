@@ -21,12 +21,12 @@ namespace Lync_Billing.UI.user
         private List<string> columns = new List<string>();
         private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
         private static Dictionary<string, PhoneBook> phoneBookEntries = new Dictionary<string, PhoneBook>();
-        private static List<PhoneCall> phoneCalls = new List<PhoneCall>();
+        private static List<PhoneCall> totalCalls = new List<PhoneCall>();
         
         private StoreReadDataEventArgs e;
 
         private string sipAccount = string.Empty;
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -39,7 +39,32 @@ namespace Lync_Billing.UI.user
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
         }
-      
+
+        protected void getPhoneCalls()
+        {
+            if (totalCalls.Count == 0)
+            {
+                UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+
+                wherePart.Add("SourceUserUri", userSession.SipAccount);
+                wherePart.Add("marker_CallTypeID", 1);
+                wherePart.Add("ac_IsInvoiced", "NO");
+
+                columns.Add("SessionIdTime");
+                columns.Add("SessionIdSeq");
+                columns.Add("ResponseTime");
+                columns.Add("SessionEndTime");
+                columns.Add("marker_CallToCountry");
+                columns.Add("DestinationNumberUri");
+                columns.Add("Duration");
+                columns.Add("marker_CallCost");
+                columns.Add("ui_CallType");
+                columns.Add("ui_MarkedOn");
+
+                totalCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            }
+        }
+
         protected void AssignBusiness(object sender, DirectEventArgs e)
         {
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
@@ -119,7 +144,7 @@ namespace Lync_Billing.UI.user
         {
             getPhoneCalls();
 
-            IQueryable<PhoneCall> result = phoneCalls.Select(e => e).AsQueryable();
+            IQueryable<PhoneCall> result = totalCalls.Select(e => e).AsQueryable();
 
             if (sort != null)
             {
@@ -158,7 +183,7 @@ namespace Lync_Billing.UI.user
                     phoneCall.PhoneBookName = "N/A";
                 }
             }
-            count = phoneCalls.Count();
+            count = totalCalls.Count();
 
             return result.ToList();
         }
@@ -208,30 +233,6 @@ namespace Lync_Billing.UI.user
             this.PhoneCallsStore.DataBind();
         }
 
-        protected void getPhoneCalls() 
-        {
-            if (phoneCalls.Count == 0)
-            {
-                UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-
-                wherePart.Add("SourceUserUri", userSession.SipAccount);
-                wherePart.Add("marker_CallTypeID", 1);
-                wherePart.Add("ac_IsInvoiced", "NO");
-
-                columns.Add("SessionIdTime");
-                columns.Add("SessionIdSeq");
-                columns.Add("ResponseTime");
-                columns.Add("SessionEndTime");
-                columns.Add("marker_CallToCountry");
-                columns.Add("DestinationNumberUri");
-                columns.Add("Duration");
-                columns.Add("marker_CallCost");
-                columns.Add("ui_CallType");
-                columns.Add("ui_MarkedOn");
-
-                phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-            }
-        }
-
+       
     }
 }
