@@ -65,17 +65,20 @@
         }
 
         function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
-            if (record.data.UI_CallType == 'Personal') {
-                meta.style = "color: rgb(201, 20, 20);";
-            }
-            if (record.data.UI_CallType == 'Business') {
-                meta.style = "color: rgb(46, 143, 42);";
-            }
-            if (record.data.UI_CallType == 'Dispute') {
-                meta.style = "color: rgb(31, 115, 164);";
-            }
 
-            return value
+            if (record.data != null) {
+                if (record.data.UI_CallType == 'Personal') {
+                    meta.style = "color: rgb(201, 20, 20);";
+                }
+                if (record.data.UI_CallType == 'Business') {
+                    meta.style = "color: rgb(46, 143, 42);";
+                }
+                if (record.data.UI_CallType == 'Dispute') {
+                    meta.style = "color: rgb(31, 115, 164);";
+                }
+
+                return value
+            }
         }
 
 
