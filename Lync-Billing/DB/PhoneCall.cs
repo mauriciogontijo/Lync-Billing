@@ -196,6 +196,5 @@ namespace Lync_Billing.DB
             return phoneCalls.Skip(start).Take(limit).ToList();
             
         }
-        
     }
 }
