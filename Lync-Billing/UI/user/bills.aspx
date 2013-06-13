@@ -177,7 +177,7 @@
 		            <Columns>
                         <ext:Column ID="BillDate" 
                             runat="server" 
-                            Text="Date" 
+                            Text="Accounting Date" 
                             Width="180" 
                             DataIndex="MonthDate"
                             Groupable="false">
@@ -186,24 +186,27 @@
                         <ext:Column ID="TotalCalls"
                             runat="server"
                             Text="Number of Calls"
-                            Width="160"
+                            Width="180"
                             DataIndex="PersonalCallsCount"
-                            Groupable="false" />
+                            Groupable="false" 
+                            Align="Center"/>
                         
                         <ext:Column ID="TotalDuration"
                             runat="server"
                             Text="Duration"
-                            Width="160"
+                            Width="180"
                             DataIndex="PersonalCallsDuration"
-                            Groupable="false">
+                            Groupable="false"
+                            Align="Center">
                             <Renderer Fn="GetMinutes" />
                         </ext:Column>
 		                <ext:Column ID="TotalCost"
                             runat="server"
                             Text="Total Cost"
-                            Width="160"
+                            Width="180"
                             DataIndex="PersonalCallsCost"
-                            Groupable="false">
+                            Groupable="false"
+                            Align="Center">
                             <Renderer Fn="RoundCost"/>
                         </ext:Column>
                     </Columns>
