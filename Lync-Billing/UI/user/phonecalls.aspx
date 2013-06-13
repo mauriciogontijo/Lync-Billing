@@ -378,7 +378,7 @@
                                                 </ExtraParams>
                                             </Click>
                                         </DirectEvents>
-                                    </ext:Button>
+                                    </ext:Button> 
                                 </Buttons>
                             </ext:ButtonGroup>
                             
