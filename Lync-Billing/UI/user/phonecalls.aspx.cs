@@ -21,7 +21,7 @@ namespace Lync_Billing.UI.user
         private List<string> columns = new List<string>();
         private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
         private static Dictionary<string, PhoneBook> phoneBookEntries = new Dictionary<string, PhoneBook>();
-        private static List<PhoneCall> totalCalls = new List<PhoneCall>();
+        private List<PhoneCall> totalCalls = new List<PhoneCall>();
         
         private StoreReadDataEventArgs e;
 
