@@ -37,7 +37,7 @@ namespace Lync_Billing.UI.user
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
         }
-
+      
         protected void AssignBusiness(object sender, DirectEventArgs e)
         {
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
@@ -200,6 +200,18 @@ namespace Lync_Billing.UI.user
                 return phoneBookEntries[phoneNumber];
             else
                 return null;
+        }
+
+        protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            e.InputParameters["start"] = e.Start;
+            e.InputParameters["limit"] = e.Limit;
+            e.InputParameters["sort"] = e.Sort[0];
+        }
+
+        protected void PhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            (this.PhoneCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
         }
     }
 }

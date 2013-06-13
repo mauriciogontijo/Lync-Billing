@@ -204,15 +204,30 @@
                 Header="true"
                 Scroll="Both"
                 Layout="FitLayout">
+                <asp:ObjectDataSource 
+                    ID="PhoneCallsDataSource" 
+                    runat="server" 
+                    OnSelecting="PhoneCallsDataSource_Selecting"
+                    OnSelected="PhoneCallsDataSource_Selected"
+                    SelectMethod="GetPhoneCallsFilter">
+                    <SelectParameters>
+                        <asp:Parameter Name="start" Type="Int32" />
+                        <asp:Parameter Name="limit" Type="Int32" />
+                        <asp:Parameter Name="sort" Type="Object" />                
+                        <asp:Parameter Name="count" Direction="Output" Type="Int32" />
+                    </SelectParameters>
+                 </asp:ObjectDataSource>
                 <Store>
                     <ext:Store 
                         ID="PhoneCallsStore" 
                         runat="server" 
                         IsPagingStore="true" 
+                        RemoteSort="true" 
                         PageSize="25"
-                        OnLoad="PhoneCallsStore_Load"
-                        OnSubmitData="PhoneCallsStore_SubmitData"
-                        OnReadData="PhoneCallsStore_ReadData">
+                        DataSourceID="PhoneCallsDataSource">
+                        <Proxy>
+                            <ext:PageProxy />
+                        </Proxy>
                         <Model>
                             <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
                                 <Fields>
@@ -230,9 +245,11 @@
                                 </Fields>
                             </ext:Model>
                         </Model>
-                    
+                       <%-- <Listeners>
+                            <Load Handler="Ext.net.Mask.show({msg: 'Loading..'});" />
+                        </Listeners>--%>
                     </ext:Store>
-                    </Store>
+                </Store>
 
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                     <Columns>
@@ -373,6 +390,7 @@
                         Weight="25"
                         DisplayMsg="Phone Calls {0} - {1} of {2}" />
                 </BottomBar>
+                
             </ext:GridPanel>
              <ext:ToolTip ID="ToolTip1" 
                 runat="server" 
