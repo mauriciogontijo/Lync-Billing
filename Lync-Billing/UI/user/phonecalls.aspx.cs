@@ -42,10 +42,10 @@ namespace Lync_Billing.UI.user
 
         protected void getPhoneCalls()
         {
-            if (totalCalls.Count == 0)
-            {
-                UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
+            if (userSession.phoneCalls == null || userSession.phoneCalls.Count == 0)
+            {
                 wherePart.Add("SourceUserUri", userSession.SipAccount);
                 wherePart.Add("marker_CallTypeID", 1);
                 wherePart.Add("ac_IsInvoiced", "NO");
@@ -61,7 +61,7 @@ namespace Lync_Billing.UI.user
                 columns.Add("ui_CallType");
                 columns.Add("ui_MarkedOn");
 
-                totalCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                userSession.phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             }
         }
 
@@ -142,9 +142,10 @@ namespace Lync_Billing.UI.user
 
         public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count)
         {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
             getPhoneCalls();
 
-            IQueryable<PhoneCall> result = totalCalls.Select(e => e).AsQueryable();
+            IQueryable<PhoneCall> result = userSession.phoneCalls.Select(e => e).AsQueryable();
 
             if (sort != null)
             {
@@ -183,7 +184,7 @@ namespace Lync_Billing.UI.user
                     phoneCall.PhoneBookName = "N/A";
                 }
             }
-            count = totalCalls.Count();
+            count = userSession.phoneCalls.Count();
 
             return result.ToList();
         }
