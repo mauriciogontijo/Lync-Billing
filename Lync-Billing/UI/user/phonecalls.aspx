@@ -228,7 +228,7 @@
                         DataSourceID="PhoneCallsDataSource"
                         OnReadData="PhoneCallsStore_ReadData">
                         <Proxy>
-                            <ext:PageProxy />
+                            <ext:PageProxy CacheString=""/>
                         </Proxy>
                         <Model>
                             <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
