@@ -35,7 +35,7 @@
         <div class="block-body">
             <ext:Panel ID="AccountingToolsSidebar"
                 runat="server"
-                Height="415"
+                Height="340"
                 Width="180"
                 Title="Accounting Tools"
                 Collapsed="false"
