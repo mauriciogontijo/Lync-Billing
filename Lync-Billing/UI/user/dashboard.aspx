@@ -220,15 +220,15 @@
                                 <ul id="user-dropdown">
                                     <li class="first-child"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
                                     <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
+                                    <li class=""><a title="Bills History" href="../user/bills.aspx">Bills History</a></li>
+                                    <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
+                                    <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
                                     <%
                                         bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                         if (is_delegate) {
                                     %>
                                         <li class="separator-bottom"><a href="../user/manage_delegates.aspx">Delegated Users</a></li>
                                     <% } %>
-                                    <li class=""><a title="Bills History" href="../user/bills.aspx">Bills History</a></li>
-                                    <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
-                                    <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
                                     <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                 </ul>
                             </li>

@@ -27,15 +27,6 @@
                 <Content>
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>Pages</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../accounting/dashboard.aspx' class="selected">Dashboard</a></p>
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
                             <p>Disputes</p>
                         </div>
                         <div class="sidebar-section-body">
