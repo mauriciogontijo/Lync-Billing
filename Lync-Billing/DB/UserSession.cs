@@ -20,6 +20,7 @@ namespace Lync_Billing.DB
 
         public List<UserRole> Roles { set; get; }
         public Dictionary<string, string> ClientData { set; get; }
+        public List<PhoneCall> phoneCalls { set; get; }
 
         //Generic User Roles
         public bool IsDeveloper { set; get; }
