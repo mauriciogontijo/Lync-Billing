@@ -11,6 +11,7 @@ using System.Xml.Xsl;
 using Ext.Net;
 using Lync_Billing.DB;
 using Lync_Billing.Libs;
+using System.Linq.Expressions;
 
 namespace Lync_Billing.UI.user
 {
@@ -21,6 +22,7 @@ namespace Lync_Billing.UI.user
         public List<string> columns = new List<string>();
         public List<PhoneCall> phoneCalls;
         List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
+        StoreReadDataEventArgs e;
 
         string sipAccount = string.Empty;
         
@@ -129,7 +131,8 @@ namespace Lync_Billing.UI.user
 
         protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
-            this.PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            this.e = e;
+            //this.PhoneCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             this.PhoneCallsStore.DataBind();
         }
 
@@ -202,16 +205,84 @@ namespace Lync_Billing.UI.user
                 return null;
         }
 
+        public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count)
+        {
+
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+
+            wherePart.Add("SourceUserUri", userSession.SipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("ac_IsInvoiced", "NO");
+
+            columns.Add("SessionIdTime");
+            columns.Add("SessionIdSeq");
+            columns.Add("ResponseTime");
+            columns.Add("SessionEndTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+            columns.Add("ui_CallType");
+            columns.Add("ui_MarkedOn");
+
+            phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+
+            IQueryable<PhoneCall> result = phoneCalls.Select(e => e).AsQueryable();
+
+            if (sort != null)
+            {
+                ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
+
+                if (sort.Property == "SessionIdTime")
+                {
+                    Expression<Func<PhoneCall, DateTime?>> sortExpression = Expression.Lambda<Func<PhoneCall, DateTime?>>(Expression.Property(param, sort.Property), param);
+                    if (sort.Direction == Ext.Net.SortDirection.DESC)
+                    {
+                        result = result.OrderByDescending(sortExpression);
+                    }
+                    else
+                    {
+                        result = result.OrderBy(sortExpression);
+                    }
+                }
+                else
+                {
+                    Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
+                    if (sort.Direction == Ext.Net.SortDirection.DESC)
+                    {
+                        result = result.OrderByDescending(sortExpression);
+                    }
+                    else
+                    {
+                        result = result.OrderBy(sortExpression);
+                    }
+                }
+            }
+
+            if (start >= 0 && limit > 0)
+            {
+                result = result.Skip(start).Take(limit);
+            }
+
+            count = phoneCalls.Count();
+
+            return result.ToList();
+        }
+
+
         protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
-            e.InputParameters["start"] = e.Start;
-            e.InputParameters["limit"] = e.Limit;
-            e.InputParameters["sort"] = e.Sort[0];
+            e.InputParameters["start"] = this.e.Start;
+            e.InputParameters["limit"] = this.e.Limit;
+            e.InputParameters["sort"]  = this.e.Sort[0];
         }
 
         protected void PhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
         {
             (this.PhoneCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
         }
+
+       
+
     }
 }

@@ -22,15 +22,6 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Panel UserToolsSidebar;
         
         /// <summary>
-        /// ManagePhoneCallsGrid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridPanel ManagePhoneCallsGrid;
-        
-        /// <summary>
         /// PhoneCallsDataSource control.
         /// </summary>
         /// <remarks>
@@ -38,6 +29,15 @@ namespace Lync_Billing.UI.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ObjectDataSource PhoneCallsDataSource;
+        
+        /// <summary>
+        /// ManagePhoneCallsGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridPanel ManagePhoneCallsGrid;
         
         /// <summary>
         /// PhoneCallsStore control.

@@ -194,6 +194,21 @@
     <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
     <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
+            
+            <asp:ObjectDataSource 
+                ID="PhoneCallsDataSource" 
+                runat="server" 
+                OnSelecting="PhoneCallsDataSource_Selecting"
+                OnSelected="PhoneCallsDataSource_Selected"
+                SelectMethod="GetPhoneCallsFilter"
+                TypeName="Lync_Billing.UI.user.phonecalls">
+                <SelectParameters>
+                    <asp:Parameter Name="start" Type="Int32" />
+                    <asp:Parameter Name="limit" Type="Int32" />
+                    <asp:Parameter Name="sort" Type="Object" />                
+                    <asp:Parameter Name="count" Direction="Output" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"
                 runat="server"
@@ -204,27 +219,14 @@
                 Header="true"
                 Scroll="Both"
                 Layout="FitLayout">
-                <asp:ObjectDataSource 
-                    ID="PhoneCallsDataSource" 
-                    runat="server" 
-                    OnSelecting="PhoneCallsDataSource_Selecting"
-                    OnSelected="PhoneCallsDataSource_Selected"
-                    SelectMethod="GetPhoneCallsFilter">
-                    <SelectParameters>
-                        <asp:Parameter Name="start" Type="Int32" />
-                        <asp:Parameter Name="limit" Type="Int32" />
-                        <asp:Parameter Name="sort" Type="Object" />                
-                        <asp:Parameter Name="count" Direction="Output" Type="Int32" />
-                    </SelectParameters>
-                 </asp:ObjectDataSource>
                 <Store>
                     <ext:Store 
                         ID="PhoneCallsStore" 
                         runat="server" 
-                        IsPagingStore="true" 
                         RemoteSort="true" 
                         PageSize="25"
-                        DataSourceID="PhoneCallsDataSource">
+                        DataSourceID="PhoneCallsDataSource"
+                        OnReadData="PhoneCallsStore_ReadData">
                         <Proxy>
                             <ext:PageProxy />
                         </Proxy>
@@ -245,6 +247,9 @@
                                 </Fields>
                             </ext:Model>
                         </Model>
+                        <Sorters>
+                            <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
+                        </Sorters>
                        <%-- <Listeners>
                             <Load Handler="Ext.net.Mask.show({msg: 'Loading..'});" />
                         </Listeners>--%>
