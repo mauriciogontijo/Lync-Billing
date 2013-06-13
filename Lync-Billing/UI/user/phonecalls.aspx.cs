@@ -330,7 +330,6 @@ namespace Lync_Billing.UI.user
             userSession.PhoneCallsPerPage = PhoneCallsStore.JsonData;
             
         }
-
        
     }
 }

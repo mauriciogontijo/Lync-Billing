@@ -58,6 +58,15 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Model Model2;
         
         /// <summary>
+        /// RowNumbererColumn2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
+        
+        /// <summary>
         /// SessionIdTime control.
         /// </summary>
         /// <remarks>
@@ -182,6 +191,24 @@ namespace Lync_Billing.UI.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button Dispute;
+        
+        /// <summary>
+        /// AssignMarkedAllBusiness control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button AssignMarkedAllBusiness;
+        
+        /// <summary>
+        /// AssignMarkedAllPersonal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button AssignMarkedAllPersonal;
         
         /// <summary>
         /// ExportToExcel control.

@@ -259,14 +259,14 @@
                         </Listeners>--%>
                     </ext:Store>
                 </Store>
-
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                     <Columns>
+                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
                         <ext:Column
                             ID="SessionIdTime"
                             runat="server"
                             Text="Date"
-                            Width="160"
+                            Width="140"
                             DataIndex="SessionIdTime">
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
@@ -310,8 +310,8 @@
                             DataIndex="UI_CallType">
                             <Renderer Fn="getRowClassForIsPersonal" />
                         </ext:Column>
-
-                        <ext:Column
+                       
+                         <ext:Column
                             ID="UI_MarkedOn"
                             runat="server"
                             Text="Updated On"
@@ -381,7 +381,34 @@
                                     </ext:Button>
                                 </Buttons>
                             </ext:ButtonGroup>
-                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 310">
+                            
+                            <ext:ButtonGroup runat="server" Frame="false" ButtonAlign="Center" Width="250">
+                                <Buttons>
+                                    <ext:Button ID="AssignMarkedAllBusiness" Text=" All Business" runat="server">
+	                                    <DirectEvents>
+		                                    <Click OnEvent="AssignAllBusiness">
+			                                    <EventMask ShowMask="true" />
+			                                    <ExtraParams>
+				                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+			                                    </ExtraParams>
+		                                    </Click>
+	                                    </DirectEvents>
+                                    </ext:Button>
+
+                                    <ext:Button ID="AssignMarkedAllPersonal" Text=" All Personal" runat="server">
+	                                    <DirectEvents>
+		                                    <Click OnEvent="AssignAllPersonal">
+			                                    <EventMask ShowMask="true" />
+			                                    <ExtraParams>
+				                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+			                                    </ExtraParams>
+		                                    </Click>
+	                                    </DirectEvents>
+                                    </ext:Button>
+                                </Buttons>
+                            </ext:ButtonGroup>
+
+                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 50">
                                  <Listeners>
                                     <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
                                 </Listeners>
