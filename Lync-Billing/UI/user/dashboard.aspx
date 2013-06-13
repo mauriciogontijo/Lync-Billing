@@ -226,8 +226,9 @@
                                     %>
                                         <li class="separator-bottom"><a href="../user/manage_delegates.aspx">Delegated Users</a></li>
                                     <% } %>
-                                    <li class=""><a title="Call History" href="../user/history.aspx">Calls History</a></li>
-                                    <li class="separator-bottom"><a title="Call Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
+                                    <li class=""><a title="Bills History" href="../user/bills.aspx">Bills History</a></li>
+                                    <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
+                                    <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
                                     <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                 </ul>
                             </li>
