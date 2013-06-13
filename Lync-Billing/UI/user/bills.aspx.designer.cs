@@ -58,15 +58,6 @@ namespace Lync_Billing.UI.user {
         protected global::Ext.Net.Column BillDate;
         
         /// <summary>
-        /// TotalCost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column TotalCost;
-        
-        /// <summary>
         /// TotalCalls control.
         /// </summary>
         /// <remarks>
@@ -83,6 +74,15 @@ namespace Lync_Billing.UI.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column TotalDuration;
+        
+        /// <summary>
+        /// TotalCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column TotalCost;
         
         /// <summary>
         /// PhoneCallsPagingToolbar control.

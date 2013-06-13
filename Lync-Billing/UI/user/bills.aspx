@@ -183,16 +183,6 @@
                             Groupable="false">
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
-
-                        <ext:Column ID="TotalCost"
-                            runat="server"
-                            Text="Total Cost"
-                            Width="160"
-                            DataIndex="PersonalCallsCost"
-                            Groupable="false">
-                            <Renderer Fn="RoundCost"/>
-                        </ext:Column>
-                        
                         <ext:Column ID="TotalCalls"
                             runat="server"
                             Text="Number of Calls"
@@ -208,7 +198,15 @@
                             Groupable="false">
                             <Renderer Fn="GetMinutes" />
                         </ext:Column>
-		            </Columns>
+		                <ext:Column ID="TotalCost"
+                            runat="server"
+                            Text="Total Cost"
+                            Width="160"
+                            DataIndex="PersonalCallsCost"
+                            Groupable="false">
+                            <Renderer Fn="RoundCost"/>
+                        </ext:Column>
+                    </Columns>
                 </ColumnModel>
 
                 <BottomBar>
