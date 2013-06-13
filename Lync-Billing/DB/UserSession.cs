@@ -21,7 +21,7 @@ namespace Lync_Billing.DB
         public List<UserRole> Roles { set; get; }
         public Dictionary<string, string> ClientData { set; get; }
         public List<PhoneCall> phoneCalls { set; get; }
-        public List<PhoneBook> phoneBook { set; get; }
+        public Dictionary<string, PhoneBook> phoneBook { set; get; }
 
         //Generic User Roles
         public bool IsDeveloper { set; get; }
