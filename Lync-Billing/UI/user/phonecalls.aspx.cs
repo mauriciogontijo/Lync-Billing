@@ -43,7 +43,7 @@ namespace Lync_Billing.UI.user
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            if (userSession.phoneCalls == null || userSession.phoneCalls.Count == 0)
+            if (userSession.phoneCalls == null || userSession.phoneCalls.Count == 0 || force == true)
             {
                 wherePart.Add("SourceUserUri", userSession.SipAccount);
                 wherePart.Add("marker_CallTypeID", 1);
@@ -146,6 +146,8 @@ namespace Lync_Billing.UI.user
             }
             ManagePhoneCallsGrid.GetStore().CommitChanges();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+           
+            getPhoneCalls(true);
         }
 
         protected void AssignDispute(object sender, DirectEventArgs e)
