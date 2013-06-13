@@ -37,7 +37,7 @@ namespace Lync_Billing.UI.user
                 Response.Redirect(url);
             }
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
-            phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
+            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).phoneBook = PhoneBook.GetAddressBook(sipAccount);
         }
 
         protected void getPhoneCalls()
@@ -191,10 +191,11 @@ namespace Lync_Billing.UI.user
 
         private PhoneBook GetUserNameByNumber(string phoneNumber)
         {
-            if (phoneBookEntries.Count > 0)
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            if (userSession.phoneBook.Count > 0)
             {
-                if (phoneBookEntries.ContainsKey(phoneNumber))
-                    return phoneBookEntries[phoneNumber];
+                if (userSession.phoneBook.ContainsKey(phoneNumber))
+                    return userSession.phoneBook[phoneNumber];
                 else
                     return null;
             }
