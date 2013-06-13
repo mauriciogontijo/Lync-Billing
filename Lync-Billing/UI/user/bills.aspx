@@ -177,7 +177,7 @@
 		            <Columns>
                         <ext:Column ID="BillDate" 
                             runat="server" 
-                            Text="Month & Year" 
+                            Text="Date" 
                             Width="180" 
                             DataIndex="MonthDate"
                             Groupable="false">
@@ -186,7 +186,7 @@
 
                         <ext:Column ID="TotalCost"
                             runat="server"
-                            Text="Total Cost (in local currency)"
+                            Text="Total Cost"
                             Width="160"
                             DataIndex="PersonalCallsCost"
                             Groupable="false">
@@ -195,14 +195,14 @@
                         
                         <ext:Column ID="TotalCalls"
                             runat="server"
-                            Text="Total Calls"
+                            Text="Number of Calls"
                             Width="160"
                             DataIndex="PersonalCallsCount"
                             Groupable="false" />
                         
                         <ext:Column ID="TotalDuration"
                             runat="server"
-                            Text="Total Duration"
+                            Text="Duration"
                             Width="160"
                             DataIndex="PersonalCallsDuration"
                             Groupable="false">
