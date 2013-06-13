@@ -265,27 +265,6 @@ namespace Lync_Billing.DB
                 
                 userSummary.Duration = userSummary.PersonalCallsDuration / 60;
 
-                //if (month == previousMonth + 1)
-                //    previousMonth = month;
-                //else
-                //{
-                //    UsersCallsSummary glueSummary = new UsersCallsSummary();
-                //    glueSummary.BusinessCallsDuration = 0;
-                //    glueSummary.BusinessCallsCount = 0;
-                //    glueSummary.BusinessCallsCost = 0;
-                //    glueSummary.PersonalCallsDuration = 0;
-                //    glueSummary.PersonalCallsCount = 0;
-                //    glueSummary.PersonalCallsCost = 0;
-                //    glueSummary.UnmarkedCallsDuartion = 0;
-                //    glueSummary.UnmarkedCallsCount = 0;
-                //    glueSummary.UnmarkedCallsCost = 0;
-                //    glueSummary.Month = mfi.GetAbbreviatedMonthName(month);
-                //    if (previousMonth == 12)
-                //        glueSummary.Year = year + 1;
-                //    else
-                //        glueSummary.Year = year;
-
-                //}
                 chartList.Add(userSummary);
             }
             return chartList;

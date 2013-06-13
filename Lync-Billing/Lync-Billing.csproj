@@ -118,6 +118,7 @@
     <Content Include="UI\resources\images\tool-bg.png" />
     <Content Include="UI\resources\images\warning.png" />
     <Content Include="UI\resources\images\x_block_bg.png" />
+    <Content Include="UI\session\authenticate.aspx" />
     <Content Include="UI\session\login.aspx" />
     <Content Include="UI\resources\css\green-layout-ie-hacks.css" />
     <Content Include="UI\resources\css\green-layout.css" />
@@ -133,6 +134,7 @@
     <Content Include="UI\resources\js\ext-all.js" />
     <Content Include="UI\resources\js\jquery-1.9.1.min.js" />
     <Content Include="UI\resources\js\stacktrace.js" />
+    <Content Include="UI\user\bills.aspx" />
     <Content Include="UI\user\dashboard.aspx" />
     <Content Include="UI\user\addressbook.aspx" />
     <Content Include="UI\user\manage_delegates.aspx" />
@@ -221,6 +223,13 @@
     <Compile Include="UI\accounting\periodical_user_reports.aspx.designer.cs">
       <DependentUpon>periodical_user_reports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UI\session\authenticate.aspx.cs">
+      <DependentUpon>authenticate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\session\authenticate.aspx.designer.cs">
+      <DependentUpon>authenticate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UI\session\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -250,6 +259,13 @@
     </Compile>
     <Compile Include="UI\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="UI\user\bills.aspx.cs">
+      <DependentUpon>bills.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\user\bills.aspx.designer.cs">
+      <DependentUpon>bills.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\user\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>

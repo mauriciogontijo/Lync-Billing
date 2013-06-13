@@ -236,7 +236,7 @@
         <div class="block-body">
             <ext:Panel ID="UserToolsSidebar"
                 runat="server"
-                Height="420"
+                Height="435"
                 Width="180"
                 Title="User Tools"
                 Collapsed="false"
@@ -258,7 +258,8 @@
                             <p>History</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../user/history.aspx' class="selected">View Calls History</a></p>
+                            <p><a href='../user/history.aspx' class="selected">Phone Calls History</a></p>
+                            <p><a href='../user/bills.aspx'>Bills History</a></p>
                         </div>
                     </div>
 
@@ -267,7 +268,7 @@
                             <p>Statistics</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../user/statistics.aspx'>View Calls Statistics</a></p>
+                            <p><a href='../user/statistics.aspx'>Phone Calls Statistics</a></p>
                         </div>
                     </div>
 
