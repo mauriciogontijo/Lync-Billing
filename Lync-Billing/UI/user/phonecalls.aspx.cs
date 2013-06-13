@@ -235,19 +235,13 @@ namespace Lync_Billing.UI.user
 
                 Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
                 if (sort.Direction == Ext.Net.SortDirection.DESC)
-                {
                     result = result.OrderByDescending(sortExpression);
-                }
                 else
-                {
                     result = result.OrderBy(sortExpression);
-                }
             }
 
             if (start >= 0 && limit > 0)
-            {
                 result = result.Skip(start).Take(limit);
-            }
 
             count = phoneCalls.Count();
 
