@@ -178,8 +178,8 @@ namespace Lync_Billing.UI.user
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+           
             JsonSerializerSettings settings = new JsonSerializerSettings();
-
             settings.NullValueHandling = NullValueHandling.Ignore;
 
             perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage,settings);
@@ -228,7 +228,12 @@ namespace Lync_Billing.UI.user
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
-            perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.NullValueHandling = NullValueHandling.Ignore;
+
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
+            //perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
