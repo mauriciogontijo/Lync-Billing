@@ -27,7 +27,7 @@ namespace Lync_Billing.UI.user
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
-                string redirect_to = @"~/UI/user/bills_history.aspx";
+                string redirect_to = @"~/UI/user/bills.aspx";
                 string url = @"~/UI/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
             }

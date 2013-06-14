@@ -24,32 +24,33 @@
 	    //Manage-Phone-Calls Grid JavaScripts
 	    var myDateRenderer = function (value) {
 	        if (typeof value != undefined && value != 0) {
-	            if (BrowserDetect.browser != "Explorer") {
-	                value = Ext.util.Format.date(value, "M, Y");
-	                return value;
+	            var months_array = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	            var months_long_names = {
+	                'Jan': 'January',
+	                'Feb': 'February',
+	                'Mar': 'March',
+	                'Apr': 'April',
+	                'May': 'May',
+	                'Jun': 'June',
+	                'Jul': 'July',
+	                'Aug': 'August',
+	                'Sep': 'September',
+	                'Oct': 'October',
+	                'Nov': 'November',
+	                'Dec': 'December'
+	            };
+
+	            var date = value.toString();
+	            var date_array = date.split(' ');
+
+	            //The following is a weird IE bugfix
+	            //@date string appears in IE like this: "Thu Jan 31 00:00:00 UTC+0200 2013"
+	            //@date string appears in other browsers like this: "Thu Jan 31 2013 00:00:00 GMT+0200 (GTB Standard Time)"
+                //So by splitting the string on different browsers, you get different index of the year substring!
+	            if (BrowserDetect.browser == "Explorer") {
+	                return (months_long_names[date_array[1]] + ", " + date_array[date_array.length - 1]); //year is at last index
 	            } else {
-	                var my_date = {};
-	                var value_array = value.split(' ');
-	                var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-	                my_date["date"] = value_array[0];
-	                my_date["time"] = value_array[1];
-
-	                var date_parts = my_date["date"].split('-');
-	                my_date["date"] = {
-	                    year: date_parts[0],
-	                    month: months[parseInt(date_parts[1])],
-	                    day: date_parts[2]
-	                }
-
-	                var time_parts = my_date["time"].split(':');
-	                my_date["time"] = {
-	                    hours: time_parts[0],
-	                    minutes: time_parts[1],
-	                    period: (time_parts[0] < 12 ? 'AM' : 'PM')
-	                }
-
-	                return (my_date.date.month + " " + my_date.date.year);
+	                return (months_long_names[date_array[1]] + ", " + date_array[3]); //year is at 4th index
 	            }
 	        }
 	    }
@@ -180,16 +181,18 @@
                             Text="Accounting Date" 
                             Width="180" 
                             DataIndex="MonthDate"
-                            Groupable="false">
+                            Groupable="false"
+                            Align="Left">
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
+
                         <ext:Column ID="TotalCalls"
                             runat="server"
                             Text="Number of Calls"
                             Width="180"
                             DataIndex="PersonalCallsCount"
                             Groupable="false" 
-                            Align="Center"/>
+                            Align="Left"/>
                         
                         <ext:Column ID="TotalDuration"
                             runat="server"
@@ -197,16 +200,17 @@
                             Width="180"
                             DataIndex="PersonalCallsDuration"
                             Groupable="false"
-                            Align="Center">
+                            Align="Left">
                             <Renderer Fn="GetMinutes" />
                         </ext:Column>
+
 		                <ext:Column ID="TotalCost"
                             runat="server"
                             Text="Total Cost"
                             Width="180"
                             DataIndex="PersonalCallsCost"
                             Groupable="false"
-                            Align="Center">
+                            Align="Left">
                             <Renderer Fn="RoundCost"/>
                         </ext:Column>
                     </Columns>
