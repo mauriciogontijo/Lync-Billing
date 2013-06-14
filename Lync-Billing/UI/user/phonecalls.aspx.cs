@@ -208,7 +208,6 @@ namespace Lync_Billing.UI.user
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
         }
 
-
         protected void AssignDispute(object sender, DirectEventArgs e)
         {
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
