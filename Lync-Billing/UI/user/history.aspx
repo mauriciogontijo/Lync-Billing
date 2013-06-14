@@ -417,16 +417,19 @@
                         </ext:Column>
 		            </Columns>
                 </ColumnModel>
+
                 <Features>               
-                <ext:GroupingSummary 
-                    ID="GroupingPhoneCallsHistory" 
-                    runat="server" 
-                    GroupHeaderTplString="{name}" 
-                    HideGroupedHeader="true" 
-                    EnableGroupingMenu="true"
-                    EnableNoGroups="true"
-                    ShowSummaryRow="true" />
-            </Features>     
+                    <ext:GroupingSummary 
+                        ID="GroupingPhoneCallsHistory" 
+                        runat="server" 
+                        GroupHeaderTplString="{name}" 
+                        HideGroupedHeader="true" 
+                        EnableGroupingMenu="true"
+                        EnableNoGroups="true"
+                        ShowSummaryRow="true"
+                    />
+                </Features>
+
                 <TopBar>
                     <ext:Toolbar ID="FilterToolBar" runat="server">
                         <Items>
@@ -448,9 +451,10 @@
                                     <ext:ListItem Text="Uncharged" Value="7" />
                                 </Items>
                                  <Listeners>
-                                    <Select Handler="applyFilter(this);" />
+                                    <Select Handler="Ext.net.DirectMethods.PhoneCallsHistoryFilter();" />
                                 </Listeners>
                             </ext:ComboBox>
+
                             <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 510">
                                  <Listeners>
                                     <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, 'xls');" />

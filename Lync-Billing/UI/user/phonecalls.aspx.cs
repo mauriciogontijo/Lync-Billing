@@ -194,9 +194,8 @@ namespace Lync_Billing.UI.user
                     }
 
                 }
-
-
             }
+
             int count = (this.PhoneCallsStore.Proxy[0] as PageProxy).Total;
             ManagePhoneCallsGrid.GetStore().CommitChanges();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();

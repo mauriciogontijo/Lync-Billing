@@ -67,6 +67,43 @@ namespace Lync_Billing.UI.user
             userSession.PhoneCallsPerPage = PhoneCallStore.JsonData;
         }
 
+        protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            e.InputParameters["start"] = this.e.Start;
+            e.InputParameters["limit"] = this.e.Limit;
+            e.InputParameters["sort"] = this.e.Sort[0];
+        }
+
+        protected void PhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            (this.PhoneCallStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
+        }
+
+        public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, string filter = "none")
+        {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            getPhoneCalls();
+
+            IQueryable<PhoneCall> result = userSession.PhoneCallsHistory.Select(e => e).AsQueryable();
+
+            if (sort != null)
+            {
+                ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
+
+                Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
+                if (sort.Direction == Ext.Net.SortDirection.DESC)
+                    result = result.OrderByDescending(sortExpression);
+                else
+                    result = result.OrderBy(sortExpression);
+            }
+
+            if (start >= 0 && limit > 0)
+                result = result.Skip(start).Take(limit);
+
+            count = userSession.PhoneCallsHistory.Count();
+            return result.ToList();
+        }
+
         protected void getPhoneCalls(bool force = false)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
@@ -91,41 +128,10 @@ namespace Lync_Billing.UI.user
             }
         }
 
-        protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        [DirectMethod]
+        public void PhoneCallsHistoryFilter(object sender, EventArgs e)
         {
-            e.InputParameters["start"] = this.e.Start;
-            e.InputParameters["limit"] = this.e.Limit;
-            e.InputParameters["sort"] = this.e.Sort[0];
-        }
-
-        protected void PhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
-        {
-            (this.PhoneCallStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
-        }
-
-        public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count)
-        {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            getPhoneCalls();
-
-            IQueryable<PhoneCall> result = userSession.PhoneCallsHistory.Select(e => e).AsQueryable();
-
-            if (sort != null)
-            {
-                ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
-
-                Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
-                if (sort.Direction == Ext.Net.SortDirection.DESC)
-                    result = result.OrderByDescending(sortExpression);
-                else
-                    result = result.OrderBy(sortExpression);
-            }
-
-            if (start >= 0 && limit > 0)
-                result = result.Skip(start).Take(limit);
-
-            count = userSession.PhoneCallsHistory.Count();
-            return result.ToList();
+            
         }
     }
 }
