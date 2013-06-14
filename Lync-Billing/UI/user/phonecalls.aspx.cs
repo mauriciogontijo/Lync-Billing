@@ -12,6 +12,7 @@ using Ext.Net;
 using Lync_Billing.DB;
 using Lync_Billing.Libs;
 using System.Linq.Expressions;
+using Newtonsoft.Json;
 
 namespace Lync_Billing.UI.user
 {
@@ -114,7 +115,11 @@ namespace Lync_Billing.UI.user
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
-            perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+
+            settings.NullValueHandling = NullValueHandling.Ignore;
+
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
@@ -173,7 +178,12 @@ namespace Lync_Billing.UI.user
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
-            perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+
+            settings.NullValueHandling = NullValueHandling.Ignore;
+
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage,settings);
+            //perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
@@ -291,6 +301,12 @@ namespace Lync_Billing.UI.user
 
             foreach (PhoneCall phoneCall in result)
             {
+                if (phoneCall.UI_CallType == null)
+                    phoneCall.UI_CallType = string.Empty;
+
+                if (phoneCall.UI_MarkedOn == DateTime.MinValue)
+                {
+                }
                 phoneBookentry = new PhoneBook();
                 phoneBookentry = GetUserNameByNumber(phoneCall.DestinationNumberUri);
 
