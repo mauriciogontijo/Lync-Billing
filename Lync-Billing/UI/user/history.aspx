@@ -295,6 +295,21 @@
     <!-- *** START OF PHONE CALLS HISTORY GRID *** -->
     <div id='phone-call-history' class='block float-right wauto h100p' style="visibility: visible;">
         <div class="block-body pt5">
+            <asp:ObjectDataSource 
+                ID="PhoneCallsDataSource" 
+                runat="server" 
+                OnSelecting="PhoneCallsDataSource_Selecting"
+                OnSelected="PhoneCallsDataSource_Selected"
+                SelectMethod="GetPhoneCallsFilter"
+                TypeName="Lync_Billing.UI.user.history">
+                <SelectParameters>
+                    <asp:Parameter Name="start" Type="Int32" />
+                    <asp:Parameter Name="limit" Type="Int32" />
+                    <asp:Parameter Name="sort" Type="Object" />                
+                    <asp:Parameter Name="count" Direction="Output" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
+
             <ext:GridPanel
                 ID="PhoneCallsHistoryGrid" 
                 runat="server" 
@@ -308,13 +323,17 @@
 
                 <Store>
                     <ext:Store
-                         ID="PhoneCallStore" 
-                         runat="server" 
-                         OnLoad="PhoneCallStore_Load"
-                         OnSubmitData="PhoneCallStore_SubmitData"
-                         OnReadData="PhoneCallStore_ReadData"
-                         IsPagingStore="true"  
-                         PageSize="25">
+                        ID="PhoneCallStore" 
+                        runat="server" 
+                        RemoteSort="true" 
+                        DataSourceID="PhoneCallsDataSource"
+                        OnReadData="PhoneCallStore_ReadData"
+                        PageSize="25">
+
+                        <Proxy>
+                            <ext:PageProxy CacheString=""/>
+                        </Proxy>
+
                         <Model>
                             <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
                                 <Fields>
@@ -327,8 +346,12 @@
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                     <ext:ModelField Name="AC_IsInvoiced" Type="String" />
                                 </Fields>
-                         </ext:Model>
-                       </Model>
+                            </ext:Model>
+                        </Model>
+                        
+                        <Sorters>
+                            <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
+                        </Sorters>
                     </ext:Store>
                 </Store>
 
