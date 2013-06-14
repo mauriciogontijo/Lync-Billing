@@ -65,6 +65,41 @@ namespace Lync_Billing.UI.user
             }
         }
 
+        protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            e.InputParameters["start"] = this.e.Start;
+            e.InputParameters["limit"] = this.e.Limit;
+            e.InputParameters["sort"] = this.e.Sort[0];
+        }
+
+        protected void PhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            (this.PhoneCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
+        }
+
+        protected void PhoneCallsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
+        {
+            XmlNode xml = e.Xml;
+
+            this.Response.Clear();
+            this.Response.ContentType = "application/vnd.ms-excel";
+            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+            XslCompiledTransform xtExcel = new XslCompiledTransform();
+            xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
+            xtExcel.Transform(xml, null, Response.OutputStream);
+
+            this.Response.End();
+        }
+
+        protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            this.e = e;
+            this.PhoneCallsStore.DataBind();
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            userSession.PhoneCallsPerPage = PhoneCallsStore.JsonData;
+
+        }
+
         protected void AssignBusiness(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
@@ -293,42 +328,6 @@ namespace Lync_Billing.UI.user
             }
             else
                 return null;
-        }
-      
-        protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
-        {
-            e.InputParameters["start"] = this.e.Start;
-            e.InputParameters["limit"] = this.e.Limit;
-            e.InputParameters["sort"]  = this.e.Sort[0];
-        }
-
-        protected void PhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
-        {
-            (this.PhoneCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
-        }
-
-        protected void PhoneCallsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
-        {
-            XmlNode xml = e.Xml;
-
-            this.Response.Clear();
-            this.Response.ContentType = "application/vnd.ms-excel";
-            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
-            XslCompiledTransform xtExcel = new XslCompiledTransform();
-            xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
-            xtExcel.Transform(xml, null, Response.OutputStream);
-
-            this.Response.End();
-        }
-
-        protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
-        {
-            this.e = e;
-            this.PhoneCallsStore.DataBind();
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            userSession.PhoneCallsPerPage = PhoneCallsStore.JsonData;
-            
-        }
-       
+        }  
     }
 }
