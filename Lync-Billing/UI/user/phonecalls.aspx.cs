@@ -301,12 +301,6 @@ namespace Lync_Billing.UI.user
 
             foreach (PhoneCall phoneCall in result)
             {
-                if (phoneCall.UI_CallType == null)
-                    phoneCall.UI_CallType = string.Empty;
-
-                if (phoneCall.UI_MarkedOn == DateTime.MinValue)
-                {
-                }
                 phoneBookentry = new PhoneBook();
                 phoneBookentry = GetUserNameByNumber(phoneCall.DestinationNumberUri);
 
