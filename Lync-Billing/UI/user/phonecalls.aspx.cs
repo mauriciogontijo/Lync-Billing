@@ -317,6 +317,7 @@ namespace Lync_Billing.UI.user
                     {
                         phoneCall.UI_CallType = phoneBookentry.Type;
                         phoneCall.UI_MarkedOn = DateTime.Now;
+
                         AutoMarkedPhoneCalls.Add(phoneCall);
                     }
                 }
