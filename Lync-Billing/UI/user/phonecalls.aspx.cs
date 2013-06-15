@@ -178,15 +178,35 @@ namespace Lync_Billing.UI.user
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
-           
+
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.NullValueHandling = NullValueHandling.Ignore;
 
             perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage,settings);
             //perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
 
+            PhoneBook phoneBookEntry;
+
+            List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
+
             foreach (PhoneCall phoneCall in phoneCalls)
             {
+                //Ceare Phonebook Entry
+                phoneBookEntry = new PhoneBook();
+                
+                //Check if this entry Already exists 
+                if (!userSession.phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                {
+                    phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
+                    phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
+                    phoneBookEntry.SipAccount = userSession.SipAccount;
+                    phoneBookEntry.Type = "Business";
+
+                    //Add Phonebook entry to Session and to the list which will be written to database 
+                    userSession.phoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+                    phoneBookEntries.Add(phoneBookEntry);
+                }
+
                 var matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
 
                 foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
@@ -202,15 +222,16 @@ namespace Lync_Billing.UI.user
                         PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Set(matchedDestinationCall);
                         PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Commit();
                     }
-
                 }
             }
 
             int count = (this.PhoneCallsStore.Proxy[0] as PageProxy).Total;
             ManagePhoneCallsGrid.GetStore().CommitChanges();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
-
             getPhoneCalls(true);
+            
+            //Add To User PhoneBook Store
+            PhoneBook.AddPhoneBookEntries(phoneBookEntries);
         }
 
         protected void AssignAllPersonal(object sender, DirectEventArgs e)
