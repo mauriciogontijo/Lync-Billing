@@ -349,7 +349,7 @@
                                 <Buttons>
                                     <ext:Button ID="Business" Text="Business" runat="server">
                                         <DirectEvents>
-                                            <Click OnEvent="AssignBusiness">
+                                            <Click OnEvent="AssignAllBusiness">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
                                                     <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
@@ -360,7 +360,7 @@
 
                                     <ext:Button ID="Personal" Text="Personal" runat="server">
                                         <DirectEvents>
-                                            <Click OnEvent="AssignPersonal">
+                                            <Click OnEvent="AssignAllPersonal">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
                                                     <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
