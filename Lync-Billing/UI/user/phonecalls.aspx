@@ -384,7 +384,7 @@
                             
                             <ext:ButtonGroup runat="server" Frame="false" ButtonAlign="Center" Width="250">
                                 <Buttons>
-                                    <ext:Button ID="AssignMarkedAlwaysBusiness" Text=" All Business" runat="server">
+                                    <ext:Button ID="AssignMarkedAlwaysBusiness" Text=" Always Business" runat="server">
 	                                    <DirectEvents>
 		                                    <Click OnEvent="AssignAlwaysBusiness">
 			                                    <EventMask ShowMask="true" />
@@ -395,7 +395,7 @@
 	                                    </DirectEvents>
                                     </ext:Button>
 
-                                    <ext:Button ID="AssignMarkedAlwaysPersonal" Text=" All Personal" runat="server">
+                                    <ext:Button ID="AssignMarkedAlwaysPersonal" Text=" Always Personal" runat="server">
 	                                    <DirectEvents>
 		                                    <Click OnEvent="AssignAlwaysPersonal">
 			                                    <EventMask ShowMask="true" />

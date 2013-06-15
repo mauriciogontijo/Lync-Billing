@@ -224,9 +224,6 @@ namespace Lync_Billing.UI.user
                     }
                 }
             }
-
-            int count = (this.PhoneCallsStore.Proxy[0] as PageProxy).Total;
-            ManagePhoneCallsGrid.GetStore().CommitChanges();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
             getPhoneCalls(true);
             
@@ -256,8 +253,29 @@ namespace Lync_Billing.UI.user
             perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
             //perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
 
+            PhoneBook phoneBookEntry;
+
+            List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
+
             foreach (PhoneCall phoneCall in phoneCalls)
             {
+
+                //Ceare Phonebook Entry
+                phoneBookEntry = new PhoneBook();
+
+                //Check if this entry Already exists 
+                if (!userSession.phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                {
+                    phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
+                    phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
+                    phoneBookEntry.SipAccount = userSession.SipAccount;
+                    phoneBookEntry.Type = "Personal";
+
+                    //Add Phonebook entry to Session and to the list which will be written to database 
+                    userSession.phoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+                    phoneBookEntries.Add(phoneBookEntry);
+                }
+
                 var matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
 
                 foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
@@ -276,6 +294,10 @@ namespace Lync_Billing.UI.user
                 }
             }
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            getPhoneCalls(true);
+
+            //Add To User PhoneBook Store
+            PhoneBook.AddPhoneBookEntries(phoneBookEntries);
         }
 
         protected void AssignDispute(object sender, DirectEventArgs e)
