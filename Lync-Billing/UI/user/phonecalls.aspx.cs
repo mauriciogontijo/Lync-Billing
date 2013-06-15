@@ -164,7 +164,7 @@ namespace Lync_Billing.UI.user
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
         }
 
-        protected void AssignAllBusiness(object sender, DirectEventArgs e)
+        protected void AssignAlwaysBusiness(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
@@ -234,7 +234,7 @@ namespace Lync_Billing.UI.user
             PhoneBook.AddPhoneBookEntries(phoneBookEntries);
         }
 
-        protected void AssignAllPersonal(object sender, DirectEventArgs e)
+        protected void AssignAlwaysPersonal(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
