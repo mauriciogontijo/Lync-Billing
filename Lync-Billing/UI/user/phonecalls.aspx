@@ -384,9 +384,9 @@
                             
                             <ext:ButtonGroup runat="server" Frame="false" ButtonAlign="Center" Width="250">
                                 <Buttons>
-                                    <ext:Button ID="AssignMarkedAllBusiness" Text=" All Business" runat="server">
+                                    <ext:Button ID="AssignMarkedAlwaysBusiness" Text=" All Business" runat="server">
 	                                    <DirectEvents>
-		                                    <Click OnEvent="AssignAllBusiness">
+		                                    <Click OnEvent="AssignAlwaysBusiness">
 			                                    <EventMask ShowMask="true" />
 			                                    <ExtraParams>
 				                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
@@ -395,9 +395,9 @@
 	                                    </DirectEvents>
                                     </ext:Button>
 
-                                    <ext:Button ID="AssignMarkedAllPersonal" Text=" All Personal" runat="server">
+                                    <ext:Button ID="AssignMarkedAlwaysPersonal" Text=" All Personal" runat="server">
 	                                    <DirectEvents>
-		                                    <Click OnEvent="AssignAllPersonal">
+		                                    <Click OnEvent="AssignAlwaysPersonal">
 			                                    <EventMask ShowMask="true" />
 			                                    <ExtraParams>
 				                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
