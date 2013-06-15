@@ -182,8 +182,17 @@ namespace Lync_Billing.UI.user
         {
             if (phoneBookEntries.ContainsKey(phoneNumber))
                 return phoneBookEntries[phoneNumber].Name;
-            else
-                return string.Empty;
+            else 
+            {
+                AdLib adRoutines = new AdLib();
+                string DisplayName = adRoutines.getUsersAttributesFromPhone(phoneNumber).DisplayName;
+
+                if (DisplayName != null)
+                    return DisplayName;
+                else
+                    return string.Empty;
+            }
+                
         }
      
         private string GetUserNameBySip(string sipAccount) 
@@ -197,4 +206,5 @@ namespace Lync_Billing.UI.user
                 return string.Empty;
         }
     }
+
 }
