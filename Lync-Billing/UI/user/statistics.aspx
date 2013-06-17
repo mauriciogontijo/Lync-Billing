@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="statistics.aspx.cs" Inherits="Lync_Billing.UI.user.statistics" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="statistics.aspx.cs" Inherits="Lync_Billing.UI.user.statistics" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>eBill | User Tools</title>
@@ -235,7 +235,7 @@
         <div class="block-body">
             <ext:Panel ID="UserToolsSidebar"
                 runat="server"
-                Height="450"
+                Height="420"
                 Width="180"
                 Title="User Tools"
                 Collapsed="false"
@@ -248,7 +248,7 @@
                         <div class="sidebar-section-body">
                             <p><a href='../user/phonecalls.aspx'>Phone Calls</a></p>
                             <p><a href="../user/addressbook.aspx">Address Book</a></p>
-                            <p><a href="#">Authorized Delegate</a></p>
+                            <!--<p><a href="#">Authorized Delegate</a></p>-->
                         </div>
                     </div>
 
@@ -272,8 +272,9 @@
                     </div>
 
                     <%
-                        bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                        if (condition) {
+                        bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                        if (is_delegate)
+                        {
                     %>
                         <div class='sidebar-section'>
                             <div class="sidebar-section-header">

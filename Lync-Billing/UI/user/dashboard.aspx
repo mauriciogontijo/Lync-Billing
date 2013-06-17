@@ -225,9 +225,10 @@
                                     <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
                                     <%
                                         bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                                        if (is_delegate) {
+                                        if (is_delegate)
+                                        {
                                     %>
-                                        <li class="separator-bottom"><a href="../user/manage_delegates.aspx">Delegated Users</a></li>
+                                        <li class="separator-bottom"><a href="../user/manage_delegates.aspx">Manage Delegatees</a></li>
                                     <% } %>
                                     <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                 </ul>
@@ -547,7 +548,7 @@
 
 
 <%--
-    <%@ Page Title="" Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="User_Dashboard.aspx.cs" Inherits="Lync_Billing.UI.User_Dashboard" %>
+    <%@ Page Title="" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="User_Dashboard.aspx.cs" Inherits="Lync_Billing.UI.User_Dashboard" %>
     <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server"></asp:Content>
     <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server"></asp:Content>
 --%>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/MasterPage.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="Lync_Billing.UI.session.login" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="Lync_Billing.UI.session.login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Login</title>

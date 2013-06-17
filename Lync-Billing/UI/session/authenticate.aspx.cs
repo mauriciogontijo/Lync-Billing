@@ -19,14 +19,14 @@ namespace Lync_Billing.UI.session
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session != null && HttpContext.Current.Session.Contents["UserData"] != null)
             {
-                Response.Redirect("~/UI/user/dashboard.aspx");
+                Response.Redirect("~/ui/user/dashboard.aspx");
             }
 
             //Check if a redirect_to value has been passed and validate it's link
             if (Request.QueryString["redirect_to"] != null && Request.QueryString["redirect_to"] != string.Empty)
             {
                 //This statement validates that the link must contain the application root path and the page extension at the end of it
-                if (Request.QueryString["redirect_to"].Contains(@"~/UI/") && Request.QueryString["redirect_to"].Contains(@".aspx"))
+                if (Request.QueryString["redirect_to"].Contains(@"~/ui/") && Request.QueryString["redirect_to"].Contains(@".aspx"))
                 {
                     this.redirect_to_url.Value = Request.QueryString["redirect_to"];
                 }
@@ -136,14 +136,14 @@ namespace Lync_Billing.UI.session
 
                     if (this.redirect_to_url != null && this.redirect_to_url.Value != string.Empty)
                     {
-                        if (Request.QueryString["redirect_to"].Contains(@"~/UI/") && Request.QueryString["redirect_to"].Contains(@".aspx"))
+                        if (Request.QueryString["redirect_to"].Contains(@"~/ui/") && Request.QueryString["redirect_to"].Contains(@".aspx"))
                         {
                             Response.Redirect(this.redirect_to_url.Value);
                         }
                     }
                     else
                     {
-                        Response.Redirect("~/UI/user/dashboard.aspx");
+                        Response.Redirect("~/ui/user/dashboard.aspx");
                     }
                 }
             }

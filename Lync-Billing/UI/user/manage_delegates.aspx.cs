@@ -25,8 +25,8 @@ namespace Lync_Billing.UI.user
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
-                string redirect_to = @"~/UI/user/manage_delegates.aspx";
-                string url = @"~/UI/session/login.aspx?redirect_to=" + redirect_to;
+                string redirect_to = @"~/ui/user/manage_delegates.aspx";
+                string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
             }
             //but if the user is actually logged in we only need to check if he is marked as a delegate user
@@ -40,7 +40,7 @@ namespace Lync_Billing.UI.user
                 else
                 {
                     //We redirect the users to the User Dashboard page if they have requested the Manage Delegates page without being marked as delegates themselves
-                    Response.Redirect("~/UI/session/login.aspx");
+                    Response.Redirect("~/ui/session/login.aspx");
                 }
             }
         }

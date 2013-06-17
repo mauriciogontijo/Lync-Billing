@@ -99,48 +99,48 @@
     <Content Include="Global.asax" />
     <Content Include="Resources\Csv.xsl" />
     <Content Include="Resources\excel.xsl" />
-    <Content Include="UI\accounting\dashboard.aspx" />
-    <Content Include="UI\accounting\manage_disputes.aspx" />
-    <Content Include="UI\accounting\monthly_site_reports.aspx" />
-    <Content Include="UI\accounting\monthly_user_reports.aspx" />
-    <Content Include="UI\accounting\periodical_site_reports.aspx" />
-    <Content Include="UI\accounting\periodical_user_reports.aspx" />
-    <Content Include="UI\resources\css\dropdown-menu-white.css" />
-    <Content Include="UI\resources\css\dropdown-menu.css" />
-    <Content Include="UI\resources\css\global.css" />
-    <Content Include="UI\resources\css\layouts.css" />
-    <Content Include="UI\resources\images\drop-arrow.png" />
-    <Content Include="UI\resources\images\get_info-3.png" />
-    <Content Include="UI\resources\images\header-bg.gif" />
-    <Content Include="UI\resources\images\header-ddl-icon.png" />
-    <Content Include="UI\resources\images\info.png" />
-    <Content Include="UI\resources\images\shutdown.png" />
-    <Content Include="UI\resources\images\tool-bg.png" />
-    <Content Include="UI\resources\images\warning.png" />
-    <Content Include="UI\resources\images\x_block_bg.png" />
-    <Content Include="UI\session\authenticate.aspx" />
-    <Content Include="UI\session\login.aspx" />
-    <Content Include="UI\resources\css\green-layout-ie-hacks.css" />
-    <Content Include="UI\resources\css\green-layout.css" />
-    <Content Include="UI\resources\css\reset.css" />
-    <Content Include="UI\resources\css\toolkit.css" />
-    <Content Include="UI\session\logout.aspx" />
-    <Content Include="UI\resources\grids_tests\GridTest.aspx" />
-    <Content Include="UI\resources\images\mybills.png" />
-    <Content Include="UI\resources\images\navbar-bg.gif" />
-    <Content Include="UI\resources\images\phonecalls.png" />
-    <Content Include="UI\resources\images\settings.png" />
-    <Content Include="UI\resources\js\browserdetector.js" />
-    <Content Include="UI\resources\js\ext-all.js" />
-    <Content Include="UI\resources\js\jquery-1.9.1.min.js" />
-    <Content Include="UI\resources\js\stacktrace.js" />
-    <Content Include="UI\user\bills.aspx" />
-    <Content Include="UI\user\dashboard.aspx" />
-    <Content Include="UI\user\addressbook.aspx" />
-    <Content Include="UI\user\manage_delegates.aspx" />
-    <Content Include="UI\user\history.aspx" />
-    <Content Include="UI\user\phonecalls.aspx" />
-    <Content Include="UI\user\statistics.aspx" />
+    <Content Include="ui\accounting\dashboard.aspx" />
+    <Content Include="ui\accounting\manage_disputes.aspx" />
+    <Content Include="ui\accounting\monthly_site_reports.aspx" />
+    <Content Include="ui\accounting\monthly_user_reports.aspx" />
+    <Content Include="ui\accounting\periodical_site_reports.aspx" />
+    <Content Include="ui\accounting\periodical_user_reports.aspx" />
+    <Content Include="ui\resources\css\dropdown-menu-white.css" />
+    <Content Include="ui\resources\css\dropdown-menu.css" />
+    <Content Include="ui\resources\css\global.css" />
+    <Content Include="ui\resources\css\layouts.css" />
+    <Content Include="ui\resources\images\drop-arrow.png" />
+    <Content Include="ui\resources\images\get_info-3.png" />
+    <Content Include="ui\resources\images\header-bg.gif" />
+    <Content Include="ui\resources\images\header-ddl-icon.png" />
+    <Content Include="ui\resources\images\info.png" />
+    <Content Include="ui\resources\images\shutdown.png" />
+    <Content Include="ui\resources\images\tool-bg.png" />
+    <Content Include="ui\resources\images\warning.png" />
+    <Content Include="ui\resources\images\x_block_bg.png" />
+    <Content Include="ui\session\authenticate.aspx" />
+    <Content Include="ui\session\login.aspx" />
+    <Content Include="ui\resources\css\green-layout-ie-hacks.css" />
+    <Content Include="ui\resources\css\green-layout.css" />
+    <Content Include="ui\resources\css\reset.css" />
+    <Content Include="ui\resources\css\toolkit.css" />
+    <Content Include="ui\session\logout.aspx" />
+    <Content Include="ui\resources\grids_tests\GridTest.aspx" />
+    <Content Include="ui\resources\images\mybills.png" />
+    <Content Include="ui\resources\images\navbar-bg.gif" />
+    <Content Include="ui\resources\images\phonecalls.png" />
+    <Content Include="ui\resources\images\settings.png" />
+    <Content Include="ui\resources\js\browserdetector.js" />
+    <Content Include="ui\resources\js\ext-all.js" />
+    <Content Include="ui\resources\js\jquery-1.9.1.min.js" />
+    <Content Include="ui\resources\js\stacktrace.js" />
+    <Content Include="ui\user\bills.aspx" />
+    <Content Include="ui\user\dashboard.aspx" />
+    <Content Include="ui\user\addressbook.aspx" />
+    <Content Include="ui\user\manage_delegates.aspx" />
+    <Content Include="ui\user\history.aspx" />
+    <Content Include="ui\user\phonecalls.aspx" />
+    <Content Include="ui\user\statistics.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -174,147 +174,147 @@
     <Compile Include="Libs\PDFLib.cs" />
     <Compile Include="Libs\Statistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\AccountingMaster.Master.cs">
+    <Compile Include="ui\AccountingMaster.Master.cs">
       <DependentUpon>AccountingMaster.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\AccountingMaster.Master.designer.cs">
+    <Compile Include="ui\AccountingMaster.Master.designer.cs">
       <DependentUpon>AccountingMaster.Master</DependentUpon>
     </Compile>
-    <Compile Include="UI\accounting\dashboard.aspx.cs">
+    <Compile Include="ui\accounting\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\accounting\dashboard.aspx.designer.cs">
+    <Compile Include="ui\accounting\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\accounting\manage_disputes.aspx.cs">
+    <Compile Include="ui\accounting\manage_disputes.aspx.cs">
       <DependentUpon>manage_disputes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\accounting\manage_disputes.aspx.designer.cs">
+    <Compile Include="ui\accounting\manage_disputes.aspx.designer.cs">
       <DependentUpon>manage_disputes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\accounting\monthly_site_reports.aspx.cs">
+    <Compile Include="ui\accounting\monthly_site_reports.aspx.cs">
       <DependentUpon>monthly_site_reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\accounting\monthly_site_reports.aspx.designer.cs">
+    <Compile Include="ui\accounting\monthly_site_reports.aspx.designer.cs">
       <DependentUpon>monthly_site_reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\accounting\monthly_user_reports.aspx.cs">
+    <Compile Include="ui\accounting\monthly_user_reports.aspx.cs">
       <DependentUpon>monthly_user_reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\accounting\monthly_user_reports.aspx.designer.cs">
+    <Compile Include="ui\accounting\monthly_user_reports.aspx.designer.cs">
       <DependentUpon>monthly_user_reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\accounting\periodical_site_reports.aspx.cs">
+    <Compile Include="ui\accounting\periodical_site_reports.aspx.cs">
       <DependentUpon>periodical_site_reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\accounting\periodical_site_reports.aspx.designer.cs">
+    <Compile Include="ui\accounting\periodical_site_reports.aspx.designer.cs">
       <DependentUpon>periodical_site_reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\accounting\periodical_user_reports.aspx.cs">
+    <Compile Include="ui\accounting\periodical_user_reports.aspx.cs">
       <DependentUpon>periodical_user_reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\accounting\periodical_user_reports.aspx.designer.cs">
+    <Compile Include="ui\accounting\periodical_user_reports.aspx.designer.cs">
       <DependentUpon>periodical_user_reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\session\authenticate.aspx.cs">
+    <Compile Include="ui\session\authenticate.aspx.cs">
       <DependentUpon>authenticate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\session\authenticate.aspx.designer.cs">
+    <Compile Include="ui\session\authenticate.aspx.designer.cs">
       <DependentUpon>authenticate.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\session\login.aspx.cs">
+    <Compile Include="ui\session\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\session\login.aspx.designer.cs">
+    <Compile Include="ui\session\login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\resources\grids_generators\DBStores.cs" />
-    <Compile Include="UI\resources\grids_generators\Grids.cs" />
-    <Compile Include="UI\session\logout.aspx.cs">
+    <Compile Include="ui\resources\grids_generators\DBStores.cs" />
+    <Compile Include="ui\resources\grids_generators\Grids.cs" />
+    <Compile Include="ui\session\logout.aspx.cs">
       <DependentUpon>logout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\session\logout.aspx.designer.cs">
+    <Compile Include="ui\session\logout.aspx.designer.cs">
       <DependentUpon>logout.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\resources\grids_tests\GridTest.aspx.cs">
+    <Compile Include="ui\resources\grids_tests\GridTest.aspx.cs">
       <DependentUpon>GridTest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\resources\grids_tests\GridTest.aspx.designer.cs">
+    <Compile Include="ui\resources\grids_tests\GridTest.aspx.designer.cs">
       <DependentUpon>GridTest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\MasterPage.Master.cs">
+    <Compile Include="ui\MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\MasterPage.Master.designer.cs">
+    <Compile Include="ui\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\bills.aspx.cs">
+    <Compile Include="ui\user\bills.aspx.cs">
       <DependentUpon>bills.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\bills.aspx.designer.cs">
+    <Compile Include="ui\user\bills.aspx.designer.cs">
       <DependentUpon>bills.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\dashboard.aspx.cs">
+    <Compile Include="ui\user\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\dashboard.aspx.designer.cs">
+    <Compile Include="ui\user\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\addressbook.aspx.cs">
+    <Compile Include="ui\user\addressbook.aspx.cs">
       <DependentUpon>addressbook.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\addressbook.aspx.designer.cs">
+    <Compile Include="ui\user\addressbook.aspx.designer.cs">
       <DependentUpon>addressbook.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\manage_delegates.aspx.cs">
+    <Compile Include="ui\user\manage_delegates.aspx.cs">
       <DependentUpon>manage_delegates.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\manage_delegates.aspx.designer.cs">
+    <Compile Include="ui\user\manage_delegates.aspx.designer.cs">
       <DependentUpon>manage_delegates.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\history.aspx.cs">
+    <Compile Include="ui\user\history.aspx.cs">
       <DependentUpon>history.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\history.aspx.designer.cs">
+    <Compile Include="ui\user\history.aspx.designer.cs">
       <DependentUpon>history.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\phonecalls.aspx.cs">
+    <Compile Include="ui\user\phonecalls.aspx.cs">
       <DependentUpon>phonecalls.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\phonecalls.aspx.designer.cs">
+    <Compile Include="ui\user\phonecalls.aspx.designer.cs">
       <DependentUpon>phonecalls.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UI\user\statistics.aspx.cs">
+    <Compile Include="ui\user\statistics.aspx.cs">
       <DependentUpon>statistics.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\user\statistics.aspx.designer.cs">
+    <Compile Include="ui\user\statistics.aspx.designer.cs">
       <DependentUpon>statistics.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="UI\MasterPage.Master" />
+    <Content Include="ui\MasterPage.Master" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\TBill-Bublisher.pubxml" />
-    <Content Include="UI\AccountingMaster.Master" />
+    <Content Include="ui\AccountingMaster.Master" />
     <None Include="Properties\PublishProfiles\Tbill-Bublisher2.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
