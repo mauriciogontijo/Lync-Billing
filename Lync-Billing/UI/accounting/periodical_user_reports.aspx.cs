@@ -17,7 +17,7 @@ namespace Lync_Billing.UI.accouting
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
-                Response.Redirect("~/UI/session/login.aspx");
+                Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
@@ -26,7 +26,7 @@ namespace Lync_Billing.UI.accouting
 
                 if (!session.IsDeveloper && !session.IsAccountant)
                 {
-                    Response.Redirect("~/UI/user/dashboard.aspx");
+                    Response.Redirect("~/ui/user/dashboard.aspx");
                 }
             }
         }
