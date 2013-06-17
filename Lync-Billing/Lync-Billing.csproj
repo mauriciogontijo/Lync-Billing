@@ -125,7 +125,6 @@
     <Content Include="ui\resources\css\reset.css" />
     <Content Include="ui\resources\css\toolkit.css" />
     <Content Include="ui\session\logout.aspx" />
-    <Content Include="ui\resources\grids_tests\GridTest.aspx" />
     <Content Include="ui\resources\images\mybills.png" />
     <Content Include="ui\resources\images\navbar-bg.gif" />
     <Content Include="ui\resources\images\phonecalls.png" />
@@ -237,21 +236,12 @@
     <Compile Include="ui\session\login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\resources\grids_generators\DBStores.cs" />
-    <Compile Include="ui\resources\grids_generators\Grids.cs" />
     <Compile Include="ui\session\logout.aspx.cs">
       <DependentUpon>logout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ui\session\logout.aspx.designer.cs">
       <DependentUpon>logout.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ui\resources\grids_tests\GridTest.aspx.cs">
-      <DependentUpon>GridTest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ui\resources\grids_tests\GridTest.aspx.designer.cs">
-      <DependentUpon>GridTest.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
