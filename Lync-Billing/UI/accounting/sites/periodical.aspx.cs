@@ -11,7 +11,7 @@ using Lync_Billing.DB;
 using System.Xml;
 using System.Xml.Xsl;
 
-namespace Lync_Billing.ui.accounting
+namespace Lync_Billing.ui.accounting.sites
 {
     public partial class periodical : System.Web.UI.Page
     {
