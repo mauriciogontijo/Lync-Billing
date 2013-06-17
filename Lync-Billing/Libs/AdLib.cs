@@ -79,7 +79,7 @@ namespace Lync_Billing.Libs
                     return false;
             }catch (Exception ex)
             {
-                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                System.ArgumentException argEx = new System.ArgumentException("Logon failure: unknown user name or bad password");
                 throw argEx;
             }
         }
