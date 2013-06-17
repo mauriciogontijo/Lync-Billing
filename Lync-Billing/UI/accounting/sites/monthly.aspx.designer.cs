@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lync_Billing.ui.accounting {
+namespace Lync_Billing.ui.accounting.sites {
     
     
     public partial class monthly {
