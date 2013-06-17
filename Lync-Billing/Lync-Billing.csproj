@@ -315,6 +315,7 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\TBill-Bublisher.pubxml" />
     <Content Include="UI\AccountingMaster.Master" />
+    <None Include="Properties\PublishProfiles\Tbill-Bublisher2.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
