@@ -3,6 +3,7 @@ using System.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lync_Billing.Libs;
 using Lync_Billing.DB;
+using System.Xml;
 
 namespace Lync_Billing_Test
 {
