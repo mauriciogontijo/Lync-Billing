@@ -38,12 +38,13 @@ namespace Lync_Billing_Test
             string password = string.Empty;
 
             username = @"sghaida@ccc.gr";
+            password = @"=25_ar;p1";
 
             AdLib adRoutines = new AdLib();
-            
-            Assert.IsFalse(adRoutines.AuthenticateUser(username, password));
 
-            Assert.IsNull(adRoutines.AuthenticateUser(username, password));
+            bool status = adRoutines.AuthenticateUser(username, password);
+            Assert.IsFalse(status);
+            
         }
     }
 }
