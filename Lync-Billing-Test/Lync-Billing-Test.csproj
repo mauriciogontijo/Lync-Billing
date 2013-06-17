@@ -41,6 +41,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <Choose>
