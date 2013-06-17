@@ -11,7 +11,7 @@ namespace Lync_Billing.Libs
 {
     public class Statistics
     {
-        public static string ConnectionString_Lync = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString.ToString();
+        public static string ConnectionString_Lync = ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString.ToString();
 
          private OleDbConnection DBInitializeConnection(string connectionString) 
         {
