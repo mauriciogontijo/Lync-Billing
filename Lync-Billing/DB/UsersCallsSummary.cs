@@ -233,12 +233,7 @@ namespace Lync_Billing.DB
             UsersCallsSummary userSummary;
             List<UsersCallsSummary> chartList = new List<UsersCallsSummary>();
 
-            //System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-
             dt = StatRoutines.USER_STATS(sipAccount, Year, fromMonth, toMonth);
-            
-
-
 
             foreach (DataRow row in dt.Rows)
             {

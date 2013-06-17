@@ -53,60 +53,56 @@ namespace Lync_Billing.ui.user
         [DirectMethod]
         public static string GetSummaryData()
         {
-           
             if (HttpContext.Current.Session.Contents["UserData"] != null)
             {
                 CultureInfo provider = CultureInfo.InvariantCulture;
                 List<AbstractComponent> components = new List<AbstractComponent>();
-                UsersCallsSummary userSummary = new UsersCallsSummary();
+                List<UsersCallsSummary> userSummary = new List<UsersCallsSummary>();
                 string SipAccount = string.Empty;
 
-                DateTime startDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + "-01", "yyyy-mm-dd", provider);
-                DateTime endDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + "-30", "yyyy-mm-dd", provider);
-
                 SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
-                userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, startDate, endDate);
+                userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Month);
 
-                Ext.Net.Panel personalPanel = new Ext.Net.Panel()
-                {
-                    Title = "Personal Calls",
-                    Icon = Icon.Phone,
-                    Html = String.Format(
-                        "<div class='block-body wauto m15 p5'><p>" +
-                        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
-                        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                        userSummary.PersonalCallsCount, userSummary.PersonalCallsDuration / 60, userSummary.PersonalCallsCost)
-                };
+                //Ext.Net.Panel personalPanel = new Ext.Net.Panel()
+                //{
+                //    Title = "Personal Calls",
+                //    Icon = Icon.Phone,
+                //    Html = String.Format(
+                //        "<div class='block-body wauto m15 p5'><p>" +
+                //        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                //        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
+                //        userSummary.PersonalCallsCount, userSummary.PersonalCallsDuration / 60, userSummary.PersonalCallsCost)
+                //};
 
-                Ext.Net.Panel businessPanel = new Ext.Net.Panel()
-                {
-                    Title = "Business Calls",
-                    Icon = Icon.Phone,
-                    Html = String.Format(
-                        "<div class='block-body wauto m15 p5'><p>" +
-                        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
-                        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                        userSummary.BusinessCallsCount, userSummary.BusinessCallsDuration / 60, userSummary.BusinessCallsCost)
-                };
+                //Ext.Net.Panel businessPanel = new Ext.Net.Panel()
+                //{
+                //    Title = "Business Calls",
+                //    Icon = Icon.Phone,
+                //    Html = String.Format(
+                //        "<div class='block-body wauto m15 p5'><p>" +
+                //        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                //        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
+                //        userSummary.BusinessCallsCount, userSummary.BusinessCallsDuration / 60, userSummary.BusinessCallsCost)
+                //};
 
-                Ext.Net.Panel unmarkedPanel = new Ext.Net.Panel()
-                {
+                //Ext.Net.Panel unmarkedPanel = new Ext.Net.Panel()
+                //{
 
-                    Title = "Unmarked Calls",
-                    Icon = Icon.Phone,
-                    Html = String.Format(
-                        "<div class='block-body wauto m15 p5'><p>" +
-                        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
-                        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                        userSummary.UnmarkedCallsCount, userSummary.UnmarkedCallsDuartion / 60, userSummary.UnmarkedCallsCost)
-                };
+                //    Title = "Unmarked Calls",
+                //    Icon = Icon.Phone,
+                //    Html = String.Format(
+                //        "<div class='block-body wauto m15 p5'><p>" +
+                //        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                //        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
+                //        userSummary.UnmarkedCallsCount, userSummary.UnmarkedCallsDuartion / 60, userSummary.UnmarkedCallsCost)
+                //};
 
-                components.Add(unmarkedPanel);
-                components.Add(personalPanel);
-                components.Add(businessPanel);
-                                  
-
-                return ComponentLoader.ToConfig(components);
+                //components.Add(unmarkedPanel);
+                //components.Add(personalPanel);
+                //components.Add(businessPanel);
+                
+                //return ComponentLoader.ToConfig(components);
+                return null;
             }
             else
             {
