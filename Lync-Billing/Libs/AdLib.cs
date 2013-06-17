@@ -182,6 +182,11 @@ namespace Lync_Billing.Libs
             }
         }
 
+        /// <summary>
+        /// Get User Attributes From Phone Number
+        /// </summary>
+        /// <param name="phoneNumber">Business Phone Number</param>
+        /// <returns>ADUserInfo Object</returns>
         public ADUserInfo getUsersAttributesFromPhone(string phoneNumber) 
         {
             ADUserInfo userInfo = new ADUserInfo();
@@ -207,7 +212,7 @@ namespace Lync_Billing.Libs
         /// Get AD Domain NetBios Name
         /// </summary>
         /// <param name="dnsDomainName">DNS Suffix Name</param>
-        /// <returns></returns>
+        /// <returns>Domain NetBios Name</returns>
         public string GetNetbiosDomainName(string dnsDomainName)
         {
             string netbiosDomainName = string.Empty;
@@ -237,7 +242,7 @@ namespace Lync_Billing.Libs
         /// Get DNS Name from AD Netbios Name
         /// </summary>
         /// <param name="netBiosName">AD Netbios Name</param>
-        /// <returns></returns>
+        /// <returns>Domain FQDN</returns>
         public string GetFqdnFromNetBiosName(string netBiosName)
         {
             string FQDN = string.Empty;
