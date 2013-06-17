@@ -57,6 +57,12 @@
     <Compile Include="LyncLibTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lync-Billing\Lync-Billing.csproj">
+      <Project>{f75720af-5743-4be4-a7a5-07f378f28f57}</Project>
+      <Name>Lync-Billing</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
