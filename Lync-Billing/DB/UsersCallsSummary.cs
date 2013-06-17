@@ -150,6 +150,7 @@ namespace Lync_Billing.DB
         public int Year { get; set; }
         public int Month { get; set; }
 
+        //Depricated
         public static UsersCallsSummary GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate)
         {
             wherePart = new Dictionary<string, object>();
