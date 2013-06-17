@@ -78,7 +78,8 @@ namespace Lync_Billing.Libs
                     return false;
             }catch (Exception ex)
             {
-                return false;
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
             }
         }
 
