@@ -73,7 +73,7 @@ namespace Lync_Billing.ui.user
                     Icon = Icon.Phone,
                     Html = String.Format(
                         "<div class='block-body wauto m15 p5'><p>" +
-                        "<p class='line-height-1-7 mb15'>In the <span class='red-font'>last 3 months</span>, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                         "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
                         userSummary.PersonalCallsCount, userSummary.PersonalCallsDuration / 60, userSummary.PersonalCallsCost)
                 };
@@ -84,7 +84,7 @@ namespace Lync_Billing.ui.user
                     Icon = Icon.Phone,
                     Html = String.Format(
                         "<div class='block-body wauto m15 p5'><p>" +
-                        "<p class='line-height-1-7 mb15'>In the <span class='red-font'>last 3 months</span>, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                         "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
                         userSummary.BusinessCallsCount, userSummary.BusinessCallsDuration / 60, userSummary.BusinessCallsCost)
                 };
@@ -96,7 +96,7 @@ namespace Lync_Billing.ui.user
                     Icon = Icon.Phone,
                     Html = String.Format(
                         "<div class='block-body wauto m15 p5'><p>" +
-                        "<p class='line-height-1-7 mb15'>In the <span class='red-font'>last 3 months</span>, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                         "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
                         userSummary.UnmarkedCallsCount, userSummary.UnmarkedCallsDuartion / 60, userSummary.UnmarkedCallsCost)
                 };
