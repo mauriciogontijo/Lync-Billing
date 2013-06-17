@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lync-Billing", "Lync-Billin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{813B42BD-D3B4-41E2-8A6E-CB73F4E806E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lync-Billing-Test", "Lync-Billing-Test\Lync-Billing-Test.csproj", "{59CDC2D3-42B8-4652-AAE2-A551D3A6037C}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -19,6 +21,10 @@ Global
 		{F75720AF-5743-4BE4-A7A5-07F378F28F57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F75720AF-5743-4BE4-A7A5-07F378F28F57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F75720AF-5743-4BE4-A7A5-07F378F28F57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59CDC2D3-42B8-4652-AAE2-A551D3A6037C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59CDC2D3-42B8-4652-AAE2-A551D3A6037C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59CDC2D3-42B8-4652-AAE2-A551D3A6037C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59CDC2D3-42B8-4652-AAE2-A551D3A6037C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
