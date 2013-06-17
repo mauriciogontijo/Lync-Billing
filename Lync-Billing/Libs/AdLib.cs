@@ -53,7 +53,7 @@ namespace Lync_Billing.Libs
         /// <returns></returns>
         public bool AuthenticateUser(string EmailAddress, string password)
         {
-            if ( password == null || EmailAddress == null )
+            if ( password == null || password ==string.Empty || EmailAddress == null ||EmailAddress == string.Empty  )
                 return false;
 
             try
