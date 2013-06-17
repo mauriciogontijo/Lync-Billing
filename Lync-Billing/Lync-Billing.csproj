@@ -100,11 +100,11 @@
     <Content Include="Resources\Csv.xsl" />
     <Content Include="Resources\excel.xsl" />
     <Content Include="ui\accounting\dashboard.aspx" />
-    <Content Include="ui\accounting\manage_disputes.aspx" />
-    <Content Include="ui\accounting\monthly_site_reports.aspx" />
-    <Content Include="ui\accounting\monthly_user_reports.aspx" />
-    <Content Include="ui\accounting\periodical_site_reports.aspx" />
-    <Content Include="ui\accounting\periodical_user_reports.aspx" />
+    <Content Include="ui\accounting\disputes.aspx" />
+    <Content Include="ui\accounting\sites\monthly.aspx" />
+    <Content Include="ui\accounting\users\monthly.aspx" />
+    <Content Include="ui\accounting\sites\periodical.aspx" />
+    <Content Include="ui\accounting\users\periodical.aspx" />
     <Content Include="ui\resources\css\dropdown-menu-white.css" />
     <Content Include="ui\resources\css\dropdown-menu.css" />
     <Content Include="ui\resources\css\global.css" />
@@ -187,40 +187,40 @@
     <Compile Include="ui\accounting\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\accounting\manage_disputes.aspx.cs">
-      <DependentUpon>manage_disputes.aspx</DependentUpon>
+    <Compile Include="ui\accounting\disputes.aspx.cs">
+      <DependentUpon>disputes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\accounting\manage_disputes.aspx.designer.cs">
-      <DependentUpon>manage_disputes.aspx</DependentUpon>
+    <Compile Include="ui\accounting\disputes.aspx.designer.cs">
+      <DependentUpon>disputes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\accounting\monthly_site_reports.aspx.cs">
-      <DependentUpon>monthly_site_reports.aspx</DependentUpon>
+    <Compile Include="ui\accounting\sites\monthly.aspx.cs">
+      <DependentUpon>monthly.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\accounting\monthly_site_reports.aspx.designer.cs">
-      <DependentUpon>monthly_site_reports.aspx</DependentUpon>
+    <Compile Include="ui\accounting\sites\monthly.aspx.designer.cs">
+      <DependentUpon>monthly.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\accounting\monthly_user_reports.aspx.cs">
-      <DependentUpon>monthly_user_reports.aspx</DependentUpon>
+    <Compile Include="ui\accounting\users\monthly.aspx.cs">
+      <DependentUpon>monthly.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\accounting\monthly_user_reports.aspx.designer.cs">
-      <DependentUpon>monthly_user_reports.aspx</DependentUpon>
+    <Compile Include="ui\accounting\users\monthly.aspx.designer.cs">
+      <DependentUpon>monthly.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\accounting\periodical_site_reports.aspx.cs">
-      <DependentUpon>periodical_site_reports.aspx</DependentUpon>
+    <Compile Include="ui\accounting\sites\periodical.aspx.cs">
+      <DependentUpon>periodical.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\accounting\periodical_site_reports.aspx.designer.cs">
-      <DependentUpon>periodical_site_reports.aspx</DependentUpon>
+    <Compile Include="ui\accounting\sites\periodical.aspx.designer.cs">
+      <DependentUpon>periodical.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\accounting\periodical_user_reports.aspx.cs">
-      <DependentUpon>periodical_user_reports.aspx</DependentUpon>
+    <Compile Include="ui\accounting\users\periodical.aspx.cs">
+      <DependentUpon>periodical.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\accounting\periodical_user_reports.aspx.designer.cs">
-      <DependentUpon>periodical_user_reports.aspx</DependentUpon>
+    <Compile Include="ui\accounting\users\periodical.aspx.designer.cs">
+      <DependentUpon>periodical.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\session\authenticate.aspx.cs">
       <DependentUpon>authenticate.aspx</DependentUpon>

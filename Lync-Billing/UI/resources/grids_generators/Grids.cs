@@ -5,7 +5,7 @@ using System.Web;
 using Ext.Net;
 
 
-namespace Lync_Billing.UI
+namespace Lync_Billing.ui
 {
     public static class Grids
     {
