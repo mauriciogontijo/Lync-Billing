@@ -61,7 +61,7 @@ namespace Lync_Billing.ui.user
                 string SipAccount = string.Empty;
                 
                 SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
-                userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.AddMonths(-3), DateTime.Now);
+                userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Month)[0];
 
                 Ext.Net.Panel personalPanel = new Ext.Net.Panel()
                 {
@@ -198,7 +198,7 @@ namespace Lync_Billing.ui.user
         private string GetUserNameBySip(string sipAccount) 
         {
             AdLib adRoutines = new AdLib();
-            string DisplayName = adRoutines.getUserAttributes(sipAccount).DisplayName;
+            string DisplayName = adRoutines.GetUserAttributes(sipAccount).DisplayName;
             
             if (DisplayName != null)
                 return DisplayName;

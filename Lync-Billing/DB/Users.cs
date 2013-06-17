@@ -116,7 +116,7 @@ namespace Lync_Billing.DB
         public static ADUserInfo GetUserInfo(string emailAddress)
         {
             AdLib adConnector = new AdLib();
-            return adConnector.getUserAttributes(emailAddress);
+            return adConnector.GetUserAttributes(emailAddress);
         }
 
         /// <summary>
