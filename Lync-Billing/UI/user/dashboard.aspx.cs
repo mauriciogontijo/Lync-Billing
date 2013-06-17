@@ -61,8 +61,8 @@ namespace Lync_Billing.ui.user
                 UsersCallsSummary userSummary = new UsersCallsSummary();
                 string SipAccount = string.Empty;
 
-                DateTime startDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-0" + DateTime.Now.Month.ToString() + "-01", "yyyy-mm-dd", provider);
-                DateTime endDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-0" + DateTime.Now.Month.ToString() + "-30", "yyyy-mm-dd", provider);
+                DateTime startDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + "-01", "yyyy-mm-dd", provider);
+                DateTime endDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + "-30", "yyyy-mm-dd", provider);
 
                 SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
                 userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, startDate, endDate);
