@@ -19,7 +19,7 @@ namespace Lync_Billing.ui.accounting.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::Ext.Net.Panel AccountingToolsSidebar;
+        protected global::Ext.Net.Panel AccountingToolsSidebar;
         
         /// <summary>
         /// GenerateReportPanel control.
@@ -28,7 +28,7 @@ namespace Lync_Billing.ui.accounting.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::Ext.Net.Panel GenerateReportPanel;
+        protected global::Ext.Net.Panel GenerateReportPanel;
         
         /// <summary>
         /// Toolbar1 control.
@@ -37,7 +37,7 @@ namespace Lync_Billing.ui.accounting.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::Ext.Net.Toolbar Toolbar1;
+        protected global::Ext.Net.Toolbar Toolbar1;
         
         /// <summary>
         /// GroupNumberField control.
@@ -55,7 +55,7 @@ namespace Lync_Billing.ui.accounting.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::Ext.Net.DateField StartDateField;
+        protected global::Ext.Net.DateField StartDateField;
         
         /// <summary>
         /// EndDateField control.
@@ -64,7 +64,7 @@ namespace Lync_Billing.ui.accounting.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::Ext.Net.DateField EndDateField;
+        protected global::Ext.Net.DateField EndDateField;
         
         /// <summary>
         /// Button1 control.
@@ -73,6 +73,6 @@ namespace Lync_Billing.ui.accounting.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::Ext.Net.Button Button1;
+        protected global::Ext.Net.Button Button1;
     }
 }
