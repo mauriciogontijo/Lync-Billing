@@ -30,7 +30,7 @@
                             <p>Disputes</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../accounting/manage_disputes.aspx'>Manage Disputed Calls</a></p>
+                            <p><a href='../accounting/disputes.aspx'>Manage Disputed Calls</a></p>
                         </div>
                     </div>
 
@@ -39,8 +39,8 @@
                             <p>Generate User Reportss</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../accounting/monthly_user_reports.aspx'>Monthly Users Reports</a></p>
-                            <p><a href='../accounting/periodical_user_reports.aspx'>Periodical Users Reports</a></p>
+                            <p><a href='../accounting/users/monthly.aspx'>Monthly Users Reports</a></p>
+                            <p><a href='../accounting/users/periodical.aspx'>Periodical Users Reports</a></p>
                         </div>
                     </div>
 
@@ -49,8 +49,8 @@
                             <p>Generate Site Reportss</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../accounting/monthly_site_reports.aspx'>Monthly Sites Reports</a></p>
-                            <p><a href='../accounting/periodical_site_reports.aspx'>Periodical Sites Reports</a></p>
+                            <p><a href='../accounting/sites/monthly.aspx'>Monthly Sites Reports</a></p>
+                            <p><a href='../accounting/sites/periodical.aspx'>Periodical Sites Reports</a></p>
                         </div>
                     </div>
                 </Content>
