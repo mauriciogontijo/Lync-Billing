@@ -11,7 +11,7 @@ using System.Xml.Xsl;
 using Ext.Net;
 using Lync_Billing.DB;
 
-namespace Lync_Billing.UI.accounting
+namespace Lync_Billing.ui.accounting
 {
     public partial class manage_disputes : System.Web.UI.Page
     {

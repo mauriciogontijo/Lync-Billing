@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="history.aspx.cs" Inherits="Lync_Billing.UI.user.history" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="history.aspx.cs" Inherits="Lync_Billing.ui.user.history" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>eBill | User Tools</title>
@@ -302,7 +302,7 @@
                 OnSelecting="PhoneCallsDataSource_Selecting"
                 OnSelected="PhoneCallsDataSource_Selected"
                 SelectMethod="GetPhoneCallsFilter"
-                TypeName="Lync_Billing.UI.user.history">
+                TypeName="Lync_Billing.ui.user.history">
                 <SelectParameters>
                     <asp:Parameter Name="start" Type="Int32" />
                     <asp:Parameter Name="limit" Type="Int32" />

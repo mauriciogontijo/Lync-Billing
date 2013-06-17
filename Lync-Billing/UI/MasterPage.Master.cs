@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Lync_Billing.DB;
 
-namespace Lync_Billing.UI
+namespace Lync_Billing.ui
 {
     public partial class MasterPage: System.Web.UI.MasterPage
     {

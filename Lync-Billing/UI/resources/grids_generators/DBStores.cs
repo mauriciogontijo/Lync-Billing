@@ -6,7 +6,7 @@ using Ext.Net;
 using Lync_Billing.DB;
 using System.Web.Script.Serialization;
 
-namespace Lync_Billing.UI
+namespace Lync_Billing.ui
 {
     public class DBStores
     {

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Lync_Billing.UI.session
+namespace Lync_Billing.ui.session
 {
     public partial class logout : System.Web.UI.Page
     {
@@ -16,7 +16,7 @@ namespace Lync_Billing.UI.session
             HttpContext.Current.Response.ClearContent();
             HttpContext.Current.Response.ClearHeaders();
 
-            Response.Redirect("~/UI/session/login.aspx");
+            Response.Redirect("~/ui/session/login.aspx");
         }
     }
 }

@@ -9,7 +9,7 @@ using Ext.Net;
 using System.Web.Script.Serialization;
 using Lync_Billing.DB;
 
-namespace Lync_Billing.UI
+namespace Lync_Billing.ui
 {
     public partial class GridTest : System.Web.UI.Page
     {

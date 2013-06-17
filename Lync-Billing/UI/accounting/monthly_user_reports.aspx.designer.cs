@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lync_Billing.UI.accounting {
+namespace Lync_Billing.ui.accounting {
     
     
     public partial class monthly_user_reports {

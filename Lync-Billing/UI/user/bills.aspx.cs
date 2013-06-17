@@ -15,7 +15,7 @@ using Lync_Billing.DB;
 using Lync_Billing.Libs;
 
 
-namespace Lync_Billing.UI.user
+namespace Lync_Billing.ui.user
 {
     public partial class bills : System.Web.UI.Page
     {

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Lync_Billing.UI
+namespace Lync_Billing.ui
 {
     public partial class AccountingMaster : System.Web.UI.MasterPage
     {

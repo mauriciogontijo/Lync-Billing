@@ -14,7 +14,7 @@ using Lync_Billing.Libs;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 
-namespace Lync_Billing.UI.user
+namespace Lync_Billing.ui.user
 {
     public partial class phonecalls : System.Web.UI.Page
     {

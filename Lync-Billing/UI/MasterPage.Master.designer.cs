@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lync_Billing.UI {
+namespace Lync_Billing.ui {
     
     
     public partial class MasterPage {

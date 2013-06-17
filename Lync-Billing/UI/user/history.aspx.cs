@@ -15,7 +15,7 @@ using Lync_Billing.Libs;
 using System.Linq.Expressions;
 
 
-namespace Lync_Billing.UI.user
+namespace Lync_Billing.ui.user
 {
     public partial class history : System.Web.UI.Page
     {

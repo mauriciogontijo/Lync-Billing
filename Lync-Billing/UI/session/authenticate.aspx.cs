@@ -8,7 +8,7 @@ using System.Net;
 using Lync_Billing.Libs;
 using Lync_Billing.DB;
 
-namespace Lync_Billing.UI.session
+namespace Lync_Billing.ui.session
 {
     public partial class authenticate : System.Web.UI.Page
     {

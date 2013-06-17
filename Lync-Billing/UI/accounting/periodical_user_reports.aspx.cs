@@ -8,7 +8,7 @@ using Lync_Billing.DB;
 using System.Xml;
 using System.Xml.Xsl;
 
-namespace Lync_Billing.UI.accouting
+namespace Lync_Billing.ui.accouting
 {
     public partial class periodical_user_reports : System.Web.UI.Page
     {
