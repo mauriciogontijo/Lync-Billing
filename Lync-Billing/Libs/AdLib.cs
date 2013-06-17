@@ -58,7 +58,7 @@ namespace Lync_Billing.Libs
 
             try
             {
-                ADUserInfo userInfo = getUserAttributes(EmailAddress);
+                ADUserInfo userInfo = GetUserAttributes(EmailAddress);
                 if (userInfo == null)
                     return false;
 
@@ -110,7 +110,7 @@ namespace Lync_Billing.Libs
         /// </summary>
         /// <param name="mailAddress"></param>
         /// <returns></returns>
-        public ADUserInfo getUserAttributes(string mailAddress)
+        public ADUserInfo GetUserAttributes(string mailAddress)
         {
             ADUserInfo userInfo = new ADUserInfo();
 
