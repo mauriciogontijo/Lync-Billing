@@ -53,6 +53,9 @@ namespace Lync_Billing.Libs
         /// <returns></returns>
         public bool AuthenticateUser(string EmailAddress, string password)
         {
+            if ( password == null || EmailAddress == null )
+                return false;
+
             try
             {
                 ADUserInfo userInfo = getUserAttributes(EmailAddress);
