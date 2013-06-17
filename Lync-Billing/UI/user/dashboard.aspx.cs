@@ -56,12 +56,16 @@ namespace Lync_Billing.ui.user
            
             if (HttpContext.Current.Session.Contents["UserData"] != null)
             {
+                CultureInfo provider = CultureInfo.InvariantCulture;
                 List<AbstractComponent> components = new List<AbstractComponent>();
                 UsersCallsSummary userSummary = new UsersCallsSummary();
                 string SipAccount = string.Empty;
-                
+
+                DateTime startDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-0" + DateTime.Now.Month.ToString() + "-01", "yyyy-mm-dd", provider);
+                DateTime endDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-0" + DateTime.Now.Month.ToString() + "-30", "yyyy-mm-dd", provider);
+
                 SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
-                userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Month)[0];
+                userSummary = UsersCallsSummary.GetUsersCallsSummary(SipAccount, startDate, endDate);
 
                 Ext.Net.Panel personalPanel = new Ext.Net.Panel()
                 {
