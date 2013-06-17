@@ -20,17 +20,30 @@ namespace Lync_Billing_Test
             string whereValue = string.Empty;
 
 
-            DataTable dt = new DataTable();
+            DataTable dt;
 
             tableName = Enums.GetDescription(Enums.PhoneCalls.TableName);
             whereField = Enums.GetDescription(Enums.PhoneCalls.SourceUserUri);
             whereValue = @"SGhaida@ccc.gr";
+
+            dt = dbRoutines.SELECT(tableName,whereField,whereValue);
+
+            Assert.IsNotNull(dt);
+        }
+
+        [TestMethod]
+        public void Authenticate() 
+        {
+            string username = string.Empty;
+            string password = string.Empty;
+
+            username = @"sghaida@ccc.gr";
+
+            AdLib adRoutines = new AdLib();
             
+            Assert.IsFalse(adRoutines.AuthenticateUser(username, password));
 
-           dt = dbRoutines.SELECT(tableName,whereField,whereValue);
-
-           Assert.IsNotNull(dt);
-
+            Assert.IsNull(adRoutines.AuthenticateUser(username, password));
         }
     }
 }
