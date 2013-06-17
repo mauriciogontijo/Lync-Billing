@@ -40,7 +40,8 @@ namespace Lync_Billing.Libs
             resourceSearcher.Filter = poolFilter;
             SearchResult resourceForestPoolResult = resourceSearcher.FindOne();
 
-            userInfo.PoolName = (string)resourceForestPoolResult.Properties["dnshostname"][0];
+            if((string)resourceForestPoolResult.Properties["dnshostname"][0] != null)
+                userInfo.PoolName = (string)resourceForestPoolResult.Properties["dnshostname"][0];
 
             return userInfo;
         }
@@ -89,19 +90,27 @@ namespace Lync_Billing.Libs
         /// <returns></returns>
         public Dictionary<string, string> GetLocalDomainController()
         {
-            Dictionary<string, string> domainControllerInfo = new Dictionary<string, string>();
-            Forest obj = System.DirectoryServices.ActiveDirectory.Forest.GetCurrentForest();
-            DomainCollection collection = obj.Domains;
-            foreach (Domain domain in collection)
+            try
             {
-                DomainControllerCollection domainControllers = domain.FindAllDiscoverableDomainControllers();
-                foreach (DomainController domainController in domainControllers)
+                Dictionary<string, string> domainControllerInfo = new Dictionary<string, string>();
+                Forest obj = System.DirectoryServices.ActiveDirectory.Forest.GetCurrentForest();
+                DomainCollection collection = obj.Domains;
+                foreach (Domain domain in collection)
                 {
-                    if (!domainControllerInfo.ContainsKey(domain.Name))
-                        domainControllerInfo.Add(domain.Name, domainController.IPAddress);
+                    DomainControllerCollection domainControllers = domain.FindAllDiscoverableDomainControllers();
+                    foreach (DomainController domainController in domainControllers)
+                    {
+                        if (!domainControllerInfo.ContainsKey(domain.Name))
+                            domainControllerInfo.Add(domain.Name, domainController.IPAddress);
+                    }
                 }
+                return domainControllerInfo;
             }
-            return domainControllerInfo;
+            catch (Exception ex) 
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
         }
 
         /// <summary>
@@ -187,7 +196,7 @@ namespace Lync_Billing.Libs
         /// </summary>
         /// <param name="phoneNumber">Business Phone Number</param>
         /// <returns>ADUserInfo Object</returns>
-        public ADUserInfo getUsersAttributesFromPhone(string phoneNumber) 
+        public ADUserInfo getUsersAttributesFromPhone(string phoneNumber)
         {
             ADUserInfo userInfo = new ADUserInfo();
 
@@ -195,17 +204,26 @@ namespace Lync_Billing.Libs
             string resourceFilter = string.Format(searchFilter, phoneNumber);
 
             resourceSearcher.Filter = resourceFilter;
-            SearchResult resourceForestResult = resourceSearcher.FindOne();
 
-            if (resourceForestResult != null)
+            try
             {
-                userInfo.Title = (string)resourceForestResult.Properties["title"][0];
-                userInfo.FirstName = (string)resourceForestResult.Properties["givenName"][0];
-                userInfo.LastName = (string)resourceForestResult.Properties["sn"][0];
-                userInfo.DisplayName = (string)resourceForestResult.Properties["cn"][0];
-                userInfo.Telephone = (string)resourceForestResult.Properties["msrtcsip-line"][0];
+                SearchResult resourceForestResult = resourceSearcher.FindOne();
+
+                if (resourceForestResult != null)
+                {
+                    userInfo.Title = (string)resourceForestResult.Properties["title"][0];
+                    userInfo.FirstName = (string)resourceForestResult.Properties["givenName"][0];
+                    userInfo.LastName = (string)resourceForestResult.Properties["sn"][0];
+                    userInfo.DisplayName = (string)resourceForestResult.Properties["cn"][0];
+                    userInfo.Telephone = (string)resourceForestResult.Properties["msrtcsip-line"][0];
+                }
+                return userInfo;
             }
-            return userInfo;
+            catch (Exception ex) 
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
         }
 
         /// <summary>
@@ -217,25 +235,33 @@ namespace Lync_Billing.Libs
         {
             string netbiosDomainName = string.Empty;
 
-            DirectoryEntry rootDSE = new DirectoryEntry(string.Format("LDAP://{0}/RootDSE", dnsDomainName));
-
-            string configurationNamingContext = rootDSE.Properties["configurationNamingContext"][0].ToString();
-
-            DirectoryEntry searchRoot = new DirectoryEntry("LDAP://cn=Partitions," + configurationNamingContext);
-
-            DirectorySearcher searcher = new DirectorySearcher(searchRoot);
-            searcher.SearchScope = SearchScope.OneLevel;
-            // searcher.PropertiesToLoad.Add("netbiosname");
-            searcher.Filter = string.Format("(&(objectcategory=Crossref)(dnsRoot={0})(netBIOSName=*))", dnsDomainName);
-
-            SearchResult result = searcher.FindOne();
-
-            if (result != null)
+            try
             {
-                netbiosDomainName = result.Properties["netbiosname"][0].ToString();
-            }
+                DirectoryEntry rootDSE = new DirectoryEntry(string.Format("LDAP://{0}/RootDSE", dnsDomainName));
 
-            return netbiosDomainName;
+                string configurationNamingContext = rootDSE.Properties["configurationNamingContext"][0].ToString();
+
+                DirectoryEntry searchRoot = new DirectoryEntry("LDAP://cn=Partitions," + configurationNamingContext);
+
+                DirectorySearcher searcher = new DirectorySearcher(searchRoot);
+                searcher.SearchScope = SearchScope.OneLevel;
+                // searcher.PropertiesToLoad.Add("netbiosname");
+                searcher.Filter = string.Format("(&(objectcategory=Crossref)(dnsRoot={0})(netBIOSName=*))", dnsDomainName);
+
+                SearchResult result = searcher.FindOne();
+
+                if (result != null)
+                {
+                    netbiosDomainName = result.Properties["netbiosname"][0].ToString();
+                }
+
+                return netbiosDomainName;
+            }
+            catch (Exception ex) 
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
         }
 
         /// <summary>
@@ -247,22 +273,30 @@ namespace Lync_Billing.Libs
         {
             string FQDN = string.Empty;
 
-            DirectoryEntry rootDSE = new DirectoryEntry(string.Format("LDAP://{0}/RootDSE", netBiosName));
+            try
+            {
+                DirectoryEntry rootDSE = new DirectoryEntry(string.Format("LDAP://{0}/RootDSE", netBiosName));
 
-            string configurationNamingContext = rootDSE.Properties["configurationNamingContext"][0].ToString();
+                string configurationNamingContext = rootDSE.Properties["configurationNamingContext"][0].ToString();
 
-            DirectoryEntry searchRoot = new DirectoryEntry("LDAP://cn=Partitions," + configurationNamingContext);
+                DirectoryEntry searchRoot = new DirectoryEntry("LDAP://cn=Partitions," + configurationNamingContext);
 
-            DirectorySearcher searcher = new DirectorySearcher(searchRoot);
-            searcher.SearchScope = SearchScope.OneLevel;
-            //searcher.PropertiesToLoad.Add("dnsroot");
-            searcher.Filter = string.Format("(&(objectcategory=Crossref)(netbiosname={0}))", netBiosName);
+                DirectorySearcher searcher = new DirectorySearcher(searchRoot);
+                searcher.SearchScope = SearchScope.OneLevel;
+                //searcher.PropertiesToLoad.Add("dnsroot");
+                searcher.Filter = string.Format("(&(objectcategory=Crossref)(netbiosname={0}))", netBiosName);
 
-            SearchResult result = searcher.FindOne();
-            if (result != null)
-                FQDN = result.Properties["dnsroot"][0].ToString();
+                SearchResult result = searcher.FindOne();
+                if (result != null)
+                    FQDN = result.Properties["dnsroot"][0].ToString();
 
-            return FQDN;
+                return FQDN;
+            }
+            catch (Exception ex) 
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
         }
     
     }
