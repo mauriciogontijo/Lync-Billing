@@ -385,7 +385,8 @@
                                                     <Click OnEvent="AssignAllBusiness">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageUnmarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="store" Value="unmarked"/>
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
@@ -396,7 +397,8 @@
                                                     <Click OnEvent="AssignAllPersonal">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageUnmarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="store" Value="unmarked"/>
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
@@ -407,7 +409,8 @@
                                                     <Click OnEvent="AssignDispute">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageUnmarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="store" Value="unmarked"/>
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
@@ -422,7 +425,8 @@
                                                     <Click OnEvent="AssignAlwaysBusiness">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageUnmarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="store" Value="unmarked"/>
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
@@ -433,7 +437,8 @@
                                                     <Click OnEvent="AssignAlwaysPersonal">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageUnmarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="store" Value="unmarked"/>
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
@@ -595,7 +600,8 @@
                                                     <Click OnEvent="AssignAllBusiness">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageMarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="store" Value="marked"/>
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
@@ -606,7 +612,8 @@
                                                     <Click OnEvent="AssignAllPersonal">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageMarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="store" Value="marked"/>
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
@@ -617,7 +624,8 @@
                                                     <Click OnEvent="AssignDispute">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageMarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="store" Value="marked"/>
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
@@ -632,7 +640,8 @@
                                                     <Click OnEvent="AssignAlwaysBusiness">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageMarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="store" Value="marked"/>
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
@@ -643,7 +652,8 @@
                                                     <Click OnEvent="AssignAlwaysPersonal">
                                                         <EventMask ShowMask="true" />
                                                         <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageMarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                            <ext:Parameter Name="store" Value="marked"/>
                                                         </ExtraParams>
                                                     </Click>
                                                 </DirectEvents>
