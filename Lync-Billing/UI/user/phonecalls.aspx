@@ -228,11 +228,10 @@
             <ext:TabPanel ID="ManagePhonCallsTabpanel"
                 runat="server"
                 Width="740"
-                Height="770"
+                Height="760"
                 Margins="0 0 20 0"
                 Frame="true">
                 <Defaults>
-                    <ext:Parameter Name="bodyPadding" Value="10" Mode="Raw" />
                     <ext:Parameter Name="autoScroll" Value="true" Mode="Raw" />
                 </Defaults>
                 <Items>
@@ -240,7 +239,7 @@
                         ID="ManagePhoneCallsGrid"
                         runat="server"
                         Width="740"
-                        Height="750"
+                        Height="760"
                         Title="Unmarked Calls"
                         AutoScroll="true"
                         Scroll="Both"
@@ -445,7 +444,7 @@
                                 DisplayMsg="Phone Calls {0} - {1} of {2}" />
                         </BottomBar>
                     </ext:GridPanel>
-                    <ext:GridPanel
+                  <%--  <ext:GridPanel
                         ID="GridPanel1"
                         Title="Marked Calls"
                         runat="server"
@@ -654,7 +653,7 @@
                                 DisplayMsg="Phone Calls {0} - {1} of {2}" />
                         </BottomBar>
 
-                    </ext:GridPanel>
+                    </ext:GridPanel>--%>
                 </Items>
             </ext:TabPanel>
             <%-- <ext:ToolTip ID="ToolTip1"
