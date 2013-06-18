@@ -178,5 +178,10 @@ namespace Lync_Billing.ui.user
         {
             GridsDataManager(false);
         }
+
+        protected void Unnamed_Event()
+        {
+
+        }
     }
 }

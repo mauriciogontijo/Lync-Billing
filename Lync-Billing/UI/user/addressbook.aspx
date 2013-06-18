@@ -325,6 +325,9 @@
                                                 <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
                                                 <ext:ListItem Text="Business" Value="Business" Mode="Value" />
                                             </Items>
+                                            <DirectEvents>
+                                                <Select OnEvent="UpdateRecord" />
+                                            </DirectEvents>
                                         </ext:ComboBox>
                                     </Editor>
                                 </ext:Column>
