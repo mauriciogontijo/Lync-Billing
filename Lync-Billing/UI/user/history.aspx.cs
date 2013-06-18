@@ -97,9 +97,9 @@ namespace Lync_Billing.ui.user
             IQueryable<PhoneCall> result;
 
             if (filter == null)
-                result = userSession.InvoicedCalls.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
+                result = userSession.PhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
             else
-                result = userSession.InvoicedCalls.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
+                result = userSession.PhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
 
             if (sort != null)
             {
@@ -126,7 +126,7 @@ namespace Lync_Billing.ui.user
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            if (userSession.InvoicedCalls == null || userSession.InvoicedCalls.Count == 0 || force == true)
+            if (userSession.PhoneCallsHistory == null || userSession.PhoneCallsHistory.Count == 0 || force == true)
             {
                 string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
 
@@ -143,7 +143,7 @@ namespace Lync_Billing.ui.user
                 columns.Add("ui_MarkedOn");
                 columns.Add("ac_IsInvoiced");
 
-                userSession.InvoicedCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                userSession.PhoneCallsHistory = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             }
         }
 
