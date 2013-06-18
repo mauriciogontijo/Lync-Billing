@@ -116,7 +116,7 @@ namespace Lync_Billing.Libs
                    }
                    else if (pair.Value == "!null") 
                    {
-                       whereStatement.Append("[" + pair.Key + "] IS NOT NUL" + " AND ");
+                       whereStatement.Append("[" + pair.Key + "] IS NOT NULL" + " AND ");
                    }
                    else
                    {
