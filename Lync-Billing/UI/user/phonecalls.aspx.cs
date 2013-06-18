@@ -41,14 +41,57 @@ namespace Lync_Billing.ui.user
             ((UserSession)HttpContext.Current.Session.Contents["UserData"]).phoneBook = PhoneBook.GetAddressBook(sipAccount);
         }
 
-        protected void getPhoneCalls(bool force=false)
+        protected void ManageMarkedCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            this.e = e;
+            this.ManageMarkedCallsStore.DataBind();
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            userSession.MarkedPhoneCallsPerPage = ManageMarkedCallsStore.JsonData;
+        }
+
+        protected void ManageUnmarkedCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            this.e = e;
+            this.ManageUnmarkedCallsStore.DataBind();
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            userSession.UnmarkedPhoneCallsPerPage = ManageUnmarkedCallsStore.JsonData;
+        }
+
+        protected void getMarkedPhoneCalls(bool force=false)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            if (userSession.PhoneCalls == null || userSession.PhoneCalls.Count == 0 || force == true)
+            if (userSession.MarkedPhoneCalls == null || userSession.MarkedPhoneCalls.Count == 0 || force == true)
             {
                 wherePart.Add("SourceUserUri", userSession.SipAccount);
                 wherePart.Add("marker_CallTypeID", 1);
+                wherePart.Add("ac_IsInvoiced", "NO");
+                wherePart.Add("ui_CallType", "!null");
+
+                columns.Add("SessionIdTime");
+                columns.Add("SessionIdSeq");
+                columns.Add("ResponseTime");
+                columns.Add("SessionEndTime");
+                columns.Add("marker_CallToCountry");
+                columns.Add("DestinationNumberUri");
+                columns.Add("Duration");
+                columns.Add("marker_CallCost");
+                columns.Add("ui_CallType");
+                columns.Add("ui_MarkedOn");
+
+                userSession.MarkedPhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            }
+        }
+
+        protected void getUnmarkedPhoneCalls(bool force = false)
+        {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+
+            if (userSession.UnmarkedPhoneCalls == null || userSession.UnmarkedPhoneCalls.Count == 0 || force == true)
+            {
+                wherePart.Add("SourceUserUri", userSession.SipAccount);
+                wherePart.Add("marker_CallTypeID", 1);
+                wherePart.Add("ui_CallType",null);
                 wherePart.Add("ac_IsInvoiced", "NO");
 
                 columns.Add("SessionIdTime");
@@ -62,20 +105,33 @@ namespace Lync_Billing.ui.user
                 columns.Add("ui_CallType");
                 columns.Add("ui_MarkedOn");
 
-                userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                userSession.UnmarkedPhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             }
         }
 
-        protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+
+        protected void MarkedPhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             e.InputParameters["start"] = this.e.Start;
             e.InputParameters["limit"] = this.e.Limit;
             e.InputParameters["sort"] = this.e.Sort[0];
         }
 
-        protected void PhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
+        protected void MarkedPhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
         {
-            (this.PhoneCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
+            (this.ManageMarkedCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
+        }
+
+        protected void UnmarkedPhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            e.InputParameters["start"] = this.e.Start;
+            e.InputParameters["limit"] = this.e.Limit;
+            e.InputParameters["sort"] = this.e.Sort[0];
+        }
+
+        protected void UnmarkedPhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            (this.ManageUnmarkedCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
         }
 
         protected void PhoneCallsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
@@ -92,20 +148,11 @@ namespace Lync_Billing.ui.user
             this.Response.End();
         }
 
-        protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
-        {
-            this.e = e;
-            this.PhoneCallsStore.DataBind();
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            userSession.PhoneCallsPerPage = PhoneCallsStore.JsonData;
-
-        }
-
         protected void AssignBusiness(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+            RowSelectionModel sm = this.ManageUnmarkedCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
             
@@ -119,7 +166,7 @@ namespace Lync_Billing.ui.user
 
             settings.NullValueHandling = NullValueHandling.Ignore;
 
-            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.UnmarkedPhoneCallsPerPage, settings);
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
@@ -128,17 +175,17 @@ namespace Lync_Billing.ui.user
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
+                ManageUnmarkedCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                ManageUnmarkedCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
-            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            ManageUnmarkedCallsGrid.GetSelectionModel().DeselectAll();
         }
 
         protected void AssignPersonal(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+            RowSelectionModel sm = this.ManageUnmarkedCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
             
@@ -149,7 +196,7 @@ namespace Lync_Billing.ui.user
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
-            perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
+            perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.UnmarkedPhoneCallsPerPage);
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
@@ -158,17 +205,17 @@ namespace Lync_Billing.ui.user
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();  
+                ManageUnmarkedCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                ManageUnmarkedCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();  
             }
-            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            ManageUnmarkedCallsGrid.GetSelectionModel().DeselectAll();
         }
 
         protected void AssignAlwaysBusiness(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+            RowSelectionModel sm = this.ManageUnmarkedCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
 
@@ -182,7 +229,7 @@ namespace Lync_Billing.ui.user
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.NullValueHandling = NullValueHandling.Ignore;
 
-            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage,settings);
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.UnmarkedPhoneCallsPerPage,settings);
             //perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
 
             PhoneBook phoneBookEntry;
@@ -207,7 +254,7 @@ namespace Lync_Billing.ui.user
                     phoneBookEntries.Add(phoneBookEntry);
                 }
 
-                var matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
+                var matchedDestinationCalls = userSession.UnmarkedPhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
 
                 foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
                 {
@@ -219,13 +266,13 @@ namespace Lync_Billing.ui.user
 
                     if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
                     {
-                        PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Set(matchedDestinationCall);
-                        PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Commit();
+                        ManageUnmarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Set(matchedDestinationCall);
+                        ManageUnmarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Commit();
                     }
                 }
             }
-            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
-            getPhoneCalls(true);
+            ManageUnmarkedCallsGrid.GetSelectionModel().DeselectAll();
+            getMarkedPhoneCalls(true);
             
             //Add To User PhoneBook Store
             PhoneBook.AddPhoneBookEntries(phoneBookEntries);
@@ -235,7 +282,7 @@ namespace Lync_Billing.ui.user
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+            RowSelectionModel sm = this.ManageUnmarkedCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
 
@@ -250,7 +297,7 @@ namespace Lync_Billing.ui.user
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.NullValueHandling = NullValueHandling.Ignore;
 
-            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.UnmarkedPhoneCallsPerPage, settings);
             //perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
 
             PhoneBook phoneBookEntry;
@@ -276,7 +323,7 @@ namespace Lync_Billing.ui.user
                     phoneBookEntries.Add(phoneBookEntry);
                 }
 
-                var matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
+                var matchedDestinationCalls = userSession.UnmarkedPhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
 
                 foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
                 {
@@ -288,13 +335,13 @@ namespace Lync_Billing.ui.user
 
                     if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
                     {
-                        PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Set(matchedDestinationCall);
-                        PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Commit();
+                        ManageUnmarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Set(matchedDestinationCall);
+                        ManageUnmarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Commit();
                     }
                 }
             }
-            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
-            getPhoneCalls(true);
+            ManageUnmarkedCallsGrid.GetSelectionModel().DeselectAll();
+            getMarkedPhoneCalls(true);
 
             //Add To User PhoneBook Store
             PhoneBook.AddPhoneBookEntries(phoneBookEntries);
@@ -302,7 +349,7 @@ namespace Lync_Billing.ui.user
 
         protected void AssignDispute(object sender, DirectEventArgs e)
         {
-            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+            RowSelectionModel sm = this.ManageUnmarkedCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
@@ -318,17 +365,17 @@ namespace Lync_Billing.ui.user
                 phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
-                ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
+                ManageUnmarkedCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
+                ManageUnmarkedCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
-            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            ManageUnmarkedCallsGrid.GetSelectionModel().DeselectAll();
         }
 
         protected void AssignAllBusiness(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+            RowSelectionModel sm = this.ManageUnmarkedCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
 
@@ -342,11 +389,11 @@ namespace Lync_Billing.ui.user
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.NullValueHandling = NullValueHandling.Ignore;
 
-            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.UnmarkedPhoneCallsPerPage, settings);
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                var matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
+                var matchedDestinationCalls = userSession.UnmarkedPhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
 
                 foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
                 {
@@ -358,20 +405,20 @@ namespace Lync_Billing.ui.user
 
                     if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
                     {
-                        PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Set(matchedDestinationCall);
-                        PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Commit();
+                        ManageUnmarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Set(matchedDestinationCall);
+                        ManageUnmarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Commit();
                     }
                 }
             }
-            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
-            getPhoneCalls(true);
+            ManageUnmarkedCallsGrid.GetSelectionModel().DeselectAll();
+            getMarkedPhoneCalls(true);
         }
 
         protected void AssignAllPersonal(object sender, DirectEventArgs e) 
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+            RowSelectionModel sm = this.ManageUnmarkedCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
 
@@ -385,11 +432,11 @@ namespace Lync_Billing.ui.user
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.NullValueHandling = NullValueHandling.Ignore;
 
-            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.UnmarkedPhoneCallsPerPage, settings);
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                var matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
+                var matchedDestinationCalls = userSession.UnmarkedPhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
 
                 foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
                 {
@@ -401,21 +448,21 @@ namespace Lync_Billing.ui.user
 
                     if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
                     {
-                        PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Set(matchedDestinationCall);
-                        PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Commit();
+                        ManageUnmarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Set(matchedDestinationCall);
+                        ManageUnmarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Commit();
                     }
                 }
             }
-            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
-            getPhoneCalls(true);
+            ManageUnmarkedCallsGrid.GetSelectionModel().DeselectAll();
+            getMarkedPhoneCalls(true);
         }
 
-        public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count)
+        public List<PhoneCall> GetMarkedPhoneCallsFilter(int start, int limit, DataSorter sort, out int count)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            getPhoneCalls();
+            getMarkedPhoneCalls();
 
-            IQueryable<PhoneCall> result = userSession.PhoneCalls.Select(e => e).AsQueryable();
+            IQueryable<PhoneCall> result = userSession.MarkedPhoneCalls.Select(e => e).AsQueryable();
 
             if (sort != null)
             {
@@ -455,7 +502,57 @@ namespace Lync_Billing.ui.user
                     phoneCall.PhoneBookName = "N/A";
                 }
             }
-            count = userSession.PhoneCalls.Count();
+            count = userSession.MarkedPhoneCalls.Count();
+
+            return result.ToList();
+        }
+
+        public List<PhoneCall> GetUnmarkedPhoneCallsFilter(int start, int limit, DataSorter sort, out int count)
+        {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            getUnmarkedPhoneCalls();
+
+            IQueryable<PhoneCall> result = userSession.UnmarkedPhoneCalls.Select(e => e).AsQueryable();
+
+            if (sort != null)
+            {
+                ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
+
+                Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
+                if (sort.Direction == Ext.Net.SortDirection.DESC)
+                    result = result.OrderByDescending(sortExpression);
+                else
+                    result = result.OrderBy(sortExpression);
+            }
+
+            if (start >= 0 && limit > 0)
+                result = result.Skip(start).Take(limit);
+
+            PhoneBook phoneBookentry;
+
+            foreach (PhoneCall phoneCall in result)
+            {
+                phoneBookentry = new PhoneBook();
+                phoneBookentry = GetUserNameByNumber(phoneCall.DestinationNumberUri);
+
+                if (phoneBookentry != null)
+                {
+                    phoneCall.PhoneBookName = phoneBookentry.Name;
+
+                    if (phoneCall.UI_CallType == null)
+                    {
+                        phoneCall.UI_CallType = phoneBookentry.Type;
+                        phoneCall.UI_MarkedOn = DateTime.Now;
+
+                        AutoMarkedPhoneCalls.Add(phoneCall);
+                    }
+                }
+                else
+                {
+                    phoneCall.PhoneBookName = "N/A";
+                }
+            }
+            count = userSession.UnmarkedPhoneCalls.Count();
 
             return result.ToList();
         }
@@ -472,6 +569,6 @@ namespace Lync_Billing.ui.user
             }
             else
                 return null;
-        }  
+        }
     }
 }

@@ -212,11 +212,11 @@
         <div class="block-body pt5">
 
             <asp:ObjectDataSource
-                ID="PhoneCallsDataSource"
+                ID="MarkedPhoneCallsDataSource"
                 runat="server"
-                OnSelecting="PhoneCallsDataSource_Selecting"
-                OnSelected="PhoneCallsDataSource_Selected"
-                SelectMethod="GetPhoneCallsFilter"
+                OnSelecting="MarkedPhoneCallsDataSource_Selecting"
+                OnSelected="MarkedPhoneCallsDataSource_Selected"
+                SelectMethod="GetMarkedPhoneCallsFilter"
                 TypeName="Lync_Billing.ui.user.phonecalls">
                 <SelectParameters>
                     <asp:Parameter Name="start" Type="Int32" />
@@ -225,6 +225,22 @@
                     <asp:Parameter Name="count" Direction="Output" Type="Int32" />
                 </SelectParameters>
             </asp:ObjectDataSource>
+
+             <asp:ObjectDataSource
+                ID="UnMarkedPhoneCallsDataSource"
+                runat="server"
+                OnSelecting="UnmarkedPhoneCallsDataSource_Selecting"
+                OnSelected="UnmarkedPhoneCallsDataSource_Selected"
+                SelectMethod="GetUnmarkedPhoneCallsFilter"
+                TypeName="Lync_Billing.ui.user.phonecalls">
+                <SelectParameters>
+                    <asp:Parameter Name="start" Type="Int32" />
+                    <asp:Parameter Name="limit" Type="Int32" />
+                    <asp:Parameter Name="sort" Type="Object" />
+                    <asp:Parameter Name="count" Direction="Output" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
+
             <ext:TabPanel ID="ManagePhonCallsTabpanel"
                 runat="server"
                 Width="740"
@@ -236,7 +252,7 @@
                 </Defaults>
                 <Items>
                     <ext:GridPanel
-                        ID="ManagePhoneCallsGrid"
+                        ID="ManageUnmarkedCallsGrid"
                         runat="server"
                         Width="740"
                         Height="760"
@@ -246,17 +262,20 @@
                         Layout="FitLayout">
                         <Store>
                             <ext:Store
-                                ID="PhoneCallsStore"
+                                ID="ManageUnmarkedCallsStore"
                                 runat="server"
                                 RemoteSort="true"
                                 PageSize="25"
-                                DataSourceID="PhoneCallsDataSource"
-                                OnReadData="PhoneCallsStore_ReadData">
+                                DataSourceID="UnmarkedPhoneCallsDataSource"
+                                OnReadData="ManageUnmarkedCallsStore_ReadData">
                                 <Proxy>
                                     <ext:PageProxy CacheString="" />
                                 </Proxy>
+                                <Sorters>
+                                    <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
+                                </Sorters>
                                 <Model>
-                                    <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
+                                    <ext:Model ID="Model1" Name="PhoneCallsDataModel" runat="server" IDProperty="SessionIdTime">
                                         <Fields>
                                             <ext:ModelField Name="SessionIdTime" Type="String" />
                                             <ext:ModelField Name="SessionIdSeq" Type="Int" />
@@ -272,9 +291,6 @@
                                         </Fields>
                                     </ext:Model>
                                 </Model>
-                                <Sorters>
-                                    <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
-                                </Sorters>
                             </ext:Store>
                         </Store>
                         <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
@@ -444,28 +460,32 @@
                                 DisplayMsg="Phone Calls {0} - {1} of {2}" />
                         </BottomBar>
                     </ext:GridPanel>
-                  <%--  <ext:GridPanel
-                        ID="GridPanel1"
-                        Title="Marked Calls"
+                  
+                    <ext:GridPanel
+                        ID="ManageMarkedCallsGrid"
                         runat="server"
                         Width="740"
-                        Height="750"
+                        Height="760"
+                        Title="Marked Calls"
                         AutoScroll="true"
                         Scroll="Both"
                         Layout="FitLayout">
                         <Store>
                             <ext:Store
-                                ID="Store1"
+                                ID="ManageMarkedCallsStore"
                                 runat="server"
                                 RemoteSort="true"
                                 PageSize="25"
-                                DataSourceID="PhoneCallsDataSource"
-                                OnReadData="PhoneCallsStore_ReadData">
+                                DataSourceID="MarkedPhoneCallsDataSource"
+                                OnReadData="ManageMarkedCallsStore_ReadData">
                                 <Proxy>
                                     <ext:PageProxy CacheString="" />
                                 </Proxy>
+                                <Sorters>
+                                    <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
+                                </Sorters>
                                 <Model>
-                                    <ext:Model ID="Model1" runat="server" IDProperty="SessionIdTime">
+                                    <ext:Model ID="PhoneCallsDataModel" Name="PhoneCallsDataModel" runat="server" IDProperty="SessionIdTime">
                                         <Fields>
                                             <ext:ModelField Name="SessionIdTime" Type="String" />
                                             <ext:ModelField Name="SessionIdSeq" Type="Int" />
@@ -481,16 +501,13 @@
                                         </Fields>
                                     </ext:Model>
                                 </Model>
-                                <Sorters>
-                                    <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
-                                </Sorters>
                             </ext:Store>
                         </Store>
-                        <ColumnModel ID="ColumnModel2" runat="server" Flex="1">
+                        <ColumnModel ID="ManageMarkedCallsColumnModel" runat="server" Flex="1">
                             <Columns>
                                 <ext:RowNumbererColumn ID="RowNumbererColumn1" runat="server" Width="25" />
                                 <ext:Column
-                                    ID="Column1"
+                                    ID="SessionIdTimeCol"
                                     runat="server"
                                     Text="Date"
                                     Width="140"
@@ -499,21 +516,21 @@
                                 </ext:Column>
 
                                 <ext:Column
-                                    ID="Column2"
+                                    ID="Marker_CallToCountryCol"
                                     runat="server"
                                     Text="Country Code"
                                     Width="90"
                                     DataIndex="Marker_CallToCountry" />
 
                                 <ext:Column
-                                    ID="Column3"
+                                    ID="DestinationNumberUriCol"
                                     runat="server"
                                     Text="Destination"
                                     Width="130"
                                     DataIndex="DestinationNumberUri" />
 
                                 <ext:Column
-                                    ID="Column4"
+                                    ID="DurationCol"
                                     runat="server"
                                     Text="Duration"
                                     Width="70"
@@ -522,7 +539,7 @@
                                 </ext:Column>
 
                                 <ext:Column
-                                    ID="Column5"
+                                    ID="Marker_CallCostCol"
                                     runat="server"
                                     Text="Cost"
                                     Width="60"
@@ -530,7 +547,7 @@
                                     <Renderer Fn="RoundCost" />
                                 </ext:Column>
 
-                                <ext:Column ID="Column6"
+                                <ext:Column ID="UI_CallTypeCol"
                                     runat="server"
                                     Text="Type"
                                     Width="80"
@@ -539,7 +556,7 @@
                                 </ext:Column>
 
                                 <ext:Column
-                                    ID="Column7"
+                                    ID="UI_MarkedOnCol"
                                     runat="server"
                                     Text="Updated On"
                                     Width="100"
@@ -652,8 +669,7 @@
                                 Weight="25"
                                 DisplayMsg="Phone Calls {0} - {1} of {2}" />
                         </BottomBar>
-
-                    </ext:GridPanel>--%>
+                    </ext:GridPanel>
                 </Items>
             </ext:TabPanel>
             <%-- <ext:ToolTip ID="ToolTip1"
