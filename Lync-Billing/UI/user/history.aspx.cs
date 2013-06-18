@@ -40,13 +40,6 @@ namespace Lync_Billing.ui.user
             }
         }
 
-        public void refreshStore(string Field, string value)
-        {
-            PhoneCallsHistoryGrid.GetStore().Filters.Clear();
-            PhoneCallsHistoryGrid.GetStore().Filter(Field, value);
-            DataBind();
-        }
-
         protected void PhoneCallStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
             XmlNode xml = e.Xml;
@@ -69,10 +62,22 @@ namespace Lync_Billing.ui.user
 
         protected void CallsHistoryDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
-            e.InputParameters["start"] = this.e.Start;
-            e.InputParameters["limit"] = this.e.Limit;
-            e.InputParameters["sort"] = this.e.Sort[0];
-            //e.InputParameters["filter"] = this.e.Filter[0];
+
+            if (this.e.Start != -1)
+                e.InputParameters["start"] = this.e.Start;
+            else
+                e.InputParameters["start"] = 0;
+
+            if (this.e.Limit != -1)
+                e.InputParameters["limit"] = this.e.Limit;
+            else
+                e.InputParameters["limit"] = 25;
+          
+            if (!string.IsNullOrEmpty(this.e.Parameters["sort"]))
+                e.InputParameters["sort"] = this.e.Sort[0];
+            else
+                e.InputParameters["sort"] = null;
+           
             if (!string.IsNullOrEmpty(this.e.Parameters["filter"]))
                 e.InputParameters["filter"] = this.e.Filter[0];
             else
@@ -111,6 +116,7 @@ namespace Lync_Billing.ui.user
                 result = result.Skip(start).Take(limit);
 
             count = userSession.InvoicedCalls.Count();
+
             return result.ToList();
         }
 
@@ -142,11 +148,12 @@ namespace Lync_Billing.ui.user
         [DirectMethod]
         protected void PhoneCallsHistoryFilter(object sender, DirectEventArgs e) 
         {
-            //filter = FilterTypeComboBox.SelectedItem.Value;
-            //DataFilter typeFilter = new DataFilter();
-            //typeFilter.Value = FilterTypeComboBox.SelectedItem.Value;
-            //this.e.Parameters["filter"] = FilterTypeComboBox.SelectedItem.Value;
-            PhoneCallStore.DataBind();
+            PhoneCallStore.ClearFilter();
+
+            if (FilterTypeComboBox.SelectedItem.Value != "Everything")
+                PhoneCallStore.Filter("UI_CallType", FilterTypeComboBox.SelectedItem.Value);
+
+            PhoneCallStore.LoadPage(1);
         }
     }
 }
