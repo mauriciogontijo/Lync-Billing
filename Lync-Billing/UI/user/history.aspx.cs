@@ -112,10 +112,12 @@ namespace Lync_Billing.ui.user
                     result = result.OrderBy(sortExpression);
             }
 
+            int resultCount = result.Count(); 
+
             if (start >= 0 && limit > 0)
                 result = result.Skip(start).Take(limit);
 
-            count = userSession.InvoicedCalls.Count();
+            count = resultCount;
 
             return result.ToList();
         }
