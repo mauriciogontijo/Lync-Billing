@@ -20,9 +20,7 @@ namespace Lync_Billing.DB
 
         public List<UserRole> Roles { set; get; }
         public Dictionary<string, string> ClientData { set; get; }
-        
-        //PhoneCalls Related
-        public List<PhoneCall> InvoicedCalls { set; get; }
+        public List<PhoneCall> PhoneCallsHistory { set; get; }
         public List<PhoneCall> UnmarkedPhoneCalls { set; get; }
         public List<PhoneCall> MarkedPhoneCalls { set; get; }
         public string MarkedPhoneCallsPerPage { set; get; }
