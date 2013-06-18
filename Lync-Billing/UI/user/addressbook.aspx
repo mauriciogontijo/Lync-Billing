@@ -276,9 +276,18 @@
                                 </Model>
                             </ext:Store>
                         </Store>
-                        <Plugins>
-                            <ext:RowEditing ID="RowEditing1" runat="server" ClicksToMoveEditor="1" AutoCancel="false" />
-                        </Plugins>
+                       <%-- <Plugins>
+                            <ext:RowEditing ID="RowEditing1" runat="server" ClicksToMoveEditor="1"  ClicksToEdit="2" >
+                                <DirectEvents>
+                                    <Edit OnEvent="UpdateRecord">
+                                        <ExtraParams>
+                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                        </ExtraParams>
+                                    </Edit>
+                                </DirectEvents>
+                            </ext:RowEditing>
+                            
+                        </Plugins>--%>
 
                         <ColumnModel ID="ImportContactsColumnModel" runat="server" Flex="1">
                             <Columns>
@@ -297,40 +306,55 @@
                                     Width="150"
                                     DataIndex="DestinationCountry" />
 
-                                <ext:Column
+                                <ext:ComponentColumn 
                                     runat="server"
                                     DataIndex="Name"
                                     Width="240"
-                                    Text="Contact Name">
-                                    <Editor>
+                                    Text="Contact Name"
+                                    Editor="true"
+                                    OverOnly="true"
+                                    PinEvents="expand"
+                                    UnpinEvents="collapse">
+                                    <Component>
                                         <ext:TextField
                                             runat="server"
                                             EmptyText="Example: John Smith"
                                             DataIndex="Name" />
-                                    </Editor>
-                                </ext:Column>
+                                    </Component>
+                                </ext:ComponentColumn>
 
-                                <ext:Column
+                                <ext:ComponentColumn
                                     runat="server"
                                     DataIndex="Type"
                                     Text="Contact Type"
-                                    Width="130">
-                                    <Editor>
+                                    Width="130"
+                                    Editor="true"
+                                    OverOnly="true"
+                                    PinEvents="expand"
+                                    UnpinEvents="collapse"
+                                    Flex="1">
+                                    <Component>
                                         <ext:ComboBox
                                             runat="server"
                                             EmptyText="Please Select Type"
                                             DataIndex="Type"
+                                           
                                             Width="110">
                                             <Items>
                                                 <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
                                                 <ext:ListItem Text="Business" Value="Business" Mode="Value" />
                                             </Items>
-                                            <DirectEvents>
-                                                <Select OnEvent="UpdateRecord" />
-                                            </DirectEvents>
+                                          <%--  <DirectEvents>
+                                                <Select OnEvent="UpdateRecord"> 
+                                                    <EventMask ShowMask="true" />
+                                                    <ExtraParams>
+                                                        <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                    </ExtraParams>
+                                                </Select>
+                                            </DirectEvents>--%>
                                         </ext:ComboBox>
-                                    </Editor>
-                                </ext:Column>
+                                    </Component>
+                                </ext:ComponentColumn>
                             </Columns>
                         </ColumnModel>
                         <TopBar>

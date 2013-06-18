@@ -179,7 +179,7 @@ namespace Lync_Billing.ui.user
             GridsDataManager(false);
         }
 
-        protected void Unnamed_Event()
+        protected void UpdateRecord(object sender, DirectEventArgs e)
         {
 
         }
