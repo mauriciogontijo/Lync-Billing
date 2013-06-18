@@ -427,8 +427,13 @@
                         HideGroupedHeader="true" 
                         EnableGroupingMenu="true"
                         EnableNoGroups="true"
-                        ShowSummaryRow="true"
-                    />
+                        ShowSummaryRow="true"/>
+                    <ext:GridFilters ID="StatusTypeFilter" runat="server">
+                        <Filters>
+                            <ext:StringFilter DataIndex="UI_CallType"/>
+                        </Filters>
+                    </ext:GridFilters>
+
                 </Features>
 
                 <TopBar>
@@ -448,9 +453,9 @@
                                     <ext:ListItem Text="Personal" Value="Personal" />
                                     <ext:ListItem Text="Dispute" Value="Dispute" />
                                 </Items>
-                                 <Listeners>
-                                    <Select Handler="Ext.net.DirectMethods.PhoneCallsHistoryFilter();" />
-                                </Listeners>
+                                 <DirectEvents>
+                                     <Select OnEvent="PhoneCallsHistoryFilter" />
+                                 </DirectEvents>
                             </ext:ComboBox>
 
                             <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 510">

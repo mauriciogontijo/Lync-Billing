@@ -139,6 +139,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.GroupingSummary GroupingPhoneCallsHistory;
         
         /// <summary>
+        /// StatusTypeFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridFilters StatusTypeFilter;
+        
+        /// <summary>
         /// FilterToolBar control.
         /// </summary>
         /// <remarks>
