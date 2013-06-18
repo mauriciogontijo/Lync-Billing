@@ -142,9 +142,9 @@
                             </ext:Store>
                         </Store>
 
-                        <Plugins>
+                       <%-- <Plugins>
                             <ext:RowEditing ID="RowEditing2" runat="server" ClicksToMoveEditor="1" AutoCancel="false" />
-                        </Plugins>
+                        </Plugins>--%>
 
                         <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
                             <Columns>
@@ -163,26 +163,33 @@
                                     Width="150"
                                     DataIndex="DestinationCountry" />
 
-                                <ext:Column
+                                <ext:ComponentColumn
                                     runat="server"
                                     Text="Contact Name"
                                     Width="240"
-                                    DataIndex="Name">
-                                    <Editor>
+                                    Editor="true"
+                                    OverOnly="true"
+                                    DataIndex="Name"
+                                    PinEvents="expand"
+                                    UnpinEvents="collapse">
+                                    <Component>
                                         <ext:TextField ID="ContactName"
                                             runat="server"
                                             EmptyText="Example: John Smith"
                                             DataIndex="Name" />
-                                    </Editor>
-                                </ext:Column>
+                                    </Component>
+                                </ext:ComponentColumn>
 
-                                <ext:Column
-                                    ID="ContactType"
+                                <ext:ComponentColumn
                                     runat="server"
                                     Text="Contact Type"
                                     Width="130"
-                                    DataIndex="Type">
-                                    <Editor>
+                                    Editor="true"
+                                    OverOnly="true"
+                                    DataIndex="Type"
+                                    PinEvents="expand"
+                                    UnpinEvents="collapse">
+                                    <Component>
                                         <ext:ComboBox ID="ComboBox1"
                                             runat="server"
                                             EmptyText="Please Select Type"
@@ -193,8 +200,8 @@
                                                 <ext:ListItem Text="Business" Value="Business" Mode="Value" />
                                             </Items>
                                         </ext:ComboBox>
-                                    </Editor>
-                                </ext:Column>
+                                    </Component>
+                                </ext:ComponentColumn>
                             </Columns>
                         </ColumnModel>
 
@@ -276,18 +283,6 @@
                                 </Model>
                             </ext:Store>
                         </Store>
-                       <%-- <Plugins>
-                            <ext:RowEditing ID="RowEditing1" runat="server" ClicksToMoveEditor="1"  ClicksToEdit="2" >
-                                <DirectEvents>
-                                    <Edit OnEvent="UpdateRecord">
-                                        <ExtraParams>
-                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                        </ExtraParams>
-                                    </Edit>
-                                </DirectEvents>
-                            </ext:RowEditing>
-                            
-                        </Plugins>--%>
 
                         <ColumnModel ID="ImportContactsColumnModel" runat="server" Flex="1">
                             <Columns>
@@ -314,10 +309,15 @@
                                     Editor="true"
                                     OverOnly="true"
                                     PinEvents="expand"
-                                    UnpinEvents="collapse">
+                                    UnpinEvents="collapse"
+                                    Selectable="true"
+                                    Flex="1">
                                     <Component>
                                         <ext:TextField
                                             runat="server"
+                                            Selectable="true"
+                                            SelectOnFocus="true"
+                                             SelectOnTab="true"
                                             EmptyText="Example: John Smith"
                                             DataIndex="Name" />
                                     </Component>
@@ -332,13 +332,16 @@
                                     OverOnly="true"
                                     PinEvents="expand"
                                     UnpinEvents="collapse"
-                                    Flex="1">
+                                    Flex="1"
+                                    Selectable="true">
                                     <Component>
                                         <ext:ComboBox
                                             runat="server"
                                             EmptyText="Please Select Type"
                                             DataIndex="Type"
-                                           
+                                            SelectOnFocus="true"
+                                            SelectOnTab="true"
+                                            Selectable="true"
                                             Width="110">
                                             <Items>
                                                 <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
@@ -357,6 +360,15 @@
                                 </ext:ComponentColumn>
                             </Columns>
                         </ColumnModel>
+                         <SelectionModel>
+                            <ext:CellSelectionModel ID="CheckboxSelectionModel2"
+                                runat="server"
+                                Mode="Single"
+                                AllowDeselect="true"
+                                IgnoreRightMouseSelection="true"
+                                CheckOnly="true">
+                            </ext:CellSelectionModel>
+                        </SelectionModel>
                         <TopBar>
                             <ext:Toolbar
                                 ID="ImportContactsToolbar"

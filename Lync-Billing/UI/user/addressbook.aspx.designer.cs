@@ -58,15 +58,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Model AddressBookStoreModel;
         
         /// <summary>
-        /// RowEditing2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.RowEditing RowEditing2;
-        
-        /// <summary>
         /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
@@ -101,15 +92,6 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.TextField ContactName;
-        
-        /// <summary>
-        /// ContactType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column ContactType;
         
         /// <summary>
         /// ComboBox1 control.
@@ -209,6 +191,15 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column ImportedContactDestinationCountry;
+        
+        /// <summary>
+        /// CheckboxSelectionModel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CellSelectionModel CheckboxSelectionModel2;
         
         /// <summary>
         /// ImportContactsToolbar control.
