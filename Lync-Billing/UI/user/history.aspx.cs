@@ -26,6 +26,7 @@ namespace Lync_Billing.ui.user
         private StoreReadDataEventArgs e;
         private string sipAccount = string.Empty;
         private string pageData = string.Empty;
+        private string filter = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -63,28 +64,31 @@ namespace Lync_Billing.ui.user
         {
             this.e = e;
             this.PhoneCallStore.DataBind();
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            userSession.PhoneCallsPerPage = PhoneCallStore.JsonData;
         }
 
-        protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        protected void CallsHistoryDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             e.InputParameters["start"] = this.e.Start;
             e.InputParameters["limit"] = this.e.Limit;
             e.InputParameters["sort"] = this.e.Sort[0];
         }
 
-        protected void PhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
+        protected void CallsHistoryDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
         {
             (this.PhoneCallStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
         }
 
-        public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, string filter = "none")
+        public List<PhoneCall> GetCallsHistoryFilter(int start, int limit, DataSorter sort, out int count)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
             getPhoneCalls();
 
-            IQueryable<PhoneCall> result = userSession.PhoneCallsHistory.Select(e => e).AsQueryable();
+            IQueryable<PhoneCall> result;
+
+            if(filter == string.Empty)
+                result = userSession.InvoicedCalls.Where(e => e.UI_CallType != null).AsQueryable();
+            else
+                result = userSession.InvoicedCalls.Where(e => e.UI_CallType != filter).AsQueryable();
 
             if (sort != null)
             {
@@ -100,7 +104,7 @@ namespace Lync_Billing.ui.user
             if (start >= 0 && limit > 0)
                 result = result.Skip(start).Take(limit);
 
-            count = userSession.PhoneCallsHistory.Count();
+            count = userSession.InvoicedCalls.Count();
             return result.ToList();
         }
 
@@ -108,12 +112,13 @@ namespace Lync_Billing.ui.user
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
-            if (userSession.PhoneCallsHistory == null || userSession.PhoneCallsHistory.Count == 0 || force == true)
+            if (userSession.InvoicedCalls == null || userSession.InvoicedCalls.Count == 0 || force == true)
             {
                 string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
 
                 wherePart.Add("SourceUserUri", SipAccount);
                 wherePart.Add("marker_CallTypeID", 1);
+                //wherePart.Add("ac_IsInvoiced", "YES");
 
                 columns.Add("SessionIdTime");
                 columns.Add("marker_CallToCountry");
@@ -124,14 +129,8 @@ namespace Lync_Billing.ui.user
                 columns.Add("ui_MarkedOn");
                 columns.Add("ac_IsInvoiced");
 
-                userSession.PhoneCallsHistory = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                userSession.InvoicedCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             }
-        }
-
-        [DirectMethod]
-        public void PhoneCallsHistoryFilter(object sender, EventArgs e)
-        {
-            
         }
     }
 }

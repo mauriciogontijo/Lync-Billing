@@ -299,9 +299,9 @@
             <asp:ObjectDataSource 
                 ID="PhoneCallsDataSource" 
                 runat="server" 
-                OnSelecting="PhoneCallsDataSource_Selecting"
-                OnSelected="PhoneCallsDataSource_Selected"
-                SelectMethod="GetPhoneCallsFilter"
+                OnSelecting="CallsHistoryDataSource_Selecting"
+                OnSelected="CallsHistoryDataSource_Selected"
+                SelectMethod="GetCallsHistoryFilter"
                 TypeName="Lync_Billing.ui.user.history">
                 <SelectParameters>
                     <asp:Parameter Name="start" Type="Int32" />
@@ -443,13 +443,10 @@
                                 DisplayField="TypeName" 
                                 ValueField="TypeValue">
                                 <Items>
-                                    <ext:ListItem Text="Everything" Value="1"/>
-                                    <ext:ListItem Text="Marked" Value="2" />
-                                    <ext:ListItem Text="Unmarked" Value="3" />
-                                    <ext:ListItem Text="Business" Value="4" />
-                                    <ext:ListItem Text="Personal" Value="5" />
-                                    <ext:ListItem Text="Charged" Value="6" />
-                                    <ext:ListItem Text="Uncharged" Value="7" />
+                                    <ext:ListItem Text="Everything" Value="Everything"/>
+                                    <ext:ListItem Text="Business" Value="Business" />
+                                    <ext:ListItem Text="Personal" Value="Personal" />
+                                    <ext:ListItem Text="Dispute" Value="Dispute" />
                                 </Items>
                                  <Listeners>
                                     <Select Handler="Ext.net.DirectMethods.PhoneCallsHistoryFilter();" />
