@@ -72,7 +72,7 @@
                                                 bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
                                                 if (is_delegate) {
                                             %>
-                                                <li class="separator-bottom"><a href="../user/manage_delegates.aspx">Manage Delegees</a></li>
+                                                <li class="separator-bottom"><a href="../user/delegees.aspx">Manage Delegees</a></li>
                                             <% } %>
                                             <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                         </ul>
