@@ -1,14 +1,25 @@
-﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="phonecalls.aspx.cs" Inherits="Lync_Billing.ui.user.phonecalls" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="phonecalls.aspx.cs" Inherits="Lync_Billing.ui.user.phonecalls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>eBill | User Tools</title>
 
     <style type="text/css">
         /* start manage-phone-calls grid styling */
-        .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
-        .row-green { background-color: rgb(46, 143, 42); }
-        .row-red { background-color: rgb(201, 20, 20); }
-        .row-yellow { background-color: yellow; }
+        .x-grid-with-row-lines .x-grid-cell {
+            height: 25px !important;
+        }
+
+        .row-green {
+            background-color: rgb(46, 143, 42);
+        }
+
+        .row-red {
+            background-color: rgb(201, 20, 20);
+        }
+
+        .row-yellow {
+            background-color: yellow;
+        }
         /* end manage-phone-calls grid styling */
     </style>
 
@@ -180,14 +191,14 @@
                         if (is_delegate)
                         {
                     %>
-                        <div class='sidebar-section'>
-                            <div class="sidebar-section-header">
-                                <p>Delegee Accounts</p>
-                            </div>
-                            <div class="sidebar-section-body">
-                                <p><a href='../user/manage_delegates.aspx'>Manage Delegee(s)</a></p>
-                            </div>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Delegee Accounts</p>
                         </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='../user/manage_delegates.aspx'>Manage Delegee(s)</a></p>
+                        </div>
+                    </div>
                     <% } %>
                 </Content>
             </ext:Panel>
@@ -199,10 +210,38 @@
     <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
     <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
-            
-            <asp:ObjectDataSource 
-                ID="PhoneCallsDataSource" 
-                runat="server" 
+            <ext:TabPanel
+                ID="ManagePhoneCallsTabPanel"
+                runat="server"
+                Width="740"
+                Height="52"
+                Header="true"
+                Title="Manage Phone Calls"
+                Layout="FitLayout">
+                <Items>
+                    <ext:Panel
+                        ID="UnmarkedCallsTab"
+                        runat="server"
+                        Title="Unmarked Calls"
+                        Height="0"
+                        Width="0">
+                    </ext:Panel>
+
+                    <ext:Panel
+                        ID="MarkedCallsTab"
+                        runat="server"
+                        Title="Marked Calls"
+                        Height="0"
+                        Width="0">
+                    </ext:Panel>
+                </Items>
+            </ext:TabPanel>
+
+            <div class="clear"></div>
+
+            <asp:ObjectDataSource
+                ID="PhoneCallsDataSource"
+                runat="server"
                 OnSelecting="PhoneCallsDataSource_Selecting"
                 OnSelected="PhoneCallsDataSource_Selected"
                 SelectMethod="GetPhoneCallsFilter"
@@ -210,10 +249,11 @@
                 <SelectParameters>
                     <asp:Parameter Name="start" Type="Int32" />
                     <asp:Parameter Name="limit" Type="Int32" />
-                    <asp:Parameter Name="sort" Type="Object" />                
+                    <asp:Parameter Name="sort" Type="Object" />
                     <asp:Parameter Name="count" Direction="Output" Type="Int32" />
                 </SelectParameters>
             </asp:ObjectDataSource>
+
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"
                 runat="server"
@@ -225,23 +265,23 @@
                 Scroll="Both"
                 Layout="FitLayout">
                 <Store>
-                    <ext:Store 
-                        ID="PhoneCallsStore" 
-                        runat="server" 
-                        RemoteSort="true" 
+                    <ext:Store
+                        ID="PhoneCallsStore"
+                        runat="server"
+                        RemoteSort="true"
                         PageSize="25"
                         DataSourceID="PhoneCallsDataSource"
                         OnReadData="PhoneCallsStore_ReadData">
                         <Proxy>
-                            <ext:PageProxy CacheString=""/>
+                            <ext:PageProxy CacheString="" />
                         </Proxy>
                         <Model>
                             <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
                                 <Fields>
                                     <ext:ModelField Name="SessionIdTime" Type="String" />
                                     <ext:ModelField Name="SessionIdSeq" Type="Int" />
-                                    <ext:ModelField Name="ResponseTime" Type="String"/>
-                                    <ext:ModelField Name="SessionEndTime" Type="String"/>
+                                    <ext:ModelField Name="ResponseTime" Type="String" />
+                                    <ext:ModelField Name="SessionEndTime" Type="String" />
                                     <ext:ModelField Name="Marker_CallToCountry" Type="String" />
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
@@ -255,9 +295,6 @@
                         <Sorters>
                             <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
                         </Sorters>
-                       <%-- <Listeners>
-                            <Load Handler="Ext.net.Mask.show({msg: 'Loading..'});" />
-                        </Listeners>--%>
                     </ext:Store>
                 </Store>
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
@@ -301,7 +338,7 @@
                             Text="Cost"
                             Width="60"
                             DataIndex="Marker_CallCost">
-                            <Renderer Fn="RoundCost"/>
+                            <Renderer Fn="RoundCost" />
                         </ext:Column>
 
                         <ext:Column ID="UI_CallType"
@@ -311,8 +348,8 @@
                             DataIndex="UI_CallType">
                             <Renderer Fn="getRowClassForIsPersonal" />
                         </ext:Column>
-                       
-                         <ext:Column
+
+                        <ext:Column
                             ID="UI_MarkedOn"
                             runat="server"
                             Text="Updated On"
@@ -324,20 +361,19 @@
                 </ColumnModel>
 
                 <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1" 
-                        runat="server" 
-                        Mode="Multi" 
+                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                        runat="server"
+                        Mode="Multi"
                         AllowDeselect="true"
                         IgnoreRightMouseSelection="true"
                         CheckOnly="true">
-
                     </ext:CheckboxSelectionModel>
                 </SelectionModel>
 
                 <TopBar>
                     <ext:Toolbar ID="Toolbar1" runat="server">
                         <Items>
-                           <ext:Label runat="server" ID="button_group_lable" Margin="5">
+                            <ext:Label runat="server" ID="button_group_lable" Margin="5">
                                 <Content>Mark Selected As:</Content>
                             </ext:Label>
 
@@ -379,38 +415,38 @@
                                                 </ExtraParams>
                                             </Click>
                                         </DirectEvents>
-                                    </ext:Button> 
+                                    </ext:Button>
                                 </Buttons>
                             </ext:ButtonGroup>
-                            
+
                             <ext:ButtonGroup ID="ButtonGroup1" runat="server" Frame="false" ButtonAlign="Center" Width="250">
                                 <Buttons>
                                     <ext:Button ID="AssignMarkedAlwaysBusiness" Text=" Always Business" runat="server">
-	                                    <DirectEvents>
-		                                    <Click OnEvent="AssignAlwaysBusiness">
-			                                    <EventMask ShowMask="true" />
-			                                    <ExtraParams>
-				                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-			                                    </ExtraParams>
-		                                    </Click>
-	                                    </DirectEvents>
+                                        <DirectEvents>
+                                            <Click OnEvent="AssignAlwaysBusiness">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
                                     </ext:Button>
 
                                     <ext:Button ID="AssignMarkedAlwaysPersonal" Text=" Always Personal" runat="server">
-	                                    <DirectEvents>
-		                                    <Click OnEvent="AssignAlwaysPersonal">
-			                                    <EventMask ShowMask="true" />
-			                                    <ExtraParams>
-				                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-			                                    </ExtraParams>
-		                                    </Click>
-	                                    </DirectEvents>
+                                        <DirectEvents>
+                                            <Click OnEvent="AssignAlwaysPersonal">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
                                     </ext:Button>
                                 </Buttons>
                             </ext:ButtonGroup>
 
                             <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 50">
-                                 <Listeners>
+                                <Listeners>
                                     <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
                                 </Listeners>
                             </ext:Button>
@@ -425,19 +461,10 @@
                         StoreID="PhoneCallStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Phone Calls {0} - {1} of {2}"/>
+                        DisplayMsg="Phone Calls {0} - {1} of {2}" />
                 </BottomBar>
-                
+
             </ext:GridPanel>
-             <ext:ToolTip ID="ToolTip1" 
-                runat="server" 
-                Target="={#{ManagePhoneCallsGrid}.getView().el}"
-                Delegate=".x-grid-cell"
-                TrackMouse="true">
-                <Listeners>
-                    <Show Handler="onShow(this, #{ManagePhoneCallsGrid});" /> 
-                </Listeners>
-        </ext:ToolTip>     
         </div>
     </div>
     <!-- *** END OF MANAGE PHONE CALLS GRID *** -->
