@@ -274,7 +274,7 @@
                 ID="ManagePhoneCallsGrid"
                 runat="server"
                 Width="740"
-                Height="750"
+                Height="720"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout">
