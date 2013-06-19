@@ -258,8 +258,8 @@
                             <p>History</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../user/history.aspx' class="selected">Phone Calls History</a></p>
                             <p><a href='../user/bills.aspx'>Bills History</a></p>
+                            <p><a href='../user/history.aspx' class="selected">Phone Calls History</a></p>
                         </div>
                     </div>
 
