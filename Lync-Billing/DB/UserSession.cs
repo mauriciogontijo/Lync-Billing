@@ -26,6 +26,7 @@ namespace Lync_Billing.DB
         public string MarkedPhoneCallsPerPage { set; get; }
         public string UnmarkedPhoneCallsPerPage { set; get; }
         public Dictionary<string, PhoneBook> phoneBook { set; get; }
+        public List<PhoneCall> PhoneCallsPerPage { set; get; }
 
         //Generic User Roles
         public bool IsDeveloper { set; get; }
