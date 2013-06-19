@@ -172,8 +172,8 @@
                             <p>History</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../user/history.aspx'>Phone Calls History</a></p>
                             <p><a href='../user/bills.aspx'>Bills History</a></p>
+                            <p><a href='../user/history.aspx'>Phone Calls History</a></p>
                         </div>
                     </div>
 
@@ -331,9 +331,9 @@
                     </Columns>
                 </ColumnModel>
                 <Features>
-                     <ext:GridFilters ID="StatusTypeFilter" runat="server">
+                    <ext:GridFilters ID="StatusTypeFilter" runat="server">
                         <Filters>
-                            <ext:StringFilter DataIndex="UI_CallType"/>
+                            <ext:StringFilter DataIndex="UI_CallType" />
                         </Filters>
                     </ext:GridFilters>
                 </Features>
@@ -350,21 +350,23 @@
                 <TopBar>
                     <ext:Toolbar ID="Toolbar1" runat="server">
                         <Items>
-                            <ext:ComboBox 
-                                ID="FilterTypeComboBox" 
-                                runat="server" 
-                                Icon="Find" 
-                                TriggerAction="All" 
-                                QueryMode="Local" 
-                                DisplayField="TypeName" 
+                            <ext:ComboBox
+                                ID="FilterTypeComboBox"
+                                runat="server"
+                                Icon="Find"
+                                TriggerAction="All"
+                                QueryMode="Local"
+                                DisplayField="TypeName"
                                 ValueField="TypeValue">
                                 <Items>
                                     <ext:ListItem Text="Unmarked" Value="Unmarked" />
-                                    <ext:ListItem Text="Marked" Value="Marked"/>
+                                    <ext:ListItem Text="Business" Value="Business" />
+                                    <ext:ListItem Text="Personal" Value="Personal" />
+                                    <ext:ListItem Text="Dispute" Value="Dispute" />
                                 </Items>
-                                    <DirectEvents>
-                                        <Select OnEvent="PhoneCallsHistoryFilter" />
-                                    </DirectEvents>
+                                <DirectEvents>
+                                    <Select OnEvent="PhoneCallsHistoryFilter" />
+                                </DirectEvents>
                             </ext:ComboBox>
 
                             <ext:Label runat="server" ID="button_group_lable" Margin="5">

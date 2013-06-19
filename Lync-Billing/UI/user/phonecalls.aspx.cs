@@ -97,11 +97,7 @@ namespace Lync_Billing.ui.user
         protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
             this.e = e;
-            
             PhoneCallsStore.DataBind();
-
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            userSession.PhoneCallsPerPage = PhoneCallsStore.JsonData;
         }
 
         public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
@@ -111,10 +107,10 @@ namespace Lync_Billing.ui.user
 
             IQueryable<PhoneCall> result;
  
-            if(filter != null && filter.Value == string.Empty)
-                result = userSession.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
-            else
+            if(filter == null)
                 result = userSession.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
+            else
+                result = userSession.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
          
             if (sort != null)
             {
@@ -165,15 +161,13 @@ namespace Lync_Billing.ui.user
         [DirectMethod]
         protected void PhoneCallsHistoryFilter(object sender, DirectEventArgs e)
         {
-            
-
-            if (FilterTypeComboBox.SelectedItem.Value == "Unmarked")
-                PhoneCallsStore.Filter("UI_CallType", null);
-            else
-                PhoneCallsStore.Filter("UI_CallType", string.Empty);
-
-            PhoneCallsStore.LoadPage(1);
             PhoneCallsStore.ClearFilter();
+
+            if (FilterTypeComboBox.SelectedItem.Value != "Unmarked")
+                PhoneCallsStore.Filter("UI_CallType", FilterTypeComboBox.SelectedItem.Value);
+            
+            PhoneCallsStore.LoadPage(1);
+           
         }
     }
 }
