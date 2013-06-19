@@ -169,16 +169,17 @@ namespace Lync_Billing.ui.user
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
 
-                    if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
-                    {
-                        ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString());
-                        //model.Set(matchedDestinationCall);
-                        //model.Commit();
-                        PhoneCallsStore.Reload();
-                    }
+                    //if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
+                    //{
+                    //    ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString());
+                    //    //model.Set(matchedDestinationCall);
+                    //    //model.Commit();
+                    //}
                 }
             }
+            
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            PhoneCallsStore.LoadPage(1);
         }
 
         protected void AssignAllBusiness(object sender, DirectEventArgs e)
@@ -216,16 +217,16 @@ namespace Lync_Billing.ui.user
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
 
-                    if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
-                    {
-                        ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString());
-                        //model.Set(matchedDestinationCall);
-                        //model.Commit();
-                        PhoneCallsStore.Reload();
-                    }
+                    //if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
+                    //{
+                    //    ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString());
+                    //    //model.Set(matchedDestinationCall);
+                    //    //model.Commit();
+                    //}
                 }
             }
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            PhoneCallsStore.LoadPage(1);
         }
 
         protected void AssignDispute(object sender, DirectEventArgs e)
@@ -250,29 +251,20 @@ namespace Lync_Billing.ui.user
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                var matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
-
-                foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
-                {
-                    if (matchedDestinationCall.UI_CallType == "Dispute")
-                        break;
-                    matchedDestinationCall.UI_CallType = "Dispute";
-                    matchedDestinationCall.UI_MarkedOn = DateTime.Now;
-                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
-
-                    PhoneCall.UpdatePhoneCall(matchedDestinationCall);
-
-                    if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
-                    {
-                        ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString());
-                        //model.Set(matchedDestinationCall);
-                        //model.Commit();
-                        PhoneCallsStore.Reload();
-                    }
-                }
+              
+                phoneCall.UI_CallType = "Dispute";
+                phoneCall.UI_MarkedOn = DateTime.Now;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                   
+                PhoneCall.UpdatePhoneCall(phoneCall);
+                
+                ModelProxy model = PhoneCallsStore.Find("SessionIdTime", phoneCall.SessionIdTime.ToString());
+                model.Set(phoneCall);
+                model.Commit();
             }
            
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            PhoneCallsStore.LoadPage(1);
         }
 
         protected void AssignAlwaysPersonal(object sender, DirectEventArgs e)
