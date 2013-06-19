@@ -251,18 +251,21 @@ namespace Lync_Billing.ui.user
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-              
-                phoneCall.UI_CallType = "Dispute";
-                phoneCall.UI_MarkedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
-                   
-                PhoneCall.UpdatePhoneCall(phoneCall);
-                
-                ModelProxy model = PhoneCallsStore.Find("SessionIdTime", phoneCall.SessionIdTime.ToString());
-                model.Set(phoneCall);
+                PhoneCall matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
+
+
+                matchedDestinationCalls.UI_CallType = "Dispute";
+                matchedDestinationCalls.UI_MarkedOn = DateTime.Now;
+                matchedDestinationCalls.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+                PhoneCall.UpdatePhoneCall(matchedDestinationCalls);
+
+                ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCalls.SessionIdTime.ToString());
+                model.Set(matchedDestinationCalls);
                 model.Commit();
+
             }
-           
+            
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
             PhoneCallsStore.LoadPage(1);
         }
