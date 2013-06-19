@@ -39,6 +39,8 @@ namespace Lync_Billing.ui.user
            
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
             ((UserSession)HttpContext.Current.Session.Contents["UserData"]).phoneBook = PhoneBook.GetAddressBook(sipAccount);
+            getUnmarkedPhoneCalls(true);
+            getMarkedPhoneCalls(true);
         }
 
         protected void ManageMarkedCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
@@ -63,11 +65,14 @@ namespace Lync_Billing.ui.user
 
             if (userSession.MarkedPhoneCalls == null || userSession.MarkedPhoneCalls.Count == 0 || force == true)
             {
+                columns.Clear();
+                wherePart.Clear();
+                
                 wherePart.Add("SourceUserUri", userSession.SipAccount);
                 wherePart.Add("marker_CallTypeID", 1);
-                wherePart.Add("ac_IsInvoiced", "NO");
                 wherePart.Add("ui_CallType", "!null");
-
+                wherePart.Add("ac_IsInvoiced", "NO");
+                
                 columns.Add("SessionIdTime");
                 columns.Add("SessionIdSeq");
                 columns.Add("ResponseTime");
@@ -80,6 +85,7 @@ namespace Lync_Billing.ui.user
                 columns.Add("ui_MarkedOn");
 
                 userSession.MarkedPhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+
             }
         }
 
@@ -89,6 +95,9 @@ namespace Lync_Billing.ui.user
 
             if (userSession.UnmarkedPhoneCalls == null || userSession.UnmarkedPhoneCalls.Count == 0 || force == true)
             {
+                columns.Clear();
+                wherePart.Clear();
+               
                 wherePart.Add("SourceUserUri", userSession.SipAccount);
                 wherePart.Add("marker_CallTypeID", 1);
                 wherePart.Add("ui_CallType",null);
@@ -108,7 +117,6 @@ namespace Lync_Billing.ui.user
                 userSession.UnmarkedPhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
             }
         }
-
 
         protected void MarkedPhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
@@ -281,6 +289,67 @@ namespace Lync_Billing.ui.user
                 //Add To User PhoneBook Store
                 PhoneBook.AddPhoneBookEntries(phoneBookEntries);
             }
+            else
+            {
+                perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.UnmarkedPhoneCallsPerPage, settings);
+                //perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
+
+                PhoneBook phoneBookEntry;
+
+                List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
+
+                foreach (PhoneCall phoneCall in phoneCalls)
+                {
+
+                    //Ceare Phonebook Entry
+                    phoneBookEntry = new PhoneBook();
+
+                    //Check if this entry Already exists 
+                    if (!userSession.phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                    {
+                        phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
+                        phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
+                        phoneBookEntry.SipAccount = userSession.SipAccount;
+                        phoneBookEntry.Type = "Business";
+
+                        //Add Phonebook entry to Session and to the list which will be written to database 
+                        userSession.phoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+                        phoneBookEntries.Add(phoneBookEntry);
+                    }
+
+                    var matchedDestinationCalls = userSession.UnmarkedPhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
+
+                    foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
+                    {
+                        matchedDestinationCall.UI_CallType = "Business";
+                        matchedDestinationCall.UI_MarkedOn = DateTime.Now;
+                        matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+                        PhoneCall.UpdatePhoneCall(matchedDestinationCall);
+
+                        if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
+                        {
+                            ModelProxy model = ManageUnmarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString());
+
+                            model.Set(matchedDestinationCall);
+                            model.Commit();
+
+                            ManageUnmarkedCallsStore.Remove(model);
+                            ManageMarkedCallsStore.Add(matchedDestinationCall);
+                        }
+                    }
+                }
+                ManageUnmarkedCallsGrid.GetSelectionModel().DeselectAll();
+                getMarkedPhoneCalls(true);
+                getUnmarkedPhoneCalls(true);
+
+                ManageUnmarkedCallsStore.ClearFilter();
+                ManageUnmarkedCallsStore.Filter("ui_CallType", null);
+                ManageUnmarkedCallsStore.LoadPage(1);
+
+                //Add To User PhoneBook Store
+                PhoneBook.AddPhoneBookEntries(phoneBookEntries);
+            }
         }
 
         protected void AssignAlwaysPersonal(object sender, DirectEventArgs e)
@@ -342,13 +411,76 @@ namespace Lync_Billing.ui.user
 
                         if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
                         {
-                            ManageMarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Set(matchedDestinationCall);
-                            ManageMarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString()).Commit();
+                            ModelProxy model = ManageMarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString());
+                            
+                            model.Set(matchedDestinationCall);
+                            model.Commit();
                         }
                     }
                 }
                 ManageMarkedCallsGrid.GetSelectionModel().DeselectAll();
                 getMarkedPhoneCalls(true);
+
+                //Add To User PhoneBook Store
+                PhoneBook.AddPhoneBookEntries(phoneBookEntries);
+            }
+            else 
+            {
+                perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.UnmarkedPhoneCallsPerPage, settings);
+                //perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
+
+                PhoneBook phoneBookEntry;
+
+                List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
+
+                foreach (PhoneCall phoneCall in phoneCalls)
+                {
+
+                    //Ceare Phonebook Entry
+                    phoneBookEntry = new PhoneBook();
+
+                    //Check if this entry Already exists 
+                    if (!userSession.phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                    {
+                        phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
+                        phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
+                        phoneBookEntry.SipAccount = userSession.SipAccount;
+                        phoneBookEntry.Type = "Personal";
+
+                        //Add Phonebook entry to Session and to the list which will be written to database 
+                        userSession.phoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+                        phoneBookEntries.Add(phoneBookEntry);
+                    }
+
+                    var matchedDestinationCalls = userSession.UnmarkedPhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
+
+                    foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
+                    {
+                        matchedDestinationCall.UI_CallType = "Personal";
+                        matchedDestinationCall.UI_MarkedOn = DateTime.Now;
+                        matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+                        PhoneCall.UpdatePhoneCall(matchedDestinationCall);
+
+                        if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
+                        {
+                            ModelProxy model = ManageUnmarkedCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString());
+                            
+                            model.Set(matchedDestinationCall);
+                            model.Commit();
+
+                            ManageUnmarkedCallsStore.Remove(model);
+                            ManageMarkedCallsStore.Add(matchedDestinationCall);
+                        }
+                    }
+                }
+                ManageUnmarkedCallsGrid.GetSelectionModel().DeselectAll();
+                getMarkedPhoneCalls(true);
+                getUnmarkedPhoneCalls(true);
+
+                ManageUnmarkedCallsStore.ClearFilter();
+                ManageUnmarkedCallsStore.Filter("ui_CallType", null);
+                ManageUnmarkedCallsStore.LoadPage(1);
 
                 //Add To User PhoneBook Store
                 PhoneBook.AddPhoneBookEntries(phoneBookEntries);
