@@ -18,7 +18,7 @@ namespace Lync_Billing.ui.user
     {
         List<PhoneBook> AddressBookData = new List<PhoneBook>();
         List<PhoneBook> HistoryDestinationNumbers = new List<PhoneBook>();
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             GridsDataManager(true);
@@ -26,12 +26,12 @@ namespace Lync_Billing.ui.user
 
         protected void GridsDataManager(bool GetFreshData = false, bool BindData = true)
         {
-            if(GetFreshData == true)
+            if (GetFreshData == true)
             {
                 List<PhoneBook> TempHistoryData = new List<PhoneBook>();
                 Dictionary<string, PhoneBook> TempAddressBookData = new Dictionary<string, PhoneBook>();
                 string SipAccount = string.Empty;
-                
+
                 SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount.ToString();
                 TempAddressBookData = PhoneBook.GetAddressBook(SipAccount);
                 TempHistoryData = PhoneBook.GetDestinationNumbers(SipAccount);
@@ -114,9 +114,12 @@ namespace Lync_Billing.ui.user
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             all_address_book_items = serializer.Deserialize<List<PhoneBook>>(json);
 
-            foreach (PhoneBook entry in all_address_book_items) {
-                if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != "")) {
-                    if (entry.SipAccount == null || entry.SipAccount == string.Empty) {
+            foreach (PhoneBook entry in all_address_book_items)
+            {
+                if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != ""))
+                {
+                    if (entry.SipAccount == null || entry.SipAccount == string.Empty)
+                    {
                         entry.SipAccount = SipAccount;
                     }
 
@@ -126,7 +129,8 @@ namespace Lync_Billing.ui.user
 
             if (filtered_address_book_items.Count > 0)
             {
-                foreach(PhoneBook entry in filtered_address_book_items) {
+                foreach (PhoneBook entry in filtered_address_book_items)
+                {
                     PhoneBook.UpdatePhoneBookEntry(entry);
                 }
 

@@ -31,15 +31,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.TabPanel AddressBookTabPanel;
         
         /// <summary>
-        /// AddressBook control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel AddressBook;
-        
-        /// <summary>
         /// AddressBookGrid control.
         /// </summary>
         /// <remarks>
@@ -65,15 +56,6 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Model AddressBookStoreModel;
-        
-        /// <summary>
-        /// RowEditing2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.RowEditing RowEditing2;
         
         /// <summary>
         /// RowNumbererColumn2 control.
@@ -103,6 +85,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Column DestCountry;
         
         /// <summary>
+        /// ComponentColumn1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComponentColumn ComponentColumn1;
+        
+        /// <summary>
         /// ContactName control.
         /// </summary>
         /// <remarks>
@@ -112,13 +103,13 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.TextField ContactName;
         
         /// <summary>
-        /// ContactType control.
+        /// ComponentColumn2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column ContactType;
+        protected global::Ext.Net.ComponentColumn ComponentColumn2;
         
         /// <summary>
         /// ComboBox1 control.
@@ -166,15 +157,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Button Button1;
         
         /// <summary>
-        /// ImportContactsFromHistoryTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel ImportContactsFromHistoryTab;
-        
-        /// <summary>
         /// ImportContactsGrid control.
         /// </summary>
         /// <remarks>
@@ -202,15 +184,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Model ImportContactsStoreModel;
         
         /// <summary>
-        /// RowEditing1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.RowEditing RowEditing1;
-        
-        /// <summary>
         /// RowNumbererColumn1 control.
         /// </summary>
         /// <remarks>
@@ -236,6 +209,51 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column ImportedContactDestinationCountry;
+        
+        /// <summary>
+        /// ComponentColumn3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComponentColumn ComponentColumn3;
+        
+        /// <summary>
+        /// TextField1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextField1;
+        
+        /// <summary>
+        /// ComponentColumn4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComponentColumn ComponentColumn4;
+        
+        /// <summary>
+        /// ComboBox2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox ComboBox2;
+        
+        /// <summary>
+        /// CheckboxSelectionModel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CellSelectionModel CheckboxSelectionModel2;
         
         /// <summary>
         /// ImportContactsToolbar control.
