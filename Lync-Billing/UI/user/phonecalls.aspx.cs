@@ -37,7 +37,6 @@ namespace Lync_Billing.ui.user
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
             ((UserSession)HttpContext.Current.Session.Contents["UserData"]).phoneBook = PhoneBook.GetAddressBook(sipAccount);
-           
         }
 
 
@@ -98,6 +97,8 @@ namespace Lync_Billing.ui.user
         {
             this.e = e;
             PhoneCallsStore.DataBind();
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            userSession.PhoneCallsPerPage = PhoneCallsStore.JsonData;
         }
 
         public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
@@ -167,7 +168,6 @@ namespace Lync_Billing.ui.user
                 PhoneCallsStore.Filter("UI_CallType", FilterTypeComboBox.SelectedItem.Value);
             
             PhoneCallsStore.LoadPage(1);
-           
         }
     }
 }

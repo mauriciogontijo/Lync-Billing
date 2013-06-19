@@ -210,7 +210,50 @@
     <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
     <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
-            <div class="clear"></div>
+            <ext:Panel
+                ID="FilterPhoneCallsPanel"
+                runat="server"
+                Header="true"
+                Title="Manage Phone Calls"
+                Width="740"
+                Height="52"
+                Layout="FitLayout">
+                <TopBar>
+                    <ext:Toolbar
+                        ID="FilterToolbar1"
+                        runat="server">
+                        <Items>
+                            <ext:Label runat="server" ID="Label1" Margin="5">
+                                <Content>View Calls:</Content>
+                            </ext:Label>
+
+                            <ext:ComboBox
+                                ID="FilterTypeComboBox"
+                                runat="server"
+                                Icon="Find"
+                                TriggerAction="All"
+                                QueryMode="Local"
+                                DisplayField="TypeName"
+                                ValueField="TypeValue">
+                                <Items>
+                                    <ext:ListItem Text="Unmarked" Value="Unmarked" />
+                                    <ext:ListItem Text="Business" Value="Business" />
+                                    <ext:ListItem Text="Personal" Value="Personal" />
+                                    <ext:ListItem Text="Dispute" Value="Dispute" />
+                                </Items>
+                                <SelectedItems>
+                                    <ext:ListItem Text="Unmarked" Value="Unmarked" />
+                                </SelectedItems>
+                                <DirectEvents>
+                                    <Select OnEvent="PhoneCallsHistoryFilter" />
+                                </DirectEvents>
+                            </ext:ComboBox>
+                        </Items>
+                    </ext:Toolbar>
+                </TopBar>
+            </ext:Panel>
+
+            <div class="h5 clear"></div>
 
             <asp:ObjectDataSource
                 ID="PhoneCallsDataSource"
@@ -350,25 +393,6 @@
                 <TopBar>
                     <ext:Toolbar ID="Toolbar1" runat="server">
                         <Items>
-                            <ext:ComboBox
-                                ID="FilterTypeComboBox"
-                                runat="server"
-                                Icon="Find"
-                                TriggerAction="All"
-                                QueryMode="Local"
-                                DisplayField="TypeName"
-                                ValueField="TypeValue">
-                                <Items>
-                                    <ext:ListItem Text="Unmarked" Value="Unmarked" />
-                                    <ext:ListItem Text="Business" Value="Business" />
-                                    <ext:ListItem Text="Personal" Value="Personal" />
-                                    <ext:ListItem Text="Dispute" Value="Dispute" />
-                                </Items>
-                                <DirectEvents>
-                                    <Select OnEvent="PhoneCallsHistoryFilter" />
-                                </DirectEvents>
-                            </ext:ComboBox>
-
                             <ext:Label runat="server" ID="button_group_lable" Margin="5">
                                 <Content>Mark Selected As:</Content>
                             </ext:Label>

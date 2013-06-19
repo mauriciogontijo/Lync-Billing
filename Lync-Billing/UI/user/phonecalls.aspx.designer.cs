@@ -22,6 +22,42 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Panel UserToolsSidebar;
         
         /// <summary>
+        /// FilterPhoneCallsPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel FilterPhoneCallsPanel;
+        
+        /// <summary>
+        /// FilterToolbar1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Toolbar FilterToolbar1;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Label Label1;
+        
+        /// <summary>
+        /// FilterTypeComboBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox FilterTypeComboBox;
+        
+        /// <summary>
         /// PhoneCallsDataSource control.
         /// </summary>
         /// <remarks>
@@ -155,15 +191,6 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Toolbar Toolbar1;
-        
-        /// <summary>
-        /// FilterTypeComboBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ComboBox FilterTypeComboBox;
         
         /// <summary>
         /// button_group_lable control.
