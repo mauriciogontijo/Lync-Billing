@@ -161,8 +161,8 @@
                             <p>History</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../user/bills.aspx'>Bills History</a></p>
                             <p><a href='../user/history.aspx'>Phone Calls History</a></p>
+                            <p><a href='../user/bills.aspx'>Bills History</a></p>
                         </div>
                     </div>
 
@@ -185,7 +185,7 @@
                                 <p>Delegee Accounts</p>
                             </div>
                             <div class="sidebar-section-body">
-                                <p><a href='../user/delegees.aspx'>Manage Delegee(s)</a></p>
+                                <p><a href='../user/manage_delegates.aspx'>Manage Delegee(s)</a></p>
                             </div>
                         </div>
                     <% } %>
@@ -383,7 +383,7 @@
                                 </Buttons>
                             </ext:ButtonGroup>
                             
-                            <ext:ButtonGroup runat="server" Frame="false" ButtonAlign="Center" Width="250">
+                            <ext:ButtonGroup ID="ButtonGroup1" runat="server" Frame="false" ButtonAlign="Center" Width="250">
                                 <Buttons>
                                     <ext:Button ID="AssignMarkedAlwaysBusiness" Text=" Always Business" runat="server">
 	                                    <DirectEvents>

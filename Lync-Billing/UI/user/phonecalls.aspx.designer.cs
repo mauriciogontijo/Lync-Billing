@@ -193,6 +193,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Button Dispute;
         
         /// <summary>
+        /// ButtonGroup1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ButtonGroup ButtonGroup1;
+        
+        /// <summary>
         /// AssignMarkedAlwaysBusiness control.
         /// </summary>
         /// <remarks>
