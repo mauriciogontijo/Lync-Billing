@@ -281,7 +281,7 @@
                                 <p>Delegee Accounts</p>
                             </div>
                             <div class="sidebar-section-body">
-                                <p><a href='../user/manage_delegates.aspx'>Manage Delegee(s)</a></p>
+                                <p><a href='../user/delegees.aspx'>Manage Delegee(s)</a></p>
                             </div>
                         </div>
                     <% } %>

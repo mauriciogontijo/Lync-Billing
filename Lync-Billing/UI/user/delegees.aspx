@@ -1,4 +1,4 @@
-﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="phonecalls.aspx.cs" Inherits="Lync_Billing.ui.user.phonecalls" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="delegees.aspx.cs" Inherits="Lync_Billing.ui.user.delegees" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>eBill | User Tools</title>
@@ -13,9 +13,6 @@
     </style>
 
     <script type="text/javascript">
-        toolTipData = { "name": {}, "sip_account": "" };
-        window.toolTipData = toolTipData;
-
         BrowserDetect.init();
 
         $(document).ready(function () {
@@ -65,20 +62,16 @@
         }
 
         function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
-
-            if (record.data != null) {
-                if (record.data.UI_CallType == 'Personal') {
-                    meta.style = "color: rgb(201, 20, 20);";
-                }
-                if (record.data.UI_CallType == 'Business') {
-                    meta.style = "color: rgb(46, 143, 42);";
-                }
-                if (record.data.UI_CallType == 'Dispute') {
-                    meta.style = "color: rgb(31, 115, 164);";
-                }
-
-                return value
+            if (record.data.UI_CallType == 'Personal') {
+                meta.style = "color: rgb(201, 20, 20);";
             }
+            if (record.data.UI_CallType == 'Business') {
+                meta.style = "color: rgb(46, 143, 42);";
+            }
+            if (record.data.UI_CallType == 'Dispute') {
+                meta.style = "color: rgb(31, 115, 164);";
+            }
+            return value
         }
 
 
@@ -115,22 +108,15 @@
         var submitValue = function (grid, hiddenFormat, format) {
             grid.submitData(false, { isUpload: true });
         };
-
-        var onShow = function (toolTip, grid) {
-            var view = grid.getView(),
-                store = grid.getStore(),
-                record = view.getRecord(view.findItemByChild(toolTip.triggerElement)),
-                column = view.getHeaderByCell(toolTip.triggerElement),
-                data = record.get(column.dataIndex);
-
-            if (column.id == "main_content_place_holder_DestinationNumberUri") {
-                data = record.get("PhoneBookName");
-            }
-
-            toolTip.update(data);
-        };
-
     </script>
+
+    <ext:XScript ID="XScript1" runat="server">
+        <script type="text/javascript">
+            var enable_get_calls_button = function () {
+                #{GetDelegatedUserCallsButton}.setDisabled(false)
+            }
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -150,7 +136,7 @@
                             <p>Manage</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../user/phonecalls.aspx' class="selected">Phone Calls</a></p>
+                            <p><a href='../user/phonecalls.aspx'>Phone Calls</a></p>
                             <p><a href="../user/addressbook.aspx">Address Book</a></p>
                             <!--<p><a href="#">Authorized Delegate</a></p>-->
                         </div>
@@ -176,16 +162,15 @@
                     </div>
 
                     <%
-                        bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                        if (is_delegate)
-                        {
+                        bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                        if (condition) {
                     %>
                         <div class='sidebar-section'>
                             <div class="sidebar-section-header">
                                 <p>Delegee Accounts</p>
                             </div>
                             <div class="sidebar-section-body">
-                                <p><a href='../user/delegees.aspx'>Manage Delegee(s)</a></p>
+                                <p><a href='../user/delegees.aspx' class="selected">Manage Delegee(s)</a></p>
                             </div>
                         </div>
                     <% } %>
@@ -196,45 +181,88 @@
     <!-- *** END OF SIDEBAR *** -->
 
 
-    <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
-    <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
+    <!-- *** START OF DELEGATES SELECTOR *** -->
+    <div id='generate-report-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
-            
-            <asp:ObjectDataSource 
-                ID="PhoneCallsDataSource" 
+            <ext:Panel
+                ID="SelectDelegatedAccountsPanel" 
                 runat="server" 
-                OnSelecting="PhoneCallsDataSource_Selecting"
-                OnSelected="PhoneCallsDataSource_Selected"
-                SelectMethod="GetPhoneCallsFilter"
-                TypeName="Lync_Billing.ui.user.phonecalls">
-                <SelectParameters>
-                    <asp:Parameter Name="start" Type="Int32" />
-                    <asp:Parameter Name="limit" Type="Int32" />
-                    <asp:Parameter Name="sort" Type="Object" />                
-                    <asp:Parameter Name="count" Direction="Output" Type="Int32" />
-                </SelectParameters>
-            </asp:ObjectDataSource>
+                Width="740"
+                Height="54"  
+                Header="true"
+                Title="Select Delegated Accounts"
+                Layout="Anchor">
+                <TopBar>
+                    <ext:Toolbar ID="Toolbar2" runat="server">
+                        <Items>
+                            <ext:ComboBox 
+                                ID="DelegatedUsersComboBox" 
+                                runat="server" 
+                                Icon="User" 
+                                TriggerAction="All" 
+                                QueryMode="Single"
+                                DisplayField="SipAccount" 
+                                ValueField="SipAccount"
+                                FieldLabel="<p class='ml5 float-left'>User Account</p>"
+                                LabelWidth="90"
+                                Width="350"
+                                EmptyText="Select User Account">
+                                <Store>
+                                    <ext:Store 
+                                        ID="DelegatedUsersStore" 
+                                        runat="server" 
+                                        OnLoad="DelegatedUsersStore_Load">
+                                        <Model>
+                                            <ext:Model ID="Model1" runat="server" IDProperty="SipAccount">
+                                                <Fields>
+                                                    <ext:ModelField Name="SipAccount" Type="String" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
+                                <DirectEvents>
+                                    <Select OnEvent="OnComboboxSelection_Change"></Select>
+                                </DirectEvents>
+                                <Listeners>
+                                    <Change Handler="enable_get_calls_button();"></Change>
+                                </Listeners>
+                            </ext:ComboBox>
+
+                            <ext:Button
+                                ID="GetDelegatedUserCallsButton"
+                                runat="server"
+                                OnDirectClick="GetDelegatedUserCallsButton_DirectClick"
+                                Text="Get User Phone Calls"
+                                Icon="ApplicationEdit"
+                                Disabled="true">
+                            </ext:Button>
+                        </Items>
+                    </ext:Toolbar>
+                </TopBar>
+            </ext:Panel>
+
+            <div class="h5 clear"></div>
+            
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"
                 runat="server"
-                Title="Manage Phone Calls"
+                
                 Width="740"
-                Height="750"
+                Height="730"
                 AutoScroll="true"
                 Header="true"
                 Scroll="Both"
                 Layout="FitLayout">
+
                 <Store>
                     <ext:Store 
                         ID="PhoneCallsStore" 
                         runat="server" 
-                        RemoteSort="true" 
+                        IsPagingStore="true" 
                         PageSize="25"
-                        DataSourceID="PhoneCallsDataSource"
+                        OnSubmitData="PhoneCallsStore_SubmitData"
                         OnReadData="PhoneCallsStore_ReadData">
-                        <Proxy>
-                            <ext:PageProxy CacheString=""/>
-                        </Proxy>
                         <Model>
                             <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
                                 <Fields>
@@ -248,26 +276,19 @@
                                     <ext:ModelField Name="Marker_CallCost" Type="Float" />
                                     <ext:ModelField Name="UI_CallType" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
-                                    <ext:ModelField Name="PhoneBookName" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
-                        <Sorters>
-                            <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
-                        </Sorters>
-                       <%-- <Listeners>
-                            <Load Handler="Ext.net.Mask.show({msg: 'Loading..'});" />
-                        </Listeners>--%>
                     </ext:Store>
                 </Store>
+
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                     <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
                         <ext:Column
                             ID="SessionIdTime"
                             runat="server"
                             Text="Date"
-                            Width="140"
+                            Width="160"
                             DataIndex="SessionIdTime">
                             <Renderer Fn="myDateRenderer" />
                         </ext:Column>
@@ -311,8 +332,8 @@
                             DataIndex="UI_CallType">
                             <Renderer Fn="getRowClassForIsPersonal" />
                         </ext:Column>
-                       
-                         <ext:Column
+
+                        <ext:Column
                             ID="UI_MarkedOn"
                             runat="server"
                             Text="Updated On"
@@ -350,7 +371,7 @@
                                 <Buttons>
                                     <ext:Button ID="Business" Text="Business" runat="server">
                                         <DirectEvents>
-                                            <Click OnEvent="AssignAllBusiness">
+                                            <Click OnEvent="AssignBusiness">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
                                                     <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
@@ -361,7 +382,7 @@
 
                                     <ext:Button ID="Personal" Text="Personal" runat="server">
                                         <DirectEvents>
-                                            <Click OnEvent="AssignAllPersonal">
+                                            <Click OnEvent="AssignPersonal">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
                                                     <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
@@ -379,37 +400,10 @@
                                                 </ExtraParams>
                                             </Click>
                                         </DirectEvents>
-                                    </ext:Button> 
-                                </Buttons>
-                            </ext:ButtonGroup>
-                            
-                            <ext:ButtonGroup runat="server" Frame="false" ButtonAlign="Center" Width="250">
-                                <Buttons>
-                                    <ext:Button ID="AssignMarkedAlwaysBusiness" Text=" Always Business" runat="server">
-	                                    <DirectEvents>
-		                                    <Click OnEvent="AssignAlwaysBusiness">
-			                                    <EventMask ShowMask="true" />
-			                                    <ExtraParams>
-				                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-			                                    </ExtraParams>
-		                                    </Click>
-	                                    </DirectEvents>
-                                    </ext:Button>
-
-                                    <ext:Button ID="AssignMarkedAlwaysPersonal" Text=" Always Personal" runat="server">
-	                                    <DirectEvents>
-		                                    <Click OnEvent="AssignAlwaysPersonal">
-			                                    <EventMask ShowMask="true" />
-			                                    <ExtraParams>
-				                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-			                                    </ExtraParams>
-		                                    </Click>
-	                                    </DirectEvents>
                                     </ext:Button>
                                 </Buttons>
                             </ext:ButtonGroup>
-
-                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 50">
+                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 300">
                                  <Listeners>
                                     <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
                                 </Listeners>
@@ -425,19 +419,17 @@
                         StoreID="PhoneCallStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Phone Calls {0} - {1} of {2}"/>
+                        DisplayMsg="Phone Calls {0} - {1} of {2}" />
                 </BottomBar>
-                
             </ext:GridPanel>
-             <ext:ToolTip ID="ToolTip1" 
-                runat="server" 
-                Target="={#{ManagePhoneCallsGrid}.getView().el}"
-                Delegate=".x-grid-cell"
-                TrackMouse="true">
-                <Listeners>
-                    <Show Handler="onShow(this, #{ManagePhoneCallsGrid});" /> 
-                </Listeners>
-        </ext:ToolTip>     
+        </div>
+    </div>
+    <!-- *** END OF DELEGATES SELECTOR *** -->
+
+
+    <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
+    <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
+        <div class="block-body pt5">
         </div>
     </div>
     <!-- *** END OF MANAGE PHONE CALLS GRID *** -->
