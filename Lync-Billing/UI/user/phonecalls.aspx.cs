@@ -18,6 +18,13 @@ namespace Lync_Billing.ui.user
 {
     public partial class phonecalls : System.Web.UI.Page
     {
+        private Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        private List<string> columns = new List<string>();
+        private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
+        private string sipAccount = string.Empty;
+        private string pageData = string.Empty;
+        private StoreReadDataEventArgs e;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -27,27 +34,107 @@ namespace Lync_Billing.ui.user
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
             }
+
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).phoneBook = PhoneBook.GetAddressBook(sipAccount);
+           
+        }
+
+
+        protected void getPhoneCalls(bool force = false)
+        {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+
+            if (userSession.PhoneCalls == null || userSession.PhoneCalls.Count == 0 || force == true)
+            {
+                wherePart.Add("SourceUserUri", userSession.SipAccount);
+                wherePart.Add("ac_IsInvoiced", "NO");
+                wherePart.Add("marker_CallTypeID", 1);
+
+                columns.Add("SessionIdTime");
+                columns.Add("SessionIdSeq");
+                columns.Add("ResponseTime");
+                columns.Add("SessionEndTime");
+                columns.Add("marker_CallToCountry");
+                columns.Add("DestinationNumberUri");
+                columns.Add("Duration");
+                columns.Add("marker_CallCost");
+                columns.Add("ui_CallType");
+                columns.Add("ui_MarkedOn");
+
+                userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            }
         }
 
         protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
+            if (this.e.Start != -1)
+                e.InputParameters["start"] = this.e.Start;
+            else
+                e.InputParameters["start"] = 0;
 
+            if (this.e.Limit != -1)
+                e.InputParameters["limit"] = this.e.Limit;
+            else
+                e.InputParameters["limit"] = 25;
+
+            if (!string.IsNullOrEmpty(this.e.Parameters["sort"]))
+                e.InputParameters["sort"] = this.e.Sort[0];
+            else
+                e.InputParameters["sort"] = null;
+
+            if (!string.IsNullOrEmpty(this.e.Parameters["filter"]))
+                e.InputParameters["filter"] = this.e.Filter[0];
+            else
+                e.InputParameters["filter"] = null;
         }
 
         protected void PhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
         {
-
+            (this.PhoneCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
         }
 
         protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
+            this.e = e;
+            
+            PhoneCallsStore.DataBind();
 
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            userSession.PhoneCallsPerPage = PhoneCallsStore.JsonData;
         }
 
         public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
-            count = 0;
-            return null;
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            getPhoneCalls();
+
+            IQueryable<PhoneCall> result;
+ 
+            if(filter != null && filter.Value == string.Empty)
+                result = userSession.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
+            else
+                result = userSession.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
+         
+            if (sort != null)
+            {
+                ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
+
+                Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
+                if (sort.Direction == Ext.Net.SortDirection.DESC)
+                    result = result.OrderByDescending(sortExpression);
+                else
+                    result = result.OrderBy(sortExpression);
+            }
+
+            int resultCount = result.Count();
+
+            if (start >= 0 && limit > 0)
+                result = result.Skip(start).Take(limit);
+
+            count = resultCount;
+            
+            return result.ToList();
         }
 
         protected void AssignAllPersonal(object sender, DirectEventArgs e)
@@ -73,6 +160,20 @@ namespace Lync_Billing.ui.user
         protected void AssignAlwaysBusiness(object sender, DirectEventArgs e)
         {
 
+        }
+
+        [DirectMethod]
+        protected void PhoneCallsHistoryFilter(object sender, DirectEventArgs e)
+        {
+            
+
+            if (FilterTypeComboBox.SelectedItem.Value == "Unmarked")
+                PhoneCallsStore.Filter("UI_CallType", null);
+            else
+                PhoneCallsStore.Filter("UI_CallType", string.Empty);
+
+            PhoneCallsStore.LoadPage(1);
+            PhoneCallsStore.ClearFilter();
         }
     }
 }

@@ -210,33 +210,6 @@
     <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
     <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
-            <ext:TabPanel
-                ID="ManagePhoneCallsTabPanel"
-                runat="server"
-                Width="740"
-                Height="52"
-                Header="true"
-                Title="Manage Phone Calls"
-                Layout="FitLayout">
-                <Items>
-                    <ext:Panel
-                        ID="UnmarkedCallsTab"
-                        runat="server"
-                        Title="Unmarked Calls"
-                        Height="0"
-                        Width="0">
-                    </ext:Panel>
-
-                    <ext:Panel
-                        ID="MarkedCallsTab"
-                        runat="server"
-                        Title="Marked Calls"
-                        Height="0"
-                        Width="0">
-                    </ext:Panel>
-                </Items>
-            </ext:TabPanel>
-
             <div class="clear"></div>
 
             <asp:ObjectDataSource
@@ -257,11 +230,9 @@
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"
                 runat="server"
-                Title="Manage Phone Calls"
                 Width="740"
                 Height="750"
                 AutoScroll="true"
-                Header="true"
                 Scroll="Both"
                 Layout="FitLayout">
                 <Store>
@@ -359,6 +330,13 @@
                         </ext:Column>
                     </Columns>
                 </ColumnModel>
+                <Features>
+                     <ext:GridFilters ID="StatusTypeFilter" runat="server">
+                        <Filters>
+                            <ext:StringFilter DataIndex="UI_CallType"/>
+                        </Filters>
+                    </ext:GridFilters>
+                </Features>
 
                 <SelectionModel>
                     <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
@@ -369,10 +347,26 @@
                         CheckOnly="true">
                     </ext:CheckboxSelectionModel>
                 </SelectionModel>
-
                 <TopBar>
                     <ext:Toolbar ID="Toolbar1" runat="server">
                         <Items>
+                            <ext:ComboBox 
+                                ID="FilterTypeComboBox" 
+                                runat="server" 
+                                Icon="Find" 
+                                TriggerAction="All" 
+                                QueryMode="Local" 
+                                DisplayField="TypeName" 
+                                ValueField="TypeValue">
+                                <Items>
+                                    <ext:ListItem Text="Unmarked" Value="Unmarked" />
+                                    <ext:ListItem Text="Marked" Value="Marked"/>
+                                </Items>
+                                    <DirectEvents>
+                                        <Select OnEvent="PhoneCallsHistoryFilter" />
+                                    </DirectEvents>
+                            </ext:ComboBox>
+
                             <ext:Label runat="server" ID="button_group_lable" Margin="5">
                                 <Content>Mark Selected As:</Content>
                             </ext:Label>

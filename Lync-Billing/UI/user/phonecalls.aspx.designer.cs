@@ -22,33 +22,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Panel UserToolsSidebar;
         
         /// <summary>
-        /// ManagePhoneCallsTabPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TabPanel ManagePhoneCallsTabPanel;
-        
-        /// <summary>
-        /// UnmarkedCallsTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel UnmarkedCallsTab;
-        
-        /// <summary>
-        /// MarkedCallsTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel MarkedCallsTab;
-        
-        /// <summary>
         /// PhoneCallsDataSource control.
         /// </summary>
         /// <remarks>
@@ -157,6 +130,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Column UI_MarkedOn;
         
         /// <summary>
+        /// StatusTypeFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridFilters StatusTypeFilter;
+        
+        /// <summary>
         /// CheckboxSelectionModel1 control.
         /// </summary>
         /// <remarks>
@@ -173,6 +155,15 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Toolbar Toolbar1;
+        
+        /// <summary>
+        /// FilterTypeComboBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox FilterTypeComboBox;
         
         /// <summary>
         /// button_group_lable control.
