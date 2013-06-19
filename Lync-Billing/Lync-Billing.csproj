@@ -136,7 +136,7 @@
     <Content Include="ui\user\bills.aspx" />
     <Content Include="ui\user\dashboard.aspx" />
     <Content Include="ui\user\addressbook.aspx" />
-    <Content Include="ui\user\manage_delegates.aspx" />
+    <Content Include="ui\user\delegees.aspx" />
     <Content Include="ui\user\history.aspx" />
     <Content Include="ui\user\phonecalls.aspx" />
     <Content Include="ui\user\statistics.aspx" />
@@ -271,12 +271,12 @@
     <Compile Include="ui\user\addressbook.aspx.designer.cs">
       <DependentUpon>addressbook.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\user\manage_delegates.aspx.cs">
-      <DependentUpon>manage_delegates.aspx</DependentUpon>
+    <Compile Include="ui\user\delegees.aspx.cs">
+      <DependentUpon>delegees.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\user\manage_delegates.aspx.designer.cs">
-      <DependentUpon>manage_delegates.aspx</DependentUpon>
+    <Compile Include="ui\user\delegees.aspx.designer.cs">
+      <DependentUpon>delegees.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\user\history.aspx.cs">
       <DependentUpon>history.aspx</DependentUpon>
