@@ -229,6 +229,88 @@ namespace Lync_Billing.ui.user
             PhoneCallsStore.LoadPage(1);
         }
 
+        protected void AssignPersonal(object sender, DirectEventArgs e) 
+        {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+
+            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+
+            string json = e.ExtraParams["Values"];
+
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();
+            List<PhoneCall> perPagePhoneCalls = new List<PhoneCall>();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.NullValueHandling = NullValueHandling.Ignore;
+
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
+
+            foreach (PhoneCall phoneCall in phoneCalls)
+            {
+                PhoneCall matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
+
+
+                matchedDestinationCalls.UI_CallType = "Personal";
+                matchedDestinationCalls.UI_MarkedOn = DateTime.Now;
+                matchedDestinationCalls.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+                PhoneCall.UpdatePhoneCall(matchedDestinationCalls);
+
+                ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCalls.SessionIdTime.ToString());
+                model.Set(matchedDestinationCalls);
+                model.Commit();
+
+            }
+
+            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            PhoneCallsStore.LoadPage(1);
+        }
+
+        protected void AssignBusiness(object sender, DirectEventArgs e) 
+        {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+
+            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+
+            string json = e.ExtraParams["Values"];
+
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();
+            List<PhoneCall> perPagePhoneCalls = new List<PhoneCall>();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.NullValueHandling = NullValueHandling.Ignore;
+
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
+
+            foreach (PhoneCall phoneCall in phoneCalls)
+            {
+                PhoneCall matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
+
+
+                matchedDestinationCalls.UI_CallType = "Business";
+                matchedDestinationCalls.UI_MarkedOn = DateTime.Now;
+                matchedDestinationCalls.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+                PhoneCall.UpdatePhoneCall(matchedDestinationCalls);
+
+                ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCalls.SessionIdTime.ToString());
+                model.Set(matchedDestinationCalls);
+                model.Commit();
+
+            }
+
+            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            PhoneCallsStore.LoadPage(1);
+        }
+
         protected void AssignDispute(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
