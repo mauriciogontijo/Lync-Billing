@@ -63,7 +63,7 @@
                                     <li id="user-tab" class="">
                                         <a href="#"><%= ((Lync_Billing.DB.UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName %><span class="drop"></span></a>
                                         <ul id="user-dropdown">
-                                            <li id="manage-phonecalls-tab"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
+                                            <li class="first-child"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
                                             <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
                                             <li class=""><a title="Bills History" href="../user/bills.aspx">Bills History</a></li>
                                             <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
