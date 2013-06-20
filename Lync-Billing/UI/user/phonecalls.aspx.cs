@@ -272,12 +272,132 @@ namespace Lync_Billing.ui.user
 
         protected void AssignAlwaysPersonal(object sender, DirectEventArgs e)
         {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
+            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+
+            string json = e.ExtraParams["Values"];
+
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();
+            List<PhoneCall> perPagePhoneCalls = new List<PhoneCall>();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.NullValueHandling = NullValueHandling.Ignore;
+
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
+            //perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
+
+            PhoneBook phoneBookEntry;
+
+            List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
+
+            foreach (PhoneCall phoneCall in phoneCalls)
+            {
+                //Ceare Phonebook Entry
+                phoneBookEntry = new PhoneBook();
+
+                //Check if this entry Already exists 
+                if (!userSession.phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                {
+                    phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
+                    phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
+                    phoneBookEntry.SipAccount = userSession.SipAccount;
+                    phoneBookEntry.Type = "Personal";
+
+                    //Add Phonebook entry to Session and to the list which will be written to database 
+                    userSession.phoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+                    phoneBookEntries.Add(phoneBookEntry);
+                }
+
+                var matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
+
+                foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
+                {
+                    if (matchedDestinationCall.UI_CallType == "Personal")
+                        break;
+
+                    matchedDestinationCall.UI_CallType = "Personal";
+                    matchedDestinationCall.UI_MarkedOn = DateTime.Now;
+                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+                    PhoneCall.UpdatePhoneCall(matchedDestinationCall);
+                }
+            }
+
+            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            PhoneCallsStore.LoadPage(1);
+
+            //Add To User PhoneBook Store
+            PhoneBook.AddPhoneBookEntries(phoneBookEntries);
         }
 
         protected void AssignAlwaysBusiness(object sender, DirectEventArgs e)
         {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
 
+            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
+
+            string json = e.ExtraParams["Values"];
+
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();
+            List<PhoneCall> perPagePhoneCalls = new List<PhoneCall>();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.NullValueHandling = NullValueHandling.Ignore;
+
+            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(userSession.PhoneCallsPerPage, settings);
+            //perPagePhoneCalls = serializer.Deserialize<List<PhoneCall>>(userSession.PhoneCallsPerPage);
+
+            PhoneBook phoneBookEntry;
+
+            List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
+
+            foreach (PhoneCall phoneCall in phoneCalls)
+            {
+                //Ceare Phonebook Entry
+                phoneBookEntry = new PhoneBook();
+
+                //Check if this entry Already exists 
+                if (!userSession.phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                {
+                    phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
+                    phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
+                    phoneBookEntry.SipAccount = userSession.SipAccount;
+                    phoneBookEntry.Type = "Business";
+
+                    //Add Phonebook entry to Session and to the list which will be written to database 
+                    userSession.phoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+                    phoneBookEntries.Add(phoneBookEntry);
+                }
+
+                var matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
+
+                foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
+                {
+                    if (matchedDestinationCall.UI_CallType == "Business")
+                        break;
+
+                    matchedDestinationCall.UI_CallType = "Business";
+                    matchedDestinationCall.UI_MarkedOn = DateTime.Now;
+                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+
+                    PhoneCall.UpdatePhoneCall(matchedDestinationCall);
+                }
+            }
+
+            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            PhoneCallsStore.LoadPage(1);
+
+            //Add To User PhoneBook Store
+            PhoneBook.AddPhoneBookEntries(phoneBookEntries);
         }
 
         [DirectMethod]
