@@ -16,64 +16,6 @@
 	        $('#navigation-tabs>li.selected').removeClass('selected');
 	        $('#user-tab').addClass('selected');
 	    });
-
-	    function RoundCost(value, meta, record, rowIndex, colIndex, store) {
-	        return Math.round(record.data.PersonalCallsCost * 100) / 100;
-	    }
-
-	    //Manage-Phone-Calls Grid JavaScripts
-	    var myDateRenderer = function (value) {
-	        if (typeof value != undefined && value != 0) {
-	            var months_array = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-	            var months_long_names = {
-	                'Jan': 'January',
-	                'Feb': 'February',
-	                'Mar': 'March',
-	                'Apr': 'April',
-	                'May': 'May',
-	                'Jun': 'June',
-	                'Jul': 'July',
-	                'Aug': 'August',
-	                'Sep': 'September',
-	                'Oct': 'October',
-	                'Nov': 'November',
-	                'Dec': 'December'
-	            };
-
-	            var date = value.toString();
-	            var date_array = date.split(' ');
-
-	            //The following is a weird IE bugfix
-	            //@date string appears in IE like this: "Thu Jan 31 00:00:00 UTC+0200 2013"
-	            //@date string appears in other browsers like this: "Thu Jan 31 2013 00:00:00 GMT+0200 (GTB Standard Time)"
-                //So by splitting the string on different browsers, you get different index of the year substring!
-	            if (BrowserDetect.browser == "Explorer") {
-	                return (months_long_names[date_array[1]] + ", " + date_array[date_array.length - 1]); //year is at last index
-	            } else {
-	                return (months_long_names[date_array[1]] + ", " + date_array[3]); //year is at 4th index
-	            }
-	        }
-	    }
-
-	    function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
-
-	        var sec_num = parseInt(record.data.PersonalCallsDuration, 10);
-	        var hours = Math.floor(sec_num / 3600);
-	        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-	        var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-	        if (hours < 10) {
-	            hours = "0" + hours;
-	        }
-	        if (minutes < 10) {
-	            minutes = "0" + minutes;
-	        }
-	        if (seconds < 10) {
-	            seconds = "0" + seconds;
-	        }
-
-	        return hours + ':' + minutes + ':' + seconds;;
-	    }
 	</script>
 </asp:Content>
 
@@ -184,7 +126,7 @@
                             DataIndex="MonthDate"
                             Groupable="false"
                             Align="Left">
-                            <Renderer Fn="myDateRenderer" />
+                            <Renderer Fn="SpecialDateRenderer" />
                         </ext:Column>
 
                         <ext:Column ID="TotalCalls"

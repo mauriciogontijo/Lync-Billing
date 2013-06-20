@@ -5,142 +5,20 @@
 
     <style type="text/css">
         /* start manage-phone-calls grid styling */
-        .x-grid-with-row-lines .x-grid-cell {
-            height: 25px !important;
-        }
-
-        .row-green {
-            background-color: rgb(46, 143, 42);
-        }
-
-        .row-red {
-            background-color: rgb(201, 20, 20);
-        }
-
-        .row-yellow {
-            background-color: yellow;
-        }
+        .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
+        .row-green { background-color: rgb(46, 143, 42); }
+        .row-red { background-color: rgb(201, 20, 20); }
+        .row-yellow { background-color: yellow; }
         /* end manage-phone-calls grid styling */
     </style>
 
     <script type="text/javascript">
-        toolTipData = { "name": {}, "sip_account": "" };
-        window.toolTipData = toolTipData;
-
         BrowserDetect.init();
 
         $(document).ready(function () {
             $('#navigation-tabs>li.selected').removeClass('selected');
             $('#user-tab').addClass('selected');
         });
-
-        function RoundCost(value, meta, record, rowIndex, colIndex, store) {
-            return Math.round(record.data.Marker_CallCost * 100) / 100;
-        }
-
-        //Manage-Phone-Calls Grid JavaScripts
-        var myDateRenderer = function (value) {
-            if (typeof value != undefined && value != 0) {
-                if (BrowserDetect.browser != "Explorer") {
-                    value = Ext.util.Format.date(value, "d M Y h:i A");
-                    return value;
-                } else {
-                    var my_date = {};
-                    var value_array = value.split(' ');
-                    var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-                    my_date["date"] = value_array[0];
-                    my_date["time"] = value_array[1];
-
-                    var date_parts = my_date["date"].split('-');
-                    my_date["date"] = {
-                        year: date_parts[0],
-                        month: months[parseInt(date_parts[1])],
-                        day: date_parts[2]
-                    }
-
-                    var time_parts = my_date["time"].split(':');
-                    my_date["time"] = {
-                        hours: time_parts[0],
-                        minutes: time_parts[1],
-                        period: (time_parts[0] < 12 ? 'AM' : 'PM')
-                    }
-
-                    //var date_format = Date(my_date["date"].year, my_date["date"].month, my_date["date"].day, my_date["time"].hours, my_date["time"].minutes);
-                    return (
-                        my_date.date.day + " " + my_date.date.month + " " + my_date.date.year + " " +
-                        my_date.time.hours + ":" + my_date.time.minutes + " " + my_date.time.period
-                    );
-                }//END ELSE
-            }//END OUTER IF
-        }
-
-        function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
-
-            if (record.data != null) {
-                if (record.data.UI_CallType == 'Personal') {
-                    meta.style = "color: rgb(201, 20, 20);";
-                }
-                if (record.data.UI_CallType == 'Business') {
-                    meta.style = "color: rgb(46, 143, 42);";
-                }
-                if (record.data.UI_CallType == 'Dispute') {
-                    meta.style = "color: rgb(31, 115, 164);";
-                }
-
-                return value
-            }
-        }
-
-
-        function getRowClassForIsInvoiced(value, meta, record, rowIndex, colIndex, store) {
-            if (record.data.AC_IsInvoiced == 'NO') {
-                meta.style = "color: rgb(201, 20, 20);";
-            }
-            if (record.data.AC_IsInvoiced == 'YES') {
-                meta.style = "color: rgb(46, 143, 42);";
-            }
-            return value
-        }
-
-        function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
-
-            var sec_num = parseInt(record.data.Duration, 10);
-            var hours = Math.floor(sec_num / 3600);
-            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-            var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-            if (hours < 10) {
-                hours = "0" + hours;
-            }
-            if (minutes < 10) {
-                minutes = "0" + minutes;
-            }
-            if (seconds < 10) {
-                seconds = "0" + seconds;
-            }
-
-            return hours + ':' + minutes + ':' + seconds;;
-        }
-
-        var submitValue = function (grid, hiddenFormat, format) {
-            grid.submitData(false, { isUpload: true });
-        };
-
-        var onShow = function (toolTip, grid) {
-            var view = grid.getView(),
-                store = grid.getStore(),
-                record = view.getRecord(view.findItemByChild(toolTip.triggerElement)),
-                column = view.getHeaderByCell(toolTip.triggerElement),
-                data = record.get(column.dataIndex);
-
-            if (column.id == "main_content_place_holder_DestinationNumberUri") {
-                data = record.get("PhoneBookName");
-            }
-
-            toolTip.update(data);
-        };
-
     </script>
 </asp:Content>
 
@@ -320,7 +198,7 @@
                             Text="Date"
                             Width="140"
                             DataIndex="SessionIdTime">
-                            <Renderer Fn="myDateRenderer" />
+                            <Renderer Fn="DateRenderer" />
                         </ext:Column>
 
                         <ext:Column

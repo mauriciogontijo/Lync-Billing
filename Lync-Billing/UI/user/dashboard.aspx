@@ -21,6 +21,7 @@
 
     <script type="text/javascript" src="../resources/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../resources/js/browserdetector.js"></script>
+    <script type="text/javascript" src="../resources/js/ext-js-specific.js"></script>
 
     <!--[if lte IE 9]>
 	    <link rel="stylesheet" type="text/css" href="../resources/css/green-layout-ie-hacks.css" />
@@ -41,60 +42,7 @@
             $('#home-tab').addClass('selected');
         });
 
-        var myDateRenderer = function (value) {
-            if (typeof value != undefined && value != 0) {
-                if (BrowserDetect.browser != "Explorer") {
-                    value = Ext.util.Format.date(value, "d M Y h:i A");
-                    return value;
-                } else {
-                    var my_date = {};
-                    var value_array = value.split(' ');
-                    var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-                    my_date["date"] = value_array[0];
-                    my_date["time"] = value_array[1];
-
-                    var date_parts = my_date["date"].split('-');
-                    my_date["date"] = {
-                        year: date_parts[0],
-                        month: months[parseInt(date_parts[1])],
-                        day: date_parts[2]
-                    }
-
-                    var time_parts = my_date["time"].split(':');
-                    my_date["time"] = {
-                        hours: time_parts[0],
-                        minutes: time_parts[1],
-                        period: (time_parts[0] < 12 ? 'AM' : 'PM')
-                    }
-
-                    //var date_format = Date(my_date["date"].year, my_date["date"].month, my_date["date"].day, my_date["time"].hours, my_date["time"].minutes);
-                    return (
-                        my_date.date.day + " " + my_date.date.month + " " + my_date.date.year + " " +
-                        my_date.time.hours + ":" + my_date.time.minutes + " " + my_date.time.period
-                    );
-                }//END ELSE
-            }//END OUTER IF
-        }
-
-        var chartsDurationFormat = function (seconds) {
-            var sec_num = parseInt(seconds, 10);
-            var hours = Math.floor(sec_num / 3600);
-            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-            var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-            if (hours < 10) hours = "0" + hours;
-            if (minutes < 10) minutes = "0" + minutes;
-            if (seconds < 10) seconds = "0" + seconds;
-
-            return hours + ':' + minutes + ':' + seconds;
-        }
-
-        var submitValue = function (grid, hiddenFormat, format) {
-            grid.submitData(false, { isUpload: true });
-        };
-
-
+        
         //Pie Chart Data-Lable Renderer for Countries Destinations Calls
         var TopCountries_LableRenderer = function (storeItem, item) {
             var total = 0, all_countries_data = {};
@@ -130,23 +78,6 @@
             );
         };
 
-
-        var GetHoursFromMinutes = function (value) {
-            var sec_num = parseInt(value, 10);
-            var hours = Math.floor(sec_num / 60);
-            var minutes = Math.floor((sec_num - (hours * 60)));
-            return hours + "." + minutes;
-        };
-
-        var redirect_to_manage_phonecalls = function () {
-            //window.location = 'dashboard.aspx';
-        };
-
-        var redirect_to = function (destination) {
-            if (typeof destination == "string" && destination != 0) {
-                window.location = destination;
-            }
-        };
 
         Ext.override(Ext.chart.LegendItem, {
             createSeriesMarkers: function (config) {
@@ -340,9 +271,6 @@
                                             <Tips ID="Tips2" runat="server" TrackMouse="true" Width="200" Height="75">
                                                 <Renderer Fn="TopCountries_TipRenderer" />
                                             </Tips>
-                                            <Listeners>
-                                                <ItemClick Fn="redirect_to_manage_phonecalls" />
-                                            </Listeners>
                                         </ext:PieSeries>
                                     </Series>
                                 </ext:Chart>

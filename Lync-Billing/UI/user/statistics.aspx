@@ -17,26 +17,6 @@
 	        $('#user-tab').addClass('selected');
 	    });
 
-	    var GetHoursFromMinutes = function (value) {
-	        var sec_num = parseInt(value, 10);
-	        var hours = Math.floor(sec_num / 60);
-	        var minutes = Math.floor((sec_num - (hours * 60)));
-	        return hours + "." + minutes;
-	    };
-
-	    var chartsDurationFormat = function (seconds) {
-	        var sec_num = parseInt(seconds, 10);
-	        var hours = Math.floor(sec_num / 3600);
-	        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-	        var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-	        if (hours < 10) hours = "0" + hours;
-	        if (minutes < 10) minutes = "0" + minutes;
-	        if (seconds < 10) seconds = "0" + seconds;
-
-	        return hours + ':' + minutes + ':' + seconds;
-	    }
-
 	    //Pie Chart Data-Lable Renderer for Personal Calls
 	    var TotalDuration_LableRenderer = function (storeItem, item) {
 	        var total = 0,
@@ -219,12 +199,6 @@
 	    var redirect_to_manage_phonecalls = function () {
 	        to = "../user/manage_phone_calls.aspx"
 	        window.location = to;
-	    };
-
-	    var redirect_to = function (destination) {
-	        if (typeof destination == "string" && destination != 0) {
-	            window.location = destination;
-	        }
 	    };
 	</script>
 </asp:Content>
