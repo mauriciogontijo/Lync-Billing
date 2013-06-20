@@ -97,6 +97,7 @@
     <Content Include="App_Readme\Transformer.NET\LICENSE.txt" />
     <Content Include="App_Readme\Transformer.NET\README.txt" />
     <Content Include="Global.asax" />
+    <Content Include="index.aspx" />
     <Content Include="Resources\Csv.xsl" />
     <Content Include="Resources\excel.xsl" />
     <Content Include="ui\accounting\dashboard.aspx" />
@@ -164,6 +165,13 @@
     <Compile Include="DB\UserSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Libs\ADLib.cs" />
     <Compile Include="Libs\Dispatcher.cs" />
