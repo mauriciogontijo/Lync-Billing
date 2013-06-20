@@ -274,7 +274,7 @@
                 ID="ManagePhoneCallsGrid"
                 runat="server"
                 Width="740"
-                Height="670"
+                Height="720"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout">
@@ -367,7 +367,7 @@
                             ID="UI_MarkedOn"
                             runat="server"
                             Text="Updated On"
-                            Width="100"
+                            Width="115"
                             DataIndex="UI_MarkedOn">
                             <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');" />
                         </ext:Column>
