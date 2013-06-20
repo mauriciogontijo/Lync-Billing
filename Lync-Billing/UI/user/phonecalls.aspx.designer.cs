@@ -229,40 +229,76 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Button Personal;
         
         /// <summary>
-        /// Dispute control.
+        /// AdvancedActions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button Dispute;
+        protected global::Ext.Net.Button AdvancedActions;
         
         /// <summary>
-        /// ButtonGroup1 control.
+        /// AdvancedActionsMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ButtonGroup ButtonGroup1;
+        protected global::Ext.Net.Menu AdvancedActionsMenu;
         
         /// <summary>
-        /// AssignMarkedAlwaysBusiness control.
+        /// MarkAsAlwaysBusiness control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button AssignMarkedAlwaysBusiness;
+        protected global::Ext.Net.MenuItem MarkAsAlwaysBusiness;
         
         /// <summary>
-        /// AssignMarkedAlwaysPersonal control.
+        /// AlwaysBusinessTooltips control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button AssignMarkedAlwaysPersonal;
+        protected global::Ext.Net.ToolTip AlwaysBusinessTooltips;
+        
+        /// <summary>
+        /// MarkAsAlwaysPersonal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem MarkAsAlwaysPersonal;
+        
+        /// <summary>
+        /// ToolTip1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolTip ToolTip1;
+        
+        /// <summary>
+        /// MarkAsDispute control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem MarkAsDispute;
+        
+        /// <summary>
+        /// ToolTip2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolTip ToolTip2;
         
         /// <summary>
         /// ExportToExcel control.

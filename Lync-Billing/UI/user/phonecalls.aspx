@@ -274,7 +274,7 @@
                 ID="ManagePhoneCallsGrid"
                 runat="server"
                 Width="740"
-                Height="720"
+                Height="670"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout">
@@ -402,7 +402,8 @@
                                 Layout="TableLayout"
                                 Width="250"
                                 Frame="false"
-                                ButtonAlign="Right">
+                                ButtonAlign="Right"
+                                Margins="0 310 0 0">
                                 <Buttons>
                                     <ext:Button ID="Business" Text="Business" runat="server">
                                         <DirectEvents>
@@ -426,46 +427,74 @@
                                         </DirectEvents>
                                     </ext:Button>
 
-                                    <ext:Button ID="Dispute" Text="Dispute" runat="server">
-                                        <DirectEvents>
-                                            <Click OnEvent="AssignDispute">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
+                                    <ext:Button ID="AdvancedActions" runat="server" Text="Advanced">
+                                        <Menu>
+                                            <ext:Menu ID="AdvancedActionsMenu" runat="server">
+                                                <Items>                    
+                                                    <ext:MenuItem ID="MarkAsAlwaysBusiness" runat="server" Text="Mark as Always Business" Icon="GroupEdit">
+                                                        <DirectEvents>
+                                                            <Click OnEvent="AssignAlwaysBusiness">
+                                                                <EventMask ShowMask="true" />
+                                                                <ExtraParams>
+                                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                                </ExtraParams>
+                                                            </Click>
+                                                        </DirectEvents>
+                                                        <ToolTips>
+                                                            <ext:ToolTip ID="AlwaysBusinessTooltips" 
+                                                                runat="server" 
+                                                                Height="80"
+                                                                Width="500"
+                                                                Html="This will mark the selected phonecalls(s) as BUSINESS, then it will add the destination number(s) to your addressbook as BUSINESS CONTACTS, which will tell the system to automatically mark all future phonecall(s) - with respect to these destinations - as BUSINESS."
+                                                             />
+                                                        </ToolTips>
+                                                    </ext:MenuItem>
+
+                                                    <ext:MenuItem ID="MarkAsAlwaysPersonal" runat="server" Text="Mark as Always Personal" Icon="GroupEdit">
+                                                        <DirectEvents>
+                                                            <Click OnEvent="AssignAlwaysPersonal">
+                                                                <EventMask ShowMask="true" />
+                                                                <ExtraParams>
+                                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                                </ExtraParams>
+                                                            </Click>
+                                                        </DirectEvents>
+                                                        <ToolTips>
+                                                            <ext:ToolTip ID="ToolTip1" 
+                                                                runat="server" 
+                                                                Height="80"
+                                                                Width="500"
+                                                                Html="This will mark the selected phonecalls(s) as PERSONAL, then it will add the destination number(s) to your addressbook as PERSONAL CONTACTS, which will tell the system to automatically mark all future phonecall(s) - with respect to these destinations - as PERSONAL."
+                                                             />
+                                                        </ToolTips>
+                                                    </ext:MenuItem>
+
+                                                    <ext:MenuItem ID="MarkAsDispute" runat="server" Text="Mark as Dispute" Icon="GroupError">
+                                                        <DirectEvents>
+                                                            <Click OnEvent="AssignDispute">
+                                                                <EventMask ShowMask="true" />
+                                                                <ExtraParams>
+                                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                                </ExtraParams>
+                                                            </Click>
+                                                        </DirectEvents>
+                                                        <ToolTips>
+                                                            <ext:ToolTip ID="ToolTip2" 
+                                                                runat="server" 
+                                                                Height="70"
+                                                                Width="500"
+                                                                Html="This will mark the selected phonecalls(s) as DISPUTE. Please note that this will not affect any future phonecalls. Only the selected phonecalls at the moment will be marked as Dispute."
+                                                             />
+                                                        </ToolTips>
+                                                    </ext:MenuItem>
+                                                </Items>
+                                            </ext:Menu>
+                                        </Menu>
                                     </ext:Button>
                                 </Buttons>
                             </ext:ButtonGroup>
 
-                            <ext:ButtonGroup ID="ButtonGroup1" runat="server" Frame="false" ButtonAlign="Center" Width="250">
-                                <Buttons>
-                                    <ext:Button ID="AssignMarkedAlwaysBusiness" Text=" Always Business" runat="server">
-                                        <DirectEvents>
-                                            <Click OnEvent="AssignAlwaysBusiness">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
-                                    </ext:Button>
-
-                                    <ext:Button ID="AssignMarkedAlwaysPersonal" Text=" Always Personal" runat="server">
-                                        <DirectEvents>
-                                            <Click OnEvent="AssignAlwaysPersonal">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
-                                    </ext:Button>
-                                </Buttons>
-                            </ext:ButtonGroup>
-
-                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 50">
+                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel">
                                 <Listeners>
                                     <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
                                 </Listeners>
@@ -489,3 +518,43 @@
     </div>
     <!-- *** END OF MANAGE PHONE CALLS GRID *** -->
 </asp:Content>
+
+
+<%--
+<ext:Button ID="Dispute" Text="Dispute" runat="server">
+    <DirectEvents>
+        <Click OnEvent="AssignDispute">
+            <EventMask ShowMask="true" />
+            <ExtraParams>
+                <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+            </ExtraParams>
+        </Click>
+    </DirectEvents>
+</ext:Button>
+
+<ext:ButtonGroup ID="ButtonGroup1" runat="server" Frame="false" ButtonAlign="Center" Width="250">
+    <Buttons>
+        <ext:Button ID="AssignMarkedAlwaysBusiness" Text=" Always Business" runat="server">
+            <DirectEvents>
+                <Click OnEvent="AssignAlwaysBusiness">
+                    <EventMask ShowMask="true" />
+                    <ExtraParams>
+                        <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                    </ExtraParams>
+                </Click>
+            </DirectEvents>
+        </ext:Button>
+
+        <ext:Button ID="AssignMarkedAlwaysPersonal" Text=" Always Personal" runat="server">
+            <DirectEvents>
+                <Click OnEvent="AssignAlwaysPersonal">
+                    <EventMask ShowMask="true" />
+                    <ExtraParams>
+                        <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                    </ExtraParams>
+                </Click>
+            </DirectEvents>
+        </ext:Button>
+    </Buttons>
+</ext:ButtonGroup>
+--%>
