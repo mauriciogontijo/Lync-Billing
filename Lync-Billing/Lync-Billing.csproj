@@ -303,9 +303,8 @@
   <ItemGroup>
     <Content Include="ui\MasterPage.Master" />
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\TBill-Bublisher.pubxml" />
     <Content Include="ui\AccountingMaster.Master" />
-    <None Include="Properties\PublishProfiles\Tbill-Bublisher2.pubxml" />
+    <None Include="Properties\PublishProfiles\TBILL.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
