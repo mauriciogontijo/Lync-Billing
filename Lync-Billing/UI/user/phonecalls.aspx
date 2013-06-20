@@ -367,7 +367,7 @@
                             ID="UI_MarkedOn"
                             runat="server"
                             Text="Updated On"
-                            Width="115"
+                            Width="114"
                             DataIndex="UI_MarkedOn">
                             <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');" />
                         </ext:Column>
