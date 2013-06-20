@@ -191,7 +191,7 @@
                 Height="54"  
                 Header="true"
                 Title="Select Delegated Accounts"
-                Layout="Anchor">
+                Layout="AnchorLayout">
                 <TopBar>
                     <ext:Toolbar ID="Toolbar2" runat="server">
                         <Items>

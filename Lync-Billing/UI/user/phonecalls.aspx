@@ -196,7 +196,7 @@
                             <p>Delegee Accounts</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../user/manage_delegates.aspx'>Manage Delegee(s)</a></p>
+                            <p><a href='../user/delegees.aspx'>Manage Delegee(s)</a></p>
                         </div>
                     </div>
                     <% } %>
@@ -216,8 +216,8 @@
                 Header="true"
                 Title="Manage Phone Calls"
                 Width="740"
-                Height="52"
-                Layout="FitLayout">
+                Height="54"
+                Layout="AnchorLayout">
                 <TopBar>
                     <ext:Toolbar
                         ID="FilterToolbar1"
