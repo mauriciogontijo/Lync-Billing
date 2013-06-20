@@ -228,7 +228,7 @@
                                         if (is_delegate)
                                         {
                                     %>
-                                        <li class="separator-bottom"><a href="../user/delegees.aspx">Manage Delegatees</a></li>
+                                        <li class="separator-bottom"><a href="../user/delegees.aspx">Manage Delegees</a></li>
                                     <% } %>
                                     <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                 </ul>
