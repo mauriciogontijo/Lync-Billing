@@ -80,7 +80,7 @@ link of each child item
 .toolbar .vertical-navigation ul li a { height: 32px; line-height: 30px; float: left; text-align: left; display: inline;  }
 .toolbar .vertical-navigation li:hover ul li a:hover, 
 .toolbar .vertical-navigation ul li a:hover,
-.toolbar .vertical-navigation ul li:hover a { background-color: #ececec; color: #000; font-weight: bold; }
+.toolbar .vertical-navigation ul li:hover a { background-color: #ececec; color: #000; font-weight: bold; /*border-top: 1px solid #B6C0D2; border-bottom: 1px solid #B6C0D2;*/}
 
 .toolbar .vertical-navigation ul li.first-child{margin-top:3px !important; }
 .toolbar .vertical-navigation ul li.last-child{border:none; margin-bottom:3px !important; }
