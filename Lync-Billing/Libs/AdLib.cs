@@ -61,14 +61,15 @@ namespace Lync_Billing.Libs
                 msg = "Username and password cant be emapty";
                 return false;
             }
+            
             try
             {
                 ADUserInfo userInfo = GetUserAttributes(EmailAddress);
+               
                 if (userInfo == null)
                 {
                     msg = "An error Happened During Fetching User Information";
                     return false;
-
                 }
                 DirectoryEntry directoryEntry = new DirectoryEntry(LocalGCUri, userInfo.SamAccountName, password);
                 string localFilter = string.Format(ADSearchFilter, EmailAddress);
@@ -95,6 +96,7 @@ namespace Lync_Billing.Libs
                 //System.ArgumentException argEx = new System.ArgumentException("Logon failure: unknown user name or bad password");
                 //throw argEx;
                 msg = "Logon failure: unknown user name or bad password";
+                return false;
             }
         }
 
