@@ -58,9 +58,7 @@
 			</div>
 		</div>
 
-        <div class="clear auth-msg">
-            <%= AuthenticationMessage.ToString() %>
-        </div>
+        <div class="clear auth-msg red-color">*&nbsp;<%= AuthenticationMessage.ToString() %></div>
 
         <asp:HiddenField ID="redirect_to_url" runat="server" />
 	</div>
