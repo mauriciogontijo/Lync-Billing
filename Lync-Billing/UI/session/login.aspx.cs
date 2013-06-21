@@ -43,7 +43,9 @@ namespace Lync_Billing.ui.session
             ADUserInfo userInfo = new ADUserInfo();
             UserSession session = new UserSession();
 
-            status = authinticator.AuthenticateUser(email.Text, password.Text);
+            string msg = string.Empty;
+
+            status = authinticator.AuthenticateUser(email.Text, password.Text,out msg);
             
             if (status == true)
             {
