@@ -100,8 +100,8 @@
     <Content Include="index.aspx" />
     <Content Include="Resources\Csv.xsl" />
     <Content Include="Resources\excel.xsl" />
-    <Content Include="ui\accounting\dashboard.aspx" />
-    <Content Include="ui\accounting\disputes.aspx" />
+    <Content Include="ui\accounting\main\dashboard.aspx" />
+    <Content Include="ui\accounting\main\disputes.aspx" />
     <Content Include="ui\accounting\sites\monthly.aspx" />
     <Content Include="ui\accounting\users\monthly.aspx" />
     <Content Include="ui\accounting\sites\periodical.aspx" />
@@ -189,18 +189,18 @@
     <Compile Include="ui\AccountingMaster.Master.designer.cs">
       <DependentUpon>AccountingMaster.Master</DependentUpon>
     </Compile>
-    <Compile Include="ui\accounting\dashboard.aspx.cs">
+    <Compile Include="ui\accounting\main\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\accounting\dashboard.aspx.designer.cs">
+    <Compile Include="ui\accounting\main\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\accounting\disputes.aspx.cs">
+    <Compile Include="ui\accounting\main\disputes.aspx.cs">
       <DependentUpon>disputes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\accounting\disputes.aspx.designer.cs">
+    <Compile Include="ui\accounting\main\disputes.aspx.designer.cs">
       <DependentUpon>disputes.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\accounting\sites\monthly.aspx.cs">
