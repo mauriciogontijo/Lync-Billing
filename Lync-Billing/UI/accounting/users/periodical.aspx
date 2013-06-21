@@ -8,24 +8,6 @@
             $('#navigation-tabs>li.selected').removeClass('selected');
             $('#accounting-tab').addClass('selected');
         });
-
-        var onKeyUp = function () {
-            var me = this,
-                v = me.getValue(),
-                field;
-
-            if (me.startDateField) {
-                field = Ext.getCmp(me.startDateField);
-                field.setMaxValue(v);
-                me.dateRangeMax = v;
-            } else if (me.endDateField) {
-                field = Ext.getCmp(me.endDateField);
-                field.setMinValue(v);
-                me.dateRangeMin = v;
-            }
-
-            field.validate();
-        };
     </script>
 </asp:Content>
 

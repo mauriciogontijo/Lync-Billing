@@ -185,3 +185,36 @@ var chartsDurationFormat = function (seconds) {
 
     return hours + ':' + minutes + ':' + seconds;
 }
+
+
+//This function is used in Manage Disputes page in the accounting page.
+function getRowClassForstatus(value, meta, record, rowIndex, colIndex, store) {
+    if (record.data.AC_DisputeStatus == 'Rejected') {
+        meta.style = "color: rgb(201, 20, 20);";
+    }
+    if (record.data.AC_DisputeStatus == 'Accepted') {
+        meta.style = "color: rgb(46, 143, 42);";
+    }
+    return value
+}
+
+
+//This function is used in all of the Accounting Pages
+var onKeyUp = function () {
+    var me = this,
+        v = me.getValue(),
+        field;
+
+    if (me.startDateField) {
+        field = Ext.getCmp(me.startDateField);
+        field.setMaxValue(v);
+        me.dateRangeMax = v;
+    } else if (me.endDateField) {
+        field = Ext.getCmp(me.endDateField);
+        field.setMinValue(v);
+        me.dateRangeMin = v;
+    }
+
+    field.validate();
+};
+
