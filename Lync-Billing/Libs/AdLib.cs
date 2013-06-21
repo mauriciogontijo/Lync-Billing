@@ -58,7 +58,7 @@ namespace Lync_Billing.Libs
 
             if (password == null || password == string.Empty || EmailAddress == null || EmailAddress == string.Empty)
             {
-                msg = "Username and/or password can't be empty!";
+                msg = "Email and/or password can't be empty!";
                 return false;
             }
             
@@ -95,7 +95,7 @@ namespace Lync_Billing.Libs
             {
                 //System.ArgumentException argEx = new System.ArgumentException("Logon failure: unknown user name or bad password");
                 //throw argEx;
-                msg = "Login failed: Wrong Email and/or Password!";
+                msg = "Wrong Email and/or Password!";
                 return false;
             }
         }

@@ -152,6 +152,11 @@ namespace Lync_Billing.ui.session
                     }
                 }
             }
+
+            if (AuthenticationMessage.ToString() != string.Empty)
+            {
+                AuthenticationMessage = "* " + AuthenticationMessage;
+            }
         }//END OF FUNCTION
     }
 }
