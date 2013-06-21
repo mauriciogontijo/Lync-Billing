@@ -77,9 +77,9 @@
                 storeItem.get('Name') + ': ' +
                 ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
                 '<br>' + 'Total Calls: ' + storeItem.get('TotalCalls') +
-                '<br>' + 'Total Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' +
-                '<br>' + 'Total Cost: ' + storeItem.get('TotalCost') + ' euros'
+                '<br>' + 'Total Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.'
             );
+	        //'<br>' + 'Total Cost: ' + storeItem.get('TotalCost') + ' euros'
 	    };
 
 
