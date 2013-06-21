@@ -59,7 +59,6 @@
 		</div>
 
         <div class="clear auth-msg">
-            Login failed: Wrong Email and/or Password!
             <%= AuthenticationMessage.ToString() %>
         </div>
 
