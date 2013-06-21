@@ -5,21 +5,10 @@
 
     <style type="text/css">
         /* start manage-phone-calls grid styling */
-        .x-grid-with-row-lines .x-grid-cell {
-            height: 25px !important;
-        }
-
-        .row-green {
-            background-color: rgb(46, 143, 42);
-        }
-
-        .row-red {
-            background-color: rgb(201, 20, 20);
-        }
-
-        .row-yellow {
-            background-color: yellow;
-        }
+        .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
+        .row-green { background-color: rgb(46, 143, 42); }
+        .row-red { background-color: rgb(201, 20, 20); }
+        .row-yellow { background-color: yellow; }
         /* end manage-phone-calls grid styling */
     </style>
 
@@ -30,10 +19,6 @@
             $('#navigation-tabs>li.selected').removeClass('selected');
             $('#user-tab').addClass('selected');
         });
-
-        var submitValue = function (grid) {
-            grid.submitData(false, { isUpload: true });
-        };
     </script>
 </asp:Content>
 
