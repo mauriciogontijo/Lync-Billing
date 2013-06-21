@@ -52,17 +52,24 @@ namespace Lync_Billing.Libs
         /// <param name="EmailAddress">Email Address </param>
         /// <param name="password">Domain Controller Password</param>
         /// <returns></returns>
-        public bool AuthenticateUser(string EmailAddress, string password)
+        public bool AuthenticateUser(string EmailAddress, string password,out string msg)
         {
-            if ( password == null || password ==string.Empty || EmailAddress == null ||EmailAddress == string.Empty  )
-                return false;
+            msg = string.Empty;
 
+            if (password == null || password == string.Empty || EmailAddress == null || EmailAddress == string.Empty)
+            {
+                msg = "Username and password cant be emapty";
+                return false;
+            }
             try
             {
                 ADUserInfo userInfo = GetUserAttributes(EmailAddress);
                 if (userInfo == null)
+                {
+                    msg = "An error Happened During Fetching User Information";
                     return false;
 
+                }
                 DirectoryEntry directoryEntry = new DirectoryEntry(LocalGCUri, userInfo.SamAccountName, password);
                 string localFilter = string.Format(ADSearchFilter, EmailAddress);
 
@@ -74,13 +81,20 @@ namespace Lync_Billing.Libs
 
 
                 if (result != null)
+                {
+                    msg = "Login Successfuly";
                     return true;
+                }
                 else
+                {
+                    msg = "Login Failed";
                     return false;
+                }
             }catch (Exception ex)
             {
-                System.ArgumentException argEx = new System.ArgumentException("Logon failure: unknown user name or bad password");
-                throw argEx;
+                //System.ArgumentException argEx = new System.ArgumentException("Logon failure: unknown user name or bad password");
+                //throw argEx;
+                msg = "Logon failure: unknown user name or bad password";
             }
         }
 
