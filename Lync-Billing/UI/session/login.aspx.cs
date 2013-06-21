@@ -12,7 +12,8 @@ namespace Lync_Billing.ui.session
 {
     public partial class login : System.Web.UI.Page
     {
-        public AdLib authinticator = new AdLib();
+        public AdLib athenticator = new AdLib();
+        public string AuthenticationMessage { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,10 +43,10 @@ namespace Lync_Billing.ui.session
             bool status = false;
             ADUserInfo userInfo = new ADUserInfo();
             UserSession session = new UserSession();
-
             string msg = string.Empty;
 
-            status = authinticator.AuthenticateUser(email.Text, password.Text,out msg);
+            status = athenticator.AuthenticateUser(email.Text, password.Text, out msg);
+            AuthenticationMessage = msg;
             
             if (status == true)
             {

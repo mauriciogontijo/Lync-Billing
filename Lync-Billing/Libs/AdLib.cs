@@ -58,7 +58,7 @@ namespace Lync_Billing.Libs
 
             if (password == null || password == string.Empty || EmailAddress == null || EmailAddress == string.Empty)
             {
-                msg = "Username and password cant be emapty";
+                msg = "Username and/or password can't be empty!";
                 return false;
             }
             
@@ -68,7 +68,7 @@ namespace Lync_Billing.Libs
                
                 if (userInfo == null)
                 {
-                    msg = "An error Happened During Fetching User Information";
+                    msg = "An error occured while fetching user information!";
                     return false;
                 }
                 DirectoryEntry directoryEntry = new DirectoryEntry(LocalGCUri, userInfo.SamAccountName, password);
@@ -83,19 +83,19 @@ namespace Lync_Billing.Libs
 
                 if (result != null)
                 {
-                    msg = "Login Successfuly";
+                    msg = "You have logged in successfully!";
                     return true;
                 }
                 else
                 {
-                    msg = "Login Failed";
+                    msg = "Login failed, please try again.";
                     return false;
                 }
             }catch (Exception ex)
             {
                 //System.ArgumentException argEx = new System.ArgumentException("Logon failure: unknown user name or bad password");
                 //throw argEx;
-                msg = "Logon failure: unknown user name or bad password";
+                msg = "Login failed: Unknown user name or wrong password!";
                 return false;
             }
         }
