@@ -173,7 +173,7 @@
                                     <a href="#">Elevate Access<span class="drop"></span></a>
                                     <ul id="roles-dropdown">
                                         <% if(((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper) { %>
-                                            <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../accounting/dashboard.aspx">Accounting Role</a></li>
+                                            <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../accounting/main/dashboard.aspx">Accounting Role</a></li>
                                         <% } if (((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAdmin || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper) { %>
                                             <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="#">Administrator Role</a></li>
                                         <% } %>

@@ -51,7 +51,7 @@
                             <div class="ie7flot-fix" ><!--ie7 fix-->
                                 <ul id="navigation-tabs" class="vertical-navigation " >
                                     <li id="access-tab">
-                                        <a title="Drop accounting access" href="../user/dashboard.aspx">Drop Access<span class="shutdown"></span></a>
+                                        <a title="Drop accounting access" href="../../user/dashboard.aspx">Drop Access<span class="shutdown"></span></a>
                                     </li>
                                 </ul>
                             </div>
