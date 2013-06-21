@@ -238,6 +238,16 @@
                                 </Items>
                             </ext:Toolbar>
                         </TopBar>
+
+                        <BottomBar>
+                            <ext:PagingToolbar
+                                ID="AddressBookPagination"
+                                runat="server"
+                                StoreID="PhoneCallStore"
+                                DisplayInfo="true"
+                                Weight="25"
+                                DisplayMsg="Contacts {0} - {1} of {2}" />
+                        </BottomBar>
                     </ext:GridPanel>
 
                     <ext:GridPanel
@@ -332,14 +342,6 @@
                                                 <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
                                                 <ext:ListItem Text="Business" Value="Business" Mode="Value" />
                                             </Items>
-                                          <%--  <DirectEvents>
-                                                <Select OnEvent="UpdateRecord"> 
-                                                    <EventMask ShowMask="true" />
-                                                    <ExtraParams>
-                                                        <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                    </ExtraParams>
-                                                </Select>
-                                            </DirectEvents>--%>
                                         </ext:ComboBox>
                                     </Component>
                                 </ext:ComponentColumn>
