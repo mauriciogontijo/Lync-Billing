@@ -95,7 +95,7 @@ namespace Lync_Billing.Libs
             {
                 //System.ArgumentException argEx = new System.ArgumentException("Logon failure: unknown user name or bad password");
                 //throw argEx;
-                msg = "Login failed: Unknown user name or wrong password!";
+                msg = "Login failed: Wrong Email and/or Password!";
                 return false;
             }
         }

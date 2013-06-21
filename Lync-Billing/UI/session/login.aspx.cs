@@ -36,6 +36,8 @@ namespace Lync_Billing.ui.session
                     this.redirect_to_url.Value = string.Empty;
                 }
             }
+
+            AuthenticationMessage = string.Empty;
         }
 
         protected void SigninButton_Click(object sender, EventArgs e)

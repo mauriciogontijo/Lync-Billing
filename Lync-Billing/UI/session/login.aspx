@@ -58,6 +58,11 @@
 			</div>
 		</div>
 
+        <div class="clear auth-msg">
+            Login failed: Wrong Email and/or Password!
+            <%= AuthenticationMessage.ToString() %>
+        </div>
+
         <asp:HiddenField ID="redirect_to_url" runat="server" />
 	</div>
 </asp:Content>
