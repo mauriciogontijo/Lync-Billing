@@ -179,6 +179,8 @@
     <Compile Include="Libs\DBLib.cs" />
     <Compile Include="DB\Enums.cs" />
     <Compile Include="Libs\JsonTranslator.cs" />
+    <Compile Include="Libs\ntlm\ImpersonateUser.cs" />
+    <Compile Include="Libs\ntlm\NetWorkstationUserEnum.cs" />
     <Compile Include="Libs\PDFLib.cs" />
     <Compile Include="Libs\Statistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
