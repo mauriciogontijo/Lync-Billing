@@ -85,7 +85,7 @@
                                 EmptyText="Empty Date"
                                 Width="220"
                                 Margins="5 170 0 5"
-                                Format="m/Y">
+                                Format="Y-m">
                                 <CustomConfig>
                                     <ext:ConfigItem Name="DateField" Value="DateField1" Mode="Value" />
                                 </CustomConfig>
