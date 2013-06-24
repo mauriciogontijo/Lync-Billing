@@ -197,7 +197,7 @@
 	    });
 
 	    var redirect_to_manage_phonecalls = function () {
-	        to = "../user/manage_phone_calls.aspx"
+	        to = "../user/phonecalls.aspx"
 	        window.location = to;
 	    };
 	</script>
