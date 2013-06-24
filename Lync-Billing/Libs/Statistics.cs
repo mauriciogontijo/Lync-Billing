@@ -48,7 +48,7 @@ namespace Lync_Billing.Libs
 
          }
 
-        public DataTable USERS_STATS(DateTime startingDate, int startingYear,int StartingMonth,int endingYear,int endingMonth,string siteName) 
+        public DataTable USERS_STATS(int startingYear,int StartingMonth,int endingYear,int endingMonth,string siteName) 
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
