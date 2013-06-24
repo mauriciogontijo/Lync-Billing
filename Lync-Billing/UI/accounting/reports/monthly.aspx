@@ -86,9 +86,6 @@
                                 Width="220"
                                 Margins="5 170 0 5"
                                 Format="Y-m">
-                                <CustomConfig>
-                                    <ext:ConfigItem Name="DateField" Value="DateField1" Mode="Value" />
-                                </CustomConfig>
                             </ext:DateField>
                         </Items>
                     </ext:Toolbar>
