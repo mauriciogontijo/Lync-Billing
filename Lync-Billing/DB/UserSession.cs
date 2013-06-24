@@ -37,11 +37,7 @@ namespace Lync_Billing.DB
         public bool IsAccountant { set; get; }
 
         //Specific User Roles
-        public bool IsSuperAdmin { set; get; }
-        public bool IsCountryAdmin { set; get; }
         public bool IsProjectAdmin { set; get; }
-        public bool IsSuperAccountant { set; get; }
-        public bool IsCountryAccountant { set; get; }
         public bool IsProjectAccountant { set; get; }
         public string CurrentURL { set; get; }
         public string ToURL { set; get; }
@@ -58,12 +54,7 @@ namespace Lync_Billing.DB
             IsAdmin = false;
             IsAccountant = false;
 
-            IsSuperAdmin = false;
-            IsCountryAdmin = false;
             IsProjectAdmin = false;
-
-            IsSuperAccountant = false;
-            IsCountryAccountant = false;
             IsProjectAccountant = false;
 
             IsDelegate = false;
