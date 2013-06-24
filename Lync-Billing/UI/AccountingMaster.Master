@@ -14,7 +14,6 @@
         <link rel="stylesheet" type="text/css" media="all" href="resources/css/toolkit.css" />
         <link rel="stylesheet" type="text/css" media="all" href="resources/css/global.css" />
         <link rel="stylesheet" type="text/css" media="all" href="resources/css/green-layout.css" />
-        <!--<link rel="stylesheet" type="text/css" media="all" href="resources/css/dropdown-menu.css" />-->
         <link rel="stylesheet" type="text/css" media="all" href="resources/css/dropdown-menu-white.css" />
 
         <script type="text/javascript" src="../../resources/js/jquery-1.9.1.min.js"></script>
