@@ -84,18 +84,12 @@
                                 LabelWidth="80"
                                 EmptyText="Empty Date"
                                 Width="220"
-                                Margins="5 170 0 5">
+                                Margins="5 170 0 5"
+                                Format="m/Y">
                                 <CustomConfig>
                                     <ext:ConfigItem Name="DateField" Value="DateField1" Mode="Value" />
                                 </CustomConfig>
                             </ext:DateField>
-
-                            <ext:Button
-                                ID="FilterReportButton"
-                                runat="server"
-                                Text="Filter Report"
-                                Icon="ApplicationFormEdit"
-                                OnDirectClick="FilterReportButton_DirectClick" />
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -143,28 +137,28 @@
                             ID="UserID"
                             runat="server"
                             Text="Employee ID"
-                            Width="140"
+                            Width="160"
                             DataIndex="UserID" />
 
                         <ext:Column
                             ID="SipAccount"
                             runat="server"
                             Text="Sip Account"
-                            Width="90"
+                            Width="160"
                             DataIndex="SipAccount" />
 
                         <ext:Column
                             ID="UserName"
                             runat="server"
                             Text="Full Name"
-                            Width="130"
+                            Width="200"
                             DataIndex="UserName" />
 
                         <ext:Column
                             ID="Cost"
                             runat="server"
                             Text="Cost"
-                            Width="70"
+                            Width="160"
                             DataIndex="Cost" />
                     </Columns>
                 </ColumnModel>

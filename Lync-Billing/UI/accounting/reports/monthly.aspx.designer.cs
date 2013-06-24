@@ -58,15 +58,6 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.DateField DateField;
         
         /// <summary>
-        /// FilterReportButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button FilterReportButton;
-        
-        /// <summary>
         /// MonthlyReportsGrids control.
         /// </summary>
         /// <remarks>
