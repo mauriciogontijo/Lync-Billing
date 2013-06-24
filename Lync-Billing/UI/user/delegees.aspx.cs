@@ -33,7 +33,7 @@ namespace Lync_Billing.ui.user
             else
             {
                 UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-                if (session.IsDelegate == true)
+                if (session.IsDelegate == true || session.IsDeveloper == true)
                 {
                     delegates = UsersDelegates.GetSipAccounts(session.SipAccount);
                 }
