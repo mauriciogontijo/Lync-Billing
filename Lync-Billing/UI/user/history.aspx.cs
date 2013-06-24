@@ -38,6 +38,8 @@ namespace Lync_Billing.ui.user
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
             }
+
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
         }
 
         protected void PhoneCallStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
@@ -128,9 +130,7 @@ namespace Lync_Billing.ui.user
 
             if (userSession.PhoneCallsHistory == null || userSession.PhoneCallsHistory.Count == 0 || force == true)
             {
-                string SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
-
-                wherePart.Add("SourceUserUri", SipAccount);
+                wherePart.Add("SourceUserUri", sipAccount);
                 wherePart.Add("marker_CallTypeID", 1);
                 //wherePart.Add("ac_IsInvoiced", "YES");
 

@@ -20,7 +20,7 @@ namespace Lync_Billing.DB
         {
             List<UsersDelegates> delegatedAccounts = new List<UsersDelegates>();
 
-            delegatedAccounts = GetSipAccounts(delegateAccount);
+            delegatedAccounts = GetDelegees(delegateAccount);
 
             if (delegatedAccounts.Count == 0)
                 return false;
@@ -28,7 +28,7 @@ namespace Lync_Billing.DB
                 return true;
         }
 
-        public static List<UsersDelegates> GetSipAccounts(string delegateAccount) 
+        public static List<UsersDelegates> GetDelegees(string delegateAccount) 
         {
             UsersDelegates delegatedAccount;
             List<UsersDelegates> DelegatedAccounts = new List<UsersDelegates>();
@@ -54,6 +54,37 @@ namespace Lync_Billing.DB
                         delegatedAccount.Description = (string)row[column.ColumnName];
                 }
                 DelegatedAccounts.Add(delegatedAccount);
+            }
+
+            return DelegatedAccounts;
+        }
+
+        public static List<string> GetDelegeesSipAccounts(string delegateAccount)
+        {
+            UsersDelegates delegatedAccount;
+            List<string> DelegatedAccounts = new List<string>();
+            DataTable dt = new DataTable();
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), "DelegeeAccount", delegateAccount);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                delegatedAccount = new UsersDelegates();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
+                        delegatedAccount.ID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeAccount) && row[column.ColumnName] != System.DBNull.Value)
+                        delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
+                        delegatedAccount.SipAccount = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Description) && row[column.ColumnName] != System.DBNull.Value)
+                        delegatedAccount.Description = (string)row[column.ColumnName];
+                }
+                DelegatedAccounts.Add(delegatedAccount.SipAccount);
             }
 
             return DelegatedAccounts;

@@ -17,7 +17,7 @@ namespace Lync_Billing.ui.user
     public partial class dashboard : System.Web.UI.Page
     {
         public int unmarked_calls_count = 0;
-        public string SipAccount = string.Empty;
+        private string sipAccount = string.Empty;
 
         public Dictionary<string, PhoneBook> phoneBookEntries;
         public List<TopDestinations> topDestinations;
@@ -44,16 +44,16 @@ namespace Lync_Billing.ui.user
             current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             //initialize the local copy of the current user's PrimarySipAccount
-            SipAccount = current_session.PrimarySipAccount;
+            sipAccount = current_session.EffectiveSipAccount;
 
             //Initialize the unmarked calls counter - this is being used in the frontend.
             unmarked_calls_count = getUnmarkedCallsCount();
 
             //Initialize the Address Book data.
-            phoneBookEntries = PhoneBook.GetAddressBook(SipAccount);
+            phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
             //Get the phone calls chart data.
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
 
             //Configure the welcome ext-js toggled welcome-message.
@@ -68,10 +68,10 @@ namespace Lync_Billing.ui.user
                 List<AbstractComponent> components = new List<AbstractComponent>();
                 List<UsersCallsSummary> UserSummaryList = new List<UsersCallsSummary>();
                 UsersCallsSummary UserSummary = new UsersCallsSummary();
-                string SipAccount = string.Empty;
+                string sipAccount = string.Empty;
 
-                SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
-                UserSummaryList = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Month);
+                sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+                UserSummaryList = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Month);
 
                 if (UserSummaryList.Count > 0)
                 {
@@ -129,24 +129,22 @@ namespace Lync_Billing.ui.user
         {
             CultureInfo provider = CultureInfo.InvariantCulture;
             DateTime fromDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
-            List<UsersCallsSummaryChartData> chartData = UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).PrimarySipAccount, fromDate, DateTime.Now);
+            List<UsersCallsSummaryChartData> chartData = UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, fromDate, DateTime.Now);
 
             return chartData;
         }
 
         protected void DurationCostChartStore_Load(object sender, EventArgs e)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.PrimarySipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
-
         }
 
         protected void TopDestinationNumbersStore_Load(object sender, EventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-           
-            topDestinations = TopDestinations.GetTopDestinations(userSession.PrimarySipAccount);
+            
+            topDestinations = TopDestinations.GetTopDestinations(sipAccount);
 
             foreach (TopDestinations destination in topDestinations)
             {
@@ -170,9 +168,7 @@ namespace Lync_Billing.ui.user
 
         protected void TopDestinationCountriesStore_Load(object sender, EventArgs e)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            
-            topCountries = TopCountries.GetTopDestinations(userSession.PrimarySipAccount);
+            topCountries = TopCountries.GetTopDestinations(sipAccount);
             TopDestinationCountriesStore.DataSource = topCountries;
             
             TopDestinationCountriesStore.DataBind();
@@ -180,9 +176,7 @@ namespace Lync_Billing.ui.user
 
         protected int getUnmarkedCallsCount()
         {
-            SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
-
-            wherePart.Add("SourceUserUri", SipAccount);
+            wherePart.Add("SourceUserUri", sipAccount);
             wherePart.Add("marker_CallTypeID", 1);
             wherePart.Add("ui_CallType", null);
             wherePart.Add("ac_IsInvoiced", "NO");
@@ -209,10 +203,10 @@ namespace Lync_Billing.ui.user
                 
         }
      
-        private string GetUserNameBySip(string SipAccount) 
+        private string GetUserNameBySip(string sipAccount) 
         {
             AdLib adRoutines = new AdLib();
-            string DisplayName = adRoutines.GetUserAttributes(SipAccount).DisplayName;
+            string DisplayName = adRoutines.GetUserAttributes(sipAccount).DisplayName;
             
             if (DisplayName != null)
                 return DisplayName;

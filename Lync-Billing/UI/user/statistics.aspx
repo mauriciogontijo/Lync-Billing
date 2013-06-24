@@ -209,7 +209,7 @@
         <div class="block-body">
             <ext:Panel ID="UserToolsSidebar"
                 runat="server"
-                Height="420"
+                Height="340"
                 Width="180"
                 Title="User Tools"
                 Collapsed="false"
@@ -244,22 +244,6 @@
                             <p><a href='../user/statistics.aspx' class="selected">Phone Calls Statistics</a></p>
                         </div>
                     </div>
-
-                    <%
-                        Lync_Billing.DB.UserSession session = (Lync_Billing.DB.UserSession)Session.Contents["UserData"];
-                        bool is_delegate = (session.IsDelegate || session.IsDeveloper);
-                        if (is_delegate)
-                        {
-                    %>
-                        <div class='sidebar-section'>
-                            <div class="sidebar-section-header">
-                                <p>Delegee Accounts</p>
-                            </div>
-                            <div class="sidebar-section-body">
-                                <p><a href='../user/delegees.aspx'>Manage Delegee(s)</a></p>
-                            </div>
-                        </div>
-                    <% } %>
                 </Content>
             </ext:Panel>
         </div>

@@ -35,7 +35,7 @@ namespace Lync_Billing.ui.user
                 Response.Redirect(url);
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
             ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(sipAccount);
         }
 
@@ -46,7 +46,7 @@ namespace Lync_Billing.ui.user
 
             if (userSession.PhoneCalls == null || userSession.PhoneCalls.Count == 0 || force == true)
             {
-                wherePart.Add("SourceUserUri", userSession.PrimarySipAccount);
+                wherePart.Add("SourceUserUri", sipAccount);
                 wherePart.Add("ac_IsInvoiced", "NO");
                 wherePart.Add("marker_CallTypeID", 1);
 
@@ -180,13 +180,6 @@ namespace Lync_Billing.ui.user
                     matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
-
-                    //if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
-                    //{
-                    //    ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString());
-                    //    //model.Set(matchedDestinationCall);
-                    //    //model.Commit();
-                    //}
                 }
             }
             
@@ -228,13 +221,6 @@ namespace Lync_Billing.ui.user
                     matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
-
-                    //if (perPagePhoneCalls.Find(x => x.SessionIdTime == matchedDestinationCall.SessionIdTime) != null)
-                    //{
-                    //    ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCall.SessionIdTime.ToString());
-                    //    //model.Set(matchedDestinationCall);
-                    //    //model.Commit();
-                    //}
                 }
             }
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
@@ -464,7 +450,7 @@ namespace Lync_Billing.ui.user
                 {
                     phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
                     phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
-                    phoneBookEntry.SipAccount = userSession.PrimarySipAccount;
+                    phoneBookEntry.SipAccount = sipAccount;
                     phoneBookEntry.Type = "Business";
 
                     //Add Phonebook entry to Session and to the list which will be written to database 
@@ -481,7 +467,7 @@ namespace Lync_Billing.ui.user
 
                     matchedDestinationCall.UI_CallType = "Business";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
-                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+                    matchedDestinationCall.UI_UpdatedByUser = sipAccount;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
                 }

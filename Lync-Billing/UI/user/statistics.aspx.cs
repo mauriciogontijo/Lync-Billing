@@ -15,6 +15,8 @@ namespace Lync_Billing.ui.user
 {
     public partial class statistics : System.Web.UI.Page
     {
+        private string sipAccount = string.Empty;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -25,27 +27,27 @@ namespace Lync_Billing.ui.user
                 Response.Redirect(url);
             }
 
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
-            PhoneCallsDuartionChartStore.DataSource = getChartData(SipAccount);
+            PhoneCallsDuartionChartStore.DataSource = getChartData(sipAccount);
             PhoneCallsDuartionChartStore.DataBind();
 
-            PhoneCallsCostChartStore.DataSource = getChartData(SipAccount);
+            PhoneCallsCostChartStore.DataSource = getChartData(sipAccount);
             PhoneCallsCostChartStore.DataBind();
 
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
 
             PhoneCallsDuartionChartPanel.Title = "Calls Duration Report for " + DateTime.Now.Year;
             PhoneCallsCostChartPanel.Title = "Calls Costs Report for " + DateTime.Now.Year;
         }
 
-        public List<UsersCallsSummaryChartData> getChartData(string SipAccount = "")
+        public List<UsersCallsSummaryChartData> getChartData(string sipAccount = "")
         {
             CultureInfo provider = CultureInfo.InvariantCulture;
             DateTime toDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
 
-            return UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).PrimarySipAccount, toDate, DateTime.Now);
+            return UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, toDate, DateTime.Now);
         }
 
         protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)
@@ -59,7 +61,5 @@ namespace Lync_Billing.ui.user
             PhoneCallsCostChartStore.DataSource = getChartData();
             PhoneCallsCostChartStore.DataBind();
         }
-
-        //DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, 1, 12);
     }
 }

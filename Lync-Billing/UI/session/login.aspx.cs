@@ -105,17 +105,19 @@ namespace Lync_Billing.ui.session
                         session.SiteName = userInfo.physicalDeliveryOfficeName;
                         session.EmployeeID = userInfo.EmployeeID;
                         session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
-                        session.EffectiveSipAccount = userInfo.SipAccount.Replace("sip:", "");
-                        session.IsDelegate = UsersDelegates.IsDelegate(userInfo.SipAccount.Replace("sip:", ""));
+                        session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
+                        session.IsDelegate = UsersDelegates.IsDelegate(session.PrimarySipAccount);
+                        session.ListOfDelegees = UsersDelegates.GetDelegeesSipAccounts(session.PrimarySipAccount);
                     }
                     else
                     {
                         session.ActiveRoleName = "USER";
-                        session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
-                        session.EffectiveSipAccount = userInfo.SipAccount.Replace("sip:", "");
-                        session.SiteName = userInfo.physicalDeliveryOfficeName;
                         session.EmployeeID = userInfo.EmployeeID;
-                        session.IsDelegate = UsersDelegates.IsDelegate(userInfo.SipAccount.Replace("sip:", ""));
+                        session.SiteName = userInfo.physicalDeliveryOfficeName;
+                        session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
+                        session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
+                        session.IsDelegate = UsersDelegates.IsDelegate(session.PrimarySipAccount);
+                        session.ListOfDelegees = UsersDelegates.GetDelegeesSipAccounts(session.PrimarySipAccount);
 
                         userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
 

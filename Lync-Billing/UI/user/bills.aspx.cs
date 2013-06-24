@@ -21,6 +21,7 @@ namespace Lync_Billing.ui.user
     {
         Dictionary<string, object> wherePart = new Dictionary<string, object>();
         List<string> columns = new List<string>();
+        private string sipAccount = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,6 +32,8 @@ namespace Lync_Billing.ui.user
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
             }
+
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
         }
 
         protected void BillsStore_ReadData(object sender, StoreReadDataEventArgs e)
@@ -40,7 +43,7 @@ namespace Lync_Billing.ui.user
             List<Dictionary<string, object>> BillsList = new List<Dictionary<string, object>>();
             Dictionary<string, object> Bill;
 
-            string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
+            string sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
 
             int year = 2013,
                 start_month = 1,
@@ -49,7 +52,7 @@ namespace Lync_Billing.ui.user
             //if the end month is not the beginning of the year, decrease it by 1, for the purpose of not including the current month
             if (end_month != start_month) { end_month -= 1; }
 
-            UserSummariesList = UsersCallsSummary.GetUsersCallsSummary(SipAccount, year, start_month, end_month);
+            UserSummariesList = UsersCallsSummary.GetUsersCallsSummary(sipAccount, year, start_month, end_month);
             foreach (UsersCallsSummary summary in UserSummariesList)
             {
                 Bill = new Dictionary<string, object>();
@@ -73,8 +76,6 @@ namespace Lync_Billing.ui.user
             List<UsersCallsSummary> UserSummariesList = new List<UsersCallsSummary>();
             List<UsersCallsSummary> BillsList = new List<UsersCallsSummary>();
 
-            string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
-            
             int year = 2013,
                 start_month = 1,
                 end_month = DateTime.Now.Month;
@@ -82,15 +83,9 @@ namespace Lync_Billing.ui.user
             //if the end month is not the beginning of the year, decrease it by 1, for the purpose of not including the current month
             if (end_month != start_month) { end_month -= 1; }
 
-            UserSummariesList = UsersCallsSummary.GetUsersCallsSummary(SipAccount, year, start_month, end_month);
+            UserSummariesList = UsersCallsSummary.GetUsersCallsSummary(sipAccount, year, start_month, end_month);
             foreach(UsersCallsSummary summary in UserSummariesList)
             {
-                //Bill = new Dictionary<string, object>();
-                //Bill.Add("BillDate", summary.MonthDate);
-                //Bill.Add("Cost", summary.PersonalCallsCost);
-                //Bill.Add("TotalCalls", summary.PersonalCallsCount);
-                //Bill.Add("TotalDuration", summary.PersonalCallsDuration);
-
                 BillsList.Add(summary);
             }
 

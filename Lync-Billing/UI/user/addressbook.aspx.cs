@@ -18,10 +18,12 @@ namespace Lync_Billing.ui.user
     {
         List<PhoneBook> AddressBookData = new List<PhoneBook>();
         List<PhoneBook> HistoryDestinationNumbers = new List<PhoneBook>();
+        private string sipAccount = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             GridsDataManager(true);
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
         }
 
         protected void GridsDataManager(bool GetFreshData = false, bool BindData = true)
@@ -30,11 +32,9 @@ namespace Lync_Billing.ui.user
             {
                 List<PhoneBook> TempHistoryData = new List<PhoneBook>();
                 Dictionary<string, PhoneBook> TempAddressBookData = new Dictionary<string, PhoneBook>();
-                string SipAccount = string.Empty;
 
-                SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount.ToString();
-                TempAddressBookData = PhoneBook.GetAddressBook(SipAccount);
-                TempHistoryData = PhoneBook.GetDestinationNumbers(SipAccount);
+                TempAddressBookData = PhoneBook.GetAddressBook(sipAccount);
+                TempHistoryData = PhoneBook.GetDestinationNumbers(sipAccount);
 
                 //Always clear the contents of the data containers
                 AddressBookData.Clear();
@@ -72,8 +72,7 @@ namespace Lync_Billing.ui.user
         protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
         {
             string json = e.ExtraParams["Values"];
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
-
+            
             List<PhoneBook> all_address_book_items = new List<PhoneBook>();
             List<PhoneBook> filtered_address_book_items = new List<PhoneBook>();
 
@@ -84,7 +83,7 @@ namespace Lync_Billing.ui.user
             {
                 if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != ""))
                 {
-                    entry.SipAccount = SipAccount;
+                    entry.SipAccount = sipAccount;
                     filtered_address_book_items.Add(entry);
                 }
             }
@@ -106,7 +105,6 @@ namespace Lync_Billing.ui.user
         protected void AddressBookUpdateContacts(object sender, DirectEventArgs e)
         {
             string json = e.ExtraParams["Values"];
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
             List<PhoneBook> all_address_book_items = new List<PhoneBook>();
             List<PhoneBook> filtered_address_book_items = new List<PhoneBook>();
@@ -120,7 +118,7 @@ namespace Lync_Billing.ui.user
                 {
                     if (entry.SipAccount == null || entry.SipAccount == string.Empty)
                     {
-                        entry.SipAccount = SipAccount;
+                        entry.SipAccount = sipAccount;
                     }
 
                     filtered_address_book_items.Add(entry);
@@ -148,7 +146,6 @@ namespace Lync_Billing.ui.user
         protected void AddressBookDeleteContacts(object sender, DirectEventArgs e)
         {
             string json = e.ExtraParams["Values"];
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
             List<PhoneBook> to_be_deleted_entries = new List<PhoneBook>();
 
