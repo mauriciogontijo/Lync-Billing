@@ -130,8 +130,12 @@ namespace Lync_Billing.DB
         private static DBLib DBRoutines = new DBLib();
         private static Statistics StatRoutines = new Statistics();
 
-        private static Dictionary<string, object> wherePart;
+        //private static Dictionary<string, object> wherePart;
         private static List<string> columns;
+
+        public int EmployeeID { get; set; }
+        public int FullName { get; set; }
+        public string SipAccount { get; set; }
 
         public int BusinessCallsCount { get; set; }
         public decimal BusinessCallsCost { get; set; }
