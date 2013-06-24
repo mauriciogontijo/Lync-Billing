@@ -23,7 +23,6 @@ namespace Lync_Billing.ui.accounting.reports
     {
 
         private StoreReadDataEventArgs e;
-        private DateTime date;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,7 +38,7 @@ namespace Lync_Billing.ui.accounting.reports
                 UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
-                if (!session.IsDeveloper && !session.IsAccountant && session.PrimarySipAccount != session.EffectiveSipAccount)
+                if (!session.IsDeveloper && !session.IsAccountant /*&& session.PrimarySipAccount != session.EffectiveSipAccount*/)
                 {
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }
@@ -47,22 +46,26 @@ namespace Lync_Billing.ui.accounting.reports
         }
 
 
-        protected List<UsersCallsSummary> MonthlyReports(string sitename, DateTime date)
+        protected List<UsersCallsSummary> MonthlyReports( DateTime date)
         {
             List<string> sites = new List<string>();
             List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
+           
+            date = reportDateField.SelectedDate;
+            sites = GetAccountantSiteName();
 
-            if (reportDateField.SelectedDate != DateTime.MinValue)
+            foreach (string site in sites) 
             {
-                date = reportDateField.SelectedDate;
-                sites = GetAccountantSiteName();
-
-                foreach (string site in sites) 
-                {
-                    listOfUsersCallsSummary.AddRange( UsersCallsSummary.GetUsersCallsSummary(date, date, sitename).AsEnumerable<UsersCallsSummary>());
-                }
+                listOfUsersCallsSummary.AddRange(UsersCallsSummary.GetUsersCallsSummary(date, date, site).AsEnumerable<UsersCallsSummary>());
             }
+            
             return listOfUsersCallsSummary;
+        }
+
+        protected void MonthlyReportsStore_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            this.e = e;
+            MonthlyReportsStore.DataBind();
         }
 
         protected void MonthlyReportsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
@@ -93,38 +96,45 @@ namespace Lync_Billing.ui.accounting.reports
             (this.MonthlyReportsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
         }
 
-        public List<UsersCallsSummary> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
+        public List<UsersCallsSummary> GetMonthlyReportsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
             List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
-            //MonthlyReports("MOA");
 
-            IQueryable<UsersCallsSummary> result;
-
-            if (filter == null)
-                result = listOfUsersCallsSummary.AsQueryable();
-            else
-                result = listOfUsersCallsSummary.Where ( userEntry => userEntry.EmployeeID.Contains(filter.Value) ||  userEntry.FullName.Contains(filter.Value) ).AsQueryable();
-
-            if (sort != null)
+            if (reportDateField != null && reportDateField.Value != null && reportDateField.SelectedDate != DateTime.MinValue)
             {
-                ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
+                listOfUsersCallsSummary = MonthlyReports(reportDateField.SelectedDate);
 
-                Expression<Func<UsersCallsSummary, object>> sortExpression = Expression.Lambda<Func<UsersCallsSummary, object>>(Expression.Property(param, sort.Property), param);
-                if (sort.Direction == Ext.Net.SortDirection.DESC)
-                    result = result.OrderByDescending(sortExpression);
+                IQueryable<UsersCallsSummary> result;
+
+                if (filter == null)
+                    result = listOfUsersCallsSummary.AsQueryable();
                 else
-                    result = result.OrderBy(sortExpression);
+                    result = listOfUsersCallsSummary.Where(userEntry => userEntry.EmployeeID.Contains(filter.Value) || userEntry.FullName.Contains(filter.Value)).AsQueryable();
+
+                if (sort != null)
+                {
+                    ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
+
+                    Expression<Func<UsersCallsSummary, object>> sortExpression = Expression.Lambda<Func<UsersCallsSummary, object>>(Expression.Property(param, sort.Property), param);
+                    if (sort.Direction == Ext.Net.SortDirection.DESC)
+                        result = result.OrderByDescending(sortExpression);
+                    else
+                        result = result.OrderBy(sortExpression);
+                }
+
+                int resultCount = result.Count();
+
+                if (start >= 0 && limit > 0)
+                    result = result.Skip(start).Take(limit);
+
+                count = resultCount;
+
+                return result.ToList();
             }
 
-            int resultCount = result.Count();
-
-            if (start >= 0 && limit > 0)
-                result = result.Skip(start).Take(limit);
-
-            count = resultCount;
-
-            return result.ToList();
+            count = 0;
+            return null;
         }
 
         public string GetSiteName(int siteID)
@@ -178,6 +188,33 @@ namespace Lync_Billing.ui.accounting.reports
             users = Users.GetUsers(null, whereStatement, 0);
             return users[0].SiteName;
         }
+
+        public DataFilterCollection GetFilters(string filterValue) 
+        {
+            DataFilterCollection filters = new DataFilterCollection();
+
+            DataFilter employeeIDFilter = new DataFilter();
+            employeeIDFilter.Property = "EmployeeID";
+            employeeIDFilter.Value = filterValue;
+
+            DataFilter fullNameFilter = new DataFilter();
+            fullNameFilter.Property = "FullName";
+            fullNameFilter.Value = filterValue;
+
+            filters.Add(employeeIDFilter);
+            filters.Add(fullNameFilter);
+
+            return filters;
+        }
+
+        protected void GridFilter(object sender, DirectEventArgs e)
+        {
+            MonthlyReportsStore.ClearFilter();
+            MonthlyReportsStore.Filter(GetFilters(UserSearch.Text));
+            MonthlyReportsStore.LoadPage(1);
+        }
+
+       
 
 
     }

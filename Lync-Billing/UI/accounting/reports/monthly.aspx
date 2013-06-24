@@ -63,23 +63,9 @@
                         ID="FilterAndSearthToolbar"
                         runat="server">
                         <Items>
-                            <ext:TextField
-                                ID="UserSearch"
-                                runat="server"
-                                Icon="UserMagnify"
-                                TriggerAction="All"
-                                QueryMode="Local"
-                                EmptyText="User's Sip Account"
-                                Width="210"
-                                Height="22"
-                                FieldLabel="Search User:"
-                                LabelWidth="70"
-                                Margins="5 25 0 5" />
-
                             <ext:DateField 
                                 ID="reportDateField"
                                 runat="server" 
-                                Vtype="daterange"
                                 FieldLabel="Filter By Date:"
                                 LabelWidth="80"
                                 EmptyText="Empty Date"
@@ -87,12 +73,41 @@
                                 Margins="5 170 0 5"
                                 Format="Y-m">
                             </ext:DateField>
+
+                            <ext:TextField
+                                ID="UserSearch"
+                                runat="server"
+                                Icon="UserMagnify"
+                                EmptyText="User's Sip Account"
+                                Width="210"
+                                Height="22"
+                                FieldLabel="Search User:"
+                                LabelWidth="70"
+                                Margins="5 25 0 5">
+                                <DirectEvents>
+                                    <Change OnEvent="GridFilter"/>
+                                </DirectEvents>
+                            </ext:TextField>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
             </ext:Panel>
 
             <div class="h5 clear"></div>
+            <asp:ObjectDataSource
+                ID="MonthlyReportsDataSource"
+                runat="server"
+                OnSelecting="MonthlyReportsDataSource_Selecting"
+                OnSelected="MonthlyReportsDataSource_Selected"
+                SelectMethod="GetMonthlyReportsFilter"
+                TypeName="Lync_Billing.ui.accounting.reports.monthly">
+                <SelectParameters>
+                    <asp:Parameter Name="start" Type="Int32" />
+                    <asp:Parameter Name="limit" Type="Int32" />
+                    <asp:Parameter Name="sort" Type="Object" />
+                    <asp:Parameter Name="count" Direction="Output" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
 
             <ext:GridPanel
                 ID="MonthlyReportsGrids"
@@ -102,26 +117,15 @@
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout">
-                 <asp:ObjectDataSource
-                    ID="MonthlyReportsDataSource"
-                    runat="server"
-                    OnSelecting="MonthlyReportsDataSource_Selecting"
-                    OnSelected="MonthlyReportsDataSource_Selected"
-                    SelectMethod="GetMonthlyReportsFilter"
-                    TypeName="Lync_Billing.ui.accounting.reports.monthly">
-                    <SelectParameters>
-                        <asp:Parameter Name="start" Type="Int32" />
-                        <asp:Parameter Name="limit" Type="Int32" />
-                        <asp:Parameter Name="sort" Type="Object" />
-                        <asp:Parameter Name="count" Direction="Output" Type="Int32" />
-                    </SelectParameters>
-                </asp:ObjectDataSource>
+                
                 <Store>
                     <ext:Store
                         ID="MonthlyReportsStore"
                         runat="server"
                         RemoteSort="true"
-                        PageSize="25">
+                        PageSize="25"
+                        DataSourceID="MonthlyReportsDataSource"
+                        OnReadData="MonthlyReportsStore_ReadData">
                         <Proxy>
                             <ext:PageProxy CacheString="" />
                         </Proxy>
@@ -145,11 +149,11 @@
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
 
                         <ext:Column
-                            ID="UserID"
+                            ID="EmployeeID"
                             runat="server"
                             Text="Employee ID"
                             Width="160"
-                            DataIndex="UserID" />
+                            DataIndex="EmployeeID" />
 
                         <ext:Column
                             ID="SipAccount"
@@ -159,11 +163,11 @@
                             DataIndex="SipAccount" />
 
                         <ext:Column
-                            ID="UserName"
+                            ID="FullName"
                             runat="server"
                             Text="Full Name"
                             Width="200"
-                            DataIndex="UserName" />
+                            DataIndex="FullName" />
 
                         <ext:Column
                             ID="Cost"
