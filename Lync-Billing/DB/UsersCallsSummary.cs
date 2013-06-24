@@ -276,7 +276,7 @@ namespace Lync_Billing.DB
             UsersCallsSummary userSummary;
             List<UsersCallsSummary> usersSummaryList = new List<UsersCallsSummary>();
 
-            dt = StatRoutines.USERS_STATS(startingDate.Year, endingDate.Year, startingDate.Month, endingDate.Month, siteName);
+            dt = StatRoutines.USERS_STATS(startingDate.Year, startingDate.Month, endingDate.Year, endingDate.Month, siteName);
 
             foreach (DataRow row in dt.Rows)
             {
