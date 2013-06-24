@@ -19,7 +19,7 @@
         <div class="block-body">
             <ext:Panel ID="AccountingToolsSidebar"
                 runat="server"
-                Height="340"
+                Height="230"
                 Width="180"
                 Title="Accounting Tools"
                 Collapsed="false"
@@ -36,21 +36,11 @@
 
                     <div class='sidebar-section'>
                         <div class="sidebar-section-header">
-                            <p>Generate User Reportss</p>
+                            <p>Generate Reports</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../users/monthly.aspx'>Monthly Users Reports</a></p>
-                            <p><a href='../users/periodical.aspx'>Periodical Users Reports</a></p>
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Generate Site Reportss</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../sites/monthly.aspx'>Monthly Sites Reports</a></p>
-                            <p><a href='../sites/periodical.aspx'>Periodical Sites Reports</a></p>
+                            <p><a href='../reports/monthly.aspx'>Monthly Reports</a></p>
+                            <p><a href='../reports/periodical.aspx'>Periodical Reports</a></p>
                         </div>
                     </div>
                 </Content>

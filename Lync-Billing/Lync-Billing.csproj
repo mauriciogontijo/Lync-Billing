@@ -102,6 +102,8 @@
     <Content Include="Resources\excel.xsl" />
     <Content Include="ui\accounting\main\dashboard.aspx" />
     <Content Include="ui\accounting\main\disputes.aspx" />
+    <Content Include="ui\accounting\reports\monthly.aspx" />
+    <Content Include="ui\accounting\reports\periodical.aspx" />
     <Content Include="ui\accounting\sites\monthly.aspx" />
     <Content Include="ui\accounting\users\monthly.aspx" />
     <Content Include="ui\accounting\sites\periodical.aspx" />
@@ -204,6 +206,20 @@
     </Compile>
     <Compile Include="ui\accounting\main\disputes.aspx.designer.cs">
       <DependentUpon>disputes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\accounting\reports\monthly.aspx.cs">
+      <DependentUpon>monthly.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\accounting\reports\monthly.aspx.designer.cs">
+      <DependentUpon>monthly.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\accounting\reports\periodical.aspx.cs">
+      <DependentUpon>periodical.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\accounting\reports\periodical.aspx.designer.cs">
+      <DependentUpon>periodical.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\accounting\sites\monthly.aspx.cs">
       <DependentUpon>monthly.aspx</DependentUpon>
@@ -323,6 +339,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
