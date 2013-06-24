@@ -266,6 +266,35 @@ namespace Lync_Billing.DB
             return chartList;
         }
 
+        public static List<UsersCallsSummary> GetUsersCallsSummary(DateTime startingDate, DateTime endingDate, string siteName) 
+        {
+            DataTable dt = new DataTable();
+            UsersCallsSummary userSummary;
+            List<UsersCallsSummary> usersSummaryList = new List<UsersCallsSummary>();
+
+            dt = StatRoutines.USERS_STATS(startingDate, endingDate);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                userSummary = new UsersCallsSummary();
+
+                userSummary.BusinessCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessDuration"]]));
+                userSummary.BusinessCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessCallsCount"]]));
+                userSummary.BusinessCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["BusinessCost"]]));
+                userSummary.PersonalCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalDuration"]]));
+                userSummary.PersonalCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalCallsCount"]]));
+                userSummary.PersonalCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["PersonalCost"]]));
+                userSummary.UnmarkedCallsDuartion = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
+                userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
+                userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
+
+                userSummary.Duration = userSummary.PersonalCallsDuration / 60;
+
+                usersSummaryList.Add(userSummary);
+            }
+            return usersSummaryList;
+        }
+
         private static object ReturnZeroIfNull(object value) 
         {
             if (value == System.DBNull.Value)

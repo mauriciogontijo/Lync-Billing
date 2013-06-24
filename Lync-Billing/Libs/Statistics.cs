@@ -47,7 +47,35 @@ namespace Lync_Billing.Libs
              return dt;
 
          }
-        
+
+        public DataTable USERS_STATS(DateTime startingDate, DateTime endingDate) 
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_User] ('{0}','{1}')",
+                startingDate, endingDate);
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
         private static void ConvertDateToYearMonth(DateTime date,out int year, out int month) 
          {
              year = date.Year;
