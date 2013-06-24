@@ -18,6 +18,8 @@ namespace Lync_Billing.DB
         public string IpAddress {set;get;}
         public string UserAgent { set; get; }
 
+        public string EffectiveSipAccount { set; get; }
+
         public List<UserRole> Roles { set; get; }
         public Dictionary<string, string> ClientData { set; get; }
         public List<PhoneCall> PhoneCallsHistory { set; get; }
@@ -95,29 +97,9 @@ namespace Lync_Billing.DB
                             IsDeveloper = true;
                             break;
 
-                        case 2:
-                            IsAccountant = true;
-                            IsSuperAccountant = true;
-                            break;
-
-                        case 3:
-                            IsAdmin = true;
-                            IsSuperAdmin = true;
-                            break;
-
-                        case 4:
-                            IsAdmin = true;
-                            IsCountryAdmin = true;
-                            break;
-
                         case 5:
                             IsAdmin = true;
                             IsProjectAdmin = true;
-                            break;
-
-                        case 6:
-                            IsAccountant = true;
-                            IsCountryAccountant = true;
                             break;
 
                         case 7:
