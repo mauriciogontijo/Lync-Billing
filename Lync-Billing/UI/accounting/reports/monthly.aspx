@@ -129,8 +129,8 @@
                             <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
                                     <ext:ModelField Name="SipAccount" Type="String" />
-                                    <ext:ModelField Name="UserID" Type="String" />
-                                    <ext:ModelField Name="UserName" Type="String" />
+                                    <ext:ModelField Name="EmployeeID" Type="String" />
+                                    <ext:ModelField Name="FullName" Type="String" />
                                     <ext:ModelField Name="Cost" Type="String" />
                                 </Fields>
                             </ext:Model>

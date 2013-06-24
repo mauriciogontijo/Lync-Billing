@@ -24,7 +24,6 @@ namespace Lync_Billing.ui.accounting.reports
 
         private StoreReadDataEventArgs e;
         private DateTime date;
-        private string sitename = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,14 +47,22 @@ namespace Lync_Billing.ui.accounting.reports
         }
 
 
-        protected void MonthlyReports(string sitename, DateTime date)
+        protected List<UsersCallsSummary> MonthlyReports(string sitename, DateTime date)
         {
+            List<string> sites = new List<string>();
+            List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
+
             if (reportDateField.SelectedDate != DateTime.MinValue)
             {
                 date = reportDateField.SelectedDate;
+                sites = GetAccountantSiteName();
 
-                UsersCallsSummary.GetUsersCallsSummary(date, date, sitename);
+                foreach (string site in sites) 
+                {
+                    listOfUsersCallsSummary.AddRange( UsersCallsSummary.GetUsersCallsSummary(date, date, sitename).AsEnumerable<UsersCallsSummary>());
+                }
             }
+            return listOfUsersCallsSummary;
         }
 
         protected void MonthlyReportsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
@@ -86,23 +93,24 @@ namespace Lync_Billing.ui.accounting.reports
             (this.MonthlyReportsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
         }
 
-        public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
+        public List<UsersCallsSummary> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
             //MonthlyReports("MOA");
 
-            IQueryable<PhoneCall> result;
+            IQueryable<UsersCallsSummary> result;
 
             if (filter == null)
-                result = userSession.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
+                result = listOfUsersCallsSummary.AsQueryable();
             else
-                result = userSession.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
+                result = listOfUsersCallsSummary.Where ( userEntry => userEntry.EmployeeID.Contains(filter.Value) ||  userEntry.FullName.Contains(filter.Value) ).AsQueryable();
 
             if (sort != null)
             {
                 ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
 
-                Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
+                Expression<Func<UsersCallsSummary, object>> sortExpression = Expression.Lambda<Func<UsersCallsSummary, object>>(Expression.Property(param, sort.Property), param);
                 if (sort.Direction == Ext.Net.SortDirection.DESC)
                     result = result.OrderByDescending(sortExpression);
                 else
@@ -129,7 +137,7 @@ namespace Lync_Billing.ui.accounting.reports
             return sites[0].SiteName;
         }
 
-        public List<string> GetAccountantSiteName(string employeeID)
+        public List<string> GetAccountantSiteName()
         {
             UserSession session = (UserSession)Session.Contents["UserData"];
             
