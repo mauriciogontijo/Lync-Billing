@@ -133,8 +133,8 @@ namespace Lync_Billing.DB
         //private static Dictionary<string, object> wherePart;
         private static List<string> columns;
 
-        public int EmployeeID { get; set; }
-        public int FullName { get; set; }
+        public string EmployeeID { get; set; }
+        public string FullName { get; set; }
         public string SipAccount { get; set; }
 
         public int BusinessCallsCount { get; set; }
