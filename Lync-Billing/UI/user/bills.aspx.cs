@@ -40,7 +40,7 @@ namespace Lync_Billing.ui.user
             List<Dictionary<string, object>> BillsList = new List<Dictionary<string, object>>();
             Dictionary<string, object> Bill;
 
-            string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+            string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
 
             int year = 2013,
                 start_month = 1,
@@ -73,7 +73,7 @@ namespace Lync_Billing.ui.user
             List<UsersCallsSummary> UserSummariesList = new List<UsersCallsSummary>();
             List<UsersCallsSummary> BillsList = new List<UsersCallsSummary>();
 
-            string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+            string SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
             
             int year = 2013,
                 start_month = 1,

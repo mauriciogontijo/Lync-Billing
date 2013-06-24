@@ -25,7 +25,7 @@ namespace Lync_Billing.ui.user
                 Response.Redirect(url);
             }
 
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
             PhoneCallsDuartionChartStore.DataSource = getChartData(SipAccount);
             PhoneCallsDuartionChartStore.DataBind();
@@ -45,7 +45,7 @@ namespace Lync_Billing.ui.user
             CultureInfo provider = CultureInfo.InvariantCulture;
             DateTime toDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
 
-            return UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, toDate, DateTime.Now);
+            return UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).PrimarySipAccount, toDate, DateTime.Now);
         }
 
         protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)

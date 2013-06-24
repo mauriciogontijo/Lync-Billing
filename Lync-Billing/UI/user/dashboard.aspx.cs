@@ -37,7 +37,7 @@ namespace Lync_Billing.ui.user
                 Response.Redirect(url);
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
 
             unmarked_calls_count = getUnmarkedCallsCount();
 
@@ -60,7 +60,7 @@ namespace Lync_Billing.ui.user
                 UsersCallsSummary UserSummary = new UsersCallsSummary();
                 string SipAccount = string.Empty;
 
-                SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).SipAccount;
+                SipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
                 UserSummaryList = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Month);
 
                 if (UserSummaryList.Count > 0)
@@ -119,7 +119,7 @@ namespace Lync_Billing.ui.user
         {
             CultureInfo provider = CultureInfo.InvariantCulture;
             DateTime fromDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
-            List<UsersCallsSummaryChartData> chartData = UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).SipAccount, fromDate, DateTime.Now);
+            List<UsersCallsSummaryChartData> chartData = UsersCallsSummaryChartData.GetUsersCallsSummary(((UserSession)Session.Contents["UserData"]).PrimarySipAccount, fromDate, DateTime.Now);
 
             return chartData;
         }
@@ -127,7 +127,7 @@ namespace Lync_Billing.ui.user
         protected void DurationCostChartStore_Load(object sender, EventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.SipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(userSession.PrimarySipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
 
         }
@@ -136,7 +136,7 @@ namespace Lync_Billing.ui.user
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
            
-            topDestinations = TopDestinations.GetTopDestinations(userSession.SipAccount);
+            topDestinations = TopDestinations.GetTopDestinations(userSession.PrimarySipAccount);
 
             foreach (TopDestinations destination in topDestinations)
             {
@@ -162,7 +162,7 @@ namespace Lync_Billing.ui.user
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
             
-            topCountries = TopCountries.GetTopDestinations(userSession.SipAccount);
+            topCountries = TopCountries.GetTopDestinations(userSession.PrimarySipAccount);
             TopDestinationCountriesStore.DataSource = topCountries;
             
             TopDestinationCountriesStore.DataBind();
@@ -170,7 +170,7 @@ namespace Lync_Billing.ui.user
 
         protected int getUnmarkedCallsCount()
         {
-            sipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            sipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
             wherePart.Add("SourceUserUri", sipAccount);
             wherePart.Add("marker_CallTypeID", 1);

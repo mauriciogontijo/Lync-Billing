@@ -11,26 +11,21 @@ namespace Lync_Billing.DB
         public string EmailAddress { set; get; }
         public string DisplayName { set; get; }
         public string TelephoneNumber { set; get; }
-        public string ActiveRoleName { set; get; }
         public string SiteName { set; get; }
         public string EmployeeID { set; get; }
-        public string SipAccount { set; get; }
         public string IpAddress {set;get;}
         public string UserAgent { set; get; }
 
+        //Sip Address and Delegees Addresses Related
+        public string PrimarySipAccount { set; get; }
         public string EffectiveSipAccount { set; get; }
-
+        public List<string> ListOfDelegees { get; set; }
+        
+        //Roles Related
         public List<UserRole> Roles { set; get; }
+        public string ActiveRoleName { set; get; }
         public Dictionary<string, string> ClientData { set; get; }
-        public List<PhoneCall> PhoneCallsHistory { set; get; }
-       //public List<PhoneCall> UnmarkedPhoneCalls { set; get; }
-       //public List<PhoneCall> MarkedPhoneCalls { set; get; }
-       //public string MarkedPhoneCallsPerPage { set; get; }
-       //public string UnmarkedPhoneCallsPerPage { set; get; }
-        public Dictionary<string, PhoneBook> phoneBook { set; get; }
-        public string PhoneCallsPerPage { set; get; }
-        public List<PhoneCall> PhoneCalls { set; get; }
-       
+               
         //Generic User Roles
         public bool IsDeveloper { set; get; }
         public bool IsAdmin { set; get; }
@@ -39,25 +34,37 @@ namespace Lync_Billing.DB
         //Specific User Roles
         public bool IsProjectAdmin { set; get; }
         public bool IsProjectAccountant { set; get; }
+        
+        //Delegate-capability check
+        public bool IsDelegate { set; get; }
+
+        //Redirection Related
         public string CurrentURL { set; get; }
         public string ToURL { set; get; }
 
-        //Delegate-capability check
-        public bool IsDelegate { set; get; }
+        //Phone Calls and Phone Book Related
+        public string PhoneCallsPerPage { set; get; }
+        public List<PhoneCall> PhoneCalls { set; get; }
+        public List<PhoneCall> PhoneCallsHistory { set; get; }
+        public Dictionary<string, PhoneBook> PhoneBook { set; get; }
 
         private static List<UserSession> usersSessions = new List<UserSession>();
 
 
         public UserSession()
         {
+            //By default the roles are set to false unless initialized as otherwise!
             IsDeveloper = false;
             IsAdmin = false;
             IsAccountant = false;
-
             IsProjectAdmin = false;
             IsProjectAccountant = false;
-
             IsDelegate = false;
+
+            //Empty all of the sip accounts
+            PrimarySipAccount = string.Empty;
+            EffectiveSipAccount = string.Empty;
+            ListOfDelegees = new List<string>();
         }
 
         
@@ -102,9 +109,7 @@ namespace Lync_Billing.DB
             } else {
                 //do nothing
             }
-        }
+        }//END PF FUNCTION
 
-       
     }
-    
 }

@@ -45,7 +45,7 @@ namespace Lync_Billing.ui.accounting.main
 
             List<PhoneCall> usersCalls = new List<PhoneCall>();
             List<PhoneCall> accountantView = new List<PhoneCall>();
-            List<string> sites = GetAccountantSiteName(userSession.SipAccount);
+            List<string> sites = GetAccountantSiteName(userSession.PrimarySipAccount);
 
             wherePart.Add("marker_CallTypeID", 1);
             wherePart.Add("ac_IsInvoiced", "NO");
@@ -107,7 +107,7 @@ namespace Lync_Billing.ui.accounting.main
             {
                 phoneCall.AC_DisputeStatus = "Accepted";
                 phoneCall.AC_DisputeResolvedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManageDisputesGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
@@ -132,7 +132,7 @@ namespace Lync_Billing.ui.accounting.main
             {
                 phoneCall.AC_DisputeStatus = "Rejected";
                 phoneCall.AC_DisputeResolvedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManageDisputesGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);

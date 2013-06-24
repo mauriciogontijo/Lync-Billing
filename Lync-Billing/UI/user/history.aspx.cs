@@ -128,7 +128,7 @@ namespace Lync_Billing.ui.user
 
             if (userSession.PhoneCallsHistory == null || userSession.PhoneCallsHistory.Count == 0 || force == true)
             {
-                string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                string SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
                 wherePart.Add("SourceUserUri", SipAccount);
                 wherePart.Add("marker_CallTypeID", 1);

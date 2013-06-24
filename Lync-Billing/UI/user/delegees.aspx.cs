@@ -36,7 +36,7 @@ namespace Lync_Billing.ui.user
                 UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
                 if (session.IsDelegate == true || session.IsDeveloper == true)
                 {
-                    delegates = UsersDelegates.GetSipAccounts(session.SipAccount);
+                    delegates = UsersDelegates.GetSipAccounts(session.PrimarySipAccount);
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace Lync_Billing.ui.user
             {
                 phoneCall.UI_CallType = "Business";
                 phoneCall.UI_MarkedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
@@ -86,7 +86,7 @@ namespace Lync_Billing.ui.user
             {
                 phoneCall.UI_CallType = "Personal";
                 phoneCall.UI_MarkedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
@@ -111,7 +111,7 @@ namespace Lync_Billing.ui.user
             {
                 phoneCall.UI_CallType = "Dispute";
                 phoneCall.UI_MarkedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManagePhoneCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
@@ -152,7 +152,7 @@ namespace Lync_Billing.ui.user
 
                     matchedDestinationCall.UI_CallType = "Personal";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
-                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
 
@@ -200,7 +200,7 @@ namespace Lync_Billing.ui.user
 
                     matchedDestinationCall.UI_CallType = "Business";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
-                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
 
@@ -247,15 +247,15 @@ namespace Lync_Billing.ui.user
                 phoneBookEntry = new PhoneBook();
 
                 //Check if this entry Already exists 
-                if (!userSession.phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                if (!userSession.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri))
                 {
                     phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
                     phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
-                    phoneBookEntry.SipAccount = userSession.SipAccount;
+                    phoneBookEntry.SipAccount = userSession.PrimarySipAccount;
                     phoneBookEntry.Type = "Personal";
 
                     //Add Phonebook entry to Session and to the list which will be written to database 
-                    userSession.phoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+                    userSession.PhoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
                     phoneBookEntries.Add(phoneBookEntry);
                 }
 
@@ -268,7 +268,7 @@ namespace Lync_Billing.ui.user
 
                     matchedDestinationCall.UI_CallType = "Personal";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
-                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
                 }
@@ -312,15 +312,15 @@ namespace Lync_Billing.ui.user
                 phoneBookEntry = new PhoneBook();
 
                 //Check if this entry Already exists 
-                if (!userSession.phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                if (!userSession.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri))
                 {
                     phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
                     phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
-                    phoneBookEntry.SipAccount = userSession.SipAccount;
+                    phoneBookEntry.SipAccount = userSession.PrimarySipAccount;
                     phoneBookEntry.Type = "Business";
 
                     //Add Phonebook entry to Session and to the list which will be written to database 
-                    userSession.phoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+                    userSession.PhoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
                     phoneBookEntries.Add(phoneBookEntry);
                 }
 
@@ -333,7 +333,7 @@ namespace Lync_Billing.ui.user
 
                     matchedDestinationCall.UI_CallType = "Business";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
-                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).SipAccount;
+                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
                 }
@@ -388,10 +388,10 @@ namespace Lync_Billing.ui.user
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
             string DelegatedAccount = UsersDelegates.GetDelegateAccount(DelegatedUsersComboBox.SelectedItem.Value).DelegeeAccount;
 
-            if (DelegatedUsersComboBox.SelectedItem.Value != null && DelegatedAccount == userSession.SipAccount)
+            if (DelegatedUsersComboBox.SelectedItem.Value != null && DelegatedAccount == userSession.PrimarySipAccount)
             {
                 UsersDelegates userDelegate = new UsersDelegates();
-                userDelegate = UsersDelegates.GetDelegateAccount(userSession.SipAccount);
+                userDelegate = UsersDelegates.GetDelegateAccount(userSession.PrimarySipAccount);
 
                 string SipAccount = DelegatedUsersComboBox.SelectedItem.Value.ToString();
 

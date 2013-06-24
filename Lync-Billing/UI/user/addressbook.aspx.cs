@@ -32,7 +32,7 @@ namespace Lync_Billing.ui.user
                 Dictionary<string, PhoneBook> TempAddressBookData = new Dictionary<string, PhoneBook>();
                 string SipAccount = string.Empty;
 
-                SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount.ToString();
+                SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount.ToString();
                 TempAddressBookData = PhoneBook.GetAddressBook(SipAccount);
                 TempHistoryData = PhoneBook.GetDestinationNumbers(SipAccount);
 
@@ -72,7 +72,7 @@ namespace Lync_Billing.ui.user
         protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
         {
             string json = e.ExtraParams["Values"];
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
             List<PhoneBook> all_address_book_items = new List<PhoneBook>();
             List<PhoneBook> filtered_address_book_items = new List<PhoneBook>();
@@ -106,7 +106,7 @@ namespace Lync_Billing.ui.user
         protected void AddressBookUpdateContacts(object sender, DirectEventArgs e)
         {
             string json = e.ExtraParams["Values"];
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
             List<PhoneBook> all_address_book_items = new List<PhoneBook>();
             List<PhoneBook> filtered_address_book_items = new List<PhoneBook>();
@@ -148,7 +148,7 @@ namespace Lync_Billing.ui.user
         protected void AddressBookDeleteContacts(object sender, DirectEventArgs e)
         {
             string json = e.ExtraParams["Values"];
-            string SipAccount = ((UserSession)Session.Contents["UserData"]).SipAccount;
+            string SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
             List<PhoneBook> to_be_deleted_entries = new List<PhoneBook>();
 
