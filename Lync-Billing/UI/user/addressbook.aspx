@@ -50,8 +50,8 @@
                             <p>History</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../user/history.aspx'>Phone Calls History</a></p>
                             <p><a href='../user/bills.aspx'>Bills History</a></p>
+                            <p><a href='../user/history.aspx'>Phone Calls History</a></p>
                         </div>
                     </div>
 
@@ -65,7 +65,8 @@
                     </div>
 
                     <%
-                        bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                        Lync_Billing.DB.UserSession session = (Lync_Billing.DB.UserSession)Session.Contents["UserData"];
+                        bool is_delegate = (session.IsDelegate || session.IsDeveloper);
                         if (is_delegate)
                         {
                     %>

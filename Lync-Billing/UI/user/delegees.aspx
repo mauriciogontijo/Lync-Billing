@@ -72,19 +72,14 @@
                         </div>
                     </div>
 
-                    <%
-                        bool condition = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
-                        if (condition) {
-                    %>
-                        <div class='sidebar-section'>
-                            <div class="sidebar-section-header">
-                                <p>Delegee Accounts</p>
-                            </div>
-                            <div class="sidebar-section-body">
-                                <p><a href='../user/delegees.aspx' class="selected">Manage Delegee(s)</a></p>
-                            </div>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Delegee Accounts</p>
                         </div>
-                    <% } %>
+                        <div class="sidebar-section-body">
+                            <p><a href='../user/delegees.aspx' class="selected">Manage Delegee(s)</a></p>
+                        </div>
+                    </div>
                 </Content>
             </ext:Panel>
         </div>

@@ -147,7 +147,7 @@
                             </li>
 
                             <li id="user-tab" class="">
-                                <a href="#"><%= ((Lync_Billing.DB.UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName %><span class="drop"></span></a>
+                                <a href="#"><%= current_session.DisplayName %><span class="drop"></span></a>
                                 <ul id="user-dropdown">
                                     <li class="first-child"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
                                     <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
@@ -155,7 +155,8 @@
                                     <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
                                     <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
                                     <%
-                                        bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                                        //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
+                                        bool is_delegate = (current_session.IsDelegate || current_session.IsDeveloper) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
                                         if (is_delegate)
                                         {
                                     %>
@@ -166,15 +167,16 @@
                             </li>
 
                             <%
-                                bool higher_access = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAdmin;
+                                //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
+                                bool higher_access = (current_session.IsAccountant || current_session.IsDeveloper || current_session.IsAdmin) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
                                 if (higher_access) {
                             %>
                                 <li id="switch-roles" class="">
                                     <a href="#">Elevate Access<span class="drop"></span></a>
                                     <ul id="roles-dropdown">
-                                        <% if(((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAccountant || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper) { %>
+                                        <% if(current_session.IsAccountant || current_session.IsDeveloper) { %>
                                             <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../accounting/main/dashboard.aspx">Accounting Role</a></li>
-                                        <% } if (((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsAdmin || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper) { %>
+                                        <% } if (current_session.IsAdmin || current_session.IsDeveloper) { %>
                                             <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="#">Administrator Role</a></li>
                                         <% } %>
                                     </ul>

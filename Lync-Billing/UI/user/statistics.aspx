@@ -246,7 +246,8 @@
                     </div>
 
                     <%
-                        bool is_delegate = ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDelegate || ((Lync_Billing.DB.UserSession)Session.Contents["UserData"]).IsDeveloper;
+                        Lync_Billing.DB.UserSession session = (Lync_Billing.DB.UserSession)Session.Contents["UserData"];
+                        bool is_delegate = (session.IsDelegate || session.IsDeveloper);
                         if (is_delegate)
                         {
                     %>

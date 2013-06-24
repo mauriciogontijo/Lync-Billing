@@ -17,7 +17,7 @@ namespace Lync_Billing.ui.user
     public partial class dashboard : System.Web.UI.Page
     {
         public int unmarked_calls_count = 0;
-        public string sipAccount = string.Empty;
+        public string SipAccount = string.Empty;
 
         public Dictionary<string, PhoneBook> phoneBookEntries;
         public List<TopDestinations> topDestinations;
@@ -26,6 +26,9 @@ namespace Lync_Billing.ui.user
         public Dictionary<string, object> wherePart = new Dictionary<string, object>();
         public List<string> columns = new List<string>();
         public List<PhoneCall> phoneCalls;
+
+        //This actually takes a copy of the current session for some uses on the frontend.
+        public UserSession current_session { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,17 +40,24 @@ namespace Lync_Billing.ui.user
                 Response.Redirect(url);
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
+            //Copy the current session to the instance variable, this is needed to make it more easier to access the current session from the front-end.
+            current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
+            //initialize the local copy of the current user's PrimarySipAccount
+            SipAccount = current_session.PrimarySipAccount;
+
+            //Initialize the unmarked calls counter - this is being used in the frontend.
             unmarked_calls_count = getUnmarkedCallsCount();
 
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
+            //Initialize the Address Book data.
+            phoneBookEntries = PhoneBook.GetAddressBook(SipAccount);
+
+            //Get the phone calls chart data.
+            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(SipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
 
-            phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
-
-            Misc.Message("Welcome","Welcome " + ((UserSession)HttpContext.Current.Session.Contents["UserData"]).DisplayName,"info");
-            
+            //Configure the welcome ext-js toggled welcome-message.
+            Misc.Message("Welcome","Welcome " + current_session.DisplayName,"info");
         }
 
         [DirectMethod]
@@ -170,9 +180,9 @@ namespace Lync_Billing.ui.user
 
         protected int getUnmarkedCallsCount()
         {
-            sipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+            SipAccount = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
 
-            wherePart.Add("SourceUserUri", sipAccount);
+            wherePart.Add("SourceUserUri", SipAccount);
             wherePart.Add("marker_CallTypeID", 1);
             wherePart.Add("ui_CallType", null);
             wherePart.Add("ac_IsInvoiced", "NO");
@@ -199,10 +209,10 @@ namespace Lync_Billing.ui.user
                 
         }
      
-        private string GetUserNameBySip(string sipAccount) 
+        private string GetUserNameBySip(string SipAccount) 
         {
             AdLib adRoutines = new AdLib();
-            string DisplayName = adRoutines.GetUserAttributes(sipAccount).DisplayName;
+            string DisplayName = adRoutines.GetUserAttributes(SipAccount).DisplayName;
             
             if (DisplayName != null)
                 return DisplayName;
