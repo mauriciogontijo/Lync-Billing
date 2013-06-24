@@ -266,13 +266,13 @@ namespace Lync_Billing.DB
             return chartList;
         }
 
-        public static List<UsersCallsSummary> GetUsersCallsSummary(DateTime startingDate, DateTime endingDate, string siteName) 
+        public static List<UsersCallsSummary> GetUsersCallsSummary(DateTime startingDate, DateTime endingDate) 
         {
             DataTable dt = new DataTable();
             UsersCallsSummary userSummary;
             List<UsersCallsSummary> usersSummaryList = new List<UsersCallsSummary>();
 
-            dt = StatRoutines.USERS_STATS(startingDate, endingDate);
+            dt = StatRoutines.USERS_STATS(startingDate, endingDate,string siteName);
 
             foreach (DataRow row in dt.Rows)
             {

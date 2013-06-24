@@ -48,14 +48,14 @@ namespace Lync_Billing.Libs
 
          }
 
-        public DataTable USERS_STATS(DateTime startingDate, DateTime endingDate) 
+        public DataTable USERS_STATS(DateTime startingDate, DateTime endingDate,string siteName) 
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
             string selectQuery = string.Empty;
 
-            selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_User] ('{0}','{1}')",
-                startingDate, endingDate);
+            selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_User] ('{0}','{1}','{2}')",
+                startingDate, endingDate, siteName);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(selectQuery, conn);
