@@ -163,6 +163,7 @@
                         RemoteSort="true"
                         PageSize="25"
                         DataSourceID="PhoneCallsDataSource"
+                        OnSubmitData="PhoneCallsStore_SubmitData"
                         OnReadData="PhoneCallsStore_ReadData">
                         <Proxy>
                             <ext:PageProxy CacheString="" />

@@ -93,6 +93,18 @@ namespace Lync_Billing.ui.user
             (this.PhoneCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
         }
 
+        protected void PhoneCallsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
+        {
+            XmlNode xml = e.Xml;
+
+            this.Response.Clear();
+            this.Response.ContentType = "application/vnd.ms-excel";
+            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+            XslCompiledTransform xtExcel = new XslCompiledTransform();
+            xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
+            xtExcel.Transform(xml, null, Response.OutputStream);
+        }
+
         protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
             this.e = e;
@@ -492,5 +504,7 @@ namespace Lync_Billing.ui.user
             
             PhoneCallsStore.LoadPage(1);
         }
+
+     
     }
 }
