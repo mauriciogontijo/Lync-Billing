@@ -77,7 +77,8 @@ div#main_content_place_holder_SelectDelegatedAccountsPanel *,
 div#main_content_place_holder_ImportContactsGrid *,
 div#main_content_place_holder_AddressBookGrid *,
 div#main_content_place_holder_ManagePhoneCallsGrid *,
-div#main_content_place_holder_FilterPhoneCallsPanel * { 
+div#main_content_place_holder_FilterPhoneCallsPanel *,
+div#main_content_place_holder_MonthlyReportsTools * { 
     vertical-align: bottom; 
 }
 /* end asp & ext blocks styling */

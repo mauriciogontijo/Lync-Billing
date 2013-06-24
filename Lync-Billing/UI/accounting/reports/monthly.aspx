@@ -51,46 +51,145 @@
     <div id='generate-report-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
             <ext:Panel
-                ID="GenerateReportPanel" 
-                runat="server" 
-                Width="750"
-                Height="53"  
+                ID="MonthlyReportsTools"
+                runat="server"
                 Header="true"
-                Title="Generate Monthly User Report"
-                Layout="Anchor">
+                Title="Generate Monthly Reports"
+                Width="740"
+                Height="59"
+                Layout="AnchorLayout">
                 <TopBar>
-                    <ext:Toolbar ID="Toolbar1" runat="server">
+                    <ext:Toolbar
+                        ID="FilterAndSearthToolbar"
+                        runat="server">
                         <Items>
                             <ext:TextField
-                                ID="GroupNumberField"
-                                runat="server" 
-                                FieldLabel="User Group Number:"
-                                LabelWidth="115"
-                                EmptyText="Number Only"
-                                Margins="0 25 0 5" />
+                                ID="UserSearch"
+                                runat="server"
+                                Icon="UserMagnify"
+                                TriggerAction="All"
+                                QueryMode="Local"
+                                EmptyText="User's Sip Account"
+                                Width="210"
+                                Height="22"
+                                FieldLabel="Search User:"
+                                LabelWidth="70"
+                                Margins="5 25 0 5" />
 
                             <ext:DateField 
                                 ID="DateField"
                                 runat="server" 
                                 Vtype="daterange"
-                                FieldLabel="Select Month and Year:"
-                                LabelWidth="115"
+                                FieldLabel="Filter By Date:"
+                                LabelWidth="80"
                                 EmptyText="Empty Date"
-                                Width="300"
-                                Margins="0 40 0 5">
+                                Width="220"
+                                Margins="5 170 0 5">
                                 <CustomConfig>
                                     <ext:ConfigItem Name="DateField" Value="DateField1" Mode="Value" />
                                 </CustomConfig>
-                                <%--<Listeners>
-                                    <KeyUp Fn="onKeyUp" />
-                                </Listeners>--%>
                             </ext:DateField>
-                            <ext:Button ID="Button1" runat="server" Text="Generate Report" Icon="ApplicationGo" OnDirectClick="Button1_DirectClick">
-                            </ext:Button>
+
+                            <ext:Button
+                                ID="FilterReportButton"
+                                runat="server"
+                                Text="Filter Report"
+                                Icon="ApplicationFormEdit"
+                                OnDirectClick="FilterReportButton_DirectClick" />
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
             </ext:Panel>
+
+            <div class="h5 clear"></div>
+
+            <ext:GridPanel
+                ID="MonthlyReportsGrids"
+                runat="server"
+                Width="740"
+                Height="720"
+                AutoScroll="true"
+                Scroll="Both"
+                Layout="FitLayout">
+                <Store>
+                    <ext:Store
+                        ID="MonthlyReportsStore"
+                        runat="server"
+                        RemoteSort="true"
+                        PageSize="25">
+                        <Proxy>
+                            <ext:PageProxy CacheString="" />
+                        </Proxy>
+                        <Model>
+                            <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
+                                <Fields>
+                                    <ext:ModelField Name="SipAccount" Type="String" />
+                                    <ext:ModelField Name="UserID" Type="String" />
+                                    <ext:ModelField Name="UserName" Type="String" />
+                                    <ext:ModelField Name="Cost" Type="String" />
+                                </Fields>
+                            </ext:Model>
+                        </Model>
+                        <Sorters>
+                            <ext:DataSorter Property="SipAccount" Direction="DESC" />
+                        </Sorters>
+                    </ext:Store>
+                </Store>
+                <ColumnModel ID="MonthlyReportsColumnModel" runat="server" Flex="1">
+                    <Columns>
+                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+
+                        <ext:Column
+                            ID="UserID"
+                            runat="server"
+                            Text="Employee ID"
+                            Width="140"
+                            DataIndex="UserID" />
+
+                        <ext:Column
+                            ID="SipAccount"
+                            runat="server"
+                            Text="Sip Account"
+                            Width="90"
+                            DataIndex="SipAccount" />
+
+                        <ext:Column
+                            ID="UserName"
+                            runat="server"
+                            Text="Full Name"
+                            Width="130"
+                            DataIndex="UserName" />
+
+                        <ext:Column
+                            ID="Cost"
+                            runat="server"
+                            Text="Cost"
+                            Width="70"
+                            DataIndex="Cost" />
+                    </Columns>
+                </ColumnModel>
+
+                <SelectionModel>
+                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                        runat="server"
+                        Mode="Multi"
+                        AllowDeselect="true"
+                        IgnoreRightMouseSelection="true"
+                        CheckOnly="true">
+                    </ext:CheckboxSelectionModel>
+                </SelectionModel>
+                
+                <BottomBar>
+                    <ext:PagingToolbar
+                        ID="PagingToolbar1"
+                        runat="server"
+                        StoreID="PhoneCallStore"
+                        DisplayInfo="true"
+                        Weight="25"
+                        DisplayMsg="Phone Calls {0} - {1} of {2}" />
+                </BottomBar>
+
+            </ext:GridPanel>
         </div>
     </div>
     <!-- *** END OF ACCOUNTING MAIN BODY *** -->

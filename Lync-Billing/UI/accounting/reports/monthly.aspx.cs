@@ -84,17 +84,16 @@ namespace Lync_Billing.ui.accounting.reports
         public string GetSipAccountSite(string employeeID)
         {
             Dictionary<string, object> whereStatement = new Dictionary<string, object>();
-           // List<string> fields = new List<string>();
+            // List<string> fields = new List<string>();
             List<Users> users = new List<Users>();
 
             whereStatement.Add("UserID", employeeID);
-          
-
+            
             users = Users.GetUsers(null, whereStatement, 0);
             return users[0].SiteName;
         }
 
-        protected void Button1_DirectClick(object sender, DirectEventArgs e)
+        protected void FilterReportButton_DirectClick(object sender, DirectEventArgs e)
         {
             int year = 0;
             int month = 0;
@@ -104,13 +103,13 @@ namespace Lync_Billing.ui.accounting.reports
             List<UsersCallsSummary> userSummary;
             DateTime date = DateField.SelectedDate;
             UserSession session = (UserSession)Session.Contents["UserData"];
-            
+
             year = date.Year;
             month = date.Month;
 
-            if (ValidateAccountantSite(GroupNumberField.Text) == true)
+            if (ValidateAccountantSite(UserSearch.Text) == true)
             {
-                sipAccount = GetSipAccount(GroupNumberField.Text);
+                sipAccount = GetSipAccount(UserSearch.Text);
                 userSummary = UsersCallsSummary.GetUsersCallsSummary(sipAccount, year, month, month);
                 BusinessCallCost = userSummary[0].BusinessCallsCost;
 
@@ -118,9 +117,9 @@ namespace Lync_Billing.ui.accounting.reports
                     "records",
                     new XElement(
                         "record",
-                        new XElement("EmployeeID", GroupNumberField.Text),
+                        new XElement("EmployeeID", UserSearch.Text),
                         new XElement("SipAccount", sipAccount),
-                        new XElement("Cost",BusinessCallCost)
+                        new XElement("Cost", BusinessCallCost)
                     )
                 );
 
