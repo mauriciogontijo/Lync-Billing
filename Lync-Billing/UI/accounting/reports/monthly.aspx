@@ -77,7 +77,7 @@
                                 Margins="5 25 0 5" />
 
                             <ext:DateField 
-                                ID="DateField"
+                                ID="reportDateField"
                                 runat="server" 
                                 Vtype="daterange"
                                 FieldLabel="Filter By Date:"
@@ -102,6 +102,20 @@
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout">
+                 <asp:ObjectDataSource
+                    ID="MonthlyReportsDataSource"
+                    runat="server"
+                    OnSelecting="MonthlyReportsDataSource_Selecting"
+                    OnSelected="MonthlyReportsDataSource_Selected"
+                    SelectMethod="GetMonthlyReportsFilter"
+                    TypeName="Lync_Billing.ui.accounting.reports.monthly">
+                    <SelectParameters>
+                        <asp:Parameter Name="start" Type="Int32" />
+                        <asp:Parameter Name="limit" Type="Int32" />
+                        <asp:Parameter Name="sort" Type="Object" />
+                        <asp:Parameter Name="count" Direction="Output" Type="Int32" />
+                    </SelectParameters>
+                </asp:ObjectDataSource>
                 <Store>
                     <ext:Store
                         ID="MonthlyReportsStore"
@@ -161,13 +175,13 @@
                 </ColumnModel>
 
                 <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                    <%--<ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
                         runat="server"
                         Mode="Multi"
                         AllowDeselect="true"
                         IgnoreRightMouseSelection="true"
                         CheckOnly="true">
-                    </ext:CheckboxSelectionModel>
+                    </ext:CheckboxSelectionModel>--%>
                 </SelectionModel>
                 
                 <BottomBar>

@@ -49,13 +49,13 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.TextField UserSearch;
         
         /// <summary>
-        /// DateField control.
+        /// reportDateField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.DateField DateField;
+        protected global::Ext.Net.DateField reportDateField;
         
         /// <summary>
         /// MonthlyReportsGrids control.
@@ -65,6 +65,15 @@ namespace Lync_Billing.ui.accounting.reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.GridPanel MonthlyReportsGrids;
+        
+        /// <summary>
+        /// MonthlyReportsDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource MonthlyReportsDataSource;
         
         /// <summary>
         /// MonthlyReportsStore control.
@@ -128,15 +137,6 @@ namespace Lync_Billing.ui.accounting.reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column Cost;
-        
-        /// <summary>
-        /// CheckboxSelectionModel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.CheckboxSelectionModel CheckboxSelectionModel1;
         
         /// <summary>
         /// PagingToolbar1 control.

@@ -14,13 +14,17 @@ using System.Xml.Xsl;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Linq.Expressions;
+using Newtonsoft.Json;
 
 namespace Lync_Billing.ui.accounting.reports
 {
     public partial class monthly : System.Web.UI.Page
     {
 
-        Store UserBusinessCallsStore = new Store();
+        private StoreReadDataEventArgs e;
+        private DateTime date;
+        private string sitename = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,10 +47,81 @@ namespace Lync_Billing.ui.accounting.reports
             }
         }
 
-        public string GetSiteName(int siteID) 
+
+        protected void MonthlyReports(string sitename, DateTime date)
         {
-            
-            Dictionary<string,object> wherePart = new Dictionary<string,object>();
+            if (reportDateField.SelectedDate != DateTime.MinValue)
+            {
+                date = reportDateField.SelectedDate;
+
+                UsersCallsSummary.GetUsersCallsSummary(date, date, sitename);
+            }
+        }
+
+        protected void MonthlyReportsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            if (this.e.Start != -1)
+                e.InputParameters["start"] = this.e.Start;
+            else
+                e.InputParameters["start"] = 0;
+
+            if (this.e.Limit != -1)
+                e.InputParameters["limit"] = this.e.Limit;
+            else
+                e.InputParameters["limit"] = 25;
+
+            if (!string.IsNullOrEmpty(this.e.Parameters["sort"]))
+                e.InputParameters["sort"] = this.e.Sort[0];
+            else
+                e.InputParameters["sort"] = null;
+
+            if (!string.IsNullOrEmpty(this.e.Parameters["filter"]))
+                e.InputParameters["filter"] = this.e.Filter[0];
+            else
+                e.InputParameters["filter"] = null;
+        }
+
+        protected void MonthlyReportsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            (this.MonthlyReportsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
+        }
+
+        public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
+        {
+            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            //MonthlyReports("MOA");
+
+            IQueryable<PhoneCall> result;
+
+            if (filter == null)
+                result = userSession.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
+            else
+                result = userSession.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
+
+            if (sort != null)
+            {
+                ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
+
+                Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
+                if (sort.Direction == Ext.Net.SortDirection.DESC)
+                    result = result.OrderByDescending(sortExpression);
+                else
+                    result = result.OrderBy(sortExpression);
+            }
+
+            int resultCount = result.Count();
+
+            if (start >= 0 && limit > 0)
+                result = result.Skip(start).Take(limit);
+
+            count = resultCount;
+
+            return result.ToList();
+        }
+
+        public string GetSiteName(int siteID)
+        {
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
             wherePart.Add("SiteID", siteID);
 
             List<Site> sites = DB.Site.GetSites(null, wherePart, 0);
@@ -54,21 +129,23 @@ namespace Lync_Billing.ui.accounting.reports
             return sites[0].SiteName;
         }
 
-        public bool ValidateAccountantSite(string employeeID) 
+        public List<string> GetAccountantSiteName(string employeeID)
         {
             UserSession session = (UserSession)Session.Contents["UserData"];
+            
+            List<string> sites = new List<string>();
 
             List<UserRole> userRoles = session.Roles;
 
-            foreach (UserRole role in userRoles) 
+            foreach (UserRole role in userRoles)
             {
-                if ((GetSiteName(role.SiteID) == GetSipAccountSite(employeeID)) && (role.RoleID == 7 || role.RoleID == 1)) 
-                    return true;
+                if (role.RoleID == 7 || role.RoleID == 1) 
+                    sites.Add(GetSiteName(role.SiteID));
             }
-            return false;
+            return sites;
         }
 
-        public string GetSipAccount(string employeeID) 
+        public string GetSipAccount(string employeeID)
         {
             Dictionary<string, object> whereStatement = new Dictionary<string, object>();
             List<string> fields = new List<string>();
@@ -88,57 +165,12 @@ namespace Lync_Billing.ui.accounting.reports
             List<Users> users = new List<Users>();
 
             whereStatement.Add("UserID", employeeID);
-            
+
+
             users = Users.GetUsers(null, whereStatement, 0);
             return users[0].SiteName;
         }
 
-        protected void FilterReportButton_DirectClick(object sender, DirectEventArgs e)
-        {
-            int year = 0;
-            int month = 0;
-            decimal BusinessCallCost;
-            string sipAccount = string.Empty;
-            DataSet ds = new DataSet();
-            List<UsersCallsSummary> userSummary;
-            DateTime date = DateField.SelectedDate;
-            UserSession session = (UserSession)Session.Contents["UserData"];
 
-            year = date.Year;
-            month = date.Month;
-
-            if (ValidateAccountantSite(UserSearch.Text) == true)
-            {
-                sipAccount = GetSipAccount(UserSearch.Text);
-                userSummary = UsersCallsSummary.GetUsersCallsSummary(sipAccount, year, month, month);
-                BusinessCallCost = userSummary[0].BusinessCallsCost;
-
-                XElement eml = new XElement(
-                    "records",
-                    new XElement(
-                        "record",
-                        new XElement("EmployeeID", UserSearch.Text),
-                        new XElement("SipAccount", sipAccount),
-                        new XElement("Cost", BusinessCallCost)
-                    )
-                );
-
-                XmlDocument xml = new XmlDocument();
-                xml.Load(eml.CreateReader());
-
-                ds.ReadXml(eml.CreateReader());
-                DataTable dt = ds.Tables[0];
-
-                this.Response.Clear();
-                this.Response.ContentType = "application/vnd.ms-excel";
-                this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
-
-                XslCompiledTransform xtExcel = new XslCompiledTransform();
-                xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
-                xtExcel.Transform(xml, null, Response.OutputStream);
-
-                this.Response.End();
-            }
-        }//END OF FUNCTION
     }
 }
