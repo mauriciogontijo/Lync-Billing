@@ -42,7 +42,8 @@ namespace Lync_Billing.ui.user
 
         protected void getPhoneCalls(bool force = false)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
 
             if (userSession.PhoneCalls == null || userSession.PhoneCalls.Count == 0 || force == true)
             {
@@ -109,14 +110,20 @@ namespace Lync_Billing.ui.user
         {
             this.e = e;
             PhoneCallsStore.DataBind();
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             userSession.PhoneCallsPerPage = PhoneCallsStore.JsonData;
         }
 
         public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            getPhoneCalls();
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+
+            //If the current user is in a delegate state, get a fresh copy of the phone calls
+            //else just get the copy from the session
+            if (userSession.PrimarySipAccount != userSession.EffectiveSipAccount)
+                getPhoneCalls(true);
+            else
+                getPhoneCalls();
 
             IQueryable<PhoneCall> result;
  
@@ -148,7 +155,8 @@ namespace Lync_Billing.ui.user
 
         protected void AssignAllPersonal(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -177,7 +185,7 @@ namespace Lync_Billing.ui.user
 
                     matchedDestinationCall.UI_CallType = "Personal";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
-                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+                    matchedDestinationCall.UI_UpdatedByUser = sipAccount;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
                 }
@@ -189,7 +197,8 @@ namespace Lync_Billing.ui.user
 
         protected void AssignAllBusiness(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -218,7 +227,7 @@ namespace Lync_Billing.ui.user
 
                     matchedDestinationCall.UI_CallType = "Business";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
-                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+                    matchedDestinationCall.UI_UpdatedByUser = sipAccount;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
                 }
@@ -229,7 +238,8 @@ namespace Lync_Billing.ui.user
 
         protected void AssignPersonal(object sender, DirectEventArgs e) 
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -254,7 +264,7 @@ namespace Lync_Billing.ui.user
 
                 matchedDestinationCalls.UI_CallType = "Personal";
                 matchedDestinationCalls.UI_MarkedOn = DateTime.Now;
-                matchedDestinationCalls.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+                matchedDestinationCalls.UI_UpdatedByUser = sipAccount;
 
                 PhoneCall.UpdatePhoneCall(matchedDestinationCalls);
 
@@ -270,7 +280,8 @@ namespace Lync_Billing.ui.user
 
         protected void AssignBusiness(object sender, DirectEventArgs e) 
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -295,7 +306,7 @@ namespace Lync_Billing.ui.user
 
                 matchedDestinationCalls.UI_CallType = "Business";
                 matchedDestinationCalls.UI_MarkedOn = DateTime.Now;
-                matchedDestinationCalls.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+                matchedDestinationCalls.UI_UpdatedByUser = sipAccount;
 
                 PhoneCall.UpdatePhoneCall(matchedDestinationCalls);
 
@@ -311,7 +322,8 @@ namespace Lync_Billing.ui.user
 
         protected void AssignDispute(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -336,7 +348,7 @@ namespace Lync_Billing.ui.user
 
                 matchedDestinationCalls.UI_CallType = "Dispute";
                 matchedDestinationCalls.UI_MarkedOn = DateTime.Now;
-                matchedDestinationCalls.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+                matchedDestinationCalls.UI_UpdatedByUser = sipAccount;
 
                 PhoneCall.UpdatePhoneCall(matchedDestinationCalls);
 
@@ -352,7 +364,8 @@ namespace Lync_Billing.ui.user
 
         protected void AssignAlwaysPersonal(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -385,7 +398,7 @@ namespace Lync_Billing.ui.user
                 {
                     phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
                     phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
-                    phoneBookEntry.SipAccount = userSession.PrimarySipAccount;
+                    phoneBookEntry.SipAccount = sipAccount;
                     phoneBookEntry.Type = "Personal";
 
                     //Add Phonebook entry to Session and to the list which will be written to database 
@@ -402,7 +415,7 @@ namespace Lync_Billing.ui.user
 
                     matchedDestinationCall.UI_CallType = "Personal";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
-                    matchedDestinationCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+                    matchedDestinationCall.UI_UpdatedByUser = sipAccount;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
                 }
@@ -417,7 +430,8 @@ namespace Lync_Billing.ui.user
 
         protected void AssignAlwaysBusiness(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 

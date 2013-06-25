@@ -126,7 +126,8 @@ namespace Lync_Billing.ui.user
 
         protected void getPhoneCalls(bool force = false)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
 
             if (userSession.PhoneCallsHistory == null || userSession.PhoneCallsHistory.Count == 0 || force == true)
             {

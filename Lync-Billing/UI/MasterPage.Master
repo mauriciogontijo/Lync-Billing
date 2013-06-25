@@ -70,8 +70,12 @@
                                             <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
                                             <li class=""><a title="Bills History" href="../user/bills.aspx">Bills History</a></li>
                                             <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
-                                            <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
-                                            <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
+                                            <% if(current_session.PrimarySipAccount == current_session.EffectiveSipAccount) { %>
+                                                <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
+                                                <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
+                                            <% } else { %>
+                                                <li class="last-child"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
+                                            <% } %>
                                         </ul>
                                     </li>
 

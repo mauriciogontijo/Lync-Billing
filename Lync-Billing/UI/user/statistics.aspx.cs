@@ -29,10 +29,10 @@ namespace Lync_Billing.ui.user
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
-            PhoneCallsDuartionChartStore.DataSource = getChartData(sipAccount);
+            PhoneCallsDuartionChartStore.DataSource = getChartData();
             PhoneCallsDuartionChartStore.DataBind();
 
-            PhoneCallsCostChartStore.DataSource = getChartData(sipAccount);
+            PhoneCallsCostChartStore.DataSource = getChartData();
             PhoneCallsCostChartStore.DataBind();
 
             DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
@@ -42,8 +42,11 @@ namespace Lync_Billing.ui.user
             PhoneCallsCostChartPanel.Title = "Calls Costs Report for " + DateTime.Now.Year;
         }
 
-        public List<UsersCallsSummaryChartData> getChartData(string sipAccount = "")
+        public List<UsersCallsSummaryChartData> getChartData()
         {
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
+
             CultureInfo provider = CultureInfo.InvariantCulture;
             DateTime toDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
 

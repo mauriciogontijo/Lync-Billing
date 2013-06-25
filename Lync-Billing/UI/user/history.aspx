@@ -358,6 +358,10 @@
                                  <DirectEvents>
                                      <Select OnEvent="PhoneCallsHistoryFilter" />
                                  </DirectEvents>
+
+                                <SelectedItems>
+                                    <ext:ListItem Text="Everything" Value="Everything" />
+                                </SelectedItems>
                             </ext:ComboBox>
 
                             <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 510">

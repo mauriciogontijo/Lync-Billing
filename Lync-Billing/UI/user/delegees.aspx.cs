@@ -59,7 +59,18 @@ namespace Lync_Billing.ui.user
                         //Switch to a delegee account
                         if (session.ListOfDelegees.Contains(Request.QueryString["identity"]))
                         {
+                            //Switch identity
                             session.EffectiveSipAccount = Request.QueryString["identity"];
+
+                            //Initialize the PhoneBook in the session
+                            session.PhoneBook.Clear();
+                            session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
+
+                            //Clear the PhoneCalls containers in the session
+                            session.PhoneCalls.Clear(); //or = null;
+                            session.PhoneCallsPerPage = string.Empty; //or = null;
+
+                            //Redirect to Uer Dashboard
                             Response.Redirect("~/ui/user/dashboard.aspx");
                         }
                     }
@@ -67,7 +78,18 @@ namespace Lync_Billing.ui.user
                 //Swtich back to original user account
                 else if (!string.IsNullOrEmpty(Request.QueryString["identity"]) && session.PrimarySipAccount == Request.QueryString["identity"])
                 {
+                    //Switch back to original identity
                     session.EffectiveSipAccount = session.PrimarySipAccount;
+
+                    //Initialize the PhoneBook in the session
+                    session.PhoneBook.Clear();
+                    session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
+
+                    //Clear the PhoneCalls containers in the session
+                    session.PhoneCalls.Clear(); //or = null;
+                    session.PhoneCallsPerPage = string.Empty; //or = null;
+
+                    //Redirect to user dashboard
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }
                 else
