@@ -101,7 +101,7 @@ namespace Lync_Billing.DB
         /// </summary>
         public enum Users 
         {
-            [Description("Users")]
+            [Description("ActiveDirectoryUsers")]
             TableName,
             [Description("AD_UserID")]
             AD_UserID,
