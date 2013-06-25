@@ -103,12 +103,14 @@ namespace Lync_Billing.DB
         {
             [Description("Users")]
             TableName,
-            [Description("UserID")]
-            UserID,
+            [Description("AD_UserID")]
+            AD_UserID,
             [Description("SipAccount")]
             SipAccount,
-            [Description("SiteName")]
-            SiteName
+            [Description("AD_DisplayName")]
+            AD_DisplayName,
+            [Description("AD_PhysicalDeliveryOfficeName")]
+            AD_PhysicalDeliveryOfficeName
         }
 
         /// <summary>

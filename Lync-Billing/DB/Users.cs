@@ -14,6 +14,7 @@ namespace Lync_Billing.DB
         public int UserID { get; set; }
         public string SipAccount { get; set; }
         public string SiteName { get; set; }
+        public string FullName { get; set; }
 
         public static List<Users> GetUsers(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
@@ -33,13 +34,16 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.UserID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_UserID))
                         user.UserID = (int)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
                         user.SipAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SiteName))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName))
+                        user.FullName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_DisplayName))
                         user.SiteName = (string)row[column.ColumnName];
                 }
                 users.Add(user);
@@ -56,16 +60,19 @@ namespace Lync_Billing.DB
 
             //Set Part
             if ((user.UserID).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Users.UserID), user.UserID);
+                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_UserID), user.UserID);
 
             if ((user.SipAccount).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Users.SipAccount), user.SipAccount);
 
             if ((user.SiteName).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Users.SiteName), user.SiteName);
+                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName), user.SiteName);
+
+            if ((user.FullName).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_DisplayName), user.FullName);
 
             //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Users.TableName), columnsValues,Enums.GetDescription(Enums.Users.UserID));
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Users.TableName), columnsValues,Enums.GetDescription(Enums.Users.AD_UserID));
 
             return rowID;
         }
@@ -77,19 +84,22 @@ namespace Lync_Billing.DB
             Dictionary<string, object> setPart = new Dictionary<string, object>();
             //Set Part
              if ((user.UserID).ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.Users.UserID), user.UserID);
+                setPart.Add(Enums.GetDescription(Enums.Users.AD_UserID), user.UserID);
             
             if ((user.SipAccount).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.Users.SipAccount), user.SipAccount);
 
             if (user.SiteName != null)
-                setPart.Add(Enums.GetDescription(Enums.Users.SiteName), user.SiteName);
+                setPart.Add(Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName), user.SiteName);
+
+            if (user.FullName != null)
+                setPart.Add(Enums.GetDescription(Enums.Users.AD_DisplayName), user.FullName);
 
             //Execute Update
             status = DBRoutines.UPDATE(
                 Enums.GetDescription(Enums.Users.TableName),
                 setPart,
-                Enums.GetDescription(Enums.Users.UserID), 
+                Enums.GetDescription(Enums.Users.AD_UserID), 
                 user.UserID);
                 
 
@@ -102,7 +112,7 @@ namespace Lync_Billing.DB
 
             status = DBRoutines.DELETE(
                 Enums.GetDescription(Enums.Users.TableName),
-                Enums.GetDescription(Enums.Users.UserID), user.UserID);
+                Enums.GetDescription(Enums.Users.AD_UserID), user.UserID);
 
             return status;
         }
