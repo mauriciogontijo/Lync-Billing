@@ -63,11 +63,11 @@ namespace Lync_Billing.ui.user
                             session.EffectiveSipAccount = Request.QueryString["identity"];
 
                             //Initialize the PhoneBook in the session
-                            session.PhoneBook.Clear();
+                            session.PhoneBook = null;
                             session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
 
                             //Clear the PhoneCalls containers in the session
-                            session.PhoneCalls.Clear(); //or = null;
+                            session.PhoneCalls = null;
                             session.PhoneCallsPerPage = string.Empty; //or = null;
 
                             //Redirect to Uer Dashboard
@@ -82,11 +82,11 @@ namespace Lync_Billing.ui.user
                     session.EffectiveSipAccount = session.PrimarySipAccount;
 
                     //Initialize the PhoneBook in the session
-                    session.PhoneBook.Clear();
+                    session.PhoneBook = null;
                     session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
 
                     //Clear the PhoneCalls containers in the session
-                    session.PhoneCalls.Clear(); //or = null;
+                    session.PhoneCalls = null;
                     session.PhoneCallsPerPage = string.Empty; //or = null;
 
                     //Redirect to user dashboard
