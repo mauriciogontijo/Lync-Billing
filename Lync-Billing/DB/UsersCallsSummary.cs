@@ -136,6 +136,7 @@ namespace Lync_Billing.DB
         public string EmployeeID { get; set; }
         public string FullName { get; set; }
         public string SipAccount { get; set; }
+        public string SiteName { get; set; }
 
         public int BusinessCallsCount { get; set; }
         public decimal BusinessCallsCost { get; set; }
@@ -291,6 +292,10 @@ namespace Lync_Billing.DB
                 userSummary.UnmarkedCallsDuartion = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
                 userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
                 userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
+                userSummary.SipAccount = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns["SourceUserUri"]]));
+                //userSummary.FullName = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_DisplayName)]]));
+                userSummary.EmployeeID = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_UserID)]]));
+                userSummary.SiteName = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName)]]));
 
                 userSummary.Duration = userSummary.PersonalCallsDuration / 60;
 
@@ -303,6 +308,13 @@ namespace Lync_Billing.DB
         {
             if (value == System.DBNull.Value)
                 return 0;
+            else
+                return value;
+        }
+        private static object ReturnEmptyIfNull(object value) 
+        {
+            if (value == System.DBNull.Value)
+                return string.Empty;
             else
                 return value;
         }
