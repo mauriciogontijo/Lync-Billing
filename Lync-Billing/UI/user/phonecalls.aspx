@@ -79,17 +79,13 @@
                 Header="true"
                 Title="Manage Phone Calls"
                 Width="740"
-                Height="54"
+                Height="62"
                 Layout="AnchorLayout">
                 <TopBar>
                     <ext:Toolbar
                         ID="FilterToolbar1"
                         runat="server">
                         <Items>
-                            <ext:Label runat="server" ID="Label1" Margin="5">
-                                <Content>View Calls:</Content>
-                            </ext:Label>
-
                             <ext:ComboBox
                                 ID="FilterTypeComboBox"
                                 runat="server"
@@ -97,7 +93,11 @@
                                 TriggerAction="All"
                                 QueryMode="Local"
                                 DisplayField="TypeName"
-                                ValueField="TypeValue">
+                                ValueField="TypeValue"
+                                FieldLabel="View Calls:"
+                                LabelWidth="60"
+                                Width="200"
+                                Margins="5 5 5 5">
                                 <Items>
                                     <ext:ListItem Text="Unmarked" Value="Unmarked" />
                                     <ext:ListItem Text="Business" Value="Business" />
