@@ -117,13 +117,7 @@ namespace Lync_Billing.ui.user
         public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-
-            //If the current user is in a delegate state, get a fresh copy of the phone calls
-            //else just get the copy from the session
-            if (userSession.PrimarySipAccount != userSession.EffectiveSipAccount)
-                getPhoneCalls(true);
-            else
-                getPhoneCalls();
+            getPhoneCalls();
 
             IQueryable<PhoneCall> result;
  
