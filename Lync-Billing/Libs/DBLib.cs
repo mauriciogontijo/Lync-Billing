@@ -349,7 +349,7 @@ namespace Lync_Billing.Libs
                 else if (valueType == typeof(DateTime) && (DateTime)pair.Value == DateTime.MinValue)
                     continue;
                 else
-                    fieldsValues.Append(pair.Key + "=" + "'" + pair.Value + "'" + ",");
+                    fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value + "'" + ",");
             }
 
             fieldsValues.Remove(fieldsValues.Length - 1, 1).Append(")");
