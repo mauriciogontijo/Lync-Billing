@@ -63,6 +63,7 @@ link of each child item
 .toolbar .vertical-navigation li ul#user-dropdown { width: 160px !important; }
 .toolbar .vertical-navigation li ul#accounting-dropdown { width: 180px !important; }
 .toolbar .vertical-navigation li ul#roles-dropdown { width: 160px !important; }
+.toolbar .vertical-navigation li ul#delegees-dropdown { width: 200px !important; }
 .toolbar .vertical-navigation li ul li.separator-bottom { border-bottom: 1px solid #B6C0D2 !important; }
 
 .toolbar .vertical-navigation li:hover a,
@@ -77,7 +78,7 @@ link of each child item
 .toolbar .vertical-navigation li:hover ul li a, .toolbar .vertical-navigation ul li a { color: #000; }
 
 .toolbar .vertical-navigation ul li { height: 32px; /*border-bottom: 1px solid #B6C0D2;*/ }
-.toolbar .vertical-navigation ul li a { height: 32px; line-height: 30px; float: left; text-align: left; display: inline;  }
+.toolbar .vertical-navigation ul li a { height: 32px; line-height: 30px; float: left; text-align: left; display: inline; overflow: hidden; }
 .toolbar .vertical-navigation li:hover ul li a:hover, 
 .toolbar .vertical-navigation ul li a:hover,
 .toolbar .vertical-navigation ul li:hover a { background-color: #ececec; color: #000; font-weight: bold; /*border-top: 1px solid #B6C0D2; border-bottom: 1px solid #B6C0D2;*/}
