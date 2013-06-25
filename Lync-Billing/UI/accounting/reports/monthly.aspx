@@ -66,49 +66,31 @@
                             <ext:DateField 
                                 ID="reportDateField"
                                 runat="server" 
-                                FieldLabel="Filter By Date:"
+                                FieldLabel="Choose Date:"
                                 LabelWidth="80"
                                 EmptyText="Empty Date"
-                                Width="220"
-                                Margins="5 170 0 5"
-                                Format="Y-m">
+                                Width="250"
+                                Margins="5 10 0 5">
                             </ext:DateField>
 
-                            <ext:TextField
-                                ID="UserSearch"
+                            <ext:Button
+                                ID="ViewMonthlyBills"
                                 runat="server"
                                 Icon="UserMagnify"
-                                EmptyText="User's Sip Account"
-                                Width="210"
+                                Text="Generate Report"
+                                Width="120"
                                 Height="22"
-                                FieldLabel="Search User:"
+                                FieldLabel=""
                                 LabelWidth="70"
+                                OnDirectClick ="ViewMonthlyBills_DirectClick"
                                 Margins="5 25 0 5">
-                                <DirectEvents>
-                                    <Change OnEvent="GridFilter"/>
-                                </DirectEvents>
-                            </ext:TextField>
+                            </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
             </ext:Panel>
 
             <div class="h5 clear"></div>
-            <asp:ObjectDataSource
-                ID="MonthlyReportsDataSource"
-                runat="server"
-                OnSelecting="MonthlyReportsDataSource_Selecting"
-                OnSelected="MonthlyReportsDataSource_Selected"
-                SelectMethod="GetMonthlyReportsFilter"
-                TypeName="Lync_Billing.ui.accounting.reports.monthly">
-                <SelectParameters>
-                    <asp:Parameter Name="start" Type="Int32" />
-                    <asp:Parameter Name="limit" Type="Int32" />
-                    <asp:Parameter Name="sort" Type="Object" />
-                    <asp:Parameter Name="count" Direction="Output" Type="Int32" />
-                </SelectParameters>
-            </asp:ObjectDataSource>
-
             <ext:GridPanel
                 ID="MonthlyReportsGrids"
                 runat="server"
@@ -124,18 +106,16 @@
                         runat="server"
                         RemoteSort="true"
                         PageSize="25"
-                        DataSourceID="MonthlyReportsDataSource"
                         OnReadData="MonthlyReportsStore_ReadData">
-                        <Proxy>
-                            <ext:PageProxy CacheString="" />
-                        </Proxy>
                         <Model>
                             <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
                                     <ext:ModelField Name="SipAccount" Type="String" />
                                     <ext:ModelField Name="EmployeeID" Type="String" />
                                     <ext:ModelField Name="FullName" Type="String" />
-                                    <ext:ModelField Name="Cost" Type="String" />
+                                    <ext:ModelField Name="PersonalCallsCost" Type="String" />
+                                    <ext:ModelField Name="Month" Type="String" />
+                                    <ext:ModelField Name="Year" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
@@ -170,22 +150,32 @@
                             DataIndex="FullName" />
 
                         <ext:Column
-                            ID="Cost"
+                            ID="PersonalCallsCost"
                             runat="server"
                             Text="Cost"
                             Width="160"
-                            DataIndex="Cost" />
+                            DataIndex="PersonalCallsCost" />
                     </Columns>
                 </ColumnModel>
-
+                <Features>
+                    <ext:GridFilters>
+                        <Filters>
+                            <ext:StringFilter DataIndex="EmployeeID" />
+                            <ext:StringFilter DataIndex="SipAccount" />
+                            <ext:StringFilter DataIndex="FullName" />
+                            <ext:NumericFilter DataIndex="Month" />
+                            <ext:NumericFilter DataIndex="Year" />
+                        </Filters>
+                    </ext:GridFilters>
+                </Features>
                 <SelectionModel>
-                    <%--<ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
                         runat="server"
                         Mode="Multi"
                         AllowDeselect="true"
                         IgnoreRightMouseSelection="true"
                         CheckOnly="true">
-                    </ext:CheckboxSelectionModel>--%>
+                    </ext:CheckboxSelectionModel>
                 </SelectionModel>
                 
                 <BottomBar>
