@@ -352,7 +352,7 @@ namespace Lync_Billing.Libs
                     fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value + "'" + ",");
             }
 
-            fieldsValues.Remove(fieldsValues.Length - 1, 1).Append(")");
+            fieldsValues.Remove(fieldsValues.Length - 1, 1);
 
             string insertQuery = string.Format("UPDATE  [{0}] SET {1} WHERE [{2}]={3}", tableName, fieldsValues, idFieldName,ID);
 
