@@ -38,12 +38,13 @@ namespace Lync_Billing.ui.user
 
         protected void BillsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
+
             List<UsersCallsSummary> UserSummariesList = new List<UsersCallsSummary>();
             CultureInfo provider = CultureInfo.InvariantCulture;
             List<Dictionary<string, object>> BillsList = new List<Dictionary<string, object>>();
             Dictionary<string, object> Bill;
-
-            string sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PrimarySipAccount;
 
             int year = 2013,
                 start_month = 1,
@@ -70,8 +71,8 @@ namespace Lync_Billing.ui.user
 
         protected void BillsStore_Load(object sender, EventArgs e)
         {
-            //List<Dictionary<string, object>> BillsList = new List<Dictionary<string,object>>();
-            //Dictionary<string, object> Bill;
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
 
             List<UsersCallsSummary> UserSummariesList = new List<UsersCallsSummary>();
             List<UsersCallsSummary> BillsList = new List<UsersCallsSummary>();
