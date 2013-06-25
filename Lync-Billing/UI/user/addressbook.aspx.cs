@@ -28,6 +28,9 @@ namespace Lync_Billing.ui.user
 
         protected void GridsDataManager(bool GetFreshData = false, bool BindData = true)
         {
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
+
             if (GetFreshData == true)
             {
                 List<PhoneBook> TempHistoryData = new List<PhoneBook>();
@@ -71,6 +74,9 @@ namespace Lync_Billing.ui.user
 
         protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
         {
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
+
             string json = e.ExtraParams["Values"];
             
             List<PhoneBook> all_address_book_items = new List<PhoneBook>();
@@ -104,6 +110,9 @@ namespace Lync_Billing.ui.user
          */
         protected void AddressBookUpdateContacts(object sender, DirectEventArgs e)
         {
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
+
             string json = e.ExtraParams["Values"];
 
             List<PhoneBook> all_address_book_items = new List<PhoneBook>();
