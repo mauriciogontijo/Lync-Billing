@@ -51,7 +51,6 @@ namespace Lync_Billing.ui.accounting.reports
             List<string> sites = new List<string>();
             List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
            
-            date = reportDateField.SelectedDate;
             sites = GetAccountantSiteName();
 
             foreach (string site in sites) 
@@ -101,9 +100,10 @@ namespace Lync_Billing.ui.accounting.reports
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
             List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
 
-            if (reportDateField != null && reportDateField.Value != null && reportDateField.SelectedDate != DateTime.MinValue)
+            //if (reportDateField != null && reportDateField.Value != null && reportDateField.SelectedDate != DateTime.MinValue)
+            if(reportDateField == null)
             {
-                listOfUsersCallsSummary = MonthlyReports(reportDateField.SelectedDate);
+                listOfUsersCallsSummary = MonthlyReports(DateTime.Now);
 
                 IQueryable<UsersCallsSummary> result;
 
@@ -114,7 +114,7 @@ namespace Lync_Billing.ui.accounting.reports
 
                 if (sort != null)
                 {
-                    ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
+                    ParameterExpression param = Expression.Parameter(typeof(UsersCallsSummary), "e");
 
                     Expression<Func<UsersCallsSummary, object>> sortExpression = Expression.Lambda<Func<UsersCallsSummary, object>>(Expression.Property(param, sort.Property), param);
                     if (sort.Direction == Ext.Net.SortDirection.DESC)
