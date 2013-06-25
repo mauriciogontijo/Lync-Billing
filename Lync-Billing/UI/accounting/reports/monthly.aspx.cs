@@ -24,6 +24,8 @@ namespace Lync_Billing.ui.accounting.reports
     {
 
         private StoreReadDataEventArgs e;
+        List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -64,13 +66,10 @@ namespace Lync_Billing.ui.accounting.reports
 
         protected void MonthlyReportsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
-            this.e = e;
+           this.e = e;
             string s = e.Parameters["filter"];
 
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
-
-            if ( reportDateField.SelectedValue != null )
+            if (MonthlyReportsGrids.GetStore().JsonData == null )
                 listOfUsersCallsSummary = MonthlyReports(reportDateField.SelectedDate);
 
             if (!string.IsNullOrEmpty(s))
@@ -212,13 +211,12 @@ namespace Lync_Billing.ui.accounting.reports
 
         protected void ViewMonthlyBills_DirectClick(object sender, DirectEventArgs e)
         {
-            List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
-
             if (reportDateField.SelectedValue != null)
+            {
                 listOfUsersCallsSummary = MonthlyReports(reportDateField.SelectedDate);
-
-            MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
-            MonthlyReportsGrids.GetStore().DataBind();
+                MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
+                MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
+            }
         }
 
     }
