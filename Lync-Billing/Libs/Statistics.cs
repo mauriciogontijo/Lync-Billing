@@ -54,7 +54,7 @@ namespace Lync_Billing.Libs
             OleDbDataReader dr;
             string selectQuery = string.Empty;
 
-            selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_Summaries] ('{0}') WHERE (Year BETWEEN {1} AND {2}) AND (Month BETWEEN {3} AND {4})",
+            selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE (Year BETWEEN {1} AND {2}) AND (Month BETWEEN {3} AND {4})",
                 siteName, startingYear, endingYear, StartingMonth, endingMonth);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
