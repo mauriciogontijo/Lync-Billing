@@ -57,10 +57,11 @@ namespace Lync_Billing.ui.user
                     if (Request.QueryString["identity"] != null && Request.QueryString["identity"] != string.Empty)
                     {
                         //Switch to a delegee account
-                        if (session.ListOfDelegees.Contains(Request.QueryString["identity"]))
+                        if (session.ListOfDelegees.Keys.Contains(Request.QueryString["identity"]))
                         {
                             //Switch identity
                             session.EffectiveSipAccount = Request.QueryString["identity"];
+                            session.EffectiveDisplayName = session.ListOfDelegees[session.EffectiveSipAccount];
 
                             //Initialize the PhoneBook in the session
                             session.PhoneBook = null;
@@ -80,6 +81,7 @@ namespace Lync_Billing.ui.user
                 {
                     //Switch back to original identity
                     session.EffectiveSipAccount = session.PrimarySipAccount;
+                    session.EffectiveDisplayName = session.PrimaryDisplayName;
 
                     //Initialize the PhoneBook in the session
                     session.PhoneBook = null;

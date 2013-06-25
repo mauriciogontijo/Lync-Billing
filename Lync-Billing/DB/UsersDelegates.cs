@@ -59,32 +59,58 @@ namespace Lync_Billing.DB
             return DelegatedAccounts;
         }
 
-        public static List<string> GetDelegeesSipAccounts(string delegateAccount)
+
+        /*
+         * This function returns a dictionary of the delegees sip-accounts and names {sip => name}, if they exist!
+         **/
+        public static Dictionary<string, string> GetDelegeesNames(string delegateAccount)
         {
-            UsersDelegates delegatedAccount;
+            Dictionary<string, string> DelegatedAccounts = new Dictionary<string, string>();
+            string columnName = Enums.GetDescription(Enums.Delegates.SipAccount);
+
+            ADUserInfo userInfo;
+            string sipAccount = string.Empty;
+
+            DataTable dt = new DataTable();
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), "DelegeeAccount", delegateAccount);
+
+
+            foreach (DataRow row in dt.Rows)
+            {
+                userInfo = new ADUserInfo();
+
+                if (row[Enums.GetDescription(Enums.Delegates.SipAccount)] != System.DBNull.Value)
+                {
+                    sipAccount = (string)row[columnName];
+                    userInfo = Users.GetUserInfo(sipAccount);
+
+                    DelegatedAccounts.Add(sipAccount, userInfo.FirstName.ToString() + " " + userInfo.LastName.ToString());
+                }
+            }
+
+            return DelegatedAccounts;
+        }
+
+
+        /*
+         * This function returns a list of delegees sip accounts only, if they exist.
+         **/
+        public static List<string> GetListOfDelegeesSipAccounts(string delegateAccount)
+        {
             List<string> DelegatedAccounts = new List<string>();
+            string columnName = Enums.GetDescription(Enums.Delegates.SipAccount);
+
             DataTable dt = new DataTable();
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), "DelegeeAccount", delegateAccount);
 
             foreach (DataRow row in dt.Rows)
             {
-                delegatedAccount = new UsersDelegates();
-
-                foreach (DataColumn column in dt.Columns)
+                if (row[Enums.GetDescription(Enums.Delegates.SipAccount)] != System.DBNull.Value)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
-                        delegatedAccount.ID = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeAccount) && row[column.ColumnName] != System.DBNull.Value)
-                        delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
-                        delegatedAccount.SipAccount = (string)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Description) && row[column.ColumnName] != System.DBNull.Value)
-                        delegatedAccount.Description = (string)row[column.ColumnName];
+                    DelegatedAccounts.Add(
+                        (string)row[columnName]
+                    );
                 }
-                DelegatedAccounts.Add(delegatedAccount.SipAccount);
             }
 
             return DelegatedAccounts;

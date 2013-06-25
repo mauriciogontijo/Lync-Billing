@@ -9,17 +9,18 @@ namespace Lync_Billing.DB
     { 
         //User Related Data
         public string EmailAddress { set; get; }
-        public string DisplayName { set; get; }
         public string TelephoneNumber { set; get; }
         public string SiteName { set; get; }
         public string EmployeeID { set; get; }
         public string IpAddress {set;get;}
         public string UserAgent { set; get; }
 
-        //Sip Address and Delegees Addresses Related
+        //Sip Addresses and Delegees Addresses Related
+        public string PrimaryDisplayName { set; get; }
+        public string EffectiveDisplayName { set; get; }
         public string PrimarySipAccount { set; get; }
         public string EffectiveSipAccount { set; get; }
-        public List<string> ListOfDelegees { get; set; }
+        public Dictionary<string, string> ListOfDelegees { get; set; }
         
         //Roles Related
         public List<UserRole> Roles { set; get; }
@@ -64,7 +65,7 @@ namespace Lync_Billing.DB
             //Empty all of the sip accounts
             PrimarySipAccount = string.Empty;
             EffectiveSipAccount = string.Empty;
-            ListOfDelegees = new List<string>();
+            ListOfDelegees = new Dictionary<string, string>();
         }
 
         

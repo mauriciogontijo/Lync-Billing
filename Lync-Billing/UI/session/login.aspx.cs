@@ -58,7 +58,8 @@ namespace Lync_Billing.ui.session
                 if (!userInfo.Equals(null))
                 {
                     session.EmailAddress = userInfo.EmailAddress;
-                    session.DisplayName = userInfo.DisplayName;
+                    session.PrimaryDisplayName = userInfo.DisplayName;
+                    session.EffectiveDisplayName = userInfo.DisplayName;
                     session.TelephoneNumber = userInfo.Telephone;
                     session.IpAddress = HttpContext.Current.Request.UserHostAddress;
                     session.UserAgent = HttpContext.Current.Request.UserAgent;
@@ -108,7 +109,7 @@ namespace Lync_Billing.ui.session
                         session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
                         session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
                         session.IsDelegate = UsersDelegates.IsDelegate(session.PrimarySipAccount);
-                        session.ListOfDelegees = UsersDelegates.GetDelegeesSipAccounts(session.PrimarySipAccount);
+                        session.ListOfDelegees = UsersDelegates.GetDelegeesNames(session.PrimarySipAccount);
                     }
                     else
                     {
@@ -118,8 +119,8 @@ namespace Lync_Billing.ui.session
                         session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
                         session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
                         session.IsDelegate = UsersDelegates.IsDelegate(session.PrimarySipAccount);
-                        session.ListOfDelegees = UsersDelegates.GetDelegeesSipAccounts(session.PrimarySipAccount);
-
+                        session.ListOfDelegees = UsersDelegates.GetDelegeesNames(session.PrimarySipAccount);
+                        
                         userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
 
 

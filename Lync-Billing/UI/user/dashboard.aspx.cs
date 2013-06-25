@@ -57,7 +57,7 @@ namespace Lync_Billing.ui.user
             DurationCostChartStore.DataBind();
 
             //Configure the welcome ext-js toggled welcome-message.
-            Misc.Message("Welcome","Welcome " + current_session.DisplayName,"info");
+            Misc.Message("Welcome","Welcome " + current_session.PrimaryDisplayName,"info");
         }
 
         [DirectMethod]

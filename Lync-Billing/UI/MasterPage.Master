@@ -59,12 +59,7 @@
                                     </li>
 
                                     <li id="user-tab" class="">
-                                        <% 
-                                            string display_name = string.Empty;
-                                            if (current_session.PrimarySipAccount != current_session.EffectiveSipAccount) display_name = current_session.EffectiveSipAccount;
-                                            else display_name = current_session.DisplayName;
-                                        %>
-                                        <a href="#"><%= display_name %><span class="drop"></span></a>
+                                        <a href="#"><%= current_session.EffectiveDisplayName %><span class="drop"></span></a>
                                         <ul id="user-dropdown">
                                             <li class="first-child"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
                                             <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
@@ -88,13 +83,13 @@
                                         <li id="switch-to-delegee" class="">
                                             <a href="#">Switch to User<span class="drop"></span></a>
                                             <ul id="delegees-dropdown">
-                                            <% foreach(string sip_account in current_session.ListOfDelegees) { %>
-                                                <li class="last-child">
-                                                    <a href="../user/delegees.aspx?identity=<%= sip_account %>">
-                                                        <%= sip_account %>
-                                                    </a>
-                                                </li>
-                                            <% } %>
+                                                <% foreach(KeyValuePair<string, string> delegeeRecord in current_session.ListOfDelegees) { %>
+                                                    <li class="last-child">
+                                                        <a href="../user/delegees.aspx?identity=<%= delegeeRecord.Key %>">
+                                                            <%= delegeeRecord.Value %>
+                                                        </a>
+                                                    </li>
+                                                <% } %>
                                             </ul>
                                         </li>
                                     <% } %>
