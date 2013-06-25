@@ -54,7 +54,7 @@ namespace Lync_Billing.ui.user
 
                 if ((session.IsDelegate == true || session.IsDeveloper == true) && (session.PrimarySipAccount == session.EffectiveSipAccount))
                 {
-                    if (Request.QueryString["identity"] != null && Request.QueryString["identity"] != string.Empty)
+                    if ( ! string.IsNullOrEmpty(Request.QueryString["identity"]) )
                     {
                         //Switch to a delegee account
                         if (session.ListOfDelegees.Keys.Contains(Request.QueryString["identity"]))
@@ -64,12 +64,12 @@ namespace Lync_Billing.ui.user
                             session.EffectiveDisplayName = session.ListOfDelegees[session.EffectiveSipAccount];
 
                             //Initialize the PhoneBook in the session
-                            session.PhoneBook = null;
+                            session.PhoneBook = new Dictionary<string, PhoneBook>();
                             session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
 
                             //Clear the PhoneCalls containers in the session
-                            session.PhoneCalls = null;
-                            session.PhoneCallsPerPage = string.Empty; //or = null;
+                            session.PhoneCalls = new List<PhoneCall>();
+                            session.PhoneCallsPerPage = string.Empty;
 
                             //Redirect to Uer Dashboard
                             Response.Redirect("~/ui/user/dashboard.aspx");
@@ -77,19 +77,19 @@ namespace Lync_Billing.ui.user
                     }
                 }
                 //Swtich back to original user account
-                else if (!string.IsNullOrEmpty(Request.QueryString["identity"]) && session.PrimarySipAccount == Request.QueryString["identity"])
+                else if ( ! string.IsNullOrEmpty(Request.QueryString["identity"]) && session.PrimarySipAccount == Request.QueryString["identity"] )
                 {
                     //Switch back to original identity
                     session.EffectiveSipAccount = session.PrimarySipAccount;
                     session.EffectiveDisplayName = session.PrimaryDisplayName;
 
                     //Initialize the PhoneBook in the session
-                    session.PhoneBook = null;
+                    session.PhoneBook = new Dictionary<string, PhoneBook>();
                     session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
 
                     //Clear the PhoneCalls containers in the session
-                    session.PhoneCalls = null;
-                    session.PhoneCallsPerPage = string.Empty; //or = null;
+                    session.PhoneCalls = new List<PhoneCall>();
+                    session.PhoneCallsPerPage = string.Empty;
 
                     //Redirect to user dashboard
                     Response.Redirect("~/ui/user/dashboard.aspx");
