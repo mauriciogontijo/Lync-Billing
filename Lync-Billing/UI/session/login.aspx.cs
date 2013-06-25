@@ -98,6 +98,7 @@ namespace Lync_Billing.ui.session
                             user.SiteName = userInfo.physicalDeliveryOfficeName;
                             user.UserID = Convert.ToInt32(userInfo.EmployeeID);
                             user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
+                            user.FullName = userInfo.FirstName + " " + userInfo.LastName;
 
                             Users.UpdateUser(user);
                         }
@@ -138,6 +139,7 @@ namespace Lync_Billing.ui.session
                         user.SiteName = userInfo.physicalDeliveryOfficeName;
                         user.UserID = Convert.ToInt32(userInfo.EmployeeID);
                         user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
+                        user.FullName = userInfo.FirstName + " " + userInfo.LastName;
                         Users.InsertUser(user);
                     }
 
