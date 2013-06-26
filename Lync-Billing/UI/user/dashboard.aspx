@@ -193,7 +193,7 @@
                                         <% if(current_session.IsAccountant || current_session.IsDeveloper) { %>
                                             <li class="first-child"><a title="Elevate Access to Accounting Role" href="../accounting/main/dashboard.aspx">Accounting Role</a></li>
                                         <% } if (current_session.IsAdmin || current_session.IsDeveloper) { %>
-                                            <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../admin/dashboard.aspx">Administrator Role</a></li>
+                                            <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../admin/main/dashboard.aspx">Administrator Role</a></li>
                                         <% } %>
                                     </ul>
                                 </li>
