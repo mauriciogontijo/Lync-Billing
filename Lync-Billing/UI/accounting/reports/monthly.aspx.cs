@@ -58,7 +58,7 @@ namespace Lync_Billing.ui.accounting.reports
 
             foreach (string site in sites) 
             {
-                listOfUsersCallsSummary.AddRange(UsersCallsSummary.GetUsersCallsSummary(date, date, site).AsEnumerable<UsersCallsSummary>());
+                listOfUsersCallsSummary.AddRange(UsersCallsSummary.GetUsersCallsSummary(date, date, site).Where(e => e.PersonalCallsCost !=0).AsEnumerable<UsersCallsSummary>());
             }
             
             return listOfUsersCallsSummary;
