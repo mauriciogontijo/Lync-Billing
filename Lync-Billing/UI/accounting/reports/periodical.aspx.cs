@@ -60,32 +60,32 @@ namespace Lync_Billing.ui.accounting.reports
 
             var sipAccounts = (from data in tmp.AsEnumerable()
 
-                               group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName } into res
+            group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName } into res
 
-                               select new UsersCallsSummary
-                               {
-                                   EmployeeID = res.Key.EmployeeID,
+            select new UsersCallsSummary
+            {
+                EmployeeID = res.Key.EmployeeID,
 
-                                   FullName = res.Key.FullName,
+                FullName = res.Key.FullName,
 
-                                   SipAccount = res.Key.SipAccount,
+                SipAccount = res.Key.SipAccount,
 
-                                   SiteName = res.Key.SiteName,
+                SiteName = res.Key.SiteName,
 
-                                   BusinessCallsCost = res.Sum(x => x.BusinessCallsCost),
-                                   BusinessCallsDuration = res.Sum(x => x.BusinessCallsDuration),
-                                   BusinessCallsCount = res.Sum(x => x.BusinessCallsCount),
+                BusinessCallsCost = res.Sum(x => x.BusinessCallsCost),
+                BusinessCallsDuration = res.Sum(x => x.BusinessCallsDuration),
+                BusinessCallsCount = res.Sum(x => x.BusinessCallsCount),
 
-                                   PersonalCallsCost = res.Sum(x => x.PersonalCallsCost),
-                                   PersonalCallsDuration = res.Sum(x => x.PersonalCallsDuration),
-                                   PersonalCallsCount = res.Sum(x => x.PersonalCallsCount),
+                PersonalCallsCost = res.Sum(x => x.PersonalCallsCost),
+                PersonalCallsDuration = res.Sum(x => x.PersonalCallsDuration),
+                PersonalCallsCount = res.Sum(x => x.PersonalCallsCount),
 
-                                   UnmarkedCallsCost = res.Sum(x => x.UnmarkedCallsCost),
-                                   UnmarkedCallsDuartion = res.Sum(x => x.UnmarkedCallsDuartion),
-                                   UnmarkedCallsCount = res.Sum(x => x.PersonalCallsCount),
+                UnmarkedCallsCost = res.Sum(x => x.UnmarkedCallsCost),
+                UnmarkedCallsDuartion = res.Sum(x => x.UnmarkedCallsDuartion),
+                UnmarkedCallsCount = res.Sum(x => x.PersonalCallsCount),
 
-                               }
-                                   ).ToList();
+            }
+                ).ToList();
 
             return sipAccounts;
         }
