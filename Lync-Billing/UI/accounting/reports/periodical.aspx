@@ -96,7 +96,7 @@
             <div class="h5 clear"></div>
 
             <ext:GridPanel
-                ID="PeriodicalReportsGrids"
+                ID="PeriodicalReportsGrid"
                 runat="server"
                 Width="740"
                 Height="720"
@@ -110,9 +110,6 @@
                         runat="server"
                         RemoteSort="true"
                         PageSize="25">
-                        <Proxy>
-                            <ext:PageProxy CacheString="" />
-                        </Proxy>
                         <Model>
                             <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>

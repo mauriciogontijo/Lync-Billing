@@ -67,13 +67,13 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Button ViewMonthlyBills;
         
         /// <summary>
-        /// PeriodicalReportsGrids control.
+        /// PeriodicalReportsGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridPanel PeriodicalReportsGrids;
+        protected global::Ext.Net.GridPanel PeriodicalReportsGrid;
         
         /// <summary>
         /// MonthlyReportsStore control.
