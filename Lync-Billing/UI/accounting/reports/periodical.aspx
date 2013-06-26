@@ -58,7 +58,7 @@
                 Header="true"
                 Title="Generate Periodical Reports"
                 Width="740"
-                Height="64"
+                Height="61"
                 Layout="AnchorLayout">
                 <TopBar>
                     <ext:Toolbar
@@ -82,25 +82,25 @@
                                 LabelWidth="20"
                                 EmptyText="Empty Date"
                                 Width="200"
-                                Margins="5 10 5 5">
+                                Margins="0 10 5 5">
                             </ext:DateField>
 
                             <ext:Button
                                 ID="ViewMonthlyBills"
                                 runat="server"
                                 Icon="UserMagnify"
-                                Text="Generate Report"
+                                Text="Create Report"
                                 Height="22"
                                 FieldLabel=""
                                 OnDirectClick ="ViewMonthlyBills_DirectClick"
-                                Margins="5 0 5 0">
+                                Margins="0 0 5 0">
                             </ext:Button>
 
                             <ext:Button 
                                 runat="server"
                                 Text="To Excel" 
                                 Icon="PageExcel"
-                                Margins="5 0 5 100">
+                                Margins="0 0 5 100">
                                  <Listeners>
                                     <Click Handler="submitValue(#{PeriodicalReportsGrid}, 'xls');" />
                                 </Listeners>

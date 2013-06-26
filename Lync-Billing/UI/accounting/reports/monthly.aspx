@@ -69,27 +69,27 @@
                                 LabelWidth="80"
                                 EmptyText="Empty Date"
                                 Width="250"
-                                Margins="5 10 0 5">
+                                Margins="0 10 0 5">
                             </ext:DateField>
 
                             <ext:Button
                                 ID="ViewMonthlyBills"
                                 runat="server"
                                 Icon="UserMagnify"
-                                Text="Generate Report"
+                                Text="Create Report"
                                 Width="120"
                                 Height="22"
                                 FieldLabel=""
                                 LabelWidth="70"
                                 OnDirectClick ="ViewMonthlyBills_DirectClick"
-                                Margins="5 25 0 5">
+                                Margins="0 25 0 5">
                             </ext:Button>
                             
                             <ext:Button 
                                 runat="server"
                                 Text="To Excel" 
                                 Icon="PageExcel"
-                                Margins="5 0 5 100">
+                                Margins="0 0 5 230">
                                 <Listeners>
                                     <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
                                 </Listeners>
