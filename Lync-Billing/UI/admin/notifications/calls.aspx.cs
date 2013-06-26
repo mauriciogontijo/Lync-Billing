@@ -136,7 +136,7 @@ namespace Lync_Billing.ui.admin.notifications
                         UnmarkedCallsDuartion = res.Sum(x => x.UnmarkedCallsDuartion),
                         UnmarkedCallsCount = res.Sum(x => x.UnmarkedCallsCount),
                     }
-                ).ToList();
+                ).Where(e=>e.UnmarkedCallsCount > 0).ToList();
 
             return sipAccounts;
         }
