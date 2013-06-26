@@ -2,12 +2,21 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Periodical Users Report</title>
+      
+    <script type="text/javascript">
+        var submitValue = function (grid, hiddenFormat, format) {
+            grid.submitData(false, { isUpload: true });
+        };
+    </script>
+
 </asp:Content>
+  
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF SIDEBAR *** -->
     <div id='Div1' class='sidebar block float-left w20p'>
         <div class="block-body">
+             <ext:Hidden ID="FormatType" runat="server" />
             <ext:Panel ID="AccountingToolsSidebar"
                 runat="server"
                 Height="230"
@@ -43,6 +52,7 @@
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='generate-report-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
+            <ext:Hidden ID="Hidden1" runat="server" />
             <ext:Panel
                 ID="PeriodicalReportsTools"
                 runat="server"
@@ -59,21 +69,21 @@
                             <ext:DateField 
                                 ID="StartingDate"
                                 runat="server" 
-                                FieldLabel="Choose Starting Date:"
-                                LabelWidth="115"
+                                FieldLabel="From:"
+                                LabelWidth="30"
                                 EmptyText="Empty Date"
-                                Width="250"
+                                Width="200"
                                 Margins="5 10 5 5">
                             </ext:DateField>
 
                             <ext:DateField 
                                 ID="EndingDate"
                                 runat="server" 
-                                FieldLabel="Choose Ending Date:"
-                                LabelWidth="110"
+                                FieldLabel="To:"
+                                LabelWidth="20"
                                 EmptyText="Empty Date"
-                                Width="250"
-                                Margins="5 85 5 5">
+                                Width="200"
+                                Margins="5 10 5 5">
                             </ext:DateField>
 
                             <ext:Button
@@ -81,13 +91,22 @@
                                 runat="server"
                                 Icon="UserMagnify"
                                 Text="Generate Report"
-                                Width="120"
                                 Height="22"
                                 FieldLabel=""
-                                LabelWidth="70"
                                 OnDirectClick ="ViewMonthlyBills_DirectClick"
                                 Margins="5 0 5 0">
                             </ext:Button>
+
+                            <ext:Button 
+                                runat="server"
+                                Text="To Excel" 
+                                Icon="PageExcel"
+                                Margins="5 0 5 100">
+                                 <Listeners>
+                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, 'xls');" />
+                                </Listeners>
+                            </ext:Button>
+
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -109,16 +128,15 @@
                         ID="MonthlyReportsStore"
                         runat="server"
                         RemoteSort="true"
-                        PageSize="25">
+                        PageSize="25"
+                        OnSubmitData="MonthlyReportsStore_SubmitData">
                         <Model>
                             <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
-                                    <ext:ModelField Name="SipAccount" Type="String" />
                                     <ext:ModelField Name="EmployeeID" Type="String" />
                                     <ext:ModelField Name="FullName" Type="String" />
+                                    <ext:ModelField Name="SipAccount" Type="String" />
                                     <ext:ModelField Name="PersonalCallsCost" Type="String" />
-                                    <ext:ModelField Name="Month" Type="String" />
-                                    <ext:ModelField Name="Year" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
@@ -195,6 +213,7 @@
                 </BottomBar>
 
             </ext:GridPanel>
+            <ext:Label ID="Label1" runat="server" />
         </div>
     </div>
     <!-- *** END OF ACCOUNTING MAIN BODY *** -->

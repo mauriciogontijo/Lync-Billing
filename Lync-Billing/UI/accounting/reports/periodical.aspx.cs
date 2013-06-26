@@ -154,5 +154,20 @@ namespace Lync_Billing.ui.accounting.reports
                 PeriodicalReportsGrid.GetStore().LoadData(listOfUsersCallsSummary);
             }
         }
+
+        protected void MonthlyReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
+        {
+            string format = this.FormatType.Value.ToString();
+            XmlNode xml = e.Xml;
+
+            this.Response.Clear();
+            this.Response.ContentType = "application/vnd.ms-excel";
+            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+            XslCompiledTransform xtExcel = new XslCompiledTransform();
+            xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
+            xtExcel.Transform(xml, null, Response.OutputStream);
+
+            this.Response.End();
+        }
     }
 }
