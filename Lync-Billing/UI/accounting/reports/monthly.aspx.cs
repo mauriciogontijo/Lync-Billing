@@ -66,10 +66,10 @@ namespace Lync_Billing.ui.accounting.reports
 
         protected void MonthlyReportsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
-           this.e = e;
+            this.e = e;
             string s = e.Parameters["filter"];
 
-            if (MonthlyReportsGrids.GetStore().JsonData == null )
+            if (MonthlyReportsGrids.GetStore().JsonData == null)
                 listOfUsersCallsSummary = MonthlyReports(reportDateField.SelectedDate);
 
             if (!string.IsNullOrEmpty(s))
@@ -151,7 +151,7 @@ namespace Lync_Billing.ui.accounting.reports
             }
 
             List<UsersCallsSummary> rangeData = (e.Start < 0 || limit < 0) ? listOfUsersCallsSummary : listOfUsersCallsSummary.GetRange(e.Start, limit);
-          
+
             e.Total = listOfUsersCallsSummary.Count;
 
             MonthlyReportsStore.DataSource = rangeData;
@@ -173,8 +173,6 @@ namespace Lync_Billing.ui.accounting.reports
         //{
         //    this.e = e;
         //    MonthlyReportsStore.DataBind();
-        //    UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-        //    userSession.PhoneCallsPerPage = MonthlyReportsStore.JsonData;
         //}
 
         public string GetSiteName(int siteID)
