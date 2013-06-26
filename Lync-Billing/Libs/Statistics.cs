@@ -48,14 +48,23 @@ namespace Lync_Billing.Libs
 
          }
 
-        public DataTable USERS_STATS(DateTime startingYear,DateTime endingYear,string siteName) 
+        public DataTable USERS_STATS(DateTime startingDate,DateTime endingDate,string siteName) 
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
             string selectQuery = string.Empty;
 
-            selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Date BETWEEN '{1}' AND '{2}'",
-                siteName, startingYear,endingYear);
+            if (startingDate != endingDate)
+            {
+
+                selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Date BETWEEN '{1}' AND '{2}'",
+                siteName, startingDate, endingDate);
+            }
+            else if(startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+            {
+                selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Year={1} AND Month={2}",
+               siteName, startingDate.Year, startingDate.Month);
+            }
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(selectQuery, conn);
