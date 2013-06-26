@@ -169,13 +169,13 @@ namespace Lync_Billing.ui.accounting.reports
             xtExcel.Transform(xml, null, Response.OutputStream);
         }
 
-        protected void MonthlyReportsStore_ReadData(object sender, StoreReadDataEventArgs e)
-        {
-            this.e = e;
-            MonthlyReportsStore.DataBind();
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            userSession.PhoneCallsPerPage = MonthlyReportsStore.JsonData;
-        }
+        //protected void MonthlyReportsStore_ReadData(object sender, StoreReadDataEventArgs e)
+        //{
+        //    this.e = e;
+        //    MonthlyReportsStore.DataBind();
+        //    UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+        //    userSession.PhoneCallsPerPage = MonthlyReportsStore.JsonData;
+        //}
 
         public string GetSiteName(int siteID)
         {

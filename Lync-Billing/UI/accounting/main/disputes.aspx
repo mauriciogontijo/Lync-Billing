@@ -1,14 +1,7 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/ui/AccountingMaster.Master" AutoEventWireup="true" CodeBehind="disputes.aspx.cs" Inherits="Lync_Billing.ui.accounting.main.disputes" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="disputes.aspx.cs" Inherits="Lync_Billing.ui.accounting.main.disputes" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Accounting Mainpage</title>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#navigation-tabs>li.selected').removeClass('selected');
-            $('#accounting-tab').addClass('selected');
-        });
-    </script>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">

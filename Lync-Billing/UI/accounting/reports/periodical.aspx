@@ -1,14 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/AccountingMaster.Master" AutoEventWireup="true" CodeBehind="periodical.aspx.cs" Inherits="Lync_Billing.ui.accounting.reports.periodical" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="periodical.aspx.cs" Inherits="Lync_Billing.ui.accounting.reports.periodical" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Periodical Users Report</title>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#navigation-tabs>li.selected').removeClass('selected');
-            $('#accounting-tab').addClass('selected');
-        });
-    </script>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
