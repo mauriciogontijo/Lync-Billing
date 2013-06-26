@@ -36,11 +36,6 @@
 
     <body>
         <form id="form1" runat="server">
-           <%-- <asp:ScriptManager ID="ScriptManager1" runat="server">
-                <Services>
-                    <asp:ServiceReference Path="~/Libs/BillingAPI.asmx" />
-                </Services>
-            </asp:ScriptManager>--%>
             <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" >
                 <Listeners>
                     <BeforeAjaxRequest Handler="Ext.net.Mask.show();" />
@@ -105,7 +100,7 @@
                                                 <% if(current_session.IsAccountant || current_session.IsDeveloper) { %>
                                                     <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../accounting/main/dashboard.aspx">Accounting Role</a></li>
                                                 <% } if (current_session.IsAdmin || current_session.IsDeveloper) { %>
-                                                    <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="#">Administrator Role</a></li>
+                                                    <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../admin/dashboard.aspx">Administrator Role</a></li>
                                                 <% } %>
                                             </ul>
                                         </li>
