@@ -109,7 +109,7 @@ namespace Lync_Billing.ui.user
                         "<div class='block-body wauto m15 p5'><p>" +
                         "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                         "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                        UserSummary.UnmarkedCallsCount, UserSummary.UnmarkedCallsDuartion / 60, UserSummary.UnmarkedCallsCost)
+                        UserSummary.UnmarkedCallsCount, UserSummary.UnmarkedCallsDuration / 60, UserSummary.UnmarkedCallsCost)
                 };
 
                 components.Add(unmarkedPanel);

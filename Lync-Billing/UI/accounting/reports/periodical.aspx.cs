@@ -80,7 +80,7 @@ namespace Lync_Billing.ui.accounting.reports
                             PersonalCallsCount = res.Sum(x => x.PersonalCallsCount),
 
                             UnmarkedCallsCost = res.Sum(x => x.UnmarkedCallsCost),
-                            UnmarkedCallsDuartion = res.Sum(x => x.UnmarkedCallsDuartion),
+                            UnmarkedCallsDuration = res.Sum(x => x.UnmarkedCallsDuration),
                             UnmarkedCallsCount = res.Sum(x => x.UnmarkedCallsCount),
                         }
                 ).Where(e=> e.PersonalCallsCost > 0).ToList();
