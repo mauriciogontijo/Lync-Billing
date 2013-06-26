@@ -143,6 +143,9 @@
                                         </Model>            
                                     </ext:Store>
                                 </Store>
+                                <DirectEvents>
+                                    <Change OnEvent="GetUnmarkedCallsForSite" />
+                                </DirectEvents>
                             </ext:ComboBox>
 
                             <ext:Button ID="EmailAlertButton" runat="server" Text="Email Alert" Icon="EmailAdd" Margins="5 5 5 485">
