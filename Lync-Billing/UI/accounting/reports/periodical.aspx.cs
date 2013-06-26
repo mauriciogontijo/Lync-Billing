@@ -136,7 +136,6 @@ namespace Lync_Billing.ui.accounting.reports
 
             whereStatement.Add("UserID", employeeID);
 
-
             users = Users.GetUsers(null, whereStatement, 0);
             return users[0].SiteName;
         }
