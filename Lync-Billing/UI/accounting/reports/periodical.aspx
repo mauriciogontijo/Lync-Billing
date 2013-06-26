@@ -16,7 +16,6 @@
     <!-- *** START OF SIDEBAR *** -->
     <div id='Div1' class='sidebar block float-left w20p'>
         <div class="block-body">
-             <ext:Hidden ID="FormatType" runat="server" />
             <ext:Panel ID="AccountingToolsSidebar"
                 runat="server"
                 Height="230"
@@ -52,6 +51,7 @@
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='generate-report-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
+            <ext:Hidden ID="FormatType" runat="server" />
             <ext:Panel
                 ID="PeriodicalReportsTools"
                 runat="server"

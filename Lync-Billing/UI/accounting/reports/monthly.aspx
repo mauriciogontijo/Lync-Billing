@@ -2,6 +2,11 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Monthly Users Report</title>
+    <script type="text/javascript">
+        var submitValue = function (grid, hiddenFormat, format) {
+            grid.submitData(false, { isUpload: true });
+        };
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -43,6 +48,7 @@
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='generate-report-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
+            <ext:Hidden ID="FormatType" runat="server" />
             <ext:Panel
                 ID="MonthlyReportsTools"
                 runat="server"
@@ -78,6 +84,16 @@
                                 OnDirectClick ="ViewMonthlyBills_DirectClick"
                                 Margins="5 25 0 5">
                             </ext:Button>
+                            
+                            <ext:Button 
+                                runat="server"
+                                Text="To Excel" 
+                                Icon="PageExcel"
+                                Margins="5 0 5 100">
+                                <Listeners>
+                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
+                                </Listeners>
+                            </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -99,19 +115,17 @@
                         runat="server"
                         RemoteSort="true"
                         PageSize="25"
-                        OnReadData="MonthlyReportsStore_ReadData">
+                        OnSubmitData="MonthlyReportsStore_SubmitData">
                         <Proxy>
                             <ext:PageProxy CacheString="" />
                         </Proxy>
                         <Model>
                             <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
-                                    <ext:ModelField Name="SipAccount" Type="String" />
                                     <ext:ModelField Name="EmployeeID" Type="String" />
                                     <ext:ModelField Name="FullName" Type="String" />
+                                    <ext:ModelField Name="SipAccount" Type="String" />
                                     <ext:ModelField Name="PersonalCallsCost" Type="String" />
-                                    <ext:ModelField Name="Month" Type="String" />
-                                    <ext:ModelField Name="Year" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
