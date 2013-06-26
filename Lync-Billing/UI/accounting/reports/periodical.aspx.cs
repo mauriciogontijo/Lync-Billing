@@ -4,9 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Collections.ObjectModel;
+using System.Collections;
+using Ext.Net;
+using System.Web.Script.Serialization;
 using Lync_Billing.DB;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Xsl;
+using System.Data;
+using System.IO;
+using System.Text;
+using System.Linq.Expressions;
+using Newtonsoft.Json;
 
 namespace Lync_Billing.ui.accounting.reports
 {
@@ -31,6 +41,11 @@ namespace Lync_Billing.ui.accounting.reports
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }
             }
+        }
+
+        protected void ViewMonthlyBills_DirectClick(object sender, DirectEventArgs e)
+        {
+
         }
     }
 }
