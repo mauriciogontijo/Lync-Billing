@@ -52,7 +52,6 @@
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='generate-report-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
-            <ext:Hidden ID="Hidden1" runat="server" />
             <ext:Panel
                 ID="PeriodicalReportsTools"
                 runat="server"
@@ -213,7 +212,6 @@
                 </BottomBar>
 
             </ext:GridPanel>
-            <ext:Label ID="Label1" runat="server" />
         </div>
     </div>
     <!-- *** END OF ACCOUNTING MAIN BODY *** -->

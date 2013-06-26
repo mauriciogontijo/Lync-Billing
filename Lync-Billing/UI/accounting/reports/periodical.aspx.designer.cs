@@ -31,15 +31,6 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Panel AccountingToolsSidebar;
         
         /// <summary>
-        /// Hidden1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Hidden Hidden1;
-        
-        /// <summary>
         /// PeriodicalReportsTools control.
         /// </summary>
         /// <remarks>
@@ -173,14 +164,5 @@ namespace Lync_Billing.ui.accounting.reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.PagingToolbar PagingToolbar1;
-        
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Label Label1;
     }
 }
