@@ -83,7 +83,7 @@ namespace Lync_Billing.ui.accounting.reports
                             UnmarkedCallsDuartion = res.Sum(x => x.UnmarkedCallsDuartion),
                             UnmarkedCallsCount = res.Sum(x => x.UnmarkedCallsCount),
                         }
-                ).ToList();
+                ).Where(e=> e.PersonalCallsCost > 0).ToList();
 
             return sipAccounts;
         }
