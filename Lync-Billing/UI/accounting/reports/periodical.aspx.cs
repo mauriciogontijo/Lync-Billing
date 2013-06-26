@@ -67,11 +67,8 @@ namespace Lync_Billing.ui.accounting.reports
                         select new UsersCallsSummary
                         {
                             EmployeeID = res.Key.EmployeeID,
-
                             FullName = res.Key.FullName,
-
                             SipAccount = res.Key.SipAccount,
-
                             SiteName = res.Key.SiteName,
 
                             BusinessCallsCost = res.Sum(x => x.BusinessCallsCost),
