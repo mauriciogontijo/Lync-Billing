@@ -21,7 +21,7 @@
                             <p>Email Notifications</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../notifications/calls.aspx' class="selected">Unmarked Calls Alert</a></p>
+                            <p><a href='../notifications/calls.aspx' class="selected">Unmarked Calls</a></p>
                             <p><a href='../notifications/bills.aspx'>Users Bills</a></p>
                         </div>
                     </div>
