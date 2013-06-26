@@ -105,7 +105,6 @@
                                     <Click Handler="submitValue(#{PeriodicalReportsGrid}, 'xls');" />
                                 </Listeners>
                             </ext:Button>
-
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
