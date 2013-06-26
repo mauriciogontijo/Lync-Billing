@@ -156,7 +156,27 @@ namespace Lync_Billing.ui.accounting.reports
 
             MonthlyReportsStore.DataSource = rangeData;
         }
-     
+
+        protected void PhoneCallsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
+        {
+            XmlNode xml = e.Xml;
+
+            this.Response.Clear();
+            this.Response.ContentType = "application/vnd.ms-excel";
+            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+            XslCompiledTransform xtExcel = new XslCompiledTransform();
+            xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
+            xtExcel.Transform(xml, null, Response.OutputStream);
+        }
+
+        protected void MonthlyReportsStore_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            this.e = e;
+            MonthlyReportsStore.DataBind();
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            userSession.PhoneCallsPerPage = MonthlyReportsStore.JsonData;
+        }
+
         public string GetSiteName(int siteID)
         {
             Dictionary<string, object> wherePart = new Dictionary<string, object>();

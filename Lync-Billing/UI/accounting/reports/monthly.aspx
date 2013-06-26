@@ -105,11 +105,7 @@
                         ID="MonthlyReportsStore"
                         runat="server"
                         RemoteSort="true"
-                        PageSize="25"
-                        OnReadData="MonthlyReportsStore_ReadData">
-                        <Proxy>
-                            <ext:PageProxy CacheString="" />
-                        </Proxy>
+                        PageSize="25">
                         <Model>
                             <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
