@@ -126,19 +126,23 @@
                                 Icon="Find" 
                                 TriggerAction="All" 
                                 QueryMode="Local" 
-                                DisplayField="TypeName" 
-                                ValueField="TypeValue"
+                                DisplayField="SiteName" 
+                                ValueField="SiteName"
                                 Margins="5 5 5 5">
-                                <%--<Store>
+                                <Store>
                                     <ext:Store
-                                        ID="FilterUsersBySiteStore"
-                                        runat="server"
-                                        IsPagingStore="false">
+                                        ID="SitesStore"
+                                        runat="server">
+                                        <Model>
+                                            <ext:Model ID="SitesModel" runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="SiteID" />
+                                                    <ext:ModelField Name="SiteName" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>            
                                     </ext:Store>
                                 </Store>
-                                 <DirectEvents>
-                                     <Select OnEvent="PhoneCallsHistoryFilter" />
-                                 </DirectEvents>--%>
                             </ext:ComboBox>
 
                             <ext:Button ID="EmailAlertButton" runat="server" Text="Email Alert" Icon="EmailAdd" Margins="5 5 5 485">

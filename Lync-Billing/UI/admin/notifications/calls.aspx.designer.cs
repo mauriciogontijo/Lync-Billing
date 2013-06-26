@@ -130,6 +130,24 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.ComboBox FilterUsersBySite;
         
         /// <summary>
+        /// SitesStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store SitesStore;
+        
+        /// <summary>
+        /// SitesModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model SitesModel;
+        
+        /// <summary>
         /// EmailAlertButton control.
         /// </summary>
         /// <remarks>
