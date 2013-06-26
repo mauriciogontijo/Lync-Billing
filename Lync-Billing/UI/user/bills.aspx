@@ -70,6 +70,7 @@
     <!-- *** START OF PHONE CALLS HISTORY GRID *** -->
     <div id='phone-call-history' class='block float-right wauto h100p' style="visibility: visible;">
         <div class="block-body pt5">
+            
             <ext:GridPanel
                 ID="BillsHistoryGrid" 
                 runat="server" 
