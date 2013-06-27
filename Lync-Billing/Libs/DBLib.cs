@@ -61,6 +61,36 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
+
+        public DataTable SELECT(string tableName) 
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            StringBuilder selectedfields = new StringBuilder();
+           
+            selectQuery = string.Format("SELECT * FROM  [{0}]", tableName);
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
         /// <summary>
         /// Construct Generic Select Statemnet 
         /// </summary>
