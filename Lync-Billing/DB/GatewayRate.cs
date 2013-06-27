@@ -26,7 +26,7 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             List<GatewayRate> gatewayRates = new List<GatewayRate>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName));
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysRates.TableName));
 
             foreach (DataRow row in dt.Rows)
             {
@@ -68,7 +68,7 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             List<GatewayRate> gatewayRates = new List<GatewayRate>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), 
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysRates.TableName), 
                                    Enums.GetDescription(Enums.GatewaysRates.GatewayID),gatewayID);
 
             foreach (DataRow row in dt.Rows)
@@ -112,7 +112,7 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             List<GatewayRate> gatewayRates = new List<GatewayRate>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), columns, wherePart, limits);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysRates.TableName), columns, wherePart, limits);
 
             foreach (DataRow row in dt.Rows)
             {
