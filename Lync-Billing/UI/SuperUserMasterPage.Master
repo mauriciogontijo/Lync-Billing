@@ -64,7 +64,7 @@
                         <div class="col size1of2 "></div>
                         <!--end toolbar right nav-->
                         <div class="col size1of2 lastcol">
-                            <a class="logo fl" href='../session/login.aspx'>eBill</a>
+                            <a class="logo fl" href='../../session/login.aspx'>eBill</a>
                         </div>
                     </div>
                     <!--end toolbar wrapper--> 

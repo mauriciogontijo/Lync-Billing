@@ -22,13 +22,13 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.Panel AdminToolsSidebar;
         
         /// <summary>
-        /// ManageGateways control.
+        /// ManageGatewaysForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.FormPanel ManageGateways;
+        protected global::Ext.Net.Panel ManageGatewaysForm;
         
         /// <summary>
         /// EditGatewaysToolbar control.
@@ -49,57 +49,129 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.ComboBox SelectGatewayMenu;
         
         /// <summary>
-        /// StartingDate control.
+        /// Container1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.DateField StartingDate;
+        protected global::Ext.Net.Container Container1;
         
         /// <summary>
-        /// EndingDate control.
+        /// AssociatedSiteContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.DateField EndingDate;
+        protected global::Ext.Net.Container AssociatedSiteContainer;
         
         /// <summary>
-        /// ProviderName control.
+        /// AssociatedSite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField ProviderName;
+        protected global::Ext.Net.ComboBox AssociatedSite;
         
         /// <summary>
-        /// CurrencyCode control.
+        /// GatewayRatesFiels control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField CurrencyCode;
+        protected global::Ext.Net.Container GatewayRatesFiels;
         
         /// <summary>
-        /// GatewayDescription control.
+        /// Container2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextArea GatewayDescription;
+        protected global::Ext.Net.Container Container2;
         
         /// <summary>
-        /// SubmitForm control.
+        /// TextField1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button SubmitForm;
+        protected global::Ext.Net.TextField TextField1;
+        
+        /// <summary>
+        /// TextField2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextField2;
+        
+        /// <summary>
+        /// Container3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container3;
+        
+        /// <summary>
+        /// TextField3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextField3;
+        
+        /// <summary>
+        /// TextField4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextField4;
+        
+        /// <summary>
+        /// Container4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container4;
+        
+        /// <summary>
+        /// HtmlEditor1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.HtmlEditor HtmlEditor1;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button Button1;
+        
+        /// <summary>
+        /// Button2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button Button2;
     }
 }
