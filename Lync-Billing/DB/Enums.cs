@@ -295,6 +295,18 @@ namespace Lync_Billing.DB
             Name
         }
 
+        public enum Currencies
+        {
+            [Description("Currencies")]
+            TableName,
+            [Description("CountryName")]
+            CountryName,
+            [Description("CurrencyName")]
+            CurrencyName,
+            [Description("CurrencyISOName")]
+            CurrencyISOName
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
