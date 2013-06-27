@@ -19,6 +19,93 @@ namespace Lync_Billing.DB
         public string ProviderName { set; get; }
         public string CurrencyCode { set; get; }
 
+
+        public static List<GatewayRate> GetGatewaysRates() 
+        {
+            GatewayRate gatewayRate;
+            DataTable dt = new DataTable();
+            List<GatewayRate> gatewayRates = new List<GatewayRate>();
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName));
+
+            foreach (DataRow row in dt.Rows)
+            {
+                gatewayRate = new GatewayRate();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.GatewaysRatesID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.GatewayID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.RatesTableName) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.RatesTableName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.StartingDate) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.StartingDate = (DateTime)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.EndingDate) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.EndingDate = (DateTime)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.ProviderName) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.ProviderName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.CurrencyCode) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.CurrencyCode = (string)row[column.ColumnName];
+
+                }
+                gatewayRates.Add(gatewayRate);
+            }
+            return gatewayRates;
+        } 
+        
+        public static List<GatewayRate> GetGatewaysRates(int gatewayID) 
+        {
+            GatewayRate gatewayRate;
+            DataTable dt = new DataTable();
+            List<GatewayRate> gatewayRates = new List<GatewayRate>();
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), 
+                                   Enums.GetDescription(Enums.GatewaysRates.GatewayID),gatewayID);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                gatewayRate = new GatewayRate();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.GatewaysRatesID) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.GatewaysRatesID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.GatewayID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.RatesTableName) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.RatesTableName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.StartingDate) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.StartingDate = (DateTime)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.EndingDate) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.EndingDate = (DateTime)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.ProviderName) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.ProviderName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysRates.CurrencyCode) && row[column.ColumnName] != System.DBNull.Value)
+                        gatewayRate.CurrencyCode = (string)row[column.ColumnName];
+
+                }
+                gatewayRates.Add(gatewayRate);
+            }
+            return gatewayRates;
+
+        }
+
         public static List<GatewayRate> GetGatewaysRates(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             GatewayRate gatewayRate;
