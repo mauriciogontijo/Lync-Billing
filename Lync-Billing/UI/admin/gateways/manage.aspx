@@ -50,7 +50,7 @@
                 PaddingSummary="5px 5px 0"
                 Width="740"
                 Frame="true"
-                Height="625"
+                Height="635"
                 ButtonAlign="Center">
                 <TopBar>
                     <ext:Toolbar
