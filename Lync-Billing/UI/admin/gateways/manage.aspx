@@ -58,16 +58,33 @@
                         runat="server">
                         <Items>
                             <ext:ComboBox
-                                ID="SelectGatewayMenu"
+                                ID="GatewaysComboBox"
                                 runat="server"
                                 TriggerAction="All" 
                                 QueryMode="Local" 
-                                DisplayField="TypeName" 
-                                ValueField="TypeValue"
+                                DisplayField="GatewayName" 
+                                ValueField="GatewayId"
                                 FieldLabel="Select Gateway"
                                 LabelWidth="85"
                                 Width="300"
                                 Margins="5 355 5 5">
+                                <Store>
+                                    <ext:Store
+                                        ID="GatewaysStore"
+                                        runat="server">
+                                        <Model>
+                                            <ext:Model ID="GatewaysModel" runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="GatewayId" />
+                                                    <ext:ModelField Name="GatewayName" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>            
+                                    </ext:Store>
+                                </Store>
+                                <DirectEvents>
+                                    <Change OnEvent="GetGateaysDetails" />
+                                </DirectEvents>
                             </ext:ComboBox>
 
                             <ext:Button ID="SaveGatewayButton" runat="server" Text="Save" Icon="ApplicationFormAdd" />
@@ -114,13 +131,57 @@
 
                             <ext:Container ID="Container7" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
                                 <Items>
-                                    <ext:ComboBox ID="AssociatedSiteList" runat="server" FieldLabel="Associated Site" LabelWidth="100" LabelAlign="Top" />
+                                    <ext:ComboBox 
+                                        ID="SitesComboBox" 
+                                        runat="server" 
+                                        FieldLabel="Site Name" 
+                                        LabelWidth="100" 
+                                        LabelAlign="Top"
+                                        DisplayField="SiteName" 
+                                        ValueField="SiteID" >
+                                        <Store>
+                                            <ext:Store
+                                                ID="SitesStore"
+                                                runat="server">
+                                                <Model>
+                                                    <ext:Model ID="SitesModel" runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="SiteID" />
+                                                            <ext:ModelField Name="SiteName" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>            
+                                            </ext:Store>
+                                        </Store>
+                                    </ext:ComboBox>
                                 </Items>
                             </ext:Container>
                             
                             <ext:Container ID="Container5" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
                                 <Items>
-                                    <ext:ComboBox ID="AssociatedPoolList" runat="server" FieldLabel="Associated Pool" LabelWidth="100" LabelAlign="Top" />
+                                    <ext:ComboBox 
+                                        ID="PoolComboBox" 
+                                        runat="server" 
+                                        FieldLabel="Pool FQDN" 
+                                        LabelWidth="100" 
+                                        LabelAlign="Top"
+                                        DisplayField="PoolFQDN" 
+                                        ValueField="PoolID" >
+                                        <Store>
+                                            <ext:Store
+                                                ID="PoolStore"
+                                                runat="server">
+                                                <Model>
+                                                    <ext:Model ID="PoolModel" runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="PoolID" />
+                                                            <ext:ModelField Name="PoolFQDN" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>            
+                                            </ext:Store>
+                                        </Store>
+                                    </ext:ComboBox>
                                 </Items>
                             </ext:Container>
                         </Items>

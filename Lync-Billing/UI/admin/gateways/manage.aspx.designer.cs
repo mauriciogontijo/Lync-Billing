@@ -40,13 +40,31 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.Toolbar EditGatewaysToolbar;
         
         /// <summary>
-        /// SelectGatewayMenu control.
+        /// GatewaysComboBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComboBox SelectGatewayMenu;
+        protected global::Ext.Net.ComboBox GatewaysComboBox;
+        
+        /// <summary>
+        /// GatewaysStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store GatewaysStore;
+        
+        /// <summary>
+        /// GatewaysModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model GatewaysModel;
         
         /// <summary>
         /// SaveGatewayButton control.
@@ -193,13 +211,31 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.Container Container7;
         
         /// <summary>
-        /// AssociatedSiteList control.
+        /// SitesComboBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComboBox AssociatedSiteList;
+        protected global::Ext.Net.ComboBox SitesComboBox;
+        
+        /// <summary>
+        /// SitesStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store SitesStore;
+        
+        /// <summary>
+        /// SitesModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model SitesModel;
         
         /// <summary>
         /// Container5 control.
@@ -211,13 +247,31 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.Container Container5;
         
         /// <summary>
-        /// AssociatedPoolList control.
+        /// PoolComboBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComboBox AssociatedPoolList;
+        protected global::Ext.Net.ComboBox PoolComboBox;
+        
+        /// <summary>
+        /// PoolStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store PoolStore;
+        
+        /// <summary>
+        /// PoolModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model PoolModel;
         
         /// <summary>
         /// GatewayDescriptionContainer control.

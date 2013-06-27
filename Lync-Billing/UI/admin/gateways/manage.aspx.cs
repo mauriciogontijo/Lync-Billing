@@ -34,32 +34,41 @@ namespace Lync_Billing.ui.admin.gateways
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }
             }
+
+            GatewaysComboBox.GetStore().DataSource = Gateway.GetGateways().OrderBy(item => item.GatewayName );
+            GatewaysComboBox.GetStore().DataBind();
+
+            PoolComboBox.GetStore().DataSource = Pool.GetPools().OrderBy(item => item.PoolFQDN);
+            PoolComboBox.GetStore().DataBind();
+
+            SitesComboBox.GetStore().DataSource = DB.Site.GetSites().OrderBy(item => item.SiteName);
+            SitesComboBox.GetStore().DataBind();
         }
 
         public List<Site> GetSites() 
         {
-            List<Site> sites = new List<Site>();
-
-            return sites;
+            return DB.Site.GetSites();
         }
 
         public List<Pool> GetPools() 
         {
-            List<Pool> pools = new List<Pool>();
-
-            return pools;
+            return Pool.GetPools();
         }
 
         public List<Gateway> GetGateways() 
         {
-            List<Gateway> gateways = new List<Gateway>();
-
-            return gateways;
+           return Gateway.GetGateways();
         }
 
         public string CreateRatesTableName(string gatewayName) 
         {
             return string.Format("Rates_{0}_{1}_{2}_{3}", gatewayName, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+        }
+
+        protected void GetGateaysDetails(object sender, DirectEventArgs e)
+        {
+            GatewayRatesLable.Text = GatewayRatesLable.Text  + GatewaysComboBox.SelectedItem.Text ;
+
         }
     }
 }
