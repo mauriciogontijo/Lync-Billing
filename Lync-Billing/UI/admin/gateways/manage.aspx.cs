@@ -77,19 +77,21 @@ namespace Lync_Billing.ui.admin.gateways
 
             ClearFields();
 
-            if (gatewayRates.Count == 1)
+            if (gatewayRates.Count >= 1)
             {
+                GatewayRate tmpGatewayRate = gatewayRates.Single(item => item.EndingDate == null || item.EndingDate == DateTime.MinValue);
+
                 if (gatewayRates[0].StartingDate != null)
-                    StartingDate.SelectedDate = gatewayRates[0].StartingDate;
+                    StartingDate.SelectedDate = tmpGatewayRate.StartingDate;
 
                 if (gatewayRates[0].EndingDate != null)
-                    EndingDate.SelectedDate = gatewayRates[0].EndingDate;
+                    EndingDate.SelectedDate = tmpGatewayRate.EndingDate;
 
                 if (gatewayRates[0].ProviderName != null)
-                    ProviderName.Text = gatewayRates[0].ProviderName;
+                    ProviderName.Text = tmpGatewayRate.ProviderName;
 
                 if (gatewayRates[0].CurrencyCode != null)
-                    CurrencyCode.Text = gatewayRates[0].CurrencyCode;
+                    CurrencyCode.Text = tmpGatewayRate.CurrencyCode;
             }
 
 
@@ -125,6 +127,9 @@ namespace Lync_Billing.ui.admin.gateways
         {
             string RatesTableName = string.Format("Rates_{0}_{1}_{2}_{3}", GatewaysComboBox.SelectedItem.Text, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
+            ///
+            ///GatewaysDetails Block
+            ///
             if (SitesComboBox.SelectedItem != null && PoolComboBox.SelectedItem != null && GatewayDescription.Text != string.Empty)
             {
                 GatewayDetail gatewayDetail = new GatewayDetail();
@@ -137,7 +142,6 @@ namespace Lync_Billing.ui.admin.gateways
                     gatewayDetail.Description = GatewayDescription.Text;
 
                     int GatewayDetailsID = GatewayDetail.InsertGatewayDetails(gatewayDetail);
-                    gatewayDetails.Add(gatewayDetail);
                 }
                 else
                 {
@@ -155,45 +159,50 @@ namespace Lync_Billing.ui.admin.gateways
                 }
             }
 
-            //if (StartingDate.SelectedValue != null && ProviderName.Text != null && CurrencyCode.Text != null)
-            //{
-            //    GatewayRate gatewayRate = new GatewayRate();
 
-            //    if (gatewayRates.Count == 0)
-            //    {
-            //        gatewayRate.GatewayID = Convert.ToInt32(GatewaysComboBox.SelectedItem.Value);
-            //        gatewayRate.CurrencyCode = CurrencyCode.Text;
-            //        gatewayRate.ProviderName = ProviderName.Text;
-            //        gatewayRate.StartingDate = StartingDate.SelectedDate;
-            //        gatewayRate.RatesTableName = RatesTableName;
+            ///
+            /// GatewaysRates Block
+            /// 
+            if (StartingDate.SelectedValue != null && ProviderName.Text != null && CurrencyCode.Text != null)
+            {
+                GatewayRate gatewayRate = new GatewayRate();
 
-            //        int GatewaysRatesID = GatewayRate.InsertGatewayRate(gatewayRate);
-            //        gatewayRates.Add(gatewayRate);
-            //    }
-            //    else if (gatewayRates.Count == 1)
-            //    {
-            //        GatewayRate PreviousGatewayRate = new GatewayRate();
+                if (gatewayRates.Count == 0)
+                {
+                    gatewayRate.GatewayID = Convert.ToInt32(GatewaysComboBox.SelectedItem.Value);
+                    gatewayRate.CurrencyCode = CurrencyCode.Text;
+                    gatewayRate.ProviderName = ProviderName.Text;
+                    gatewayRate.StartingDate = StartingDate.SelectedDate;
+                    gatewayRate.RatesTableName = RatesTableName;
 
-            //        if (EndingDate.SelectedValue != null && gatewayRates[0].EndingDate != null)
-            //        {
-            //            PreviousGatewayRate.GatewayID = Convert.ToInt32(gatewayRates[0].GatewaysRatesID);
-            //            PreviousGatewayRate.EndingDate = EndingDate.SelectedDate;
+                    int GatewaysRatesID = GatewayRate.InsertGatewayRate(gatewayRate);
+                }
+                else 
+                {
+                    GatewayRate tmpGatewayRate = gatewayRates.Single(item => item.EndingDate == null || item.EndingDate == DateTime.MinValue);
 
-            //            GatewayRate.UpdateGatewayRate(PreviousGatewayRate);
-            //        }
+                    if (gatewayRates[0].ProviderName != ProviderName.Text ||
+                        gatewayRates[0].CurrencyCode != CurrencyCode.Text) 
+                    {
+                        gatewayRate.CurrencyCode = CurrencyCode.Text;
+                        gatewayRate.ProviderName = ProviderName.Text;
 
-            //        gatewayRate.CurrencyCode = CurrencyCode.Text;
-            //        gatewayRate.ProviderName = ProviderName.Text;
-            //        gatewayRate.StartingDate = StartingDate.SelectedDate;
-            //        gatewayRate.RatesTableName = RatesTableName;
+                        GatewayRate.UpdateGatewayRate(gatewayRate);
+                    }
+                    else
+                    {
+                        tmpGatewayRate.EndingDate = DateTime.Now;
+                        GatewayRate.UpdateGatewayRate(tmpGatewayRate);
 
-            //        int GatewaysRatesID = GatewayRate.InsertGatewayRate(gatewayRate);
-            //    }
-            //    else 
-            //    {
-            //        //TODO : Get the Latest Record without ending Date and Update the ending Date
-            //    }
-            //}
+                        gatewayRate.CurrencyCode = CurrencyCode.Text;
+                        gatewayRate.ProviderName = ProviderName.Text;
+                        gatewayRate.StartingDate = StartingDate.SelectedDate;
+                        gatewayRate.RatesTableName = RatesTableName;
+
+                        int GatewaysRatesID = GatewayRate.InsertGatewayRate(gatewayRate);
+                    }
+                }
+            }
         }
     }
 }
