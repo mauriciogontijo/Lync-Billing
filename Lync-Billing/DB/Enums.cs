@@ -21,7 +21,7 @@ namespace Lync_Billing.DB
             TableName,
             [Description("GatewayId")]
             GatewayId,
-            [Description("Gateway")]
+            [Description("GatewayName")]
             Gateway
         }
 
