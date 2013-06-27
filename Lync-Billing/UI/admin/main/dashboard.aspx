@@ -32,7 +32,7 @@
                             <p>Gateways</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../gateways/manage.aspx'>Edit Gateways</a></p>
+                            <p><a href='../gateways/manage.aspx'>Manage Gateways</a></p>
                         </div>
                     </div>
                 </Content>
