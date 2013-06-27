@@ -19,6 +19,7 @@ namespace Lync_Billing.DB
         public int GatewayID { set; get; }
         public int SiteID { set; get; }
         public int PoolID { set; get; }
+        public string Description { set; get; }
 
 
         public static List<GatewayDetail> GetGatewaysDetails() 
@@ -43,6 +44,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.PoolID) && row[column.ColumnName] != System.DBNull.Value)
                         gateway.PoolID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.Description) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.Description = (string)row[column.ColumnName];
 
                 }
                 gateways.Add(gateway);
@@ -74,6 +78,10 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.PoolID) && row[column.ColumnName] != System.DBNull.Value)
                         gateway.PoolID = (int)row[column.ColumnName];
 
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.Description) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.Description = (string)row[column.ColumnName];
+
                 }
                 gateways.Add(gateway);
             }
@@ -104,6 +112,9 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.PoolID) && row[column.ColumnName] != System.DBNull.Value)
                         gateway.PoolID = (int)row[column.ColumnName];
 
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.Description) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.Description = (string)row[column.ColumnName];
+
                 }
                  gateways.Add(gateway);
              }
@@ -123,6 +134,9 @@ namespace Lync_Billing.DB
             if (gatewayDetails.PoolID.ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.GatewaysDetails.PoolID), gatewayDetails.PoolID);
 
+            if (gatewayDetails.Description.ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.GatewaysDetails.Description), gatewayDetails.Description);
+
             //Execute Insert
             rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.GatewaysDetails.TableName), columnsValues, Enums.GetDescription(Enums.GatewaysDetails.GatewayID));
            
@@ -141,6 +155,9 @@ namespace Lync_Billing.DB
 
             if (gatewayDetails.PoolID.ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.GatewaysDetails.PoolID), gatewayDetails.PoolID);
+
+            if (gatewayDetails.Description.ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.GatewaysDetails.Description), gatewayDetails.Description);
 
             //Execute Update
             status = DBRoutines.UPDATE(
