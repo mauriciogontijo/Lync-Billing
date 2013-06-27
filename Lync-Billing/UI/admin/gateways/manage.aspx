@@ -49,7 +49,7 @@
                 Title="ManageGateways" 
                 PaddingSummary="5px 5px 0"
                 Width="740"
-                Height="670"
+                Height="625"
                 ButtonAlign="Center">
                 <TopBar>
                     <ext:Toolbar
@@ -68,12 +68,14 @@
                                 Width="300"
                                 Margins="5 5 5 5">
                             </ext:ComboBox>
+
+                            <ext:Button ID="Button2" runat="server" Text="Save" />
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
 
                 <Items>
-                    <ext:Container ID="Container1" runat="server" Layout="Column" Height="10" Padding="5"></ext:Container>
+                    <ext:Container ID="Container1" runat="server" Layout="Column" Height="15" Padding="5"></ext:Container>
 
                     <ext:Container ID="GatewayRatesFiels" runat="server" Layout="Column" Height="140">
                         <Items>
@@ -99,7 +101,7 @@
                         </Items>
                     </ext:Container>
 
-                    <ext:Container ID="Container3" runat="server" Layout="Column" Height="30" Padding="5"></ext:Container>
+                    <ext:Container ID="Container3" runat="server" Layout="Column" Height="10" Padding="5"></ext:Container>
 
                     <ext:Container ID="GatewayFieldsContainer" runat="server" Layout="Column" Height="80">
                         <Items>
@@ -129,11 +131,6 @@
                         </Items>
                     </ext:Container>
                 </Items>
-
-                <Buttons>
-                    <ext:Button ID="Button2" runat="server" Text="Save" />
-                    <%--<ext:Button ID="Button2" runat="server" Text="Cancel" />--%>
-                </Buttons>
             </ext:Panel>
         </div>
     </div>

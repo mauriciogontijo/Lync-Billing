@@ -49,6 +49,15 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.ComboBox SelectGatewayMenu;
         
         /// <summary>
+        /// Button2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button Button2;
+        
+        /// <summary>
         /// Container1 control.
         /// </summary>
         /// <remarks>
@@ -227,14 +236,5 @@ namespace Lync_Billing.ui.admin.gateways {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.HtmlEditor GatewayDescription;
-        
-        /// <summary>
-        /// Button2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button Button2;
     }
 }
