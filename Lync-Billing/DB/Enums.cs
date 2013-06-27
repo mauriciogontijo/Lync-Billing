@@ -13,6 +13,20 @@ namespace Lync_Billing.DB
     public static class Enums
     {
         /// <summary>
+        /// Gateways datadbase table fields names
+        /// </summary>
+        public enum Gateways 
+        {
+            [Description("Gateways")]
+            TableName,
+            [Description("GatewayId")]
+            GatewayId,
+            [Description("Gateway")]
+            Gateway,
+            
+        }
+
+        /// <summary>
         /// Sites Database table fields Names
         /// </summary>
         public enum Sites
