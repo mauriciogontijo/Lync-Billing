@@ -43,6 +43,24 @@
     <!-- *** START OF ADMIN MAIN BODY *** -->
     <div id='edit-gateways' class='block float-right wauto h100p'>
         <div class="block-body pt5">
+            <ext:Store 
+                ID="GatewaysRatesStore" 
+                runat="server">
+                <Model>
+                    <ext:Model ID="GatewaysRatesModel" runat="server">
+                        <Fields>
+                            <ext:ModelField Name="GatewaysRatesID" />
+                            <ext:ModelField Name="GatewayID" />
+                            <ext:ModelField Name="RatesTableName" />
+                            <ext:ModelField Name="StartingDate" />
+                            <ext:ModelField Name="EndingDate" />
+                            <ext:ModelField Name="ProviderName" />
+                            <ext:ModelField Name="CurrencyCode" />
+                        </Fields>
+                    </ext:Model>
+                </Model>
+            </ext:Store>
+
             <ext:Panel 
                 ID="ManageGatewaysForm"
                 runat="server" 
@@ -83,11 +101,16 @@
                                     </ext:Store>
                                 </Store>
                                 <DirectEvents>
-                                    <Change OnEvent="GetGateaysDetails" />
+                                    <Change OnEvent="GetDetails" />
                                 </DirectEvents>
                             </ext:ComboBox>
 
-                            <ext:Button ID="SaveGatewayButton" runat="server" Text="Save" Icon="ApplicationFormAdd" />
+                            <ext:Button 
+                                ID="SaveGatewayButton" 
+                                runat="server" 
+                                Text="Save" 
+                                Icon="ApplicationFormAdd" 
+                                OnDirectClick="SaveGatewayButton_DirectClick"/>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -99,21 +122,54 @@
                         <Items>
                             <ext:Container ID="GatewayRatesLableContainer" runat="server" Layout="FormLayout" ColumnWidth="1" Padding="5">
                                 <Items>
-                                    <ext:Label ID="GatewayRatesLable" runat="server" Text="Gateway's Rates Information:" Cls="bold" />
+                                    <ext:Label
+                                        ID="GatewayRatesLable" 
+                                        runat="server" 
+                                        Text="Gateway's Rates Information:" 
+                                        Cls="bold" />
                                 </Items>
                             </ext:Container>
 
                             <ext:Container ID="FirstColumn" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
                                 <Items>
-                                    <ext:DateField ID="StartingDate" runat="server" FieldLabel="Starting Date" EmptyText="Empty Starting Date" LabelAlign="Top" />
-                                    <ext:TextField ID="ProviderName" runat="server" FieldLabel="ProviderName" EmptyText="VODAFONE, OTE, STC, ..." LabelAlign="Top"  />
+                                    <ext:DateField 
+                                        ID="StartingDate" 
+                                        runat="server" 
+                                        FieldLabel="Starting Date" 
+                                        EmptyText="Empty Starting Date" 
+                                        LabelAlign="Top"
+                                        ValidateBlank="true"
+                                        ValidateOnChange="true" />
+                                    
+                                    <ext:TextField 
+                                        ID="ProviderName" 
+                                        runat="server" 
+                                        FieldLabel="Provider Name" 
+                                        EmptyText="VODAFONE, OTE, STC, ..." 
+                                        LabelAlign="Top"  
+                                        ValidateBlank="true"
+                                        ValidateOnChange="true"/>
                                 </Items>
                             </ext:Container>
 
                             <ext:Container ID="SecondColumn" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
                                 <Items>
-                                    <ext:DateField ID="EndingDate" runat="server" FieldLabel="Ending Date" EmptyText="Empty Ending Date" LabelAlign="Top" />
-                                    <ext:TextField ID="CurrencyCode" runat="server" FieldLabel="CurrencyCode" EmptyText="EUR, USD, GBP, ..." LabelAlign="Top"  />
+                                    <ext:DateField 
+                                        ID="EndingDate" 
+                                        runat="server" 
+                                        FieldLabel="Ending Date" 
+                                        EmptyText="Empty Ending Date" 
+                                        LabelAlign="Top" />
+                                    
+                                    <ext:TextField 
+                                        ID="CurrencyCode" 
+                                        runat="server" 
+                                        FieldLabel="Currency Code" 
+                                        EmptyText="EUR, USD, GBP, ..." 
+                                        LabelAlign="Top" 
+                                        ValidateBlank="true"
+                                        ValidateOnChange="true"
+                                        ValidateOnBlur="true" />
                                 </Items>
                             </ext:Container>
                         </Items>
@@ -125,7 +181,11 @@
                         <Items>
                             <ext:Container ID="Container2" runat="server" Layout="FormLayout" ColumnWidth="1" Padding="5">
                                 <Items>
-                                    <ext:Label ID="GatewayInformationLableContainer" runat="server" Text="Gateway Information:" Cls="bold" />
+                                    <ext:Label 
+                                        ID="GatewayInformationLableContainer" 
+                                        runat="server" 
+                                        Text="Gateway Information:" 
+                                        Cls="bold" />
                                 </Items>
                             </ext:Container>
 
@@ -138,7 +198,11 @@
                                         LabelWidth="100" 
                                         LabelAlign="Top"
                                         DisplayField="SiteName" 
-                                        ValueField="SiteID" >
+                                        ValueField="SiteID" 
+                                        TriggerAction="All" 
+                                        QueryMode="Local"
+                                        ValidateBlank="true"
+                                        ValidateOnChange="true" >
                                         <Store>
                                             <ext:Store
                                                 ID="SitesStore"
@@ -148,11 +212,21 @@
                                                         <Fields>
                                                             <ext:ModelField Name="SiteID" />
                                                             <ext:ModelField Name="SiteName" />
+                                                            <ext:ModelField Name="CountryCode" />
                                                         </Fields>
                                                     </ext:Model>
                                                 </Model>            
                                             </ext:Store>
                                         </Store>
+                                        <ListConfig>
+                                            <ItemTpl ID="SitesItemTpl" runat="server">
+                                                <Html>
+                                                    <div data-qtip="{SiteName}. {CountryCode}">
+                                                        {SiteName} ({CountryCode})
+                                                    </div>
+                                                </Html>
+                                            </ItemTpl>
+                                        </ListConfig>
                                     </ext:ComboBox>
                                 </Items>
                             </ext:Container>
@@ -166,7 +240,11 @@
                                         LabelWidth="100" 
                                         LabelAlign="Top"
                                         DisplayField="PoolFQDN" 
-                                        ValueField="PoolID" >
+                                        ValueField="PoolID" 
+                                        TriggerAction="All" 
+                                        QueryMode="Local"
+                                        ValidateBlank="true"
+                                        ValidateOnChange="true" >
                                         <Store>
                                             <ext:Store
                                                 ID="PoolStore"
@@ -189,10 +267,18 @@
 
                     <ext:Container ID="GatewayDescriptionContainer" runat="server" Layout="FormLayout" Height="300" Padding="5">
                         <Items>
-                            <ext:HtmlEditor ID="GatewayDescription" runat="server" Height="300" FieldLabel="Gateway Description" LabelAlign="Top" />
+                            <ext:HtmlEditor
+                                 ID="GatewayDescription" 
+                                runat="server" 
+                                Height="300" 
+                                FieldLabel="Gateway Description" 
+                                LabelAlign="Top" 
+                                ValidateBlank="true"
+                                ValidateOnChange="true"/>
                         </Items>
                     </ext:Container>
                 </Items>
+                
             </ext:Panel>
         </div>
     </div>

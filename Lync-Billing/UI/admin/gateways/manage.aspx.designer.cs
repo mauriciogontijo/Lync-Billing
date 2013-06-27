@@ -22,6 +22,24 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.Panel AdminToolsSidebar;
         
         /// <summary>
+        /// GatewaysRatesStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store GatewaysRatesStore;
+        
+        /// <summary>
+        /// GatewaysRatesModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model GatewaysRatesModel;
+        
+        /// <summary>
         /// ManageGatewaysForm control.
         /// </summary>
         /// <remarks>
