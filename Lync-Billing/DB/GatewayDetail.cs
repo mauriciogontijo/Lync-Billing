@@ -128,6 +128,10 @@ namespace Lync_Billing.DB
             Dictionary<string, object> columnsValues = new Dictionary<string, object>();;
            
             //Set Part
+
+            if (gatewayDetails.GatewayID.ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.GatewaysDetails.GatewayID), gatewayDetails.GatewayID);
+
             if (gatewayDetails.SiteID.ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.GatewaysDetails.SiteID), gatewayDetails.SiteID);
 
