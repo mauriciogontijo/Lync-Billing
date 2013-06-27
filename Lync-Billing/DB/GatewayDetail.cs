@@ -19,8 +19,67 @@ namespace Lync_Billing.DB
         public int GatewayID { set; get; }
         public int SiteID { set; get; }
         public int PoolID { set; get; }
-      
 
+
+        public static List<GatewayDetail> GetGatewaysDetails() 
+        {
+            GatewayDetail gateway;
+            DataTable dt = new DataTable();
+            List<GatewayDetail> gateways = new List<GatewayDetail>();
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysDetails.TableName));
+
+            foreach (DataRow row in dt.Rows)
+            {
+                gateway = new GatewayDetail();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.GatewayID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.SiteID) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.SiteID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.PoolID) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.PoolID = (int)row[column.ColumnName];
+
+                }
+                gateways.Add(gateway);
+            }
+
+            return gateways;
+        }
+
+        public static List<GatewayDetail> GetGatewaysDetails(int gatewayID) 
+        {
+            GatewayDetail gateway;
+            DataTable dt = new DataTable();
+            List<GatewayDetail> gateways = new List<GatewayDetail>();
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysDetails.TableName), Enums.GetDescription(Enums.GatewaysDetails.GatewayID),gatewayID);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                gateway = new GatewayDetail();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.GatewayID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.SiteID) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.SiteID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.PoolID) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.PoolID = (int)row[column.ColumnName];
+
+                }
+                gateways.Add(gateway);
+            }
+
+            return gateways;
+        }
 
         public static List<GatewayDetail> GetGatewaysDetails(List<string> columns, Dictionary<string, object> wherePart, int limits) 
         {
