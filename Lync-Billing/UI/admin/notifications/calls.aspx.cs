@@ -29,7 +29,7 @@ namespace Lync_Billing.ui.admin.notifications
                 UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
-                if (!session.IsDeveloper && !session.IsAdmin && session.PrimarySipAccount != session.EffectiveSipAccount)
+                if ((!session.IsDeveloper || !session.IsAdmin) && session.PrimarySipAccount != session.EffectiveSipAccount)
                 {
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }

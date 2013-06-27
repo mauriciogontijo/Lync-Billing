@@ -32,7 +32,7 @@ namespace Lync_Billing.ui.accounting.main
                 UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
-                if (!session.IsDeveloper && !session.IsAccountant && session.PrimarySipAccount != session.EffectiveSipAccount)
+                if ((!session.IsDeveloper || !session.IsAccountant) && session.PrimarySipAccount != session.EffectiveSipAccount)
                 {
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }
