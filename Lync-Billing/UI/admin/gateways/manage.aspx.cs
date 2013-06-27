@@ -35,5 +35,21 @@ namespace Lync_Billing.ui.admin.gateways
                 }
             }
         }
+
+        public List<Site> GetSites() 
+        {
+            List<Site> sites = new List<Site>();
+
+            return sites;
+        }
+
+        public List<Pool> GetPools() 
+        {
+            List<Pool> pools = new List<Pool>();
+
+            return pools;
+        }
+
+
     }
 }
