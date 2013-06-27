@@ -54,7 +54,7 @@ namespace Lync_Billing.ui.admin.gateways
             SitesComboBox.GetStore().DataSource = sites;
             SitesComboBox.GetStore().DataBind();
 
-            if (GatewaysComboBox.SelectedItem != null)
+            if (GatewaysComboBox.SelectedItem.Index != -1)
             {
                 gatewayDetails = GatewayDetail.GetGatewaysDetails(Convert.ToInt32(GatewaysComboBox.SelectedItem.Value));
                 gatewayRates = GatewayRate.GetGatewaysRates(Convert.ToInt32(GatewaysComboBox.SelectedItem.Value));
