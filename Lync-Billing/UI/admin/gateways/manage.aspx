@@ -46,9 +46,10 @@
             <ext:Panel 
                 ID="ManageGatewaysForm"
                 runat="server" 
-                Title="ManageGateways" 
+                Title="Manage Gateways" 
                 PaddingSummary="5px 5px 0"
                 Width="740"
+                Frame="true"
                 Height="625"
                 ButtonAlign="Center">
                 <TopBar>
@@ -66,7 +67,7 @@
                                 FieldLabel="Select Gateway"
                                 LabelWidth="85"
                                 Width="300"
-                                Margins="5 5 5 5">
+                                Margins="5 375 5 5">
                             </ext:ComboBox>
 
                             <ext:Button ID="Button2" runat="server" Text="Save" />
