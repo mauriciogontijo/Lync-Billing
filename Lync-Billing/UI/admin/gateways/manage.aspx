@@ -47,10 +47,9 @@
                 ID="ManageGatewaysForm"
                 runat="server" 
                 Title="ManageGateways" 
-                Frame="true"
                 PaddingSummary="5px 5px 0"
                 Width="740"
-                Height="720"
+                Height="670"
                 ButtonAlign="Center">
                 <TopBar>
                     <ext:Toolbar
@@ -74,50 +73,66 @@
                 </TopBar>
 
                 <Items>
-                    <ext:Container ID="Container1" runat="server" Layout="Column" Height="20" Padding="5"></ext:Container>
+                    <ext:Container ID="Container1" runat="server" Layout="Column" Height="10" Padding="5"></ext:Container>
 
-                    <ext:Container ID="AssociatedSiteContainer" runat="server" Layout="Column" Height="50" Padding="5">
+                    <ext:Container ID="GatewayRatesFiels" runat="server" Layout="Column" Height="140">
                         <Items>
-                            <ext:ComboBox
-                                ID="AssociatedSite"
-                                runat="server"
-                                TriggerAction="All" 
-                                QueryMode="Local" 
-                                FieldLabel="Associated Site"
-                                LabelWidth="100"
-                                LabelAlign="Top"
-                                Width="300"
-                                Margins="5 5 5 5">
-                            </ext:ComboBox>
-                        </Items>
-                    </ext:Container>
-
-                    <ext:Container ID="GatewayRatesFiels" runat="server" Layout="Column" Height="130">
-                        <Items>
-                            <ext:Container ID="Container2" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
+                            <ext:Container ID="GatewayRatesLableContainer" runat="server" Layout="FormLayout" ColumnWidth="1" Padding="5">
                                 <Items>
-                                    <ext:TextField ID="TextField1" runat="server" FieldLabel="First Name" LabelAlign="Top" />
-                                    <ext:TextField ID="TextField2" runat="server" FieldLabel="Company" LabelAlign="Top"  />
+                                    <ext:Label ID="GatewayRatesLable" runat="server" Text="Gateway's Rates Information:" Cls="bold" />
                                 </Items>
                             </ext:Container>
-                            <ext:Container ID="Container3" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
+
+                            <ext:Container ID="FirstColumn" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
                                 <Items>
-                                    <ext:TextField ID="TextField3" runat="server" FieldLabel="Last Name" LabelAlign="Top" />
-                                    <ext:TextField ID="TextField4" runat="server" FieldLabel="Email" LabelAlign="Top" />
+                                    <ext:DateField ID="StartingDate" runat="server" FieldLabel="Starting Date" EmptyText="Empty Starting Date" LabelAlign="Top" />
+                                    <ext:TextField ID="ProviderName" runat="server" FieldLabel="ProviderName" EmptyText="VODAFONE, OTE, STC, ..." LabelAlign="Top"  />
+                                </Items>
+                            </ext:Container>
+
+                            <ext:Container ID="SecondColumn" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
+                                <Items>
+                                    <ext:DateField ID="EndingDate" runat="server" FieldLabel="Ending Date" EmptyText="Empty Ending Date" LabelAlign="Top" />
+                                    <ext:TextField ID="CurrencyCode" runat="server" FieldLabel="CurrencyCode" EmptyText="EUR, USD, GBP, ..." LabelAlign="Top"  />
                                 </Items>
                             </ext:Container>
                         </Items>
                     </ext:Container>
 
-                    <ext:Container ID="Container4" runat="server" Layout="FormLayout" Height="300" Padding="5">
+                    <ext:Container ID="Container3" runat="server" Layout="Column" Height="30" Padding="5"></ext:Container>
+
+                    <ext:Container ID="GatewayFieldsContainer" runat="server" Layout="Column" Height="80">
                         <Items>
-                            <ext:HtmlEditor ID="HtmlEditor1" runat="server" Height="200" FieldLabel="Biography" LabelAlign="Top" />
+                            <ext:Container ID="Container2" runat="server" Layout="FormLayout" ColumnWidth="1" Padding="5">
+                                <Items>
+                                    <ext:Label ID="GatewayInformationLableContainer" runat="server" Text="Gateway Information:" Cls="bold" />
+                                </Items>
+                            </ext:Container>
+
+                            <ext:Container ID="Container7" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
+                                <Items>
+                                    <ext:ComboBox ID="AssociatedSiteList" runat="server" FieldLabel="Associated Site" LabelWidth="100" LabelAlign="Top" />
+                                </Items>
+                            </ext:Container>
+                            
+                            <ext:Container ID="Container5" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
+                                <Items>
+                                    <ext:ComboBox ID="AssociatedPoolList" runat="server" FieldLabel="Associated Pool" LabelWidth="100" LabelAlign="Top" />
+                                </Items>
+                            </ext:Container>
+                        </Items>
+                    </ext:Container>
+
+                    <ext:Container ID="GatewayDescriptionContainer" runat="server" Layout="FormLayout" Height="300" Padding="5">
+                        <Items>
+                            <ext:HtmlEditor ID="GatewayDescription" runat="server" Height="300" FieldLabel="Gateway Description" LabelAlign="Top" />
                         </Items>
                     </ext:Container>
                 </Items>
+
                 <Buttons>
-                    <ext:Button ID="Button1" runat="server" Text="Save" />
-                    <ext:Button ID="Button2" runat="server" Text="Cancel" />
+                    <ext:Button ID="Button2" runat="server" Text="Save" />
+                    <%--<ext:Button ID="Button2" runat="server" Text="Cancel" />--%>
                 </Buttons>
             </ext:Panel>
         </div>
