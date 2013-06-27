@@ -22,8 +22,17 @@
                             <p>Email Notifications</p>
                         </div>
                         <div class="sidebar-section-body">
-                            <p><a href='../notifications/calls.aspx'>Unmarked Calls Alert</a></p>
+                            <p><a href='../notifications/calls.aspx'>Unmarked Calls</a></p>
                             <p><a href='../notifications/bills.aspx'>Users Bills</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Gateways</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='../gateways/edit.aspx'>Edit Gateways</a></p>
                         </div>
                     </div>
                 </Content>

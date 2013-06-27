@@ -80,7 +80,8 @@ div#main_content_place_holder_ManagePhoneCallsGrid *,
 div#main_content_place_holder_FilterPhoneCallsPanel *,
 div#main_content_place_holder_MonthlyReportsTools *,
 div#main_content_place_holder_PeriodicalReportsTools *,
-div#main_content_place_holder_UnmarkedCallsGrid * { 
+div#main_content_place_holder_UnmarkedCallsGrid *,
+div#main_content_place_holder_EditGatewaysForm * { 
     vertical-align: bottom; 
 }
 /* end asp & ext blocks styling */

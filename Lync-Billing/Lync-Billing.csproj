@@ -104,6 +104,7 @@
     <Content Include="ui\accounting\main\disputes.aspx" />
     <Content Include="ui\accounting\reports\monthly.aspx" />
     <Content Include="ui\accounting\reports\periodical.aspx" />
+    <Content Include="ui\admin\gateways\edit.aspx" />
     <Content Include="ui\admin\main\dashboard.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
@@ -185,6 +186,13 @@
     <Compile Include="Libs\PDFLib.cs" />
     <Compile Include="Libs\Statistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ui\admin\gateways\edit.aspx.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\admin\gateways\edit.aspx.designer.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ui\admin\notifications\bills.aspx.cs">
       <DependentUpon>bills.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

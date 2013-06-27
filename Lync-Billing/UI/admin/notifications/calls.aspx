@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="calls.aspx.cs" Inherits="Lync_Billing.ui.admin.notifications.calls" %>
+﻿<%@ Page Title="eBill Admin | Calls Notifications" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="calls.aspx.cs" Inherits="Lync_Billing.ui.admin.notifications.calls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>eBill Admin | Calls Notifications</title>
@@ -23,6 +23,15 @@
                         <div class="sidebar-section-body">
                             <p><a href='../notifications/calls.aspx' class="selected">Unmarked Calls</a></p>
                             <p><a href='../notifications/bills.aspx'>Users Bills</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Gateways</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='../gateways/edit.aspx'>Edit Gateways</a></p>
                         </div>
                     </div>
                 </Content>

@@ -25,6 +25,15 @@
                             <p><a href='../notifications/bills.aspx' class="selected">Users Bills</a></p>
                         </div>
                     </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Gateways</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='../gateways/edit.aspx'>Edit Gateways</a></p>
+                        </div>
+                    </div>
                 </Content>
             </ext:Panel>
         </div>
