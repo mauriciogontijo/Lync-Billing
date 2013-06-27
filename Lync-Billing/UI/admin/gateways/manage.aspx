@@ -67,10 +67,10 @@
                                 FieldLabel="Select Gateway"
                                 LabelWidth="85"
                                 Width="300"
-                                Margins="5 375 5 5">
+                                Margins="5 355 5 5">
                             </ext:ComboBox>
 
-                            <ext:Button ID="Button2" runat="server" Text="Save" />
+                            <ext:Button ID="SaveGatewayButton" runat="server" Text="Save" Icon="ApplicationFormAdd" />
                         </Items>
                     </ext:Toolbar>
                 </TopBar>

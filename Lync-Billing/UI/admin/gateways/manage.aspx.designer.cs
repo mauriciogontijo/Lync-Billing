@@ -49,13 +49,13 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.ComboBox SelectGatewayMenu;
         
         /// <summary>
-        /// Button2 control.
+        /// SaveGatewayButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button Button2;
+        protected global::Ext.Net.Button SaveGatewayButton;
         
         /// <summary>
         /// Container1 control.
