@@ -50,6 +50,16 @@ namespace Lync_Billing.ui.admin.gateways
             return pools;
         }
 
+        public List<Gateway> GetGateways() 
+        {
+            List<Gateway> gateways = new List<Gateway>();
 
+            return gateways;
+        }
+
+        public string CreateRatesTableName(string gatewayName) 
+        {
+            return string.Format("Rates_{0}_{1}_{2}_{3}", gatewayName, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+        }
     }
 }
