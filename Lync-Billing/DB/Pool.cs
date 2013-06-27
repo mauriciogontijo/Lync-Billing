@@ -14,6 +14,31 @@ namespace Lync_Billing.DB
         public int PoolID { set; get; }
         public string PoolFQDN { set; get; }
 
+        public static List<Pool> GetPools() 
+        {
+            Pool pool;
+            DataTable dt = new DataTable();
+            List<Pool> pools = new List<Pool>();
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Pools.TableName));
+
+            foreach (DataRow row in dt.Rows)
+            {
+                pool = new Pool();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Pools.PoolID) && row[column.ColumnName] != System.DBNull.Value)
+                        pool.PoolID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Pools.PoolFQDN) && row[column.ColumnName] != System.DBNull.Value)
+                        pool.PoolFQDN = (string)row[column.ColumnName];
+                }
+                pools.Add(pool);
+            }
+            return pools;
+        }
+
         public static List<Pool> GetPools(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Pool pool;

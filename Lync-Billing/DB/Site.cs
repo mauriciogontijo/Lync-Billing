@@ -42,6 +42,35 @@ namespace Lync_Billing.DB
             return site;
         }
 
+        public static List<Site> GetSites() 
+        {
+            Site site;
+            DataTable dt = new DataTable();
+            List<Site> sites = new List<Site>();
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Sites.TableName));
+
+            foreach (DataRow row in dt.Rows)
+            {
+                site = new Site();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID) && row[column.ColumnName] != System.DBNull.Value)
+                        site.SiteID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName) && row[column.ColumnName] != System.DBNull.Value)
+                        site.SiteName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode) && row[column.ColumnName] != System.DBNull.Value)
+                        site.CountryCode = (string)row[column.ColumnName];
+                }
+                sites.Add(site);
+            }
+
+            return sites;
+        }
+
         public static List<Site> GetSites(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Site site;
