@@ -158,7 +158,7 @@
                                         ID="EndingDate" 
                                         runat="server" 
                                         FieldLabel="Ending Date" 
-                                        EmptyText="Readonly!" 
+                                        EmptyText="Still in Use" 
                                         LabelAlign="Top"
                                         ReadOnly="true" />
 
