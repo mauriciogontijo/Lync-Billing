@@ -197,7 +197,7 @@ namespace Lync_Billing.ui.admin.gateways
                     GatewayRate tmpGatewayRate = gatewayRates.Single(item => item.EndingDate == null || item.EndingDate == DateTime.MinValue);
 
                     if (gatewayRates[0].ProviderName != ProviderName.Text ||
-                        gatewayRates[0].CurrencyCode != CurrenciesCodesCombobox.SelectedItem.Value) 
+                        gatewayRates[0].CurrencyCode != CurrenciesCodesCombobox.SelectedItem.Value || gatewayRates[0].StartingDate != StartingDate.SelectedDate ) 
                     {
                         gatewayRate.CurrencyCode = CurrenciesCodesCombobox.SelectedItem.Value;
                         gatewayRate.ProviderName = ProviderName.Text;
