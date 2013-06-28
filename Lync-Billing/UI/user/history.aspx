@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="history.aspx.cs" Inherits="Lync_Billing.ui.user.history" %>
+﻿<%@ Page Title="eBill User | Calls History" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="history.aspx.cs" Inherits="Lync_Billing.ui.user.history" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <title>eBill | User Tools</title>
+    <title>eBill User | Calls History</title>
 
     <style type="text/css">
         .x-grid-cell-fullName .x-grid-cell-inner { font-family: tahoma, verdana; display: block; font-weight: normal; font-style: normal; color:#385F95; white-space: normal; }

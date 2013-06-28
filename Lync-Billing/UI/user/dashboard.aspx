@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.user.dashboard" %>
+﻿<%@ Page Title="eBill User | Dashboard" Language="C#" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.user.dashboard" %>
 <%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
 
 <?xml version="1.1" encoding="utf-8" ?>
@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
 
-    <title>eBill | User Homepage</title>
+    <title>eBill User | Dashboard</title>
 
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../resources/css/layouts.css" />
