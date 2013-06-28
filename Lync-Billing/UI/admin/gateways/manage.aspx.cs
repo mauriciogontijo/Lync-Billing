@@ -191,7 +191,7 @@ namespace Lync_Billing.ui.admin.gateways
                     GatewayRate tmpGatewayRate = gatewayRates.Single(item => item.EndingDate == null || item.EndingDate == DateTime.MinValue);
 
                     if (gatewayRates[0].ProviderName != ProviderName.Text ||
-                        gatewayRates[0].CurrencyCode != CurrenciesCodesCombobox.SelectedItem.Value || gatewayRates[0].StartingDate != StartingDate.SelectedDate ) 
+                        gatewayRates[0].CurrencyCode != CurrenciesCodesCombobox.SelectedItem.Value) 
                     {
                         gatewayRate.CurrencyCode = CurrenciesCodesCombobox.SelectedItem.Value;
                         gatewayRate.ProviderName = ProviderName.Text;
@@ -200,15 +200,18 @@ namespace Lync_Billing.ui.admin.gateways
                     }
                     else
                     {
-                        tmpGatewayRate.EndingDate = DateTime.Now;
-                        GatewayRate.UpdateGatewayRate(tmpGatewayRate);
+                        if (gatewayRates[0].StartingDate != StartingDate.SelectedDate)
+                        {
+                            tmpGatewayRate.EndingDate = DateTime.Now;
+                            GatewayRate.UpdateGatewayRate(tmpGatewayRate);
 
-                        gatewayRate.CurrencyCode = CurrenciesCodesCombobox.SelectedItem.Value;
-                        gatewayRate.ProviderName = ProviderName.Text;
-                        gatewayRate.StartingDate = StartingDate.SelectedDate;
-                        gatewayRate.RatesTableName = RatesTableName;
+                            gatewayRate.CurrencyCode = CurrenciesCodesCombobox.SelectedItem.Value;
+                            gatewayRate.ProviderName = ProviderName.Text;
+                            gatewayRate.StartingDate = StartingDate.SelectedDate;
+                            gatewayRate.RatesTableName = RatesTableName;
 
-                        int GatewaysRatesID = GatewayRate.InsertGatewayRate(gatewayRate);
+                            int GatewaysRatesID = GatewayRate.InsertGatewayRate(gatewayRate);
+                        }
                     }
                 }
             }
