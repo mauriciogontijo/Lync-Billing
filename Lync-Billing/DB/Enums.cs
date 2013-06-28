@@ -307,6 +307,18 @@ namespace Lync_Billing.DB
             CurrencyISOName
         }
 
+        public enum MailTemplates
+        {
+            [Description("MailTemplates")]
+            TableName,
+            [Description("TemplateID")]
+            TemplateID,
+            [Description("TemplateSubject")]
+            TemplateSubject,
+            [Description("TemplateBody")]
+            TemplateBody
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
