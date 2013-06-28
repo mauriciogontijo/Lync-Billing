@@ -329,6 +329,8 @@ namespace Lync_Billing.Libs
 
                 if (valueType == typeof(int) || valueType == typeof(Double))
                     values.Append(pair.Value + ",");
+                else if (valueType == typeof(DateTime) && (DateTime)pair.Value == DateTime.MinValue)
+                    continue;
                 else
                     values.Append("'" + pair.Value + "'" + ",");
             }
