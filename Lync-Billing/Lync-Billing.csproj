@@ -154,6 +154,7 @@
     <Compile Include="DB\CallsStatistics.cs" />
     <Compile Include="DB\Currencies.cs" />
     <Compile Include="DB\Gateway.cs" />
+    <Compile Include="DB\MailTemplates.cs" />
     <Compile Include="DB\Misc.cs" />
     <Compile Include="DB\PhoneBook.cs" />
     <Compile Include="DB\UsersDelegates.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Libs\DBLib.cs" />
     <Compile Include="DB\Enums.cs" />
     <Compile Include="Libs\JsonTranslator.cs" />
+    <Compile Include="Libs\Mailer.cs" />
     <Compile Include="Libs\ntlm\ImpersonateUser.cs" />
     <Compile Include="Libs\ntlm\NetWorkstationUserEnum.cs" />
     <Compile Include="Libs\PDFLib.cs" />
