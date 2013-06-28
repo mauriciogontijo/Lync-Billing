@@ -1,11 +1,11 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.Master.cs" Inherits="Lync_Billing.ui.MasterPage" %>
 <%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
 
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.1" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head runat="server">
+    <head id="Head1" runat="server">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=9" />
 
@@ -29,6 +29,25 @@
 			    #main { padding-top: 65px !important; }
 		    </style>
 	    <![endif]-->
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var referrer = $("#ThisPageReferrer").val();
+
+                //if we are viewing the user pages, select the user-tab from the dropdown menu and the respective sidebar link
+                if (referrer.search("ui_user") != -1) {
+                    $('#navigation-tabs>li.selected').removeClass('selected');
+
+                    if (referrer.search("ui_user_dashboard") != -1) {
+                        $('#home-tab').addClass('selected');
+                    } else if (referrer.search("ui_user") != -1) {
+                        $('#user-tab').addClass('selected');
+                    }
+
+                    $("#" + referrer.toString()).addClass("selected");
+                }
+            });
+        </script>
 
         <asp:ContentPlaceHolder ID="head" runat="server">
         </asp:ContentPlaceHolder>
@@ -136,10 +155,63 @@
                 <!-- toolbar block-->
             <% } %>
 
+
+            <!-- *** START OF MAIN BODY CONTENT *** -->
             <div id='main' class='main-container bottom-rounded'>
+                <asp:HiddenField ID="ThisPageReferrer" runat="server" Value="" />
+
+                <% if(PAGE_NAME.Contains("ui_user") && ! PAGE_NAME.Contains("dashboard")) { %>
+                    <!-- *** START OF SIDEBAR *** -->
+                    <div id='sidebar' class='sidebar block float-left w20p'>
+                        <div class="block-body">
+                            <ext:Panel ID="UserToolsSidebar"
+                                runat="server"
+                                Height="340"
+                                Width="180"
+                                Title="User Tools"
+                                Collapsed="false"
+                                Collapsible="true">
+                                <Content>
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Manage</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../user/phonecalls.aspx' id="ui_user_phonecalls">Phone Calls</a></p>
+                                            <p><a href="../user/addressbook.aspx" id="ui_user_addressbook">Address Book</a></p>
+                                            <!--<p><a href="#">Authorized Delegate</a></p>-->
+                                        </div>
+                                    </div>
+
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>History</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../user/bills.aspx' id="ui_user_bills">Bills History</a></p>
+                                            <p><a href='../user/history.aspx' id="ui_user_history">Phone Calls History</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Statistics</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../user/statistics.aspx' id="ui_user_statistics">Phone Calls Statistics</a></p>
+                                        </div>
+                                    </div>
+                                </Content>
+                            </ext:Panel>
+                        </div>
+                    </div>
+                    <!-- *** END OF SIDEBAR *** -->
+                <% } %>
+
                 <asp:ContentPlaceHolder ID="main_content_place_holder" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
+            <!-- *** END OF MAIN BODY CONTENT *** -->
 
             <div class='clear h10'></div>
 

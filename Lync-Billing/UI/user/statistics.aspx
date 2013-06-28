@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="eBill User | Calls Statistics" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="statistics.aspx.cs" Inherits="Lync_Billing.ui.user.statistics" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <title>eBill User | Calls Statistics</title>
 
     <style type="text/css">
@@ -10,13 +10,6 @@
     </style>
 
 	<script type="text/javascript">
-	    BrowserDetect.init();
-
-	    $(document).ready(function () {
-	        $('#navigation-tabs>li.selected').removeClass('selected');
-	        $('#user-tab').addClass('selected');
-	    });
-
 	    //Pie Chart Data-Lable Renderer for Personal Calls
 	    var TotalDuration_LableRenderer = function (storeItem, item) {
 	        var total = 0,
@@ -203,54 +196,7 @@
 	</script>
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
-    <!-- *** START OF SIDEBAR *** -->
-    <div id='sidebar' class='sidebar block float-left w20p'>
-        <div class="block-body">
-            <ext:Panel ID="UserToolsSidebar"
-                runat="server"
-                Height="340"
-                Width="180"
-                Title="User Tools"
-                Collapsed="false"
-                Collapsible="true">
-                <Content>
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Manage</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../user/phonecalls.aspx'>Phone Calls</a></p>
-                            <p><a href="../user/addressbook.aspx">Address Book</a></p>
-                            <!--<p><a href="#">Authorized Delegate</a></p>-->
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>History</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../user/bills.aspx'>Bills History</a></p>
-                            <p><a href='../user/history.aspx'>Phone Calls History</a></p>
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Statistics</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../user/statistics.aspx' class="selected">Phone Calls Statistics</a></p>
-                        </div>
-                    </div>
-                </Content>
-            </ext:Panel>
-        </div>
-    </div>
-    <!-- *** END OF SIDEBAR *** -->
-
-
+<asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF STATISTICS CHARTS CONTAINER *** -->
     <div class="block float-right w80p h100p">
         <div id='personal-duration-cost-chart' class='block float-right wauto w100p'>

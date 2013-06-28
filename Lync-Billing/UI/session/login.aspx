@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="eBill | Login" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="Lync_Billing.ui.session.login" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <title>eBill | Login</title>
     <style type="text/css">
         div#main {
@@ -9,7 +9,7 @@
     </style>
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
+<asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- Start of ContentPage_Login Main HTML Content -->
     <div class="front-card">
         <div class="front-welcome float-left p10">

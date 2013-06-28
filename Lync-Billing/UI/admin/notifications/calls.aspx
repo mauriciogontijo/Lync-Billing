@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="eBill Admin | Unmarekd Calls Notifications" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="calls.aspx.cs" Inherits="Lync_Billing.ui.admin.notifications.calls" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <title>eBill Admin | Unmarked Calls Notifications</title>
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
+<asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF ADMIN MAIN BODY *** -->
     <div id='email-unmarked-calls-alert' class='block float-right wauto h100p'>
         <div class="block-body pt5">

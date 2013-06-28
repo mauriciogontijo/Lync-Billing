@@ -2,11 +2,11 @@
 
 <%-- ADMIN DASHBOARD --%>
 
-<asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="HeaderContentPlaceHolder" ContentPlaceHolderID="head" runat="server">
     <title>eBill Admin | Dashboard</title>
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
+<asp:Content ID="MainBodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF ADMIN MAIN BODY *** -->
     <div id='dashboard-message' class='block float-right w80p h100p'>
         <div class="block-body pt5">

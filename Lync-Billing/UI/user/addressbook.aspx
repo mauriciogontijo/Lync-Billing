@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="eBill User | Address Book" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="addressbook.aspx.cs" Inherits="Lync_Billing.ui.user.addressbook" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <title>eBill User | Address Book</title>
 
     <style type="text/css">
@@ -11,65 +11,9 @@
         .row-yellow { background-color: yellow; }
         /* end manage-phone-calls grid styling */
     </style>
-
-    <script type="text/javascript">
-        BrowserDetect.init();
-
-        $(document).ready(function () {
-            $('#navigation-tabs>li.selected').removeClass('selected');
-            $('#user-tab').addClass('selected');
-        });
-    </script>
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
-    <!-- *** START OF SIDEBAR *** -->
-    <div id='sidebar' class='sidebar block float-left w20p'>
-        <div class="block-body">
-            <ext:Panel ID="UserToolsSidebar"
-                runat="server"
-                Height="340"
-                Width="180"
-                Title="User Tools"
-                Collapsed="false"
-                Collapsible="true">
-                <Content>
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Manage</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../user/phonecalls.aspx'>Phone Calls</a></p>
-                            <p><a href="../user/addressbook.aspx" class="selected">Address Book</a></p>
-                            <!--<p><a href="#">Authorized Delegate</a></p>-->
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>History</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../user/bills.aspx'>Bills History</a></p>
-                            <p><a href='../user/history.aspx'>Phone Calls History</a></p>
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Statistics</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../user/statistics.aspx'>Phone Calls Statistics</a></p>
-                        </div>
-                    </div>
-                </Content>
-            </ext:Panel>
-        </div>
-    </div>
-    <!-- *** END OF SIDEBAR *** -->
-
-
+<asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF ADDRESS BOOK PANEL *** -->
     <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">

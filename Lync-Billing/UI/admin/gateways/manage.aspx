@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="eBill Admin | Manage Gateways" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="manage.aspx.cs" Inherits="Lync_Billing.ui.admin.gateways.manage" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <title>eBill Admin | Edit Gateways</title>
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
+<asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF ADMIN MAIN BODY *** -->
     <div id='edit-gateways' class='block float-right wauto h100p'>
         <div class="block-body pt5">
