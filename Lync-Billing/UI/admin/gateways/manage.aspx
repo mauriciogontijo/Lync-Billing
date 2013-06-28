@@ -273,9 +273,7 @@
                                         DisplayField="PoolFQDN" 
                                         ValueField="PoolID" 
                                         TriggerAction="All" 
-                                        QueryMode="Local"
-                                        ValidateBlank="true"
-                                        ValidateOnChange="true" >
+                                        QueryMode="Local">
                                         <Store>
                                             <ext:Store
                                                 ID="PoolStore"
