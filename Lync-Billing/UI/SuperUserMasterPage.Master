@@ -30,6 +30,15 @@
 		    </style>
 	    <![endif]-->
 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var referrer = $("#ThisPageReferrer").val();
+                if (referrer.search("ui_admin") != -1 || referrer.search("ui_accounting") != -1) {
+                    $("#" + referrer.toString()).addClass("selected");
+                }
+            });
+        </script>
+
         <asp:ContentPlaceHolder ID="head" runat="server">
         </asp:ContentPlaceHolder>
     </head>
@@ -72,9 +81,53 @@
                 <!-- toolbar block-->
             <% } %>
 
+
             <div id='main' class='main-container bottom-rounded'>
+                <asp:HiddenField ID="ThisPageReferrer" runat="server" Value="" />
+
+                <% if (PAGE_NAME.Contains("ui_accounting")) { %>
+                    
+                <% } else if (PAGE_NAME.Contains("ui_admin")) { %>
+                    <!-- *** START OF ADMIN SIDEBAR *** -->
+                    <div id='accountint-dashboard-sidebar' class='sidebar block float-left w20p'>
+                        <div class="block-body">
+                            <ext:Panel ID="AdminToolsSidebar"
+                                runat="server"
+                                Height="230"
+                                Width="180"
+                                Title="Admin Tools"
+                                Collapsed="false"
+                                Collapsible="true">
+                                <Content>
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Email Notifications</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../notifications/calls.aspx' id="ui_admin_notifications_calls">Unmarked Calls</a></p>
+                                            <p><a href='../notifications/bills.aspx' id="ui_admin_notifications_bills">Users Bills</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Gateways</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../gateways/manage.aspx' id="ui_admin_gateways_manage">Manage Gateways</a></p>
+                                        </div>
+                                    </div>
+                                </Content>
+                            </ext:Panel>
+                        </div>
+                    </div>
+                    <!-- *** END OF ADMIN SIDEBAR *** -->
+                <% } %>
+
+                <!-- *** START OF MAIN PAGE CONTENT *** -->
                 <asp:ContentPlaceHolder ID="main_content_place_holder" runat="server">
                 </asp:ContentPlaceHolder>
+                <!-- *** END OF MAIN PAGE CONTENT *** -->
             </div>
 
             <div class='clear h10'></div>

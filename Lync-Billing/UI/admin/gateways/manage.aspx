@@ -5,41 +5,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
-    <!-- *** START OF SIDEBAR *** -->
-    <div id='accountint-dashboard-sidebar' class='sidebar block float-left w20p'>
-        <div class="block-body">
-            <ext:Panel ID="AdminToolsSidebar"
-                runat="server"
-                Height="230"
-                Width="180"
-                Title="Admin Tools"
-                Collapsed="false"
-                Collapsible="true">
-                <Content>
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Email Notifications</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../notifications/calls.aspx'>Unmarked Calls</a></p>
-                            <p><a href='../notifications/bills.aspx'>Users Bills</a></p>
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Gateways</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../gateways/manage.aspx' class="selected">Manage Gateways</a></p>
-                        </div>
-                    </div>
-                </Content>
-            </ext:Panel>
-        </div>
-    </div>
-    <!-- *** END OF SIDEBAR *** -->
-
     <!-- *** START OF ADMIN MAIN BODY *** -->
     <div id='edit-gateways' class='block float-right wauto h100p'>
         <div class="block-body pt5">

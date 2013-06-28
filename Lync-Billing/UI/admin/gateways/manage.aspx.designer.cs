@@ -13,15 +13,6 @@ namespace Lync_Billing.ui.admin.gateways {
     public partial class manage {
         
         /// <summary>
-        /// AdminToolsSidebar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel AdminToolsSidebar;
-        
-        /// <summary>
         /// GatewaysRatesStore control.
         /// </summary>
         /// <remarks>
