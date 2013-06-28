@@ -323,9 +323,12 @@ namespace Lync_Billing.Libs
             //Fields and values
             foreach (KeyValuePair<string, object> pair in columnsValues)
             {
-                fields.Append("[" + pair.Key + "],");
-
                 Type valueType = pair.Value.GetType();
+
+                if (valueType == typeof(DateTime) && (DateTime)pair.Value == DateTime.MinValue)
+                    continue;
+                else
+                    fields.Append("[" + pair.Key + "],");
 
                 if (valueType == typeof(int) || valueType == typeof(Double))
                     values.Append(pair.Value + ",");
