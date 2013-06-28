@@ -5,19 +5,20 @@ using System.Web;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using System.DirectoryServices.AccountManagement;
+using System.Configuration;
 
 namespace Lync_Billing.Libs
 {
     public class AdLib
     {
         //WEB.CONF AD RELATED FIELDS
-        private static string LocalGCUri = System.Configuration.ConfigurationManager.AppSettings["LocalDomainURI"];
-        private static string LocalGCUsername = System.Configuration.ConfigurationManager.AppSettings["LocalDomainUser"];
-        private static string LocalGCPassword = System.Configuration.ConfigurationManager.AppSettings["LocalDomainPassword"];
-        private static string ResourceGCUri = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainURI"];
-        private static string ResourceGCUsername = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainUser"];
-        private static string ResourceGCPassword = System.Configuration.ConfigurationManager.AppSettings["ResourceDomainPassword"];
-        private static string ADSearchFilter = System.Configuration.ConfigurationManager.AppSettings["ADSearchFilter"];
+        private static string LocalGCUri = ConfigurationManager.AppSettings["LocalDomainURI"];
+        private static string LocalGCUsername = ConfigurationManager.AppSettings["LocalDomainUser"];
+        private static string LocalGCPassword = ConfigurationManager.AppSettings["LocalDomainPassword"];
+        private static string ResourceGCUri = ConfigurationManager.AppSettings["ResourceDomainURI"];
+        private static string ResourceGCUsername = ConfigurationManager.AppSettings["ResourceDomainUser"];
+        private static string ResourceGCPassword = ConfigurationManager.AppSettings["ResourceDomainPassword"];
+        private static string ADSearchFilter = ConfigurationManager.AppSettings["ADSearchFilter"];
         
 
         //INIT LOCAL GC
