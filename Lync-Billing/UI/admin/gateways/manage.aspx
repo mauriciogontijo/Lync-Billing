@@ -139,8 +139,7 @@
                                         EmptyText="Empty Starting Date" 
                                         LabelAlign="Top"
                                         ValidateBlank="true"
-                                        ValidateOnChange="true"
-                                        ReadOnly="true" />
+                                        ValidateOnChange="true"/>
                                     
                                     <ext:TextField 
                                         ID="ProviderName" 

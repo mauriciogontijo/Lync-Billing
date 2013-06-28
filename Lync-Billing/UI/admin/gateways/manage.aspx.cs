@@ -62,12 +62,6 @@ namespace Lync_Billing.ui.admin.gateways
             {
                 gatewayDetails = GatewayDetail.GetGatewaysDetails(Convert.ToInt32(GatewaysComboBox.SelectedItem.Value));
                 gatewayRates = GatewayRate.GetGatewaysRates(Convert.ToInt32(GatewaysComboBox.SelectedItem.Value));
-
-                if (gatewayRates.Count > 0)
-                    StartingDate.ReadOnly = true;
-                else
-                    StartingDate.ReadOnly = false;
-
             }
         }
 
