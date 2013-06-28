@@ -24,14 +24,14 @@
                             <p><a href='../notifications/calls.aspx'>Unmarked Calls</a></p>
                             <p><a href='../notifications/bills.aspx'>Users Bills</a></p>
                         </div>
+                    </div>
 
-                        <div class='sidebar-section'>
-                            <div class="sidebar-section-header">
-                                <p>Gateways</p>
-                            </div>
-                            <div class="sidebar-section-body">
-                                <p><a href='../gateways/manage.aspx' class="selected">Manage Gateways</a></p>
-                            </div>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Gateways</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='../gateways/manage.aspx' class="selected">Manage Gateways</a></p>
                         </div>
                     </div>
                 </Content>
@@ -139,7 +139,8 @@
                                         EmptyText="Empty Starting Date" 
                                         LabelAlign="Top"
                                         ValidateBlank="true"
-                                        ValidateOnChange="true" />
+                                        ValidateOnChange="true"
+                                        ReadOnly="true" />
                                     
                                     <ext:TextField 
                                         ID="ProviderName" 
@@ -158,10 +159,11 @@
                                         ID="EndingDate" 
                                         runat="server" 
                                         FieldLabel="Ending Date" 
-                                        EmptyText="Empty Ending Date" 
-                                        LabelAlign="Top" />
+                                        EmptyText="Readonly!" 
+                                        LabelAlign="Top"
+                                        ReadOnly="true" />
                                     
-                                    <ext:TextField 
+                                    <%--<ext:TextField 
                                         ID="CurrencyCode" 
                                         runat="server" 
                                         FieldLabel="Currency Code" 
@@ -169,7 +171,46 @@
                                         LabelAlign="Top" 
                                         ValidateBlank="true"
                                         ValidateOnChange="true"
-                                        ValidateOnBlur="true" />
+                                        ValidateOnBlur="true" />--%>
+
+                                    <ext:ComboBox 
+                                        ID="CurrenciesCodesCombobox" 
+                                        runat="server" 
+                                        FieldLabel="Curreny Code" 
+                                        LabelWidth="100" 
+                                        LabelAlign="Top"
+                                        DisplayField="CurrencyName" 
+                                        ValueField="CurrencyISOName" 
+                                        TriggerAction="All" 
+                                        QueryMode="Local"
+                                        ValidateBlank="true"
+                                        ValidateOnChange="true">
+                                        <Store>
+                                            <ext:Store
+                                                ID="CurrenciesCodesComboboxStore"
+                                                runat="server">
+                                                <Model>
+                                                    <ext:Model ID="CurrencyModel" runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="CountryName" />
+                                                            <ext:ModelField Name="CurrencyName" />
+                                                            <ext:ModelField Name="CurrencyISOName" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>            
+                                            </ext:Store>
+                                        </Store>
+
+                                        <ListConfig>
+                                            <ItemTpl ID="ItemTpl1" runat="server">
+                                                <Html>
+                                                    <div data-qtip="{CountryName}. {CurrencyISOName}">
+                                                        {CountryName} ({CurrencyISOName})
+                                                    </div>
+                                                </Html>
+                                            </ItemTpl>
+                                        </ListConfig>
+                                    </ext:ComboBox>
                                 </Items>
                             </ext:Container>
                         </Items>
@@ -267,8 +308,8 @@
 
                     <ext:Container ID="GatewayDescriptionContainer" runat="server" Layout="FormLayout" Height="300" Padding="5">
                         <Items>
-                            <ext:HtmlEditor
-                                 ID="GatewayDescription" 
+                            <ext:TextArea
+                                ID="GatewayDescription" 
                                 runat="server" 
                                 Height="300" 
                                 FieldLabel="Gateway Description" 

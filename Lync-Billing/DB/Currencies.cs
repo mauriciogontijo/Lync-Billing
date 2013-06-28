@@ -9,9 +9,9 @@ namespace Lync_Billing.DB
 {
     public class Currencies
     {
-        string CountryName { get; set; }
-        string CurrencyName { get; set; }
-        string CurrencyISOName { get; set; }
+        public string CountryName { get; set; }
+        public string CurrencyName { get; set; }
+        public string CurrencyISOName { get; set; }
 
         private static DBLib DBRoutines = new DBLib();
 

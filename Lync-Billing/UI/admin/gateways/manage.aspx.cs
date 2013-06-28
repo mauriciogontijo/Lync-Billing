@@ -21,7 +21,7 @@ namespace Lync_Billing.ui.admin.gateways
 
         List<Site> sites = new List<Site>();
         List<Pool> pools = new List<Pool>();
-
+        List<Currencies> currencies = new List<Currencies>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -54,10 +54,19 @@ namespace Lync_Billing.ui.admin.gateways
             SitesComboBox.GetStore().DataSource = sites;
             SitesComboBox.GetStore().DataBind();
 
+            currencies = Currencies.GetCurrencies().OrderBy(currency => currency.CurrencyISOName).ToList();
+            CurrenciesCodesCombobox.GetStore().DataSource = currencies;
+            CurrenciesCodesCombobox.GetStore().DataBind();
+
             if (GatewaysComboBox.SelectedItem.Index != -1)
             {
                 gatewayDetails = GatewayDetail.GetGatewaysDetails(Convert.ToInt32(GatewaysComboBox.SelectedItem.Value));
                 gatewayRates = GatewayRate.GetGatewaysRates(Convert.ToInt32(GatewaysComboBox.SelectedItem.Value));
+
+                if (gatewayRates.Count > 0)
+                    StartingDate.ReadOnly = true;
+                else
+                    StartingDate.ReadOnly = false;
 
             }
         }
@@ -90,8 +99,8 @@ namespace Lync_Billing.ui.admin.gateways
                 if (gatewayRates[0].ProviderName != null)
                     ProviderName.Text = tmpGatewayRate.ProviderName;
 
-                if (gatewayRates[0].CurrencyCode != null)
-                    CurrencyCode.Text = tmpGatewayRate.CurrencyCode;
+                //if (gatewayRates[0].CurrencyCode != null)
+                //    CurrenciesCodesCombobox.SelectedItem.Text = tmpGatewayRate.CurrencyCode;
             }
 
 
@@ -117,7 +126,7 @@ namespace Lync_Billing.ui.admin.gateways
             StartingDate.SelectedDate = DateTime.MinValue;
             EndingDate.SelectedDate = DateTime.MinValue;
             ProviderName.Text = string.Empty;
-            CurrencyCode.Text = string.Empty;
+            CurrenciesCodesCombobox.Select(-1);
             SitesComboBox.Select(-1);
             PoolComboBox.Select(-1);
             GatewayDescription.Text = string.Empty;
@@ -163,14 +172,14 @@ namespace Lync_Billing.ui.admin.gateways
             ///
             /// GatewaysRates Block
             /// 
-            if (StartingDate.SelectedValue != null && ProviderName.Text != null && CurrencyCode.Text != null)
+            if (StartingDate.SelectedValue != null && ProviderName.Text != null && CurrenciesCodesCombobox.SelectedItem != null)
             {
                 GatewayRate gatewayRate = new GatewayRate();
 
                 if (gatewayRates.Count == 0)
                 {
                     gatewayRate.GatewayID = Convert.ToInt32(GatewaysComboBox.SelectedItem.Value);
-                    gatewayRate.CurrencyCode = CurrencyCode.Text;
+                    gatewayRate.CurrencyCode = CurrenciesCodesCombobox.SelectedItem.Text;
                     gatewayRate.ProviderName = ProviderName.Text;
                     gatewayRate.StartingDate = StartingDate.SelectedDate;
                     gatewayRate.RatesTableName = RatesTableName;
@@ -182,9 +191,9 @@ namespace Lync_Billing.ui.admin.gateways
                     GatewayRate tmpGatewayRate = gatewayRates.Single(item => item.EndingDate == null || item.EndingDate == DateTime.MinValue);
 
                     if (gatewayRates[0].ProviderName != ProviderName.Text ||
-                        gatewayRates[0].CurrencyCode != CurrencyCode.Text) 
+                        gatewayRates[0].CurrencyCode != CurrenciesCodesCombobox.SelectedItem.Text) 
                     {
-                        gatewayRate.CurrencyCode = CurrencyCode.Text;
+                        gatewayRate.CurrencyCode = CurrenciesCodesCombobox.SelectedItem.Text;
                         gatewayRate.ProviderName = ProviderName.Text;
 
                         GatewayRate.UpdateGatewayRate(gatewayRate);
@@ -194,7 +203,7 @@ namespace Lync_Billing.ui.admin.gateways
                         tmpGatewayRate.EndingDate = DateTime.Now;
                         GatewayRate.UpdateGatewayRate(tmpGatewayRate);
 
-                        gatewayRate.CurrencyCode = CurrencyCode.Text;
+                        gatewayRate.CurrencyCode = CurrenciesCodesCombobox.SelectedItem.Text;
                         gatewayRate.ProviderName = ProviderName.Text;
                         gatewayRate.StartingDate = StartingDate.SelectedDate;
                         gatewayRate.RatesTableName = RatesTableName;

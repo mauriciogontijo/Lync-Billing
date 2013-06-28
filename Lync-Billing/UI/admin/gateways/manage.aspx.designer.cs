@@ -175,13 +175,31 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.DateField EndingDate;
         
         /// <summary>
-        /// CurrencyCode control.
+        /// CurrenciesCodesCombobox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField CurrencyCode;
+        protected global::Ext.Net.ComboBox CurrenciesCodesCombobox;
+        
+        /// <summary>
+        /// CurrenciesCodesComboboxStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store CurrenciesCodesComboboxStore;
+        
+        /// <summary>
+        /// CurrencyModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model CurrencyModel;
         
         /// <summary>
         /// Container3 control.
@@ -307,6 +325,6 @@ namespace Lync_Billing.ui.admin.gateways {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.HtmlEditor GatewayDescription;
+        protected global::Ext.Net.TextArea GatewayDescription;
     }
 }
