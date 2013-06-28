@@ -162,16 +162,6 @@
                                         EmptyText="Readonly!" 
                                         LabelAlign="Top"
                                         ReadOnly="true" />
-                                    
-                                    <%--<ext:TextField 
-                                        ID="CurrencyCode" 
-                                        runat="server" 
-                                        FieldLabel="Currency Code" 
-                                        EmptyText="EUR, USD, GBP, ..." 
-                                        LabelAlign="Top" 
-                                        ValidateBlank="true"
-                                        ValidateOnChange="true"
-                                        ValidateOnBlur="true" />--%>
 
                                     <ext:ComboBox 
                                         ID="CurrenciesCodesCombobox" 

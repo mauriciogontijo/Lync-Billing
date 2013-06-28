@@ -99,8 +99,8 @@ namespace Lync_Billing.ui.admin.gateways
                 if (gatewayRates[0].ProviderName != null)
                     ProviderName.Text = tmpGatewayRate.ProviderName;
 
-                //if (gatewayRates[0].CurrencyCode != null)
-                //    CurrenciesCodesCombobox.SelectedItem.Text = tmpGatewayRate.CurrencyCode;
+                if (gatewayRates[0].CurrencyCode != null)
+                    CurrenciesCodesCombobox.SelectedItem.Text = tmpGatewayRate.CurrencyCode;
             }
 
 
