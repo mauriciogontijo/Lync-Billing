@@ -56,19 +56,17 @@ namespace Lync_Billing.DB
 
             foreach (DataColumn column in dt.Columns)
             {
-                if (column.ColumnName == Enums.GetDescription(Enums.MailTemplates.TemplateID) && row[column.ColumnName] != System.DBNull.Value)
+                if (column.ColumnName == Enums.GetDescription(Enums.MailTemplates.TemplateID))
                     mailTemplate.TemplateID = (int)row[column.ColumnName];
 
-                if (column.ColumnName == Enums.GetDescription(Enums.MailTemplates.TemplateSubject) && row[column.ColumnName] != System.DBNull.Value)
+                if (column.ColumnName == Enums.GetDescription(Enums.MailTemplates.TemplateSubject))
                     mailTemplate.TemplateSubject = (string)row[column.ColumnName];
 
-                if (column.ColumnName == Enums.GetDescription(Enums.MailTemplates.TemplateBody) && row[column.ColumnName] != System.DBNull.Value)
+                if (column.ColumnName == Enums.GetDescription(Enums.MailTemplates.TemplateBody))
                     mailTemplate.TemplateBody = (string)row[column.ColumnName];
             }
             
             return mailTemplate;
         }
-
-        
     }
 }
