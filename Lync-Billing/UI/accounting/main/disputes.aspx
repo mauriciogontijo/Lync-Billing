@@ -1,47 +1,10 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="disputes.aspx.cs" Inherits="Lync_Billing.ui.accounting.main.disputes" %>
+﻿<%@ Page Title="eBill Accounting | Manage Disputes" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="disputes.aspx.cs" Inherits="Lync_Billing.ui.accounting.main.disputes" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
-    <title>eBill | Accounting Mainpage</title>
+    <title>eBill Accounting | Manage Disputes</title>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
-    <!-- *** START OF SIDEBAR *** -->
-
-    <div id='Div1' class='sidebar block float-left w20p'>
-        <div class="block-body">
-            <ext:Panel ID="AccountingToolsSidebar"
-                runat="server"
-                Height="230"
-                Width="180"
-                Title="Accounting Tools"
-                Collapsed="false"
-                Collapsible="true">
-                <Content>
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Disputes</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../main/disputes.aspx' class="selected">Manage Disputed Calls</a></p>
-                        </div>
-                    </div>
-
-                    <div class='sidebar-section'>
-                        <div class="sidebar-section-header">
-                            <p>Generate Reports</p>
-                        </div>
-                        <div class="sidebar-section-body">
-                            <p><a href='../reports/monthly.aspx'>Monthly Reports</a></p>
-                            <p><a href='../reports/periodical.aspx'>Periodical Reports</a></p>
-                        </div>
-                    </div>
-                </Content>
-            </ext:Panel>
-        </div>
-    </div>
-    <!-- *** END OF SIDEBAR *** -->
-
-
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='Div2' class='block float-right wauto h100p'>
         <div class="block-body pt5">

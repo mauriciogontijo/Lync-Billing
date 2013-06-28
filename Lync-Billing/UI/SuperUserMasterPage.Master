@@ -45,7 +45,12 @@
 
     <body>
         <form id="form1" runat="server">
-            <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
+            <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" >
+                <Listeners>
+                    <BeforeAjaxRequest Handler="Ext.net.Mask.show();" />
+                    <AjaxRequestComplete Handler="Ext.net.Mask.hide();" />
+                </Listeners>
+            </ext:ResourceManager>
 
             <% if(Session.Contents["UserData"] != null) { %>
                 <div  class="smart-block tool-dark-bg liquid toolbar " >
@@ -86,10 +91,44 @@
                 <asp:HiddenField ID="ThisPageReferrer" runat="server" Value="" />
 
                 <% if (PAGE_NAME.Contains("ui_accounting")) { %>
+                    <!-- *** START OF SIDEBAR *** -->
+                    <div id='accounting-tools-sidebar' class='sidebar block float-left w20p'>
+                        <div class="block-body">
+                            <ext:Panel ID="AccountingToolsSidebar"
+                                runat="server"
+                                Height="230"
+                                Width="180"
+                                Title="Accounting Tools"
+                                Collapsed="false"
+                                Collapsible="true">
+                                <Content>
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Disputes</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../main/disputes.aspx' id="ui_accounting_main_disputes">Manage Disputed Calls</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Generate Reports</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../reports/monthly.aspx' id="ui_accounting_reports_monthly">Monthly Reports</a></p>
+                                            <p><a href='../reports/periodical.aspx' id="ui_accounting_reports_periodical">Periodical Reports</a></p>
+                                        </div>
+                                    </div>
+                                </Content>
+                            </ext:Panel>
+                        </div>
+                    </div>
+                    <!-- *** END OF SIDEBAR *** -->
                     
                 <% } else if (PAGE_NAME.Contains("ui_admin")) { %>
                     <!-- *** START OF ADMIN SIDEBAR *** -->
-                    <div id='accountint-dashboard-sidebar' class='sidebar block float-left w20p'>
+                    <div id='admin-tools-sidebar' class='sidebar block float-left w20p'>
                         <div class="block-body">
                             <ext:Panel ID="AdminToolsSidebar"
                                 runat="server"

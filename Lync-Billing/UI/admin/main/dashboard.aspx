@@ -1,8 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.admin.main.dashboard" %>
+﻿<%@ Page Title="eBill Admin | Dashboard" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.admin.main.dashboard" %>
+
 <%-- ADMIN DASHBOARD --%>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
-    <title>eBill | Admin Dashboard</title>
+    <title>eBill Admin | Dashboard</title>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">

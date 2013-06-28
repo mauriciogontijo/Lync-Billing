@@ -40,7 +40,7 @@
                 <Listeners>
                     <BeforeAjaxRequest Handler="Ext.net.Mask.show();" />
                     <AjaxRequestComplete Handler="Ext.net.Mask.hide();" />
-            </Listeners>
+                </Listeners>
             </ext:ResourceManager>
 
             <% if (current_session != null) { %>
