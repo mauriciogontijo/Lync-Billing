@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.accounting.reports {
     public partial class periodical {
         
         /// <summary>
+        /// AccountingToolsSidebar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel AccountingToolsSidebar;
+        
+        /// <summary>
         /// FormatType control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace Lync_Billing.ui.accounting.reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button ViewMonthlyBills;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button Button1;
         
         /// <summary>
         /// PeriodicalReportsGrid control.

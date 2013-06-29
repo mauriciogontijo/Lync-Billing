@@ -1,11 +1,53 @@
-﻿<%@ Page Title="eBill Accounting | Periodical Reports" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="periodical.aspx.cs" Inherits="Lync_Billing.ui.accounting.reports.periodical" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="periodical.aspx.cs" Inherits="Lync_Billing.ui.accounting.reports.periodical" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
-    <title>eBill Accounting | Periodical Reports</title>
+    <title>eBill | Periodical Users Report</title>
+      
+    <script type="text/javascript">
+        var submitValue = function (grid, hiddenFormat, format) {
+            grid.submitData(false, { isUpload: true });
+        };
+    </script>
+
 </asp:Content>
   
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
+    <!-- *** START OF SIDEBAR *** -->
+    <div id='Div1' class='sidebar block float-left w20p'>
+        <div class="block-body">
+            <ext:Panel ID="AccountingToolsSidebar"
+                runat="server"
+                Height="230"
+                Width="180"
+                Title="Accounting Tools"
+                Collapsed="false"
+                Collapsible="true">
+                <Content>
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Disputes</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='../main/disputes.aspx'>Manage Disputed Calls</a></p>
+                        </div>
+                    </div>
+
+                    <div class='sidebar-section'>
+                        <div class="sidebar-section-header">
+                            <p>Generate Reports</p>
+                        </div>
+                        <div class="sidebar-section-body">
+                            <p><a href='../reports/monthly.aspx'>Monthly Reports</a></p>
+                            <p><a href='../reports/periodical.aspx' class="selected">Periodical Reports</a></p>
+                        </div>
+                    </div>
+                </Content>
+            </ext:Panel>
+        </div>
+    </div>
+    <!-- *** END OF SIDEBAR *** -->
+
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='generate-report-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
@@ -54,7 +96,7 @@
                                 Margins="0 0 5 0">
                             </ext:Button>
 
-                            <ext:Button 
+                            <ext:Button ID="Button1" 
                                 runat="server"
                                 Text="To Excel" 
                                 Icon="PageExcel"
