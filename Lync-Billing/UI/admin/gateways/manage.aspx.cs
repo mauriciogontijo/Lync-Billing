@@ -185,6 +185,9 @@ namespace Lync_Billing.ui.admin.gateways
                     gatewayRate.RatesTableName = RatesTableName;
 
                     int GatewaysRatesID = GatewayRate.InsertGatewayRate(gatewayRate);
+                    
+                    Rate.CreateRatesTable(RatesTableName);
+
                 }
                 else 
                 {
@@ -211,6 +214,8 @@ namespace Lync_Billing.ui.admin.gateways
                             gatewayRate.RatesTableName = RatesTableName;
 
                             int GatewaysRatesID = GatewayRate.InsertGatewayRate(gatewayRate);
+
+                            Rate.CreateRatesTable(RatesTableName);
                         }
                     }
                 }
