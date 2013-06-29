@@ -76,9 +76,6 @@
                         RemoteSort="true"
                         PageSize="25"
                         OnSubmitData="MonthlyReportsStore_SubmitData">
-                        <Proxy>
-                            <ext:PageProxy CacheString="" />
-                        </Proxy>
                         <Model>
                             <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
@@ -127,7 +124,8 @@
                             DataIndex="PersonalCallsCost" />
                     </Columns>
                 </ColumnModel>
-                <Features>
+
+                <%--<Features>
                     <ext:GridFilters>
                         <Filters>
                             <ext:StringFilter DataIndex="EmployeeID" />
@@ -137,7 +135,8 @@
                             <ext:NumericFilter DataIndex="Year" />
                         </Filters>
                     </ext:GridFilters>
-                </Features>
+                </Features>--%>
+
                 <SelectionModel>
                     <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
                         runat="server"

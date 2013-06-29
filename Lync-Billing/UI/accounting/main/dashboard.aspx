@@ -109,7 +109,7 @@
                 <!-- *** END OF SIDEBAR *** -->
 
                 <!-- *** START OF MAIN PAGE CONTENT *** -->
-                    <div id='dashboard-message' class='block float-right w80p h100p'>
+                    <div id='dashboard-message' class='block float-right wauto h100p'>
                         <div class="block-body pt5">
                             <ext:Panel 
                                 ID="AccountingAnnouncementsPanel"
@@ -117,11 +117,10 @@
                                 Title="Announcements"
                                 PaddingSummary="10px 10px 10px 10px"
                                 Width="740"
-                                Frame="true"
-                                Height="500"
+                                Height="120"
                                 ButtonAlign="Center">
                                 <Content>
-                                    <div class="p10 font-16">
+                                    <div class="p10 font-12">
                                         <p>This is the Accounting dashboard, you'll find the tools you need in the left sidebar, categorized already into sections based on similarity.</p>
                                     </div>
                                 </Content>
