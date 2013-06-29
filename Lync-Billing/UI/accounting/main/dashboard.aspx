@@ -42,7 +42,7 @@
                             <div class="ie7flot-fix" ><!--ie7 fix-->
                                 <ul id="navigation-tabs" class="vertical-navigation " >
                                     <li id="access-tab">
-                                        <a title="Drop accounting access" href="../../user/dashboard.aspx">Drop Access<span class="shutdown"></span></a>
+                                        <a title="Drop accounting access" href="../../user/dashboard.aspx">Drop Accounting Access<span class="shutdown"></span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -111,7 +111,21 @@
                 <!-- *** START OF MAIN PAGE CONTENT *** -->
                     <div id='dashboard-message' class='block float-right w80p h100p'>
                         <div class="block-body pt5">
-                            <p class="font-16">This is the Accounting dashboard, you'll find the tools you need in the left sidebar, categorized already into sections based on similarity.</p>
+                            <ext:Panel 
+                                ID="AccountingAnnouncementsPanel"
+                                runat="server" 
+                                Title="Announcements"
+                                PaddingSummary="10px 10px 10px 10px"
+                                Width="740"
+                                Frame="true"
+                                Height="500"
+                                ButtonAlign="Center">
+                                <Content>
+                                    <div class="p10 font-16">
+                                        <p>This is the Accounting dashboard, you'll find the tools you need in the left sidebar, categorized already into sections based on similarity.</p>
+                                    </div>
+                                </Content>
+                            </ext:Panel>
                         </div>
                     </div>
                 <!-- *** END OF MAIN PAGE CONTENT *** -->

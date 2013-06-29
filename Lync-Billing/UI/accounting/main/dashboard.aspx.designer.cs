@@ -56,5 +56,14 @@ namespace Lync_Billing.ui.accounting.main {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Panel AccountingToolsSidebar;
+        
+        /// <summary>
+        /// AccountingAnnouncementsPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel AccountingAnnouncementsPanel;
     }
 }

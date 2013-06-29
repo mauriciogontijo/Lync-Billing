@@ -10,7 +10,21 @@
     <!-- *** START OF ADMIN MAIN BODY *** -->
     <div id='dashboard-message' class='block float-right w80p h100p'>
         <div class="block-body pt5">
-            <p class="font-16">This is the Admin dashboard, you'll find the tools you need in the left sidebar, categorized already into sections based on similarity.</p>
+            <ext:Panel 
+                ID="AdminAnnouncementsPanel"
+                runat="server" 
+                Title="Announcements"
+                PaddingSummary="5px 5px 0"
+                Width="740"
+                Frame="true"
+                Height="500"
+                ButtonAlign="Center">
+                <Content>
+                    <div class="p10 font-16">
+                        <p>This is the Admin dashboard, you'll find the tools you need in the left sidebar, categorized already into sections based on similarity.</p>
+                    </div>
+                </Content>
+            </ext:Panel>
         </div>
     </div>
     <!-- *** END OF ADMIN MAIN BODY *** -->
