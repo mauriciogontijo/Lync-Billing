@@ -40,22 +40,31 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Model UsersBillsModel;
         
         /// <summary>
-        /// UserSipAccount control.
+        /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column UserSipAccount;
+        protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
         
         /// <summary>
-        /// BillDate control.
+        /// UserFullName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column BillDate;
+        protected global::Ext.Net.Column UserFullName;
+        
+        /// <summary>
+        /// MonthDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column MonthDate;
         
         /// <summary>
         /// TotalCalls control.
@@ -137,5 +146,14 @@ namespace Lync_Billing.ui.admin.notifications {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button EmailAlertButton;
+        
+        /// <summary>
+        /// CheckboxSelectionModel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CheckboxSelectionModel CheckboxSelectionModel1;
     }
 }

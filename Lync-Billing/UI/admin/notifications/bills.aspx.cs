@@ -130,27 +130,6 @@ namespace Lync_Billing.ui.admin.notifications
 
         private List<UsersCallsSummary> GetUsersBills(DateTime startingDate, DateTime endingDate, string site)
         {
-            //UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            //sipAccount = userSession.EffectiveSipAccount;
-
-            //List<UsersCallsSummary> UserSummariesList = new List<UsersCallsSummary>();
-            //List<UsersCallsSummary> BillsList = new List<UsersCallsSummary>();
-
-            //int year = 2013,
-            //    start_month = 1,
-            //    end_month = DateTime.Now.Month;
-
-            ////if the end month is not the beginning of the year, decrease it by 1, for the purpose of not including the current month
-            //if (end_month != start_month) { end_month -= 1; }
-
-            //UserSummariesList = UsersCallsSummary.GetUsersCallsSummary(sipAccount, year, start_month, end_month);
-            //foreach (UsersCallsSummary summary in UserSummariesList)
-            //{
-            //    BillsList.Add(summary);
-            //}
-
-            //return BillsList;
-
             List<UsersCallsSummary> tmp = new List<UsersCallsSummary>();
             tmp.AddRange(UsersCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UsersCallsSummary>());
 
@@ -166,53 +145,24 @@ namespace Lync_Billing.ui.admin.notifications
                     FullName = res.Key.FullName,
                     SipAccount = res.Key.SipAccount,
                     SiteName = res.Key.SiteName,
-                    MonthDate = res.Key.MonthDate,
-
+                    MonthDate = endingDate,
+                    
+                    BusinessCallsCost = res.Sum(x => x.BusinessCallsCost),
+                    BusinessCallsDuration = res.Sum(x => x.BusinessCallsDuration),
+                    BusinessCallsCount = res.Sum(x => x.BusinessCallsCount),
+                    
                     PersonalCallsCost = res.Sum(x => x.PersonalCallsCost),
                     PersonalCallsDuration = res.Sum(x => x.PersonalCallsDuration),
                     PersonalCallsCount = res.Sum(x => x.PersonalCallsCount),
+
+                    UnmarkedCallsCost = res.Sum(x => x.UnmarkedCallsCost),
+                    UnmarkedCallsDuration = res.Sum(x => x.UnmarkedCallsDuration),
+                    UnmarkedCallsCount = res.Sum(x => x.UnmarkedCallsCount),
                 }
             ).Where(e => e.PersonalCallsCount > 0).ToList();
 
             return UserBills;
         }
-
-        //List<UsersCallsSummary> PeriodicalReport(DateTime startingDate, DateTime endingDate, string site)
-        //{
-        //    List<UsersCallsSummary> tmp = new List<UsersCallsSummary>();
-
-        //    tmp.AddRange(UsersCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UsersCallsSummary>());
-
-        //    var sipAccounts =
-        //        (
-        //            from data in tmp.AsEnumerable()
-
-        //            group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName } into res
-
-        //            select new UsersCallsSummary
-        //            {
-        //                EmployeeID = res.Key.EmployeeID,
-        //                FullName = res.Key.FullName,
-        //                SipAccount = res.Key.SipAccount,
-        //                SiteName = res.Key.SiteName,
-
-        //                BusinessCallsCost = res.Sum(x => x.BusinessCallsCost),
-        //                BusinessCallsDuration = res.Sum(x => x.BusinessCallsDuration),
-        //                BusinessCallsCount = res.Sum(x => x.BusinessCallsCount),
-
-        //                PersonalCallsCost = res.Sum(x => x.PersonalCallsCost),
-        //                PersonalCallsDuration = res.Sum(x => x.PersonalCallsDuration),
-        //                PersonalCallsCount = res.Sum(x => x.PersonalCallsCount),
-
-        //                UnmarkedCallsCost = res.Sum(x => x.UnmarkedCallsCost),
-        //                UnmarkedCallsDuration = res.Sum(x => x.UnmarkedCallsDuration),
-        //                UnmarkedCallsCount = res.Sum(x => x.UnmarkedCallsCount),
-        //            }
-        //        ).Where(e => e.UnmarkedCallsCount > 0).ToList();
-
-        //    return sipAccounts;
-        //}
-
 
         //protected void GetUsersBills_DirectClick(object sender, DirectEventArgs e)
         //{

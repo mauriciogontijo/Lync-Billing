@@ -6,7 +6,7 @@
 
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF ADMIN MAIN BODY *** -->
-    <div id='email-notifications' class='block float-right w80p h100p'>
+    <div id='email-notifications' class='block float-right wauto h100p'>
         <div class="block-body pt5">
             <ext:GridPanel
                 ID="UsersBillsGrid" 
@@ -30,6 +30,8 @@
                             <ext:Model ID="UsersBillsModel" runat="server" IDProperty="BillsModel">
                                 <Fields>
                                     <ext:ModelField Name="SipAccount" Type="String" />
+                                    <ext:ModelField Name="FullName" Type="String" />
+                                    <ext:ModelField Name="EmployeeID" Type="String" />
                                     <ext:ModelField Name="SiteName" Type="String" />
                                     <ext:ModelField Name="MonthDate" Type="Date" />
                                     <ext:ModelField Name="PersonalCallsCost" Type="Float" />
@@ -43,28 +45,38 @@
 
                 <ColumnModel ID="BillsColumnModel" runat="server">
 		            <Columns>
-                        <ext:Column ID="UserSipAccount" 
+                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+
+                        <%--<ext:Column ID="UserSipAccount" 
                             runat="server" 
                             Text="User's Email" 
                             Width="180" 
                             DataIndex="SipAccount"
                             Groupable="false"
+                            Align="Left" />--%>
+
+                        <ext:Column ID="UserFullName" 
+                            runat="server" 
+                            Text="Employee" 
+                            Width="180" 
+                            DataIndex="FullName"
+                            Groupable="false"
                             Align="Left" />
 
-                        <ext:Column ID="BillDate" 
+                        <ext:Column ID="MonthDate" 
                             runat="server" 
                             Text="Date" 
                             Width="160" 
                             DataIndex="MonthDate"
                             Groupable="false"
                             Align="Left">
-                            <Renderer Fn="SpecialDateRenderer" />
+                            <Renderer Fn="DateRenderer" />
                         </ext:Column>
 
                         <ext:Column ID="TotalCalls"
                             runat="server"
                             Text="Number of Calls"
-                            Width="120"
+                            Width="100"
                             DataIndex="PersonalCallsCount"
                             Groupable="false" 
                             Align="Left"/>
@@ -82,7 +94,7 @@
 		                <ext:Column ID="TotalCost"
                             runat="server"
                             Text="Total Cost"
-                            Width="120"
+                            Width="100"
                             DataIndex="PersonalCallsCost"
                             Groupable="false"
                             Align="Left">
@@ -100,7 +112,7 @@
                                 FieldLabel="Choose Date:"
                                 LabelWidth="70"
                                 EmptyText="Empty Date"
-                                Width="250"
+                                Width="220"
                                 Margins="5 15 5 5">
                             </ext:DateField>
 
@@ -129,7 +141,6 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
-
                                 <DirectEvents>
                                     <Change OnEvent="GetUsersBillsForSite" />
                                 </DirectEvents>
@@ -146,7 +157,7 @@
                                 Margins="5 5 5 5">
                             </ext:Button>--%>
 
-                            <ext:Button ID="EmailAlertButton" runat="server" Text="Email Alert" Icon="EmailAdd" Margins="5 5 5 130">
+                            <ext:Button ID="EmailAlertButton" runat="server" Text="Email Alert" Icon="EmailAdd" Margins="5 5 5 160">
                                  <Listeners>
                                     <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, 'xls');" />
                                 </Listeners>
@@ -154,6 +165,16 @@
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
+
+                <SelectionModel>
+                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                        runat="server"
+                        Mode="Multi"
+                        AllowDeselect="true"
+                        IgnoreRightMouseSelection="true"
+                        CheckOnly="true">
+                    </ext:CheckboxSelectionModel>
+                </SelectionModel>
             </ext:GridPanel>
         </div>
     </div>

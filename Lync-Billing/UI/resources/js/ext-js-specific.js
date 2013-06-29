@@ -127,7 +127,7 @@ function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
     if (record.data.Duration != undefined) {
         sec_num = parseInt(record.data.Duration, 10);
     }
-    //Handles the case of Bills History Grid in the Bills page
+    //Handles the case of Bills History Grid in the User-Bills page, and Users Bills in the Admin->Bills page.
     else if (record.data.PersonalCallsDuration != undefined) {
         sec_num = parseInt(record.data.PersonalCallsDuration, 10);
     }
