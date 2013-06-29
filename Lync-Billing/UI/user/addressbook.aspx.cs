@@ -87,7 +87,7 @@ namespace Lync_Billing.ui.user
 
             foreach (PhoneBook entry in all_address_book_items)
             {
-                if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != ""))
+                if (!string.IsNullOrEmpty(entry.Type) && (entry.Type == "Personal" || entry.Type == "Business"))
                 {
                     entry.SipAccount = sipAccount;
                     filtered_address_book_items.Add(entry);
@@ -123,9 +123,9 @@ namespace Lync_Billing.ui.user
 
             foreach (PhoneBook entry in all_address_book_items)
             {
-                if ((entry.Name != null && entry.Type != null) && (entry.Name != "" && entry.Type != ""))
+                if (!string.IsNullOrEmpty(entry.Type) && (entry.Type == "Personal" || entry.Type == "Business"))
                 {
-                    if (entry.SipAccount == null || entry.SipAccount == string.Empty)
+                    if (!string.IsNullOrEmpty(entry.SipAccount))
                     {
                         entry.SipAccount = sipAccount;
                     }

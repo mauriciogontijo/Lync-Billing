@@ -151,7 +151,7 @@
                                     </ext:Button>
 
                                     <ext:Button
-                                        ID="Button1"
+                                        ID="DeleteSelectedButton"
                                         Text="Delete Selected"
                                         Icon="Delete"
                                         runat="server">
