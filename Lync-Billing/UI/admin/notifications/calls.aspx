@@ -45,45 +45,45 @@
 
                 <ColumnModel ID="UnmarkedCallsColumnModel" runat="server" Flex="1">
                     <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+                        <ext:RowNumbererColumn ID="UnmarkedCalls_ColumnRowNumber" runat="server" Width="25" />
 
                         <ext:Column
-                            ID="EmployeeID"
+                            ID="EmployeeIDCol"
                             runat="server"
                             Text="Employee ID"
                             Width="80"
                             DataIndex="EmployeeID" />
 
                         <ext:Column
-                            ID="SipAccount"
+                            ID="SipAccountCol"
                             runat="server"
                             Text="Sip Account"
                             Width="160"
                             DataIndex="SipAccount" />
 
                         <ext:Column
-                            ID="FullName"
+                            ID="FullNameCol"
                             runat="server"
                             Text="Full Name"
                             Width="180"
                             DataIndex="FullName" />
 
                         <ext:Column
-                            ID="UnmarkedCallsDuration"
+                            ID="UnmarkedCallsDurationCol"
                             runat="server"
                             Text="Duration"
                             Width="110"
                             DataIndex="UnmarkedCallsDuration" />
 
                         <ext:Column
-                            ID="UnmarkedCallsCount"
+                            ID="UnmarkedCallsCountCol"
                             runat="server"
                             Text="Count"
                             Width="70"
                             DataIndex="UnmarkedCallsCount" />
 
                         <ext:Column
-                            ID="UnmarkedCallsCost"
+                            ID="UnmarkedCallsCostCol"
                             runat="server"
                             Text="Cost"
                             Width="70"
@@ -92,7 +92,7 @@
                 </ColumnModel>
                 
                 <TopBar>
-                    <ext:Toolbar ID="FilterToolBar" runat="server">
+                    <ext:Toolbar ID="UnamrkedCalls_FilterToolBar" runat="server">
                         <Items>
                             <ext:ComboBox 
                                 ID="FilterUsersBySite" 
@@ -122,7 +122,7 @@
                                 </DirectEvents>
                             </ext:ComboBox>
 
-                            <ext:Button ID="EmailAlertButton" runat="server" Text="Email Alert" Icon="EmailAdd" Margins="5 5 5 485">
+                            <ext:Button ID="UnamrkedCalls_EmailAlertButton" runat="server" Text="Email Alert" Icon="EmailAdd" Margins="5 5 5 485">
                                  <Listeners>
                                     <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, 'xls');" />
                                 </Listeners>
@@ -143,7 +143,7 @@
                 </Features>
 
                 <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                    <ext:CheckboxSelectionModel ID="UnmarkedCallsCheckboxSelectionModel"
                         runat="server"
                         Mode="Multi"
                         AllowDeselect="true"
