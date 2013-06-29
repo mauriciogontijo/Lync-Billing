@@ -146,18 +146,10 @@ namespace Lync_Billing.ui.admin.notifications
                     SipAccount = res.Key.SipAccount,
                     SiteName = res.Key.SiteName,
                     MonthDate = endingDate,
-                    
-                    BusinessCallsCost = res.Sum(x => x.BusinessCallsCost),
-                    BusinessCallsDuration = res.Sum(x => x.BusinessCallsDuration),
-                    BusinessCallsCount = res.Sum(x => x.BusinessCallsCount),
-                    
+
                     PersonalCallsCost = res.Sum(x => x.PersonalCallsCost),
                     PersonalCallsDuration = res.Sum(x => x.PersonalCallsDuration),
                     PersonalCallsCount = res.Sum(x => x.PersonalCallsCount),
-
-                    UnmarkedCallsCost = res.Sum(x => x.UnmarkedCallsCost),
-                    UnmarkedCallsDuration = res.Sum(x => x.UnmarkedCallsDuration),
-                    UnmarkedCallsCount = res.Sum(x => x.UnmarkedCallsCount),
                 }
             ).Where(e => e.PersonalCallsCount > 0).ToList();
 
@@ -175,15 +167,5 @@ namespace Lync_Billing.ui.admin.notifications
                 FilterUsersBySite.Disabled = true;
             }
         }
-
-        //protected void GetUsersBills_DirectClick(object sender, DirectEventArgs e)
-        //{
-        //    if (BillDateField.SelectedValue != null)
-        //    {
-        //        //listOfUsersCallsSummary = MonthlyReports(BillDateField.SelectedDate);
-        //        //MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
-        //        //MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
-        //    }
-        //}
     }
 }

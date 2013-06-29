@@ -150,17 +150,6 @@
                                     <Change OnEvent="GetUsersBillsForSite" />
                                 </DirectEvents>
                             </ext:ComboBox>
-                            
-                            <%--<ext:Button
-                                ID="ViewMonthlyBills"
-                                runat="server"
-                                Icon="UserMagnify"
-                                Text="Get Bills"
-                                Width="70"
-                                Height="22"
-                                OnDirectClick ="GetUsersBills_DirectClick"
-                                Margins="5 5 5 5">
-                            </ext:Button>--%>
 
                             <ext:Button ID="EmailAlertButton" runat="server" Text="Email Alert" Icon="EmailAdd" Margins="5 5 5 160">
                                  <Listeners>
