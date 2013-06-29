@@ -17,6 +17,9 @@ namespace Lync_Billing.ui.user
     public partial class dashboard : System.Web.UI.Page
     {
         public int unmarked_calls_count = 0;
+        UsersCallsSummary UserSummary = new UsersCallsSummary();
+        List<UsersCallsSummary> UserSummaryList = new List<UsersCallsSummary>();
+
         private string sipAccount = string.Empty;
 
         public Dictionary<string, PhoneBook> phoneBookEntries;
@@ -52,6 +55,10 @@ namespace Lync_Billing.ui.user
             //Initialize the Address Book data.
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
+            //Get the Calls Summary Block data
+            PersonalCallsSummary.Html = GetCallsSummary("Personal");
+            BusinessCallsSummary.Html = GetCallsSummary("Business");
+
             //Get the phone calls chart data.
             DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
@@ -60,70 +67,125 @@ namespace Lync_Billing.ui.user
             Misc.Message("Welcome","Welcome " + current_session.PrimaryDisplayName,"info");
         }
 
-        [DirectMethod]
-        public static string GetSummaryData()
+        private string GetCallsSummary(string type = "")
         {
-            if (HttpContext.Current.Session.Contents["UserData"] != null)
+            string summary = string.Empty;
+            UsersCallsSummary UserSummary = new UsersCallsSummary();
+            List<UsersCallsSummary> UserSummaryList = new List<UsersCallsSummary>();
+
+            //Globally used variables, these should always be updated.
+            current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+            sipAccount = current_session.EffectiveSipAccount;
+
+            UserSummaryList = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Month).ToList();
+
+            if (UserSummaryList.Count > 0)
+                UserSummary = UserSummaryList[0]; //This means that if there are no Personal and/or Business Calls, the default values will remain zeros in the UserSummary object.
+
+            if(type == "Personal")
             {
-                List<AbstractComponent> components = new List<AbstractComponent>();
-                List<UsersCallsSummary> UserSummaryList = new List<UsersCallsSummary>();
-                UsersCallsSummary UserSummary = new UsersCallsSummary();
-                string sipAccount = string.Empty;
-
-                sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
-                UserSummaryList = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Month);
-
-                if (UserSummaryList.Count > 0)
+                if (UserSummary.PersonalCallsCount == 0)
                 {
-                    UserSummary = UserSummaryList[0];
+                    summary = "<div class='block-body wauto m15 p5'><p>" +
+                        "<p class='line-height-1-7 mb15'>During this month, it's either that you haven't made any phonecalls or you haven't marked your <span class='red-font'>personal</span> phonecalls yet.</p>" +
+                        "<p class='line-height-1-7 mb10'>Please <span class='red-font'>mark your phonecalls</span> for this month, if you have any, in order to get a meaningful summary.</p></p></div>";
                 }
-
-                Ext.Net.Panel personalPanel = new Ext.Net.Panel()
+                else
                 {
-                    Title = "Personal Calls",
-                    Icon = Icon.Phone,
-                    Html = String.Format(
+                    summary = String.Format(
                         "<div class='block-body wauto m15 p5'><p>" +
                         "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
                         "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                        UserSummary.PersonalCallsCount, UserSummary.PersonalCallsDuration / 60, UserSummary.PersonalCallsCost)
-                };
-
-                Ext.Net.Panel businessPanel = new Ext.Net.Panel()
-                {
-                    Title = "Business Calls",
-                    Icon = Icon.Phone,
-                    Html = String.Format(
-                        "<div class='block-body wauto m15 p5'><p>" +
-                        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
-                        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                        UserSummary.BusinessCallsCount, UserSummary.BusinessCallsDuration / 60, UserSummary.BusinessCallsCost)
-                };
-
-                Ext.Net.Panel unmarkedPanel = new Ext.Net.Panel()
-                {
-
-                    Title = "Unmarked Calls",
-                    Icon = Icon.Phone,
-                    Html = String.Format(
-                        "<div class='block-body wauto m15 p5'><p>" +
-                        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
-                        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
-                        UserSummary.UnmarkedCallsCount, UserSummary.UnmarkedCallsDuration / 60, UserSummary.UnmarkedCallsCost)
-                };
-
-                components.Add(unmarkedPanel);
-                components.Add(personalPanel);
-                components.Add(businessPanel);
-
-                return ComponentLoader.ToConfig(components);
+                        UserSummary.PersonalCallsCount, UserSummary.PersonalCallsDuration / 60, UserSummary.PersonalCallsCost
+                    );
+                }
             }
-            else
+
+            if (type == "Business")
             {
-                return null;
+                if (UserSummary.PersonalCallsCount == 0)
+                {
+                    summary = "<div class='block-body wauto m15 p5'><p>" +
+                        "<p class='line-height-1-7 mb15'>During this month, it's either that you haven't made any phonecalls or you haven't marked your <span class='red-font'>business</span> phonecalls yet.</p>" +
+                        "<p class='line-height-1-7 mb10'>Please <span class='red-font'>mark your phonecalls</span> for this month, if you have any, in order to get a meaningful summary.</p></p></div>";
+                }
+                else
+                {
+                    summary = String.Format(
+                        "<div class='block-body wauto m15 p5'><p>" +
+                        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
+                        UserSummary.BusinessCallsCount, UserSummary.BusinessCallsDuration / 60, UserSummary.BusinessCallsCost
+                    );
+                }
             }
-            
+
+            return summary;
         }
+
+        //[DirectMethod]
+        //public static string GetSummaryData()
+        //{
+        //    if (HttpContext.Current.Session.Contents["UserData"] != null)
+        //    {
+        //        List<AbstractComponent> components = new List<AbstractComponent>();
+        //        List<UsersCallsSummary> UserSummaryList = new List<UsersCallsSummary>();
+        //        UsersCallsSummary UserSummary = new UsersCallsSummary();
+        //        string sipAccount = string.Empty;
+
+        //        sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+        //        UserSummaryList = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Month);
+
+        //        if (UserSummaryList.Count > 0)
+        //        {
+        //            UserSummary = UserSummaryList[0];
+        //        }
+
+        //        Ext.Net.Panel personalPanel = new Ext.Net.Panel()
+        //        {
+        //            Title = "Personal Calls",
+        //            Icon = Icon.Phone,
+        //            Html = String.Format(
+        //                "<div class='block-body wauto m15 p5'><p>" +
+        //                "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+        //                "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
+        //                UserSummary.PersonalCallsCount, UserSummary.PersonalCallsDuration / 60, UserSummary.PersonalCallsCost)
+        //        };
+
+        //        Ext.Net.Panel businessPanel = new Ext.Net.Panel()
+        //        {
+        //            Title = "Business Calls",
+        //            Icon = Icon.Phone,
+        //            Html = String.Format(
+        //                "<div class='block-body wauto m15 p5'><p>" +
+        //                "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+        //                "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
+        //                UserSummary.BusinessCallsCount, UserSummary.BusinessCallsDuration / 60, UserSummary.BusinessCallsCost)
+        //        };
+
+        //        Ext.Net.Panel unmarkedPanel = new Ext.Net.Panel()
+        //        {
+
+        //            Title = "Unmarked Calls",
+        //            Icon = Icon.Phone,
+        //            Html = String.Format(
+        //                "<div class='block-body wauto m15 p5'><p>" +
+        //                "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+        //                "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
+        //                UserSummary.UnmarkedCallsCount, UserSummary.UnmarkedCallsDuration / 60, UserSummary.UnmarkedCallsCost)
+        //        };
+
+        //        components.Add(unmarkedPanel);
+        //        components.Add(personalPanel);
+        //        components.Add(businessPanel);
+
+        //        return ComponentLoader.ToConfig(components);
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
         public List<UsersCallsSummaryChartData> getChartData(string typeOfSummary = "")
         {

@@ -121,7 +121,7 @@
             </div>
         <% } %>
                 
-        <div class='clear h20'></div>
+        <div class='clear h25'></div>
     <% } %>
 
     <!-- START OF LEFT COLUMN -->
@@ -132,7 +132,7 @@
                     ID="TopDestinationCountriesPanel"
                     runat="server"
                     Width="465"
-                    Height="360"
+                    Height="380"
                     Header="True"
                     Title="Top Destination Countries"
                     Layout="FitLayout">
@@ -184,40 +184,16 @@
         </div>
         <!-- END OF BLOCk -->
 
-        <div class='clear h20'></div>
+        <div class='clear h15'></div>
 
-        <div id='summary-block' class='block wauto'>
-            <div class='content wauto float-left mb10'>
-                <ext:Panel ID="UserPhoneCallsSummary"
-                    runat="server"
-                    Height="230"
-                    Width="465"
-                    Layout="AccordionLayout"
-                    Title="Summary">
-                    <Loader ID="SummaryLoader"
-                        runat="server"
-                        DirectMethod="#{DirectMethods}.GetSummaryData"
-                        Mode="Component">
-                        <LoadMask ShowMask="true" />
-                    </Loader>
-                </ext:Panel>
-            </div>
-            <!-- END OF CONTENT -->
-        </div>
-        <!-- END OF BLOCk -->
-    </div>
-    <!-- END OF LEFT COLUMN -->
-
-    <!-- START OF RIGHT COLUMN -->
-    <div style="float: right; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
-        <div id='TOP-Destination-Numbers-Block' class='block wauto'>
+        <div id='top-destination-numbers-block' class='block wauto'>
             <div class='content wauto float-left mb10'>
                 <ext:GridPanel
                     ID="TOPDestinationNumbersGrid"
                     runat="server"
                     Title="Top Destination Numbers"
                     Width="465"
-                    Height="180"
+                    Height="190"
                     AutoScroll="true"
                     Header="true"
                     Scroll="Both"
@@ -268,8 +244,46 @@
             </div>
         </div>
         <!-- END OF BLOCk -->
+    </div>
+    <!-- END OF LEFT COLUMN -->
 
-        <div class='clear h20'></div>
+    <!-- START OF RIGHT COLUMN -->
+    <div style="float: right; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
+        <div id='calls-summary-block' class='block wauto'>
+            <div class='content wauto float-left mb10'>
+                <ext:TabPanel
+                    ID="CallsSummary" 
+                    runat="server" 
+                    Width="465"
+                    Height="180"
+                    Margins="0 0 20 0"
+                    Plain="true">
+                    <Defaults>
+                        <ext:Parameter Name="bodyPadding" Value="10" Mode="Raw" />
+                    </Defaults>
+
+                    <Items>
+                        <ext:Panel
+                            ID="PersonalCallsSummary" 
+                            runat="server" 
+                            Title="Personal Calls Summary" 
+                            Icon="Phone" 
+                            AutoDataBind="true" />
+
+                        <ext:Panel
+                            ID="BusinessCallsSummary"
+                            runat="server" 
+                            Title="Business Calls Summary"
+                            Icon="Phone" 
+                            AutoDataBind="true" />
+                    </Items>
+                </ext:TabPanel>
+            </div>
+            <!-- END OF CONTENT -->
+        </div>
+        <!-- END OF BLOCk -->
+
+        <div class='clear h15'></div>
 
         <div id='duration-cost-chart-block' class='block wauto'>
             <div class="content wauto float-left mb10">
@@ -277,7 +291,7 @@
                     ID="DurationCostChartPanel"
                     runat="server"
                     Width="465"
-                    Height="410"
+                    Height="390"
                     Header="True"
                     Title="Personal Duration/Cost Report"
                     Layout="FitLayout">
