@@ -545,6 +545,66 @@ namespace Lync_Billing.Libs
             finally { conn.Close(); }
         }
 
+        public bool CREATE_RATES_TABLE(string tablename) 
+        {
+            string createTableQuery = string.Format("CREATE TABLE [dbo].[{0}] ([country_code_dialing_prefix] [bigint] NOT NULL,[rate] [decimal](18, 4) NOT NULL ON [PRIMARY])", tablename);
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(createTableQuery.ToString(), conn);
+
+            try
+            {
+                conn.Open();
+                comm.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+        }
+
+        public bool CREATE(string tableName,Dictionary<string,string> columns) 
+        {
+
+
+            StringBuilder createTableQuery = new StringBuilder();
+            createTableQuery.Append("CREATE TABLE ");
+            createTableQuery.Append(tableName);
+            createTableQuery.Append(" ( ");
+
+            foreach(KeyValuePair<string,string> keyValue in columns)
+            {
+                createTableQuery.Append(keyValue.Key);
+                createTableQuery.Append(" ");
+                createTableQuery.Append(keyValue.Value);
+                createTableQuery.Append(", ");
+            }
+
+            createTableQuery.Length -= 2;   //Remove trailing ", "
+            createTableQuery.Append(")");
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(createTableQuery.ToString(), conn);
+
+            try
+            {
+                conn.Open();
+                comm.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+           
+
+        }
+
         private static string GetDateForDatabase(DateTime dt)
         {
             return dt.Year + "-" + dt.Month + "-" + dt.Day + " " + dt.Hour + ":" + dt.Minute + ":" + dt.Second +"." + dt.Millisecond;
