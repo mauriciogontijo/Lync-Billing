@@ -15,6 +15,8 @@ namespace Lync_Billing.ui.admin.notifications
 {
     public partial class calls : System.Web.UI.Page
     {
+        private string sipAccount = string.Empty;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -34,6 +36,8 @@ namespace Lync_Billing.ui.admin.notifications
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }
             }
+
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
             FilterUsersBySite.GetStore().DataSource = GetAccountantSiteName();
             FilterUsersBySite.GetStore().DataBind();
