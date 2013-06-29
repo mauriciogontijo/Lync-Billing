@@ -103,7 +103,7 @@ namespace Lync_Billing.ui.user
 
             if (type == "Business")
             {
-                if (UserSummary.PersonalCallsCount == 0)
+                if (UserSummary.BusinessCallsCount == 0)
                 {
                     summary = "<div class='block-body wauto m15 p5'><p>" +
                         "<p class='line-height-1-7 mb15'>During this month, it's either that you haven't made any phonecalls or you haven't marked your <span class='red-font'>business</span> phonecalls yet.</p>" +
