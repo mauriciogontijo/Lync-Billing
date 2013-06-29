@@ -190,8 +190,8 @@
 	    });
 
 	    var redirect_to_manage_phonecalls = function () {
-	        to = "../user/phonecalls.aspx"
-	        window.location = to;
+	        //to = "../user/phonecalls.aspx"
+	        //window.location = to;
 	    };
 	</script>
 </asp:Content>
@@ -341,9 +341,9 @@
                                     <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="75">
                                         <Renderer Fn="TotalDuration_TipRenderer" />
                                     </Tips>
-                                    <Listeners>
+                                    <%--<Listeners>
                                         <ItemClick Fn="redirect_to_manage_phonecalls" />
-                                    </Listeners>
+                                    </Listeners>--%>
                                 </ext:PieSeries>
                             </Series>
                         </ext:Chart>
