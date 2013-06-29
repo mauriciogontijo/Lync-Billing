@@ -11,13 +11,13 @@ using System.Xml.Xsl;
 using Ext.Net;
 using Lync_Billing.DB;
 using System.Globalization;
+using Lync_Billing.Libs;
 
 namespace Lync_Billing.ui.admin.notifications
 {
     public partial class bills : System.Web.UI.Page
     {
-        Dictionary<string, object> wherePart;
-        List<string> columns;
+       
         private string sipAccount = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -166,6 +166,41 @@ namespace Lync_Billing.ui.admin.notifications
             {
                 FilterUsersBySite.Disabled = true;
             }
+        }
+
+
+        protected void NotifyUsers(object sender, DirectEventArgs e)
+        {
+            string Body = string.Empty;
+            string subject = string.Empty;
+
+            string sipAccount = string.Empty;
+
+            string json = e.ExtraParams["Values"];
+
+            List<UsersCallsSummary> usersSummary = JSON.Deserialize<List<UsersCallsSummary>>(json);
+
+            MailTemplates mailTemplate = MailTemplates.GetMailTemplates().First(item => item.TemplateID == 2);
+
+            subject = mailTemplate.TemplateSubject;
+            Body = mailTemplate.TemplateBody;
+
+            foreach (UsersCallsSummary userSummary in usersSummary)
+            {
+                sipAccount = userSummary.SipAccount;
+
+                string RealBody =
+                    string.Format(
+                            Body,
+                            userSummary.FullName,
+                            userSummary.MonthDate.ToString("MMM", CultureInfo.InvariantCulture) + " " + userSummary.MonthDate.Year,
+                            userSummary.PersonalCallsCount,
+                            DB.Misc.ConvertSecondsToReadable(userSummary.PersonalCallsDuration),
+                            userSummary.PersonalCallsCost);
+
+                Mailer mailer = new Mailer("sghaida@ccc.gr", subject, RealBody);
+            }
+
         }
     }
 }

@@ -151,10 +151,19 @@
                                 </DirectEvents>
                             </ext:ComboBox>
 
-                            <ext:Button ID="EmailAlertButton" runat="server" Text="Email Alert" Icon="EmailAdd" Margins="5 5 5 160">
-                                 <Listeners>
-                                    <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, 'xls');" />
-                                </Listeners>
+                            <ext:Button 
+                                ID="EmailAlertButton" 
+                                runat="server" 
+                                Text="Email Alert" 
+                                Icon="EmailAdd" 
+                                Margins="5 5 5 160">
+                                <DirectEvents>
+                                    <Click OnEvent="NotifyUsers">
+                                        <ExtraParams>
+                                            <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw"/>
+                                        </ExtraParams>
+                                    </Click>
+                                </DirectEvents>
                             </ext:Button>
                         </Items>
                     </ext:Toolbar>
