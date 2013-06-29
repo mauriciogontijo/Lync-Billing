@@ -10,11 +10,16 @@ using System.Xml;
 using System.Xml.Xsl;
 using Ext.Net;
 using Lync_Billing.DB;
+using System.Globalization;
 
 namespace Lync_Billing.ui.admin.notifications
 {
     public partial class bills : System.Web.UI.Page
     {
+        Dictionary<string, object> wherePart;
+        List<string> columns;
+        private string sipAccount = string.Empty;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -35,9 +40,21 @@ namespace Lync_Billing.ui.admin.notifications
                 }
             }
 
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
+            FilterUsersBySite.GetStore().DataSource = GetAccountantSiteName();
+            FilterUsersBySite.GetStore().DataBind();
         }
 
+        protected void UsersBillsStore_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            
+        }
+
+        protected void UsersBillsStore_Load(object sender, EventArgs e)
+        {
+            
+        }
 
         public string GetSiteName(int siteID)
         {
@@ -93,10 +110,118 @@ namespace Lync_Billing.ui.admin.notifications
 
             whereStatement.Add("UserID", employeeID);
 
-
             users = Users.GetUsers(null, whereStatement, 0);
             return users[0].SiteName;
         }
 
+        protected void GetUsersBillsForSite(object sender, DirectEventArgs e)
+        {
+            if (reportDateField.SelectedValue != null && FilterUsersBySite.SelectedItem != null)
+            {
+                string site = FilterUsersBySite.SelectedItem.Value;
+
+                DateTime month_start = new DateTime(reportDateField.SelectedDate.Year, reportDateField.SelectedDate.Month, 1);
+                DateTime month_end = month_start.AddMonths(1).AddDays(-1);
+
+                UsersBillsGrid.GetStore().DataSource = GetUsersBills(month_start, month_end, site);
+                UsersBillsGrid.GetStore().DataBind();
+            }
+        }
+
+        private List<UsersCallsSummary> GetUsersBills(DateTime startingDate, DateTime endingDate, string site)
+        {
+            //UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            //sipAccount = userSession.EffectiveSipAccount;
+
+            //List<UsersCallsSummary> UserSummariesList = new List<UsersCallsSummary>();
+            //List<UsersCallsSummary> BillsList = new List<UsersCallsSummary>();
+
+            //int year = 2013,
+            //    start_month = 1,
+            //    end_month = DateTime.Now.Month;
+
+            ////if the end month is not the beginning of the year, decrease it by 1, for the purpose of not including the current month
+            //if (end_month != start_month) { end_month -= 1; }
+
+            //UserSummariesList = UsersCallsSummary.GetUsersCallsSummary(sipAccount, year, start_month, end_month);
+            //foreach (UsersCallsSummary summary in UserSummariesList)
+            //{
+            //    BillsList.Add(summary);
+            //}
+
+            //return BillsList;
+
+            List<UsersCallsSummary> tmp = new List<UsersCallsSummary>();
+            tmp.AddRange(UsersCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UsersCallsSummary>());
+
+            var UserBills =
+            (
+                from data in tmp.AsEnumerable()
+
+                group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName, data.MonthDate } into res
+
+                select new UsersCallsSummary
+                {
+                    EmployeeID = res.Key.EmployeeID,
+                    FullName = res.Key.FullName,
+                    SipAccount = res.Key.SipAccount,
+                    SiteName = res.Key.SiteName,
+                    MonthDate = res.Key.MonthDate,
+
+                    PersonalCallsCost = res.Sum(x => x.PersonalCallsCost),
+                    PersonalCallsDuration = res.Sum(x => x.PersonalCallsDuration),
+                    PersonalCallsCount = res.Sum(x => x.PersonalCallsCount),
+                }
+            ).Where(e => e.PersonalCallsCount > 0).ToList();
+
+            return UserBills;
+        }
+
+        //List<UsersCallsSummary> PeriodicalReport(DateTime startingDate, DateTime endingDate, string site)
+        //{
+        //    List<UsersCallsSummary> tmp = new List<UsersCallsSummary>();
+
+        //    tmp.AddRange(UsersCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UsersCallsSummary>());
+
+        //    var sipAccounts =
+        //        (
+        //            from data in tmp.AsEnumerable()
+
+        //            group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName } into res
+
+        //            select new UsersCallsSummary
+        //            {
+        //                EmployeeID = res.Key.EmployeeID,
+        //                FullName = res.Key.FullName,
+        //                SipAccount = res.Key.SipAccount,
+        //                SiteName = res.Key.SiteName,
+
+        //                BusinessCallsCost = res.Sum(x => x.BusinessCallsCost),
+        //                BusinessCallsDuration = res.Sum(x => x.BusinessCallsDuration),
+        //                BusinessCallsCount = res.Sum(x => x.BusinessCallsCount),
+
+        //                PersonalCallsCost = res.Sum(x => x.PersonalCallsCost),
+        //                PersonalCallsDuration = res.Sum(x => x.PersonalCallsDuration),
+        //                PersonalCallsCount = res.Sum(x => x.PersonalCallsCount),
+
+        //                UnmarkedCallsCost = res.Sum(x => x.UnmarkedCallsCost),
+        //                UnmarkedCallsDuration = res.Sum(x => x.UnmarkedCallsDuration),
+        //                UnmarkedCallsCount = res.Sum(x => x.UnmarkedCallsCount),
+        //            }
+        //        ).Where(e => e.UnmarkedCallsCount > 0).ToList();
+
+        //    return sipAccounts;
+        //}
+
+
+        //protected void GetUsersBills_DirectClick(object sender, DirectEventArgs e)
+        //{
+        //    if (reportDateField.SelectedValue != null)
+        //    {
+        //        //listOfUsersCallsSummary = MonthlyReports(reportDateField.SelectedDate);
+        //        //MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
+        //        //MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
+        //    }
+        //}
     }
 }
