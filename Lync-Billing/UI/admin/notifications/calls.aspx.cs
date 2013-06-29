@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Xsl;
 using Ext.Net;
 using Lync_Billing.DB;
+using Lync_Billing.Libs;
 
 namespace Lync_Billing.ui.admin.notifications
 {
@@ -143,6 +144,39 @@ namespace Lync_Billing.ui.admin.notifications
                 ).Where(e=>e.UnmarkedCallsCount > 0).ToList();
 
             return sipAccounts;
+        }
+
+        protected void NotifyUsers(object sender, DirectEventArgs e)
+        {
+            string Body = string.Empty;
+            string subject = string.Empty;
+
+            string sipAccount = string.Empty;
+
+            string json = e.ExtraParams["Values"];
+            
+            List<UsersCallsSummary> usersSummary = JSON.Deserialize<List<UsersCallsSummary>>(json);
+
+            MailTemplates mailTemplate = MailTemplates.GetMailTemplates().First(item => item.TemplateID == 1);
+
+            subject = mailTemplate.TemplateSubject;
+            Body = mailTemplate.TemplateBody;
+
+            foreach (UsersCallsSummary userSummary in usersSummary) 
+            {
+                sipAccount = userSummary.SipAccount;
+
+                string RealBody = 
+                    string.Format(
+                            Body, 
+                            userSummary.FullName, 
+                            userSummary.UnmarkedCallsCount, 
+                            userSummary.UnmarkedCallsCost,
+                            DB.Misc.ConvertSecondsToReadable(userSummary.UnmarkedCallsDuration));
+
+                Mailer mailer = new Mailer("sghaida@ccc.gr", subject, RealBody);
+            }
+           
         }
 
     }

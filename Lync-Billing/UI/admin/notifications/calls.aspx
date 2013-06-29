@@ -31,7 +31,7 @@
                                     <ext:ModelField Name="EmployeeID" Type="String" />
                                     <ext:ModelField Name="FullName" Type="String" />
                                     <ext:ModelField Name="Site" Type="String" />
-                                    <ext:ModelField Name="UnmarkedCallsCost" Type="Int" />
+                                    <ext:ModelField Name="UnmarkedCallsCost" Type="Float" />
                                     <ext:ModelField Name="UnmarkedCallsCount" Type="Int" />
                                     <ext:ModelField Name="UnmarkedCallsDuration" Type="Int" />
                                 </Fields>
@@ -122,10 +122,20 @@
                                 </DirectEvents>
                             </ext:ComboBox>
 
-                            <ext:Button ID="UnamrkedCalls_EmailAlertButton" runat="server" Text="Email Alert" Icon="EmailAdd" Margins="5 5 5 485">
-                                 <Listeners>
-                                    <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, 'xls');" />
-                                </Listeners>
+                            <ext:Button 
+                                ID="UnamrkedCalls_EmailAlertButton" 
+                                runat="server" 
+                                Text="Email Alert" 
+                                Icon="EmailAdd" 
+                                Margins="5 5 5 485">
+                               <DirectEvents>
+                                   <Click OnEvent="NotifyUsers">
+                                       <ExtraParams>
+                                           <ext:Parameter Name="Values" Value="Ext.encode(#{UnmarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw"/>
+                                       </ExtraParams>
+                                   </Click>
+                                   
+                               </DirectEvents>
                             </ext:Button>
                         </Items>
                     </ext:Toolbar>
