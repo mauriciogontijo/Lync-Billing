@@ -73,7 +73,9 @@
                             runat="server"
                             Text="Duration"
                             Width="110"
-                            DataIndex="UnmarkedCallsDuration" />
+                            DataIndex="UnmarkedCallsDuration">
+                            <Renderer Fn="GetMinutes" />
+                        </ext:Column>
 
                         <ext:Column
                             ID="UnmarkedCallsCountCol"

@@ -131,6 +131,10 @@ function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
     else if (record.data.PersonalCallsDuration != undefined) {
         sec_num = parseInt(record.data.PersonalCallsDuration, 10);
     }
+    //Handles the case of UnmarkedCallsNotification grid in the Admin->Calls page
+    else if (record.data.UnmarkedCallsDuration != undefined) {
+        sec_num = parseInt(record.data.UnmarkedCallsDuration, 10);
+    }
     
     var hours = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
