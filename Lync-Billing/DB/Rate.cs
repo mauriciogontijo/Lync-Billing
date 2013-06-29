@@ -117,6 +117,10 @@ namespace Lync_Billing.DB
 
             return status;
         }
-        
+
+        public static bool CreateRatesTable(string tablename) 
+        {
+            return DBRoutines.CREATE_RATES_TABLE(tablename);
+        }
     }
 }
