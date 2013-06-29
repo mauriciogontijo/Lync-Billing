@@ -20,7 +20,7 @@
             <ext:TabPanel ID="AddressBookTabPanel"
                 runat="server"
                 Width="740"
-                Height="760"
+                Height="745"
                 Margins="0 0 20 0"
                 Frame="true">
                 <Defaults>
@@ -191,7 +191,7 @@
                                 ID="ImportContactsStore"
                                 runat="server"
                                 IsPagingStore="true"
-                                PageSize="24"
+                                PageSize="25"
                                 OnLoad="ImportContactsStore_Load">
                                 <Model>
                                     <ext:Model ID="ImportContactsStoreModel" runat="server" IDProperty="DestinationNumber">
