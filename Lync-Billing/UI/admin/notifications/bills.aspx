@@ -107,13 +107,17 @@
                     <ext:Toolbar ID="FilterToolBar" runat="server">
                         <Items>
                             <ext:DateField 
-                                ID="reportDateField"
+                                ID="BillDateField"
                                 runat="server" 
                                 FieldLabel="Choose Date:"
                                 LabelWidth="70"
                                 EmptyText="Empty Date"
                                 Width="220"
-                                Margins="5 15 5 5">
+                                Margins="5 15 5 5"
+                                Editable="false">
+                                <DirectEvents>
+                                    <Select OnEvent="BillDateField_Selection" />
+                                </DirectEvents>
                             </ext:DateField>
 
                             <ext:ComboBox 
@@ -126,7 +130,8 @@
                                 ValueField="SiteName"
                                 FieldLabel="Choose Site"
                                 LabelWidth="65"
-                                Margins="5 15 5 5">
+                                Margins="5 15 5 5"
+                                Disabled="true">
                                 <Store>
                                     <ext:Store
                                         ID="SitesStore"

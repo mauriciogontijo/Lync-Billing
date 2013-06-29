@@ -103,13 +103,13 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Toolbar FilterToolBar;
         
         /// <summary>
-        /// reportDateField control.
+        /// BillDateField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.DateField reportDateField;
+        protected global::Ext.Net.DateField BillDateField;
         
         /// <summary>
         /// FilterUsersBySite control.

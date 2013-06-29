@@ -116,11 +116,11 @@ namespace Lync_Billing.ui.admin.notifications
 
         protected void GetUsersBillsForSite(object sender, DirectEventArgs e)
         {
-            if (reportDateField.SelectedValue != null && FilterUsersBySite.SelectedItem != null)
+            if (BillDateField.SelectedValue != null && FilterUsersBySite.SelectedItem != null)
             {
                 string site = FilterUsersBySite.SelectedItem.Value;
 
-                DateTime month_start = new DateTime(reportDateField.SelectedDate.Year, reportDateField.SelectedDate.Month, 1);
+                DateTime month_start = new DateTime(BillDateField.SelectedDate.Year, BillDateField.SelectedDate.Month, 1);
                 DateTime month_end = month_start.AddMonths(1).AddDays(-1);
 
                 UsersBillsGrid.GetStore().DataSource = GetUsersBills(month_start, month_end, site);
@@ -164,11 +164,23 @@ namespace Lync_Billing.ui.admin.notifications
             return UserBills;
         }
 
+        protected void BillDateField_Selection(object sender, DirectEventArgs e)
+        {
+            if (BillDateField.SelectedDate != null)
+            {
+                FilterUsersBySite.Disabled = false;
+            }
+            else
+            {
+                FilterUsersBySite.Disabled = true;
+            }
+        }
+
         //protected void GetUsersBills_DirectClick(object sender, DirectEventArgs e)
         //{
-        //    if (reportDateField.SelectedValue != null)
+        //    if (BillDateField.SelectedValue != null)
         //    {
-        //        //listOfUsersCallsSummary = MonthlyReports(reportDateField.SelectedDate);
+        //        //listOfUsersCallsSummary = MonthlyReports(BillDateField.SelectedDate);
         //        //MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
         //        //MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
         //    }
