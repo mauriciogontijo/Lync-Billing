@@ -2,11 +2,6 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <title>eBill Accounting | Monthly Reports</title>
-      <script type="text/javascript">
-          var submitValue = function (grid, hiddenFormat, format) {
-              grid.submitData(false, { isUpload: true });
-          };
-    </script>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
