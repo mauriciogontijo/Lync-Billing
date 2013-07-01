@@ -44,14 +44,16 @@
         <form id="form1" runat="server">
             <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
 
-            <% if(Session.Contents["UserData"] != null) { %>
+            <% if(current_session != null) { %>
                 <div  class="smart-block tool-dark-bg liquid toolbar " >
                     <div class="hwrapper rtl  ">
                         <div class="col size2of3">
                             <div class="ie7flot-fix" ><!--ie7 fix-->
                                 <ul id="navigation-tabs" class="vertical-navigation " >
                                     <li id="access-tab">
-                                        <a title="Drop accounting access" href="../../user/dashboard.aspx"><%= DROP_ACCESS_BUTTON_TEXT %><span class="shutdown"></span></a>
+                                        <a title="Drop accounting access" href="../../session/authenticate.aspx?drop=<%= current_session.ActiveRoleName %>">
+                                            <%= DROP_ACCESS_BUTTON_TEXT %><span class="shutdown"></span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

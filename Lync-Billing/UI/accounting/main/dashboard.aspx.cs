@@ -15,6 +15,8 @@ namespace Lync_Billing.ui.accounting.main
 {
     public partial class dashboard : System.Web.UI.Page
     {
+        public UserSession current_session { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -26,10 +28,10 @@ namespace Lync_Billing.ui.accounting.main
             }
             else
             {
-                UserSession session = new UserSession();
-                session = (UserSession)Session.Contents["UserData"];
+                //Initialize the local cope of the current user's session
+                current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if ((!session.IsDeveloper || !session.IsAccountant) && session.PrimarySipAccount != session.EffectiveSipAccount)
+                if ((!current_session.IsDeveloper || !current_session.IsAccountant) && current_session.PrimarySipAccount != current_session.EffectiveSipAccount && current_session.ActiveRoleName != "accounting")
                 {
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }

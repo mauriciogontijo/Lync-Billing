@@ -14,38 +14,40 @@
     <div class="front-card">
 		<div class="front-welcome float-left p10">
 			<div class="front-welcome-text">
-			    <h1>Welcome to eBill</h1>
-			    <p>Manage your phone calls, bills, your phone calls statistics and history from one place, now!</p>
+			    <h1 class="italic">You have requested an elevated access</h1>
+			    <p>Please note that you must authenticate your information before proceeding any further.</p>
 			</div>
 		</div>
 
 		<div class="front-signin p10">
 			<div class="signin mt5">
 				<div class="placeholding-input username">
-					<asp:TextBox
-                        TextMode="Email"
-                        runat="server" 
-                        id="email" 
-                        Width="160"
-                        TabIndex="1" />
-					<asp:label ID="Label1" 
-                        Text="Email" 
+                    <asp:label ID="Email_Label" 
+                        Text="Email"  
                         CssClass="placeholder" 
-                        runat="server"></asp:label>
+                        runat="server"
+                        Width="70">
+                	</asp:label>
+
+					<label id="email" class="bold">
+                        <%= sipAccount %>
+					</label>
 				</div>
 
 				<div class="placeholding-input password">
-            		<asp:TextBox 
+            		<asp:label ID="Label2" 
+                        Text="Password"  
+                        CssClass="placeholder" 
+                        runat="server"
+                        Width="70">
+                	</asp:label>
+
+                    <asp:TextBox 
                         id="password" 
                         runat="server" 
                         TextMode="Password" 
                         Width="160"
                         tabindex="2" />
-                	<asp:label ID="Label2" 
-                        Text="Password"  
-                        CssClass="placeholder" 
-                        runat="server">
-                	</asp:label>
               	</div>
 
               	<div class="placeholding-input">
@@ -59,5 +61,6 @@
 		</div>
 
         <asp:HiddenField ID="redirect_to_url" runat="server" />
+        <asp:HiddenField ID="access_level" runat="server" />
 	</div>
 </asp:Content>

@@ -42,7 +42,8 @@
                             <div class="ie7flot-fix" ><!--ie7 fix-->
                                 <ul id="navigation-tabs" class="vertical-navigation " >
                                     <li id="access-tab">
-                                        <a title="Drop accounting access" href="../../user/dashboard.aspx">Drop Accounting Access<span class="shutdown"></span></a>
+                                        <%--<a title="Drop accounting access" href="../../user/dashboard.aspx">Drop Accounting Access<span class="shutdown"></span></a>--%>
+                                        <a title="Drop accounting access" href="../../session/authenticate.aspx?drop=<%= current_session.ActiveRoleName %>">Drop Accounting Access<span class="shutdown"></span></a>
                                     </li>
                                 </ul>
                             </div>

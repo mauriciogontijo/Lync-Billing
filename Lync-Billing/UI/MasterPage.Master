@@ -64,63 +64,68 @@
                                         <a title="Home" href="../user/dashboard.aspx">Home</a>
                                     </li>
 
-                                    <li id="user-tab" class="">
-                                        <a href="#"><%= current_session.EffectiveDisplayName %><span class="drop"></span></a>
-                                        <ul id="user-dropdown">
-                                            <li class="first-child"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
-                                            <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
-                                            <li class=""><a title="Bills History" href="../user/bills.aspx">Bills History</a></li>
-                                            <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
-                                            <% if(current_session.PrimarySipAccount == current_session.EffectiveSipAccount) { %>
-                                                <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
-                                                <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
-                                            <% } else { %>
-                                                <li class="last-child"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
-                                            <% } %>
-                                        </ul>
-                                    </li>
-
-                                    <%
-                                        //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
-                                        bool is_delegate = (current_session.IsDelegate || current_session.IsDeveloper) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount) && current_session.ListOfDelegees.Count > 0;
-                                        if (is_delegate)
-                                        {
+                                    <% 
+                                        //View the drop down menus only if the page is not a Session Page, the only thing viewed from the Navigation bar is the Home button, given that it's only viewed on the Session->Authenticate page
+                                        if( ! PAGE_NAME.Contains("ui_session") ) { 
                                     %>
-                                        <li id="switch-to-delegee" class="">
-                                            <a href="#">Switch to User<span class="drop"></span></a>
-                                            <ul id="delegees-dropdown">
-                                                <% foreach(KeyValuePair<string, string> delegeeRecord in current_session.ListOfDelegees) { %>
-                                                    <li class="last-child">
-                                                        <a href="../user/delegees.aspx?identity=<%= delegeeRecord.Key %>">
-                                                            <%= delegeeRecord.Value %>
-                                                        </a>
-                                                    </li>
+                                        <li id="user-tab" class="">
+                                            <a href="#"><%= current_session.EffectiveDisplayName %><span class="drop"></span></a>
+                                            <ul id="user-dropdown">
+                                                <li class="first-child"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
+                                                <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
+                                                <li class=""><a title="Bills History" href="../user/bills.aspx">Bills History</a></li>
+                                                <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
+                                                <% if(current_session.PrimarySipAccount == current_session.EffectiveSipAccount) { %>
+                                                    <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
+                                                    <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
+                                                <% } else { %>
+                                                    <li class="last-child"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
                                                 <% } %>
                                             </ul>
                                         </li>
-                                    <% } %>
 
-                                    <%
-                                        //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
-                                        bool higher_access = (current_session.IsAccountant || current_session.IsDeveloper || current_session.IsAdmin) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
-                                        if (higher_access) {
-                                    %>
-                                        <li id="switch-roles" class="">
-                                            <a href="#">Elevate Access<span class="drop"></span></a>
-                                            <ul id="roles-dropdown">
-                                                <% if(current_session.IsAccountant || current_session.IsDeveloper) { %>
-                                                    <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../accounting/main/dashboard.aspx">Accounting Role</a></li>
-                                                <% } if (current_session.IsAdmin || current_session.IsDeveloper) { %>
-                                                    <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../admin/main/dashboard.aspx">Administrator Role</a></li>
-                                                <% } %>
-                                            </ul>
-                                        </li>
-                                    <% } %>
+                                        <%
+                                            //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
+                                            bool is_delegate = (current_session.IsDelegate || current_session.IsDeveloper) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount) && current_session.ListOfDelegees.Count > 0;
+                                            if (is_delegate)
+                                            {
+                                        %>
+                                            <li id="switch-to-delegee" class="">
+                                                <a href="#">Switch to User<span class="drop"></span></a>
+                                                <ul id="delegees-dropdown">
+                                                    <% foreach(KeyValuePair<string, string> delegeeRecord in current_session.ListOfDelegees) { %>
+                                                        <li class="last-child">
+                                                            <a href="../user/delegees.aspx?identity=<%= delegeeRecord.Key %>">
+                                                                <%= delegeeRecord.Value %>
+                                                            </a>
+                                                        </li>
+                                                    <% } %>
+                                                </ul>
+                                            </li>
+                                        <% } %>
+
+                                        <%
+                                            //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
+                                            bool higher_access = (current_session.IsAccountant || current_session.IsDeveloper || current_session.IsAdmin) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
+                                            if (higher_access) {
+                                        %>
+                                            <li id="switch-roles" class="">
+                                                <a href="#">Elevate Access<span class="drop"></span></a>
+                                                <ul id="roles-dropdown">
+                                                    <% if(current_session.IsAccountant || current_session.IsDeveloper) { %>
+                                                        <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../session/authenticate.aspx?access=accounting">Accounting Role</a></li>
+                                                    <% } if (current_session.IsAdmin || current_session.IsDeveloper) { %>
+                                                        <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../session/authenticate.aspx?access=admin">Administrator Role</a></li>
+                                                    <% } %>
+                                                </ul>
+                                            </li>
+                                        <% } %>
                                     
-                                    <% if(current_session.PrimarySipAccount != current_session.EffectiveSipAccount) { %>
-                                        <li id="access-tab">
-                                            <a title="Drop delegee access" href="../user/delegees.aspx?identity=<%= current_session.PrimarySipAccount %>">Drop Delegee Access<span class="shutdown"></span></a>
-                                        </li>
+                                        <% if(current_session.PrimarySipAccount != current_session.EffectiveSipAccount) { %>
+                                            <li id="access-tab">
+                                                <a title="Drop delegee access" href="../user/delegees.aspx?identity=<%= current_session.PrimarySipAccount %>">Drop Delegee Access<span class="shutdown"></span></a>
+                                            </li>
+                                        <% } %>
                                     <% } %>
                                 </ul>
                             </div>

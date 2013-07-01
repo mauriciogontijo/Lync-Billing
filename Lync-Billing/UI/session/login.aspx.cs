@@ -77,8 +77,6 @@ namespace Lync_Billing.ui.session
                     {
                         userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
 
-                        session.ActiveRoleName = "USER";
-
                         if (userRoles.Count > 0)
                         {
                             session.Roles = userRoles;
@@ -104,6 +102,7 @@ namespace Lync_Billing.ui.session
                             Users.UpdateUser(user);
                         }
 
+                        session.ActiveRoleName = "user";
                         session.SiteName = userInfo.physicalDeliveryOfficeName;
                         session.EmployeeID = userInfo.EmployeeID;
                         session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
@@ -113,7 +112,7 @@ namespace Lync_Billing.ui.session
                     }
                     else
                     {
-                        session.ActiveRoleName = "USER";
+                        session.ActiveRoleName = "user";
                         session.EmployeeID = userInfo.EmployeeID;
                         session.SiteName = userInfo.physicalDeliveryOfficeName;
                         session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");

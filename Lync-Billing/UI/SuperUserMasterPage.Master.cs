@@ -15,12 +15,16 @@ namespace Lync_Billing.ui
 {
     public partial class SuperUserMasterPage : System.Web.UI.MasterPage
     {
+        public UserSession current_session { get; set; }
         public string HTML_SELECTED = string.Empty;
         public string PAGE_NAME = string.Empty;
         public string DROP_ACCESS_BUTTON_TEXT = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Initialize the local cope of the current user's session
+            current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
             //Initialize the sidebar-selected css class string
             HTML_SELECTED = "class='selected'";
 
