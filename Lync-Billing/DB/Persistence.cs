@@ -98,7 +98,24 @@ namespace Lync_Billing.DB
 
         public void UpdateDefinition(Persistence defention) 
         {
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
 
+            //Set Part
+            if ((defention.Module).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Persistence.Module), defention.Module);
+
+            if (defention.ModuleKey != null)
+                setPart.Add(Enums.GetDescription(Enums.Persistence.ModuleKey), defention.ModuleKey);
+
+            if (defention.ModuleValue != null)
+                setPart.Add(Enums.GetDescription(Enums.Persistence.ModuleValue), defention.ModuleValue);
+
+            //Execute Update
+            DBRoutines.UPDATE(
+                Enums.GetDescription(Enums.Persistence.TableName),
+                setPart,
+                Enums.GetDescription(Enums.Persistence.ID),
+                defention.ID);
         }
 
        
