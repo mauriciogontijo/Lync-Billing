@@ -147,6 +147,7 @@ namespace Lync_Billing.ui.session
                         else
                         {
                             //the value of the access_level hidden field has changed - fraud value!
+                            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).ActiveRoleName = "user";
                             Response.Redirect("~/ui/user/dashboard.aspx");
                         }
                     }
