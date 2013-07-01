@@ -15,7 +15,7 @@ namespace Lync_Billing.ui.accounting.main
 {
     public partial class dashboard : System.Web.UI.Page
     {
-        public UserSession current_session { get; set; }
+        public UserSession currentSession { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,16 +25,41 @@ namespace Lync_Billing.ui.accounting.main
                 string redirect_to = @"~/ui/accounting/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
+                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
                 //Initialize the local cope of the current user's session
-                current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+                currentSession = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if ((!current_session.IsDeveloper || !current_session.IsAccountant) && current_session.PrimarySipAccount != current_session.EffectiveSipAccount && current_session.ActiveRoleName != "accounting")
+                if (currentSession.ActiveRoleName != "accounting")
                 {
-                    Response.Redirect("~/ui/user/dashboard.aspx");
+                    Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
                 }
+
+                //if ((currentSession.IsDeveloper || currentSession.IsAccountant))
+                //{
+                //    if (currentSession.PrimarySipAccount == currentSession.EffectiveSipAccount)
+                //    {
+                //        if (currentSession.ActiveRoleName != "accounting")
+                //        {
+                //            Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        Response.Redirect("~/ui/user/dashboard.aspx");
+                //    }
+                //}
+                //else
+                //{
+                //    Response.Redirect("~/ui/user/dashboard.aspx");
+                //}
+
+                //if ((!current_session.IsDeveloper || !current_session.IsAccountant) && current_session.PrimarySipAccount != current_session.EffectiveSipAccount && current_session.ActiveRoleName != "accounting")
+                //{
+                //    Response.Redirect("~/ui/user/dashboard.aspx");
+                //}
             }
         }
     }

@@ -35,7 +35,7 @@
         <form id="form1" runat="server">
             <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
 
-            <% if(Session.Contents["UserData"] != null) { %>
+            <% if (currentSession != null) { %>
                 <div  class="smart-block tool-dark-bg liquid toolbar " >
                     <div class="hwrapper rtl  ">
                         <div class="col size2of3">
@@ -43,7 +43,7 @@
                                 <ul id="navigation-tabs" class="vertical-navigation " >
                                     <li id="access-tab">
                                         <%--<a title="Drop accounting access" href="../../user/dashboard.aspx">Drop Accounting Access<span class="shutdown"></span></a>--%>
-                                        <a title="Drop accounting access" href="../../session/authenticate.aspx?drop=<%= current_session.ActiveRoleName %>">Drop Accounting Access<span class="shutdown"></span></a>
+                                        <a title="Drop accounting access" href="../../session/authenticate.aspx?drop=<%= currentSession.ActiveRoleName %>">Drop Accounting Access<span class="shutdown"></span></a>
                                     </li>
                                 </ul>
                             </div>

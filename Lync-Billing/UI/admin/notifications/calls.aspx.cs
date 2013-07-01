@@ -26,15 +26,16 @@ namespace Lync_Billing.ui.admin.notifications
                 string redirect_to = @"~/ui/admin/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
+                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
                 UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
-                if ((!session.IsDeveloper || !session.IsAdmin) && session.PrimarySipAccount != session.EffectiveSipAccount && session.ActiveRoleName != "admin")
+                if (session.ActiveRoleName != "admin")
                 {
-                    Response.Redirect("~/ui/user/dashboard.aspx");
+                    Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
                 }
             }
 

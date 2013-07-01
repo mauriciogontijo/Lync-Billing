@@ -26,15 +26,16 @@ namespace Lync_Billing.ui.accounting.main
                 string redirect_to = @"~/ui/accounting/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
+                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
                 UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
-                if ((!session.IsDeveloper || !session.IsAccountant) && session.PrimarySipAccount != session.EffectiveSipAccount && session.ActiveRoleName != "accounting")
+                if (session.ActiveRoleName != "accounting")
                 {
-                    Response.Redirect("~/ui/user/dashboard.aspx");
+                    Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
                 }
             }
         }
