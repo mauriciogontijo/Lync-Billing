@@ -319,6 +319,20 @@ namespace Lync_Billing.DB
             TemplateBody
         }
 
+        public enum Persistence 
+        {
+            [Description("Persistence")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("Module")]
+            Module,
+            [Description("Module_Key")]
+            Module_Key,
+            [Description("Module_Value")]
+            Module_Value
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
