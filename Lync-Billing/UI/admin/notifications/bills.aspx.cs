@@ -198,7 +198,7 @@ namespace Lync_Billing.ui.admin.notifications
                             DB.Misc.ConvertSecondsToReadable(userSummary.PersonalCallsDuration),
                             userSummary.PersonalCallsCost);
 
-                Mailer mailer = new Mailer("sghaida@ccc.gr", subject, RealBody);
+                Mailer mailer = new Mailer(sipAccount, subject, RealBody);
             }
 
         }

@@ -174,7 +174,7 @@ namespace Lync_Billing.ui.admin.notifications
                             userSummary.UnmarkedCallsCost,
                             DB.Misc.ConvertSecondsToReadable(userSummary.UnmarkedCallsDuration));
 
-                Mailer mailer = new Mailer("sghaida@ccc.gr", subject, RealBody);
+                Mailer mailer = new Mailer(sipAccount, subject, RealBody);
             }
            
         }
