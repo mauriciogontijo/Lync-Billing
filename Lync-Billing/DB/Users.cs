@@ -41,10 +41,10 @@ namespace Lync_Billing.DB
                         user.SipAccount = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName))
-                        user.FullName = (string)row[column.ColumnName];
+                        user.SiteName = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_DisplayName))
-                        user.SiteName = (string)row[column.ColumnName];
+                        user.FullName = (string)row[column.ColumnName];
                 }
                 users.Add(user);
             }
