@@ -150,7 +150,7 @@ namespace Lync_Billing.ui.user
         protected void AssignAllPersonal(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            sipAccount = userSession.PrimarySipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -192,7 +192,7 @@ namespace Lync_Billing.ui.user
         protected void AssignAllBusiness(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            sipAccount = userSession.PrimarySipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -359,7 +359,7 @@ namespace Lync_Billing.ui.user
         protected void AssignAlwaysPersonal(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            sipAccount = userSession.PrimarySipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -392,7 +392,7 @@ namespace Lync_Billing.ui.user
                 {
                     phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
                     phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
-                    phoneBookEntry.SipAccount = sipAccount;
+                    phoneBookEntry.SipAccount = userSession.EffectiveSipAccount;
                     phoneBookEntry.Type = "Personal";
 
                     //Add Phonebook entry to Session and to the list which will be written to database 
@@ -425,7 +425,7 @@ namespace Lync_Billing.ui.user
         protected void AssignAlwaysBusiness(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            sipAccount = userSession.PrimarySipAccount;
 
             RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -458,7 +458,7 @@ namespace Lync_Billing.ui.user
                 {
                     phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
                     phoneBookEntry.DestinationNumber = phoneCall.DestinationNumberUri;
-                    phoneBookEntry.SipAccount = sipAccount;
+                    phoneBookEntry.SipAccount = userSession.EffectiveSipAccount;
                     phoneBookEntry.Type = "Business";
 
                     //Add Phonebook entry to Session and to the list which will be written to database 
