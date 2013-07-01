@@ -118,6 +118,14 @@ namespace Lync_Billing.DB
                 defention.ID);
         }
 
+        public void DeleteDefention(Persistence defention) 
+        {
+            bool status = false;
+
+            status = DBRoutines.DELETE(
+                Enums.GetDescription(Enums.Persistence.TableName),
+                Enums.GetDescription(Enums.Persistence.ID), defention.ID);
+        }
        
     }
 }
