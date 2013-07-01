@@ -48,7 +48,7 @@ namespace Lync_Billing.DB
             return definitions;
         }
 
-        public Dictionary<string, string> GetDefinitions() 
+        public Dictionary<string, string> GetDefinitionsDict() 
         {
             Persistence definition;
             DataTable dt = new DataTable();
