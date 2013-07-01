@@ -328,9 +328,9 @@ namespace Lync_Billing.DB
             [Description("Module")]
             Module,
             [Description("Module_Key")]
-            Module_Key,
+            ModuleKey,
             [Description("Module_Value")]
-            Module_Value
+            ModuleValue
         }
 
         /// <summary>
