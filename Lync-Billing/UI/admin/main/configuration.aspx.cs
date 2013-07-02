@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Lync_Billing.ui.admin.users
+namespace Lync_Billing.ui.admin.main
 {
-    public partial class delegates : System.Web.UI.Page
+    public partial class configuration : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
