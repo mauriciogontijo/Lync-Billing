@@ -2,36 +2,6 @@
 
 <asp:Content ID="HeaderContentPlaceHolder" ContentPlaceHolderID="head" runat="server">
     <title>eBill Admin | Manage Application Configuration</title>
-
-     <ext:XScript ID="XScript1" runat="server">
-        <script>
-            var addRecord = function () {
-                var grid = #{AppConfigGrid};
-                grid.editingPlugin.cancelEdit();
-
-                // Create a record instance through the ModelManager
-                var r = Ext.ModelManager.create({
-                    module: 'New Module',
-                    modulekey: 'New Module Key',
-                    modulevalue: 'New Module Value',
-                }, 'Record');
-
-                grid.store.insert(0, r);
-                grid.editingPlugin.startEdit(0, 0);
-            };
-            
-            //var removeRecord = function () {
-            //    var grid = #{AppConfigGrid},
-            //        sm = grid.getSelectionModel();
-
-            //    grid.editingPlugin.cancelEdit();
-            //    grid.store.remove(sm.getSelection());
-            //    if (grid.store.getCount() > 0) {
-            //        sm.select(0);
-            //    }
-            //};
-        </script>
-    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="MainBodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -57,22 +27,14 @@
                         <Model>
                             <ext:Model ID="AppConfigStoreModel" runat="server">
                                 <Fields>
-                                    <ext:ModelField Name="Module" Type="String" />
-                                    <ext:ModelField Name="ModuleKey" Type="String" />
-                                    <ext:ModelField Name="ModuleValue" Type="String" />
+                                    <ext:ModelField Name="module" ServerMapping="Module" Type="String" />
+                                    <ext:ModelField Name="modulekey" ServerMapping="ModuleKey" Type="String" />
+                                    <ext:ModelField Name="modulevalue" ServerMapping="Modulevalue" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
                     </ext:Store>
                 </Store>
-
-                <Plugins>
-                    <ext:RowEditing
-                        ID="RowEditing1"
-                        runat="server"
-                        ClicksToMoveEditor="1"
-                        AutoCancel="false" />
-                </Plugins> 
 
                 <ColumnModel
                     ID="AppConfigGridColumnModel"
@@ -80,51 +42,73 @@
                     <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
 
-                        <ext:Column
+                        <ext:ComponentColumn
                             ID="ModuleNameCol"
                             runat="server"
-                            DataIndex="Module"
-                            Width="200"
                             Text="Module Name"
-                            Align="Left"
-                            Flex="1">
-                            <Editor>
+                            Width="180"
+                            Editor="true"
+                            OverOnly="true"
+                            DataIndex="Module"
+                            PinEvents="expand"
+                            UnpinEvents="collapse">
+                            <Component>
                                 <ext:TextField
                                     ID="ModuleNameTextbox"
                                     runat="server"
-                                    AllowBlank="false" />
-                            </Editor>
-                        </ext:Column>
+                                    DataIndex="Module" />
+                            </Component>
+                        </ext:ComponentColumn>
 
-                        <ext:Column
+                        <ext:ComponentColumn
                             ID="ModuleKeyCol"
                             runat="server"
                             DataIndex="ModuleKey"
-                            Width="200"
                             Text="Module Key"
-                            Align="Left">
-                            <Editor>
+                            Width="220"
+                            Editor="true"
+                            OverOnly="true"
+                            PinEvents="expand"
+                            UnpinEvents="collapse">
+                            <Component>
                                 <ext:TextField
                                     ID="ModuleKeyTextbox"
                                     runat="server"
-                                    AllowBlank="false" />
-                            </Editor>
-                        </ext:Column>
+                                    DataIndex="ModuleKey" />
+                            </Component>
+                        </ext:ComponentColumn>
 
-                        <ext:Column
+                        <ext:ComponentColumn
                             ID="ModuleValueCol"
                             runat="server"
-                            DataIndex="ModuleValue"
-                            Width="200"
                             Text="Module Value"
-                            Align="Left">
-                            <Editor>
+                            Width="240"
+                            Editor="true"
+                            OverOnly="true"
+                            DataIndex="ModuleValue"
+                            PinEvents="expand"
+                            UnpinEvents="collapse">
+                            <Component>
                                 <ext:TextField
                                     ID="ModuleValueTextbox"
                                     runat="server"
-                                    AllowBlank="false" />
-                            </Editor>
-                        </ext:Column>
+                                    DataIndex="ModuleValue" />
+                            </Component>
+                        </ext:ComponentColumn>
+
+                        <ext:ImageCommandColumn
+                            ID="DeleteRecordColumn"
+                            runat="server"
+                            Width="30"
+                            Sortable="false">
+                            <Commands>
+                                <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Record" CommandName="delete" />
+                            </Commands>
+
+                            <Listeners>
+                                <Command Handler="this.up('AppConfigGrid').store.removeAt(recordIndex);" />
+                            </Listeners>
+                        </ext:ImageCommandColumn>
                     </Columns>
                 </ColumnModel>
 
@@ -153,54 +137,27 @@
                         ID="AppConfigGridToolbar"
                         runat="server">
                         <Items>
-                            <ext:Label
-                                ID="ButtonGroupLable"
+                            <ext:Button
+                                ID="UpdateEditedRecords"
                                 runat="server"
-                                Margins="5 5 5 5">
-                                <Content>Selected:</Content>
-                            </ext:Label>
+                                Text="Save Changes"
+                                Icon="ApplicationEdit">
+                                <DirectEvents>
+                                    <Click OnEvent="UpdateEdited_DirectEvent">
+                                        <EventMask ShowMask="true" />
+                                        <ExtraParams>
+                                            <ext:Parameter Name="Values" Value="Ext.encode(#{AppConfigGrid}.getRowsValues(true))" Mode="Raw" />
+                                        </ExtraParams>
+                                    </Click>
+                                </DirectEvents>
+                            </ext:Button>
 
-                            <ext:ButtonGroup
-                                ID="AddEditDeleteButtonsGroup"
+                            <ext:Button
+                                ID="AddRecordButton"
                                 runat="server"
-                                Layout="TableLayout"
-                                Width="300"
-                                Frame="false"
-                                ButtonAlign="Left"
-                                Margins="0 0 0 0">
-                                <Buttons>
-                                    <ext:Button
-                                        ID="AddRecordButton"
-                                        runat="server"
-                                        Text="Add Record"
-                                        Icon="Add">
-                                        <Listeners>
-                                            <Click Fn="addRecord" />
-                                        </Listeners>
-                                    </ext:Button>
-
-                                    <ext:Button
-                                        ID="DeleteSelectedButton"
-                                        runat="server"
-                                        Text="Delete"
-                                        Icon="Delete">
-                                        <%--<DirectEvents>
-                                            <Click OnEvent="DeleteSelected_DirectEvent">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter
-                                                        Name="Values"
-                                                        Value="Ext.encode(#{AppConfigGrid}.getRowsValues({selectedOnly:true}))"
-                                                        Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>--%>
-                                        <Listeners>
-                                            <Click Handler="App.direct.DoConfirm()" />
-                                        </Listeners>
-                                    </ext:Button>
-                                </Buttons>
-                            </ext:ButtonGroup>
+                                Text="Add Record"
+                                Icon="Add">
+                            </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -209,58 +166,3 @@
     </div>
     <!-- *** END OF ADMIN MAIN BODY *** -->
 </asp:Content>
-
-
-<%--<ext:ComponentColumn
-    ID="ComponentColumn1"
-    runat="server"
-    Text="Module Name"
-    Width="240"
-    Editor="true"
-    OverOnly="true"
-    DataIndex="Module"
-    PinEvents="expand"
-    UnpinEvents="collapse">
-    <Component>
-        <ext:TextField
-            ID="ModuleNameTextbox"
-            runat="server"
-            DataIndex="Module" />
-    </Component>
-</ext:ComponentColumn>
-
-<ext:ComponentColumn
-    ID="ComponentColumn2"
-    runat="server"
-    Text="Module Key"
-    Width="240"
-    Editor="true"
-    OverOnly="true"
-    DataIndex="ModuleKey"
-    PinEvents="expand"
-    UnpinEvents="collapse">
-    <Component>
-        <ext:TextField
-            ID="ModuleKeyTextbox"
-            runat="server"
-            DataIndex="ModuleKey" />
-    </Component>
-</ext:ComponentColumn>
-
-<ext:ComponentColumn
-    ID="ComponentColumn3"
-    runat="server"
-    Text="Module Value"
-    Width="240"
-    Editor="true"
-    OverOnly="true"
-    DataIndex="ModuleValue"
-    PinEvents="expand"
-    UnpinEvents="collapse">
-    <Component>
-        <ext:TextField
-            ID="ModuleValueTextbox"
-            runat="server"
-            DataIndex="ModuleValue" />
-    </Component>
-</ext:ComponentColumn>--%>

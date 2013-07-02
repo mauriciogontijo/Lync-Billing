@@ -13,15 +13,6 @@ namespace Lync_Billing.ui.admin.main {
     public partial class configuration {
         
         /// <summary>
-        /// XScript1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.XScript XScript1;
-        
-        /// <summary>
         /// AppConfigGrid control.
         /// </summary>
         /// <remarks>
@@ -49,15 +40,6 @@ namespace Lync_Billing.ui.admin.main {
         protected global::Ext.Net.Model AppConfigStoreModel;
         
         /// <summary>
-        /// RowEditing1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.RowEditing RowEditing1;
-        
-        /// <summary>
         /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
@@ -73,7 +55,7 @@ namespace Lync_Billing.ui.admin.main {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column ModuleNameCol;
+        protected global::Ext.Net.ComponentColumn ModuleNameCol;
         
         /// <summary>
         /// ModuleNameTextbox control.
@@ -91,7 +73,7 @@ namespace Lync_Billing.ui.admin.main {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column ModuleKeyCol;
+        protected global::Ext.Net.ComponentColumn ModuleKeyCol;
         
         /// <summary>
         /// ModuleKeyTextbox control.
@@ -109,7 +91,7 @@ namespace Lync_Billing.ui.admin.main {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column ModuleValueCol;
+        protected global::Ext.Net.ComponentColumn ModuleValueCol;
         
         /// <summary>
         /// ModuleValueTextbox control.
@@ -119,6 +101,15 @@ namespace Lync_Billing.ui.admin.main {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.TextField ModuleValueTextbox;
+        
+        /// <summary>
+        /// DeleteRecordColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ImageCommandColumn DeleteRecordColumn;
         
         /// <summary>
         /// CheckboxSelectionModel1 control.
@@ -148,22 +139,13 @@ namespace Lync_Billing.ui.admin.main {
         protected global::Ext.Net.Toolbar AppConfigGridToolbar;
         
         /// <summary>
-        /// ButtonGroupLable control.
+        /// UpdateEditedRecords control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Label ButtonGroupLable;
-        
-        /// <summary>
-        /// AddEditDeleteButtonsGroup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ButtonGroup AddEditDeleteButtonsGroup;
+        protected global::Ext.Net.Button UpdateEditedRecords;
         
         /// <summary>
         /// AddRecordButton control.
@@ -173,14 +155,5 @@ namespace Lync_Billing.ui.admin.main {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button AddRecordButton;
-        
-        /// <summary>
-        /// DeleteSelectedButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button DeleteSelectedButton;
     }
 }

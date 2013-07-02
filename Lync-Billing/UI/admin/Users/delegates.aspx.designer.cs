@@ -55,7 +55,16 @@ namespace Lync_Billing.ui.admin.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column IDCol;
+        protected global::Ext.Net.ComponentColumn IDCol;
+        
+        /// <summary>
+        /// IDTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField IDTextbox;
         
         /// <summary>
         /// SipAccountCol control.
@@ -64,7 +73,16 @@ namespace Lync_Billing.ui.admin.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column SipAccountCol;
+        protected global::Ext.Net.ComponentColumn SipAccountCol;
+        
+        /// <summary>
+        /// SipAccountTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField SipAccountTextbox;
         
         /// <summary>
         /// DelegeeAccountCol control.
@@ -73,7 +91,16 @@ namespace Lync_Billing.ui.admin.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column DelegeeAccountCol;
+        protected global::Ext.Net.ComponentColumn DelegeeAccountCol;
+        
+        /// <summary>
+        /// DelegeeAccountTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField DelegeeAccountTextbox;
         
         /// <summary>
         /// DescriptionCol control.
@@ -82,7 +109,25 @@ namespace Lync_Billing.ui.admin.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column DescriptionCol;
+        protected global::Ext.Net.ComponentColumn DescriptionCol;
+        
+        /// <summary>
+        /// DescriptionTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField DescriptionTextbox;
+        
+        /// <summary>
+        /// DeleteRecordColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ImageCommandColumn DeleteRecordColumn;
         
         /// <summary>
         /// FilterDelegatesSitesToolBar control.
@@ -119,6 +164,15 @@ namespace Lync_Billing.ui.admin.users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Model DelegatesSitesModel;
+        
+        /// <summary>
+        /// UpdateEditedRecords control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button UpdateEditedRecords;
         
         /// <summary>
         /// ManageDelegatesCheckboxSelectionModel control.

@@ -47,7 +47,7 @@ namespace Lync_Billing.ui.admin.main
 
         }
 
-        protected void UpdateSelected_DirectEvent(object sender, DirectEventArgs e)
+        protected void UpdateEdited_DirectEvent(object sender, DirectEventArgs e)
         {
 
         }

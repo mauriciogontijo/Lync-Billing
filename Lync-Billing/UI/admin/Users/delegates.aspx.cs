@@ -134,5 +134,10 @@ namespace Lync_Billing.ui.admin.users
             }
             return usersList;
         }
+
+        protected void UpdateEdited_DirectEvent(object sender, DirectEventArgs e)
+        {
+
+        }
     }
 }

@@ -43,34 +43,93 @@
                     <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
 
-                        <ext:Column
+                        <ext:ComponentColumn
                             ID="IDCol"
                             runat="server"
                             Text="ID"
                             Width="160"
                             DataIndex="ID"
-                            Visible="false" />
+                            Visible="false"
+                            Editor="true"
+                            OverOnly="true"
+                            PinEvents="expand"
+                            UnpinEvents="collapse">
+                            <Component>
+                                <ext:TextField
+                                    ID="IDTextbox"
+                                    runat="server"
+                                    DataIndex="ID" />
+                            </Component>
 
-                        <ext:Column
+                        </ext:ComponentColumn>
+
+                        <ext:ComponentColumn
                             ID="SipAccountCol"
                             runat="server"
                             Text="User"
                             Width="160"
-                            DataIndex="SipAccount" />
+                            DataIndex="SipAccount"
+                            Editor="true"
+                            OverOnly="true"
+                            PinEvents="expand"
+                            UnpinEvents="collapse">
+                            <Component>
+                                <ext:TextField
+                                    ID="SipAccountTextbox"
+                                    runat="server"
+                                    DataIndex="SipAccount" />
+                            </Component>
+                        </ext:ComponentColumn>
 
-                        <ext:Column
+                        <ext:ComponentColumn
                             ID="DelegeeAccountCol"
                             runat="server"
                             Text="Delegate"
                             Width="160"
-                            DataIndex="DelegeeAccount" />
+                            DataIndex="DelegeeAccount"
+                            Editor="true"
+                            OverOnly="true"
+                            PinEvents="expand"
+                            UnpinEvents="collapse">
+                            <Component>
+                                <ext:TextField
+                                    ID="DelegeeAccountTextbox"
+                                    runat="server"
+                                    DataIndex="DelegeeAccount" />
+                            </Component>
+                        </ext:ComponentColumn>
 
-                        <ext:Column
+                        <ext:ComponentColumn
                             ID="DescriptionCol"
                             runat="server"
                             Text="Description"
-                            Width="350"
-                            DataIndex="Description" />
+                            Width="330"
+                            DataIndex="Description"
+                            Editor="true"
+                            OverOnly="true"
+                            PinEvents="expand"
+                            UnpinEvents="collapse">
+                            <Component>
+                                <ext:TextField
+                                    ID="DescriptionTextbox"
+                                    runat="server"
+                                    DataIndex="Description" />
+                            </Component>
+                        </ext:ComponentColumn>
+
+                        <ext:ImageCommandColumn
+                            ID="DeleteRecordColumn"
+                            runat="server"
+                            Width="30"
+                            Sortable="false">
+                            <Commands>
+                                <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Record" CommandName="delete" />
+                            </Commands>
+
+                            <Listeners>
+                                <Command Handler="this.up('ManageDelegatesGrids').store.removeAt(recordIndex);" />
+                            </Listeners>
+                        </ext:ImageCommandColumn>
                     </Columns>
                 </ColumnModel>
 
@@ -106,6 +165,21 @@
                                     <Change OnEvent="GetDelegates" />
                                 </DirectEvents>
                             </ext:ComboBox>
+
+                            <ext:Button
+                                ID="UpdateEditedRecords"
+                                runat="server"
+                                Text="Save Changes"
+                                Icon="ApplicationEdit">
+                                <DirectEvents>
+                                    <Click OnEvent="UpdateEdited_DirectEvent">
+                                        <EventMask ShowMask="true" />
+                                        <ExtraParams>
+                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageDelegatesGrids}.getRowsValues(true))" Mode="Raw" />
+                                        </ExtraParams>
+                                    </Click>
+                                </DirectEvents>
+                            </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
