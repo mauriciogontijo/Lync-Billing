@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.admin.main {
     public partial class configuration {
         
         /// <summary>
+        /// XScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript XScript1;
+        
+        /// <summary>
         /// AppConfigGrid control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace Lync_Billing.ui.admin.main {
         protected global::Ext.Net.Model AppConfigStoreModel;
         
         /// <summary>
+        /// RowEditing1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.RowEditing RowEditing1;
+        
+        /// <summary>
         /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,15 @@ namespace Lync_Billing.ui.admin.main {
         protected global::Ext.Net.Column ModuleNameCol;
         
         /// <summary>
+        /// ModuleNameTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField ModuleNameTextbox;
+        
+        /// <summary>
         /// ModuleKeyCol control.
         /// </summary>
         /// <remarks>
@@ -67,6 +94,15 @@ namespace Lync_Billing.ui.admin.main {
         protected global::Ext.Net.Column ModuleKeyCol;
         
         /// <summary>
+        /// ModuleKeyTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField ModuleKeyTextbox;
+        
+        /// <summary>
         /// ModuleValueCol control.
         /// </summary>
         /// <remarks>
@@ -74,6 +110,15 @@ namespace Lync_Billing.ui.admin.main {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column ModuleValueCol;
+        
+        /// <summary>
+        /// ModuleValueTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField ModuleValueTextbox;
         
         /// <summary>
         /// CheckboxSelectionModel1 control.
@@ -121,13 +166,13 @@ namespace Lync_Billing.ui.admin.main {
         protected global::Ext.Net.ButtonGroup AddEditDeleteButtonsGroup;
         
         /// <summary>
-        /// UpdateSelectedButton control.
+        /// AddRecordButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button UpdateSelectedButton;
+        protected global::Ext.Net.Button AddRecordButton;
         
         /// <summary>
         /// DeleteSelectedButton control.

@@ -1,6 +1,37 @@
-﻿<%@ Page Title="eBill Admin " Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="configuration.aspx.cs" Inherits="Lync_Billing.ui.admin.main.configuration" %>
+﻿<%@ Page Title="eBill Admin | Manage Application Configuration" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="configuration.aspx.cs" Inherits="Lync_Billing.ui.admin.main.configuration" %>
 
 <asp:Content ID="HeaderContentPlaceHolder" ContentPlaceHolderID="head" runat="server">
+    <title>eBill Admin | Manage Application Configuration</title>
+
+     <ext:XScript ID="XScript1" runat="server">
+        <script>
+            var addRecord = function () {
+                var grid = #{AppConfigGrid};
+                grid.editingPlugin.cancelEdit();
+
+                // Create a record instance through the ModelManager
+                var r = Ext.ModelManager.create({
+                    module: 'New Module',
+                    modulekey: 'New Module Key',
+                    modulevalue: 'New Module Value',
+                }, 'Record');
+
+                grid.store.insert(0, r);
+                grid.editingPlugin.startEdit(0, 0);
+            };
+            
+            //var removeRecord = function () {
+            //    var grid = #{AppConfigGrid},
+            //        sm = grid.getSelectionModel();
+
+            //    grid.editingPlugin.cancelEdit();
+            //    grid.store.remove(sm.getSelection());
+            //    if (grid.store.getCount() > 0) {
+            //        sm.select(0);
+            //    }
+            //};
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="MainBodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -36,6 +67,14 @@
                     </ext:Store>
                 </Store>
 
+                <Plugins>
+                    <ext:RowEditing
+                        ID="RowEditing1"
+                        runat="server"
+                        ClicksToMoveEditor="1"
+                        AutoCancel="false" />
+                </Plugins> 
+
                 <ColumnModel
                     ID="AppConfigGridColumnModel"
                     runat="server">
@@ -48,7 +87,15 @@
                             DataIndex="Module"
                             Width="200"
                             Text="Module Name"
-                            Align="Left" />
+                            Align="Left"
+                            Flex="1">
+                            <Editor>
+                                <ext:TextField
+                                    ID="ModuleNameTextbox"
+                                    runat="server"
+                                    AllowBlank="false" />
+                            </Editor>
+                        </ext:Column>
 
                         <ext:Column
                             ID="ModuleKeyCol"
@@ -56,7 +103,14 @@
                             DataIndex="ModuleKey"
                             Width="200"
                             Text="Module Key"
-                            Align="Left" />
+                            Align="Left">
+                            <Editor>
+                                <ext:TextField
+                                    ID="ModuleKeyTextbox"
+                                    runat="server"
+                                    AllowBlank="false" />
+                            </Editor>
+                        </ext:Column>
 
                         <ext:Column
                             ID="ModuleValueCol"
@@ -64,7 +118,14 @@
                             DataIndex="ModuleValue"
                             Width="200"
                             Text="Module Value"
-                            Align="Left" />
+                            Align="Left">
+                            <Editor>
+                                <ext:TextField
+                                    ID="ModuleValueTextbox"
+                                    runat="server"
+                                    AllowBlank="false" />
+                            </Editor>
+                        </ext:Column>
                     </Columns>
                 </ColumnModel>
 
@@ -110,21 +171,13 @@
                                 Margins="0 0 0 0">
                                 <Buttons>
                                     <ext:Button
-                                        ID="UpdateSelectedButton"
-                                        Text="Update"
+                                        ID="AddRecordButton"
                                         runat="server"
-                                        Icon="ApplicationEdit">
-                                        <DirectEvents>
-                                            <Click OnEvent="UpdateSelected_DirectEvent">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter
-                                                        Name="Values"
-                                                        Value="Ext.encode(#{AppConfigGrid}.getRowsValues({selectedOnly:true}))"
-                                                        Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
+                                        Text="Add Record"
+                                        Icon="Add">
+                                        <Listeners>
+                                            <Click Fn="addRecord" />
+                                        </Listeners>
                                     </ext:Button>
 
                                     <ext:Button
@@ -157,3 +210,58 @@
     </div>
     <!-- *** END OF ADMIN MAIN BODY *** -->
 </asp:Content>
+
+
+<%--<ext:ComponentColumn
+    ID="ComponentColumn1"
+    runat="server"
+    Text="Module Name"
+    Width="240"
+    Editor="true"
+    OverOnly="true"
+    DataIndex="Module"
+    PinEvents="expand"
+    UnpinEvents="collapse">
+    <Component>
+        <ext:TextField
+            ID="ModuleNameTextbox"
+            runat="server"
+            DataIndex="Module" />
+    </Component>
+</ext:ComponentColumn>
+
+<ext:ComponentColumn
+    ID="ComponentColumn2"
+    runat="server"
+    Text="Module Key"
+    Width="240"
+    Editor="true"
+    OverOnly="true"
+    DataIndex="ModuleKey"
+    PinEvents="expand"
+    UnpinEvents="collapse">
+    <Component>
+        <ext:TextField
+            ID="ModuleKeyTextbox"
+            runat="server"
+            DataIndex="ModuleKey" />
+    </Component>
+</ext:ComponentColumn>
+
+<ext:ComponentColumn
+    ID="ComponentColumn3"
+    runat="server"
+    Text="Module Value"
+    Width="240"
+    Editor="true"
+    OverOnly="true"
+    DataIndex="ModuleValue"
+    PinEvents="expand"
+    UnpinEvents="collapse">
+    <Component>
+        <ext:TextField
+            ID="ModuleValueTextbox"
+            runat="server"
+            DataIndex="ModuleValue" />
+    </Component>
+</ext:ComponentColumn>--%>
