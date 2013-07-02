@@ -83,7 +83,7 @@ namespace Lync_Billing.ui.session
                             //set the value of hidden field in this page to the value of passed access variable.
                             this.access_level.Value = accessParam;
                             this.delegee_identity.Value = identityParam;
-                            SwitchToDelegee(identityParam);
+                            //SwitchToDelegee(identityParam);
 
                             //The user WOULD HAVE BEEN redirected if s/he weren't granted the elevated-access-permission s/he is asking for. But in this case, they passed the redirection.
                             redirection_flag = false;
@@ -147,6 +147,7 @@ namespace Lync_Billing.ui.session
                 }
             }
 
+            AuthenticationMessage = string.Empty;
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
         }
 
@@ -243,6 +244,19 @@ namespace Lync_Billing.ui.session
                         {
                             ((UserSession)HttpContext.Current.Session.Contents["UserData"]).ActiveRoleName = "accounting";
                             Response.Redirect("~/ui/accounting/main/dashboard.aspx");
+                        }
+                        else if (this.access_level.Value == "delegee" && this.delegee_identity != null)
+                        {
+                            if (session.ListOfDelegees.Keys.Contains(this.delegee_identity.Value))
+                            {
+                                SwitchToDelegee(this.delegee_identity.Value);
+                            }
+                            else
+                            {
+                                //the value of the access_level hidden field has changed - fraud value!
+                                ((UserSession)HttpContext.Current.Session.Contents["UserData"]).ActiveRoleName = "user";
+                                Response.Redirect("~/ui/user/dashboard.aspx");
+                            }
                         }
                         else
                         {
