@@ -108,6 +108,7 @@
     <Content Include="ui\admin\main\dashboard.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
+    <Content Include="ui\admin\Users\delegates.aspx" />
     <Content Include="ui\resources\css\dropdown-menu-white.css" />
     <Content Include="ui\resources\css\dropdown-menu.css" />
     <Content Include="ui\resources\css\global.css" />
@@ -218,6 +219,13 @@
     </Compile>
     <Compile Include="ui\admin\notifications\calls.aspx.designer.cs">
       <DependentUpon>calls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\admin\Users\delegates.aspx.cs">
+      <DependentUpon>delegates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\admin\Users\delegates.aspx.designer.cs">
+      <DependentUpon>delegates.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\SuperUserMasterPage.Master.cs">
       <DependentUpon>SuperUserMasterPage.Master</DependentUpon>
