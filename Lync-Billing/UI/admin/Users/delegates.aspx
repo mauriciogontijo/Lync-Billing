@@ -97,7 +97,7 @@
 
                         <ext:ImageCommandColumn ID="ImageCommandColumn1" runat="server" Width="30" Sortable="false">
                             <Commands>
-                                <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Plant" CommandName="delete">                            
+                                <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Delegate" CommandName="delete">                            
                                 </ext:ImageCommand>
                             </Commands>
                             <Listeners>
