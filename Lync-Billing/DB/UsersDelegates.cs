@@ -210,7 +210,7 @@ namespace Lync_Billing.DB
 
             Dictionary<string,object> wherePart = new Dictionary<string,object>();
             wherePart.Add("SipAccount",delegee.SipAccount);
-            wherePart.Add("Delegee",delegee.DelegeeAccount);
+            wherePart.Add("DelegeeAccount", delegee.DelegeeAccount);
 
             status = DBRoutines.DELETE(Enums.GetDescription(Enums.Delegates.TableName), wherePart);
 
