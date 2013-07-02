@@ -53,6 +53,41 @@ namespace Lync_Billing.DB
 
         }
 
+        public static List<Users> GetUsers(string siteName) 
+        {
+            Users user = new Users();
+            DataTable dt = new DataTable();
+            List<Users> users = new List<Users>();
+
+            dt = DBRoutines.SELECT(
+                Enums.GetDescription(Enums.Users.TableName),
+                Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName),
+                siteName);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                user = new Users();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_UserID))
+                        user.UserID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
+                        user.SipAccount = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName))
+                        user.SiteName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_DisplayName))
+                        user.FullName = (string)row[column.ColumnName];
+                }
+                users.Add(user);
+            }
+
+            return users;
+        }
+
         public static int InsertUser(Users user)
         {
             int rowID = 0;
@@ -116,7 +151,6 @@ namespace Lync_Billing.DB
 
             return status;
         }
-
 
         /// <summary>
         /// Get All Related User Information From Active Directory
