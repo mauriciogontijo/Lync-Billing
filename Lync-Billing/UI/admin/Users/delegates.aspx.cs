@@ -60,7 +60,7 @@ namespace Lync_Billing.ui.admin.users
                 ManageDelegatesGrids.GetStore().DataBind();
             }
         }
-
+         
         public string GetSiteName(int siteID)
         {
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
