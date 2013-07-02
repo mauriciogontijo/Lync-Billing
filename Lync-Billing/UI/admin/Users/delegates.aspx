@@ -114,7 +114,7 @@
                                 <%--<DirectEvents>
                                     <Click OnEvent="NotifyUsers">
                                         <ExtraParams>
-                                            <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageDelegatesGrids}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
                                         </ExtraParams>
                                     </Click>
                                 </DirectEvents>--%>
