@@ -156,7 +156,7 @@
                                             <p>Users</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../users/delegates.aspx' id="A2">Manage Delegates</a></p>
+                                            <p><a href='../users/delegates.aspx' id="ui_admin_users_delegates">Manage Delegates</a></p>
                                         </div>
                                     </div>
 
@@ -165,7 +165,7 @@
                                             <p>Application Configuration</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../main/configuration.aspx' id="A1">Manage Configuration</a></p>
+                                            <p><a href='../main/configuration.aspx' id="ui_admin_main_configuration">Manage Configuration</a></p>
                                         </div>
                                     </div>
                                 </Content>
