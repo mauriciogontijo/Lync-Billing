@@ -123,7 +123,7 @@
                                     
                                         <% if(current_session.PrimarySipAccount != current_session.EffectiveSipAccount) { %>
                                             <li id="access-tab">
-                                                <a title="Drop delegee access" href="../user/delegees.aspx?identity=<%= current_session.PrimarySipAccount %>">Drop Delegee Access<span class="shutdown"></span></a>
+                                                <a title="Drop delegee access" href="../session/authenticate.aspx?drop=delegee">Drop Delegee Access<span class="shutdown"></span></a>
                                             </li>
                                         <% } %>
                                     <% } %>
