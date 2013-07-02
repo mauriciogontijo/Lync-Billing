@@ -57,8 +57,8 @@ namespace Lync_Billing.ui.admin.users
 
                 tmpUsersDelegates = usersDelgates.Where(item => usersPersite.Contains(item.SipAccount)).ToList();
 
-                ManageDelegatesGrids.GetStore().DataSource = tmpUsersDelegates;
-                ManageDelegatesGrids.GetStore().DataBind();
+                ManageDelegatesGrid.GetStore().DataSource = tmpUsersDelegates;
+                ManageDelegatesGrid.GetStore().DataBind();
             }
         }
          

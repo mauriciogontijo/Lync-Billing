@@ -10,7 +10,7 @@
         <div class="block-body pt5">
 
             <ext:GridPanel
-                ID="ManageDelegatesGrids"
+                ID="ManageDelegatesGrid"
                 runat="server"
                 Width="740"
                 Height="720"
@@ -54,80 +54,56 @@
                             OverOnly="true"
                             PinEvents="expand"
                             UnpinEvents="collapse">
-                            <Component>
-                                <ext:TextField
-                                    ID="IDTextbox"
-                                    runat="server"
-                                    DataIndex="ID" />
-                            </Component>
-
                         </ext:ComponentColumn>
 
-                        <ext:ComponentColumn
-                            ID="SipAccountCol"
+                        <ext:Column
                             runat="server"
                             Text="User"
                             Width="160"
-                            DataIndex="SipAccount"
-                            Editor="true"
-                            OverOnly="true"
-                            PinEvents="expand"
-                            UnpinEvents="collapse">
-                            <Component>
+                            DataIndex="SipAccount">
+                            <Editor>
                                 <ext:TextField
                                     ID="SipAccountTextbox"
                                     runat="server"
                                     DataIndex="SipAccount" />
-                            </Component>
-                        </ext:ComponentColumn>
+                            </Editor>
+                        </ext:Column>
 
-                        <ext:ComponentColumn
-                            ID="DelegeeAccountCol"
+                        <ext:Column
                             runat="server"
                             Text="Delegate"
                             Width="160"
-                            DataIndex="DelegeeAccount"
-                            Editor="true"
-                            OverOnly="true"
-                            PinEvents="expand"
-                            UnpinEvents="collapse">
-                            <Component>
+                            DataIndex="DelegeeAccount">
+                            <Editor>
                                 <ext:TextField
                                     ID="DelegeeAccountTextbox"
                                     runat="server"
                                     DataIndex="DelegeeAccount" />
-                            </Component>
-                        </ext:ComponentColumn>
+                            </Editor>
+                        </ext:Column>
 
-                        <ext:ComponentColumn
-                            ID="DescriptionCol"
+                        <ext:Column
                             runat="server"
                             Text="Description"
                             Width="330"
-                            DataIndex="Description"
-                            Editor="true"
-                            OverOnly="true"
-                            PinEvents="expand"
-                            UnpinEvents="collapse">
-                            <Component>
+                            DataIndex="Description">
+                            <Editor>
                                 <ext:TextField
                                     ID="DescriptionTextbox"
                                     runat="server"
                                     DataIndex="Description" />
-                            </Component>
-                        </ext:ComponentColumn>
+                            </Editor>
+                        </ext:Column>
 
                         <ext:ImageCommandColumn
-                            ID="DeleteRecordColumn"
                             runat="server"
                             Width="30"
                             Sortable="false">
                             <Commands>
                                 <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Record" CommandName="delete" />
                             </Commands>
-
                             <Listeners>
-                                <Command Handler="this.up('ManageDelegatesGrids').store.removeAt(recordIndex);" />
+                                <Command Handler="this.up('ManageDelegatesGrid').store.removeAt(recordIndex);" />
                             </Listeners>
                         </ext:ImageCommandColumn>
                     </Columns>
@@ -185,14 +161,11 @@
                 </TopBar>
 
                 <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="ManageDelegatesCheckboxSelectionModel"
-                        runat="server"
-                        Mode="Multi"
-                        AllowDeselect="true"
-                        IgnoreRightMouseSelection="true"
-                        CheckOnly="true">
-                    </ext:CheckboxSelectionModel>
+                     <ext:RowSelectionModel ID="RowSelectionModel1" runat="server" />
                 </SelectionModel>
+                 <Plugins>
+                    <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
+                </Plugins>
 
                 <BottomBar>
                     <ext:PagingToolbar
