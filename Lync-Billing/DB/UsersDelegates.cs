@@ -59,7 +59,36 @@ namespace Lync_Billing.DB
             return DelegatedAccounts;
         }
 
+        public static List<UsersDelegates> GetDelgatees() 
+        {
+            UsersDelegates delegatedAccount;
+            List<UsersDelegates> DelegatedAccounts = new List<UsersDelegates>();
+            DataTable dt = new DataTable();
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName));
 
+            foreach (DataRow row in dt.Rows)
+            {
+                delegatedAccount = new UsersDelegates();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
+                        delegatedAccount.ID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeAccount) && row[column.ColumnName] != System.DBNull.Value)
+                        delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
+                        delegatedAccount.SipAccount = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Description) && row[column.ColumnName] != System.DBNull.Value)
+                        delegatedAccount.Description = (string)row[column.ColumnName];
+                }
+                DelegatedAccounts.Add(delegatedAccount);
+            }
+
+            return DelegatedAccounts;
+        }
         /*
          * This function returns a dictionary of the delegees sip-accounts and names {sip => name}, if they exist!
          **/
