@@ -172,10 +172,10 @@
                                 Text="Save Changes"
                                 Icon="ApplicationEdit">
                                 <DirectEvents>
-                                    <Click OnEvent="UpdateEdited_DirectEvent">
+                                    <Click OnEvent="UpdateEdited_DirectEvent" before="return #{ManageDelegatesStore}.isDirty();">
                                         <EventMask ShowMask="true" />
                                         <ExtraParams>
-                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageDelegatesGrids}.getRowsValues(true))" Mode="Raw" />
+                                            <ext:Parameter Name="Values" Value="#{ManageDelegatesStore}.getChangedData()" Mode="Raw" />
                                         </ExtraParams>
                                     </Click>
                                 </DirectEvents>

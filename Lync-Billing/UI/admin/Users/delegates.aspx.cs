@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Lync_Billing.DB;
 using Ext.Net;
+using Newtonsoft.Json;
 
 namespace Lync_Billing.ui.admin.users
 {
@@ -137,7 +138,20 @@ namespace Lync_Billing.ui.admin.users
 
         protected void UpdateEdited_DirectEvent(object sender, DirectEventArgs e)
         {
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
 
+            sipAccount = userSession.EffectiveSipAccount;
+            string json = e.ExtraParams["Values"];
+
+            List<UsersDelegates> recordsToUpate = new List<UsersDelegates>();
+
+            ChangeRecords<UsersDelegates> toBeUpdated = new StoreDataHandler(e.ExtraParams["Values"]).BatchObjectData<UsersDelegates>();
+
+            foreach (UsersDelegates userDelgate in toBeUpdated.Updated) 
+            {
+                UsersDelegates.UpadeDelegate(userDelgate);
+                ManageDelegatesStore.GetById(userDelgate.ID).Commit();
+            }
         }
     }
 }
