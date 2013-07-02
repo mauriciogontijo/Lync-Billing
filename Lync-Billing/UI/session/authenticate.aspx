@@ -14,8 +14,8 @@
     <div class="front-card">
 		<div class="front-welcome float-left p10">
 			<div class="front-welcome-text">
-			    <h1 class="italic">You have requested an elevated access</h1>
-			    <p>Please note that you must authenticate your information before proceeding any further.</p>
+			    <h1 class="italic"><%= HeaderAuthBoxMessage %></h1>
+			    <p><%= ParagraphAuthBoxMessage %></p>
 			</div>
 		</div>
 

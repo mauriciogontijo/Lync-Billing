@@ -14,16 +14,22 @@ namespace Lync_Billing.ui.session
     {
         public AdLib athenticator = new AdLib();
         public string AuthenticationMessage { get; set; }
+        public string HeaderAuthBoxMessage { get; set; }
+        public string ParagraphAuthBoxMessage { get; set; }
         public string sipAccount = string.Empty;
-        
+
         private string accessParam = string.Empty;
         private string identityParam = string.Empty;
         private string dropParam = string.Empty;
-        private bool redirection_flag = true;
+        private bool redirectionFlag = true;
         private List<string> AccessLevels = new List<string>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            HeaderAuthBoxMessage = string.Empty;
+            ParagraphAuthBoxMessage = string.Empty;
+            AuthenticationMessage = string.Empty;
+
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
@@ -40,7 +46,7 @@ namespace Lync_Billing.ui.session
                 
                 //Initialize the redirection flag to true. This is responsible for redirecting the user.
                 //In the default state, the user must be redirected unless the request was valid and the redirection_flag was set to false.
-                redirection_flag = true;
+                redirectionFlag = true;
 
                 /*
                  * The User must pass the following autentiaction criteria
@@ -59,15 +65,23 @@ namespace Lync_Billing.ui.session
                     if (!string.IsNullOrEmpty(Request.QueryString["access"]) && AccessLevels.Contains(Request.QueryString["access"].ToLower()) && string.IsNullOrEmpty(Request.QueryString["identity"]))
                     {
                         accessParam = Request.QueryString["access"].ToLower();
+                        HeaderAuthBoxMessage = "You have requested an elevated access";
+                        ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
+
+                        //if the user was authenticated already
+                        if (session.ActiveRoleName != "user" && (session.IsAdmin || session.IsAccountant || session.IsDeveloper))
+                        {
+                            RedirectToElevatedAccessDasboard(session.ActiveRoleName);
+                        }
 
                         //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
-                        if ((accessParam == "admin" && session.IsAdmin) || (accessParam == "accounting" && session.IsAccountant) || session.IsDeveloper)
+                        else if ((accessParam == "admin" && session.IsAdmin) || (accessParam == "accounting" && session.IsAccountant) || session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
                             this.access_level.Value = accessParam;
 
                             //The user WOULD HAvE BEEN redirected if s/he weren't granted the elevated-access-permission s/he is asking for. But in this case, they passed the redirection.
-                            redirection_flag = false;
+                            redirectionFlag = false;
                         }
                     }
 
@@ -76,6 +90,8 @@ namespace Lync_Billing.ui.session
                     {
                         accessParam = Request.QueryString["access"].ToLower();
                         identityParam = Request.QueryString["identity"]; //NEVER LOWER CASE - This is SipAccount
+                        HeaderAuthBoxMessage = "You have requested to manage a delegee account";
+                        ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
 
                         //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
                         if ((session.IsDelegate && accessParam == "delegee" && session.ListOfDelegees.Keys.Contains(identityParam)) || session.IsDeveloper)
@@ -86,7 +102,7 @@ namespace Lync_Billing.ui.session
                             //SwitchToDelegee(identityParam);
 
                             //The user WOULD HAVE BEEN redirected if s/he weren't granted the elevated-access-permission s/he is asking for. But in this case, they passed the redirection.
-                            redirection_flag = false;
+                            redirectionFlag = false;
                         }
                     }
 
@@ -107,15 +123,17 @@ namespace Lync_Billing.ui.session
                                 //Notice the redirection which means that the user passed all the previous criteria and therefore, they shouldn't be redirected.
                                 //However if they didn't pass this last condition, the redirection flag will still hold the value FALSE and the last if condition will redirect
                                 //the user to the User Dashboard page.
-                                redirection_flag = false;
+                                redirectionFlag = false;
                             }
                         }
                         else
                         {
-                            if (session.ActiveRoleName == "admin") Response.Redirect("~/ui/admin/main/dashboard.aspx");
-                            else if (session.ActiveRoleName == "accounting") Response.Redirect("~/ui/accounting/main/dashboard.aspx");
-                            //else if (session.ActiveRoleName == "delegee") Response.Redirect("~/ui/user/dashboard.aspx");
-                            else redirection_flag = true;
+                            //The user was already authenticated, redirect him/het to the respective elevated access dashboard
+                            if (session.ActiveRoleName != "user" && session.ActiveRoleName != "delegee")
+                            {
+                                RedirectToElevatedAccessDasboard(session.ActiveRoleName);
+                            }
+                            else redirectionFlag = true;
                         }
                     }
                 }
@@ -134,21 +152,34 @@ namespace Lync_Billing.ui.session
                             //Notice the redirection which means that the user passed all the previous criteria and therefore, they shouldn't be redirected.
                             //However if they didn't pass this last condition, the redirection flag will still hold the value FALSE and the last if condition will redirect
                             //the user to the User Dashboard page.
-                            redirection_flag = false;
+                            redirectionFlag = false;
                         }
                     }
                 }
 
                 //if the user was not granted any elevated-access permission or he is currently in a manage-delegee mode, redirect him/her to the User Dashboard page.
                 //Or if the redirection_flag was not set to FALSE so far, we redurect the user to the USER DASHBOARD
-                if(redirection_flag == true)
+                if(redirectionFlag == true)
                 {
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }
             }
 
-            AuthenticationMessage = string.Empty;
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+        }//END OF PAGE_LOAD
+
+
+        //This function handles the 
+        public void RedirectToElevatedAccessDasboard(string role)
+        {
+            if (role == "admin")
+            {
+                Response.Redirect("~/ui/admin/main/dashboard.aspx");
+            }
+            else if (role == "accounting")
+            {
+                Response.Redirect("~/ui/accounting/main/dashboard.aspx");
+            }
         }
 
 
