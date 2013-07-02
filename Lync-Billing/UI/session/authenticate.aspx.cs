@@ -159,7 +159,6 @@ namespace Lync_Billing.ui.session
             AccessLevels.Add("admin");
         }
 
-
         //This function handles the switching to delegees
         private void SwitchToDelegee(string delegeeSipAccount)
         {
@@ -167,19 +166,19 @@ namespace Lync_Billing.ui.session
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             //Switch identity
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount = delegeeSipAccount;
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveDisplayName = session.ListOfDelegees[session.EffectiveSipAccount];
+            session.EffectiveSipAccount = delegeeSipAccount;
+            session.EffectiveDisplayName = session.ListOfDelegees[session.EffectiveSipAccount];
 
             //Initialize the PhoneBook in the session
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = new Dictionary<string, PhoneBook>();
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
+            session.PhoneBook = new Dictionary<string, PhoneBook>();
+            session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
 
             //Clear the PhoneCalls containers in the session
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneCalls = new List<PhoneCall>();
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneCallsPerPage = string.Empty;
+            session.PhoneCalls = new List<PhoneCall>();
+            session.PhoneCallsPerPage = string.Empty;
 
             //Set the ActiveRoleName to "delegee"
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).ActiveRoleName = "delegee";
+            session.ActiveRoleName = "delegee";
 
             //Redirect to Uer Dashboard
             Response.Redirect("~/ui/user/dashboard.aspx");
@@ -195,20 +194,20 @@ namespace Lync_Billing.ui.session
             if (access == "delegee")
             {
                 //Switch back to original identity
-                ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount = session.PrimarySipAccount;
-                ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveDisplayName = session.PrimaryDisplayName;
+                session.EffectiveSipAccount = session.PrimarySipAccount;
+                session.EffectiveDisplayName = session.PrimaryDisplayName;
 
                 //Initialize the PhoneBook in the session
-                ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = new Dictionary<string, PhoneBook>();
-                ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
+                session.PhoneBook = new Dictionary<string, PhoneBook>();
+                session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
 
                 //Clear the PhoneCalls containers in the session
-                ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneCalls = new List<PhoneCall>();
-                ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneCallsPerPage = string.Empty;
+                session.PhoneCalls = new List<PhoneCall>();
+                session.PhoneCallsPerPage = string.Empty;
             }
             
             //Always set the ActiveRoleName to "user"
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).ActiveRoleName = "user";
+            session.ActiveRoleName = "user";
 
             //Redirect to the User Dashboard
             Response.Redirect("~/ui/user/dashboard.aspx");
@@ -238,12 +237,12 @@ namespace Lync_Billing.ui.session
                     {
                         if (this.access_level.Value == "admin")
                         {
-                            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).ActiveRoleName = "admin";
+                            session.ActiveRoleName = "admin";
                             Response.Redirect("~/ui/admin/main/dashboard.aspx");
                         }
                         else if (this.access_level.Value == "accounting")
                         {
-                            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).ActiveRoleName = "accounting";
+                            session.ActiveRoleName = "accounting";
                             Response.Redirect("~/ui/accounting/main/dashboard.aspx");
                         }
                         else if (this.access_level.Value == "delegee" && this.delegee_identity != null)
@@ -255,14 +254,14 @@ namespace Lync_Billing.ui.session
                             else
                             {
                                 //the value of the access_level hidden field has changed - fraud value!
-                                ((UserSession)HttpContext.Current.Session.Contents["UserData"]).ActiveRoleName = "user";
+                                session.ActiveRoleName = "user";
                                 Response.Redirect("~/ui/user/dashboard.aspx");
                             }
                         }
                         else
                         {
                             //the value of the access_level hidden field has changed - fraud value!
-                            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).ActiveRoleName = "user";
+                            session.ActiveRoleName = "user";
                             Response.Redirect("~/ui/user/dashboard.aspx");
                         }
                     }
@@ -270,7 +269,7 @@ namespace Lync_Billing.ui.session
                 else
                 {
                     //the value of the access_level hidden field has changed - fraud value!
-                    ((UserSession)HttpContext.Current.Session.Contents["UserData"]).ActiveRoleName = "user";
+                    session.ActiveRoleName = "user";
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }
 
