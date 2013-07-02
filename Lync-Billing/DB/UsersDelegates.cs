@@ -191,7 +191,7 @@ namespace Lync_Billing.DB
 
             //Execute Update
             status = DBRoutines.UPDATE(
-                Enums.GetDescription(Enums.GatewaysDetails.TableName),
+                Enums.GetDescription(Enums.Delegates.TableName),
                 setPart,
                 Enums.GetDescription(Enums.Delegates.ID),
                 delegee.ID);
