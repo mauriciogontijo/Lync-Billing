@@ -27,7 +27,7 @@
                         RemoteSort="true"
                         PageSize="25">
                         <Model>
-                            <ext:Model ID="ManageDelegatesModel" runat="server" IDProperty="SipAccount">
+                            <ext:Model ID="ManageDelegatesModel" runat="server" IDProperty="ID">
                                 <Fields>
                                     <ext:ModelField Name="ID" Type="Int" />
                                     <ext:ModelField Name="SipAccount" Type="String" />
