@@ -49,76 +49,76 @@ namespace Lync_Billing.ui.admin.users {
         protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
         
         /// <summary>
-        /// ID control.
+        /// IDCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column ID;
+        protected global::Ext.Net.Column IDCol;
         
         /// <summary>
-        /// SipAccount control.
+        /// SipAccountCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column SipAccount;
+        protected global::Ext.Net.Column SipAccountCol;
         
         /// <summary>
-        /// DelegeeAccount control.
+        /// DelegeeAccountCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column DelegeeAccount;
+        protected global::Ext.Net.Column DelegeeAccountCol;
         
         /// <summary>
-        /// Description control.
+        /// DescriptionCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Description;
+        protected global::Ext.Net.Column DescriptionCol;
         
         /// <summary>
-        /// FilterToolBar control.
+        /// FilterDelegatesSitesToolBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Toolbar FilterToolBar;
+        protected global::Ext.Net.Toolbar FilterDelegatesSitesToolBar;
         
         /// <summary>
-        /// FilterUsersBySite control.
+        /// FilterDelegatesBySite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComboBox FilterUsersBySite;
+        protected global::Ext.Net.ComboBox FilterDelegatesBySite;
         
         /// <summary>
-        /// SitesStore control.
+        /// DelegatesSitesStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store SitesStore;
+        protected global::Ext.Net.Store DelegatesSitesStore;
         
         /// <summary>
-        /// SitesModel control.
+        /// DelegatesSitesModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model SitesModel;
+        protected global::Ext.Net.Model DelegatesSitesModel;
         
         /// <summary>
         /// GetDelegates control.

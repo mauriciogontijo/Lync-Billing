@@ -45,7 +45,7 @@
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
 
                         <ext:Column
-                            ID="ID"
+                            ID="IDCol"
                             runat="server"
                             Text="ID"
                             Width="160"
@@ -53,21 +53,21 @@
                             Visible="false" />
 
                         <ext:Column
-                            ID="SipAccount"
+                            ID="SipAccountCol"
                             runat="server"
                             Text="User"
                             Width="160"
                             DataIndex="SipAccount" />
 
                         <ext:Column
-                            ID="DelegeeAccount"
+                            ID="DelegeeAccountCol"
                             runat="server"
                             Text="Delegate"
                             Width="160"
                             DataIndex="DelegeeAccount" />
 
                         <ext:Column
-                            ID="Description"
+                            ID="DescriptionCol"
                             runat="server"
                             Text="Description"
                             Width="350"
