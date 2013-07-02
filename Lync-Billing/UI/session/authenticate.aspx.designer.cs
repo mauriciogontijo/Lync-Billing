@@ -58,6 +58,15 @@ namespace Lync_Billing.ui.session {
         protected global::System.Web.UI.WebControls.HiddenField redirect_to_url;
         
         /// <summary>
+        /// delegee_identity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField delegee_identity;
+        
+        /// <summary>
         /// access_level control.
         /// </summary>
         /// <remarks>

@@ -57,10 +57,13 @@
                         Text="Signin" 
                         OnClick="authenticate_user"/>
 				</div>
+
+                <div class="auth-msg red-color"><%= AuthenticationMessage.ToString() %></div>
 			</div>
 		</div>
 
         <asp:HiddenField ID="redirect_to_url" runat="server" />
+        <asp:HiddenField ID="delegee_identity" runat="server" />
         <asp:HiddenField ID="access_level" runat="server" />
 	</div>
 </asp:Content>

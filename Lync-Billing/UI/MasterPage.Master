@@ -95,7 +95,7 @@
                                                 <ul id="delegees-dropdown">
                                                     <% foreach(KeyValuePair<string, string> delegeeRecord in current_session.ListOfDelegees) { %>
                                                         <li class="last-child">
-                                                            <a href="../user/delegees.aspx?identity=<%= delegeeRecord.Key %>">
+                                                            <a href="../session/authenticate.aspx?access=delegee&identity=<%= delegeeRecord.Key %>">
                                                                 <%= delegeeRecord.Value %>
                                                             </a>
                                                         </li>

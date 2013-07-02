@@ -122,7 +122,7 @@
     <Content Include="ui\resources\images\warning.png" />
     <Content Include="ui\resources\images\x_block_bg.png" />
     <Content Include="ui\resources\js\ext-js-specific.js" />
-    <Content Include="ui\session\authenticate.aspx" />
+    <EmbeddedResource Include="ui\session\authenticate.aspx" />
     <Content Include="ui\session\login.aspx" />
     <Content Include="ui\resources\css\green-layout-ie-hacks.css" />
     <Content Include="ui\resources\css\green-layout.css" />
