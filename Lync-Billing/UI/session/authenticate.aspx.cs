@@ -226,7 +226,8 @@ namespace Lync_Billing.ui.session
 
             if (HttpContext.Current.Session != null && HttpContext.Current.Session.Contents["UserData"] != null)
             {
-                user_email = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount.ToLower();
+                session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+                user_email = session.EffectiveSipAccount.ToLower();
 
                 if (this.access_level != null) //!string.IsNullOrEmpty(this.access_level.Value)
                 {
