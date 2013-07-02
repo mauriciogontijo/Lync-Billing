@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Lync_Billing.DB;
+using Ext.Net;
 
 namespace Lync_Billing.ui.admin.users
 {
@@ -32,18 +33,33 @@ namespace Lync_Billing.ui.admin.users
                     Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
                 }
             }
-
+            
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
-
             FilterDelegatesBySite.GetStore().DataSource = GetAccountantSiteName();
             FilterDelegatesBySite.GetStore().DataBind();
+           
         }
 
-        protected void ManageDelegatesStore_ReadData(object sender, Ext.Net.StoreReadDataEventArgs e)
+        protected void GetDelegates(object sender, DirectEventArgs e)
         {
+            if (FilterDelegatesBySite.SelectedItem != null)
+            {
+                string site = FilterDelegatesBySite.SelectedItem.Value;
 
+                List<UsersDelegates> usersDelgates = new List<UsersDelegates>();
+                List<UsersDelegates> tmpUsersDelegates = new List<UsersDelegates>();
+                List<string> usersPersite = new List<string>();
+
+                usersPersite = GetUsersPerSite(site);
+
+                usersDelgates = UsersDelegates.GetDelgatees();
+
+                tmpUsersDelegates = usersDelgates.Where(item => usersPersite.Contains(item.SipAccount)).ToList();
+
+                ManageDelegatesGrids.GetStore().DataSource = tmpUsersDelegates;
+                ManageDelegatesGrids.GetStore().DataBind();
+            }
         }
-
 
         public string GetSiteName(int siteID)
         {
@@ -102,5 +118,21 @@ namespace Lync_Billing.ui.admin.users
             return users[0].SiteName;
         }
 
+        public List<string> GetUsersPerSite(string siteName) 
+        {
+            List<Users> users = new List<Users>();
+            List<string> usersList = new List<string>();
+            
+            users = Users.GetUsers(siteName);
+
+            if (users.Count > 0)
+            {
+                foreach (Users user in users) 
+                {
+                    usersList.Add(user.SipAccount);
+                }
+            }
+            return usersList;
+        }
     }
 }

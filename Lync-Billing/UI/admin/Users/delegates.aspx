@@ -25,8 +25,7 @@
                         ID="ManageDelegatesStore"
                         runat="server"
                         RemoteSort="true"
-                        PageSize="25"
-                        OnReadData="ManageDelegatesStore_ReadData">
+                        PageSize="25">
                         <Model>
                             <ext:Model ID="ManageDelegatesModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
@@ -103,22 +102,10 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
-                                
+                                <DirectEvents>
+                                    <Change OnEvent="GetDelegates" />
+                                </DirectEvents>
                             </ext:ComboBox>
-
-                            <ext:Button
-                                ID="GetDelegates"
-                                runat="server"
-                                Text="Get Delegates"
-                                Margins="5 5 5 20">
-                                <%--<DirectEvents>
-                                    <Click OnEvent="NotifyUsers">
-                                        <ExtraParams>
-                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManageDelegatesGrids}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                        </ExtraParams>
-                                    </Click>
-                                </DirectEvents>--%>
-                            </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
