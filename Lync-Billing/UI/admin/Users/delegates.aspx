@@ -85,7 +85,7 @@
                         <ext:Column
                             runat="server"
                             Text="Description"
-                            Width="330"
+                            Width="340"
                             DataIndex="Description">
                             <Editor>
                                 <ext:TextField
@@ -128,7 +128,7 @@
                                 ValueField="SiteName"
                                 FieldLabel="Choose Site"
                                 LabelWidth="65"
-                                Margins="5 15 5 5">
+                                Margins="0 5 0 5">
                                 <Store>
                                     <ext:Store
                                         ID="DelegatesSitesStore"
