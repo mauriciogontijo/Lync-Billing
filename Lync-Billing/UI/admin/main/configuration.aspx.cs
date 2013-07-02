@@ -39,7 +39,7 @@ namespace Lync_Billing.ui.admin.main
 
         protected void AppConfigStore_ReadData(object sender, Ext.Net.StoreReadDataEventArgs e)
         {
-            AppConfigGrid.GetStore().DataSource = Persistence.
+            //AppConfigGrid.GetStore().DataSource = Persistence.
         }
 
         protected void AppConfigStore_Load(object sender, EventArgs e)
