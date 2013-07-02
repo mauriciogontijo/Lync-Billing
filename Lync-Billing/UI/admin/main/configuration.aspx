@@ -57,7 +57,6 @@
                         <Model>
                             <ext:Model ID="AppConfigStoreModel" runat="server">
                                 <Fields>
-                                    <ext:ModelField Name="ID" Type="Int" />
                                     <ext:ModelField Name="Module" Type="String" />
                                     <ext:ModelField Name="ModuleKey" Type="String" />
                                     <ext:ModelField Name="ModuleValue" Type="String" />
