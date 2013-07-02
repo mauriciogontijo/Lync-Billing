@@ -147,10 +147,23 @@ namespace Lync_Billing.ui.admin.users
 
             ChangeRecords<UsersDelegates> toBeUpdated = new StoreDataHandler(e.ExtraParams["Values"]).BatchObjectData<UsersDelegates>();
 
-            foreach (UsersDelegates userDelgate in toBeUpdated.Updated) 
+            if (toBeUpdated.Updated.Count > 0)
             {
-                UsersDelegates.UpadeDelegate(userDelgate);
-                ManageDelegatesStore.GetById(userDelgate.ID).Commit();
+
+                foreach (UsersDelegates userDelgate in toBeUpdated.Updated)
+                {
+                    UsersDelegates.UpadeDelegate(userDelgate);
+                    ManageDelegatesStore.GetById(userDelgate.ID).Commit();
+                }
+            }
+            
+            if (toBeUpdated.Deleted.Count > 0) 
+            {
+                foreach (UsersDelegates userDelgate in toBeUpdated.Deleted)
+                {
+                    UsersDelegates.DeleteDelegate(userDelgate);
+                    ManageDelegatesStore.GetById(userDelgate.ID).Commit();
+                }
             }
         }
     }

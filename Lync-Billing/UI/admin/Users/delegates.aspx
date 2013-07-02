@@ -95,19 +95,25 @@
                             </Editor>
                         </ext:Column>
 
-                        <ext:ImageCommandColumn
-                            runat="server"
-                            Width="30"
-                            Sortable="false">
+                        <ext:ImageCommandColumn ID="ImageCommandColumn1" runat="server" Width="30" Sortable="false">
                             <Commands>
-                                <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Record" CommandName="delete" />
+                                <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Plant" CommandName="delete">                            
+                                </ext:ImageCommand>
                             </Commands>
                             <Listeners>
-                                <Command Handler="this.up('ManageDelegatesGrid').store.removeAt(recordIndex);" />
+                                <Command Handler="this.up(#{ManageDelegatesGrid}.store.removeAt(recordIndex));" />
                             </Listeners>
                         </ext:ImageCommandColumn>
+
                     </Columns>
                 </ColumnModel>
+
+                <SelectionModel>
+                    <ext:RowSelectionModel ID="RowSelectionModel1" runat="server" />
+                </SelectionModel>
+                    <Plugins>
+                    <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
+                </Plugins>
 
                 <TopBar>
                     <ext:Toolbar ID="FilterDelegatesSitesToolBar" runat="server">
@@ -159,13 +165,6 @@
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
-
-                <SelectionModel>
-                     <ext:RowSelectionModel ID="RowSelectionModel1" runat="server" />
-                </SelectionModel>
-                 <Plugins>
-                    <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
-                </Plugins>
 
                 <BottomBar>
                     <ext:PagingToolbar
