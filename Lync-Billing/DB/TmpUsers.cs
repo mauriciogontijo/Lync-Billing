@@ -15,7 +15,7 @@ namespace Lync_Billing.DB
         private static DBLib DBRoutines = new DBLib();
         private static AdLib ADRoutine = new AdLib();
 
-        public static List<string> GetAllUsers() 
+        private static List<string> GetAllUsers() 
         {
             List<string> users = new List<string>();
             DataTable dt = new DataTable();
@@ -47,11 +47,32 @@ namespace Lync_Billing.DB
             List<string> users = GetAllUsers();
 
             ADUserInfo userInfo;
-
+            Users dbUser;
             foreach (string user in users) 
             {
                 userInfo = new ADUserInfo();
+                dbUser = new Users();
+
                 userInfo = ADRoutine.GetUserAttributes(user);
+
+                dbUser.SipAccount = user;
+                if (userInfo.FirstName != null)
+                    dbUser.FullName = userInfo.FirstName + " " + userInfo.LastName;
+                else if (userInfo.DisplayName != null)
+                    dbUser.FullName = userInfo.DisplayName;
+                else
+                    dbUser.FullName = string.Empty;
+                try
+                {
+                    dbUser.UserID = Convert.ToInt32((userInfo.EmployeeID));
+                }
+                catch (Exception ex) 
+                {
+                    dbUser.UserID = 0;
+                }
+                dbUser.SiteName = "UNIDENTIFIED";
+
+                Users.InsertUser(dbUser);
 
             }
 
