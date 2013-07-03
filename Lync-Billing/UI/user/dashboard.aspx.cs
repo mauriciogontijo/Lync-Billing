@@ -268,10 +268,10 @@ namespace Lync_Billing.ui.user
         private string GetUserNameBySip(string sipAccount) 
         {
             AdLib adRoutines = new AdLib();
-            string DisplayName = adRoutines.GetUserAttributes(sipAccount).DisplayName;
-            
-            if (DisplayName != null)
-                return DisplayName;
+            ADUserInfo userInfo = adRoutines.GetUserAttributes(sipAccount);
+
+            if (userInfo != null && userInfo.DisplayName != null)
+                return userInfo.DisplayName;
             else
                 return string.Empty;
         }
