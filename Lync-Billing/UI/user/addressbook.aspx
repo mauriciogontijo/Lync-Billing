@@ -17,11 +17,14 @@
     <!-- *** START OF ADDRESS BOOK PANEL *** -->
     <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
-            <ext:TabPanel ID="AddressBookTabPanel"
+            <ext:TabPanel
+                ID="AddressBookTabPanel"
                 runat="server"
+                Header="true"
+                Title="Manage Address Book"
                 Width="740"
                 Height="745"
-                Frame="true">
+                Plain="false">
                 
                 <Defaults>
                     <ext:Parameter Name="autoScroll" Value="true" Mode="Raw" />

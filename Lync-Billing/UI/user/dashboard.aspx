@@ -253,27 +253,28 @@
             <div class='content wauto float-left mb10'>
                 <ext:TabPanel
                     ID="CallsSummary" 
-                    runat="server" 
+                    runat="server"
+                    Header="true"
+                    Title="Your Phone Calls Summary"
                     Width="465"
                     Height="180"
-                    Margins="0 0 20 0"
-                    Plain="true">
+                    Plain="false">
                     <Defaults>
-                        <ext:Parameter Name="bodyPadding" Value="10" Mode="Raw" />
+                        <ext:Parameter Name="bodyPadding" Value="5" Mode="Raw" />
                     </Defaults>
 
                     <Items>
                         <ext:Panel
                             ID="PersonalCallsSummary" 
                             runat="server" 
-                            Title="Personal Calls Summary" 
+                            Title="Personal" 
                             Icon="Phone" 
                             AutoDataBind="true" />
 
                         <ext:Panel
                             ID="BusinessCallsSummary"
                             runat="server" 
-                            Title="Business Calls Summary"
+                            Title="Business"
                             Icon="Phone" 
                             AutoDataBind="true" />
                     </Items>
