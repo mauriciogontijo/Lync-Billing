@@ -21,7 +21,7 @@
                 Header="true"
                 Title="Manage Address Book"
                 Width="740"
-                Height="745"
+                Height="765"
                 Plain="false">
                 
                 <Defaults>
@@ -33,9 +33,9 @@
                         ID="AddressBookGrid"
                         runat="server"
                         Header="false"
-                        Layout="FitLayout"
+                        Layout="TableLayout"
                         Title="Address Book"
-                        Height="700"
+                        Height="740"
                         Icon="BookOpen">
                         <Store>
                             <ext:Store
@@ -162,7 +162,7 @@
                                         Text="Save Changes"
                                         Icon="Add"
                                         runat="server"
-                                        Margins="5 20 0 5">
+                                        Margins="0 20 0 5">
                                         <DirectEvents>
                                             <Click OnEvent="UpdateAddressBook_DirectEvent" before="return #{AddressBookStore}.isDirty();">
                                                 <EventMask ShowMask="true" />
@@ -178,7 +178,7 @@
                                         Text="Cancel Changes"
                                         Icon="Cancel"
                                         runat="server"
-                                        Margins="5 0 0 0">
+                                        Margins="0 0 0 0">
                                         <DirectEvents>
                                             <Click OnEvent="RejectAddressBookChanges_DirectEvent">
                                                 <EventMask ShowMask="true" />
@@ -206,9 +206,9 @@
                         ID="ImportContactsGrid"
                         runat="server"
                         Header="false"
-                        Layout="FitLayout"
+                        Layout="TableLayout"
                         Title="Import Contacts"
-                        Height="700"
+                        Height="740"
                         Icon="BookEdit">
                         <Store>
                             <ext:Store
@@ -325,7 +325,7 @@
                                         Text="Sync with Address Book"
                                         Icon="Add"
                                         runat="server"
-                                        Margins="5 20 0 5">
+                                        Margins="0 20 0 5">
                                         <DirectEvents>
                                             <Click OnEvent="ImportContactsFromHistory">
                                                 <EventMask ShowMask="true" />
@@ -341,7 +341,7 @@
                                         Text="Cancel Changes"
                                         Icon="Cancel"
                                         runat="server"
-                                        Margins="5 0 0 0">
+                                        Margins="0 0 0 0">
                                         <DirectEvents>
                                             <Click OnEvent="RejectImportChanges_DirectEvent">
                                                 <EventMask ShowMask="true" />
