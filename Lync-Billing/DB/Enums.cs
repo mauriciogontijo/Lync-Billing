@@ -126,6 +126,16 @@ namespace Lync_Billing.DB
             AD_PhysicalDeliveryOfficeName
         }
 
+        public enum TmpUsers 
+        {
+            [Description("TmpUsers")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("SipAccount")]
+            SipAccount
+        }
+
         /// <summary>
         /// Roles Database table fields Names
         /// </summary>
