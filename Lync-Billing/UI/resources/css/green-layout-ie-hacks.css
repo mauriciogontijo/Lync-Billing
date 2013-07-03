@@ -19,18 +19,21 @@ div#header-container {
 }
 
 .front-welcome-text p {
+    display: block;
     font-size: 20px !important;
-    line-height: 28px;
-    min-height: 32px;
+    font-weight: 300;
+    line-height: 24px;
+    min-height: 28px; 
     text-align: left;
     color: inherit;
 }
 
 .front-welcome-text h1 {
     font-size: 24px;
-    line-height: 22px;
-    min-height: 40px;
-    margin: 0;
+    line-height:26px;
+    height: 36px;
+    font-weight: bold;
+    margin: 0 0 26px 0;
     color: #000000;
     text-rendering: optimizeLegibility;
 }
