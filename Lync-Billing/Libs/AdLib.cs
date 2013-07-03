@@ -198,8 +198,10 @@ namespace Lync_Billing.Libs
                     if (resourceForestResult.Properties.Contains("msrtcsip-primaryhomeserver"))
                         userInfo.PrimaryHomeServerDN = ((string)resourceForestResult.Properties["msrtcsip-primaryhomeserver"][0]).Replace("CN=Lc Services,CN=Microsoft,", "");
 
+                    return userInfo;
                 }
-                return userInfo;
+                else { return null; }
+                
             }
             catch (Exception ex) 
             {
