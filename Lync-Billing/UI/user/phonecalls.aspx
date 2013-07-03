@@ -92,12 +92,11 @@
                 Height="720"
                 AutoScroll="true"
                 Scroll="Both"
-                Layout="FitLayout">
+                Layout="TableLayout">
                 <Store>
                     <ext:Store
                         ID="PhoneCallsStore"
                         runat="server"
-                        RemoteSort="true"
                         PageSize="25"
                         DataSourceID="PhoneCallsDataSource"
                         OnSubmitData="PhoneCallsStore_SubmitData"
