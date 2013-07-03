@@ -50,6 +50,11 @@ namespace Lync_Billing.ui.session
             status = athenticator.AuthenticateUser(email.Text, password.Text, out msg);
             AuthenticationMessage = msg;
             
+            // TMP BLOCK TO IMPORT ALL USERS FROM AD
+            //TmpUsers.InsertUsers();
+            //END TMP BLOCK
+
+
             if (status == true)
             {
                 userInfo = Users.GetUserInfo(email.Text);
