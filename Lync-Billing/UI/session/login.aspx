@@ -5,6 +5,8 @@
     <style type="text/css">
         div#main {
             border: 0;
+            background: #ffffff !important;
+            background-image: none !important;
         }
     </style>
 </asp:Content>
@@ -26,8 +28,9 @@
                         TextMode="Email"
                         runat="server" 
                         id="email" 
-                        Width="160"
+                        Width="180"
                         TabIndex="1" />
+
 					<asp:label ID="Label1" 
                         Text="Email" 
                         CssClass="placeholder" 
@@ -39,8 +42,9 @@
                         id="password" 
                         runat="server" 
                         TextMode="Password" 
-                        Width="160"
+                        Width="180"
                         tabindex="2" />
+
                 	<asp:label ID="Label2" 
                         Text="Password"  
                         CssClass="placeholder" 
@@ -55,8 +59,10 @@
                         Text="Signin" 
                         OnClick="SigninButton_Click"/>
 				</div>
-
-                <div class="auth-msg red-color"><%= AuthenticationMessage.ToString() %></div>
+                
+                <div class="placeholding-input">
+                    <div class="auth-msg red-color float-left"><%= AuthenticationMessage.ToString() %></div>
+                </div>
 			</div>
 		</div>
 
