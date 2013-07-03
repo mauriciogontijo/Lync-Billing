@@ -20,13 +20,7 @@
 		<!--[if lte IE 9]>
 		    <link rel="stylesheet" type="text/css" media="all" href="resources/css/green-layout-ie-hacks.css" />
 	    <![endif]-->
-
-	    <!--[if lt IE 8]>
-		    <style type="text/css">
-			    #main { padding-top: 65px !important; }
-		    </style>
-	    <![endif]-->
-
+        
         <script type="text/javascript">
             $(document).ready(function () {
                 var referrer = $("#ThisPageReferrer").val();
