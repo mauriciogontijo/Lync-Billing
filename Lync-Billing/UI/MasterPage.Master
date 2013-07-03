@@ -40,7 +40,11 @@
                         $('#user-tab').addClass('selected');
                     }
 
-                    $("#" + referrer.toString()).addClass("selected");
+                    //Add a "selected" class to the sidebar button with the PAGE_NAME as it's id
+                    //$("#" + referrer.toString()).addClass("selected");
+                    var starting_index = referrer.search("ui");
+                    var button_id = referrer.substr(starting_index, referrer.length);
+                    $("#" + button_id).addClass("selected");
                 }
             });
         </script>
