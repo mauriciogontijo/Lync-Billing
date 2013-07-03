@@ -2,11 +2,8 @@
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
-        div#main {
-            border: 0;
-            background: #ffffff !important;
-            background-image: none !important;
-        }
+        html { background: #fff; }
+        div#main { border: 0; background: #ffffff !important;  background-image: none !important; }
     </style>
 </asp:Content>
 
@@ -15,7 +12,7 @@
     <div class="front-card">
         <div class="front-welcome float-left p10">
 			<div class="front-welcome-text">
-			    <h1>Welcome to eBill</h1>
+			    <h1 class="welcome">Welcome to eBill</h1>
 			    <p>Manage your phone calls, bills, your phone calls statistics and history from one place, now!</p>
 			</div>
 		</div>

@@ -2,11 +2,8 @@
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
-        div#main {
-            border: 0;
-            background: #ffffff !important;
-            background-image: none !important;
-        }
+        html { background: #fff; }
+        div#main { border: 0; background: #ffffff !important;  background-image: none !important; }
     </style>
 </asp:Content>
 
@@ -15,7 +12,7 @@
     <div class="front-card">
 		<div class="front-welcome float-left p10">
 			<div class="front-welcome-text">
-			    <h1 class="italic"><%= HeaderAuthBoxMessage %></h1>
+			    <h1><%= HeaderAuthBoxMessage %></h1>
 			    <p><%= ParagraphAuthBoxMessage %></p>
 			</div>
 		</div>
