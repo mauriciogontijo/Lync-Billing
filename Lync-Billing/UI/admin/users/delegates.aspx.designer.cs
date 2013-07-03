@@ -85,13 +85,13 @@ namespace Lync_Billing.ui.admin.users {
         protected global::Ext.Net.TextField DescriptionTextbox;
         
         /// <summary>
-        /// ImageCommandColumn1 control.
+        /// DeleteButtonsColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ImageCommandColumn ImageCommandColumn1;
+        protected global::Ext.Net.ImageCommandColumn DeleteButtonsColumn;
         
         /// <summary>
         /// RowSelectionModel1 control.

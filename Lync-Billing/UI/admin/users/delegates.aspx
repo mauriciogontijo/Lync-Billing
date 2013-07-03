@@ -95,7 +95,12 @@
                             </Editor>
                         </ext:Column>
 
-                        <ext:ImageCommandColumn ID="ImageCommandColumn1" runat="server" Width="30" Sortable="false">
+                        <ext:ImageCommandColumn
+                            ID="DeleteButtonsColumn"
+                            runat="server"
+                            Width="30"
+                            Sortable="false"
+                            Align="Center">
                             <Commands>
                                 <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Delegate" CommandName="delete">                            
                                 </ext:ImageCommand>
@@ -111,7 +116,8 @@
                 <SelectionModel>
                     <ext:RowSelectionModel ID="RowSelectionModel1" runat="server" />
                 </SelectionModel>
-                    <Plugins>
+                
+                <Plugins>
                     <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
                 </Plugins>
 

@@ -21,11 +21,12 @@
                 runat="server"
                 Width="740"
                 Height="745"
-                Margins="0 0 20 0"
                 Frame="true">
+                
                 <Defaults>
                     <ext:Parameter Name="autoScroll" Value="true" Mode="Raw" />
                 </Defaults>
+
                 <Items>
                     <ext:GridPanel
                         ID="AddressBookGrid"
@@ -81,7 +82,7 @@
                                     ID="ADContactNameCol" 
                                     runat="server"
                                     DataIndex="Name"
-                                    Width="240"
+                                    Width="250"
                                     Text="Contact Name"
                                     Selectable="true"
                                     Flex="1">
@@ -98,7 +99,7 @@
                                     runat="server"
                                     DataIndex="Type"
                                     Text="Contact Type"
-                                    Width="130"
+                                    Width="110"
                                     Flex="1"
                                     Selectable="true">
                                     <Editor>
@@ -110,7 +111,9 @@
                                             SelectOnFocus="true"
                                             SelectOnTab="true"
                                             Selectable="true"
-                                            Width="110">
+                                            Width="80"
+                                            AllowBlank="false"
+                                            AllowOnlyWhitespace="false">
                                             <Items>
                                                 <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
                                                 <ext:ListItem Text="Business" Value="Business" Mode="Value" />
@@ -118,18 +121,23 @@
                                         </ext:ComboBox>
                                     </Editor>
                                 </ext:Column>
+
+                                <ext:ImageCommandColumn
+                                    ID="DeleteButtonsColumn"
+                                    runat="server"
+                                    Width="30"
+                                    Sortable="false"
+                                    Align="Center">
+                                    <Commands>
+                                        <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Delegate" CommandName="delete">                            
+                                        </ext:ImageCommand>
+                                    </Commands>
+                                    <Listeners>
+                                        <Command Handler="this.up(#{AddressBookGrid}.store.removeAt(recordIndex));" />
+                                    </Listeners>
+                                </ext:ImageCommandColumn>
                             </Columns>
                         </ColumnModel>
-
-                        <SelectionModel>
-                            <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
-                                runat="server"
-                                Mode="Multi"
-                                AllowDeselect="true"
-                                IgnoreRightMouseSelection="true"
-                                CheckOnly="true">
-                            </ext:CheckboxSelectionModel>
-                        </SelectionModel>
 
                         <TopBar>
                             <ext:Toolbar
@@ -138,30 +146,15 @@
                                 <Items>
                                     <ext:Button
                                         ID="UpdateAddressBookButton"
-                                        Text="Update Edited Contacts"
+                                        Text="Save Changes"
                                         Icon="Add"
                                         runat="server"
                                         Margins="5 15 0 5">
                                         <DirectEvents>
-                                            <Click OnEvent="AddressBookUpdateContacts">
+                                            <Click OnEvent="UpdateAddressBook_DirectEvent" before="return #{AddressBookStore}.isDirty();">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{AddressBookGrid}.getRowsValues(true))" Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
-                                    </ext:Button>
-
-                                    <ext:Button
-                                        ID="DeleteSelectedButton"
-                                        Text="Delete Selected"
-                                        Icon="Delete"
-                                        runat="server">
-                                        <DirectEvents>
-                                            <Click OnEvent="AddressBookDeleteContacts">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{AddressBookGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                    <ext:Parameter Name="Values" Value="#{AddressBookStore}.getChangedData()" Mode="Raw" />
                                                 </ExtraParams>
                                             </Click>
                                         </DirectEvents>

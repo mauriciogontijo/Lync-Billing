@@ -25,7 +25,7 @@ namespace Lync_Billing.ui.user
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
-                string redirect_to = @"~/ui/user/bills.aspx";
+                string redirect_to = @"~/ui/user/addressbook.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
             }
@@ -111,75 +111,7 @@ namespace Lync_Billing.ui.user
                 ImportContactsGrid.GetStore().Reload();
             }
         }
-
-
-        /*
-         * Update edited contacts in Address Book
-         */
-        protected void AddressBookUpdateContacts(object sender, DirectEventArgs e)
-        {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
-
-            string json = e.ExtraParams["Values"];
-
-            List<PhoneBook> all_address_book_items = new List<PhoneBook>();
-            List<PhoneBook> filtered_address_book_items = new List<PhoneBook>();
-
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            all_address_book_items = serializer.Deserialize<List<PhoneBook>>(json);
-
-            foreach (PhoneBook entry in all_address_book_items)
-            {
-                if (!string.IsNullOrEmpty(entry.Type) && (entry.Type == "Personal" || entry.Type == "Business"))
-                {
-                    if (!string.IsNullOrEmpty(entry.SipAccount))
-                    {
-                        entry.SipAccount = sipAccount;
-                    }
-
-                    filtered_address_book_items.Add(entry);
-                }
-            }
-
-            if (filtered_address_book_items.Count > 0)
-            {
-                foreach (PhoneBook entry in filtered_address_book_items)
-                {
-                    PhoneBook.UpdatePhoneBookEntry(entry);
-                }
-
-                GridsDataManager(true);
-
-                AddressBookGrid.GetStore().Reload();
-                ImportContactsGrid.GetStore().Reload();
-            }
-        }
-
-
-        /*
-         * Delete selected contacts from Address Book
-         */
-        protected void AddressBookDeleteContacts(object sender, DirectEventArgs e)
-        {
-            string json = e.ExtraParams["Values"];
-
-            List<PhoneBook> to_be_deleted_entries = new List<PhoneBook>();
-
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            to_be_deleted_entries = serializer.Deserialize<List<PhoneBook>>(json);
-
-            if (to_be_deleted_entries.Count > 0)
-            {
-                PhoneBook.DeleteFromPhoneBook(to_be_deleted_entries);
-                GridsDataManager(true);
-
-                AddressBookGrid.GetStore().Reload();
-                ImportContactsGrid.GetStore().Reload();
-            }
-            AddressBookGrid.GetSelectionModel().DeselectAll();
-        }
-
+        
 
         /*
          * AddressBook Data Binding
@@ -197,9 +129,53 @@ namespace Lync_Billing.ui.user
             GridsDataManager(false);
         }
 
-        protected void UpdateRecord(object sender, DirectEventArgs e)
+        protected void UpdateAddressBook_DirectEvent(object sender, DirectEventArgs e)
         {
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
+            string json = e.ExtraParams["Values"];
 
+            List<PhoneBook> recordsToUpate = new List<PhoneBook>();
+            List<PhoneBook> filteredItemsForUpdate = new List<PhoneBook>();
+            ChangeRecords<PhoneBook> toBeUpdated = new StoreDataHandler(e.ExtraParams["Values"]).BatchObjectData<PhoneBook>();
+
+            if (toBeUpdated.Updated.Count > 0)
+            {
+                foreach (PhoneBook entry in toBeUpdated.Updated)
+                {
+                    if (!string.IsNullOrEmpty(entry.Type) && (entry.Type == "Personal" || entry.Type == "Business"))
+                    {
+                        if (!string.IsNullOrEmpty(entry.SipAccount))
+                        {
+                            entry.SipAccount = sipAccount;
+                        }
+
+                        filteredItemsForUpdate.Add(entry);
+                    }
+                }
+
+                if (filteredItemsForUpdate.Count > 0)
+                {
+                    foreach (PhoneBook entry in filteredItemsForUpdate) 
+                    {
+                        PhoneBook.UpdatePhoneBookEntry(entry);
+                    }
+
+                    GridsDataManager(true);
+
+                    AddressBookGrid.GetStore().Reload();
+                    ImportContactsGrid.GetStore().Reload();
+                }
+            }
+
+            if (toBeUpdated.Deleted.Count > 0)
+            {
+                PhoneBook.DeleteFromPhoneBook(toBeUpdated.Deleted);
+                GridsDataManager(true);
+
+                AddressBookGrid.GetStore().Reload();
+                ImportContactsGrid.GetStore().Reload();
+            }
         }
     }
 }
