@@ -85,7 +85,7 @@
                         <ext:Column
                             runat="server"
                             Text="Description"
-                            Width="340"
+                            Width="293"
                             DataIndex="Description">
                             <Editor>
                                 <ext:TextField
@@ -104,6 +104,16 @@
                                 <Command Handler="this.up(#{ManageDelegatesGrid}.store.removeAt(recordIndex));" />
                             </Listeners>
                         </ext:ImageCommandColumn>
+
+                         <ext:CommandColumn ID="RejectChange" runat="server" Width="70">
+                            <Commands>
+                                <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
+                            </Commands>
+                            <PrepareToolbar Handler="toolbar.items.get(0).setVisible(record.dirty);" />
+                            <Listeners>
+                                <Command Handler="record.reject();" />
+                            </Listeners>
+                        </ext:CommandColumn>
 
                     </Columns>
                 </ColumnModel>
