@@ -19,7 +19,7 @@ body {
 /* ********************************** */
 /* START OF MAIN BODY CONTENT STYLING */
 .main-container { min-height: 850px; width: 1000px; margin: 0 auto; padding: 25px 20px 20px 20px; background: #ffffff !important; border-left: 1px solid #CECFCE; border-right: 1px solid #CECFCE; border-bottom: 1px solid #CECFCE; overflow: hidden; }
-.footer-container { width: auto; display: block; height: 24px; overflow: hidden; }
+.footer-container { width: 100%; display: block; overflow:hidden; height: 0; /*background-color: rgb(13,78,108);*/}
 .announce-block { width: auto; display: block; border: 1px solid #B6C0D2; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
 
 .info-block, .warning-block { width: auto; height: 52px; display: block; padding: 10px 10px 15px 55px; margin: 0 0 10px 0; border: 1px solid #B6C0D2; background-repeat: no-repeat; background-position: 10px center; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
