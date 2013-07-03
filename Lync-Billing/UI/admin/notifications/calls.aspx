@@ -104,7 +104,11 @@
                                 QueryMode="Local" 
                                 DisplayField="SiteName" 
                                 ValueField="SiteName"
-                                Margins="5 5 5 5">
+                                Width="250"
+                                Margins="5 390 0 5"
+                                FieldLabel="Choose Site"
+                                LabelSeparator=":"
+                                LabelWidth="70">
                                 <Store>
                                     <ext:Store
                                         ID="SitesStore"
@@ -119,6 +123,7 @@
                                         </Model>            
                                     </ext:Store>
                                 </Store>
+
                                 <DirectEvents>
                                     <Change OnEvent="GetUnmarkedCallsForSite" />
                                 </DirectEvents>
@@ -129,7 +134,7 @@
                                 runat="server" 
                                 Text="Email Alert" 
                                 Icon="EmailAdd" 
-                                Margins="5 5 5 485">
+                                Margins="5 5 0 0">
                                <DirectEvents>
                                    <Click OnEvent="NotifyUsers">
                                        <ExtraParams>
