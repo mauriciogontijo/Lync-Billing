@@ -133,7 +133,7 @@
                                     Sortable="false"
                                     Align="Center">
                                     <Commands>
-                                        <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Delegate" CommandName="delete">                            
+                                        <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Contact" CommandName="delete">                            
                                         </ext:ImageCommand>
                                     </Commands>
                                     <Listeners>
