@@ -69,7 +69,7 @@ namespace Lync_Billing.Libs
                
                 if (userInfo == null)
                 {
-                    msg = "An error occured while fetching user information!";
+                    msg = "Error: Couldn't fetch user information!";
                     return false;
                 }
                 DirectoryEntry directoryEntry = new DirectoryEntry(LocalGCUri, userInfo.SamAccountName, password);
