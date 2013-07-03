@@ -37,7 +37,8 @@
                         Header="false"
                         Layout="FitLayout"
                         Title="Address Book"
-                        Height="700">
+                        Height="700"
+                        Icon="BookOpen">
                         <Store>
                             <ext:Store
                                 ID="AddressBookStore"
@@ -185,7 +186,8 @@
                         Header="false"
                         Layout="FitLayout"
                         Title="Import Contacts"
-                        Height="700">
+                        Height="700"
+                        Icon="BookEdit">
                         <Store>
                             <ext:Store
                                 ID="ImportContactsStore"
