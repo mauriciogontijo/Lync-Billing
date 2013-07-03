@@ -130,6 +130,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ImageCommandColumn DeleteButtonsColumn;
         
         /// <summary>
+        /// RejectChange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CommandColumn RejectChange;
+        
+        /// <summary>
         /// Toolbar1 control.
         /// </summary>
         /// <remarks>
@@ -265,13 +274,22 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ComboBox ContactTypeDropdown;
         
         /// <summary>
-        /// CheckboxSelectionModel2 control.
+        /// RejectChanges control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.CellSelectionModel CheckboxSelectionModel2;
+        protected global::Ext.Net.CommandColumn RejectChanges;
+        
+        /// <summary>
+        /// ImportContactsGridRowSelectionModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.RowSelectionModel ImportContactsGridRowSelectionModel;
         
         /// <summary>
         /// ImportContactsToolbar control.

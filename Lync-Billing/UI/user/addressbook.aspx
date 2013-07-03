@@ -103,7 +103,7 @@
                                     runat="server"
                                     DataIndex="Type"
                                     Text="Contact Type"
-                                    Width="110"
+                                    Width="90"
                                     Flex="1"
                                     Selectable="true">
                                     <Editor>
@@ -115,7 +115,7 @@
                                             SelectOnFocus="true"
                                             SelectOnTab="true"
                                             Selectable="true"
-                                            Width="80"
+                                            Width="70"
                                             AllowBlank="false"
                                             AllowOnlyWhitespace="false">
                                             <Items>
@@ -140,6 +140,17 @@
                                         <Command Handler="this.up(#{AddressBookGrid}.store.removeAt(recordIndex));" />
                                     </Listeners>
                                 </ext:ImageCommandColumn>
+
+                                <ext:CommandColumn ID="RejectChange" runat="server" Width="70">
+                                    <Commands>
+                                        <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
+                                    </Commands>
+                                    <PrepareToolbar Handler="toolbar.items.get(0).setVisible(record.dirty);" />
+                                    <Listeners>
+                                        <Command Handler="record.reject();" />
+                                    </Listeners>
+                                </ext:CommandColumn>
+
                             </Columns>
                         </ColumnModel>
 
@@ -285,17 +296,25 @@
                                         </ext:ComboBox>
                                     </Editor>
                                 </ext:Column>
+                                 <ext:CommandColumn ID="RejectChanges" runat="server" Width="70">
+                                    <Commands>
+                                        <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
+                                    </Commands>
+                                    <PrepareToolbar Handler="toolbar.items.get(0).setVisible(record.dirty);" />
+                                    <Listeners>
+                                        <Command Handler="record.reject();" />
+                                    </Listeners>
+                                </ext:CommandColumn>
                             </Columns>
                         </ColumnModel>
 
                          <SelectionModel>
-                            <ext:CellSelectionModel ID="CheckboxSelectionModel2"
+                            <ext:RowSelectionModel ID="ImportContactsGridRowSelectionModel"
                                 runat="server"
                                 Mode="Single"
                                 AllowDeselect="true"
-                                IgnoreRightMouseSelection="true"
                                 CheckOnly="true">
-                            </ext:CellSelectionModel>
+                            </ext:RowSelectionModel>
                         </SelectionModel>
 
                         <TopBar>
