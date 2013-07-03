@@ -115,6 +115,7 @@ namespace Lync_Billing.ui.accounting.main
                 ManageDisputesGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
             //ManagePhoneCallsGrid.GetStore().CommitChanges();
+            ManageDisputesGrid.GetStore().Reload();
             ManageDisputesGrid.GetSelectionModel().DeselectAll();
         }
 
@@ -140,6 +141,7 @@ namespace Lync_Billing.ui.accounting.main
                 ManageDisputesGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Commit();
             }
             //ManagePhoneCallsGrid.GetStore().CommitChanges();
+            ManageDisputesGrid.GetStore().Reload();
             ManageDisputesGrid.GetSelectionModel().DeselectAll();
         }
 

@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="eBill User | Address Book" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="addressbook.aspx.cs" Inherits="Lync_Billing.ui.user.addressbook" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
-    <title>eBill User | Address Book</title>
-
     <style type="text/css">
         /* start manage-phone-calls grid styling */
         .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }

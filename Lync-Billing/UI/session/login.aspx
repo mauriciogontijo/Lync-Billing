@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="eBill | Login" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="Lync_Billing.ui.session.login" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
-    <title>eBill | Login</title>
     <style type="text/css">
         div#main {
             border: 0;

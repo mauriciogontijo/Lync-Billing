@@ -19,7 +19,7 @@ div#header-container {
 }
 
 .front-welcome-text p {
-    font-size: 18px;
+    font-size: 20px !important;
     line-height: 28px;
     min-height: 32px;
     text-align: left;
@@ -27,7 +27,7 @@ div#header-container {
 }
 
 .front-welcome-text h1 {
-    font-size: 26px;
+    font-size: 24px;
     line-height: 22px;
     min-height: 40px;
     margin: 0;
@@ -38,12 +38,12 @@ div#header-container {
 .x-panel-header-default {
     filter: none;
     background-image: url("../images/x_block_bg.png") !important;
-    background-repeat: repeat;
+    background-repeat: repeat !important;
     background-position-x: 0%;
     background-position-y: 0%;
     background-size: auto;
-    background-origin: padding-box;
-    background-clip: border-box;
+    background-origin: padding-box !important;
+    background-clip: border-box !important;
     background-color: transparent !important; 
 }
 

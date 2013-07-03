@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="eBill User | Manage Phonecalls" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="phonecalls.aspx.cs" Inherits="Lync_Billing.ui.user.phonecalls" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
-    <title>eBill User | Manage Phonecalls</title>
-
     <style type="text/css">
         /* start manage-phone-calls grid styling */
         .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
@@ -23,7 +21,7 @@
                 Header="true"
                 Title="Manage Phone Calls"
                 Width="740"
-                Height="62"
+                Height="61"
                 Layout="AnchorLayout">
                 <TopBar>
                     <ext:Toolbar
@@ -225,7 +223,7 @@
                                 runat="server"
                                 Layout="TableLayout"
                                 Width="255"
-                                Frame="true"
+                                Frame="false"
                                 ButtonAlign="Left"
                                 Margins="5 260 0 5">
                                 <Buttons>

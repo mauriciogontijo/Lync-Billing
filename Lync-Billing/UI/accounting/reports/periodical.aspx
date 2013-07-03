@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="eBill Accounting | Periodical Reports" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="periodical.aspx.cs" Inherits="Lync_Billing.ui.accounting.reports.periodical" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
-    <title>eBill Accounting | Periodical Reports</title>
+    
 </asp:Content>
   
 
@@ -16,7 +16,7 @@
                 Header="true"
                 Title="Generate Periodical Reports"
                 Width="740"
-                Height="61"
+                Height="63"
                 Layout="AnchorLayout">
                 <TopBar>
                     <ext:Toolbar
@@ -51,14 +51,14 @@
                                 Height="22"
                                 FieldLabel=""
                                 OnDirectClick ="ViewMonthlyBills_DirectClick"
-                                Margins="0 0 5 0">
+                                Margins="5 120 5 0">
                             </ext:Button>
 
                             <ext:Button 
                                 runat="server"
                                 Text="To Excel" 
                                 Icon="PageExcel"
-                                Margins="0 0 5 100">
+                                Margins="5 0 5 0">
                                  <Listeners>
                                     <Click Handler="submitValue(#{PeriodicalReportsGrid}, 'xls');" />
                                 </Listeners>

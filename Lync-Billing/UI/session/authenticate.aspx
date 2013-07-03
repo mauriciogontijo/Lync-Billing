@@ -1,7 +1,13 @@
 ﻿<%@ Page Title="eBill | Authenticate" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="authenticate.aspx.cs" Inherits="Lync_Billing.ui.session.authenticate" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
-    <title>eBill | Authenticate</title>
+    <style type="text/css">
+        div#main {
+            border: 0;
+            background: #ffffff !important;
+            background-image: none !important;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">

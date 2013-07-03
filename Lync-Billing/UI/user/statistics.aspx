@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="eBill User | Calls Statistics" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="statistics.aspx.cs" Inherits="Lync_Billing.ui.user.statistics" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
-    <title>eBill User | Calls Statistics</title>
-
     <style type="text/css">
         .x-grid-cell-fullName .x-grid-cell-inner { font-family: tahoma, verdana; display: block; font-weight: normal; font-style: normal; color:#385F95; white-space: normal; }
         .x-grid-rowbody div { margin: 2px 5px 20px 5px !important; width: 99%; color: Gray; }

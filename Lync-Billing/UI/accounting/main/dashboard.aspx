@@ -21,7 +21,7 @@
         <script type="text/javascript" src="../../resources/js/ext-js-specific.js"></script>
 
 		<!--[if lte IE 9]>
-		    <link rel="stylesheet" type="text/css" media="all" href="resources/css/green-layout-ie-hacks.css" />
+		    <link rel="stylesheet" type="text/css" media="all" href="../../resources/css/green-layout-ie-hacks.css" />
 	    <![endif]-->
 
 	    <!--[if lt IE 8]>

@@ -3,7 +3,7 @@
 <%-- ADMIN DASHBOARD --%>
 
 <asp:Content ID="HeaderContentPlaceHolder" ContentPlaceHolderID="head" runat="server">
-    <title>eBill Admin | Dashboard</title>
+    
 </asp:Content>
 
 <asp:Content ID="MainBodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
