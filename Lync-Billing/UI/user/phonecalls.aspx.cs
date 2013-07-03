@@ -499,6 +499,10 @@ namespace Lync_Billing.ui.user
             PhoneCallsStore.LoadPage(1);
         }
 
-     
+        protected void RejectChanges_DirectEvent(object sender, DirectEventArgs e)
+        {
+            ManagePhoneCallsGrid.GetStore().RejectChanges();
+        }
+
     }
 }

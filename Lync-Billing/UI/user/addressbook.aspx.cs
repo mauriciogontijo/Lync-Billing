@@ -177,5 +177,15 @@ namespace Lync_Billing.ui.user
                 ImportContactsGrid.GetStore().Reload();
             }
         }
+
+        protected void RejectAddressBookChanges_DirectEvent(object sender, DirectEventArgs e)
+        {
+            AddressBookGrid.GetStore().RejectChanges();
+        }
+
+        protected void RejectImportChanges_DirectEvent(object sender, DirectEventArgs e)
+        {
+            ImportContactsGrid.GetStore().RejectChanges();
+        }
     }
 }

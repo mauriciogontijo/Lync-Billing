@@ -40,6 +40,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ComboBox FilterTypeComboBox;
         
         /// <summary>
+        /// ExportToExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button ExportToExcel;
+        
+        /// <summary>
         /// PhoneCallsDataSource control.
         /// </summary>
         /// <remarks>
@@ -281,15 +290,6 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.ToolTip ToolTip2;
-        
-        /// <summary>
-        /// ExportToExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button ExportToExcel;
         
         /// <summary>
         /// PagingToolbar1 control.

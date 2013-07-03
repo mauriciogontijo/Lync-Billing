@@ -141,13 +141,27 @@
                                 ID="UpdateEditedRecords"
                                 runat="server"
                                 Text="Save Changes"
-                                Icon="ApplicationEdit">
+                                Icon="ApplicationEdit"
+                                Margins="5 15 0 5">
                                 <DirectEvents>
                                     <Click OnEvent="UpdateEdited_DirectEvent">
                                         <EventMask ShowMask="true" />
                                         <ExtraParams>
                                             <ext:Parameter Name="Values" Value="Ext.encode(#{AppConfigGrid}.getRowsValues(true))" Mode="Raw" />
                                         </ExtraParams>
+                                    </Click>
+                                </DirectEvents>
+                            </ext:Button>
+
+                            <ext:Button
+                                ID="CancelChangesButton"
+                                Text="Cancel Changes"
+                                Icon="Cancel"
+                                runat="server"
+                                Margins="5 410 0 0">
+                                <DirectEvents>
+                                    <Click OnEvent="RejectChanges_DirectEvent">
+                                        <EventMask ShowMask="true" />
                                     </Click>
                                 </DirectEvents>
                             </ext:Button>

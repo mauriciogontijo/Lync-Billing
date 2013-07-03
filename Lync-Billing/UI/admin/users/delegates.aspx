@@ -134,7 +134,7 @@
                                 ValueField="SiteName"
                                 FieldLabel="Choose Site"
                                 LabelWidth="65"
-                                Margins="0 5 0 5">
+                                Margins="5 5 0 5">
                                 <Store>
                                     <ext:Store
                                         ID="DelegatesSitesStore"
@@ -158,13 +158,27 @@
                                 ID="UpdateEditedRecords"
                                 runat="server"
                                 Text="Save Changes"
-                                Icon="ApplicationEdit">
+                                Icon="ApplicationEdit"
+                                Margins="5 10 0 280">
                                 <DirectEvents>
                                     <Click OnEvent="UpdateEdited_DirectEvent" before="return #{ManageDelegatesStore}.isDirty();">
                                         <EventMask ShowMask="true" />
                                         <ExtraParams>
                                             <ext:Parameter Name="Values" Value="#{ManageDelegatesStore}.getChangedData()" Mode="Raw" />
                                         </ExtraParams>
+                                    </Click>
+                                </DirectEvents>
+                            </ext:Button>
+
+                            <ext:Button
+                                ID="CancelChangesButton"
+                                Text="Cancel Changes"
+                                Icon="Cancel"
+                                runat="server"
+                                Margins="5 0 0 0">
+                                <DirectEvents>
+                                    <Click OnEvent="RejectChanges_DirectEvent">
+                                        <EventMask ShowMask="true" />
                                     </Click>
                                 </DirectEvents>
                             </ext:Button>

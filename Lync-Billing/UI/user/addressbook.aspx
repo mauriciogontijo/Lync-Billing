@@ -153,13 +153,26 @@
                                         Text="Save Changes"
                                         Icon="Add"
                                         runat="server"
-                                        Margins="5 15 0 5">
+                                        Margins="5 20 0 5">
                                         <DirectEvents>
                                             <Click OnEvent="UpdateAddressBook_DirectEvent" before="return #{AddressBookStore}.isDirty();">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
                                                     <ext:Parameter Name="Values" Value="#{AddressBookStore}.getChangedData()" Mode="Raw" />
                                                 </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
+                                    </ext:Button>
+
+                                    <ext:Button
+                                        ID="CancelChangesButton"
+                                        Text="Cancel Changes"
+                                        Icon="Cancel"
+                                        runat="server"
+                                        Margins="5 0 0 0">
+                                        <DirectEvents>
+                                            <Click OnEvent="RejectAddressBookChanges_DirectEvent">
+                                                <EventMask ShowMask="true" />
                                             </Click>
                                         </DirectEvents>
                                     </ext:Button>
@@ -294,13 +307,27 @@
                                         ID="ImportItems"
                                         Text="Sync with Address Book"
                                         Icon="Add"
-                                        runat="server">
+                                        runat="server"
+                                        Margins="5 20 0 5">
                                         <DirectEvents>
                                             <Click OnEvent="ImportContactsFromHistory">
                                                 <EventMask ShowMask="true" />
                                                 <ExtraParams>
                                                     <ext:Parameter Name="Values" Value="Ext.encode(#{ImportContactsGrid}.getRowsValues(true))" Mode="Raw" />
                                                 </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
+                                    </ext:Button>
+
+                                    <ext:Button
+                                        ID="CancelImportContactsChangesChanges"
+                                        Text="Cancel Changes"
+                                        Icon="Cancel"
+                                        runat="server"
+                                        Margins="5 0 0 0">
+                                        <DirectEvents>
+                                            <Click OnEvent="RejectImportChanges_DirectEvent">
+                                                <EventMask ShowMask="true" />
                                             </Click>
                                         </DirectEvents>
                                     </ext:Button>

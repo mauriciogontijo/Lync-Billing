@@ -41,7 +41,7 @@
                                 FieldLabel="View Calls:"
                                 LabelWidth="60"
                                 Width="200"
-                                Margins="5 5 5 5">
+                                Margins="5 450 5 5">
                                 <Items>
                                     <ext:ListItem Text="Unmarked" Value="Unmarked" />
                                     <ext:ListItem Text="Business" Value="Business" />
@@ -55,6 +55,16 @@
                                     <Select OnEvent="PhoneCallsHistoryFilter" />
                                 </DirectEvents>
                             </ext:ComboBox>
+
+                            <ext:Button
+                                ID="ExportToExcel"
+                                runat="server"
+                                Text="To Excel"
+                                Icon="PageExcel">
+                                <Listeners>
+                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
+                                </Listeners>
+                            </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -198,22 +208,31 @@
                         CheckOnly="true">
                     </ext:CheckboxSelectionModel>
                 </SelectionModel>
+
                 <TopBar>
                     <ext:Toolbar ID="Toolbar1" runat="server">
                         <Items>
-                            <ext:Label runat="server" ID="button_group_lable" Margin="5">
+                            <ext:Label
+                                runat="server"
+                                ID="button_group_lable"
+                                Margins="5 0 0 5"
+                                Width="90">
                                 <Content>Mark Selected As:</Content>
                             </ext:Label>
 
-                            <ext:ButtonGroup ID="MarkingBottonsGroup"
+                            <ext:ButtonGroup
+                                ID="MarkingBottonsGroup"
                                 runat="server"
                                 Layout="TableLayout"
-                                Width="250"
-                                Frame="false"
-                                ButtonAlign="Right"
-                                Margins="0 310 0 0">
+                                Width="255"
+                                Frame="true"
+                                ButtonAlign="Left"
+                                Margins="5 260 0 5">
                                 <Buttons>
-                                    <ext:Button ID="Business" Text="Business" runat="server">
+                                    <ext:Button
+                                        ID="Business"
+                                        Text="Business"
+                                        runat="server">
                                         <DirectEvents>
                                             <Click OnEvent="AssignAllBusiness">
                                                 <EventMask ShowMask="true" />
@@ -224,7 +243,10 @@
                                         </DirectEvents>
                                     </ext:Button>
 
-                                    <ext:Button ID="Personal" Text="Personal" runat="server">
+                                    <ext:Button
+                                        ID="Personal"
+                                        Text="Personal"
+                                        runat="server">
                                         <DirectEvents>
                                             <Click OnEvent="AssignAllPersonal">
                                                 <EventMask ShowMask="true" />
@@ -235,7 +257,10 @@
                                         </DirectEvents>
                                     </ext:Button>
 
-                                    <ext:Button ID="AdvancedActions" runat="server" Text="Advanced">
+                                    <ext:Button
+                                        ID="AdvancedActions"
+                                        runat="server"
+                                        Text="Advanced">
                                         <Menu>
                                             <ext:Menu ID="AdvancedActionsMenu" runat="server">
                                                 <Items>                    
@@ -302,11 +327,18 @@
                                 </Buttons>
                             </ext:ButtonGroup>
 
-                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel">
-                                <Listeners>
-                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
-                                </Listeners>
-                            </ext:Button>
+                            <%--<ext:Button
+                                ID="CancelChangesButton"
+                                Text="Cancel Changes"
+                                Icon="Cancel"
+                                runat="server"
+                                Margins="5 5 0 0">
+                                <DirectEvents>
+                                    <Click OnEvent="RejectChanges_DirectEvent">
+                                        <EventMask ShowMask="true" />
+                                    </Click>
+                                </DirectEvents>
+                            </ext:Button>--%>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -326,43 +358,3 @@
     </div>
     <!-- *** END OF MANAGE PHONE CALLS GRID *** -->
 </asp:Content>
-
-
-<%--
-<ext:Button ID="Dispute" Text="Dispute" runat="server">
-    <DirectEvents>
-        <Click OnEvent="AssignDispute">
-            <EventMask ShowMask="true" />
-            <ExtraParams>
-                <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-            </ExtraParams>
-        </Click>
-    </DirectEvents>
-</ext:Button>
-
-<ext:ButtonGroup ID="ButtonGroup1" runat="server" Frame="false" ButtonAlign="Center" Width="250">
-    <Buttons>
-        <ext:Button ID="AssignMarkedAlwaysBusiness" Text=" Always Business" runat="server">
-            <DirectEvents>
-                <Click OnEvent="AssignAlwaysBusiness">
-                    <EventMask ShowMask="true" />
-                    <ExtraParams>
-                        <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                    </ExtraParams>
-                </Click>
-            </DirectEvents>
-        </ext:Button>
-
-        <ext:Button ID="AssignMarkedAlwaysPersonal" Text=" Always Personal" runat="server">
-            <DirectEvents>
-                <Click OnEvent="AssignAlwaysPersonal">
-                    <EventMask ShowMask="true" />
-                    <ExtraParams>
-                        <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                    </ExtraParams>
-                </Click>
-            </DirectEvents>
-        </ext:Button>
-    </Buttons>
-</ext:ButtonGroup>
---%>

@@ -166,5 +166,10 @@ namespace Lync_Billing.ui.admin.users
                 }
             }
         }
+
+        protected void RejectChanges_DirectEvent(object sender, DirectEventArgs e)
+        {
+            ManageDelegatesGrid.GetStore().RejectChanges();
+        }
     }
 }

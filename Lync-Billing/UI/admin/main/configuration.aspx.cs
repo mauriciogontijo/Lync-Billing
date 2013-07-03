@@ -57,6 +57,11 @@ namespace Lync_Billing.ui.admin.main
 
         }
 
+        protected void RejectChanges_DirectEvent(object sender, DirectEventArgs e)
+        {
+            AppConfigGrid.GetStore().RejectChanges();
+        }
+
         [DirectMethod]
         public void DoConfirm()
         {
