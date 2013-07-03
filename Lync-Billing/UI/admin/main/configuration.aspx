@@ -174,14 +174,14 @@
                                 Title="Add New Definition" 
                                 Hidden="true"
                                 Width="450"
-                                Height="210"
+                                Height="200"
                                 Frame="true"
                                 X="200"
                                 Y="200">
                                 <Defaults>
                                     <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
                                 </Defaults>
-                                <Content>
+                                <Items>
                                     <ext:TextField
                                         ID="NewModuleName"
                                         runat="server"
@@ -227,7 +227,7 @@
                                         Icon="Cancel"
                                         Flat="true">
                                     </ext:Button>
-                                </Content>
+                                </Items>
                             </ext:Window>
                         </Items>
                     </ext:Toolbar>
