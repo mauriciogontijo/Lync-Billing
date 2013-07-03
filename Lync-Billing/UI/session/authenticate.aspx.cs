@@ -43,7 +43,7 @@ namespace Lync_Billing.ui.session
 
                 //Initialize the list of current user-permissions (user-access-levels!)
                 InitAccessLevels();
-                
+
                 //Initialize the redirection flag to true. This is responsible for redirecting the user.
                 //In the default state, the user must be redirected unless the request was valid and the redirection_flag was set to false.
                 redirectionFlag = true;
@@ -114,8 +114,8 @@ namespace Lync_Billing.ui.session
                         //Case 1: Drop Admin or Accounting Access
                         if (AccessLevels.Contains(dropParam))
                         {
-                            if ((dropParam == "admin" && session.IsAdmin && session.ActiveRoleName == "admin") || 
-                                (dropParam == "accounting" && session.IsAccountant && session.ActiveRoleName == "accounting") || 
+                            if ((dropParam == "admin" && session.IsAdmin && session.ActiveRoleName == "admin") ||
+                                (dropParam == "accounting" && session.IsAccountant && session.ActiveRoleName == "accounting") ||
                                 session.IsDeveloper)
                             {
                                 DropAccess(dropParam);
@@ -159,7 +159,7 @@ namespace Lync_Billing.ui.session
 
                 //if the user was not granted any elevated-access permission or he is currently in a manage-delegee mode, redirect him/her to the User Dashboard page.
                 //Or if the redirection_flag was not set to FALSE so far, we redurect the user to the USER DASHBOARD
-                if(redirectionFlag == true)
+                if (redirectionFlag == true)
                 {
                     Response.Redirect("~/ui/user/dashboard.aspx");
                 }
@@ -236,7 +236,7 @@ namespace Lync_Billing.ui.session
                 session.PhoneCalls = new List<PhoneCall>();
                 session.PhoneCallsPerPage = string.Empty;
             }
-            
+
             //Always set the ActiveRoleName to "user"
             session.ActiveRoleName = "user";
 
