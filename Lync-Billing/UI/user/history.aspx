@@ -86,7 +86,7 @@
                         <ext:Column ID="Marker_CallToCountry"
                             runat="server"
                             Text="Country Code"
-                            Width="90"
+                            Width="115"
                             DataIndex="Marker_CallToCountry" 
                             Groupable="true"/>
 
@@ -162,13 +162,19 @@
                                 TriggerAction="All" 
                                 QueryMode="Local" 
                                 DisplayField="TypeName" 
-                                ValueField="TypeValue">
+                                ValueField="TypeValue"
+                                Width="200"
+                                FieldLabel="View:"
+                                LabelWidth="30"
+                                Margins="5 450 0 5">
+                                
                                 <Items>
                                     <ext:ListItem Text="Everything" Value="Everything"/>
                                     <ext:ListItem Text="Business" Value="Business" />
                                     <ext:ListItem Text="Personal" Value="Personal" />
                                     <ext:ListItem Text="Dispute" Value="Dispute" />
                                 </Items>
+
                                  <DirectEvents>
                                      <Select OnEvent="PhoneCallsHistoryFilter" />
                                  </DirectEvents>
@@ -178,7 +184,7 @@
                                 </SelectedItems>
                             </ext:ComboBox>
 
-                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel" Margins="0 0 0 510">
+                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel">
                                  <Listeners>
                                     <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, 'xls');" />
                                 </Listeners>
