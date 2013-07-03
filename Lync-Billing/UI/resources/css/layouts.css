@@ -22,9 +22,9 @@
 .lastcol{float:none;display:block;display:table-cell;width:9999em;*width:auto;*zoom:1;}
 /*#######################WRAPPERS###########################*/
 /*.hwrapper, .bwrapper, .fwrapper, .cwrapper {margin:0 auto; width:960px; min-width:960px;}*/
-.hwrapper, .bwrapper, .fwrapper, .cwrapper {margin:0 auto; width:960px; min-width:1000px;}
-.main-wrapper{ width:960px; margin:0 auto;padding:25px 0; min-width:960px;}
-.liquid{min-width:960px}
+.hwrapper, .bwrapper, .fwrapper, .cwrapper {margin:0 auto; width:1000px; min-width:1000px;}
+.main-wrapper{ width:960px; margin:0 auto;padding:25px 0; min-width:1000px;}
+.liquid{min-width:1000px}
 /*body{direction:rtl}*/
 .rtl{direction:rtl}
 .ltr{direction:ltr}
