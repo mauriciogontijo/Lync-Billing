@@ -86,7 +86,7 @@ div#main_content_place_holder_PeriodicalReportsTools *,
 div#main_content_place_holder_UnmarkedCallsGrid *,
 div#main_content_place_holder_ManageGatewaysForm *,
 div#main_content_place_holder_UsersBillsGrid *,
-div#main_content_place_holder_ManageDelegatesGrids * { 
+div#main_content_place_holder_ManageDelegatesGrid * { 
     vertical-align: bottom; 
 }
 /* end asp & ext blocks styling */
