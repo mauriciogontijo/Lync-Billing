@@ -127,6 +127,7 @@
     <Content Include="ui\resources\images\warning.png" />
     <Content Include="ui\resources\images\x_block_bg.png" />
     <Content Include="ui\resources\js\ext-js-specific.js" />
+    <Content Include="ui\session\authenticate.aspx" />
     <Content Include="ui\session\login.aspx" />
     <Content Include="ui\resources\css\green-layout-ie-hacks.css" />
     <Content Include="ui\resources\css\green-layout.css" />
@@ -238,6 +239,13 @@
     </Compile>
     <Compile Include="ui\admin\users\delegates.aspx.designer.cs">
       <DependentUpon>delegates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\session\authenticate.aspx.cs">
+      <DependentUpon>authenticate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\session\authenticate.aspx.designer.cs">
+      <DependentUpon>authenticate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\SuperUserMasterPage.Master.cs">
       <DependentUpon>SuperUserMasterPage.Master</DependentUpon>
