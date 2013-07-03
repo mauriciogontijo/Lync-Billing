@@ -17,7 +17,6 @@
     <!-- *** START OF ADDRESS BOOK PANEL *** -->
     <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
-            <!-- *** START OF ADDRESS BOOK GRID *** -->
             <ext:TabPanel ID="AddressBookTabPanel"
                 runat="server"
                 Width="740"
@@ -88,7 +87,7 @@
                                     Flex="1">
                                     <Editor>
                                         <ext:TextField
-                                            ID="TextField1"
+                                            ID="ADContactNameTextbox"
                                             runat="server"
                                             DataIndex="Name" />
                                     </Editor>
@@ -106,7 +105,7 @@
                                         <ext:ComboBox
                                             ID="ADContactTypeCombo"
                                             runat="server"
-                                            DataIndex="Name"
+                                            DataIndex="Type"
                                             EmptyText="Please Select Type"
                                             SelectOnFocus="true"
                                             SelectOnTab="true"
@@ -181,10 +180,9 @@
                                 DisplayMsg="Contacts {0} - {1} of {2}" />
                         </BottomBar>
                     </ext:GridPanel>
-                    <!-- *** END OF ADDRESS BOOK GRID *** -->
+                    
 
 
-                    <!-- *** START OF IMPORT CONTACTS GRID *** -->
                     <ext:GridPanel
                         ID="ImportContactsGrid"
                         runat="server"
@@ -263,7 +261,7 @@
                                         <ext:ComboBox
                                             ID="ContactTypeDropdown"
                                             runat="server"
-                                            DataIndex="Name"
+                                            DataIndex="Type"
                                             EmptyText="Please Select Type"
                                             SelectOnFocus="true"
                                             SelectOnTab="true"
