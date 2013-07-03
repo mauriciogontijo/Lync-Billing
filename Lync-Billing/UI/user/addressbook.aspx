@@ -17,6 +17,7 @@
     <!-- *** START OF ADDRESS BOOK PANEL *** -->
     <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
+            <!-- *** START OF ADDRESS BOOK GRID *** -->
             <ext:TabPanel ID="AddressBookTabPanel"
                 runat="server"
                 Width="740"
@@ -56,9 +57,9 @@
                             </ext:Store>
                         </Store>
 
-                       <%-- <Plugins>
-                            <ext:RowEditing ID="RowEditing2" runat="server" ClicksToMoveEditor="1" AutoCancel="false" />
-                        </Plugins>--%>
+                        <Plugins>
+                            <ext:CellEditing ID="CellEditing2" runat="server" ClicksToEdit="2" />
+                        </Plugins>
 
                         <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
                             <Columns>
@@ -77,45 +78,47 @@
                                     Width="150"
                                     DataIndex="DestinationCountry" />
 
-                                <ext:ComponentColumn ID="ComponentColumn1"
+                                <ext:Column
+                                    ID="ADContactNameCol" 
                                     runat="server"
-                                    Text="Contact Name"
-                                    Width="240"
-                                    Editor="true"
-                                    OverOnly="true"
                                     DataIndex="Name"
-                                    PinEvents="expand"
-                                    UnpinEvents="collapse">
-                                    <Component>
-                                        <ext:TextField ID="ContactName"
+                                    Width="240"
+                                    Text="Contact Name"
+                                    Selectable="true"
+                                    Flex="1">
+                                    <Editor>
+                                        <ext:TextField
+                                            ID="TextField1"
                                             runat="server"
-                                            EmptyText="Example: John Smith"
                                             DataIndex="Name" />
-                                    </Component>
-                                </ext:ComponentColumn>
+                                    </Editor>
+                                </ext:Column>
 
-                                <ext:ComponentColumn ID="ComponentColumn2"
+                                <ext:Column
+                                    ID="ADContactTypeCol"
                                     runat="server"
+                                    DataIndex="Type"
                                     Text="Contact Type"
                                     Width="130"
-                                    Editor="true"
-                                    OverOnly="true"
-                                    DataIndex="Type"
-                                    PinEvents="expand"
-                                    UnpinEvents="collapse">
-                                    <Component>
-                                        <ext:ComboBox ID="ComboBox1"
+                                    Flex="1"
+                                    Selectable="true">
+                                    <Editor>
+                                        <ext:ComboBox
+                                            ID="ADContactTypeCombo"
                                             runat="server"
+                                            DataIndex="Name"
                                             EmptyText="Please Select Type"
-                                            Width="110"
-                                            DataIndex="Type">
+                                            SelectOnFocus="true"
+                                            SelectOnTab="true"
+                                            Selectable="true"
+                                            Width="110">
                                             <Items>
                                                 <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
                                                 <ext:ListItem Text="Business" Value="Business" Mode="Value" />
                                             </Items>
                                         </ext:ComboBox>
-                                    </Component>
-                                </ext:ComponentColumn>
+                                    </Editor>
+                                </ext:Column>
                             </Columns>
                         </ColumnModel>
 
@@ -178,13 +181,16 @@
                                 DisplayMsg="Contacts {0} - {1} of {2}" />
                         </BottomBar>
                     </ext:GridPanel>
+                    <!-- *** END OF ADDRESS BOOK GRID *** -->
 
+
+                    <!-- *** START OF IMPORT CONTACTS GRID *** -->
                     <ext:GridPanel
                         ID="ImportContactsGrid"
                         runat="server"
                         Header="false"
                         Layout="FitLayout"
-                        Title="Import"
+                        Title="Import Contacts"
                         Height="700">
                         <Store>
                             <ext:Store
@@ -208,6 +214,10 @@
                             </ext:Store>
                         </Store>
 
+                        <Plugins>
+                            <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
+                        </Plugins>
+
                         <ColumnModel ID="ImportContactsColumnModel" runat="server" Flex="1">
                             <Columns>
                                 <ext:RowNumbererColumn ID="RowNumbererColumn1" runat="server" Width="25" />
@@ -225,44 +235,36 @@
                                     Width="150"
                                     DataIndex="DestinationCountry" />
 
-                                <ext:ComponentColumn ID="ComponentColumn3" 
+                                <ext:Column
+                                    ID="ContanctNameCol" 
                                     runat="server"
                                     DataIndex="Name"
                                     Width="240"
                                     Text="Contact Name"
-                                    Editor="true"
-                                    OverOnly="true"
-                                    PinEvents="expand"
-                                    UnpinEvents="collapse"
                                     Selectable="true"
                                     Flex="1">
-                                    <Component>
-                                        <ext:TextField ID="TextField1"
+                                    <Editor>
+                                        <ext:TextField
+                                            ID="NameTextbox"
                                             runat="server"
-                                            Selectable="true"
-                                            SelectOnFocus="true"
-                                             SelectOnTab="true"
-                                            EmptyText="Example: John Smith"
                                             DataIndex="Name" />
-                                    </Component>
-                                </ext:ComponentColumn>
+                                    </Editor>
+                                </ext:Column>
 
-                                <ext:ComponentColumn ID="ComponentColumn4"
+                                <ext:Column
+                                    ID="ContactTypeCol"
                                     runat="server"
                                     DataIndex="Type"
                                     Text="Contact Type"
                                     Width="130"
-                                    Editor="true"
-                                    OverOnly="true"
-                                    PinEvents="expand"
-                                    UnpinEvents="collapse"
                                     Flex="1"
                                     Selectable="true">
-                                    <Component>
-                                        <ext:ComboBox ID="ComboBox2"
+                                    <Editor>
+                                        <ext:ComboBox
+                                            ID="ContactTypeDropdown"
                                             runat="server"
+                                            DataIndex="Name"
                                             EmptyText="Please Select Type"
-                                            DataIndex="Type"
                                             SelectOnFocus="true"
                                             SelectOnTab="true"
                                             Selectable="true"
@@ -272,10 +274,11 @@
                                                 <ext:ListItem Text="Business" Value="Business" Mode="Value" />
                                             </Items>
                                         </ext:ComboBox>
-                                    </Component>
-                                </ext:ComponentColumn>
+                                    </Editor>
+                                </ext:Column>
                             </Columns>
                         </ColumnModel>
+
                          <SelectionModel>
                             <ext:CellSelectionModel ID="CheckboxSelectionModel2"
                                 runat="server"
@@ -285,6 +288,7 @@
                                 CheckOnly="true">
                             </ext:CellSelectionModel>
                         </SelectionModel>
+
                         <TopBar>
                             <ext:Toolbar
                                 ID="ImportContactsToolbar"
@@ -292,7 +296,7 @@
                                 <Items>
                                     <ext:Button
                                         ID="ImportItems"
-                                        Text="Import To Address Book"
+                                        Text="Sync with Address Book"
                                         Icon="Add"
                                         runat="server">
                                         <DirectEvents>
@@ -324,3 +328,56 @@
     </div>
     <!-- *** END OF ADDRESS BOOK PANEL *** -->
 </asp:Content>
+
+
+<%--
+<ext:ComponentColumn ID="ComponentColumn3" 
+    runat="server"
+    DataIndex="Name"
+    Width="240"
+    Text="Contact Name"
+    Editor="true"
+    OverOnly="true"
+    PinEvents="expand"
+    UnpinEvents="collapse"
+    Selectable="true"
+    Flex="1">
+    <Component>
+        <ext:TextField ID="TextField1"
+            runat="server"
+            Selectable="true"
+            SelectOnFocus="true"
+                SelectOnTab="true"
+            EmptyText="Example: John Smith"
+            DataIndex="Name" />
+    </Component>
+</ext:ComponentColumn>
+
+<ext:ComponentColumn ID="ComponentColumn4"
+    runat="server"
+    DataIndex="Type"
+    Text="Contact Type"
+    Width="130"
+    Editor="true"
+    OverOnly="true"
+    PinEvents="expand"
+    UnpinEvents="collapse"
+    Flex="1"
+    Selectable="true">
+    <Component>
+        <ext:ComboBox ID="ComboBox2"
+            runat="server"
+            EmptyText="Please Select Type"
+            DataIndex="Type"
+            SelectOnFocus="true"
+            SelectOnTab="true"
+            Selectable="true"
+            Width="110">
+            <Items>
+                <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
+                <ext:ListItem Text="Business" Value="Business" Mode="Value" />
+            </Items>
+        </ext:ComboBox>
+    </Component>
+</ext:ComponentColumn>
+--%>
