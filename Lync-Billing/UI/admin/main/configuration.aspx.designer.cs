@@ -40,6 +40,15 @@ namespace Lync_Billing.ui.admin.main {
         protected global::Ext.Net.Model AppConfigStoreModel;
         
         /// <summary>
+        /// CellEditing1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CellEditing CellEditing1;
+        
+        /// <summary>
         /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
@@ -55,7 +64,7 @@ namespace Lync_Billing.ui.admin.main {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComponentColumn ModuleNameCol;
+        protected global::Ext.Net.Column ModuleNameCol;
         
         /// <summary>
         /// ModuleNameTextbox control.
@@ -73,7 +82,7 @@ namespace Lync_Billing.ui.admin.main {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComponentColumn ModuleKeyCol;
+        protected global::Ext.Net.Column ModuleKeyCol;
         
         /// <summary>
         /// ModuleKeyTextbox control.
@@ -91,7 +100,7 @@ namespace Lync_Billing.ui.admin.main {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComponentColumn ModuleValueCol;
+        protected global::Ext.Net.Column ModuleValueCol;
         
         /// <summary>
         /// ModuleValueTextbox control.
@@ -164,5 +173,59 @@ namespace Lync_Billing.ui.admin.main {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button AddRecordButton;
+        
+        /// <summary>
+        /// AddNewDefinitionWindowPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window AddNewDefinitionWindowPanel;
+        
+        /// <summary>
+        /// NewModuleName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField NewModuleName;
+        
+        /// <summary>
+        /// NewModuleKey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField NewModuleKey;
+        
+        /// <summary>
+        /// NewModuleValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField NewModuleValue;
+        
+        /// <summary>
+        /// AddNewDefinitionButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button AddNewDefinitionButton;
+        
+        /// <summary>
+        /// CancelNewDefinitionButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button CancelNewDefinitionButton;
     }
 }

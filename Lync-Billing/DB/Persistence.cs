@@ -9,14 +9,14 @@ namespace Lync_Billing.DB
 {
     public class Persistence
     {
-        int ID { set; get; }
-        string Module { set; get; }
-        string ModuleKey { set; get; }
-        string ModuleValue { set; get; }
+        public int ID { set; get; }
+        public string Module { set; get; }
+        public string ModuleKey { set; get; }
+        public string ModuleValue { set; get; }
 
         private static DBLib DBRoutines = new DBLib();
 
-        public List<Persistence> GetDefinitions() 
+        public static List<Persistence> GetDefinitions() 
         {
             Persistence definition;
             DataTable dt = new DataTable();
@@ -74,7 +74,7 @@ namespace Lync_Billing.DB
             return definitions;
         }
 
-        public int InsertDefention(Persistence defention) 
+        public static int InsertDefinition(Persistence defention) 
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -96,7 +96,7 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public void UpdateDefinition(Persistence defention) 
+        public static void UpdateDefinition(Persistence defention) 
         {
             Dictionary<string, object> setPart = new Dictionary<string, object>();
 
@@ -118,7 +118,7 @@ namespace Lync_Billing.DB
                 defention.ID);
         }
 
-        public void DeleteDefention(Persistence defention) 
+        public static void DeleteDefinition(Persistence defention) 
         {
             bool status = false;
 

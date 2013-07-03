@@ -22,79 +22,70 @@
                         runat="server"
                         IsPagingStore="true"
                         PageSize="25"
-                        OnReadData="AppConfigStore_ReadData"
-                        OnLoad="AppConfigStore_Load">
+                        OnReadData="AppConfigStore_ReadData">
                         <Model>
                             <ext:Model ID="AppConfigStoreModel" runat="server">
                                 <Fields>
-                                    <ext:ModelField Name="module" ServerMapping="Module" Type="String" />
-                                    <ext:ModelField Name="modulekey" ServerMapping="ModuleKey" Type="String" />
-                                    <ext:ModelField Name="modulevalue" ServerMapping="Modulevalue" Type="String" />
+                                    <ext:ModelField Name="ID" Type="String" />
+                                    <ext:ModelField Name="Module" Type="String" />
+                                    <ext:ModelField Name="ModuleKey" Type="String" />
+                                    <ext:ModelField Name="Modulevalue" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
                     </ext:Store>
                 </Store>
 
+                <Plugins>
+                    <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
+                </Plugins>
+                
                 <ColumnModel
                     ID="AppConfigGridColumnModel"
                     runat="server">
                     <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
 
-                        <ext:ComponentColumn
+                        <ext:Column
                             ID="ModuleNameCol"
                             runat="server"
                             Text="Module Name"
                             Width="180"
-                            Editor="true"
-                            OverOnly="true"
-                            DataIndex="Module"
-                            PinEvents="expand"
-                            UnpinEvents="collapse">
-                            <Component>
+                            DataIndex="Module">
+                            <Editor>
                                 <ext:TextField
                                     ID="ModuleNameTextbox"
                                     runat="server"
                                     DataIndex="Module" />
-                            </Component>
-                        </ext:ComponentColumn>
+                            </Editor>
+                        </ext:Column>
 
-                        <ext:ComponentColumn
+                        <ext:Column
                             ID="ModuleKeyCol"
                             runat="server"
                             DataIndex="ModuleKey"
                             Text="Module Key"
-                            Width="220"
-                            Editor="true"
-                            OverOnly="true"
-                            PinEvents="expand"
-                            UnpinEvents="collapse">
-                            <Component>
+                            Width="220">
+                            <Editor>
                                 <ext:TextField
                                     ID="ModuleKeyTextbox"
                                     runat="server"
                                     DataIndex="ModuleKey" />
-                            </Component>
-                        </ext:ComponentColumn>
+                            </Editor>
+                        </ext:Column>
 
-                        <ext:ComponentColumn
+                        <ext:Column
                             ID="ModuleValueCol"
                             runat="server"
                             Text="Module Value"
-                            Width="240"
-                            Editor="true"
-                            OverOnly="true"
-                            DataIndex="ModuleValue"
-                            PinEvents="expand"
-                            UnpinEvents="collapse">
-                            <Component>
+                            Width="240">
+                            <Editor>
                                 <ext:TextField
                                     ID="ModuleValueTextbox"
                                     runat="server"
                                     DataIndex="ModuleValue" />
-                            </Component>
-                        </ext:ComponentColumn>
+                            </Editor>
+                        </ext:Column>
 
                         <ext:ImageCommandColumn
                             ID="DeleteRecordColumn"
@@ -147,7 +138,7 @@
                                     <Click OnEvent="UpdateEdited_DirectEvent">
                                         <EventMask ShowMask="true" />
                                         <ExtraParams>
-                                            <ext:Parameter Name="Values" Value="Ext.encode(#{AppConfigGrid}.getRowsValues(true))" Mode="Raw" />
+                                            <ext:Parameter Name="Values" Value="#{AppConfigGrid}.getChangedData()" Mode="Raw" />
                                         </ExtraParams>
                                     </Click>
                                 </DirectEvents>
@@ -171,7 +162,73 @@
                                 runat="server"
                                 Text="Add Record"
                                 Icon="Add">
+                                <DirectEvents>
+                                    <Click OnEvent="ShowAddDefinitionPanel" />
+                                </DirectEvents>
                             </ext:Button>
+
+                            <ext:Window 
+                                ID="AddNewDefinitionWindowPanel" 
+                                runat="server" 
+                                Icon="Add" 
+                                Title="Add New Definition" 
+                                Hidden="true"
+                                Width="450"
+                                Height="210"
+                                Frame="true"
+                                X="200"
+                                Y="200">
+                                <Defaults>
+                                    <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
+                                </Defaults>
+                                <Content>
+                                    <ext:TextField
+                                        ID="NewModuleName"
+                                        runat="server"
+                                        AllowBlank="false"
+                                        Width="420"
+                                        EmptyText="Empty Module Name"
+                                        FieldLabel="Module Name:"
+                                        LabelWidth="90">
+                                    </ext:TextField>
+                                    
+                                    <ext:TextField
+                                        ID="NewModuleKey"
+                                        runat="server"
+                                        AllowBlank="false"
+                                        Width="420"
+                                        EmptyText="Empty Module Key"
+                                        FieldLabel="Module Key:"
+                                        LabelWidth="90">
+                                    </ext:TextField>
+
+                                    <ext:TextField
+                                        ID="NewModuleValue"
+                                        runat="server"
+                                        AllowBlank="false"
+                                        Width="420"
+                                        EmptyText="Empty Module Value"
+                                        FieldLabel="Module Value:"
+                                        LabelWidth="90">
+                                    </ext:TextField>
+
+                                    <ext:Button
+                                        ID="AddNewDefinitionButton"
+                                        runat="server"
+                                        Text="Add"
+                                        Icon="ApplicationFormAdd"
+                                        Flat="true">
+                                    </ext:Button>
+
+                                    <ext:Button
+                                        ID="CancelNewDefinitionButton"
+                                        runat="server"
+                                        Text="Cancel"
+                                        Icon="Cancel"
+                                        Flat="true">
+                                    </ext:Button>
+                                </Content>
+                            </ext:Window>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
