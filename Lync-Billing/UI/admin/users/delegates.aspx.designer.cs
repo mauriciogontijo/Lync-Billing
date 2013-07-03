@@ -94,6 +94,15 @@ namespace Lync_Billing.ui.admin.users {
         protected global::Ext.Net.ImageCommandColumn DeleteButtonsColumn;
         
         /// <summary>
+        /// RejectChange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CommandColumn RejectChange;
+        
+        /// <summary>
         /// RowSelectionModel1 control.
         /// </summary>
         /// <remarks>

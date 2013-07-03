@@ -110,10 +110,13 @@
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
     <Content Include="ui\admin\users\delegates.aspx" />
+    <Content Include="ui\resources\css\css3-buttons.css" />
     <Content Include="ui\resources\css\dropdown-menu-white.css" />
     <Content Include="ui\resources\css\dropdown-menu.css" />
     <Content Include="ui\resources\css\global.css" />
     <Content Include="ui\resources\css\layouts.css" />
+    <Content Include="ui\resources\fonts\fontello.svg" />
+    <Content Include="ui\resources\images\main-bg.png" />
     <Content Include="ui\resources\images\drop-arrow.png" />
     <Content Include="ui\resources\images\get_info-3.png" />
     <Content Include="ui\resources\images\header-bg.gif" />
@@ -139,6 +142,7 @@
     <Content Include="ui\resources\js\ext-all.js" />
     <Content Include="ui\resources\js\jquery-1.9.1.min.js" />
     <Content Include="ui\resources\js\stacktrace.js" />
+    <Content Include="ui\test\redbtn.aspx" />
     <Content Include="ui\user\bills.aspx" />
     <Content Include="ui\user\dashboard.aspx" />
     <Content Include="ui\user\addressbook.aspx" />
@@ -298,6 +302,13 @@
     <Compile Include="ui\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
+    <Compile Include="ui\test\redbtn.aspx.cs">
+      <DependentUpon>redbtn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\test\redbtn.aspx.designer.cs">
+      <DependentUpon>redbtn.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ui\user\bills.aspx.cs">
       <DependentUpon>bills.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -353,6 +364,9 @@
     <Content Include="packages.config" />
     <Content Include="ui\SuperUserMasterPage.Master" />
     <None Include="Properties\PublishProfiles\TBILL.pubxml" />
+    <Content Include="ui\resources\fonts\fontello.eot" />
+    <Content Include="ui\resources\fonts\fontello.ttf" />
+    <Content Include="ui\resources\fonts\fontello.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
