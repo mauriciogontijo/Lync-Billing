@@ -197,7 +197,7 @@
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF STATISTICS CHARTS CONTAINER *** -->
     <div class="block float-right w80p h100p">
-        <div id='personal-duration-cost-chart' class='block float-right wauto w100p'>
+        <div id='personal-duration-cost-chart' class='block float-right w100p'>
             <div class="block-body pt5">
                 <ext:Panel
                     ID="DurationCostChartPanel"
