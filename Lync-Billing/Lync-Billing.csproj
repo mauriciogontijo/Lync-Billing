@@ -105,8 +105,10 @@
     <Content Include="ui\accounting\reports\monthly.aspx" />
     <Content Include="ui\accounting\reports\periodical.aspx" />
     <Content Include="ui\admin\gateways\manage.aspx" />
+    <Content Include="ui\admin\gateways\rates.aspx" />
     <Content Include="ui\admin\main\configuration.aspx" />
     <Content Include="ui\admin\main\dashboard.aspx" />
+    <Content Include="ui\admin\main\statistics.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
     <Content Include="ui\admin\users\delegates.aspx" />
@@ -149,6 +151,7 @@
     <Content Include="ui\user\delegees.aspx" />
     <Content Include="ui\user\history.aspx" />
     <Content Include="ui\user\phonecalls.aspx" />
+    <Content Include="ui\user\rates.aspx" />
     <Content Include="ui\user\statistics.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -212,12 +215,26 @@
     <Compile Include="ui\admin\gateways\manage.aspx.designer.cs">
       <DependentUpon>manage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ui\admin\gateways\rates.aspx.cs">
+      <DependentUpon>rates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\admin\gateways\rates.aspx.designer.cs">
+      <DependentUpon>rates.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ui\admin\main\configuration.aspx.cs">
       <DependentUpon>configuration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ui\admin\main\configuration.aspx.designer.cs">
       <DependentUpon>configuration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\admin\main\statistics.aspx.cs">
+      <DependentUpon>statistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\admin\main\statistics.aspx.designer.cs">
+      <DependentUpon>statistics.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\admin\notifications\bills.aspx.cs">
       <DependentUpon>bills.aspx</DependentUpon>
@@ -351,6 +368,13 @@
     </Compile>
     <Compile Include="ui\user\phonecalls.aspx.designer.cs">
       <DependentUpon>phonecalls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\user\rates.aspx.cs">
+      <DependentUpon>rates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\user\rates.aspx.designer.cs">
+      <DependentUpon>rates.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\user\statistics.aspx.cs">
       <DependentUpon>statistics.aspx</DependentUpon>

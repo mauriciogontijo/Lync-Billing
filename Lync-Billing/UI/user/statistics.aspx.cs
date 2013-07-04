@@ -26,6 +26,15 @@ namespace Lync_Billing.ui.user
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
             }
+            else
+            {
+                UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+                if (session.ActiveRoleName != "user" && session.ActiveRoleName != "delegee")
+                {
+                    string url = @"~/ui/session/authenticate.aspx?access=" + session.ActiveRoleName;
+                    Response.Redirect(url);
+                }
+            }
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 

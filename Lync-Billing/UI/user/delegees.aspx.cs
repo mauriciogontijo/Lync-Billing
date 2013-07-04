@@ -30,8 +30,15 @@ namespace Lync_Billing.ui.user
             }
             else
             {
-                Response.Redirect("~/ui/user/dashboard.aspx");
+                UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+                if (session.ActiveRoleName != "user" && session.ActiveRoleName != "delegee")
+                {
+                    string url = @"~/ui/session/authenticate.aspx?access=" + session.ActiveRoleName;
+                    Response.Redirect(url);
+                }
             }
+            
+            Response.Redirect("~/ui/user/dashboard.aspx");
         }
     }
 }

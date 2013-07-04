@@ -42,6 +42,16 @@ namespace Lync_Billing.ui.user
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
             }
+            else
+            {
+                UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+                if (session.ActiveRoleName != "user" && session.ActiveRoleName != "delegee")
+                {
+                    string url = @"~/ui/session/authenticate.aspx?access=" + session.ActiveRoleName;
+                    Response.Redirect(url);
+                }
+            }
+
 
             //Copy the current session to the instance variable, this is needed to make it more easier to access the current session from the front-end.
             current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
