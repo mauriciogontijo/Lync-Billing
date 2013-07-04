@@ -78,11 +78,12 @@
                                                 <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
                                                 <li class=""><a title="Bills History" href="../user/bills.aspx">Bills History</a></li>
                                                 <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
+                                                <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
                                                 <% if(current_session.PrimarySipAccount == current_session.EffectiveSipAccount) { %>
-                                                    <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
+                                                    <li class="separator-bottom"><a title="Telephony Rates" href="../user/rates.aspx">Telephony Rates</a></li>
                                                     <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                                 <% } else { %>
-                                                    <li class="last-child"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
+                                                    <li class="last-child"><a title="Telephony Rates" href="../user/rates.aspx">Telephony Rates</a></li>
                                                 <% } %>
                                             </ul>
                                         </li>
@@ -166,7 +167,7 @@
                         <div class="block-body">
                             <ext:Panel ID="UserToolsSidebar"
                                 runat="server"
-                                Height="340"
+                                Height="420"
                                 Width="180"
                                 Title="User Tools"
                                 Collapsed="false"
@@ -199,6 +200,15 @@
                                         </div>
                                         <div class="sidebar-section-body">
                                             <p><a href='../user/statistics.aspx' id="ui_user_statistics">Phone Calls Statistics</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Telephony Rates</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../user/rates.aspx' id="ui_user_rates">View Telephony Rates</a></p>
                                         </div>
                                     </div>
                                 </Content>
