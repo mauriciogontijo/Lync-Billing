@@ -13,7 +13,7 @@
                 runat="server" 
                 Title="Bills History"
                 Width="740"
-                Height="740"  
+                Height="720"  
                 AutoScroll="true"
                 Header="true"
                 Scroll="Both" 
@@ -25,7 +25,8 @@
                         runat="server" 
                         OnLoad="UsersBillsStore_Load"
                         OnReadData="UsersBillsStore_ReadData"
-                        IsPagingStore="false">
+                        IsPagingStore="true"
+                        PageSize="25">
                         <Model>
                             <ext:Model ID="UsersBillsModel" runat="server" IDProperty="BillsModel">
                                 <Fields>
@@ -113,7 +114,7 @@
                                 LabelWidth="70"
                                 EmptyText="Empty Date"
                                 Width="220"
-                                Margins="5 15 5 5"
+                                Margins="5 15 0 5"
                                 Editable="false">
                                 <DirectEvents>
                                     <Select OnEvent="BillDateField_Selection" />
@@ -130,7 +131,7 @@
                                 ValueField="SiteName"
                                 FieldLabel="Choose Site"
                                 LabelWidth="65"
-                                Margins="5 15 5 5"
+                                Margins="5 15 0 5"
                                 Disabled="true">
                                 <Store>
                                     <ext:Store
@@ -156,7 +157,7 @@
                                 runat="server" 
                                 Text="Email Alert" 
                                 Icon="EmailAdd" 
-                                Margins="5 5 5 160">
+                                Margins="5 5 0 160">
                                 <DirectEvents>
                                     <Click OnEvent="NotifyUsers">
                                         <ExtraParams>
@@ -178,6 +179,16 @@
                         CheckOnly="true">
                     </ext:CheckboxSelectionModel>
                 </SelectionModel>
+
+                <BottomBar>
+                    <ext:PagingToolbar
+                        ID="PagingBottomBar"
+                        runat="server"
+                        StoreID="UsersBillsStore"
+                        DisplayInfo="true"
+                        Weight="25"
+                        DisplayMsg="Users {0} - {1} of {2}" />
+                </BottomBar>
             </ext:GridPanel>
         </div>
     </div>

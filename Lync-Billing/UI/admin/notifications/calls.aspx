@@ -23,7 +23,8 @@
                         ID="UnmarkedCallsStore"
                         runat="server"
                         RemoteSort="true"
-                        IsPagingStore="false">
+                        IsPagingStore="true"
+                        PageSize="25">
                         <Model>
                             <ext:Model ID="UnmarkedCallsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
@@ -169,6 +170,15 @@
                     </ext:CheckboxSelectionModel>
                 </SelectionModel>
 
+                <BottomBar>
+                    <ext:PagingToolbar
+                        ID="PagingBottomBar"
+                        runat="server"
+                        StoreID="UnmarkedCallsStore"
+                        DisplayInfo="true"
+                        Weight="25"
+                        DisplayMsg="USers Bills {0} - {1} of {2}" />
+                </BottomBar>
             </ext:GridPanel>
         </div>
     </div>

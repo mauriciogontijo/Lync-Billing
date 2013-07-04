@@ -7,162 +7,225 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lync_Billing.ui.admin.notifications {
+namespace Lync_Billing.ui.admin.gateways {
     
     
-    public partial class calls {
+    public partial class rates {
         
         /// <summary>
-        /// UnmarkedCallsGrid control.
+        /// ManageRatesGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridPanel UnmarkedCallsGrid;
+        protected global::Ext.Net.GridPanel ManageRatesGrid;
         
         /// <summary>
-        /// UnmarkedCallsStore control.
+        /// ManageRatesStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store UnmarkedCallsStore;
+        protected global::Ext.Net.Store ManageRatesStore;
         
         /// <summary>
-        /// UnmarkedCallsModel control.
+        /// ManageRatesModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model UnmarkedCallsModel;
+        protected global::Ext.Net.Model ManageRatesModel;
         
         /// <summary>
-        /// UnmarkedCalls_ColumnRowNumber control.
+        /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.RowNumbererColumn UnmarkedCalls_ColumnRowNumber;
+        protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
         
         /// <summary>
-        /// EmployeeIDCol control.
+        /// RateIDCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column EmployeeIDCol;
+        protected global::Ext.Net.Column RateIDCol;
         
         /// <summary>
-        /// SipAccountCol control.
+        /// CountryCodeCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column SipAccountCol;
+        protected global::Ext.Net.Column CountryCodeCol;
         
         /// <summary>
-        /// FullNameCol control.
+        /// CountryCodeComboBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column FullNameCol;
+        protected global::Ext.Net.ComboBox CountryCodeComboBox;
         
         /// <summary>
-        /// UnmarkedCallsDurationCol control.
+        /// CountryCodeComboBoxStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column UnmarkedCallsDurationCol;
+        protected global::Ext.Net.Store CountryCodeComboBoxStore;
         
         /// <summary>
-        /// UnmarkedCallsCountCol control.
+        /// CountryCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column UnmarkedCallsCountCol;
+        protected global::Ext.Net.Model CountryCode;
         
         /// <summary>
-        /// UnmarkedCallsCostCol control.
+        /// FixedlineRateCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column UnmarkedCallsCostCol;
+        protected global::Ext.Net.Column FixedlineRateCol;
         
         /// <summary>
-        /// UnamrkedCalls_FilterToolBar control.
+        /// FixedLineRateTextbox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Toolbar UnamrkedCalls_FilterToolBar;
+        protected global::Ext.Net.TextField FixedLineRateTextbox;
         
         /// <summary>
-        /// FilterUsersBySite control.
+        /// MobileLineRateCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComboBox FilterUsersBySite;
+        protected global::Ext.Net.Column MobileLineRateCol;
         
         /// <summary>
-        /// SitesStore control.
+        /// MobileLineRateTextbox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store SitesStore;
+        protected global::Ext.Net.TextField MobileLineRateTextbox;
         
         /// <summary>
-        /// SitesModel control.
+        /// DeleteButtonsColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model SitesModel;
+        protected global::Ext.Net.ImageCommandColumn DeleteButtonsColumn;
         
         /// <summary>
-        /// UnamrkedCalls_EmailAlertButton control.
+        /// RejectChange control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button UnamrkedCalls_EmailAlertButton;
+        protected global::Ext.Net.CommandColumn RejectChange;
         
         /// <summary>
-        /// UnmarkedCallsCheckboxSelectionModel control.
+        /// RowSelectionModel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.CheckboxSelectionModel UnmarkedCallsCheckboxSelectionModel;
+        protected global::Ext.Net.RowSelectionModel RowSelectionModel1;
         
         /// <summary>
-        /// PagingBottomBar control.
+        /// CellEditing1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.PagingToolbar PagingBottomBar;
+        protected global::Ext.Net.CellEditing CellEditing1;
+        
+        /// <summary>
+        /// FilterDelegatesSitesToolBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Toolbar FilterDelegatesSitesToolBar;
+        
+        /// <summary>
+        /// FilterRatesByGateway control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox FilterRatesByGateway;
+        
+        /// <summary>
+        /// GatewaysStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store GatewaysStore;
+        
+        /// <summary>
+        /// GatewaysModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model GatewaysModel;
+        
+        /// <summary>
+        /// UpdateEditedRecords control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button UpdateEditedRecords;
+        
+        /// <summary>
+        /// CancelChangesButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button CancelChangesButton;
+        
+        /// <summary>
+        /// ManageRatesPagingToolbar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.PagingToolbar ManageRatesPagingToolbar;
     }
 }
