@@ -101,7 +101,8 @@ div#main_content_place_holder_UnmarkedCallsGrid *,
 div#main_content_place_holder_ManageGatewaysForm *,
 div#main_content_place_holder_UsersBillsGrid *,
 div#main_content_place_holder_ManageDelegatesGrid *,
-div#main_content_place_holder_ManageRatesGrid * { 
+div#main_content_place_holder_ManageRatesGrid *,
+div#main_content_place_holder_ViewRatesGrid * { 
     vertical-align: bottom; 
 }
 /* end asp & ext blocks styling */
