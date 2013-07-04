@@ -152,10 +152,6 @@
 
                     </Columns>
                 </ColumnModel>
-
-                <SelectionModel>
-                    <ext:RowSelectionModel ID="RowSelectionModel1" runat="server" />
-                </SelectionModel>
                 
                 <Plugins>
                     <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />

@@ -148,15 +148,6 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.CommandColumn RejectChange;
         
         /// <summary>
-        /// RowSelectionModel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.RowSelectionModel RowSelectionModel1;
-        
-        /// <summary>
         /// CellEditing1 control.
         /// </summary>
         /// <remarks>
