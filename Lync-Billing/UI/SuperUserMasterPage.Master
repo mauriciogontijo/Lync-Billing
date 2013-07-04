@@ -127,12 +127,22 @@
                         <div class="block-body">
                             <ext:Panel ID="AdminToolsSidebar"
                                 runat="server"
-                                Height="400"
+                                Height="510"
                                 Width="180"
                                 Title="Admin Tools"
                                 Collapsed="false"
                                 Collapsible="true">
                                 <Content>
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Gateways</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../gateways/manage.aspx' id="ui_admin_gateways_manage">Manage Gateways</a></p>
+                                            <p><a href='../gateways/rates.aspx' id="ui_admin_gateways_rates">Manage Rates</a></p>
+                                        </div>
+                                    </div>
+
                                     <div class='sidebar-section'>
                                         <div class="sidebar-section-header">
                                             <p>Email Notifications</p>
@@ -142,22 +152,22 @@
                                             <p><a href='../notifications/bills.aspx' id="ui_admin_notifications_bills">Users Bills</a></p>
                                         </div>
                                     </div>
-
-                                    <div class='sidebar-section'>
-                                        <div class="sidebar-section-header">
-                                            <p>Gateways</p>
-                                        </div>
-                                        <div class="sidebar-section-body">
-                                            <p><a href='../gateways/manage.aspx' id="ui_admin_gateways_manage">Manage Gateways</a></p>
-                                        </div>
-                                    </div>
-
+                                    
                                     <div class='sidebar-section'>
                                         <div class="sidebar-section-header">
                                             <p>Users</p>
                                         </div>
                                         <div class="sidebar-section-body">
                                             <p><a href='../users/delegates.aspx' id="ui_admin_users_delegates">Manage Delegates</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Statistics</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../main/statistics.aspx' id="ui_admin_main_statistics">View Statistics</a></p>
                                         </div>
                                     </div>
 
