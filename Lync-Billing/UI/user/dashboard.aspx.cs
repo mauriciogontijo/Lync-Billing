@@ -96,16 +96,45 @@ namespace Lync_Billing.ui.user
             {
                 if (UserSummary.PersonalCallsCount == 0)
                 {
-                    summary = "<div class='block-body wauto m15 p5'><p>" +
-                        "<p class='line-height-1-7 mb15'>During this month, it's either that you haven't made any phonecalls or you haven't marked your <span class='red-font'>personal</span> phonecalls yet.</p>" +
-                        "<p class='line-height-1-7 mb10'>Please <span class='red-font'>mark your phonecalls</span> for this month, if you have any, in order to get a meaningful summary.</p></p></div>";
+                    if (UserSummary.UnmarkedCallsCount == 0)
+                    {
+                        summary = "<div class='block-body wauto m15 p5'><p>" +
+                        "<p class='line-height-1-7 mb15'>You haven't made any phonecalls during this month.</p>" +
+                        "</p></div>";
+                    }
+                    else
+                    {
+                        summary = "<div class='block-body wauto m15 p5'><p>" +
+                        "<p class='line-height-1-7 mb15'>You haven't marked your <span class='red-font'>personal</span> phonecalls yet, for this month.</p>" +
+                        "<p class='line-height-1-7 mb10'>Please <span class='red-font'>do so</span>, in order to get a meaningful summary.</p></p></div>";
+                    }
                 }
                 else
                 {
+                    //if (UserSummary.UnmarkedCallsCount == 0)
+                    //{
+                    //    summary = String.Format(
+                    //        "<div class='block-body wauto m15 p5'><p>" +
+                    //        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                    //        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></p></div>",
+                    //        UserSummary.PersonalCallsCount, UserSummary.PersonalCallsDuration / 60, UserSummary.PersonalCallsCost
+                    //    );
+                    //}
+                    //else
+                    //{
+                    //    summary = String.Format(
+                    //        "<div class='block-body wauto m15 p5'><p>" +
+                    //        "<p class='line-height-1-7 mb10'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                    //        "<p class='line-height-1-7 mb15'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p>" +
+                    //        "<p class='line-height-1-7 mb10'>However, you haven't marked all of your phonecalls, yet!.</p></p></div>",
+                    //        UserSummary.PersonalCallsCount, UserSummary.PersonalCallsDuration / 60, UserSummary.PersonalCallsCost
+                    //    );
+                    //}
+
                     summary = String.Format(
                         "<div class='block-body wauto m15 p5'><p>" +
                         "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
-                        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
+                        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></p></div>",
                         UserSummary.PersonalCallsCount, UserSummary.PersonalCallsDuration / 60, UserSummary.PersonalCallsCost
                     );
                 }
@@ -115,12 +144,41 @@ namespace Lync_Billing.ui.user
             {
                 if (UserSummary.BusinessCallsCount == 0)
                 {
-                    summary = "<div class='block-body wauto m15 p5'><p>" +
-                        "<p class='line-height-1-7 mb15'>During this month, it's either that you haven't made any phonecalls or you haven't marked your <span class='red-font'>business</span> phonecalls yet.</p>" +
-                        "<p class='line-height-1-7 mb10'>Please <span class='red-font'>mark your phonecalls</span> for this month, if you have any, in order to get a meaningful summary.</p></p></div>";
+                    if (UserSummary.UnmarkedCallsCount == 0)
+                    {
+                        summary = "<div class='block-body wauto m15 p5'><p>" +
+                            "<p class='line-height-1-7 mb15'>You haven't made any phonecalls during this month.</p>" +
+                            "</p></div>";
+                    }
+                    else
+                    {
+                        summary = "<div class='block-body wauto m15 p5'><p>" +
+                        "<p class='line-height-1-7 mb15'>You haven't marked your <span class='red-font'>bussiness</span> phonecalls yet, for this month.</p>" +
+                        "<p class='line-height-1-7 mb10'>Please <span class='red-font'>do so</span>, in order to get a meaningful summary.</p></p></div>";
+                    }
                 }
                 else
                 {
+                    //if (UserSummary.UnmarkedCallsCount == 0)
+                    //{
+                    //    summary = String.Format(
+                    //        "<div class='block-body wauto m15 p5'><p>" +
+                    //        "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                    //        "<p class='line-height-1-7 mb10'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>",
+                    //        UserSummary.BusinessCallsCount, UserSummary.BusinessCallsDuration / 60, UserSummary.BusinessCallsCost
+                    //    );
+                    //}
+                    //else
+                    //{
+                    //    summary = String.Format(
+                    //        "<div class='block-body wauto m15 p5'><p>" +
+                    //        "<p class='line-height-1-7 mb10'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
+                    //        "<p class='line-height-1-7 mb15'>The net calculated <span class='red-font'>cost is {2} euros</span>.</p></div>" + 
+                    //        "<p class='line-height-1-7 mb10'>However, you haven't marked all of your phonecalls, yet!.</p></p></div>",
+                    //        UserSummary.BusinessCallsCount, UserSummary.BusinessCallsDuration / 60, UserSummary.BusinessCallsCost
+                    //    );
+                    //}
+
                     summary = String.Format(
                         "<div class='block-body wauto m15 p5'><p>" +
                         "<p class='line-height-1-7 mb15'>During this month, you have made a total of <span class='red-font'>{0} phone calls</span>, and they all add up to a total duration of almost <span class='red-font'>{1} minutes</span>.</p>" +
