@@ -27,7 +27,7 @@
 	            else if (rec.get('Name') == 'Personal') {
 	                personal_duration = rec.get('TotalDuration');
 	            }
-	            else if (rec.get('Name') == 'Dispute') {
+	            else if (rec.get('Name') == 'Disputed') {
 	                dispute_duration = rec.get('TotalDuration');
 	            }
 	            else if (rec.get('Name') == 'Unmarked') {
@@ -47,7 +47,7 @@
 	            return ((unmarked_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
 	            //return unmarked_duration;
 	        }
-	        else if (storeItem == "Dispute") {
+	        else if (storeItem == "Disputed") {
 	            return ((dispute_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
 	            //return unmarked_duration;
 	        }
@@ -93,7 +93,7 @@
 	            else if (rec.get('Name') == 'Personal') {
 	                personal_cost = rec.get('TotalCost');
 	            }
-	            else if (rec.get('Name') == 'Dispute') {
+	            else if (rec.get('Name') == 'Disputed') {
 	                dispute_cost = rec.get('TotalCost');
 	            }
 	            else if (rec.get('Name') == 'Unmarked') {
@@ -110,7 +110,7 @@
 	        else if (storeItem == "Unmarked") {
 	            return ((unmarked_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
 	        }
-	        else if (storeItem == "Dispute") {
+	        else if (storeItem == "Disputed") {
 	            return ((dispute_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
 	        }
 	    };

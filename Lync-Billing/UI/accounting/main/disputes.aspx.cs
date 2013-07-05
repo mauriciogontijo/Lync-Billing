@@ -50,7 +50,7 @@ namespace Lync_Billing.ui.accounting.main
 
             wherePart.Add("marker_CallTypeID", 1);
             wherePart.Add("ac_IsInvoiced", "NO");
-            wherePart.Add("ui_CallType", "Dispute");
+            wherePart.Add("ui_CallType", "Disputed");
 
             columns.Add("SessionIdTime");
             columns.Add("SessionIdSeq");

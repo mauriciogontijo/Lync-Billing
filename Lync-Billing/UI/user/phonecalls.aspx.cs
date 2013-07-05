@@ -349,7 +349,7 @@ namespace Lync_Billing.ui.user
                 PhoneCall matchedDestinationCalls = userSession.PhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
 
 
-                matchedDestinationCalls.UI_CallType = "Dispute";
+                matchedDestinationCalls.UI_CallType = "Disputed";
                 matchedDestinationCalls.UI_MarkedOn = DateTime.Now;
                 matchedDestinationCalls.UI_UpdatedByUser = sipAccount;
 

@@ -172,7 +172,7 @@
                                     <ext:ListItem Text="Everything" Value="Everything"/>
                                     <ext:ListItem Text="Business" Value="Business" />
                                     <ext:ListItem Text="Personal" Value="Personal" />
-                                    <ext:ListItem Text="Dispute" Value="Dispute" />
+                                    <ext:ListItem Text="Disputed" Value="Disputed" />
                                 </Items>
 
                                  <DirectEvents>

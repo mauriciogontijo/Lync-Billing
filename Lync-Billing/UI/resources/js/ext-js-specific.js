@@ -98,7 +98,7 @@ function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store
         if (record.data.UI_CallType == 'Business') {
             meta.style = "color: rgb(46, 143, 42);";
         }
-        if (record.data.UI_CallType == 'Dispute') {
+        if (record.data.UI_CallType == 'Disputed') {
             meta.style = "color: rgb(31, 115, 164);";
         }
 
@@ -197,7 +197,7 @@ var chartsDurationFormat = function (seconds) {
 }
 
 
-//This function is used in Manage Disputes page in the accounting page.
+//This function is used in Manage Disputed Calls page in the accounting page.
 function getRowClassForstatus(value, meta, record, rowIndex, colIndex, store) {
     if (record.data.AC_DisputeStatus == 'Rejected') {
         meta.style = "color: rgb(201, 20, 20);";

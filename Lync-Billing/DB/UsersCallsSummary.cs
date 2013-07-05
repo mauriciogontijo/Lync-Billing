@@ -79,9 +79,9 @@ namespace Lync_Billing.DB
                    
                 }
 
-                else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Dispute")
+                else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Disputed")
                 {
-                    userSummary.Name = "Dispute";
+                    userSummary.Name = "Disputed";
 
                     if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
                         userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);

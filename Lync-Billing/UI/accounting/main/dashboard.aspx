@@ -87,7 +87,7 @@
                             <Content>
                                 <div class='sidebar-section'>
                                     <div class="sidebar-section-header">
-                                        <p>Disputes</p>
+                                        <p>Disputed Calls</p>
                                     </div>
                                     <div class="sidebar-section-body">
                                         <p><a href='../main/disputes.aspx' id="ui_accounting_main_disputes">Manage Disputed Calls</a></p>

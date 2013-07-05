@@ -1,4 +1,4 @@
-﻿<%@ Page Title="eBill Accounting | Manage Disputes" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="disputes.aspx.cs" Inherits="Lync_Billing.ui.accounting.main.disputes" %>
+﻿<%@ Page Title="eBill Accounting | Manage Disputed Calls" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="disputes.aspx.cs" Inherits="Lync_Billing.ui.accounting.main.disputes" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     
@@ -11,7 +11,7 @@
              <ext:GridPanel
                 ID="ManageDisputesGrid"
                 runat="server"
-                Title="Manage Disputes"
+                Title="Manage Disputed Calls"
                 Width="740"
                 Height="750"
                 AutoScroll="true"
@@ -181,14 +181,14 @@
                         StoreID="DisputesStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Disputes {0} - {1} of {2}" />
+                        DisplayMsg="Disputed Calls {0} - {1} of {2}" />
                 </BottomBar>
                  <Features>               
                    <ext:Grouping ID="Grouping1" 
                     runat="server" 
                     HideGroupedHeader="false" 
                     EnableGroupingMenu="false"
-                    GroupHeaderTplString='{name} : ({[values.rows.length]} {[values.rows.length > 1 ? "Disputes" : "Dispute"]})'/>
+                    GroupHeaderTplString='{name} : ({[values.rows.length]} {[values.rows.length > 1 ? "Disputed Calls" : "Disputed"]})'/>
                  </Features>
 
             </ext:GridPanel>

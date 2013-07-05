@@ -44,7 +44,7 @@
                                     <ext:ListItem Text="Unmarked" Value="Unmarked" />
                                     <ext:ListItem Text="Business" Value="Business" />
                                     <ext:ListItem Text="Personal" Value="Personal" />
-                                    <ext:ListItem Text="Dispute" Value="Dispute" />
+                                    <ext:ListItem Text="Disputed" Value="Disputed" />
                                 </Items>
                                 <SelectedItems>
                                     <ext:ListItem Text="Unmarked" Value="Unmarked" />
@@ -299,7 +299,7 @@
                                                         </ToolTips>
                                                     </ext:MenuItem>
 
-                                                    <ext:MenuItem ID="MarkAsDispute" runat="server" Text="Mark as Dispute" Icon="GroupError">
+                                                    <ext:MenuItem ID="MarkAsDispute" runat="server" Text="Mark as Disputed" Icon="GroupError">
                                                         <DirectEvents>
                                                             <Click OnEvent="AssignDispute">
                                                                 <EventMask ShowMask="true" />
@@ -313,7 +313,7 @@
                                                                 runat="server" 
                                                                 Height="70"
                                                                 Width="500"
-                                                                Html="This will mark the selected phonecalls(s) as DISPUTE. Please note that this will not affect any future phonecalls. Only the selected phonecalls at the moment will be marked as Dispute."
+                                                                Html="This will mark the selected phonecalls(s) as DISPUTE. Please note that this will not affect any future phonecalls. Only the selected phonecalls at the moment will be marked as Disputed."
                                                              />
                                                         </ToolTips>
                                                     </ext:MenuItem>
