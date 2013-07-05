@@ -238,13 +238,13 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Menu AdvancedActionsMenu;
         
         /// <summary>
-        /// MarkAsAlwaysBusiness control.
+        /// AllocateAsAlwaysBusiness control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.MenuItem MarkAsAlwaysBusiness;
+        protected global::Ext.Net.MenuItem AllocateAsAlwaysBusiness;
         
         /// <summary>
         /// AlwaysBusinessTooltips control.
@@ -256,13 +256,13 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ToolTip AlwaysBusinessTooltips;
         
         /// <summary>
-        /// MarkAsAlwaysPersonal control.
+        /// AllocateAsAlwaysPersonal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.MenuItem MarkAsAlwaysPersonal;
+        protected global::Ext.Net.MenuItem AllocateAsAlwaysPersonal;
         
         /// <summary>
         /// ToolTip1 control.
@@ -274,13 +274,13 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ToolTip ToolTip1;
         
         /// <summary>
-        /// MarkAsDispute control.
+        /// AllocateAsDispute control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.MenuItem MarkAsDispute;
+        protected global::Ext.Net.MenuItem AllocateAsDispute;
         
         /// <summary>
         /// ToolTip2 control.

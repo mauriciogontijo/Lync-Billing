@@ -41,13 +41,13 @@
                                 Width="200"
                                 Margins="5 450 5 5">
                                 <Items>
-                                    <ext:ListItem Text="Unmarked" Value="Unmarked" />
+                                    <ext:ListItem Text="Unallocated" Value="Unmarked" />
                                     <ext:ListItem Text="Business" Value="Business" />
                                     <ext:ListItem Text="Personal" Value="Personal" />
                                     <ext:ListItem Text="Disputed" Value="Disputed" />
                                 </Items>
                                 <SelectedItems>
-                                    <ext:ListItem Text="Unmarked" Value="Unmarked" />
+                                    <ext:ListItem Text="Unallocated" Value="Unmarked" />
                                 </SelectedItems>
                                 <DirectEvents>
                                     <Select OnEvent="PhoneCallsHistoryFilter" />
@@ -214,7 +214,7 @@
                                 ID="button_group_lable"
                                 Margins="0 0 0 5"
                                 Width="90">
-                                <Content>Mark Selected As:</Content>
+                                <Content>Allocate Selected As:</Content>
                             </ext:Label>
 
                             <ext:ButtonGroup
@@ -261,7 +261,7 @@
                                         <Menu>
                                             <ext:Menu ID="AdvancedActionsMenu" runat="server">
                                                 <Items>                    
-                                                    <ext:MenuItem ID="MarkAsAlwaysBusiness" runat="server" Text="Mark as Always Business" Icon="GroupEdit">
+                                                    <ext:MenuItem ID="AllocateAsAlwaysBusiness" runat="server" Text="Allocate as Always Business" Icon="GroupEdit">
                                                         <DirectEvents>
                                                             <Click OnEvent="AssignAlwaysBusiness">
                                                                 <EventMask ShowMask="true" />
@@ -280,7 +280,7 @@
                                                         </ToolTips>
                                                     </ext:MenuItem>
 
-                                                    <ext:MenuItem ID="MarkAsAlwaysPersonal" runat="server" Text="Mark as Always Personal" Icon="GroupEdit">
+                                                    <ext:MenuItem ID="AllocateAsAlwaysPersonal" runat="server" Text="Allocate as Always Personal" Icon="GroupEdit">
                                                         <DirectEvents>
                                                             <Click OnEvent="AssignAlwaysPersonal">
                                                                 <EventMask ShowMask="true" />
@@ -299,7 +299,7 @@
                                                         </ToolTips>
                                                     </ext:MenuItem>
 
-                                                    <ext:MenuItem ID="MarkAsDispute" runat="server" Text="Mark as Disputed" Icon="GroupError">
+                                                    <ext:MenuItem ID="AllocateAsDispute" runat="server" Text="Allocate as Disputed" Icon="GroupError">
                                                         <DirectEvents>
                                                             <Click OnEvent="AssignDispute">
                                                                 <EventMask ShowMask="true" />

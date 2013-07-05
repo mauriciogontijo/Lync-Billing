@@ -97,7 +97,7 @@
                         <ext:Column
                             ID="UI_MarkedOn"
                             runat="server"
-                            Text="Marked On"
+                            Text="Allocated On"
                             Width="100"
                             DataIndex="UI_MarkedOn">
                             <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');" />
@@ -132,7 +132,7 @@
                                ID="button_group_lable"
                                Margins="5 0 0 5"
                                Width="90">
-                                <Content>Mark Selected As:</Content>
+                                <Content>Allocate  Selected As:</Content>
                             </ext:Label>
 
                             <ext:ButtonGroup ID="DisputesMarkingBottonsGroup"

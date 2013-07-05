@@ -99,7 +99,7 @@
                                 <Content>
                                     <div class='sidebar-section'>
                                         <div class="sidebar-section-header">
-                                            <p>Disputes</p>
+                                            <p>Disputed Calls</p>
                                         </div>
                                         <div class="sidebar-section-body">
                                             <p><a href='../main/disputes.aspx' id="ui_accounting_main_disputes">Manage Disputed Calls</a></p>
@@ -148,7 +148,7 @@
                                             <p>Email Notifications</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../notifications/calls.aspx' id="ui_admin_notifications_calls">Unmarked Calls</a></p>
+                                            <p><a href='../notifications/calls.aspx' id="ui_admin_notifications_calls">Unallocated Calls</a></p>
                                             <p><a href='../notifications/bills.aspx' id="ui_admin_notifications_bills">Users Bills</a></p>
                                         </div>
                                     </div>
