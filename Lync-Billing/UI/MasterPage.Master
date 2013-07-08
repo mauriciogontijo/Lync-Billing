@@ -158,7 +158,7 @@
 
 
             <!-- *** START OF MAIN BODY CONTENT *** -->
-            <div id='main' class='main-container bottom-rounded'>
+            <div id='main' class='main-container'>
                 <asp:HiddenField ID="ThisPageReferrer" runat="server" Value="" />
 
                 <% if(PAGE_NAME.Contains("ui_user") && ! PAGE_NAME.Contains("dashboard")) { %>
@@ -223,10 +223,15 @@
             </div>
             <!-- *** END OF MAIN BODY CONTENT *** -->
 
-            <div class='clear h20'></div>
-
-		    <div id='footer' class='footer-container'>
-		    </div>
+            <% if( ! PAGE_NAME.Contains("ui_session")) { %>
+                <div class='clear'></div>
+                
+		        <div id='footer' class='footer-container bottom-rounded'>
+                    <div id="message" class="message" align="center">
+                        <h1 class="message">#FOOTER-CONTAINER</h1>
+                    </div>
+		        </div>
+            <% } %>
         </form>
     </body>
 </html>

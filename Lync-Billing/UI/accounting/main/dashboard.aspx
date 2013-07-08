@@ -71,7 +71,7 @@
             <% } %>
 
 
-            <div id='main' class='main-container bottom-rounded'>
+            <div id='main' class='main-container'>
                 <asp:HiddenField ID="ThisPageReferrer" runat="server" Value="" />
 
                 <!-- *** START OF SIDEBAR *** -->
@@ -131,9 +131,12 @@
                 <!-- *** END OF MAIN PAGE CONTENT *** -->
             </div>
 
-            <div class='clear h10'></div>
-
-		    <div id='footer' class='footer-container'>
+            <div class='clear'></div>
+                
+		    <div id='footer' class='footer-container bottom-rounded'>
+                <div id="message" class="message" align="center">
+                    <h1 class="message">#FOOTER-CONTAINER</h1>
+                </div>
 		    </div>
         </form>
     </body>
