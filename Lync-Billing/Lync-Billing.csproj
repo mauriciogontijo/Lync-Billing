@@ -118,6 +118,7 @@
     <Content Include="ui\resources\css\global.css" />
     <Content Include="ui\resources\css\layouts.css" />
     <Content Include="ui\resources\fonts\fontello.svg" />
+    <Content Include="ui\resources\images\footer-70px-bg.png" />
     <Content Include="ui\resources\images\main-bg.png" />
     <Content Include="ui\resources\images\drop-arrow.png" />
     <Content Include="ui\resources\images\get_info-3.png" />

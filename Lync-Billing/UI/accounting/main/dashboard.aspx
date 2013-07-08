@@ -133,7 +133,7 @@
 
             <div class='clear'></div>
                 
-		    <div id='footer' class='footer-container bottom-rounded ftr-1'>
+		    <div id='footer' class='footer-container bottom-rounded ftr-3'>
                 <h1 class="msg">#FOOTER-CONTAINER</h1>
 		    </div>
         </form>
