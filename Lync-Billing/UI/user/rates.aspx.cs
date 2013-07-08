@@ -87,7 +87,10 @@ namespace Lync_Billing.ui.user
             List<GatewayRate> gatewayRates = new List<GatewayRate>();
 
             string ratesTableName = GetRatesTableName(Convert.ToInt32(FilterRatesByGateway.SelectedItem.Value));
-
+            //Clear Store
+            ViewRatesGrid.GetStore().RemoveAll();
+            
+            //Fill Store
             ViewRatesGrid.GetStore().DataSource = Rate.GetRates(ratesTableName);
             ViewRatesGrid.GetStore().DataBind();
             
