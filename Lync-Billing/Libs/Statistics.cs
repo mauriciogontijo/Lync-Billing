@@ -112,7 +112,7 @@ namespace Lync_Billing.Libs
 		                "dbo.NumberingPlan as numberingplan " +
 		
 	                "LEFT JOIN " +
-		                "dbo.[Rates_10.1.1.5_2013_04_02]  as fixedrate ON " +
+		                "dbo.[{0}]  as fixedrate ON " +
 			                "numberingplan.Dialing_prefix = fixedrate.country_code_dialing_prefix " +
 	                "WHERE " + 
 		                "numberingplan.Type_Of_Service='gsm' or " +
