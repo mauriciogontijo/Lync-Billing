@@ -18,6 +18,9 @@ namespace Lync_Billing.ui.user
     {
         private string sipAccount = string.Empty;
 
+        private List<Gateway> gateways = new List<Gateway>();
+        private List<Gateway> filteredGateways = new List<Gateway>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -50,9 +53,6 @@ namespace Lync_Billing.ui.user
         public List<Gateway> GetGateways()
         {
             UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-           
-            List<Gateway> gateways = new List<Gateway>();
-            List<Gateway> filteredGateways = new List<Gateway>();
 
             gateways = Gateway.GetGateways();
 
@@ -70,9 +70,27 @@ namespace Lync_Billing.ui.user
             return filteredGateways;
         }
 
+        public string GetRatesTableName(int gatewayID) 
+        {
+            if (gateways.Count < 1)
+                gateways = GetGateways();
+
+            string rateTable = string.Empty;
+
+            return rateTable = GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
+
+        }
+
+
         protected void GetRates(object sender, DirectEventArgs e)
         {
+            List<GatewayRate> gatewayRates = new List<GatewayRate>();
 
+            string ratesTableName = GetRatesTableName(Convert.ToInt32(FilterRatesByGateway.SelectedItem.Value));
+
+            ViewRatesGrid.GetStore().DataSource = Rate.GetRates(ratesTableName);
+            ViewRatesGrid.GetStore().DataBind();
+            
         }
     }
 }

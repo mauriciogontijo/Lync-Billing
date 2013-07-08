@@ -53,28 +53,28 @@
                          <ext:Column 
                             runat="server"
                             Text="Country"
-                            Width="240"
+                            Width="220"
                             DataIndex="CountryName">
                         </ext:Column>
 
                         <ext:Column
                             runat="server"
                             Text="Country Code"
-                            Width="240"
+                            Width="160"
                             DataIndex="CountryCode">
                         </ext:Column>
 
                         <ext:Column
                             runat="server"
                             Text="Fixedline Rate"
-                            Width="230"
+                            Width="160"
                             DataIndex="FixedLineRate">
                         </ext:Column>
 
                         <ext:Column
                             runat="server"
                             Text="Mobile Rate"
-                            Width="230"
+                            Width="160"
                             DataIndex="MobileLineRate">
                         </ext:Column>
 
