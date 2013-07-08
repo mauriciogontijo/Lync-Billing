@@ -85,19 +85,41 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
-        public DataTable RATES_PER_GATEWAY(string gatewayName)
+        public DataTable RATES_PER_GATEWAY(string RatesTableName)
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
             string selectQuery = string.Empty;
 
             selectQuery = string.Format(
-                 "SELECT DISTINCT " +   
-	             " dbo.NumberingPlan.Country_Name, " + 
-	             " dbo.NumberingPlan.Two_Digits_country_code, " +
-	             " dbo.NumberingPlan.Three_Digits_Country_Code, " +
-	             " dbo.NumberingPlan.Type_Of_Service, " +
-                 "dbo.[{0}].rate ", gatewayName);
+                 "select " + 
+		            "Country_Name, " + 
+		            "Two_Digits_country_code, " + 
+		            "Three_Digits_Country_Code, " +
+		            "max(CASE WHEN Type_Of_Service='fixedline' then rate END) Fixedline, " +
+		            "max(CASE WHEN Type_Of_Service='gsm' then rate END) GSM " +
+
+                "from " +
+                "( " +
+	                "SELECT	DISTINCT " +
+		                "numberingplan.Country_Name, " +
+		                "numberingplan.Two_Digits_country_code, " +
+		                "numberingplan.Three_Digits_Country_Code, " +
+		                "numberingplan.Type_Of_Service, " +
+		                "fixedrate.rate as rate " +
+
+	                "FROM  " +
+		                "dbo.NumberingPlan as numberingplan " +
+		
+	                "LEFT JOIN " +
+		                "dbo.[Rates_10.1.1.5_2013_04_02]  as fixedrate ON " +
+			                "numberingplan.Dialing_prefix = fixedrate.country_code_dialing_prefix " +
+	                "WHERE " + 
+		                "numberingplan.Type_Of_Service='gsm' or " +
+		                "numberingplan.Type_Of_Service='fixedline' " +
+                ") src " +
+
+                "GROUP BY Country_Name,Two_Digits_country_code,Three_Digits_Country_Code ", RatesTableName); 
 
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
@@ -125,6 +147,5 @@ namespace Lync_Billing.Libs
              year = date.Year;
              month = date.Month;
          }
-
     }
 }
