@@ -31,9 +31,9 @@ namespace Lync_Billing.DB
             List<Rate> rates = new List<Rate>();
             DataTable dt = new DataTable();
             Rate rate;
-            
 
-            dt = DBRoutines.SELECT(ratesTableName, columns, wherePart, limits);
+            Statistics stats = new Statistics();
+            dt = stats.RATES_PER_GATEWAY(ratesTableName);
 
             foreach (DataRow row in dt.Rows)
             {
