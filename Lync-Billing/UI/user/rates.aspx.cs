@@ -36,9 +36,41 @@ namespace Lync_Billing.ui.user
                     Response.Redirect(url);
                 }
             }
+
+            FilterRatesByGateway.GetStore().DataSource = GetGateways();
+            FilterRatesByGateway.GetStore().DataBind();
         }
 
-        protected void GetGateways(object sender, DirectEventArgs e)
+        public List<Site> getSites() 
+        {
+            List<Site> sites = new List<DB.Site>();
+            return sites = DB.Site.GetSites();
+        }
+
+        public List<Gateway> GetGateways()
+        {
+            UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+           
+            List<Gateway> gateways = new List<Gateway>();
+            List<Gateway> filteredGateways = new List<Gateway>();
+
+            gateways = Gateway.GetGateways();
+
+            //GetSite ID
+            int siteID = getSites().First(item => item.SiteName == session.SiteName).SiteID;
+            
+            //Get Related Gateways for that specific site
+            List<GatewayDetail> gatewaysDetails = GatewayDetail.GetGatewaysDetails().Where(item => item.SiteID == siteID).ToList();
+
+            foreach (int id in gatewaysDetails.Select(item => item.GatewayID)) 
+            {
+                filteredGateways.Add(gateways.First(item => item.GatewayId == id));
+            }
+
+            return filteredGateways;
+        }
+
+        protected void GetRates(object sender, DirectEventArgs e)
         {
 
         }

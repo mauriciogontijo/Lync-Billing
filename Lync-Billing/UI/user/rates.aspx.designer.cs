@@ -49,42 +49,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
         
         /// <summary>
-        /// RateIDCol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column RateIDCol;
-        
-        /// <summary>
-        /// CountryCodeCol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column CountryCodeCol;
-        
-        /// <summary>
-        /// FixedlineRateCol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column FixedlineRateCol;
-        
-        /// <summary>
-        /// MobileLineRateCol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column MobileLineRateCol;
-        
-        /// <summary>
         /// FilterDelegatesSitesToolBar control.
         /// </summary>
         /// <remarks>

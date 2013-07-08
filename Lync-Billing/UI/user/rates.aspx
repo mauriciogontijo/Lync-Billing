@@ -29,6 +29,7 @@
                             <ext:Model ID="ViewRatesModel" runat="server" IDProperty="ID">
                                 <Fields>
                                     <ext:ModelField Name="RateID" Type="Int" />
+                                     <ext:ModelField Name="CountryName" Type="String" />
                                     <ext:ModelField Name="CountryCode" Type="String" />
                                     <ext:ModelField Name="FixedLineRate" Type="String" />
                                     <ext:ModelField Name="MobileLineRate" Type="String" />
@@ -43,23 +44,27 @@
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
 
                         <ext:Column
-                            ID="RateIDCol"
                             runat="server"
                             Text="ID"
                             Width="160"
                             DataIndex="RateID"
                             Visible="false" />
 
-                        <ext:Column
-                            ID="CountryCodeCol"
+                         <ext:Column 
                             runat="server"
                             Text="Country"
+                            Width="240"
+                            DataIndex="CountryName">
+                        </ext:Column>
+
+                        <ext:Column
+                            runat="server"
+                            Text="Country Code"
                             Width="240"
                             DataIndex="CountryCode">
                         </ext:Column>
 
                         <ext:Column
-                            ID="FixedlineRateCol"
                             runat="server"
                             Text="Fixedline Rate"
                             Width="230"
@@ -67,7 +72,6 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="MobileLineRateCol"
                             runat="server"
                             Text="Mobile Rate"
                             Width="230"
@@ -106,6 +110,9 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
+                                <DirectEvents>
+                                    <Change OnEvent="GetRates" />
+                                </DirectEvents>
                             </ext:ComboBox>
 
                         </Items>
