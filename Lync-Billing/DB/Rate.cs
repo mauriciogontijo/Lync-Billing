@@ -12,6 +12,7 @@ namespace Lync_Billing.DB
     {
         public int RateID { get; set; }
         public string CountryCode { get; set; }
+        public string CountryName { get; set; }
         public string FixedLineRate { get; set; }
         public string MobileLineRate { get; set; }
 
@@ -46,6 +47,9 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.Rates.CountryCode) && row[column.ColumnName] != System.DBNull.Value)
                         rate.CountryCode = (string)row[column.ColumnName];
 
+                    if (column.ColumnName == Enums.GetDescription(Enums.Rates.CountryName) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.CountryName = (string)row[column.ColumnName];
+
                     if (column.ColumnName == Enums.GetDescription(Enums.Rates.FixedLineRate) && row[column.ColumnName] != System.DBNull.Value)
                         rate.FixedLineRate = (string)row[column.ColumnName];
 
@@ -68,6 +72,9 @@ namespace Lync_Billing.DB
             if ((rate.CountryCode).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Rates.CountryCode), rate.CountryCode);
 
+            if ((rate.CountryName).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Rates.CountryName), rate.CountryName);
+
             if ((rate.FixedLineRate).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Rates.FixedLineRate), rate.FixedLineRate);
 
@@ -87,6 +94,9 @@ namespace Lync_Billing.DB
             Dictionary<string, object> setPart = new Dictionary<string, object>();
 
             //Set Part
+            if ((rate.CountryName).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Rates.CountryName), rate.CountryName);
+
             if ((rate.CountryCode).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.Rates.CountryCode), rate.CountryCode);
 
