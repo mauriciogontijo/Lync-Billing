@@ -194,10 +194,8 @@
 
             <div class='clear'></div>
                 
-		    <div id='footer' class='footer-container bottom-rounded'>
-                <div id="message" class="message" align="center">
-                    <h1 class="message">#FOOTER-CONTAINER</h1>
-                </div>
+		    <div id='footer' class='footer-container bottom-rounded ftr-1'>
+                <h1 class="msg">#FOOTER-CONTAINER</h1>
 		    </div>
         </form>
     </body>

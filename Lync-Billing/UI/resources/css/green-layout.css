@@ -20,8 +20,11 @@ body {
 /* START OF MAIN BODY CONTENT STYLING */
 .main-container { min-height: 850px; /*min-height: 815px*/ width: 1000px; margin: 0 auto; padding: 25px 20px 20px 20px; background: #ffffff !important; border-left: 1px solid #CECFCE; border-right: 1px solid #CECFCE; border-bottom: 1px solid #CECFCE; overflow: hidden; }
 .announce-block { width: auto; display: block; border: 1px solid #B6C0D2; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
-.footer-container { display: block; width: 1000px; height: 70px; margin: 0 auto 10px auto; overflow: hidden; background-color: rgb(13,78,108); padding-top: 20px; }
-.footer-container .message { color: #fff; margin: 0 auto; }
+.footer-container { display: block; width: 1000px; height: 70px; padding-top: 20px; margin: 0 auto; overflow: hidden; }
+.ftr-1 { margin: 0 auto 10px auto; background-color: rgb(13,78,108); }
+.ftr-2 { margin: 10px auto 10px auto; background-color: #fff; border: 1px solid #CECFCE; }
+.ftr-1 .msg { color: #fff; float: none; margin: 0 35%; width: 12em; }
+.ftr-2 .msg { color: #000; float: none; margin: 0 35%; width: 12em; }
 
 .info-block, .warning-block { width: auto; height: 52px; display: block; padding: 10px 10px 15px 55px; margin: 0 0 10px 0; border: 1px solid #B6C0D2; background-repeat: no-repeat; background-position: 10px center; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
 .info-block p.message, .warning-block p.message { height:60px; line-height: 30px; font-size: 14px; float: left; display: inline-block; }
