@@ -63,7 +63,7 @@
                         <ext:Column
                             runat="server"
                             Text="Country Code"
-                            Width="160"
+                            Width="150"
                             DataIndex="CountryCode">
                         </ext:Column>
 
