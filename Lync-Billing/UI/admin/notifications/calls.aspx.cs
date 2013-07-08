@@ -107,11 +107,11 @@ namespace Lync_Billing.ui.admin.notifications
         protected void GetUnmarkedCallsForSite(object sender, DirectEventArgs e)
         {
             string site = FilterUsersBySite.SelectedItem.Value;
-            UnmarkedCallsGrid.GetStore().DataSource = PeriodicalReport(DateTime.Now.AddYears(-1),DateTime.Now, site);
+            UnmarkedCallsGrid.GetStore().DataSource = PeriodicalReport(DateTime.Now.AddYears(-1), DateTime.Now, site);
             UnmarkedCallsGrid.GetStore().DataBind();
         }
 
-        List<UsersCallsSummary> PeriodicalReport(DateTime startingDate, DateTime endingDate,string site)
+        List<UsersCallsSummary> PeriodicalReport(DateTime startingDate, DateTime endingDate, string site)
         {
             List<UsersCallsSummary> tmp = new List<UsersCallsSummary>();
 
@@ -142,7 +142,7 @@ namespace Lync_Billing.ui.admin.notifications
                         UnmarkedCallsDuration = res.Sum(x => x.UnmarkedCallsDuration),
                         UnmarkedCallsCount = res.Sum(x => x.UnmarkedCallsCount),
                     }
-                ).Where(e=>e.UnmarkedCallsCount > 0).ToList();
+                ).Where(e => e.UnmarkedCallsCount > 0).ToList();
 
             return sipAccounts;
         }
@@ -155,7 +155,7 @@ namespace Lync_Billing.ui.admin.notifications
             string sipAccount = string.Empty;
 
             string json = e.ExtraParams["Values"];
-            
+
             List<UsersCallsSummary> usersSummary = JSON.Deserialize<List<UsersCallsSummary>>(json);
 
             MailTemplates mailTemplate = MailTemplates.GetMailTemplates().First(item => item.TemplateID == 1);
@@ -163,21 +163,21 @@ namespace Lync_Billing.ui.admin.notifications
             subject = mailTemplate.TemplateSubject;
             Body = mailTemplate.TemplateBody;
 
-            foreach (UsersCallsSummary userSummary in usersSummary) 
+            foreach (UsersCallsSummary userSummary in usersSummary)
             {
                 sipAccount = userSummary.SipAccount;
 
-                string RealBody = 
+                string RealBody =
                     string.Format(
-                            Body, 
-                            userSummary.FullName, 
-                            userSummary.UnmarkedCallsCount, 
+                            Body,
+                            userSummary.FullName,
+                            userSummary.UnmarkedCallsCount,
                             userSummary.UnmarkedCallsCost,
                             DB.Misc.ConvertSecondsToReadable(userSummary.UnmarkedCallsDuration));
 
                 Mailer mailer = new Mailer(sipAccount, subject, RealBody);
             }
-           
+
         }
 
     }

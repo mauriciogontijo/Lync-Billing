@@ -150,7 +150,7 @@
                 </TopBar>
 
                 <Features>
-                    <ext:GridFilters>
+                    <ext:GridFilters ID="UnmarkedCallsGridFilters" Local="true">
                         <Filters>
                             <ext:StringFilter DataIndex="EmployeeID" />
                             <ext:StringFilter DataIndex="SipAccount" />

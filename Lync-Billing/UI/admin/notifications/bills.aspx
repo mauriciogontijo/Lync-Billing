@@ -170,6 +170,15 @@
                     </ext:Toolbar>
                 </TopBar>
 
+                <Features>
+                    <ext:GridFilters ID="UsersBillsGridFilters" Local="true">
+                        <Filters>
+                            <ext:StringFilter DataIndex="FullName" />
+                            <ext:StringFilter DataIndex="Site" />
+                        </Filters>
+                    </ext:GridFilters>
+                </Features>
+
                 <SelectionModel>
                     <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
                         runat="server"
