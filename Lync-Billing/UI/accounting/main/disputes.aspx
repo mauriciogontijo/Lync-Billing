@@ -131,7 +131,7 @@
                                runat="server"
                                ID="button_group_lable"
                                Margins="5 0 0 5"
-                               Width="90">
+                               Width="110">
                                 <Content>Allocate  Selected As:</Content>
                             </ext:Label>
 

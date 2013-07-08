@@ -212,8 +212,8 @@
                             <ext:Label
                                 runat="server"
                                 ID="button_group_lable"
-                                Margins="0 0 0 5"
-                                Width="90">
+                                Margins="5 0 0 5"
+                                Width="110">
                                 <Content>Allocate Selected As:</Content>
                             </ext:Label>
 
@@ -224,7 +224,7 @@
                                 Width="255"
                                 Frame="false"
                                 ButtonAlign="Left"
-                                Margins="0 260 0 5">
+                                Margins="0 260 0 0">
                                 <Buttons>
                                     <ext:Button
                                         ID="Business"
