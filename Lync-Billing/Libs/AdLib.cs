@@ -171,6 +171,9 @@ namespace Lync_Billing.Libs
                     if (localForestResult.Properties.Contains("samaccountname"))
                         userInfo.SamAccountName = (string)localForestResult.Properties["samaccountname"][0];
 
+                    if (localForestResult.Properties.Contains("department"))
+                        userInfo.department = (string)localForestResult.Properties["department"][0];
+
                     if (localForestResult.Properties.Contains("userprincipalname"))
                         userInfo.Upn = (string)localForestResult.Properties["userprincipalname"][0];
 
@@ -332,7 +335,7 @@ namespace Lync_Billing.Libs
         public string EmployeeID { set; get; }
         public string Department { set; get; }
         public string BusinessPhone { get; set; }
-
+        public string department { set; get; }
         public string Telephone { get; set; }
         public string SipAccount { set; get; }
         public string PrimaryHomeServerDN { get; set; }
