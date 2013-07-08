@@ -128,7 +128,11 @@
                 </Store>
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                     <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+                        <ext:RowNumbererColumn
+                            ID="RowNumbererColumn2"
+                            runat="server"
+                            Width="45" />
+
                         <ext:Column
                             ID="SessionIdTime"
                             runat="server"
@@ -141,7 +145,7 @@
                         <ext:Column
                             ID="Marker_CallToCountry"
                             runat="server"
-                            Text="Country Code"
+                            Text="Country"
                             Width="90"
                             DataIndex="Marker_CallToCountry" />
 
@@ -149,14 +153,14 @@
                             ID="DestinationNumberUri"
                             runat="server"
                             Text="Destination"
-                            Width="130"
+                            Width="120"
                             DataIndex="DestinationNumberUri" />
 
                         <ext:Column
                             ID="Duration"
                             runat="server"
                             Text="Duration"
-                            Width="70"
+                            Width="80"
                             DataIndex="Duration">
                             <Renderer Fn="GetMinutes" />
                         </ext:Column>
@@ -182,7 +186,7 @@
                             ID="UI_MarkedOn"
                             runat="server"
                             Text="Updated On"
-                            Width="114"
+                            Width="90"
                             DataIndex="UI_MarkedOn">
                             <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');" />
                         </ext:Column>

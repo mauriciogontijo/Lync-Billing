@@ -41,7 +41,10 @@
 
                 <ColumnModel ID="ViewRatesColumnModel" runat="server" Flex="1">
                     <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+                        <ext:RowNumbererColumn
+                            ID="RowNumbererColumn2"
+                            runat="server"
+                            Width="45" />
 
                         <ext:Column
                             runat="server"
@@ -80,6 +83,15 @@
 
                     </Columns>
                 </ColumnModel>
+
+                <Features>
+                    <ext:GridFilters ID="TelephonyRatesGridFilters" Local="true">
+                        <Filters>
+                            <ext:StringFilter DataIndex="CountryCode" />
+                            <ext:StringFilter DataIndex="CountryName" />
+                        </Filters>
+                    </ext:GridFilters>
+                </Features>
 
                 <TopBar>
                     <ext:Toolbar ID="FilterDelegatesSitesToolBar" runat="server">

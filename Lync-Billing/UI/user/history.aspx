@@ -74,10 +74,15 @@
 
                 <ColumnModel ID="PhoneCallsColumnModel" runat="server">
 		            <Columns>
+                        <ext:RowNumbererColumn
+                            ID="RowNumbererColumn2"
+                            runat="server"
+                            Width="45" />
+
                         <ext:Column ID="SessionIdTime" 
                             runat="server" 
                             Text="Date" 
-                            Width="160" 
+                            Width="140" 
                             DataIndex="SessionIdTime"
                             Groupable="false">
                             <Renderer Fn="DateRenderer" />
@@ -85,22 +90,22 @@
 
                         <ext:Column ID="Marker_CallToCountry"
                             runat="server"
-                            Text="Country Code"
-                            Width="115"
+                            Text="Country"
+                            Width="100"
                             DataIndex="Marker_CallToCountry" 
                             Groupable="true"/>
 
                         <ext:Column ID="DestinationNumberUri"
                             runat="server"
                             Text="Destination"
-                            Width="130"
+                            Width="120"
                             DataIndex="DestinationNumberUri"
                             Groupable="true" />
 
                         <ext:Column ID="Duration"
                             runat="server"
                             Text="Duration"
-                            Width="70"
+                            Width="90"
                             DataIndex="Duration"
                             Groupable="false" >
                             <Renderer Fn="GetMinutes"/>
@@ -127,7 +132,7 @@
                         <ext:Column ID="UI_MarkedOn"
                             runat="server"
                             Text="Updated On"
-                            Width="120"
+                            Width="100"
                             DataIndex="UI_MarkedOn"
                              Groupable="true">
                             <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');"/>
