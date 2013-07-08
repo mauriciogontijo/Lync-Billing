@@ -134,7 +134,7 @@ namespace Lync_Billing.Libs
             catch (Exception ex)
             {
                 System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
-                throw argEx;
+                //throw argEx;
             }
             finally { conn.Close(); }
 
