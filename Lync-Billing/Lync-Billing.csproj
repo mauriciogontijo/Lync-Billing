@@ -101,7 +101,7 @@
     <Content Include="Resources\Csv.xsl" />
     <Content Include="Resources\excel.xsl" />
     <Content Include="ui\accounting\main\dashboard.aspx" />
-    <Content Include="ui\accounting\main\disputes.aspx" />
+    <Content Include="ui\accounting\main\disputed.aspx" />
     <Content Include="ui\accounting\reports\monthly.aspx" />
     <Content Include="ui\accounting\reports\periodical.aspx" />
     <Content Include="ui\admin\gateways\manage.aspx" />
@@ -271,12 +271,12 @@
     <Compile Include="ui\SuperUserMasterPage.Master.designer.cs">
       <DependentUpon>SuperUserMasterPage.Master</DependentUpon>
     </Compile>
-    <Compile Include="ui\accounting\main\disputes.aspx.cs">
-      <DependentUpon>disputes.aspx</DependentUpon>
+    <Compile Include="ui\accounting\main\disputed.aspx.cs">
+      <DependentUpon>disputed.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\accounting\main\disputes.aspx.designer.cs">
-      <DependentUpon>disputes.aspx</DependentUpon>
+    <Compile Include="ui\accounting\main\disputed.aspx.designer.cs">
+      <DependentUpon>disputed.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\accounting\reports\monthly.aspx.cs">
       <DependentUpon>monthly.aspx</DependentUpon>

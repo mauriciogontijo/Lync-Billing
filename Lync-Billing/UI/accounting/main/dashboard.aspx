@@ -90,7 +90,7 @@
                                         <p>Disputed Calls</p>
                                     </div>
                                     <div class="sidebar-section-body">
-                                        <p><a href='../main/disputes.aspx' id="ui_accounting_main_disputes">Manage Disputed Calls</a></p>
+                                        <p><a href='../main/disputed.aspx' id="ui_accounting_main_disputed">Manage Disputed Calls</a></p>
                                     </div>
                                 </div>
 
