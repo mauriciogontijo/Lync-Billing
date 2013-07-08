@@ -78,13 +78,13 @@ namespace Lync_Billing.DB
         {
             [Description("RateID")]
             RateID,
-            [Description("CountryCode")]
+            [Description("Three_Digits_Country_Code")]
             CountryCode,
-            [Description("CountryName")]
+            [Description("Country_Name")]
             CountryName,
-            [Description("FixedLineRate")]
-            FixedLineRate,
-            [Description("MobileLineRate")]
+            [Description("Fixedline")]
+            FixedlineRate,
+            [Description("GSM")]
             MobileLineRate
         }
 
