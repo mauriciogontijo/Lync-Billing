@@ -80,6 +80,8 @@ namespace Lync_Billing.DB
             RateID,
             [Description("CountryCode")]
             CountryCode,
+            [Description("CountryName")]
+            CountryName,
             [Description("FixedLineRate")]
             FixedLineRate,
             [Description("MobileLineRate")]
