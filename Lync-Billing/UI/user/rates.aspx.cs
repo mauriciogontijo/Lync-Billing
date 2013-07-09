@@ -57,17 +57,37 @@ namespace Lync_Billing.ui.user
             gateways = Gateway.GetGateways();
 
             //GetSite ID
-            int siteID = getSites().First(item => item.SiteName == session.SiteName).SiteID;
+            DB.Site site = getSites().First(item => item.SiteName == session.SiteName);
+            
+            int siteID = site.SiteID;
+            string siteName = site.SiteName;
             
             //Get Related Gateways for that specific site
             List<GatewayDetail> gatewaysDetails = GatewayDetail.GetGatewaysDetails().Where(item => item.SiteID == siteID).ToList();
 
+            Gateway customGateway;
+
             foreach (int id in gatewaysDetails.Select(item => item.GatewayID)) 
             {
-                filteredGateways.Add(gateways.First(item => item.GatewayId == id));
+
+                customGateway = new Gateway();
+                customGateway.GatewayId = id;
+                customGateway.GatewayName = GetProviderName(id);
+                //filteredGateways.Add(gateways.First(item => item.GatewayId == id));
+
+                filteredGateways.Add(customGateway);
             }
 
             return filteredGateways;
+        }
+
+
+        public string GetProviderName(int gatewayID) 
+        {
+            if (gateways.Count < 1)
+                gateways = GetGateways();
+
+            return GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).ProviderName;
         }
 
         public string GetRatesTableName(int gatewayID) 
@@ -75,9 +95,7 @@ namespace Lync_Billing.ui.user
             if (gateways.Count < 1)
                 gateways = GetGateways();
 
-            string rateTable = string.Empty;
-
-            return rateTable = GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
+            return GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
 
         }
 
