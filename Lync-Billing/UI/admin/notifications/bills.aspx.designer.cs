@@ -103,13 +103,13 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Column MonthDate;
         
         /// <summary>
-        /// TotalCalls control.
+        /// CallsInformationColum control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column TotalCalls;
+        protected global::Ext.Net.Column CallsInformationColum;
         
         /// <summary>
         /// TotalDuration control.
@@ -119,6 +119,15 @@ namespace Lync_Billing.ui.admin.notifications {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column TotalDuration;
+        
+        /// <summary>
+        /// TotalCalls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column TotalCalls;
         
         /// <summary>
         /// TotalCost control.

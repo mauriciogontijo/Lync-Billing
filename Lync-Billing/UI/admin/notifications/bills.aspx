@@ -138,32 +138,41 @@
                             <Renderer Fn="DateRenderer" />
                         </ext:Column>
 
-                        <ext:Column ID="TotalCalls"
+                        <ext:Column ID="CallsInformationColum"
                             runat="server"
-                            Text="Number of Calls"
-                            Width="100"
-                            DataIndex="PersonalCallsCount"
-                            Groupable="false" 
-                            Align="Left"/>
-                        
-                        <ext:Column ID="TotalDuration"
-                            runat="server"
-                            Text="Duration"
-                            Width="120"
-                            DataIndex="PersonalCallsDuration"
-                            Groupable="false"
-                            Align="Left">
-                            <Renderer Fn="GetMinutes" />
-                        </ext:Column>
+                            Text="Calls Information"
+                            MenuDisabled="true"
+                            Sortable="false"
+                            Resizable="false">
+                            <Columns>
+                                <ext:Column ID="TotalDuration"
+                                    runat="server"
+                                    Text="Duration"
+                                    Width="120"
+                                    DataIndex="PersonalCallsDuration"
+                                    Groupable="false"
+                                    Align="Left">
+                                    <Renderer Fn="GetMinutes" />
+                                </ext:Column>
 
-		                <ext:Column ID="TotalCost"
-                            runat="server"
-                            Text="Total Cost"
-                            Width="100"
-                            DataIndex="PersonalCallsCost"
-                            Groupable="false"
-                            Align="Left">
-                            <Renderer Fn="RoundCost"/>
+                                <ext:Column ID="TotalCalls"
+                                    runat="server"
+                                    Text="Number of Calls"
+                                    Width="100"
+                                    DataIndex="PersonalCallsCount"
+                                    Groupable="false" 
+                                    Align="Left"/>
+                                
+		                        <ext:Column ID="TotalCost"
+                                    runat="server"
+                                    Text="Total Cost"
+                                    Width="100"
+                                    DataIndex="PersonalCallsCost"
+                                    Groupable="false"
+                                    Align="Left">
+                                    <Renderer Fn="RoundCost"/>
+                                </ext:Column>
+                            </Columns>
                         </ext:Column>
                     </Columns>
                 </ColumnModel>

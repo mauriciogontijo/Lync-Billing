@@ -138,7 +138,7 @@
                             ID="SipAccountCol"
                             runat="server"
                             Text="Sip Account"
-                            Width="160"
+                            Width="150"
                             DataIndex="SipAccount">
                             <HeaderItems>
                                 <ext:TextField ID="SipAccountFilter" runat="server">
@@ -156,7 +156,7 @@
                             ID="FullNameCol"
                             runat="server"
                             Text="Full Name"
-                            Width="180"
+                            Width="170"
                             DataIndex="FullName">
                             <HeaderItems>
                                 <ext:TextField ID="FullNameFilter" runat="server">
@@ -170,28 +170,37 @@
                             </HeaderItems>
                         </ext:Column>
 
-                        <ext:Column
-                            ID="UnmarkedCallsDurationCol"
+                        <ext:Column ID="CallsInformationColum"
                             runat="server"
-                            Text="Duration"
-                            Width="110"
-                            DataIndex="UnmarkedCallsDuration">
-                            <Renderer Fn="GetMinutes" />
+                            Text="Calls Information"
+                            MenuDisabled="true"
+                            Sortable="false"
+                            Resizable="false">
+                            <Columns>
+                                <ext:Column
+                                    ID="UnmarkedCallsDurationCol"
+                                    runat="server"
+                                    Text="Duration"
+                                    Width="110"
+                                    DataIndex="UnmarkedCallsDuration">
+                                    <Renderer Fn="GetMinutes" />
+                                </ext:Column>
+
+                                <ext:Column
+                                    ID="UnmarkedCallsCountCol"
+                                    runat="server"
+                                    Text="Number of Calls"
+                                    Width="90"
+                                    DataIndex="UnmarkedCallsCount" />
+
+                                <ext:Column
+                                    ID="UnmarkedCallsCostCol"
+                                    runat="server"
+                                    Text="Cost"
+                                    Width="80"
+                                    DataIndex="UnmarkedCallsCost" />
+                            </Columns>
                         </ext:Column>
-
-                        <ext:Column
-                            ID="UnmarkedCallsCountCol"
-                            runat="server"
-                            Text="Count"
-                            Width="70"
-                            DataIndex="UnmarkedCallsCount" />
-
-                        <ext:Column
-                            ID="UnmarkedCallsCostCol"
-                            runat="server"
-                            Text="Cost"
-                            Width="70"
-                            DataIndex="UnmarkedCallsCost" />
                     </Columns>
                 </ColumnModel>
                 
