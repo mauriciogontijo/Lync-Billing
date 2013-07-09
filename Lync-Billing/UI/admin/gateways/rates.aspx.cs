@@ -150,17 +150,24 @@ namespace Lync_Billing.ui.admin.gateways
             return filteredGateways;
         }
 
-        public string GetRatesTableName(int siteID, int gatewayID)
+        public string GetRatesTableName(int siteID)
         {
             if(gateways.Count < 1)
                 gateways = GetGateways(siteID);
 
             string rateTable = string.Empty;
 
-            if (gatewayID == null)
+            if (FilterRatesByGateway.SelectedItem == null || FilterRatesByGateway.SelectedItem.Value == null)
+            {
                 return rateTable;
+            }
             else
-                return rateTable = GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
+            {
+                int gatewayID = Convert.ToInt32(FilterRatesByGateway.SelectedItem.Value);
+                rateTable = GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
+                return rateTable;
+            }
+                
         }
         
         protected void GetRates(object sender, DirectEventArgs e)
@@ -168,8 +175,7 @@ namespace Lync_Billing.ui.admin.gateways
             List<GatewayRate> gatewayRates = new List<GatewayRate>();
 
             string ratesTableName = GetRatesTableName(
-                Convert.ToInt32(FilterGatewaysBySite.SelectedItem.Value),
-                Convert.ToInt32(FilterRatesByGateway.SelectedItem.Value)
+                Convert.ToInt32(FilterGatewaysBySite.SelectedItem.Value)
             );
 
             //Clear Store
