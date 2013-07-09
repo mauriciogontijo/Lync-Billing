@@ -185,7 +185,7 @@
                                 QueryMode="Local"
                                 DisplayField="GatewayName"
                                 ValueField="GatewayId"
-                                FieldLabel="Choose Gateway"
+                                FieldLabel="Choose Provider"
                                 LabelWidth="90"
                                 Width="300"
                                 Margins="5 200 0 5">
