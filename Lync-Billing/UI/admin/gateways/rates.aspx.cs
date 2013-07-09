@@ -122,6 +122,10 @@ namespace Lync_Billing.ui.admin.gateways
                     FilterRatesByGateway.SetValueAndFireSelect(gateways[0].GatewayId);
                     FilterRatesByGateway.ReadOnly = true;
                 }
+                else
+                {
+                    FilterRatesByGateway.ReadOnly = false;
+                }
             }
         }
 
