@@ -1,7 +1,65 @@
 ﻿<%@ Page Title="eBill Admin | Unmarekd Calls Notifications" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="calls.aspx.cs" Inherits="Lync_Billing.ui.admin.notifications.calls" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
-    
+    <ext:XScript ID="XScript1" runat="server">
+        <script>       
+            var applyFilter = function (field) {                
+                var store = #{UnmarkedCallsGrid}.getStore();
+                store.filterBy(getRecordFilter());                                                
+            };
+             
+            var clearFilter = function () {
+                #{EmployeeIDFilter}.reset();
+                #{SipAccountFilter}.reset();
+                #{FullNameFilter}.reset();
+                
+                #{UnmarkedCallsStore}.clearFilter();
+            }
+ 
+            var filterString = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if (typeof val != "string") {
+                    return value.length == 0;
+                }
+                
+                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+            };
+ 
+            var getRecordFilter = function () {
+                var f = [];
+ 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{EmployeeIDFilter}.getValue(), "EmployeeID", record);
+                    }
+                });
+                 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{SipAccountFilter}.getValue(), "SipAccount", record);
+                    }
+                });
+
+                f.push({
+                    filter: function(record) {
+                        return filterString(#{FullNameFilter}.getValue(), "FullName", record);
+                    }
+                });
+ 
+                var len = f.length;
+                 
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
+            };
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -44,6 +102,16 @@
                     </ext:Store>
                 </Store>
 
+                <Features>
+                    <ext:GridFilters ID="UnmarkedCallsGridFilters" Local="true">
+                        <Filters>
+                            <ext:StringFilter DataIndex="EmployeeID" />
+                            <ext:StringFilter DataIndex="SipAccount" />
+                            <ext:StringFilter DataIndex="FullName" />
+                        </Filters>
+                    </ext:GridFilters>
+                </Features>
+
                 <ColumnModel ID="UnmarkedCallsColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn ID="UnmarkedCalls_ColumnRowNumber" runat="server" Width="25" />
@@ -53,21 +121,54 @@
                             runat="server"
                             Text="Employee ID"
                             Width="80"
-                            DataIndex="EmployeeID" />
+                            DataIndex="EmployeeID">
+                            <HeaderItems>
+                                <ext:TextField ID="EmployeeIDFilter" runat="server">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearEmployeeIDFilterButton" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
+                        </ext:Column>
 
                         <ext:Column
                             ID="SipAccountCol"
                             runat="server"
                             Text="Sip Account"
                             Width="160"
-                            DataIndex="SipAccount" />
+                            DataIndex="SipAccount">
+                            <HeaderItems>
+                                <ext:TextField ID="SipAccountFilter" runat="server">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearSipAccountFilterButton" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
+                        </ext:Column>
 
                         <ext:Column
                             ID="FullNameCol"
                             runat="server"
                             Text="Full Name"
                             Width="180"
-                            DataIndex="FullName" />
+                            DataIndex="FullName">
+                            <HeaderItems>
+                                <ext:TextField ID="FullNameFilter" runat="server">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearFullNameFilterButton" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
+                        </ext:Column>
 
                         <ext:Column
                             ID="UnmarkedCallsDurationCol"
@@ -148,17 +249,6 @@
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
-
-                <Features>
-                    <ext:GridFilters ID="UnmarkedCallsGridFilters" Local="true">
-                        <Filters>
-                            <ext:StringFilter DataIndex="EmployeeID" />
-                            <ext:StringFilter DataIndex="SipAccount" />
-                            <ext:StringFilter DataIndex="FullName" />
-                            <ext:StringFilter DataIndex="Site" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>
 
                 <SelectionModel>
                     <ext:CheckboxSelectionModel ID="UnmarkedCallsCheckboxSelectionModel"

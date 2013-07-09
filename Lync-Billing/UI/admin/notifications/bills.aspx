@@ -1,7 +1,52 @@
 ﻿<%@ Page Title="eBill Admin | Users Bills Notifications" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="bills.aspx.cs" Inherits="Lync_Billing.ui.admin.notifications.bills" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
-    
+    <ext:XScript ID="XScript1" runat="server">
+        <script>
+                         
+            var applyFilter = function (field) {                
+                var store = #{UsersBillsGrid}.getStore();
+                store.filterBy(getRecordFilter());                                                
+            };
+             
+            var clearFilter = function () {
+                #{FullNameFilter}.reset();
+                
+                #{UsersBillsStore}.clearFilter();
+            }
+ 
+            var filterString = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if (typeof val != "string") {
+                    return value.length == 0;
+                }
+                
+                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+            };
+ 
+            var getRecordFilter = function () {
+                var f = [];
+ 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{FullNameFilter}.getValue(), "FullName", record);
+                    }
+                });
+ 
+                var len = f.length;
+                 
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
+            };
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -44,6 +89,14 @@
                     </ext:Store>
                 </Store>
 
+                <Features>
+                    <ext:GridFilters ID="UsersBillsGridFilters" Local="true">
+                        <Filters>
+                            <ext:StringFilter DataIndex="FullName" />
+                        </Filters>
+                    </ext:GridFilters>
+                </Features>
+
                 <ColumnModel ID="BillsColumnModel" runat="server">
 		            <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
@@ -62,7 +115,18 @@
                             Width="180" 
                             DataIndex="FullName"
                             Groupable="false"
-                            Align="Left" />
+                            Align="Left">
+                            <HeaderItems>
+                                <ext:TextField ID="FullNameFilter" runat="server">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearFullNameFilterButton" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
+                        </ext:Column>
 
                         <ext:Column ID="MonthDate" 
                             runat="server" 
@@ -169,15 +233,6 @@
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
-
-                <Features>
-                    <ext:GridFilters ID="UsersBillsGridFilters" Local="true">
-                        <Filters>
-                            <ext:StringFilter DataIndex="FullName" />
-                            <ext:StringFilter DataIndex="Site" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>
 
                 <SelectionModel>
                     <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"

@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.admin.notifications {
     public partial class calls {
         
         /// <summary>
+        /// XScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript XScript1;
+        
+        /// <summary>
         /// UnmarkedCallsGrid control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Model UnmarkedCallsModel;
         
         /// <summary>
+        /// UnmarkedCallsGridFilters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridFilters UnmarkedCallsGridFilters;
+        
+        /// <summary>
         /// UnmarkedCalls_ColumnRowNumber control.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,24 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Column EmployeeIDCol;
         
         /// <summary>
+        /// EmployeeIDFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField EmployeeIDFilter;
+        
+        /// <summary>
+        /// ClearEmployeeIDFilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearEmployeeIDFilterButton;
+        
+        /// <summary>
         /// SipAccountCol control.
         /// </summary>
         /// <remarks>
@@ -67,6 +103,24 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Column SipAccountCol;
         
         /// <summary>
+        /// SipAccountFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField SipAccountFilter;
+        
+        /// <summary>
+        /// ClearSipAccountFilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearSipAccountFilterButton;
+        
+        /// <summary>
         /// FullNameCol control.
         /// </summary>
         /// <remarks>
@@ -74,6 +128,24 @@ namespace Lync_Billing.ui.admin.notifications {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column FullNameCol;
+        
+        /// <summary>
+        /// FullNameFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField FullNameFilter;
+        
+        /// <summary>
+        /// ClearFullNameFilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearFullNameFilterButton;
         
         /// <summary>
         /// UnmarkedCallsDurationCol control.
@@ -146,15 +218,6 @@ namespace Lync_Billing.ui.admin.notifications {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button UnamrkedCalls_EmailAlertButton;
-        
-        /// <summary>
-        /// UnmarkedCallsGridFilters control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridFilters UnmarkedCallsGridFilters;
         
         /// <summary>
         /// UnmarkedCallsCheckboxSelectionModel control.

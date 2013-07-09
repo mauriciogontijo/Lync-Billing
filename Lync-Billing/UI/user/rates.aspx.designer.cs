@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.user {
     public partial class rates {
         
         /// <summary>
+        /// XScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript XScript1;
+        
+        /// <summary>
         /// ViewRatesGrid control.
         /// </summary>
         /// <remarks>
@@ -47,6 +56,42 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
+        
+        /// <summary>
+        /// CountryNameFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField CountryNameFilter;
+        
+        /// <summary>
+        /// ClearCountryNameFilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearCountryNameFilterButton;
+        
+        /// <summary>
+        /// CountryCodeFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField CountryCodeFilter;
+        
+        /// <summary>
+        /// ClearCountryCodeFilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearCountryCodeFilterButton;
         
         /// <summary>
         /// TelephonyRatesGridFilters control.

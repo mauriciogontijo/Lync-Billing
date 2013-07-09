@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.admin.notifications {
     public partial class bills {
         
         /// <summary>
+        /// XScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript XScript1;
+        
+        /// <summary>
         /// UsersBillsGrid control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Model UsersBillsModel;
         
         /// <summary>
+        /// UsersBillsGridFilters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridFilters UsersBillsGridFilters;
+        
+        /// <summary>
         /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
@@ -56,6 +74,24 @@ namespace Lync_Billing.ui.admin.notifications {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column UserFullName;
+        
+        /// <summary>
+        /// FullNameFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField FullNameFilter;
+        
+        /// <summary>
+        /// ClearFullNameFilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearFullNameFilterButton;
         
         /// <summary>
         /// MonthDate control.
@@ -146,15 +182,6 @@ namespace Lync_Billing.ui.admin.notifications {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button EmailAlertButton;
-        
-        /// <summary>
-        /// UsersBillsGridFilters control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridFilters UsersBillsGridFilters;
         
         /// <summary>
         /// CheckboxSelectionModel1 control.

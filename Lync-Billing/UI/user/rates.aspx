@@ -1,6 +1,58 @@
 ﻿<%@ Page Title="eBill User | View Telephony Rates" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="rates.aspx.cs" Inherits="Lync_Billing.ui.user.rates" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <ext:XScript ID="XScript1" runat="server">
+        <script>       
+            var applyFilter = function (field) {                
+                var store = #{ViewRatesGrid}.getStore();
+                store.filterBy(getRecordFilter());                                                
+            };
+             
+            var clearFilter = function () {
+                #{CountryCodeFilter}.reset();
+                #{CountryNameFilter}.reset();
+                
+                #{ViewRatesStore}.clearFilter();
+            }
+ 
+            var filterString = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if (typeof val != "string") {
+                    return value.length == 0;
+                }
+                
+                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+            };
+ 
+            var getRecordFilter = function () {
+                var f = [];
+ 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{CountryCodeFilter}.getValue(), "CountryCode", record);
+                    }
+                });
+                 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{CountryNameFilter}.getValue(), "CountryName", record);
+                    }
+                });
+ 
+                var len = f.length;
+                 
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
+            };
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -58,6 +110,16 @@
                             Text="Country"
                             Width="220"
                             DataIndex="CountryName">
+                            <HeaderItems>
+                                <ext:TextField ID="CountryNameFilter" runat="server">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearCountryNameFilterButton" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
                         </ext:Column>
 
                         <ext:Column
@@ -65,6 +127,16 @@
                             Text="Country Code"
                             Width="150"
                             DataIndex="CountryCode">
+                            <HeaderItems>
+                                <ext:TextField ID="CountryCodeFilter" runat="server">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearCountryCodeFilterButton" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
                         </ext:Column>
 
                         <ext:Column
