@@ -58,7 +58,7 @@
                 runat="server" 
                 Title="Bills History"
                 Width="740"
-                Height="720"  
+                Height="750"  
                 AutoScroll="true"
                 Header="true"
                 Scroll="Both" 
