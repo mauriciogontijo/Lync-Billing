@@ -91,6 +91,15 @@
                     </ext:Store>
                 </Store>
 
+                <Features>
+                    <ext:GridFilters ID="TelephonyRatesGridFilters" Local="true">
+                        <Filters>
+                            <ext:StringFilter DataIndex="CountryCode" />
+                            <ext:StringFilter DataIndex="CountryName" />
+                        </Filters>
+                    </ext:GridFilters>
+                </Features>
+
                 <ColumnModel ID="ViewRatesColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn
@@ -111,7 +120,9 @@
                             Width="230"
                             DataIndex="CountryName">
                             <HeaderItems>
-                                <ext:TextField ID="CountryNameFilter" runat="server">
+                                <ext:TextField ID="CountryNameFilter"
+                                    runat="server"
+                                    Icon="Magnifier">
                                     <Listeners>
                                         <Change Handler="applyFilter(this);" Buffer="250" />                                                
                                     </Listeners>
@@ -128,7 +139,9 @@
                             Width="140"
                             DataIndex="CountryCode">
                             <HeaderItems>
-                                <ext:TextField ID="CountryCodeFilter" runat="server">
+                                <ext:TextField ID="CountryCodeFilter"
+                                    runat="server"
+                                    Icon="Magnifier">
                                     <Listeners>
                                         <Change Handler="applyFilter(this);" Buffer="250" />                                                
                                     </Listeners>
@@ -160,15 +173,6 @@
 
                     </Columns>
                 </ColumnModel>
-
-                <Features>
-                    <ext:GridFilters ID="TelephonyRatesGridFilters" Local="true">
-                        <Filters>
-                            <ext:StringFilter DataIndex="CountryCode" />
-                            <ext:StringFilter DataIndex="CountryName" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>
 
                 <TopBar>
                     <ext:Toolbar ID="FilterDelegatesSitesToolBar" runat="server">
