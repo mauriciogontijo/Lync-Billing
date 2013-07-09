@@ -124,7 +124,7 @@ namespace Lync_Billing.ui.admin.gateways
                 }
                 else
                 {
-                    //FilterRatesByGateway.Select(-1);
+                    FilterRatesByGateway.Select(-1);
                     FilterRatesByGateway.ReadOnly = false;
                 }
             }
@@ -152,10 +152,15 @@ namespace Lync_Billing.ui.admin.gateways
 
         public string GetRatesTableName(int siteID, int gatewayID)
         {
-            gateways = GetGateways(siteID);
+            if(gateways.Count < 1)
+                gateways = GetGateways(siteID);
+
             string rateTable = string.Empty;
 
-            return rateTable = GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
+            if (gatewayID == null)
+                return rateTable;
+            else
+                return rateTable = GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
         }
         
         protected void GetRates(object sender, DirectEventArgs e)
