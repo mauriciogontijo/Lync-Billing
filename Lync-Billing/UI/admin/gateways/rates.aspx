@@ -230,11 +230,11 @@
                                 QueryMode="Local" 
                                 DisplayField="SiteName" 
                                 ValueField="SiteID"
-                                Width="250"
-                                Margins="5 5 0 5"
-                                FieldLabel="Choose Site"
+                                Width="200"
+                                Margins="5 15 0 5"
+                                FieldLabel="Site"
                                 LabelSeparator=":"
-                                LabelWidth="70"
+                                LabelWidth="30"
                                 ValidateBlank="true"
                                 ValidateOnChange="true">
                                 <Store>
@@ -274,10 +274,10 @@
                                 QueryMode="Local"
                                 DisplayField="GatewayName"
                                 ValueField="GatewayId"
-                                FieldLabel="Choose Gateway"
-                                LabelWidth="90"
-                                Width="300"
-                                Margins="5 200 0 5"
+                                FieldLabel="Gateway"
+                                LabelWidth="50"
+                                Width="200"
+                                Margins="5 75 0 5"
                                 Disabled="true">
                                 <Store>
                                     <ext:Store
