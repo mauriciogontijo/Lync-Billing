@@ -152,13 +152,10 @@ namespace Lync_Billing.ui.admin.gateways
 
         public string GetRatesTableName(int siteID, int gatewayID)
         {
-            if (gateways.Count < 1)
-                gateways = GetGateways(siteID);
-
+            gateways = GetGateways(siteID);
             string rateTable = string.Empty;
 
             return rateTable = GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
-
         }
         
         protected void GetRates(object sender, DirectEventArgs e)
