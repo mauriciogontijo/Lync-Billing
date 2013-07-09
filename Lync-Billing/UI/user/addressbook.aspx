@@ -166,7 +166,7 @@
                                     ID="DestNumber"
                                     runat="server"
                                     Text="Number"
-                                    Width="120"
+                                    Width="150"
                                     DataIndex="DestinationNumber">
                                     <HeaderItems>
                                         <ext:TextField ID="DestNumberFilter"
@@ -210,13 +210,18 @@
                                     </Editor>
                                 </ext:Column>
 
-                                <ext:Column ID="Column1" runat="server" Text="Contact Information">
+                                <ext:Column ID="ABContactInformationColumn"
+                                    runat="server"
+                                    Text="Contact Information"
+                                    MenuDisabled="true"
+                                    Sortable="false"
+                                    Resizable="false">
                                     <Columns>
                                         <ext:Column
                                             ID="DestCountry"
                                             runat="server"
                                             Text="Country"
-                                            Width="150"
+                                            Width="120"
                                             DataIndex="DestinationCountry"
                                             Sortable="true"
                                             Groupable="true">
@@ -386,7 +391,7 @@
                                     ID="ImportedContactNumber"
                                     runat="server"
                                     Text="Number"
-                                    Width="120"
+                                    Width="150"
                                     DataIndex="DestinationNumber">
                                     <HeaderItems>
                                         <ext:TextField ID="ImportContactNumberFilter"
@@ -402,13 +407,18 @@
                                     </HeaderItems>
                                 </ext:Column>
 
-                                <ext:Column ID="ContactInformationColumn" runat="server" Text="Contact Information">
+                                <ext:Column ID="ContactInformationColumn"
+                                    runat="server"
+                                    Text="Contact Information"
+                                    MenuDisabled="true"
+                                    Sortable="false"
+                                    Resizable="false">
                                     <Columns>
                                         <ext:Column
                                             ID="ImportedContactDestinationCountry"
                                             runat="server"
                                             Text="Country"
-                                            Width="150"
+                                            Width="130"
                                             DataIndex="DestinationCountry"
                                             Sortable="true" />
 
