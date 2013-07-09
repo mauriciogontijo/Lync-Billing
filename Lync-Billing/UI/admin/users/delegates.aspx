@@ -1,7 +1,65 @@
 ﻿<%@ Page Title="eBill Admin | Manage Delegates" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="delegates.aspx.cs" Inherits="Lync_Billing.ui.admin.users.delegates" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
+    <ext:XScript ID="XScript1" runat="server">
+        <script>       
+            var applyFilter = function (field) {                
+                var store = #{ManageDelegatesGrid}.getStore();
+                store.filterBy(getRecordFilter());                                                
+            };
+             
+            var clearFilter = function () {
+                #{SipAccountFilter}.reset();
+                #{DelegeeAccountFilter}.reset();
+                #{DescriptionFilter}.reset();
+                
+                #{ManageDelegatesStore}.clearFilter();
+            }
+ 
+            var filterString = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if (typeof val != "string") {
+                    return value.length == 0;
+                }
+                
+                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+            };
+ 
+            var getRecordFilter = function () {
+                var f = [];
+ 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{SipAccountFilter}.getValue(), "SipAccount", record);
+                    }
+                });
+                 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{DelegeeAccountFilter}.getValue(), "DelegeeAccount", record);
+                    }
+                });
+
+                f.push({
+                    filter: function(record) {
+                        return filterString(#{DescriptionFilter}.getValue(), "Description", record);
+                    }
+                });
+ 
+                var len = f.length;
+                 
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
+            };
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -39,6 +97,16 @@
                     </ext:Store>
                 </Store>
 
+                <Features>
+                    <ext:GridFilters ID="ManageDelegatesGridFilters" Local="true">
+                        <Filters>
+                            <ext:StringFilter DataIndex="SipAccount" />
+                            <ext:StringFilter DataIndex="DelegeeAccount" />
+                            <ext:StringFilter DataIndex="Description" />
+                        </Filters>
+                    </ext:GridFilters>
+                </Features>
+
                 <ColumnModel ID="ManageDelegatesColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
@@ -60,7 +128,19 @@
                             runat="server"
                             Text="User"
                             Width="160"
-                            DataIndex="SipAccount">
+                            DataIndex="SipAccount"
+                            Sortable="true"
+                            Groupable="true">
+                            <HeaderItems>
+                                <ext:TextField ID="SipAccountFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearSipAccountFilterBtn" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
                             <Editor>
                                 <ext:TextField
                                     ID="SipAccountTextbox"
@@ -73,7 +153,19 @@
                             runat="server"
                             Text="Delegate"
                             Width="160"
-                            DataIndex="DelegeeAccount">
+                            DataIndex="DelegeeAccount"
+                            Sortable="true"
+                            Groupable="true">
+                            <HeaderItems>
+                                <ext:TextField ID="DelegeeAccountFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearDelegeeAccountFilterBtn" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
                             <Editor>
                                 <ext:TextField
                                     ID="DelegeeAccountTextbox"
@@ -86,7 +178,19 @@
                             runat="server"
                             Text="Description"
                             Width="293"
-                            DataIndex="Description">
+                            DataIndex="Description"
+                            Sortable="true"
+                            Groupable="true">
+                            <HeaderItems>
+                                <ext:TextField ID="DescriptionFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearDescFilterBtn" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
                             <Editor>
                                 <ext:TextField
                                     ID="DescriptionTextbox"

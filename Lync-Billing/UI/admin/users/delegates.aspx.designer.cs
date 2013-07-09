@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.admin.users {
     public partial class delegates {
         
         /// <summary>
+        /// XScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript XScript1;
+        
+        /// <summary>
         /// ManageDelegatesGrid control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace Lync_Billing.ui.admin.users {
         protected global::Ext.Net.Model ManageDelegatesModel;
         
         /// <summary>
+        /// ManageDelegatesGridFilters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridFilters ManageDelegatesGridFilters;
+        
+        /// <summary>
         /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,24 @@ namespace Lync_Billing.ui.admin.users {
         protected global::Ext.Net.ComponentColumn IDCol;
         
         /// <summary>
+        /// SipAccountFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField SipAccountFilter;
+        
+        /// <summary>
+        /// ClearSipAccountFilterBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearSipAccountFilterBtn;
+        
+        /// <summary>
         /// SipAccountTextbox control.
         /// </summary>
         /// <remarks>
@@ -67,6 +103,24 @@ namespace Lync_Billing.ui.admin.users {
         protected global::Ext.Net.TextField SipAccountTextbox;
         
         /// <summary>
+        /// DelegeeAccountFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField DelegeeAccountFilter;
+        
+        /// <summary>
+        /// ClearDelegeeAccountFilterBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearDelegeeAccountFilterBtn;
+        
+        /// <summary>
         /// DelegeeAccountTextbox control.
         /// </summary>
         /// <remarks>
@@ -74,6 +128,24 @@ namespace Lync_Billing.ui.admin.users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.TextField DelegeeAccountTextbox;
+        
+        /// <summary>
+        /// DescriptionFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField DescriptionFilter;
+        
+        /// <summary>
+        /// ClearDescFilterBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearDescFilterBtn;
         
         /// <summary>
         /// DescriptionTextbox control.

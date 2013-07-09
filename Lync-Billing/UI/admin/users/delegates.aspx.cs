@@ -36,7 +36,7 @@ namespace Lync_Billing.ui.admin.users
             }
             
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
-            FilterDelegatesBySite.GetStore().DataSource = GetAccountantSiteName();
+            FilterDelegatesBySite.GetStore().DataSource = GetAdminSiteName();
             FilterDelegatesBySite.GetStore().DataBind();
            
         }
@@ -72,7 +72,7 @@ namespace Lync_Billing.ui.admin.users
             return sites[0].SiteName;
         }
 
-        public List<Site> GetAccountantSiteName()
+        public List<Site> GetAdminSiteName()
         {
             UserSession session = (UserSession)Session.Contents["UserData"];
             List<Site> sites = new List<Site>();
