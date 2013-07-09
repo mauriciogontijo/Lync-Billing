@@ -76,6 +76,15 @@ namespace Lync_Billing.ui.admin.users {
         protected global::Ext.Net.ComponentColumn IDCol;
         
         /// <summary>
+        /// Column1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column Column1;
+        
+        /// <summary>
         /// SipAccountFilter control.
         /// </summary>
         /// <remarks>
@@ -103,6 +112,15 @@ namespace Lync_Billing.ui.admin.users {
         protected global::Ext.Net.TextField SipAccountTextbox;
         
         /// <summary>
+        /// Column2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column Column2;
+        
+        /// <summary>
         /// DelegeeAccountFilter control.
         /// </summary>
         /// <remarks>
@@ -128,6 +146,15 @@ namespace Lync_Billing.ui.admin.users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.TextField DelegeeAccountTextbox;
+        
+        /// <summary>
+        /// Column3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column Column3;
         
         /// <summary>
         /// DescriptionFilter control.

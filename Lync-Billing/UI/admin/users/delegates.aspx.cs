@@ -34,11 +34,11 @@ namespace Lync_Billing.ui.admin.users
                     Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
                 }
             }
-            
+
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
             FilterDelegatesBySite.GetStore().DataSource = GetAdminSiteName();
             FilterDelegatesBySite.GetStore().DataBind();
-           
+
         }
 
         protected void GetDelegates(object sender, DirectEventArgs e)
@@ -61,7 +61,7 @@ namespace Lync_Billing.ui.admin.users
                 ManageDelegatesGrid.GetStore().DataBind();
             }
         }
-         
+
         public string GetSiteName(int siteID)
         {
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
@@ -119,16 +119,16 @@ namespace Lync_Billing.ui.admin.users
             return users[0].SiteName;
         }
 
-        public List<string> GetUsersPerSite(string siteName) 
+        public List<string> GetUsersPerSite(string siteName)
         {
             List<Users> users = new List<Users>();
             List<string> usersList = new List<string>();
-            
+
             users = Users.GetUsers(siteName);
 
             if (users.Count > 0)
             {
-                foreach (Users user in users) 
+                foreach (Users user in users)
                 {
                     usersList.Add(user.SipAccount);
                 }
@@ -156,8 +156,8 @@ namespace Lync_Billing.ui.admin.users
                     ManageDelegatesStore.GetById(userDelgate.ID).Commit();
                 }
             }
-            
-            if (toBeUpdated.Deleted.Count > 0) 
+
+            if (toBeUpdated.Deleted.Count > 0)
             {
                 foreach (UsersDelegates userDelgate in toBeUpdated.Deleted)
                 {

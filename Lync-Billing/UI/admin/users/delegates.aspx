@@ -71,7 +71,7 @@
                 ID="ManageDelegatesGrid"
                 runat="server"
                 Width="740"
-                Height="720"
+                Height="765"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout"
@@ -124,7 +124,7 @@
                             UnpinEvents="collapse">
                         </ext:ComponentColumn>
 
-                        <ext:Column
+                        <ext:Column ID="Column1"
                             runat="server"
                             Text="User"
                             Width="160"
@@ -149,7 +149,7 @@
                             </Editor>
                         </ext:Column>
 
-                        <ext:Column
+                        <ext:Column ID="Column2"
                             runat="server"
                             Text="Delegate"
                             Width="160"
@@ -174,7 +174,7 @@
                             </Editor>
                         </ext:Column>
 
-                        <ext:Column
+                        <ext:Column ID="Column3"
                             runat="server"
                             Text="Description"
                             Width="293"
