@@ -5,14 +5,12 @@
 
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <div id='generate-report-block' class='block float-right wauto h100p'>
-
         <div class="block-body pt5">
-
             <ext:GridPanel
                 ID="ManageRatesGrid"
                 runat="server"
                 Width="740"
-                Height="740"
+                Height="760"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout"
@@ -158,8 +156,41 @@
                 </Plugins>
 
                 <TopBar>
-                    <ext:Toolbar ID="FilterDelegatesSitesToolBar" runat="server">
+                    <ext:Toolbar ID="FilterGatewaysRatesToolBar" runat="server">
                         <Items>
+                            <ext:ComboBox 
+                                ID="FilterGatewaysBySite" 
+                                runat="server" 
+                                Icon="Find" 
+                                TriggerAction="All" 
+                                QueryMode="Local" 
+                                DisplayField="SiteName" 
+                                ValueField="SiteName"
+                                Width="250"
+                                Margins="5 5 0 5"
+                                FieldLabel="Choose Site"
+                                LabelSeparator=":"
+                                LabelWidth="70">
+                                <Store>
+                                    <ext:Store
+                                        ID="SitesStore"
+                                        runat="server">
+                                        <Model>
+                                            <ext:Model ID="SitesModel" runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="SiteID" />
+                                                    <ext:ModelField Name="SiteName" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>            
+                                    </ext:Store>
+                                </Store>
+
+                                <DirectEvents>
+                                    <Change OnEvent="GetGatewaysForSite" />
+                                </DirectEvents>
+                            </ext:ComboBox>
+
                             <ext:ComboBox
                                 ID="FilterRatesByGateway"
                                 runat="server"
@@ -171,7 +202,8 @@
                                 FieldLabel="Choose Gateway"
                                 LabelWidth="90"
                                 Width="300"
-                                Margins="5 200 0 5">
+                                Margins="5 200 0 5"
+                                Disabled="true">
                                 <Store>
                                     <ext:Store
                                         ID="GatewaysStore"
@@ -187,7 +219,7 @@
                                     </ext:Store>
                                 </Store>
                                 <DirectEvents>
-                                    <Change OnEvent="GetGateways" />
+                                    <Change OnEvent="GetRates" />
                                 </DirectEvents>
                             </ext:ComboBox>
 

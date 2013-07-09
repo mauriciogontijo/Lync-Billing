@@ -41,6 +41,9 @@ namespace Lync_Billing.ui.admin.gateways
             }
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+
+            SitesStore.DataSource = getSites();
+            SitesStore.DataBind();
         }
 
         protected void UpdateEdited_DirectEvent(object sender, DirectEventArgs e)
@@ -79,9 +82,22 @@ namespace Lync_Billing.ui.admin.gateways
             ManageRatesGrid.GetStore().RejectChanges();
         }
 
-        protected void GetGateways(object sender, DirectEventArgs e)
+        protected void GetGatewaysForSite(object sender, DirectEventArgs e)
         {
+            if (FilterGatewaysBySite.SelectedItem != null && !string.IsNullOrEmpty(FilterGatewaysBySite.SelectedItem.Value))
+            {
+                List<Gateway> gateways = GetGateways();
 
+                FilterRatesByGateway.Disabled = false;
+                FilterRatesByGateway.GetStore().DataSource = gateways;
+                FilterRatesByGateway.GetStore().DataBind();
+
+                if (gateways.Count == 1)
+                {
+                    FilterRatesByGateway.SetValueAndFireSelect(gateways[0].GatewayId);
+                    FilterRatesByGateway.ReadOnly = true;
+                }
+            }
         }
 
         public List<Site> getSites()

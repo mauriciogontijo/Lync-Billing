@@ -157,13 +157,40 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.CellEditing CellEditing1;
         
         /// <summary>
-        /// FilterDelegatesSitesToolBar control.
+        /// FilterGatewaysRatesToolBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Toolbar FilterDelegatesSitesToolBar;
+        protected global::Ext.Net.Toolbar FilterGatewaysRatesToolBar;
+        
+        /// <summary>
+        /// FilterGatewaysBySite control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox FilterGatewaysBySite;
+        
+        /// <summary>
+        /// SitesStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store SitesStore;
+        
+        /// <summary>
+        /// SitesModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model SitesModel;
         
         /// <summary>
         /// FilterRatesByGateway control.
