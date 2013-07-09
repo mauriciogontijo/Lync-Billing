@@ -113,12 +113,6 @@ namespace Lync_Billing.ui.admin.gateways
                 FilterRatesByGateway.Disabled = false;
                 FilterRatesByGateway.GetStore().DataSource = gateways;
                 FilterRatesByGateway.GetStore().DataBind();
-
-                if (gateways.Count == 1)
-                {
-                    FilterRatesByGateway.SetValueAndFireSelect(gateways[0].GatewayId);
-                    FilterRatesByGateway.ReadOnly = true;
-                }
             }
         }
 
