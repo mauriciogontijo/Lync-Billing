@@ -117,7 +117,7 @@
                             Groupable="false"
                             Align="Left">
                             <HeaderItems>
-                                <ext:TextField ID="FullNameFilter" runat="server">
+                                <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
                                         <Change Handler="applyFilter(this);" Buffer="250" />                                                
                                     </Listeners>
@@ -134,7 +134,7 @@
                             Width="160" 
                             DataIndex="MonthDate"
                             Groupable="false"
-                            Align="Left">
+                            Align="Center">
                             <Renderer Fn="DateRenderer" />
                         </ext:Column>
 
