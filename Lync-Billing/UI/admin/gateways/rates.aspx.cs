@@ -124,7 +124,7 @@ namespace Lync_Billing.ui.admin.gateways
                 }
                 else
                 {
-                    FilterRatesByGateway.Select(-1);
+                    //FilterRatesByGateway.Select(-1);
                     FilterRatesByGateway.ReadOnly = false;
                 }
             }
@@ -157,7 +157,7 @@ namespace Lync_Billing.ui.admin.gateways
 
             string rateTable = string.Empty;
 
-            if (FilterRatesByGateway.SelectedItem == null || FilterRatesByGateway.SelectedItem.Value == null)
+            if (FilterRatesByGateway.SelectedItem.Index == -1)
             {
                 return rateTable;
             }
