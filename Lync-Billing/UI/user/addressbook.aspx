@@ -9,6 +9,90 @@
         .row-yellow { background-color: yellow; }
         /* end manage-phone-calls grid styling */
     </style>
+
+    <ext:XScript ID="XScript1" runat="server">
+        <script>       
+            var applyFilter = function (field) {                
+                var store = #{AddressBookGrid}.getStore();
+                store.filterBy(getRecordFilter("addressbook"));
+            };
+             
+            var ImportContactGrid_ApplyFilter = function (field) {
+                var store = #{ImportContactsGrid}.getStore();
+                store.filterBy(getRecordFilter("import"));
+            };
+
+            var clearFilter = function () {
+                #{DestNumberFilter}.reset();
+                #{DestCountryFilter}.reset();
+                #{ContactNameFilter}.reset();
+                #{ContactTypeFilter}.reset();
+                
+                #{AddressBookStore}.clearFilter();
+            }
+ 
+            var filterString = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if (typeof val != "string") {
+                    return value.length == 0;
+                }
+                
+                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+            };
+ 
+            var getRecordFilter = function (grid) {
+                debugger;
+                var f = [];
+ 
+                if(grid != undefined && grid == "addressbook")
+                {
+                    f.push({
+                        filter: function (record) {                         
+                            return filterString(#{DestNumberFilter}.getValue(), "DestinationNumber", record);
+                        }
+                    });
+                 
+                    //f.push({
+                    //    filter: function (record) {                         
+                    //        return filterString(#{DestCountryFilter}.getValue(), "DestinationCountry", record);
+                    //    }
+                    //});
+
+                    //f.push({
+                    //    filter: function (record) {                         
+                    //        return filterString(#{ContactNameFilter}.getValue(), "Name", record);
+                    //    }
+                    //});
+
+                    //f.push({
+                    //    filter: function (record) {                         
+                    //        return filterString(#{ContactTypeFilter}.getValue(), "Type", record);
+                    //    }
+                    //});
+                }
+                else if(grid != undefined && grid == "import")
+                {
+                    f.push({
+                        filter: function (record) {                         
+                            return filterString(#{ImportContactNumberFilter}.getValue(), "DestinationNumber", record);
+                        }
+                    });
+                }
+ 
+                var len = f.length;
+                 
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
+            };
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -63,65 +147,99 @@
                             <ext:CellEditing ID="CellEditing2" runat="server" ClicksToEdit="2" />
                         </Plugins>
 
+                        <Features>
+                            <ext:GridFilters ID="AddressbookGridFilters" Local="true">
+                                <Filters>
+                                    <ext:StringFilter DataIndex="DestinationNumber" />
+                                    <ext:StringFilter DataIndex="DestinationCountry" />
+                                    <ext:StringFilter DataIndex="Name" />
+                                    <ext:StringFilter DataIndex="Type" />
+                                </Filters>
+                            </ext:GridFilters>
+                        </Features>
+
                         <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
                             <Columns>
                                 <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+
                                 <ext:Column
                                     ID="DestNumber"
                                     runat="server"
                                     Text="Number"
                                     Width="120"
-                                    DataIndex="DestinationNumber" />
-
-                                <ext:Column
-                                    ID="DestCountry"
-                                    runat="server"
-                                    Text="Country"
-                                    Width="150"
-                                    DataIndex="DestinationCountry" />
-
-                                <ext:Column
-                                    ID="ADContactNameCol" 
-                                    runat="server"
-                                    DataIndex="Name"
-                                    Width="250"
-                                    Text="Contact Name"
-                                    Selectable="true"
-                                    Flex="1">
-                                    <Editor>
-                                        <ext:TextField
-                                            ID="ADContactNameTextbox"
+                                    DataIndex="DestinationNumber">
+                                    <HeaderItems>
+                                        <ext:TextField ID="DestNumberFilter"
                                             runat="server"
-                                            DataIndex="Name" />
-                                    </Editor>
+                                            Icon="Magnifier">
+                                            <Listeners>
+                                                <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                            </Listeners>
+                                            <Plugins>
+                                                <ext:ClearButton ID="ClearDestNumFilterBtn" runat="server" />
+                                            </Plugins>
+                                        </ext:TextField>
+                                    </HeaderItems>
                                 </ext:Column>
 
-                                <ext:Column
-                                    ID="ADContactTypeCol"
-                                    runat="server"
-                                    DataIndex="Type"
-                                    Text="Contact Type"
-                                    Width="90"
-                                    Flex="1"
-                                    Selectable="true">
-                                    <Editor>
-                                        <ext:ComboBox
-                                            ID="ADContactTypeCombo"
+                                <ext:Column ID="Column1" runat="server" Text="Contact Information">
+                                    <Columns>
+                                        <ext:Column
+                                            ID="DestCountry"
+                                            runat="server"
+                                            Text="Country"
+                                            Width="150"
+                                            DataIndex="DestinationCountry"
+                                            Sortable="true"
+                                            Groupable="true">
+                                        </ext:Column>
+
+                                        <ext:Column
+                                            ID="ADContactNameCol" 
+                                            runat="server"
+                                            DataIndex="Name"
+                                            Width="250"
+                                            Text="Contact Name"
+                                            Selectable="true"
+                                            Flex="1">
+                                            <Editor>
+                                                <ext:TextField
+                                                    ID="ADContactNameTextbox"
+                                                    runat="server"
+                                                    DataIndex="Name" />
+                                            </Editor>
+                                        </ext:Column>
+
+                                        <ext:Column
+                                            ID="ADContactTypeCol"
                                             runat="server"
                                             DataIndex="Type"
-                                            EmptyText="Please Select Type"
-                                            SelectOnFocus="true"
-                                            SelectOnTab="true"
+                                            Text="Contact Type"
+                                            Width="90"
+                                            Flex="1"
                                             Selectable="true"
-                                            Width="70"
-                                            AllowBlank="false"
-                                            AllowOnlyWhitespace="false">
-                                            <Items>
-                                                <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
-                                                <ext:ListItem Text="Business" Value="Business" Mode="Value" />
-                                            </Items>
-                                        </ext:ComboBox>
-                                    </Editor>
+                                            Sortable="true"
+                                            Groupable="true">
+                                            <Editor>
+                                                <ext:ComboBox
+                                                    ID="ADContactTypeCombo"
+                                                    runat="server"
+                                                    DataIndex="Type"
+                                                    EmptyText="Please Select Type"
+                                                    SelectOnFocus="true"
+                                                    SelectOnTab="true"
+                                                    Selectable="true"
+                                                    Width="70"
+                                                    AllowBlank="false"
+                                                    AllowOnlyWhitespace="false">
+                                                    <Items>
+                                                        <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
+                                                        <ext:ListItem Text="Business" Value="Business" Mode="Value" />
+                                                    </Items>
+                                                </ext:ComboBox>
+                                            </Editor>
+                                        </ext:Column>
+                                    </Columns>
                                 </ext:Column>
 
                                 <ext:ImageCommandColumn
@@ -236,6 +354,17 @@
                             <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
                         </Plugins>
 
+                        <Features>
+                            <ext:GridFilters ID="ImportContactsGridFilters" Local="true">
+                                <Filters>
+                                    <ext:StringFilter DataIndex="DestinationNumber" />
+                                    <ext:StringFilter DataIndex="DestinationCountry" />
+                                    <ext:StringFilter DataIndex="Name" />
+                                    <ext:StringFilter DataIndex="Type" />
+                                </Filters>
+                            </ext:GridFilters>
+                        </Features>
+
                         <ColumnModel ID="ImportContactsColumnModel" runat="server" Flex="1">
                             <Columns>
                                 <ext:RowNumbererColumn ID="RowNumbererColumn1" runat="server" Width="25" />
@@ -243,58 +372,76 @@
                                     ID="ImportedContactNumber"
                                     runat="server"
                                     Text="Number"
-                                    Width="140"
-                                    DataIndex="DestinationNumber" />
-
-                                <ext:Column
-                                    ID="ImportedContactDestinationCountry"
-                                    runat="server"
-                                    Text="Country"
-                                    Width="150"
-                                    DataIndex="DestinationCountry" />
-
-                                <ext:Column
-                                    ID="ContanctNameCol" 
-                                    runat="server"
-                                    DataIndex="Name"
-                                    Width="240"
-                                    Text="Contact Name"
-                                    Selectable="true"
-                                    Flex="1">
-                                    <Editor>
-                                        <ext:TextField
-                                            ID="NameTextbox"
+                                    Width="120"
+                                    DataIndex="DestinationNumber">
+                                    <HeaderItems>
+                                        <ext:TextField ID="ImportContactNumberFilter"
                                             runat="server"
-                                            DataIndex="Name" />
-                                    </Editor>
+                                            Icon="Magnifier">
+                                            <Listeners>
+                                                <Change Handler="ImportContactGrid_ApplyFilter(this);" Buffer="250" />                                                
+                                            </Listeners>
+                                            <Plugins>
+                                                <ext:ClearButton ID="ClearButton1" runat="server" />
+                                            </Plugins>
+                                        </ext:TextField>
+                                    </HeaderItems>
                                 </ext:Column>
 
-                                <ext:Column
-                                    ID="ContactTypeCol"
-                                    runat="server"
-                                    DataIndex="Type"
-                                    Text="Contact Type"
-                                    Width="130"
-                                    Flex="1"
-                                    Selectable="true">
-                                    <Editor>
-                                        <ext:ComboBox
-                                            ID="ContactTypeDropdown"
+                                <ext:Column ID="ContactInformationColumn" runat="server" Text="Contact Information">
+                                    <Columns>
+                                        <ext:Column
+                                            ID="ImportedContactDestinationCountry"
+                                            runat="server"
+                                            Text="Country"
+                                            Width="150"
+                                            DataIndex="DestinationCountry" />
+
+                                        <ext:Column
+                                            ID="ContanctNameCol" 
+                                            runat="server"
+                                            DataIndex="Name"
+                                            Width="250"
+                                            Text="Contact Name"
+                                            Selectable="true"
+                                            Flex="1">
+                                            <Editor>
+                                                <ext:TextField
+                                                    ID="NameTextbox"
+                                                    runat="server"
+                                                    DataIndex="Name" />
+                                            </Editor>
+                                        </ext:Column>
+
+                                        <ext:Column
+                                            ID="ContactTypeCol"
                                             runat="server"
                                             DataIndex="Type"
-                                            EmptyText="Please Select Type"
-                                            SelectOnFocus="true"
-                                            SelectOnTab="true"
-                                            Selectable="true"
-                                            Width="110">
-                                            <Items>
-                                                <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
-                                                <ext:ListItem Text="Business" Value="Business" Mode="Value" />
-                                            </Items>
-                                        </ext:ComboBox>
-                                    </Editor>
+                                            Text="Contact Type"
+                                            Width="110"
+                                            Flex="1"
+                                            Selectable="true">
+                                            <Editor>
+                                                <ext:ComboBox
+                                                    ID="ContactTypeDropdown"
+                                                    runat="server"
+                                                    DataIndex="Type"
+                                                    EmptyText="Please Select Type"
+                                                    SelectOnFocus="true"
+                                                    SelectOnTab="true"
+                                                    Selectable="true"
+                                                    Width="110">
+                                                    <Items>
+                                                        <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
+                                                        <ext:ListItem Text="Business" Value="Business" Mode="Value" />
+                                                    </Items>
+                                                </ext:ComboBox>
+                                            </Editor>
+                                        </ext:Column>
+                                    </Columns>
                                 </ext:Column>
-                                 <ext:CommandColumn ID="RejectChanges" runat="server" Width="70">
+
+                                <ext:CommandColumn ID="RejectChanges" runat="server" Width="70">
                                     <Commands>
                                         <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
                                     </Commands>
@@ -371,53 +518,184 @@
 
 
 <%--
-<ext:ComponentColumn ID="ComponentColumn3" 
-    runat="server"
-    DataIndex="Name"
-    Width="240"
-    Text="Contact Name"
-    Editor="true"
-    OverOnly="true"
-    PinEvents="expand"
-    UnpinEvents="collapse"
-    Selectable="true"
-    Flex="1">
-    <Component>
-        <ext:TextField ID="TextField1"
-            runat="server"
-            Selectable="true"
-            SelectOnFocus="true"
-                SelectOnTab="true"
-            EmptyText="Example: John Smith"
-            DataIndex="Name" />
-    </Component>
-</ext:ComponentColumn>
+<ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
+    <Columns>
+        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
 
-<ext:ComponentColumn ID="ComponentColumn4"
-    runat="server"
-    DataIndex="Type"
-    Text="Contact Type"
-    Width="130"
-    Editor="true"
-    OverOnly="true"
-    PinEvents="expand"
-    UnpinEvents="collapse"
-    Flex="1"
-    Selectable="true">
-    <Component>
-        <ext:ComboBox ID="ComboBox2"
+        <ext:Column
+            ID="DestNumber"
             runat="server"
-            EmptyText="Please Select Type"
-            DataIndex="Type"
-            SelectOnFocus="true"
-            SelectOnTab="true"
-            Selectable="true"
-            Width="110">
-            <Items>
-                <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
-                <ext:ListItem Text="Business" Value="Business" Mode="Value" />
-            </Items>
-        </ext:ComboBox>
-    </Component>
-</ext:ComponentColumn>
+            Text="Number"
+            Width="120"
+            DataIndex="DestinationNumber">
+            <HeaderItems>
+                <ext:TextField ID="DestNumberFilter"
+                    runat="server"
+                    Icon="Magnifier">
+                    <Listeners>
+                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                    </Listeners>
+                    <Plugins>
+                        <ext:ClearButton ID="ClearDestNumFilterBtn" runat="server" />
+                    </Plugins>
+                </ext:TextField>
+            </HeaderItems>
+        </ext:Column>
+
+        <ext:Column ID="Column1" runat="server" Text="Contact Information">
+            <Columns>
+                <ext:Column
+                    ID="DestCountry"
+                    runat="server"
+                    Text="Country"
+                    Width="150"
+                    DataIndex="DestinationCountry"
+                    Sortable="true"
+                    Groupable="true">
+                    <HeaderItems>
+                        <ext:TextField ID="DestCountryFilter"
+                            runat="server"
+                            Icon="Magnifier">
+                            <Listeners>
+                                <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                            </Listeners>
+                            <Plugins>
+                                <ext:ClearButton ID="ClearCountryNameFilterBtn" runat="server" />
+                            </Plugins>
+                        </ext:TextField>
+                    </HeaderItems>
+                </ext:Column>
+
+                <ext:Column
+                    ID="Column2" 
+                    runat="server"
+                    DataIndex="Name"
+                    Width="250"
+                    Text="Contact Name"
+                    Selectable="true"
+                    Flex="1">
+                    <HeaderItems>
+                        <ext:TextField ID="ContactNameFilter"
+                            runat="server"
+                            Icon="Magnifier">
+                            <Listeners>
+                                <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                            </Listeners>
+                            <Plugins>
+                                <ext:ClearButton ID="ClearContactNameFilterBtn" runat="server" />
+                            </Plugins>
+                        </ext:TextField>
+                    </HeaderItems>
+                    <Editor>
+                        <ext:TextField
+                            ID="TextField1"
+                            runat="server"
+                            DataIndex="Name" />
+                    </Editor>
+                </ext:Column>
+
+                <ext:Column
+                    ID="Column3"
+                    runat="server"
+                    DataIndex="Type"
+                    Text="Contact Type"
+                    Width="90"
+                    Flex="1"
+                    Selectable="true"
+                    Sortable="true"
+                    Groupable="true">
+                    <HeaderItems>
+                        <ext:ComboBox 
+                            ID="ContactTypeFilter" 
+                            runat="server"
+                            Icon="Magnifier"
+                            TriggerAction="All"
+                            QueryMode="Local">
+                            <Items>
+                                <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
+                                <ext:ListItem Text="Business" Value="Business" Mode="Value" />
+                            </Items>
+                            <Listeners>
+                                <Change Handler="applyFilter(this);" Buffer="250" />
+                            </Listeners>     
+                            <Plugins>
+                                <ext:ClearButton ID="ClearContactTypeFilterBtn" runat="server" />
+                            </Plugins>
+                        </ext:ComboBox>
+                    </HeaderItems>
+                    <Editor>
+                        <ext:ComboBox
+                            ID="ComboBox1"
+                            runat="server"
+                            DataIndex="Type"
+                            EmptyText="Please Select Type"
+                            SelectOnFocus="true"
+                            SelectOnTab="true"
+                            Selectable="true"
+                            Width="70"
+                            AllowBlank="false"
+                            AllowOnlyWhitespace="false">
+                            <Items>
+                                <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
+                                <ext:ListItem Text="Business" Value="Business" Mode="Value" />
+                            </Items>
+                        </ext:ComboBox>
+                    </Editor>
+                </ext:Column>
+
+                <ext:Column ID="ClearFilterColumn"
+                    runat="server"
+                    Width="25"
+                    DataIndex="company"
+                    Sortable="false"
+                    MenuDisabled="true"
+                    Text="&nbsp;"
+                    Resizable="false">
+                    <Renderer Handler="return '';" />
+                    <HeaderItems>
+                        <ext:Container ID="ClearFilterButtonContainer" runat="server">
+                            <Items>
+                                <ext:Button ID="ClearFilterButton" runat="server" Icon="Cancel">
+                                    <ToolTips>
+                                        <ext:ToolTip ID="ToolTip1" runat="server" Html="Clear filter" />
+                                    </ToolTips>
+                                                    
+                                    <Listeners>
+                                        <Click Handler="clearFilter(null);" />
+                                    </Listeners>                                            
+                                </ext:Button>
+                            </Items>
+                        </ext:Container>
+                    </HeaderItems>
+                </ext:Column>
+            </Columns>
+        </ext:Column>
+
+        <ext:ImageCommandColumn
+            ID="ImageCommandColumn1"
+            runat="server"
+            Width="30"
+            Sortable="false"
+            Align="Center">
+            <Commands>
+                <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Contact" CommandName="delete">                            
+                </ext:ImageCommand>
+            </Commands>
+            <Listeners>
+                <Command Handler="this.up(#{AddressBookGrid}.store.removeAt(recordIndex));" />
+            </Listeners>
+        </ext:ImageCommandColumn>
+
+        <ext:CommandColumn ID="CommandColumn1" runat="server" Width="70">
+            <Commands>
+                <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
+            </Commands>
+            <PrepareToolbar Handler="toolbar.items.get(0).setVisible(record.dirty);" />
+            <Listeners>
+                <Command Handler="record.reject();" />
+            </Listeners>
+        </ext:CommandColumn>
+
+    </Columns>
+</ColumnModel>
 --%>

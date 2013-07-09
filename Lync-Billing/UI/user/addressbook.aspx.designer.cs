@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.user {
     public partial class addressbook {
         
         /// <summary>
+        /// XScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript XScript1;
+        
+        /// <summary>
         /// AddressBookTabPanel control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.CellEditing CellEditing2;
         
         /// <summary>
+        /// AddressbookGridFilters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridFilters AddressbookGridFilters;
+        
+        /// <summary>
         /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
@@ -74,6 +92,33 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column DestNumber;
+        
+        /// <summary>
+        /// DestNumberFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField DestNumberFilter;
+        
+        /// <summary>
+        /// ClearDestNumFilterBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearDestNumFilterBtn;
+        
+        /// <summary>
+        /// Column1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column Column1;
         
         /// <summary>
         /// DestCountry control.
@@ -211,6 +256,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.CellEditing CellEditing1;
         
         /// <summary>
+        /// ImportContactsGridFilters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridFilters ImportContactsGridFilters;
+        
+        /// <summary>
         /// RowNumbererColumn1 control.
         /// </summary>
         /// <remarks>
@@ -227,6 +281,33 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column ImportedContactNumber;
+        
+        /// <summary>
+        /// ImportContactNumberFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField ImportContactNumberFilter;
+        
+        /// <summary>
+        /// ClearButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearButton1;
+        
+        /// <summary>
+        /// ContactInformationColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column ContactInformationColumn;
         
         /// <summary>
         /// ImportedContactDestinationCountry control.
