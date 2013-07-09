@@ -106,6 +106,9 @@ namespace Lync_Billing.ui.admin.gateways
 
         protected void GetGatewaysForSite(object sender, DirectEventArgs e)
         {
+            FilterRatesByGateway.Clear();
+            FilterRatesByGateway.ReadOnly = false;
+
             if (FilterGatewaysBySite.SelectedItem != null && !string.IsNullOrEmpty(FilterGatewaysBySite.SelectedItem.Value))
             {
                 List<Gateway> gateways = GetGateways(Convert.ToInt32(FilterGatewaysBySite.SelectedItem.Value));
@@ -113,6 +116,12 @@ namespace Lync_Billing.ui.admin.gateways
                 FilterRatesByGateway.Disabled = false;
                 FilterRatesByGateway.GetStore().DataSource = gateways;
                 FilterRatesByGateway.GetStore().DataBind();
+
+                if (gateways.Count == 1)
+                {
+                    FilterRatesByGateway.SetValueAndFireSelect(gateways[0].GatewayId);
+                    FilterRatesByGateway.ReadOnly = true;
+                }
             }
         }
 
