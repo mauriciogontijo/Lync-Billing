@@ -40,8 +40,16 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            FilterRatesByGateway.GetStore().DataSource = GetGateways();
+            List<Gateway> gateways = GetGateways();
+
+            FilterRatesByGateway.GetStore().DataSource = gateways;
             FilterRatesByGateway.GetStore().DataBind();
+
+            if (gateways.Count == 1) 
+            {
+                FilterRatesByGateway.SetValueAndFireSelect(gateways[0].GatewayId);
+                FilterRatesByGateway.ReadOnly = true;
+            }
         }
 
         public List<Site> getSites() 
