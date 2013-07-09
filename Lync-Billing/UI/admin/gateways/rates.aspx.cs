@@ -124,7 +124,7 @@ namespace Lync_Billing.ui.admin.gateways
                 }
                 else
                 {
-                    FilterRatesByGateway.Select(-1);
+                    //FilterRatesByGateway.Select(-1);
                     FilterRatesByGateway.ReadOnly = false;
                 }
             }
