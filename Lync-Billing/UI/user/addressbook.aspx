@@ -42,7 +42,6 @@
             };
  
             var getRecordFilter = function (grid) {
-                debugger;
                 var f = [];
  
                 if(grid != undefined && grid == "addressbook")
@@ -52,18 +51,18 @@
                             return filterString(#{DestNumberFilter}.getValue(), "DestinationNumber", record);
                         }
                     });
-                 
-                    //f.push({
-                    //    filter: function (record) {                         
-                    //        return filterString(#{DestCountryFilter}.getValue(), "DestinationCountry", record);
-                    //    }
-                    //});
-
+                    
                     f.push({
                         filter: function (record) {                         
                             return filterString(#{ContactNameFilter}.getValue(), "Name", record);
                         }
                     });
+
+                    //f.push({
+                    //    filter: function (record) {                         
+                    //        return filterString(#{DestCountryFilter}.getValue(), "DestinationCountry", record);
+                    //    }
+                    //});
 
                     //f.push({
                     //    filter: function (record) {                         
@@ -76,6 +75,12 @@
                     f.push({
                         filter: function (record) {                         
                             return filterString(#{ImportContactNumberFilter}.getValue(), "DestinationNumber", record);
+                        }
+                    });
+
+                    f.push({
+                        filter: function (record) {                         
+                            return filterString(#{ImportContactDestCountryFilter}.getValue(), "DestinationCountry", record);
                         }
                     });
                 }
@@ -224,7 +229,8 @@
                                             Width="120"
                                             DataIndex="DestinationCountry"
                                             Sortable="true"
-                                            Groupable="true">
+                                            Groupable="true"
+                                            Resizable="false">
                                         </ext:Column>
 
                                         <ext:Column
@@ -236,7 +242,8 @@
                                             Flex="1"
                                             Selectable="true"
                                             Sortable="true"
-                                            Groupable="true">
+                                            Groupable="true"
+                                            Resizable="false">
                                             <Editor>
                                                 <ext:ComboBox
                                                     ID="ADContactTypeCombo"
@@ -407,6 +414,29 @@
                                     </HeaderItems>
                                 </ext:Column>
 
+                                <ext:Column
+                                    ID="ImportedContactDestinationCountry"
+                                    runat="server"
+                                    Text="Country"
+                                    Width="130"
+                                    DataIndex="DestinationCountry"
+                                    Sortable="true"
+                                    Resizable="false"
+                                    Groupable="true">
+                                    <HeaderItems>
+                                        <ext:TextField ID="ImportContactDestCountryFilter"
+                                            runat="server"
+                                            Icon="Magnifier">
+                                            <Listeners>
+                                                <Change Handler="ImportContactGrid_ApplyFilter(this);" Buffer="250" />                                                
+                                            </Listeners>
+                                            <Plugins>
+                                                <ext:ClearButton ID="ClearCountryNameFilterBtn" runat="server" />
+                                            </Plugins>
+                                        </ext:TextField>
+                                    </HeaderItems>
+                                </ext:Column>
+
                                 <ext:Column ID="ContactInformationColumn"
                                     runat="server"
                                     Text="Contact Information"
@@ -415,21 +445,14 @@
                                     Resizable="false">
                                     <Columns>
                                         <ext:Column
-                                            ID="ImportedContactDestinationCountry"
-                                            runat="server"
-                                            Text="Country"
-                                            Width="130"
-                                            DataIndex="DestinationCountry"
-                                            Sortable="true" />
-
-                                        <ext:Column
                                             ID="ContanctNameCol" 
                                             runat="server"
                                             DataIndex="Name"
                                             Width="250"
                                             Text="Name"
                                             Selectable="true"
-                                            Flex="1">
+                                            Flex="1"
+                                            Resizable="false">
                                             <Editor>
                                                 <ext:TextField
                                                     ID="NameTextbox"
@@ -445,7 +468,8 @@
                                             Text="Type"
                                             Width="110"
                                             Flex="1"
-                                            Selectable="true">
+                                            Selectable="true"
+                                            Resizable="false">
                                             <Editor>
                                                 <ext:ComboBox
                                                     ID="ContactTypeDropdown"

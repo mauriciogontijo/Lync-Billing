@@ -319,15 +319,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ClearButton ClearButton1;
         
         /// <summary>
-        /// ContactInformationColumn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column ContactInformationColumn;
-        
-        /// <summary>
         /// ImportedContactDestinationCountry control.
         /// </summary>
         /// <remarks>
@@ -335,6 +326,33 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column ImportedContactDestinationCountry;
+        
+        /// <summary>
+        /// ImportContactDestCountryFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField ImportContactDestCountryFilter;
+        
+        /// <summary>
+        /// ClearCountryNameFilterBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearCountryNameFilterBtn;
+        
+        /// <summary>
+        /// ContactInformationColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column ContactInformationColumn;
         
         /// <summary>
         /// ContanctNameCol control.
