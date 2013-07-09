@@ -158,7 +158,7 @@
 
 
             <!-- *** START OF MAIN BODY CONTENT *** -->
-            <div id='main' class='main-container'>
+            <div id='main' class='main-container bottom-rounded'>
                 <asp:HiddenField ID="ThisPageReferrer" runat="server" Value="" />
 
                 <% if(PAGE_NAME.Contains("ui_user") && ! PAGE_NAME.Contains("dashboard")) { %>
@@ -226,8 +226,9 @@
             <% if( ! PAGE_NAME.Contains("ui_session")) { %>
                 <div class='clear'></div>
                 
-		        <div id='footer' class='footer-container bottom-rounded ftr-3'>
-                    <h1 class="msg">#FOOTER-CONTAINER</h1>
+		        <div id='footer' class='footer-container bottom-rounded top-rounded'>
+                    <p>CCC eBill, powered by MOA R&D.</p>
+                    <p>For any inquiries please contact the MOA HELPDESK (<a class="bold" href="mailto:helpdesk@ccc.gr">helpdesk@ccc.gr</a>)</p>
 		        </div>
             <% } %>
         </form>

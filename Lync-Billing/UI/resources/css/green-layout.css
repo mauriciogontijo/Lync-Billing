@@ -20,13 +20,18 @@ body {
 /* START OF MAIN BODY CONTENT STYLING */
 .main-container { min-height: 850px; /*min-height: 815px*/ width: 1000px; margin: 0 auto; padding: 25px 20px 20px 20px; background: #ffffff !important; border-left: 1px solid #CECFCE; border-right: 1px solid #CECFCE; border-bottom: 1px solid #CECFCE; overflow: hidden; }
 .announce-block { width: auto; display: block; border: 1px solid #B6C0D2; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
-.footer-container { display: block; width: 1000px; height: 70px; padding-top: 20px; margin: 0 auto; overflow: hidden; /*background: rgb(13,78,108) url(../images/footer-70px-bg.png) repeat-x;*/ }
+.footer-container { display: block; width: 1000px; min-height: 40px; overflow: hidden; padding: 10px; margin: 10px auto 15px auto; background-color: #fff; border: 1px solid #CECFCE; }
+.footer-container p { font-size: 11px; margin: 0 auto 3px auto; color: #000; width: auto; text-align: center; }
+
+/*.footer-container { display: block; width: 1000px; height: 70px; padding-top: 20px; margin: 0 auto; overflow: hidden; }
 .ftr-1 { margin: 0 auto 15px auto; background-color: rgb(13,78,108); }
 .ftr-2 { margin: 0 auto 15px auto; background-color: rgb(56,131,132); }
 .ftr-3 { margin: 10px auto 15px auto; background-color: #fff; border: 1px solid #CECFCE; }
-.ftr-1 .msg { color: #fff; float: none; margin: 0 35%; width: 12em; }
-.ftr-2 .msg { color: #fff; float: none; margin: 0 35%; width: 12em; }
-.ftr-3 .msg { color: #000; float: none; margin: 0 35%; width: 12em; }
+.ftr-4 { margin: 10px auto 15px auto; border: 1px solid #CECFCE; background: rgb(13,78,108) url(../images/footer-70px-bg.png) repeat-x;} 
+.ftr-1 .msg, .ftr-4 .msg { color: #fff; float: none; margin: 0 35%; width: 12em; font-size: 12px; }
+.ftr-2 .msg { color: #fff; float: none; margin: 0 35%; width: 12em; font-size: 12px; }
+.ftr-3 .msg { color: #000; float: none; margin: 0 35%; width: 12em; font-size: 12px; }
+*/
 
 .info-block, .warning-block { width: auto; height: 52px; display: block; padding: 10px 10px 15px 55px; margin: 0 0 10px 0; border: 1px solid #B6C0D2; background-repeat: no-repeat; background-position: 10px center; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
 .info-block p.message, .warning-block p.message { height:60px; line-height: 30px; font-size: 14px; float: left; display: inline-block; }

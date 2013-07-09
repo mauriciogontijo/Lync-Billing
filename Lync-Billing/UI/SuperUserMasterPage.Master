@@ -194,8 +194,9 @@
 
             <div class='clear'></div>
                 
-		    <div id='footer' class='footer-container bottom-rounded ftr-3'>
-                <h1 class="msg">#FOOTER-CONTAINER</h1>
+		    <div id='footer' class='footer-container bottom-rounded top-rounded'>
+                <p>CCC eBill, powered by MOA R&D.</p>
+                <p>For any inquiries please contact the MOA HELPDESK (<a class="bold" href="mailto:helpdesk@ccc.gr">helpdesk@ccc.gr</a>)</p>
 		    </div>
         </form>
     </body>

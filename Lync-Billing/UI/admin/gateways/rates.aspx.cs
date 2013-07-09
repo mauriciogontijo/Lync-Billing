@@ -16,6 +16,8 @@ namespace Lync_Billing.ui.admin.gateways
     public partial class rates : System.Web.UI.Page
     {
         private string sipAccount = string.Empty;
+        private List<Gateway> gateways = new List<Gateway>();
+        private List<Gateway> filteredGateways = new List<Gateway>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -79,6 +81,58 @@ namespace Lync_Billing.ui.admin.gateways
 
         protected void GetGateways(object sender, DirectEventArgs e)
         {
+
+        }
+
+        public List<Site> getSites()
+        {
+            List<Site> sites = new List<DB.Site>();
+            return sites = DB.Site.GetSites();
+        }
+
+        public List<Gateway> GetGateways()
+        {
+            UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+
+            gateways = Gateway.GetGateways();
+
+            //GetSite ID
+            int siteID = getSites().First(item => item.SiteName == session.SiteName).SiteID;
+
+            //Get Related Gateways for that specific site
+            List<GatewayDetail> gatewaysDetails = GatewayDetail.GetGatewaysDetails().Where(item => item.SiteID == siteID).ToList();
+
+            foreach (int id in gatewaysDetails.Select(item => item.GatewayID))
+            {
+                filteredGateways.Add(gateways.First(item => item.GatewayId == id));
+            }
+
+            return filteredGateways;
+        }
+
+        public string GetRatesTableName(int gatewayID)
+        {
+            if (gateways.Count < 1)
+                gateways = GetGateways();
+
+            string rateTable = string.Empty;
+
+            return rateTable = GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
+
+        }
+
+
+        protected void GetRates(object sender, DirectEventArgs e)
+        {
+            List<GatewayRate> gatewayRates = new List<GatewayRate>();
+
+            string ratesTableName = GetRatesTableName(Convert.ToInt32(FilterRatesByGateway.SelectedItem.Value));
+            //Clear Store
+            ManageRatesGrid.GetStore().RemoveAll();
+
+            //Fill Store
+            ManageRatesGrid.GetStore().DataSource = Rate.GetRates(ratesTableName);
+            ManageRatesGrid.GetStore().DataBind();
 
         }
     }
