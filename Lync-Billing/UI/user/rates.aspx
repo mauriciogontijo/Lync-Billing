@@ -204,7 +204,7 @@
                                     </ext:Store>
                                 </Store>
                                 <DirectEvents>
-                                    <Select OnEvent="GetRates" />
+                                    <Change OnEvent="GetRates" />
                                 </DirectEvents>
                             </ext:ComboBox>
 
