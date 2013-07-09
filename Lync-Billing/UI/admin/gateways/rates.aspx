@@ -276,8 +276,8 @@
                                 ValueField="GatewayId"
                                 FieldLabel="Gateway"
                                 LabelWidth="50"
-                                Width="200"
-                                Margins="5 75 0 5"
+                                Width="230"
+                                Margins="5 45 0 5"
                                 Disabled="true">
                                 <Store>
                                     <ext:Store
