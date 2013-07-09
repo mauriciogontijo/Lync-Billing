@@ -94,6 +94,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ClearButton ClearCountryCodeFilterButton;
         
         /// <summary>
+        /// RatesColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column RatesColumn;
+        
+        /// <summary>
         /// TelephonyRatesGridFilters control.
         /// </summary>
         /// <remarks>

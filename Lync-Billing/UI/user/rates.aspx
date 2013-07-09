@@ -64,7 +64,7 @@
                 ID="ViewRatesGrid"
                 runat="server"
                 Width="740"
-                Height="740"
+                Height="760"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout"
@@ -108,7 +108,7 @@
                          <ext:Column 
                             runat="server"
                             Text="Country"
-                            Width="220"
+                            Width="230"
                             DataIndex="CountryName">
                             <HeaderItems>
                                 <ext:TextField ID="CountryNameFilter" runat="server">
@@ -125,7 +125,7 @@
                         <ext:Column
                             runat="server"
                             Text="Country Code"
-                            Width="150"
+                            Width="140"
                             DataIndex="CountryCode">
                             <HeaderItems>
                                 <ext:TextField ID="CountryCodeFilter" runat="server">
@@ -139,18 +139,23 @@
                             </HeaderItems>
                         </ext:Column>
 
-                        <ext:Column
+                        <ext:Column ID="RatesColumn"
                             runat="server"
-                            Text="Fixedline Rate"
-                            Width="160"
-                            DataIndex="FixedLineRate">
-                        </ext:Column>
+                            Text="Rates"
+                            Align="Center">
+                            <Columns>
+                                <ext:Column
+                                    runat="server"
+                                    Text="Fixedline Rate"
+                                    Width="160"
+                                    DataIndex="FixedLineRate" />
 
-                        <ext:Column
-                            runat="server"
-                            Text="Mobile Rate"
-                            Width="160"
-                            DataIndex="MobileLineRate">
+                                <ext:Column
+                                    runat="server"
+                                    Text="Mobile Rate"
+                                    Width="160"
+                                    DataIndex="MobileLineRate" />
+                            </Columns>
                         </ext:Column>
 
                     </Columns>
