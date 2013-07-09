@@ -120,10 +120,10 @@
                             ID="EmployeeIDCol"
                             runat="server"
                             Text="Employee ID"
-                            Width="80"
+                            Width="90"
                             DataIndex="EmployeeID">
                             <HeaderItems>
-                                <ext:TextField ID="EmployeeIDFilter" runat="server">
+                                <ext:TextField ID="EmployeeIDFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
                                         <Change Handler="applyFilter(this);" Buffer="250" />                                                
                                     </Listeners>
@@ -141,7 +141,7 @@
                             Width="150"
                             DataIndex="SipAccount">
                             <HeaderItems>
-                                <ext:TextField ID="SipAccountFilter" runat="server">
+                                <ext:TextField ID="SipAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
                                         <Change Handler="applyFilter(this);" Buffer="250" />                                                
                                     </Listeners>
@@ -156,10 +156,10 @@
                             ID="FullNameCol"
                             runat="server"
                             Text="Full Name"
-                            Width="170"
+                            Width="180"
                             DataIndex="FullName">
                             <HeaderItems>
-                                <ext:TextField ID="FullNameFilter" runat="server">
+                                <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
                                         <Change Handler="applyFilter(this);" Buffer="250" />                                                
                                     </Listeners>
@@ -181,7 +181,7 @@
                                     ID="UnmarkedCallsDurationCol"
                                     runat="server"
                                     Text="Duration"
-                                    Width="110"
+                                    Width="90"
                                     DataIndex="UnmarkedCallsDuration">
                                     <Renderer Fn="GetMinutes" />
                                 </ext:Column>

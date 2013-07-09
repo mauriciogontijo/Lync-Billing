@@ -134,7 +134,7 @@
                             <HeaderItems>
                                 <ext:TextField ID="SipAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
-                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
                                     </Listeners>
                                     <Plugins>
                                         <ext:ClearButton ID="ClearSipAccountFilterBtn" runat="server" />
@@ -159,7 +159,7 @@
                             <HeaderItems>
                                 <ext:TextField ID="DelegeeAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
-                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
                                     </Listeners>
                                     <Plugins>
                                         <ext:ClearButton ID="ClearDelegeeAccountFilterBtn" runat="server" />
@@ -184,7 +184,7 @@
                             <HeaderItems>
                                 <ext:TextField ID="DescriptionFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
-                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
                                     </Listeners>
                                     <Plugins>
                                         <ext:ClearButton ID="ClearDescFilterBtn" runat="server" />
