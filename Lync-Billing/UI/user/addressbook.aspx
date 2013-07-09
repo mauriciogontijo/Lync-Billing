@@ -409,14 +409,15 @@
                                             runat="server"
                                             Text="Country"
                                             Width="150"
-                                            DataIndex="DestinationCountry" />
+                                            DataIndex="DestinationCountry"
+                                            Sortable="true" />
 
                                         <ext:Column
                                             ID="ContanctNameCol" 
                                             runat="server"
                                             DataIndex="Name"
                                             Width="250"
-                                            Text="Contact Name"
+                                            Text="Name"
                                             Selectable="true"
                                             Flex="1">
                                             <Editor>
@@ -431,7 +432,7 @@
                                             ID="ContactTypeCol"
                                             runat="server"
                                             DataIndex="Type"
-                                            Text="Contact Type"
+                                            Text="Type"
                                             Width="110"
                                             Flex="1"
                                             Selectable="true">
