@@ -59,11 +59,11 @@
                     //    }
                     //});
 
-                    //f.push({
-                    //    filter: function (record) {                         
-                    //        return filterString(#{ContactNameFilter}.getValue(), "Name", record);
-                    //    }
-                    //});
+                    f.push({
+                        filter: function (record) {                         
+                            return filterString(#{ContactNameFilter}.getValue(), "Name", record);
+                        }
+                    });
 
                     //f.push({
                     //    filter: function (record) {                         
@@ -105,7 +105,7 @@
                 Header="true"
                 Title="Manage Address Book"
                 Width="740"
-                Height="765"
+                Height="790"
                 Plain="false">
                 
                 <Defaults>
@@ -182,6 +182,34 @@
                                     </HeaderItems>
                                 </ext:Column>
 
+                                <ext:Column
+                                    ID="ADContactNameCol" 
+                                    runat="server"
+                                    DataIndex="Name"
+                                    Width="250"
+                                    Text="Contact Name"
+                                    Selectable="true"
+                                    Flex="1">
+                                    <HeaderItems>
+                                        <ext:TextField ID="ContactNameFilter"
+                                            runat="server"
+                                            Icon="Magnifier">
+                                            <Listeners>
+                                                <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                            </Listeners>
+                                            <Plugins>
+                                                <ext:ClearButton ID="ClearContactNameFilterBtn" runat="server" />
+                                            </Plugins>
+                                        </ext:TextField>
+                                    </HeaderItems>
+                                    <Editor>
+                                        <ext:TextField
+                                            ID="ADContactNameTextbox"
+                                            runat="server"
+                                            DataIndex="Name" />
+                                    </Editor>
+                                </ext:Column>
+
                                 <ext:Column ID="Column1" runat="server" Text="Contact Information">
                                     <Columns>
                                         <ext:Column
@@ -195,26 +223,10 @@
                                         </ext:Column>
 
                                         <ext:Column
-                                            ID="ADContactNameCol" 
-                                            runat="server"
-                                            DataIndex="Name"
-                                            Width="250"
-                                            Text="Contact Name"
-                                            Selectable="true"
-                                            Flex="1">
-                                            <Editor>
-                                                <ext:TextField
-                                                    ID="ADContactNameTextbox"
-                                                    runat="server"
-                                                    DataIndex="Name" />
-                                            </Editor>
-                                        </ext:Column>
-
-                                        <ext:Column
                                             ID="ADContactTypeCol"
                                             runat="server"
                                             DataIndex="Type"
-                                            Text="Contact Type"
+                                            Text="Type"
                                             Width="90"
                                             Flex="1"
                                             Selectable="true"
@@ -318,6 +330,8 @@
                         </BottomBar>
                     </ext:GridPanel>
                     
+
+                    <%-- *********************************************************************************************************************** --%>
 
 
                     <ext:GridPanel

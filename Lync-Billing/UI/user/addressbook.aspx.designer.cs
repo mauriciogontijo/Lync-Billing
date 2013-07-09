@@ -112,6 +112,42 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ClearButton ClearDestNumFilterBtn;
         
         /// <summary>
+        /// ADContactNameCol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column ADContactNameCol;
+        
+        /// <summary>
+        /// ContactNameFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField ContactNameFilter;
+        
+        /// <summary>
+        /// ClearContactNameFilterBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearContactNameFilterBtn;
+        
+        /// <summary>
+        /// ADContactNameTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField ADContactNameTextbox;
+        
+        /// <summary>
         /// Column1 control.
         /// </summary>
         /// <remarks>
@@ -128,24 +164,6 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column DestCountry;
-        
-        /// <summary>
-        /// ADContactNameCol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column ADContactNameCol;
-        
-        /// <summary>
-        /// ADContactNameTextbox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TextField ADContactNameTextbox;
         
         /// <summary>
         /// ADContactTypeCol control.
