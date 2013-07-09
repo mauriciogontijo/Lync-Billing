@@ -1,6 +1,51 @@
 ﻿<%@ Page Title="eBill Admin | Manage Rates" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="rates.aspx.cs" Inherits="Lync_Billing.ui.admin.gateways.rates" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
+    <ext:XScript ID="XScript1" runat="server">
+        <script>       
+            var applyFilter = function (field) {                
+                var store = #{ManageRatesGrid}.getStore();
+                store.filterBy(getRecordFilter());
+            };
+             
+            var clearFilter = function () {
+                #{CountryCodeFilter}.reset();
+                
+                #{ManageRatesStore}.clearFilter();
+            }
+ 
+            var filterString = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if (typeof val != "string") {
+                    return value.length == 0;
+                }
+                
+                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+            };
+ 
+            var getRecordFilter = function () {
+                var f = [];
+ 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{CountryCodeFilter}.getValue(), "CountryCode", record);
+                    }
+                });
+ 
+                var len = f.length;
+                 
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
+            };
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -10,7 +55,7 @@
                 ID="ManageRatesGrid"
                 runat="server"
                 Width="740"
-                Height="760"
+                Height="765"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout"
@@ -36,6 +81,18 @@
                     </ext:Store>
                 </Store>
 
+                <Plugins>
+                    <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
+                </Plugins>
+
+                <Features>
+                    <ext:GridFilters ID="ManageDelegatesGridFilters" Local="true">
+                        <Filters>
+                            <ext:StringFilter DataIndex="CountryCode" />
+                        </Filters>
+                    </ext:GridFilters>
+                </Features>
+
                 <ColumnModel ID="ManageRatesColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
@@ -54,6 +111,16 @@
                             Text="Country"
                             Width="200"
                             DataIndex="CountryCode">
+                            <HeaderItems>
+                                <ext:TextField ID="CountryCodeFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearCountryCodeFilterBtn" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
                             <Editor>
                                 <ext:ComboBox
                                     ID="CountryCodeComboBox"
@@ -81,46 +148,47 @@
                                             </Model>            
                                         </ext:Store>
                                     </Store>
-
-                                    <%--<ListConfig>
-                                        <ItemTpl ID="ItemTpl1" runat="server">
-                                            <Html>
-                                                <div data-qtip="{CountryCode}. {CountryName}">
-                                                    {CountryName} ({CountryCode})
-                                                </div>
-                                            </Html>
-                                        </ItemTpl>
-                                    </ListConfig>--%>
                                 </ext:ComboBox>
                             </Editor>
                         </ext:Column>
 
-                        <ext:Column
-                            ID="FixedlineRateCol"
+                        <ext:Column ID="ManageRatesGroupedColumn"
                             runat="server"
-                            Text="Fixedline Rate"
-                            Width="200"
-                            DataIndex="FixedLineRate">
-                            <Editor>
-                                <ext:TextField
-                                    ID="FixedLineRateTextbox"
+                            Text="Telephony Rates"
+                            Resizable="false"
+                            Sortable="false"
+                            Groupable="false"
+                            MenuDisabled="true"
+                            Align="Center">
+                            <Columns>
+                                <ext:Column
+                                    ID="FixedlineRateCol"
                                     runat="server"
-                                    DataIndex="FixedLineRate" />
-                            </Editor>
-                        </ext:Column>
+                                    Text="Fixedline Rate"
+                                    Width="200"
+                                    DataIndex="FixedLineRate">
+                                    <Editor>
+                                        <ext:TextField
+                                            ID="FixedLineRateTextbox"
+                                            runat="server"
+                                            DataIndex="FixedLineRate" />
+                                    </Editor>
+                                </ext:Column>
 
-                        <ext:Column
-                            ID="MobileLineRateCol"
-                            runat="server"
-                            Text="Mobile Rate"
-                            Width="200"
-                            DataIndex="MobileLineRate">
-                            <Editor>
-                                <ext:TextField
-                                    ID="MobileLineRateTextbox"
+                                <ext:Column
+                                    ID="MobileLineRateCol"
                                     runat="server"
-                                    DataIndex="MobileLineRate" />
-                            </Editor>
+                                    Text="Mobile Rate"
+                                    Width="200"
+                                    DataIndex="MobileLineRate">
+                                    <Editor>
+                                        <ext:TextField
+                                            ID="MobileLineRateTextbox"
+                                            runat="server"
+                                            DataIndex="MobileLineRate" />
+                                    </Editor>
+                                </ext:Column>
+                            </Columns>
                         </ext:Column>
 
                         <ext:ImageCommandColumn
@@ -150,10 +218,6 @@
 
                     </Columns>
                 </ColumnModel>
-                
-                <Plugins>
-                    <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
-                </Plugins>
 
                 <TopBar>
                     <ext:Toolbar ID="FilterGatewaysRatesToolBar" runat="server">
@@ -165,12 +229,14 @@
                                 TriggerAction="All" 
                                 QueryMode="Local" 
                                 DisplayField="SiteName" 
-                                ValueField="SiteName"
+                                ValueField="SiteID"
                                 Width="250"
                                 Margins="5 5 0 5"
                                 FieldLabel="Choose Site"
                                 LabelSeparator=":"
-                                LabelWidth="70">
+                                LabelWidth="70"
+                                ValidateBlank="true"
+                                ValidateOnChange="true">
                                 <Store>
                                     <ext:Store
                                         ID="SitesStore"
@@ -180,12 +246,21 @@
                                                 <Fields>
                                                     <ext:ModelField Name="SiteID" />
                                                     <ext:ModelField Name="SiteName" />
+                                                    <ext:ModelField Name="CountryCode" />
                                                 </Fields>
                                             </ext:Model>
                                         </Model>            
                                     </ext:Store>
                                 </Store>
-
+                                <ListConfig>
+                                    <ItemTpl ID="SitesItemTpl" runat="server">
+                                        <Html>
+                                            <div data-qtip="{SiteName}. {CountryCode}">
+                                                {SiteName} ({CountryCode})
+                                            </div>
+                                        </Html>
+                                    </ItemTpl>
+                                </ListConfig>
                                 <DirectEvents>
                                     <Change OnEvent="GetGatewaysForSite" />
                                 </DirectEvents>

@@ -42,7 +42,7 @@ namespace Lync_Billing.ui.admin.gateways
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
-            SitesStore.DataSource = getSites();
+            SitesStore.DataSource = GetAdminSites();
             SitesStore.DataBind();
         }
 
@@ -82,11 +82,33 @@ namespace Lync_Billing.ui.admin.gateways
             ManageRatesGrid.GetStore().RejectChanges();
         }
 
+        public List<Site> GetAdminSites()
+        {
+            UserSession session = (UserSession)Session.Contents["UserData"];
+
+            List<Site> sites = new List<Site>();
+            Site site;
+
+            List<UserRole> userRoles = session.Roles;
+
+            foreach (UserRole role in userRoles)
+            {
+                if (role.RoleID == 5 || role.RoleID == 1)
+                {
+                    site = new DB.Site();
+                    site = DB.Site.getSite(role.SiteID);
+
+                    sites.Add(site);
+                }
+            }
+            return sites;
+        }
+
         protected void GetGatewaysForSite(object sender, DirectEventArgs e)
         {
             if (FilterGatewaysBySite.SelectedItem != null && !string.IsNullOrEmpty(FilterGatewaysBySite.SelectedItem.Value))
             {
-                List<Gateway> gateways = GetGateways();
+                List<Gateway> gateways = GetGateways(Convert.ToInt32(FilterGatewaysBySite.SelectedItem.Value));
 
                 FilterRatesByGateway.Disabled = false;
                 FilterRatesByGateway.GetStore().DataSource = gateways;
@@ -100,20 +122,14 @@ namespace Lync_Billing.ui.admin.gateways
             }
         }
 
-        public List<Site> getSites()
-        {
-            List<Site> sites = new List<DB.Site>();
-            return sites = DB.Site.GetSites();
-        }
-
-        public List<Gateway> GetGateways()
+        public List<Gateway> GetGateways(int siteID)
         {
             UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
 
             gateways = Gateway.GetGateways();
 
             //GetSite ID
-            int siteID = getSites().First(item => item.SiteName == session.SiteName).SiteID;
+            //int siteID = GetAdminSites().First(item => item.SiteName == session.SiteName).SiteID;
 
             //Get Related Gateways for that specific site
             List<GatewayDetail> gatewaysDetails = GatewayDetail.GetGatewaysDetails().Where(item => item.SiteID == siteID).ToList();
@@ -126,23 +142,26 @@ namespace Lync_Billing.ui.admin.gateways
             return filteredGateways;
         }
 
-        public string GetRatesTableName(int gatewayID)
+        public string GetRatesTableName(int siteID, int gatewayID)
         {
             if (gateways.Count < 1)
-                gateways = GetGateways();
+                gateways = GetGateways(siteID);
 
             string rateTable = string.Empty;
 
             return rateTable = GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
 
         }
-
-
+        
         protected void GetRates(object sender, DirectEventArgs e)
         {
             List<GatewayRate> gatewayRates = new List<GatewayRate>();
 
-            string ratesTableName = GetRatesTableName(Convert.ToInt32(FilterRatesByGateway.SelectedItem.Value));
+            string ratesTableName = GetRatesTableName(
+                Convert.ToInt32(FilterGatewaysBySite.SelectedItem.Value),
+                Convert.ToInt32(FilterRatesByGateway.SelectedItem.Value)
+            );
+
             //Clear Store
             ManageRatesGrid.GetStore().RemoveAll();
 

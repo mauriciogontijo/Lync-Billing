@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.admin.gateways {
     public partial class rates {
         
         /// <summary>
+        /// XScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript XScript1;
+        
+        /// <summary>
         /// ManageRatesGrid control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,24 @@ namespace Lync_Billing.ui.admin.gateways {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Model ManageRatesModel;
+        
+        /// <summary>
+        /// CellEditing1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CellEditing CellEditing1;
+        
+        /// <summary>
+        /// ManageDelegatesGridFilters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridFilters ManageDelegatesGridFilters;
         
         /// <summary>
         /// RowNumbererColumn2 control.
@@ -67,6 +94,24 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.Column CountryCodeCol;
         
         /// <summary>
+        /// CountryCodeFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField CountryCodeFilter;
+        
+        /// <summary>
+        /// ClearCountryCodeFilterBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearCountryCodeFilterBtn;
+        
+        /// <summary>
         /// CountryCodeComboBox control.
         /// </summary>
         /// <remarks>
@@ -92,6 +137,15 @@ namespace Lync_Billing.ui.admin.gateways {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Model CountryCode;
+        
+        /// <summary>
+        /// ManageRatesGroupedColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column ManageRatesGroupedColumn;
         
         /// <summary>
         /// FixedlineRateCol control.
@@ -146,15 +200,6 @@ namespace Lync_Billing.ui.admin.gateways {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.CommandColumn RejectChange;
-        
-        /// <summary>
-        /// CellEditing1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.CellEditing CellEditing1;
         
         /// <summary>
         /// FilterGatewaysRatesToolBar control.
