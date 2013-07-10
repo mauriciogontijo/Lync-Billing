@@ -11,6 +11,7 @@ namespace Lync_Billing.DB
         public string EmailAddress { set; get; }
         public string TelephoneNumber { set; get; }
         public string SiteName { set; get; }
+        public string Department { set; get; }
         public string EmployeeID { set; get; }
         public string IpAddress {set;get;}
         public string UserAgent { set; get; }
