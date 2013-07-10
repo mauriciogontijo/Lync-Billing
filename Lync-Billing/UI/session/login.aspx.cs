@@ -96,19 +96,23 @@ namespace Lync_Billing.ui.session
                         //If user information from Active directory doesnt match the one in Users Table : update user table 
                         if ((ListOfUsers[0]).SipAccount != userInfo.SipAccount.Replace("sip:", "") ||
                             (ListOfUsers[0]).UserID.ToString() != userInfo.EmployeeID ||
-                            (ListOfUsers[0]).SiteName != userInfo.physicalDeliveryOfficeName)
+                            (ListOfUsers[0]).SiteName != userInfo.physicalDeliveryOfficeName ||
+                            (ListOfUsers[0]).Department != userInfo.department)
                         {
                             Users user = new Users();
                             user.SiteName = userInfo.physicalDeliveryOfficeName;
                             user.UserID = Convert.ToInt32(userInfo.EmployeeID);
                             user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                             user.FullName = userInfo.FirstName + " " + userInfo.LastName;
+                            user.Department = userInfo.department;
 
                             Users.UpdateUser(user);
                         }
 
                         session.ActiveRoleName = "user";
                         session.SiteName = userInfo.physicalDeliveryOfficeName;
+                        session.Department = userInfo.department;
+
                         session.EmployeeID = userInfo.EmployeeID;
                         session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
                         session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
@@ -120,6 +124,8 @@ namespace Lync_Billing.ui.session
                         session.ActiveRoleName = "user";
                         session.EmployeeID = userInfo.EmployeeID;
                         session.SiteName = userInfo.physicalDeliveryOfficeName;
+                        session.Department = userInfo.department;
+
                         session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
                         session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
                         session.IsDelegate = UsersDelegates.IsDelegate(session.PrimarySipAccount);
@@ -142,9 +148,11 @@ namespace Lync_Billing.ui.session
                         // If user not found in Users tables that means this is his first login : insert his information into Users table
                         Users user = new Users();
                         user.SiteName = userInfo.physicalDeliveryOfficeName;
+                        user.Department = userInfo.department;
                         user.UserID = Convert.ToInt32(userInfo.EmployeeID);
                         user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                         user.FullName = userInfo.FirstName + " " + userInfo.LastName;
+                     
                         Users.InsertUser(user);
                     }
 
