@@ -99,7 +99,7 @@
 
                 <ColumnModel ID="BillsColumnModel" runat="server">
 		            <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="20" />
+                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="21" />
 
                         <%--<ext:Column ID="UserSipAccount" 
                             runat="server" 
