@@ -35,20 +35,28 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_UserID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_UserID) && row[column.ColumnName] != null)
                         user.UserID = (int)row[column.ColumnName];
+                    else
+                        user.UserID = 0;
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
                         user.SipAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) && row[column.ColumnName] != DBNull.Value)
                         user.SiteName = (string)row[column.ColumnName];
+                    else
+                        user.SiteName = string.Empty;
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_DisplayName))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_DisplayName) && row[column.ColumnName] != DBNull.Value)
                         user.FullName = (string)row[column.ColumnName];
+                    else
+                        user.FullName = string.Empty;
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_Department))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_Department) && row[column.ColumnName] != DBNull.Value)
                         user.Department = (string)row[column.ColumnName];
+                    else
+                        user.Department = string.Empty;
                 }
                 users.Add(user);
             }
@@ -74,20 +82,28 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_UserID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_UserID) && row[column.ColumnName] != null)
                         user.UserID = (int)row[column.ColumnName];
+                    else
+                        user.UserID = 0;
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
                         user.SipAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) && row[column.ColumnName] != DBNull.Value)
                         user.SiteName = (string)row[column.ColumnName];
+                    else
+                        user.SiteName = string.Empty;
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_DisplayName))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_DisplayName) && row[column.ColumnName] != DBNull.Value)
                         user.FullName = (string)row[column.ColumnName];
+                    else
+                        user.FullName = string.Empty;
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_Department))
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_Department) && row[column.ColumnName] != DBNull.Value)
                         user.Department = (string)row[column.ColumnName];
+                    else
+                        user.Department = string.Empty;
                 }
                 users.Add(user);
             }
