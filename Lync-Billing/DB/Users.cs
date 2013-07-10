@@ -15,6 +15,7 @@ namespace Lync_Billing.DB
         public string SipAccount { get; set; }
         public string SiteName { get; set; }
         public string FullName { get; set; }
+        public string Department { get; set; }
 
         public static List<Users> GetUsers(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
@@ -45,6 +46,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_DisplayName))
                         user.FullName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_Department))
+                        user.Department = (string)row[column.ColumnName];
                 }
                 users.Add(user);
             }
@@ -81,6 +85,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_DisplayName))
                         user.FullName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_Department))
+                        user.Department = (string)row[column.ColumnName];
                 }
                 users.Add(user);
             }
@@ -106,6 +113,9 @@ namespace Lync_Billing.DB
             if ((user.FullName).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Users.AD_DisplayName), user.FullName);
 
+            if ((user.Department).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_Department), user.Department);
+
             //Execute Insert
             rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Users.TableName), columnsValues,Enums.GetDescription(Enums.Users.AD_UserID));
 
@@ -129,6 +139,9 @@ namespace Lync_Billing.DB
 
             if (user.FullName != null)
                 setPart.Add(Enums.GetDescription(Enums.Users.AD_DisplayName), user.FullName);
+
+            if (user.Department != null)
+                setPart.Add(Enums.GetDescription(Enums.Users.AD_Department), user.Department);
 
             //Execute Update
             status = DBRoutines.UPDATE(
