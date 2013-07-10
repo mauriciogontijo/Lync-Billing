@@ -56,7 +56,7 @@
             <ext:GridPanel
                 ID="UsersBillsGrid" 
                 runat="server" 
-                Title="Bills History"
+                Title="Users Bills Notifications"
                 Width="740"
                 Height="765"  
                 AutoScroll="true"
@@ -99,7 +99,7 @@
 
                 <ColumnModel ID="BillsColumnModel" runat="server">
 		            <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="20" />
 
                         <%--<ext:Column ID="UserSipAccount" 
                             runat="server" 
