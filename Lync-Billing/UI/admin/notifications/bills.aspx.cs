@@ -47,16 +47,6 @@ namespace Lync_Billing.ui.admin.notifications
             FilterUsersBySite.GetStore().DataBind();
         }
 
-        protected void UsersBillsStore_ReadData(object sender, StoreReadDataEventArgs e)
-        {
-            
-        }
-
-        protected void UsersBillsStore_Load(object sender, EventArgs e)
-        {
-            
-        }
-
         public string GetSiteName(int siteID)
         {
             Dictionary<string, object> wherePart = new Dictionary<string, object>();

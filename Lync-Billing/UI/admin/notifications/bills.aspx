@@ -67,9 +67,7 @@
                 <Store>
                     <ext:Store
                         ID="UsersBillsStore" 
-                        runat="server" 
-                        OnLoad="UsersBillsStore_Load"
-                        OnReadData="UsersBillsStore_ReadData"
+                        runat="server"
                         IsPagingStore="true"
                         PageSize="25">
                         <Model>
