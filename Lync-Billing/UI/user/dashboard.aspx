@@ -294,7 +294,7 @@
                     Width="465"
                     Height="390"
                     Header="True"
-                    Title="Personal Duration/Cost Report"
+                    Title="Personal Monthly Cost"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
@@ -325,7 +325,7 @@
                                     </Label>
                                 </ext:CategoryAxis>
 
-                                <ext:NumericAxis
+                                <%--<ext:NumericAxis
                                     Title="Duration in Hours"
                                     Fields="Duration"
                                     Position="Left">
@@ -334,19 +334,19 @@
                                     <Label>
                                         <Renderer Fn="GetHoursFromMinutes" />
                                     </Label>
-                                </ext:NumericAxis>
+                                </ext:NumericAxis>--%>
 
                                 <ext:NumericAxis
                                     Title="Cost in Local Currency"
                                     Fields="PersonalCallsCost"
-                                    Position="Right">
-                                    <LabelTitle Fill="#94ae0a" />
-                                    <Label Fill="#94ae0a" />
+                                    Position="Left">
+                                    <LabelTitle Fill="#115fa6" />
+                                    <Label Fill="#115fa6" />
                                 </ext:NumericAxis>
                             </Axes>
 
                             <Series>
-                                <ext:LineSeries
+                               <%-- <ext:LineSeries
                                     Titles="Calls Duartion"
                                     XField="MonthDate"
                                     YField="Duration"
@@ -354,13 +354,13 @@
                                     Smooth="3">
                                     <HighlightConfig Size="7" Radius="7" />
                                     <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
-                                </ext:LineSeries>
+                                </ext:LineSeries>--%>
 
                                 <ext:LineSeries
                                     Titles="Calls Cost"
                                     XField="MonthDate"
                                     YField="PersonalCallsCost"
-                                    Axis="Right"
+                                    Axis="Left"
                                     Smooth="3">
                                     <HighlightConfig Size="7" Radius="7" />
                                     <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
