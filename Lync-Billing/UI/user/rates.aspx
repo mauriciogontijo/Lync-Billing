@@ -155,7 +155,11 @@
                         <ext:Column ID="RatesColumn"
                             runat="server"
                             Text="Rates"
-                            Align="Center">
+                            Align="Center"
+                            MenuDisabled="true"
+                            Resizable="false"
+                            Groupable="false"
+                            Sortable="false">
                             <Columns>
                                 <ext:Column
                                     runat="server"
