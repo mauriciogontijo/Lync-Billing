@@ -127,7 +127,7 @@ namespace Lync_Billing.DB
             [Description("AD_PhysicalDeliveryOfficeName")]
             AD_PhysicalDeliveryOfficeName,
             [Description("AD_Department")]
-            Department
+            AD_Department
         }
 
         public enum TmpUsers 
