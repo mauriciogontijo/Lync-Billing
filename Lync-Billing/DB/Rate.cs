@@ -64,7 +64,7 @@ namespace Lync_Billing.DB
             
         }
 
-        public  static int InsertRate(Rate rate)
+        public  static int InsertRate(Rate rate,string tableName)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -83,7 +83,7 @@ namespace Lync_Billing.DB
                 columnsValues.Add(Enums.GetDescription(Enums.Rates.MobileLineRate), rate.MobileLineRate);
 
             //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.UsersRoles.TableName), columnsValues, Enums.GetDescription(Enums.Rates.RateID));
+            rowID = DBRoutines.INSERT(tableName , columnsValues, Enums.GetDescription(Enums.Rates.RateID));
 
             return rowID;
         }
