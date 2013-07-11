@@ -9,9 +9,9 @@ namespace Lync_Billing.DB
 {
     public class DialingPrefixsRates
     {
-        Int64 RateID { set; get; }
-        Int64 DialingPrefix { set; get; }
-        decimal CountryRate { set; get; }
+        public Int64 RateID { set; get; }
+        public Int64 DialingPrefix { set; get; }
+        public decimal CountryRate { set; get; }
         public string CountryName { get; set; }
         public string TwoDigitsCountryCode { get; set; }
         public string ThreeDigitsCountryCode { get; set; }
@@ -129,7 +129,7 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             DialingPrefixsRates rate;
 
-            dt = statRoutines.RATESTABLE_VIEW_PER_GATEWAY(ratesTableName, Enums.GetDescription(Enums.ActualRates.CountryName), countryCode);
+            dt = statRoutines.RATESTABLE_VIEW_PER_GATEWAY(ratesTableName, Enums.GetDescription(Enums.ActualRates.ThreeDigitsCountryCode), countryCode);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -177,6 +177,47 @@ namespace Lync_Billing.DB
             }
             return rates;
         }
-    
+
+        public static int InsertRate(string ratesTableName, DialingPrefixsRates dialingPrefixRate) 
+        {
+            int rowID = 0;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
+
+            //Set Part
+            if ((dialingPrefixRate.DialingPrefix).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.ActualRates.ThreeDigitsCountryCode), dialingPrefixRate.DialingPrefix);
+
+            if ((dialingPrefixRate.CountryRate).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.ActualRates.Rate), dialingPrefixRate.CountryRate);
+
+            //Execute Insert
+            rowID = DBRoutines.INSERT(ratesTableName, columnsValues, Enums.GetDescription(Enums.ActualRates.RateID));
+
+            return rowID;
+        }
+
+        public static bool UpdatetRate(string ratesTableName, DialingPrefixsRates dialingPrefixRate)
+        {
+            bool status = false;
+
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+
+            //Set Part
+            if ((dialingPrefixRate.DialingPrefix).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.ActualRates.CountryName), dialingPrefixRate.DialingPrefix);
+
+            if ((dialingPrefixRate.CountryRate).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.ActualRates.Rate), dialingPrefixRate.CountryRate);
+           
+
+            //Execute Update
+            status = DBRoutines.UPDATE(
+                ratesTableName,
+                setPart,
+                Enums.GetDescription(Enums.ActualRates.RateID),
+                dialingPrefixRate.RateID);
+
+            return status;
+        }
     }
 }
