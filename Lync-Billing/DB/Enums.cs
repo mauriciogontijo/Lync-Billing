@@ -93,6 +93,24 @@ namespace Lync_Billing.DB
         /// </summary>
         public enum GatewaysRates
         {
+            [Description("NumberingPlan")]
+            TableName,
+            [Description("CountryName")]
+            Country_Name,
+            [Description("TwoDigitsCountryCode")]
+            Two_Digits_country_code,
+            [Description("ThreeDigitsCountryCode")]
+            Three_Digits_Country_Code,
+            [Description("City")]
+            City,
+            [Description("Provider")]
+            Provider,
+            [Description("TypeOfService")]
+            Type_Of_Service
+        }
+
+        public enum NumberingPlan 
+        {
             [Description("GatewaysRates")]
             TableName,
             [Description("GatewaysRatesID")]
