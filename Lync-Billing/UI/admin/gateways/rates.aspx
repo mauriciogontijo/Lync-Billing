@@ -73,6 +73,7 @@
                                 <Fields>
                                     <ext:ModelField Name="RateID" Type="Int" />
                                     <ext:ModelField Name="CountryCode" Type="String" />
+                                    <ext:ModelField Name="CountryName" Type="String" />
                                     <ext:ModelField Name="FixedLineRate" Type="String" />
                                     <ext:ModelField Name="MobileLineRate" Type="String" />
                                 </Fields>

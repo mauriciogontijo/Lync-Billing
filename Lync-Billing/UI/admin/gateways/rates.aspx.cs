@@ -53,28 +53,37 @@ namespace Lync_Billing.ui.admin.gateways
             sipAccount = userSession.EffectiveSipAccount;
             string json = e.ExtraParams["Values"];
 
-            //List<UsersDelegates> recordsToUpate = new List<UsersDelegates>();
+            List<UsersDelegates> recordsToUpate = new List<UsersDelegates>();
 
-            //ChangeRecords<UsersDelegates> toBeUpdated = new StoreDataHandler(e.ExtraParams["Values"]).BatchObjectData<UsersDelegates>();
+            ChangeRecords<Rate> toBeUpdated = new StoreDataHandler(e.ExtraParams["Values"]).BatchObjectData<Rate>();
 
-            //if (toBeUpdated.Updated.Count > 0)
-            //{
+            if (toBeUpdated.Updated.Count > 0)
+            {
 
-            //    foreach (UsersDelegates userDelgate in toBeUpdated.Updated)
-            //    {
-            //        UsersDelegates.UpadeDelegate(userDelgate);
-            //        ManageRatesStore.GetById(userDelgate.ID).Commit();
-            //    }
-            //}
+                foreach (Rate countryRate in toBeUpdated.Updated)
+                {
 
-            //if (toBeUpdated.Deleted.Count > 0)
-            //{
-            //    foreach (UsersDelegates userDelgate in toBeUpdated.Deleted)
-            //    {
-            //        UsersDelegates.DeleteDelegate(userDelgate);
-            //        ManageRatesStore.GetById(userDelgate.ID).Commit();
-            //    }
-            //}
+                    //if()
+                    //{
+                    //    Rate.InsertRate(countryRate,ratesTableName);
+                    //}else
+                    //{
+                    //    Rate.UpdatetRate(countryRate,ratesTableName);
+                    //}
+
+
+                    ManageRatesStore.GetById(countryRate.RateID).Commit();
+                }
+            }
+
+            if (toBeUpdated.Deleted.Count > 0)
+            {
+                //foreach (UsersDelegates userDelgate in toBeUpdated.Deleted)
+                //{
+                //    UsersDelegates.DeleteDelegate(userDelgate);
+                //    ManageRatesStore.GetById(userDelgate.ID).Commit();
+                //}
+            }
         }
 
         protected void RejectChanges_DirectEvent(object sender, DirectEventArgs e)
@@ -152,7 +161,7 @@ namespace Lync_Billing.ui.admin.gateways
 
         public string GetRatesTableName(int siteID)
         {
-            if(gateways.Count < 1)
+            if (gateways.Count < 1)
                 gateways = GetGateways(siteID);
 
             string rateTable = string.Empty;
@@ -167,9 +176,9 @@ namespace Lync_Billing.ui.admin.gateways
                 rateTable = GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
                 return rateTable;
             }
-                
+
         }
-        
+
         protected void GetRates(object sender, DirectEventArgs e)
         {
             List<GatewayRate> gatewayRates = new List<GatewayRate>();
