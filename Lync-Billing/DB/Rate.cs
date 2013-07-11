@@ -104,7 +104,7 @@ namespace Lync_Billing.DB
             if ((rate.FixedLineRate).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.Rates.FixedlineRate), rate.FixedLineRate);
 
-            if (rate.MobileLineRate != null)
+            if ((rate.MobileLineRate).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.Rates.MobileLineRate), rate.MobileLineRate);
 
             //Execute Update
