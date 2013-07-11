@@ -374,7 +374,7 @@ namespace Lync_Billing.Libs
         /// <param name="idFieldName">ID Field name </param>
         /// <param name="ID">ID Value</param>
         /// <returns>Row ID</returns>
-        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues,string idFieldName, int ID) 
+        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues,string idFieldName, Int64 ID) 
         {
             StringBuilder fieldsValues = new StringBuilder();
 
