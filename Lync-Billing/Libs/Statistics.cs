@@ -143,6 +143,57 @@ namespace Lync_Billing.Libs
 
         }
 
+        public DataTable RATESTABLE_VIEW_PER_GATEWAY(string RatesTableName,string conditionField="NA", object conditionValue=null) 
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+            string whereStatement = string.Empty;
+
+            selectQuery = string.Format
+                       ("SELECT " +
+                           "Dialing_prefix, " +
+                           "Country_Name, " +
+                           "Two_Digits_country_code, " +
+                           "Three_Digits_Country_Code, " +
+                           "City, " +
+                           "Provider, " +
+                           "Type_Of_Service, " +
+                           "rate" +
+                        "FROM " +
+                           "NumberingPlan LEFT OUTER JOIN " +
+                               "[{0}] ON " +
+                                   "Dialing_prefix = country_code_dialing_prefix {1}"
+                       , RatesTableName, whereStatement);
+
+
+            if (conditionField != "NA" && conditionValue != null)
+            {
+                if (conditionField == "Dialing_prefix")
+                    whereStatement = string.Format("WHERE {0} = {1}",conditionField,conditionValue);
+                else
+                    whereStatement = string.Format("WHERE {0} = '{1}'",conditionField,conditionValue);
+            }
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                //throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
         private static void ConvertDateToYearMonth(DateTime date,out int year, out int month) 
          {
              year = date.Year;
