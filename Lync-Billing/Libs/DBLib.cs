@@ -37,7 +37,11 @@ namespace Lync_Billing.Libs
 
             StringBuilder selectedfields = new StringBuilder();
 
-            if (whereValue.GetType().Equals(typeof(int)) || whereValue.GetType().Equals(typeof(double)))
+            if (whereValue.GetType().Equals(typeof(int)) || 
+                whereValue.GetType().Equals(typeof(double)) ||
+                whereValue.GetType().Equals(typeof(decimal))||
+                whereValue.GetType().Equals(typeof(Int32)) ||
+                whereValue.GetType().Equals(typeof(Int64)))
                 selectQuery = string.Format("SELECT * FROM  [{0}] WHERE [{1}]={2}", tableName, whereField,whereValue);
             else
                 selectQuery = string.Format("SELECT * FROM  [{0}] WHERE [{1}]='{2}'", tableName, whereField, whereValue);
