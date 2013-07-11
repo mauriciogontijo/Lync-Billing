@@ -11,7 +11,7 @@ namespace Lync_Billing.DB
     {
         Int64 RateID { set; get; }
         Int64 DialingPrefix { set; get; }
-        decimal Rate { set; get; }
+        decimal CountryRate { set; get; }
         public string CountryName { get; set; }
         public string TwoDigitsCountryCode { get; set; }
         public string ThreeDigitsCountryCode { get; set; }
@@ -43,7 +43,7 @@ namespace Lync_Billing.DB
                         rate.DialingPrefix = (Int64)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.Rate) && row[column.ColumnName] != System.DBNull.Value)
-                        rate.Rate = (decimal)row[column.ColumnName];
+                        rate.CountryRate = (decimal)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.CountryName) && row[column.ColumnName] != System.DBNull.Value)
                         rate.CountryName = (string)row[column.ColumnName];
@@ -89,7 +89,7 @@ namespace Lync_Billing.DB
                         rate.DialingPrefix = (Int64)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.Rate) && row[column.ColumnName] != System.DBNull.Value)
-                        rate.Rate = (decimal)row[column.ColumnName];
+                        rate.CountryRate = (decimal)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.RateID) && row[column.ColumnName] != System.DBNull.Value)
                         rate.RateID = (Int64)row[column.ColumnName];
@@ -98,7 +98,7 @@ namespace Lync_Billing.DB
                         rate.DialingPrefix = (Int64)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.Rate) && row[column.ColumnName] != System.DBNull.Value)
-                        rate.Rate = (decimal)row[column.ColumnName];
+                        rate.CountryRate = (decimal)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.CountryName) && row[column.ColumnName] != System.DBNull.Value)
                         rate.CountryName = (string)row[column.ColumnName];
@@ -144,7 +144,7 @@ namespace Lync_Billing.DB
                         rate.DialingPrefix = (Int64)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.Rate) && row[column.ColumnName] != System.DBNull.Value)
-                        rate.Rate = (decimal)row[column.ColumnName];
+                        rate.CountryRate = (decimal)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.RateID) && row[column.ColumnName] != System.DBNull.Value)
                         rate.RateID = (Int64)row[column.ColumnName];
@@ -153,7 +153,7 @@ namespace Lync_Billing.DB
                         rate.DialingPrefix = (Int64)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.Rate) && row[column.ColumnName] != System.DBNull.Value)
-                        rate.Rate = (decimal)row[column.ColumnName];
+                        rate.CountryRate = (decimal)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.CountryName) && row[column.ColumnName] != System.DBNull.Value)
                         rate.CountryName = (string)row[column.ColumnName];
