@@ -190,9 +190,14 @@ namespace Lync_Billing.ui.admin.gateways
             //Clear Store
             ManageRatesGrid.GetStore().RemoveAll();
 
+
             //Fill Store
-            ManageRatesGrid.GetStore().DataSource = Rate.GetRates(ratesTableName);
-            ManageRatesGrid.GetStore().DataBind();
+
+            if (!string.IsNullOrEmpty(ratesTableName))
+            {
+                ManageRatesGrid.GetStore().DataSource = Rate.GetRates(ratesTableName);
+                ManageRatesGrid.GetStore().DataBind();
+            }
 
         }
     }

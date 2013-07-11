@@ -295,7 +295,7 @@
                                     </ext:Store>
                                 </Store>
                                 <DirectEvents>
-                                    <Change OnEvent="GetRates" />
+                                    <Select OnEvent="GetRates" />
                                 </DirectEvents>
                             </ext:ComboBox>
 
