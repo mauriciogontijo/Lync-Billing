@@ -94,8 +94,20 @@ namespace Lync_Billing.DB
             TableName,
             [Description("Rate_ID")]
             RateID,
-            [Description("country_code_dialing_prefix")]
+            [Description("Dialing_prefix")]
             DialingPrefix,
+            [Description("Country_Name")]
+            CountryName,
+            [Description("Two_Digits_country_code")]
+            TwoDigitsCountryCode,
+            [Description("Three_Digits_Country_Code")]
+            ThreeDigitsCountryCode,
+            [Description("City")]
+            City,
+            [Description("Provider")]
+            Provider,
+            [Description("Type_Of_Service")]
+            TypeOfService,
             [Description("rate")]
             Rate, 
         }
