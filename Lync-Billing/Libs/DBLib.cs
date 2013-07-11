@@ -551,7 +551,15 @@ namespace Lync_Billing.Libs
 
         public bool CREATE_RATES_TABLE(string tablename) 
         {
-            string createTableQuery = string.Format("CREATE TABLE [dbo].[{0}] ([country_code_dialing_prefix] [bigint] NOT NULL,[rate] [decimal](18, 4) NOT NULL) ON [PRIMARY]", tablename);
+            string createTableQuery = string.Format(
+                "CREATE TABLE [dbo].[{0}] "+
+                    "(" +
+                    " [country_code_dialing_prefix] [bigint] NOT NULL," +
+                    " [rate] [decimal](18, 4) NOT NULL," +
+                    " CONSTRAINT [{0}] PRIMARY KEY NONCLUSTERED " +
+                    " ([country_code_dialing_prefix] ASC )" + 
+                    " WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]) ON [PRIMARY]" ,
+                tablename);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(createTableQuery.ToString(), conn);
