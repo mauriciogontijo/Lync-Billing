@@ -160,6 +160,7 @@ namespace Lync_Billing.Libs
 
             selectQuery = string.Format
                        ("SELECT " +
+                           "Rate_ID, " +
                            "Dialing_prefix, " +
                            "Country_Name, " +
                            "Two_Digits_country_code, " +
