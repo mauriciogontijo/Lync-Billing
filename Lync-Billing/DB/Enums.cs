@@ -88,6 +88,18 @@ namespace Lync_Billing.DB
             MobileLineRate
         }
 
+        public enum ActualRates
+        {
+            [Description("GatewaysDetails")]
+            TableName,
+            [Description("Rate_ID")]
+            RateID,
+            [Description("country_code_dialing_prefix")]
+            DialingPrefix,
+            [Description("rate")]
+            Rate, 
+        }
+
         public enum NumberingPlan
         {
             [Description("NumberingPlan")]
