@@ -90,6 +90,7 @@ namespace Lync_Billing.Libs
             DataTable dt = new DataTable();
             OleDbDataReader dr;
             string selectQuery = string.Empty;
+          
 
             selectQuery = string.Format(
                  "select " + 
