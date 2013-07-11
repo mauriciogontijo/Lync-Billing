@@ -97,12 +97,12 @@
 
                 <ColumnModel ID="BillsColumnModel" runat="server" Flex="1">
 		            <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="35" />
 
                         <ext:Column ID="UserFullName" 
                             runat="server" 
-                            Text="Employee" 
-                            Width="180" 
+                            Text="Full Name" 
+                            Width="220" 
                             DataIndex="FullName">
                             <HeaderItems>
                                 <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
@@ -119,11 +119,11 @@
                         <ext:Column ID="MonthDate" 
                             runat="server" 
                             Text="Date" 
-                            Width="160" 
+                            Width="120" 
                             DataIndex="MonthDate"
                             Groupable="false"
                             Align="Center">
-                            <Renderer Fn="DateRenderer" />
+                            <Renderer Fn="SpecialDateRenderer" />
                         </ext:Column>
 
                         <ext:Column ID="CallsInformationColum"
