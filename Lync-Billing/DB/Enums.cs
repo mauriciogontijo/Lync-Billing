@@ -88,28 +88,31 @@ namespace Lync_Billing.DB
             MobileLineRate
         }
 
-        /// <summary>
-        /// GatewaysRates Database table fields Names
-        /// </summary>
-        public enum GatewaysRates
+        public enum NumberingPlan
         {
             [Description("NumberingPlan")]
             TableName,
-            [Description("CountryName")]
-            Country_Name,
-            [Description("TwoDigitsCountryCode")]
-            Two_Digits_country_code,
-            [Description("ThreeDigitsCountryCode")]
-            Three_Digits_Country_Code,
+            [Description("Dialing_prefix")]
+            DialingPrefix,
+            [Description("Country_Name")]
+            CountryName,
+            [Description("Two_Digits_country_code")]
+            TwoDigitsCountryCode,
+            [Description("Three_Digits_Country_Code")]
+            ThreeDigitsCountryCode,
             [Description("City")]
             City,
             [Description("Provider")]
             Provider,
-            [Description("TypeOfService")]
-            Type_Of_Service
+            [Description("Type_Of_Service")]
+            TypeOfService 
         }
 
-        public enum NumberingPlan 
+
+        /// <summary>
+        /// GatewaysRates Database table fields Names
+        /// </summary>
+        public enum GatewaysRates 
         {
             [Description("GatewaysRates")]
             TableName,
