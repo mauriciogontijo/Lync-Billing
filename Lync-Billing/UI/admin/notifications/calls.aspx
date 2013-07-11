@@ -276,7 +276,7 @@
                         StoreID="UnmarkedCallsStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="USers Bills {0} - {1} of {2}" />
+                        DisplayMsg="Users with Unmarked Calls {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
         </div>

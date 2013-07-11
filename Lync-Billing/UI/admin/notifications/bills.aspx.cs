@@ -17,7 +17,7 @@ namespace Lync_Billing.ui.admin.notifications
 {
     public partial class bills : System.Web.UI.Page
     {
-       
+
         private string sipAccount = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)

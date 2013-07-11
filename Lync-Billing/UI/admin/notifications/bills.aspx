@@ -95,25 +95,15 @@
                     </ext:GridFilters>
                 </Features>
 
-                <ColumnModel ID="BillsColumnModel" runat="server">
+                <ColumnModel ID="BillsColumnModel" runat="server" Flex="1">
 		            <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
-
-                        <%--<ext:Column ID="UserSipAccount" 
-                            runat="server" 
-                            Text="User's Email" 
-                            Width="180" 
-                            DataIndex="SipAccount"
-                            Groupable="false"
-                            Align="Left" />--%>
 
                         <ext:Column ID="UserFullName" 
                             runat="server" 
                             Text="Employee" 
                             Width="180" 
-                            DataIndex="FullName"
-                            Groupable="false"
-                            Align="Left">
+                            DataIndex="FullName">
                             <HeaderItems>
                                 <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -147,9 +137,7 @@
                                     runat="server"
                                     Text="Duration"
                                     Width="120"
-                                    DataIndex="PersonalCallsDuration"
-                                    Groupable="false"
-                                    Align="Left">
+                                    DataIndex="PersonalCallsDuration">
                                     <Renderer Fn="GetMinutes" />
                                 </ext:Column>
 
@@ -157,17 +145,13 @@
                                     runat="server"
                                     Text="Number of Calls"
                                     Width="100"
-                                    DataIndex="PersonalCallsCount"
-                                    Groupable="false" 
-                                    Align="Left"/>
+                                    DataIndex="PersonalCallsCount"/>
                                 
 		                        <ext:Column ID="TotalCost"
                                     runat="server"
                                     Text="Total Cost"
                                     Width="100"
-                                    DataIndex="PersonalCallsCost"
-                                    Groupable="false"
-                                    Align="Left">
+                                    DataIndex="PersonalCallsCost">
                                     <Renderer Fn="RoundCost"/>
                                 </ext:Column>
                             </Columns>
@@ -258,7 +242,7 @@
                         StoreID="UsersBillsStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Users {0} - {1} of {2}" />
+                        DisplayMsg="Users Bills {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
         </div>
