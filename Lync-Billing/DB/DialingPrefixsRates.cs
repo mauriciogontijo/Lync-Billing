@@ -12,6 +12,12 @@ namespace Lync_Billing.DB
         Int64 RateID { set; get; }
         Int64 DialingPrefix { set; get; }
         decimal Rate { set; get; }
+        public string CountryName { get; set; }
+        public string TwoDigitsCountryCode { get; set; }
+        public string ThreeDigitsCountryCode { get; set; }
+        public string City { get; set; }
+        public string Provider { get; set; }
+        public string TypeOfService { get; set; }
 
         private static DBLib DBRoutines = new DBLib();
 
@@ -37,6 +43,24 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.Rate) && row[column.ColumnName] != System.DBNull.Value)
                         rate.Rate = (decimal)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.CountryName) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.CountryName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.TwoDigitsCountryCode) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.TwoDigitsCountryCode = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.ThreeDigitsCountryCode) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.ThreeDigitsCountryCode = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.City) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.City = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.Provider) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.Provider = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.TypeOfService) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.TypeOfService = (string)row[column.ColumnName];
                 }
                 rates.Add(rate);
             }
@@ -65,6 +89,33 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.Rate) && row[column.ColumnName] != System.DBNull.Value)
                         rate.Rate = (decimal)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.RateID) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.RateID = (Int64)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.DialingPrefix) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.DialingPrefix = (Int64)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.Rate) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.Rate = (decimal)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.CountryName) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.CountryName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.TwoDigitsCountryCode) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.TwoDigitsCountryCode = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.ThreeDigitsCountryCode) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.ThreeDigitsCountryCode = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.City) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.City = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.Provider) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.Provider = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.ActualRates.TypeOfService) && row[column.ColumnName] != System.DBNull.Value)
+                        rate.TypeOfService = (string)row[column.ColumnName];
                 }
                 rates.Add(rate);
             }
