@@ -150,6 +150,14 @@ namespace Lync_Billing.Libs
             string selectQuery = string.Empty;
             string whereStatement = string.Empty;
 
+            if (conditionField != "NA" && conditionValue != null)
+            {
+                if (conditionField == "Dialing_prefix")
+                    whereStatement = string.Format("WHERE {0} = {1}",conditionField,conditionValue);
+                else
+                    whereStatement = string.Format("WHERE {0} = '{1}'",conditionField,conditionValue);
+            }
+
             selectQuery = string.Format
                        ("SELECT " +
                            "Dialing_prefix, " +
@@ -159,21 +167,12 @@ namespace Lync_Billing.Libs
                            "City, " +
                            "Provider, " +
                            "Type_Of_Service, " +
-                           "rate" +
+                           "rate " +
                         "FROM " +
                            "NumberingPlan LEFT OUTER JOIN " +
                                "[{0}] ON " +
                                    "Dialing_prefix = country_code_dialing_prefix {1}"
                        , RatesTableName, whereStatement);
-
-
-            if (conditionField != "NA" && conditionValue != null)
-            {
-                if (conditionField == "Dialing_prefix")
-                    whereStatement = string.Format("WHERE {0} = {1}",conditionField,conditionValue);
-                else
-                    whereStatement = string.Format("WHERE {0} = '{1}'",conditionField,conditionValue);
-            }
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(selectQuery, conn);
