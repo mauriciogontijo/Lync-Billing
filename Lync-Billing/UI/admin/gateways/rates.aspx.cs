@@ -60,29 +60,54 @@ namespace Lync_Billing.ui.admin.gateways
             if (toBeUpdated.Updated.Count > 0)
             {
 
+                string ratesTableName = GetRatesTableName(Convert.ToInt32(FilterGatewaysBySite.SelectedItem.Value));
+
                 foreach (Rate countryRate in toBeUpdated.Updated)
                 {
+                    List<DialingPrefixsRates> dialingPrefixsRates = DialingPrefixsRates.GetRates(ratesTableName, countryRate.CountryCode);
 
-                    //if()
-                    //{
-                    //    Rate.InsertRate(countryRate,ratesTableName);
-                    //}else
-                    //{
-                    //    Rate.UpdatetRate(countryRate,ratesTableName);
-                    //}
+                    if (dialingPrefixsRates.Count == 0) 
+                    {
+                        List<NumberingPlan> countryDialingPrefixes = NumberingPlan.GetNumberingPlan(countryRate.CountryCode);
+                    }
+                    else
+                    {
+                        List<NumberingPlan> countryNumberingPlan = NumberingPlan.GetNumberingPlan(countryRate.CountryCode);
 
+                        //Numbering Plan table has the same count of entries for that country with dialing Prefixes view
+                        // Which means that we are going to check record by record and update if not updated 
+                        if (countryNumberingPlan.Count == dialingPrefixsRates.Count)
+                        {
+                            DialingPrefixsRates dialingPrefixRate;
+                            foreach (DialingPrefixsRates entity in dialingPrefixsRates)
+                            {
+                                dialingPrefixRate = new DialingPrefixsRates();
 
-                    ManageRatesStore.GetById(countryRate.RateID).Commit();
+                                dialingPrefixRate.DialingPrefix = entity.DialingPrefix;
+                                dialingPrefixRate.RateID = entity.RateID;
+
+                                if (entity.TypeOfService == "gsm")
+                                    dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
+                                else
+                                    dialingPrefixRate.CountryRate = countryRate.FixedLineRate;
+
+                                DialingPrefixsRates.UpdatetRate(ratesTableName, dialingPrefixRate);
+                            }
+                        }
+                        else
+                        {
+                            // they are not the same and we need to update or insert based on what we have from the orginal numbering plan table
+                                //
+                                //if(countryNumberingPlan.Where(item => item.))
+                        }
+                    }
+                    //ManageRatesStore.GetById(countryRate.RateID).Commit();
                 }
             }
 
             if (toBeUpdated.Deleted.Count > 0)
             {
-                //foreach (UsersDelegates userDelgate in toBeUpdated.Deleted)
-                //{
-                //    UsersDelegates.DeleteDelegate(userDelgate);
-                //    ManageRatesStore.GetById(userDelgate.ID).Commit();
-                //}
+                
             }
         }
 
@@ -133,7 +158,6 @@ namespace Lync_Billing.ui.admin.gateways
                 }
                 else
                 {
-                    //FilterRatesByGateway.Select(-1);
                     FilterRatesByGateway.ReadOnly = false;
                 }
             }

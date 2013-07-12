@@ -122,35 +122,6 @@
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
-                            <Editor>
-                                <ext:ComboBox
-                                    ID="CountryCodeComboBox"
-                                    runat="server"
-                                    DataIndex="CountryCode"
-                                    EmptyText="Please Select Country"
-                                    SelectOnFocus="true"
-                                    SelectOnTab="true"
-                                    Selectable="true"
-                                    Width="160"
-                                    AllowBlank="false"
-                                    AllowOnlyWhitespace="false">
-                                    <Store>
-                                        <ext:Store
-                                            ID="CountryCodeComboBoxStore"
-                                            runat="server">
-                                            <Model>
-                                                <ext:Model ID="CountryCode" runat="server">
-                                                    <Fields>
-                                                        <ext:ModelField Name="CountryID" />
-                                                        <ext:ModelField Name="CountryCode" />
-                                                        <ext:ModelField Name="CountryName" />
-                                                    </Fields>
-                                                </ext:Model>
-                                            </Model>            
-                                        </ext:Store>
-                                    </Store>
-                                </ext:ComboBox>
-                            </Editor>
                         </ext:Column>
 
                         <ext:Column ID="ManageRatesGroupedColumn"
