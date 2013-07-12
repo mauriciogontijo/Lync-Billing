@@ -19,10 +19,7 @@ function RoundCost(value, meta, record, rowIndex, colIndex, store) {
 //This handles the PhoneCalls grid, History page, and Delegees PhoneCalls grid
 var DateRenderer = function (value) {
     if (typeof value != undefined && value != 0) {
-        if (BrowserDetect.browser != "Explorer") {
-            value = Ext.util.Format.date(value, "d M Y h:i A");
-            return value;
-        } else {
+        
             var my_date = {};
             var value_array = value.split(' ');
             var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
