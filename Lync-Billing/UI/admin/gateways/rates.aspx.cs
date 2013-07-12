@@ -84,26 +84,21 @@ namespace Lync_Billing.ui.admin.gateways
                     else if (dialingPrefixsRates.Where(item => item.RateID != 0).Count() == dialingPrefixsRates.Count())
                     {
                         //the Rates Table has all the country codes and we need to check if we need to update them or not 
-                        List<NumberingPlan> countryNumberingPlan = NumberingPlan.GetNumberingPlan(countryRate.CountryCode);
-
-                        DialingPrefixsRates dialingPrefixRate;
+                        //List<NumberingPlan> countryNumberingPlan = NumberingPlan.GetNumberingPlan(countryRate.CountryCode);
 
                         foreach (DialingPrefixsRates entity in dialingPrefixsRates)
                         {
-                            dialingPrefixRate = new DialingPrefixsRates();
-
-                            dialingPrefixRate = entity;
                             bool status = false;
 
                             if (entity.TypeOfService == "gsm" && entity.CountryRate != countryRate.MobileLineRate)
                             {
                                 status = true;
-                                dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
+                                entity.CountryRate = countryRate.MobileLineRate;
                             }
                             else if (entity.TypeOfService != "gsm" && entity.CountryRate != countryRate.MobileLineRate)
                             {
                                 status = true;
-                                dialingPrefixRate.CountryRate = countryRate.FixedLineRate;
+                                entity.CountryRate = countryRate.FixedLineRate;
                             }
                             else 
                             {
@@ -111,7 +106,7 @@ namespace Lync_Billing.ui.admin.gateways
                             }
 
                             if (status == true)
-                                DialingPrefixsRates.UpdatetRate(ratesTableName, dialingPrefixRate);
+                                DialingPrefixsRates.UpdatetRate(ratesTableName, entity);
                             else
                                 continue;
                         }
