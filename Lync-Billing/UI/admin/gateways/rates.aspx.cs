@@ -74,7 +74,7 @@ namespace Lync_Billing.ui.admin.gateways
                             if (dialingPrefixRate.TypeOfService == "gsm")
                                 dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
                             else
-                                dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
+                                dialingPrefixRate.CountryRate = countryRate.FixedLineRate;
 
                             int rateID = DialingPrefixsRates.InsertRate(ratesTableName, dialingPrefixRate);
                         }
