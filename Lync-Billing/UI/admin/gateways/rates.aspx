@@ -96,7 +96,7 @@
 
                 <ColumnModel ID="ManageRatesColumnModel" runat="server" Flex="1">
                     <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="35" />
 
                         <ext:Column
                             ID="RateIDCol"
@@ -110,7 +110,7 @@
                             ID="CountryNameCol"
                             runat="server"
                             Text="Country Name"
-                            Width="200"
+                            Width="210"
                             DataIndex="CountryName">
                              <HeaderItems>
                                 <ext:TextField ID="CountryNameFilter" runat="server" Icon="Magnifier">
@@ -128,7 +128,7 @@
                             ID="CountryCodeCol"
                             runat="server"
                             Text="Code"
-                            Width="100"
+                            Width="110"
                             DataIndex="CountryCode">
                             <HeaderItems>
                                 <ext:TextField ID="CountryCodeFilter" runat="server" Icon="Magnifier">
@@ -181,22 +181,7 @@
                             </Columns>
                         </ext:Column>
 
-                        <ext:ImageCommandColumn
-                            ID="DeleteButtonsColumn"
-                            runat="server"
-                            Width="30"
-                            Sortable="false"
-                            Align="Center">
-                            <Commands>
-                                <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Delegate" CommandName="delete">                            
-                                </ext:ImageCommand>
-                            </Commands>
-                            <Listeners>
-                                <Command Handler="this.up(#{ManageRatesGrid}.store.removeAt(recordIndex));" />
-                            </Listeners>
-                        </ext:ImageCommandColumn>
-
-                         <ext:CommandColumn ID="RejectChange" runat="server" Width="70">
+                        <ext:CommandColumn ID="RejectChange" runat="server" Width="70">
                             <Commands>
                                 <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
                             </Commands>

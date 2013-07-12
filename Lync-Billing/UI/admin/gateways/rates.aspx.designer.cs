@@ -184,15 +184,6 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.TextField MobileLineRateTextbox;
         
         /// <summary>
-        /// DeleteButtonsColumn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ImageCommandColumn DeleteButtonsColumn;
-        
-        /// <summary>
         /// RejectChange control.
         /// </summary>
         /// <remarks>
