@@ -185,7 +185,7 @@ namespace Lync_Billing.DB
 
             //Set Part
             if ((dialingPrefixRate.DialingPrefix).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.ActualRates.ThreeDigitsCountryCode), dialingPrefixRate.DialingPrefix);
+                columnsValues.Add("country_code_dialing_prefix", dialingPrefixRate.DialingPrefix);
 
             if ((dialingPrefixRate.CountryRate).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.ActualRates.Rate), dialingPrefixRate.CountryRate);
