@@ -93,13 +93,24 @@ namespace Lync_Billing.ui.admin.gateways
                             dialingPrefixRate = new DialingPrefixsRates();
 
                             dialingPrefixRate = entity;
+                            bool status = false;
 
-                            if (entity.TypeOfService == "gsm")
+                            if (entity.TypeOfService == "gsm" && entity.CountryRate != countryRate.MobileLineRate)
+                            {
+                                status = true;
                                 dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
-                            else
+                            }
+                            else if (entity.TypeOfService != "gsm" && entity.CountryRate != countryRate.MobileLineRate)
+                            {
+                                status = true;
                                 dialingPrefixRate.CountryRate = countryRate.FixedLineRate;
+                            }
+                            else 
+                            {
+                                status = false;
+                            }
 
-                            if (dialingPrefixRate != entity)
+                            if (status == true)
                                 DialingPrefixsRates.UpdatetRate(ratesTableName, dialingPrefixRate);
                             else
                                 continue;
