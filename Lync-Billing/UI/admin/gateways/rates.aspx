@@ -106,11 +106,29 @@
                             DataIndex="RateID"
                             Visible="false" />
 
+                         <ext:Column
+                            ID="CountryNameCol"
+                            runat="server"
+                            Text="Country Name"
+                            Width="200"
+                            DataIndex="CountryName">
+                             <HeaderItems>
+                                <ext:TextField ID="CountryNameFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearCountryNameFilterBtn" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
+                         </ext:Column>
+
                         <ext:Column
                             ID="CountryCodeCol"
                             runat="server"
-                            Text="Country"
-                            Width="200"
+                            Text="Code"
+                            Width="100"
                             DataIndex="CountryCode">
                             <HeaderItems>
                                 <ext:TextField ID="CountryCodeFilter" runat="server" Icon="Magnifier">
@@ -137,7 +155,7 @@
                                     ID="FixedlineRateCol"
                                     runat="server"
                                     Text="Fixedline Rate"
-                                    Width="200"
+                                    Width="155"
                                     DataIndex="FixedLineRate">
                                     <Editor>
                                         <ext:TextField
@@ -151,7 +169,7 @@
                                     ID="MobileLineRateCol"
                                     runat="server"
                                     Text="Mobile Rate"
-                                    Width="200"
+                                    Width="155"
                                     DataIndex="MobileLineRate">
                                     <Editor>
                                         <ext:TextField

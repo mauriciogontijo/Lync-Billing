@@ -85,6 +85,33 @@ namespace Lync_Billing.ui.admin.gateways {
         protected global::Ext.Net.Column RateIDCol;
         
         /// <summary>
+        /// CountryNameCol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column CountryNameCol;
+        
+        /// <summary>
+        /// CountryNameFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField CountryNameFilter;
+        
+        /// <summary>
+        /// ClearCountryNameFilterBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearCountryNameFilterBtn;
+        
+        /// <summary>
         /// CountryCodeCol control.
         /// </summary>
         /// <remarks>
