@@ -97,8 +97,8 @@ namespace Lync_Billing.Libs
 		            "Country_Name, " + 
 		            "Two_Digits_country_code, " + 
 		            "Three_Digits_Country_Code, " +
-		            "max(CASE WHEN Type_Of_Service='fixedline' then rate END) Fixedline, " +
-		            "max(CASE WHEN Type_Of_Service='gsm' then rate END) GSM " +
+		            "max(CASE WHEN Type_Of_Service <> 'gsm'  then rate END ) Fixedline, " +
+                    "max(CASE WHEN Type_Of_Service='gsm'then rate END) GSM " +
 
                 "from " +
                 "( " +
@@ -115,9 +115,9 @@ namespace Lync_Billing.Libs
 	                "LEFT JOIN " +
 		                "dbo.[{0}]  as fixedrate ON " +
 			                "numberingplan.Dialing_prefix = fixedrate.country_code_dialing_prefix " +
-	                "WHERE " + 
-		                "numberingplan.Type_Of_Service='gsm' or " +
-		                "numberingplan.Type_Of_Service='fixedline' " +
+                    //"-- WHERE " +
+                    //    "-- numberingplan.Type_Of_Service='gsm' or " +
+                    //    "-- numberingplan.Type_Of_Service='fixedline' " +
                 ") src " +
 
                 "GROUP BY Country_Name,Two_Digits_country_code,Three_Digits_Country_Code ", RatesTableName); 
