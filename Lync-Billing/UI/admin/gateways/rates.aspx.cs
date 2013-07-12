@@ -76,10 +76,10 @@ namespace Lync_Billing.ui.admin.gateways
                             else
                                 dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
 
-                            DialingPrefixsRates.InsertRate(ratesTableName, dialingPrefixRate);
-                            
-                            ManageRatesStore.GetById(dialingPrefixRate.RateID).Commit();
+                            int rateID = DialingPrefixsRates.InsertRate(ratesTableName, dialingPrefixRate);
                         }
+
+                        ManageRatesStore.Find("CountryCode", countryRate.CountryCode).Commit();
                     }
                     else if (dialingPrefixsRates.Where(item => item.RateID != 0).Count() == dialingPrefixsRates.Count())
                     {
@@ -103,9 +103,9 @@ namespace Lync_Billing.ui.admin.gateways
                                 DialingPrefixsRates.UpdatetRate(ratesTableName, dialingPrefixRate);
                             else
                                 continue;
-
-                            ManageRatesStore.GetById(dialingPrefixRate.RateID).Commit();
                         }
+
+                          ManageRatesStore.Find("CountryCode", countryRate.CountryCode).Commit();
                     }
                     else 
                     {
