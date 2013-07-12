@@ -228,3 +228,136 @@ var onKeyUp = function () {
 
     field.validate();
 };
+
+
+
+
+/*
+<ext:XScript ID="XScript1" runat="server">
+    <script type="text/javascript">
+        var applyFilter = function (field) {
+            if(#{FilterTypeComboBox}.getValue() == "1") {
+                clearFilter();
+            } else {
+                #{PhoneCallsHistoryGrid}.getStore().filterBy(getRecordFilter());
+            }
+        };
+
+        var getRecordFilter = function () {
+            var f = [];
+                
+            var FilterValue = #{FilterTypeComboBox}.getValue() || "";
+            switch(FilterValue) {
+                case "2":
+                    f.push({ filter: function (record) { return filterMarkedCriteria("Marked", 'UI_CallType', record); }});
+                    break;
+
+                case "3":
+                    f.push({ filter: function (record) { return filterMarkedCriteria("Unmarked", 'UI_CallType', record); }});
+                    break;
+
+                case "4":
+                    f.push({ filter: function (record) { return filterString('Business', 'UI_CallType', record); }});
+                    break;
+
+                case "5":
+                    f.push({ filter: function (record) { return filterString('Personal', 'UI_CallType', record); }});
+                    break;
+
+                case "6":
+                    f.push({ filter: function (record) { return filterInvoiceCriteria("YES", 'AC_IsInvoiced', record); }});
+                    break;
+
+                case "7":
+                    f.push({ filter: function (record) { return filterInvoiceCriteria("NO", 'AC_IsInvoiced', record); }});
+                    break;
+            }
+                
+            var len = f.length;
+            return function (record) {
+                for (var i = 0; i < len; i++) {
+                    if (!f[i].filter(record)) {
+                        return false;
+                    }
+                }
+                return true;
+            };
+        };
+             
+        var clearFilter = function () {
+            #{FilterTypeComboBox}.reset();
+            #{PhoneCallsHistoryGrid}.getStore().clearFilter();
+        }
+            
+
+    //FILTERS BY CRITERIA
+    var filterMarkedCriteria = function(value, dataIndex, record) {
+        var val = record.get(dataIndex);
+                
+        if(value == "Marked") {
+            if (typeof val == "string" && val != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if(typeof val != "string" || (typeof val == "string" && val == 0)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    };
+
+    var filterInvoiceCriteria = function (value, dataIndex, record) {
+        var val = record.get(dataIndex);
+                
+        if(value == "Charged") {
+            if (typeof val == "string" && val.toLowerCase().indexOf("yes") > -1) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            //if(typeof val != "string" || (typeof val == "string" && val == 0) || (typeof val == "string" && val.toLowerCase().indexOf("no") > -1)) {
+            if (typeof val == "string" && val.toLowerCase().indexOf("yes") > -1) {
+                //this returns the invesre vale of the previous identical if condition
+                return false;
+            } else {
+                return true;
+            }
+        }
+    };
+
+    //FILTERS BY DATA TYPE
+    var filterString = function (value, dataIndex, record) {
+        var val = record.get(dataIndex);
+                
+        if (typeof val != "string") {
+            return value.length == 0;
+        }
+                
+        return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+    };
+
+    var filterDate = function (value, dataIndex, record) {
+        var val = Ext.Date.clearTime(record.get(dataIndex), true).getTime();
+ 
+        if (!Ext.isEmpty(value, false) && val != Ext.Date.clearTime(value, true).getTime()) {
+            return false;
+        }
+        return true;
+    };
+            
+    var filterNumber = function (value, dataIndex, record) {
+        var val = record.get(dataIndex);                
+ 
+        if (!Ext.isEmpty(value, false) && val != value) {
+            return false;
+        }
+                
+        return true;
+    };
+    </script>
+</ext:XScript>
+*/
