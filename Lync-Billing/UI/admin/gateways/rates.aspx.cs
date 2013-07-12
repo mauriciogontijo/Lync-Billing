@@ -66,44 +66,51 @@ namespace Lync_Billing.ui.admin.gateways
                 {
                     List<DialingPrefixsRates> dialingPrefixsRates = DialingPrefixsRates.GetRates(ratesTableName, countryRate.CountryCode);
 
-                    if (dialingPrefixsRates.Count == 0) 
+                    //The Rates Table doesnt have this country codes
+                    if (dialingPrefixsRates.Where(item => item.RateID == 0).Count() == dialingPrefixsRates.Count()) 
                     {
-                        List<NumberingPlan> countryDialingPrefixes = NumberingPlan.GetNumberingPlan(countryRate.CountryCode);
+                        foreach (DialingPrefixsRates dialingPrefixRate in dialingPrefixsRates) 
+                        {
+                            if (dialingPrefixRate.TypeOfService == "gsm")
+                                dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
+                            else
+                                dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
+
+                            DialingPrefixsRates.InsertRate(ratesTableName, dialingPrefixRate);
+                            
+                            ManageRatesStore.GetById(dialingPrefixRate.RateID).Commit();
+                        }
                     }
-                    else
+                    else if (dialingPrefixsRates.Where(item => item.RateID != 0).Count() == dialingPrefixsRates.Count())
                     {
+                        //the Rates Table has all the country codes and we need to check if we need to update them or not 
                         List<NumberingPlan> countryNumberingPlan = NumberingPlan.GetNumberingPlan(countryRate.CountryCode);
 
-                        //Numbering Plan table has the same count of entries for that country with dialing Prefixes view
-                        // Which means that we are going to check record by record and update if not updated 
-                        if (countryNumberingPlan.Count == dialingPrefixsRates.Count)
+                        DialingPrefixsRates dialingPrefixRate;
+
+                        foreach (DialingPrefixsRates entity in dialingPrefixsRates)
                         {
-                            DialingPrefixsRates dialingPrefixRate;
-                            foreach (DialingPrefixsRates entity in dialingPrefixsRates)
-                            {
-                                dialingPrefixRate = new DialingPrefixsRates();
+                            dialingPrefixRate = new DialingPrefixsRates();
 
-                                dialingPrefixRate = entity;
+                            dialingPrefixRate = entity;
 
-                                if (entity.TypeOfService == "gsm")
-                                    dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
-                                else
-                                    dialingPrefixRate.CountryRate = countryRate.FixedLineRate;
+                            if (entity.TypeOfService == "gsm")
+                                dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
+                            else
+                                dialingPrefixRate.CountryRate = countryRate.FixedLineRate;
 
-                                if (dialingPrefixRate != entity)
-                                    DialingPrefixsRates.UpdatetRate(ratesTableName, dialingPrefixRate);
-                                else
-                                    continue;
-                            }
-                        }
-                        else
-                        {
-                            // they are not the same and we need to update or insert based on what we have from the orginal numbering plan table
-                                //
-                                //if(countryNumberingPlan.Where(item => item.))
+                            if (dialingPrefixRate != entity)
+                                DialingPrefixsRates.UpdatetRate(ratesTableName, dialingPrefixRate);
+                            else
+                                continue;
+
+                            ManageRatesStore.GetById(dialingPrefixRate.RateID).Commit();
                         }
                     }
-                    //ManageRatesStore.GetById(countryRate.RateID).Commit();
+                    else 
+                    {
+                        // Some needs to be updated and some needs to be inserted
+                    }
                 }
             }
 
