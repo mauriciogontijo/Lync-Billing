@@ -19,7 +19,10 @@ function RoundCost(value, meta, record, rowIndex, colIndex, store) {
 //This handles the PhoneCalls grid, History page, and Delegees PhoneCalls grid
 var DateRenderer = function (value) {
     if (typeof value != undefined && value != 0) {
-        
+        if (BrowserDetect.browser != "Explorer") {
+            value = Ext.util.Format.date(value, "d M Y h:i A");
+            return value;
+        } else {
             var my_date = {};
             var value_array = value.split(' ');
             var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -52,6 +55,7 @@ var DateRenderer = function (value) {
 
 
 //This function handles a special case of server-side generated date-and-time value in the Bills History page
+//This function does not return days. It only returns the month names and the year!
 var SpecialDateRenderer = function (value) {
     if (typeof value != undefined && value != 0) {
         var months_array = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
