@@ -204,7 +204,7 @@ namespace Lync_Billing.DB
 
             //Set Part
             if ((dialingPrefixRate.DialingPrefix).ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.ActualRates.DialingPrefix), dialingPrefixRate.DialingPrefix);
+                setPart.Add("country_code_dialing_prefix", dialingPrefixRate.DialingPrefix);
 
             if ((dialingPrefixRate.CountryRate).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.ActualRates.Rate), dialingPrefixRate.CountryRate);
