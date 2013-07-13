@@ -13,8 +13,8 @@ namespace Lync_Billing.DB
         public int Year { get; set; }
         public int Month { get; set; }
         public DateTime Date { get; set; }
-        public Int64 NumberOfOutgoingCalls { get; set; }
-        public Int64 TotalDuration { get; set; }
+        public long NumberOfOutgoingCalls { get; set; }
+        public long TotalDuration { get; set; }
         public decimal TotalCost { set; get; }
 
         public static List<GatewaysUsage> GetGatewaysUsage (int year,int fromMonth, int toMonth)
@@ -45,19 +45,15 @@ namespace Lync_Billing.DB
                         gatewayUsage.Year = (int)row[column.ColumnName];
 
                     if (column.ColumnName == "NumberOfOutgoingCalls" && row[column.ColumnName] != DBNull.Value)
-                        gatewayUsage.NumberOfOutgoingCalls = (int)row[column.ColumnName];
-                    else
-                        gatewayUsage.NumberOfOutgoingCalls = 0;
+                        gatewayUsage.NumberOfOutgoingCalls = Convert.ToInt64(row[column.ColumnName]);
 
-                    if (column.ColumnName == "TotalDuartion" && row[column.ColumnName] != DBNull.Value)
-                        gatewayUsage.TotalDuration = (int)row[column.ColumnName];
-                    else
-                        gatewayUsage.TotalDuration = 0;
+                    if (column.ColumnName == "TotalDuration" && row[column.ColumnName] != DBNull.Value)
+                        gatewayUsage.TotalDuration = Convert.ToInt64((decimal)row[column.ColumnName]);
+                   
 
                     if (column.ColumnName == "TotalCost" && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.TotalCost = (decimal)row[column.ColumnName];
-                    else
-                        gatewayUsage.TotalCost = 0;
+                   
                 }
 
                 gatewayUsage.Date = 
