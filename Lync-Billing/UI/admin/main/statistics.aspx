@@ -82,7 +82,7 @@
                 Header="True"
                 Frame="true"
                 BodyPadding="5"
-                Title="Gateways Statistics">
+                Title="Gateways Statistics for 2013">
                 <Bin>
                     <ext:Store 
                         ID="GatewaysDataStore" 
@@ -195,6 +195,7 @@
                                             Width="75" 
                                             DataIndex="NumberOfOutgoingCallsPercentage" 
                                             Align="Right">
+                                            <Renderer Handler="return value + '%';" />
                                         </ext:Column>
                                         
                                         <ext:Column ID="DurationPercentageCol" 
@@ -241,16 +242,16 @@
                                 <LayoutConfig>
                                     <ext:VBoxLayoutConfig Align="Stretch" />
                                 </LayoutConfig>
-
+                                
                                 <Items>
                                     <ext:Chart ID="Chart1" 
                                         runat="server" 
-                                        Margin="0" 
-                                        InsetPadding="20" 
+                                        Margin="5" 
+                                        InsetPadding="50" 
                                         Flex="1" 
                                         StandardTheme="Blue" 
                                         Animate="true">
-                                
+
                                         <Store>
                                             <ext:Store 
                                                 ID="RadarStore" 
