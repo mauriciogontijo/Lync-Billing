@@ -13,57 +13,57 @@ namespace Lync_Billing.ui.admin.main {
     public partial class statistics {
         
         /// <summary>
-        /// ChartTheme1 control.
+        /// NumberOfCallsChartPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ChartTheme ChartTheme1;
+        protected global::Ext.Net.Panel NumberOfCallsChartPanel;
         
         /// <summary>
-        /// FirstChartPanel control.
+        /// NumberOfCallsChart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel FirstChartPanel;
+        protected global::Ext.Net.Chart NumberOfCallsChart;
         
         /// <summary>
-        /// SecondChartPanel control.
+        /// NumberOfCallsChartStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel SecondChartPanel;
+        protected global::Ext.Net.Store NumberOfCallsChartStore;
         
         /// <summary>
-        /// GatewaysUsageAreaChart control.
+        /// NumberOfCallsChartChartModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Chart GatewaysUsageAreaChart;
+        protected global::Ext.Net.Model NumberOfCallsChartChartModel;
         
         /// <summary>
-        /// GatewaysUsageAreaChartStore control.
+        /// GatewaysUsageChartPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store GatewaysUsageAreaChartStore;
+        protected global::Ext.Net.Panel GatewaysUsageChartPanel;
         
         /// <summary>
-        /// GatewaysUsageAreaChartStoreModel control.
+        /// Panel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model GatewaysUsageAreaChartStoreModel;
+        protected global::Ext.Net.Panel Panel1;
     }
 }

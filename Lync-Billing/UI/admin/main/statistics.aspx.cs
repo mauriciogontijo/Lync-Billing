@@ -42,8 +42,34 @@ namespace Lync_Billing.ui.admin.main
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
-            GatewaysUsageAreaChart.GetStore().DataSource = GatewaysUsage.GetGatewaysUsage(2012, 1, 12);
-            GatewaysUsageAreaChart.GetStore().DataBind();
+            List<GatewaysUsage> gatewaysUsage = new List<GatewaysUsage>();
+            gatewaysUsage = GetGatewaysUsageChartData(2013, 1, 12);
+            NumberOfCallsChart.GetStore().DataSource = gatewaysUsage;
+            NumberOfCallsChart.GetStore().DataBind();
+        }
+
+        protected List<GatewaysUsage> GetGatewaysUsageChartData(int year, int fromMonth, int toMonth)
+        {
+            List<GatewaysUsage> tmpData = new List<GatewaysUsage>();
+
+            tmpData.AddRange(GatewaysUsage.GetGatewaysUsage(year, fromMonth, toMonth).AsEnumerable<GatewaysUsage>());
+
+            var gatewaysUsageData =
+                (
+                    from data in tmpData.AsEnumerable()
+
+                    group data by new { data.GatewayName, data.Year } into res
+
+                    select new GatewaysUsage
+                    {
+                        GatewayName = res.Key.GatewayName,
+                        NumberOfOutgoingCalls = res.Sum(x => x.NumberOfOutgoingCalls),
+                        TotalDuration = res.Sum(x => x.TotalDuration),
+                        TotalCost = res.Sum(x => x.TotalCost),
+                    }
+                ).Where(e => e.NumberOfOutgoingCalls > 0).ToList();
+
+            return gatewaysUsageData;
         }
     }
 }
