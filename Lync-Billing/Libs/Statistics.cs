@@ -221,6 +221,33 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
+        public DataTable GET_GATEWAYS_YEARS_OF_USAGE() 
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            selectQuery = string.Format("SELECT DISTINCT Year FROM [dbo].[vw_Getways_Statistics]");
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
         private static void ConvertDateToYearMonth(DateTime date,out int year, out int month) 
          {
              year = date.Year;
