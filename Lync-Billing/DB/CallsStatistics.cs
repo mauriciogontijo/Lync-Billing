@@ -51,8 +51,6 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == "TotalCost")
                         gatewayUsage.TotalCost = (decimal)row[column.ColumnName];
-
-                   
                 }
                 gatewaysUsage.Add(gatewayUsage);
             }
