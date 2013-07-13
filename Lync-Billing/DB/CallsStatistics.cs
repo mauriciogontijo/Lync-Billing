@@ -13,9 +13,14 @@ namespace Lync_Billing.DB
         public int Year { get; set; }
         public int Month { get; set; }
         public DateTime Date { get; set; }
+        
         public long NumberOfOutgoingCalls { get; set; }
         public long TotalDuration { get; set; }
         public decimal TotalCost { set; get; }
+
+        public decimal NumberOfOutgoingCallsPercentage { get; set; }
+        public decimal TotalDurationPercentage { get; set; }
+        public decimal TotalCostPercentage { get; set; }
 
         public static List<GatewaysUsage> GetGatewaysUsage (int year,int fromMonth, int toMonth)
         {
