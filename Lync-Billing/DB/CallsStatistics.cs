@@ -123,11 +123,15 @@ namespace Lync_Billing.DB
                 totalDurationCount += gatewayUsage.TotalDuration;
             }
 
-
+            string resolvedGatewayAddress = string.Empty;
+            
             foreach (GatewaysUsage gatewayUsage in gatewaysUsageData) 
             {
+                if (Misc.GetResolvedConnecionIPAddress(gatewayUsage.GatewayName, out resolvedGatewayAddress) == true)
+                    gatewayUsage.GatewayName = resolvedGatewayAddress;
+
                 if (gatewayUsage.NumberOfOutgoingCalls.ToString() != null && gatewayUsage.NumberOfOutgoingCalls > 0)
-                    gatewayUsage.NumberOfOutgoingCallsPercentage =  Math.Round(Convert.ToDecimal((gatewayUsage.NumberOfOutgoingCalls * 100 )/ totalOutGoingCallsCount),2);
+                    gatewayUsage.NumberOfOutgoingCallsPercentage =  Math.Round(Convert.ToDecimal((gatewayUsage.NumberOfOutgoingCalls * 100 )/ totalOutGoingCallsCount));
                 else
                     gatewayUsage.NumberOfOutgoingCallsPercentage = 0;
 
