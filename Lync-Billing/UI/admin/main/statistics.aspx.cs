@@ -58,5 +58,18 @@ namespace Lync_Billing.ui.admin.main
 
             return gatewaysUsageData;
         }
+
+        public List<object> RadarData
+        {
+            get
+            {
+                return new List<object> 
+                { 
+                    new { Name = "Cost %", Data = 100 },
+                    new { Name = "Duration %", Data = 100 },
+                    new { Name = "Calls %", Data = 100 }
+                };
+            }
+        }
     }
 }

@@ -26,12 +26,12 @@
         };
 
         var onMouseUp = function (item) {
-            //var series = App.main_content_place_holder_GatewaysBarChart.series.get(0),
-            //    index = Ext.Array.indexOf(series.items, item),
-            //    selectionModel = App.CompanyGrid.getSelectionModel();
+            var series = App.main_content_place_holder_GatewaysBarChart.series.get(0),
+                index = Ext.Array.indexOf(series.items, item),
+                selectionModel = App.main_content_place_holder_GatewaysGrid.getSelectionModel();
 
-            //selectedStoreItem = item.storeItem;
-            //selectionModel.select(index);
+            selectedStoreItem = item.storeItem;
+            selectionModel.select(index);
         };
 
         var onSelectionChange = function (model, records) {
@@ -49,7 +49,7 @@
                     form = this.up('form').getForm();
                     fields = form.getFields();
                     fields.each(function (field) {
-                        if (field.name != 'GatewayName') {
+                        if (field.name != 'GatewayNameCol') {
                             field.setDisabled(false);
                         }
                     });
@@ -80,126 +80,270 @@
 </asp:Content>
 
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
-    <div class="block float-right w80p h100p">
-        <div id='first-chart' class='block float-right w49p hauto'>
-            <div class="block-body pt5">
-                <ext:FormPanel
-                    ID="NumberOfCallsChartPanel"
-                    runat="server"
-                    Width="740"
-                    Height="765"
-                    Header="True"
-                    Title="Empty Statistics Chart Panel 1">
-                    <Bin>
-                        <ext:Store 
-                            ID="GatewaysDataStore" 
-                            runat="server" 
-                            AutoDataBind="true">
-                            <Model>
-                                <ext:Model ID="Model1" runat="server">
-                                    <Fields>
-                                        <ext:ModelField Name="GatewayName" Mapping="GatewayName" Type="String" />
-                                        <ext:ModelField Name="NumberOfOutgoingCalls" Mapping="NumberOfOutgoingCalls" Type="Int" />
-                                        <ext:ModelField Name="TotalDuration" Mapping="TotalDuration" Type="Int" />
-                                        <ext:ModelField Name="TotalCost" Mapping="TotalCost" Type="Float" />
-                                    </Fields>
-                                </ext:Model>
-                            </Model>
-                        </ext:Store>
-                    </Bin>
+    <div class="block float-right wauto h100p">
+        <div class="block-body pt5">
+            <ext:FormPanel
+                ID="NumberOfCallsChartPanel"
+                runat="server"
+                Width="740"
+                Height="800"
+                Header="True"
+                Frame="true"
+                BodyPadding="5"
+                Title="Gateways Statistics">
+                <Bin>
+                    <ext:Store 
+                        ID="GatewaysDataStore" 
+                        runat="server" 
+                        AutoDataBind="true"
+                        IsPagingStore="true"
+                        PageSize="18">
+                        <Model>
+                            <ext:Model ID="Model1" runat="server">
+                                <Fields>
+                                    <ext:ModelField Name="GatewayName" Mapping="GatewayName" Type="String" />
+
+                                    <ext:ModelField Name="NumberOfOutgoingCalls" Mapping="NumberOfOutgoingCalls" Type="Int" />
+                                    <ext:ModelField Name="TotalDuration" Mapping="TotalDuration" Type="Int" />
+                                    <ext:ModelField Name="TotalCost" Mapping="TotalCost" Type="Float" />
+
+                                    <ext:ModelField Name="NumberOfOutgoingCallsPercentage" Mapping="NumberOfOutgoingCallsPercentage" Type="Float" />
+                                    <ext:ModelField Name="TotalDurationPercentage" Mapping="TotalDurationPercentage" Type="Float" />
+                                    <ext:ModelField Name="TotalCostPercentage" Mapping="TotalCostPercentage" Type="Float" />
+                                </Fields>
+                            </ext:Model>
+                        </Model>
+                    </ext:Store>
+                </Bin>
             
-                    <LayoutConfig>
-                        <ext:VBoxLayoutConfig Align="Stretch" />    
-                    </LayoutConfig>
+                <LayoutConfig>
+                    <ext:VBoxLayoutConfig Align="Stretch" />    
+                </LayoutConfig>
 
-                    <Items>
-                        <ext:Panel ID="Panel1"
-                            runat="server"
-                            Height="200"
-                            Layout="FitLayout"
-                            MarginSpec="0 0 3 0">
-                            <Items>
-                                <ext:Chart 
-                                    ID="GatewaysBarChart" 
-                                    runat="server" 
-                                    Flex="1" 
-                                    Shadow="true" 
-                                    Animate="true" 
-                                    StoreID="GatewaysDataStore">
-                                    <Axes>
-                                        <ext:NumericAxis Position="Left" Fields="NumberOfOutgoingCalls" Minimum="0" Hidden="true" />
+                <Items>
+                    <ext:Panel ID="Panel1"
+                        runat="server"
+                        Height="200"
+                        Layout="FitLayout"
+                        MarginSpec="0 0 3 0">
+                        <Items>
+                            <ext:Chart 
+                                ID="GatewaysBarChart" 
+                                runat="server" 
+                                Flex="1" 
+                                Shadow="true" 
+                                Animate="true" 
+                                StoreID="GatewaysDataStore">
+                                <Axes>
+                                    <ext:NumericAxis Position="Left" Fields="NumberOfOutgoingCalls" Minimum="0" Hidden="true" />
                                         
-                                        <ext:CategoryAxis Position="Bottom" Fields="GatewayName">
-                                            <Label Font="9px Arial">
-                                                <Rotate Degrees="270" />
-                                                <Renderer Handler="return Ext.String.ellipsis(value, 10, false);" />
-                                            </Label>
-                                        </ext:CategoryAxis>
-                                    </Axes> 
+                                    <ext:CategoryAxis Position="Bottom" Fields="GatewayName">
+                                        <Label Font="9px Arial">
+                                            <Rotate Degrees="270" />
+                                            <Renderer Handler="return Ext.String.ellipsis(value, 10, false);" />
+                                        </Label>
+                                    </ext:CategoryAxis>
+                                </Axes> 
 
-                                    <Series>
-                                        <ext:ColumnSeries 
-                                            Axis="Left" 
-                                            Highlight="true" 
-                                            XField="GatewayName" 
-                                            YField="NumberOfOutgoingCalls">
-                                            <Style Fill="#456d9f" />
-                                            <HighlightConfig Fill="#a2b5ca" />
-                                            <Label 
-                                                Contrast="true" 
-                                                Display="InsideEnd" 
-                                                Field="NumberOfOutgoingCalls" 
-                                                Color="#000" 
-                                                Orientation="Vertical" 
-                                                TextAnchor="middle"
-                                                />
-                                            <Listeners>
-                                                <ItemMouseUp Fn="onMouseUp" />
-                                            </Listeners>
-                                        </ext:ColumnSeries>
-                                    </Series>
-                                </ext:Chart>
-                            </Items>
-                        </ext:Panel>
-                    </Items>
-                </ext:FormPanel>
-            </div>
+                                <Series>
+                                    <ext:ColumnSeries 
+                                        Axis="Left" 
+                                        Highlight="true" 
+                                        XField="GatewayName" 
+                                        YField="NumberOfOutgoingCalls">
+                                        <Style Fill="#456d9f" />
+                                        <HighlightConfig Fill="#a2b5ca" />
+                                        <Label 
+                                            Contrast="true" 
+                                            Display="InsideEnd" 
+                                            Field="NumberOfOutgoingCalls" 
+                                            Color="#000" 
+                                            Orientation="Vertical" 
+                                            TextAnchor="middle"
+                                            />
+                                        <Listeners>
+                                            <ItemMouseUp Fn="onMouseUp" />
+                                        </Listeners>
+                                    </ext:ColumnSeries>
+                                </Series>
+                            </ext:Chart>
+                        </Items>
+                    </ext:Panel>
+                    
+
+                    <ext:Panel ID="Panel2" 
+                        runat="server" 
+                        Flex="1" 
+                        Border="false" 
+                        BodyStyle="background-color: transparent;">
+                        <LayoutConfig>
+                            <ext:HBoxLayoutConfig Align="Stretch" />
+                        </LayoutConfig>
+
+                        <Items>
+                            <ext:GridPanel 
+                                ID="GatewaysGrid" 
+                                runat="server" 
+                                Flex="6" 
+                                Title="Gateways Data"
+                                StoreID="GatewaysDataStore"
+                                MarginSpec="5 5 0 0">
+                                <ColumnModel>
+                                    <Columns>
+                                        <ext:Column 
+                                            ID="GatewayNameCol" 
+                                            runat="server" 
+                                            Text="Gateway" 
+                                            Flex="1" 
+                                            DataIndex="GatewayName" 
+                                            Width="60" />
+
+                                        <ext:Column ID="NumberOfCallsCol" 
+                                            runat="server" 
+                                            Text="Total Calls"
+                                            Width="75" 
+                                            DataIndex="NumberOfOutgoingCalls" 
+                                            Align="Right">
+                                        </ext:Column>
+                                        
+                                        <ext:Column ID="DurationPercentageCol" 
+                                            runat="server" 
+                                            Text="Duration" 
+                                            Width="75" 
+                                            DataIndex="TotalDuration" 
+                                            Align="Right">
+                                            <Renderer Handler="return value + '%';" />
+                                        </ext:Column>
+                                        
+                                        <ext:Column ID="CostPercentageCol" 
+                                            runat="server" 
+                                            Text="Cost" 
+                                            Width="75" 
+                                            DataIndex="TotalCost" 
+                                            Align="Right">
+                                            <Renderer Handler="return value + '%';" />
+                                        </ext:Column>
+                                    </Columns>
+                                </ColumnModel>
+
+                                <BottomBar>
+                                    <ext:PagingToolbar
+                                        ID="PagingToolbar1"
+                                        runat="server"
+                                        StoreID="GatewaysDataStore"
+                                        DisplayInfo="true"
+                                        Weight="25"
+                                        DisplayMsg="Gateways {0} - {1} of {2}" />
+                                </BottomBar>
+                            </ext:GridPanel>
+
+                            <ext:Panel ID="Panel3" 
+                                runat="server" 
+                                Flex="4" 
+                                Header="true"
+                                frame="true"
+                                MarginSpec="5 0 0 0">
+                                <LayoutConfig>
+                                    <ext:VBoxLayoutConfig Align="Stretch" />
+                                </LayoutConfig>
+
+                                <Items>
+                                    <ext:Chart ID="Chart1" 
+                                        runat="server" 
+                                        Margin="0" 
+                                        InsetPadding="20" 
+                                        Flex="1" 
+                                        StandardTheme="Blue" 
+                                        Animate="true">
+                                
+                                        <Store>
+                                            <ext:Store 
+                                                ID="RadarStore" 
+                                                runat="server" 
+                                                AutoDataBind="true"
+                                                Data="<%# RadarData %>">
+                                                <Model>
+                                                    <ext:Model ID="Model2" runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="Name" />
+                                                            <ext:ModelField Name="Data" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                        </Store>
+                                        <Axes>
+                                            <ext:RadialAxis Steps="5" Maximum="100" />
+                                        </Axes>
+                                        <Series>
+                                            <ext:RadarSeries 
+                                                XField="Name" 
+                                                YField="Data" 
+                                                ShowInLegend="false" 
+                                                ShowMarkers="true">
+                                                <MarkerConfig Radius="4" Size="4" />
+                                                <Style Fill="rgb(194,214,240)" Opacity="0.5" StrokeWidth="0.5" />
+                                            </ext:RadarSeries>
+                                        </Series>
+                                    </ext:Chart>
+                                </Items>
+                            </ext:Panel>
+                        </Items>
+                    </ext:Panel>
+                </Items>
+            </ext:FormPanel>
         </div>
-
-        <%--<div id='second-chart' class='block float-right w49p hauto'>
-            <div class="block-body pt5">
-                <ext:Panel
-                    ID="GatewaysUsageChartPanel"
-                    runat="server"
-                    Width="364"
-                    Height="320"
-                    Header="True"
-                    Title="Empty Statistics Chart Panel 1"
-                    Layout="FitLayout">
-                    <Items>
-                        
-                    </Items>
-                </ext:Panel>
-            </div>
-        </div>
-
-        <div class="clear h5"></div>
-
-        <div id='third-chart' class='block float-left w49p hauto'>
-            <div class="block-body pt5">
-                <ext:Panel
-                    ID="Panel1"
-                    runat="server"
-                    Width="364"
-                    Height="320"
-                    Header="True"
-                    Title="Empty Statistics Chart Panel 1"
-                    Layout="FitLayout">
-                    <Items>
-                        
-                    </Items>
-                </ext:Panel>
-            </div>
-        </div>--%>
     </div>
 </asp:Content>
+
+
+<%--
+    <ext:Panel ID="Panel3" 
+        runat="server" 
+        Flex="4" 
+        Title="Gateway Details" 
+        MarginSpec="0 0 0 5">
+        <LayoutConfig>
+            <ext:VBoxLayoutConfig Align="Stretch" />
+        </LayoutConfig>
+
+        <Items>
+            <ext:Chart ID="Chart1" 
+                runat="server" 
+                Margin="0" 
+                InsetPadding="20" 
+                Flex="1"
+                StandardTheme="Blue" 
+                Animate="true">
+                <Store>
+                    <ext:Store 
+                        ID="RadarStore" 
+                        runat="server" 
+                        AutoDataBind="true">
+                        <Model>
+                            <ext:Model ID="Model2" runat="server">
+                                <Fields>
+                                    <ext:ModelField Name="Name" />
+                                    <ext:ModelField Name="Data" />
+                                </Fields>
+                            </ext:Model>
+                        </Model>
+                    </ext:Store>
+                </Store>
+                <Axes>
+                    <ext:RadialAxis Steps="5" Maximum="100" />
+                </Axes>
+                <Series>
+                    <ext:RadarSeries 
+                        XField="Name" 
+                        YField="Data" 
+                        ShowInLegend="false" 
+                        ShowMarkers="true">
+                        <MarkerConfig Radius="4" Size="4" />
+                        <Style Fill="rgb(194,214,240)" Opacity="0.5" StrokeWidth="0.5" />
+                    </ext:RadarSeries>
+                </Series>
+            </ext:Chart>
+        </Items>
+    </ext:Panel>
+--%>
