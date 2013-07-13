@@ -19,33 +19,42 @@ namespace Lync_Billing.ui.admin.main {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel NumberOfCallsChartPanel;
+        protected global::Ext.Net.FormPanel NumberOfCallsChartPanel;
         
         /// <summary>
-        /// NumberOfCallsChart control.
+        /// GatewaysDataStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Chart NumberOfCallsChart;
+        protected global::Ext.Net.Store GatewaysDataStore;
         
         /// <summary>
-        /// NumberOfCallsChartStore control.
+        /// Model1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store NumberOfCallsChartStore;
+        protected global::Ext.Net.Model Model1;
         
         /// <summary>
-        /// NumberOfCallsChartChartModel control.
+        /// Panel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model NumberOfCallsChartChartModel;
+        protected global::Ext.Net.Panel Panel1;
+        
+        /// <summary>
+        /// GatewaysBarChart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Chart GatewaysBarChart;
     }
 }

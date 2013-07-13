@@ -44,8 +44,8 @@ namespace Lync_Billing.ui.admin.main
 
             List<GatewaysUsage> gatewaysUsage = new List<GatewaysUsage>();
             gatewaysUsage = GetGatewaysUsageChartData(2013, 1, 12);
-            NumberOfCallsChart.GetStore().DataSource = gatewaysUsage;
-            NumberOfCallsChart.GetStore().DataBind();
+            GatewaysDataStore.DataSource = gatewaysUsage;
+            GatewaysDataStore.DataBind();
         }
 
         protected List<GatewaysUsage> GetGatewaysUsageChartData(int year, int fromMonth, int toMonth)
