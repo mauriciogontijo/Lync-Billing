@@ -58,6 +58,51 @@ namespace Lync_Billing.ui.admin.main {
         protected global::Ext.Net.Chart GatewaysBarChart;
         
         /// <summary>
+        /// SelectionToolBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Toolbar SelectionToolBar;
+        
+        /// <summary>
+        /// YearSelectorComboBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox YearSelectorComboBox;
+        
+        /// <summary>
+        /// YearsOfgatewayUsageStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store YearsOfgatewayUsageStore;
+        
+        /// <summary>
+        /// YearsOfgatewayUsageModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model YearsOfgatewayUsageModel;
+        
+        /// <summary>
+        /// QuarterSelectorComboBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox QuarterSelectorComboBox;
+        
+        /// <summary>
         /// Panel2 control.
         /// </summary>
         /// <remarks>

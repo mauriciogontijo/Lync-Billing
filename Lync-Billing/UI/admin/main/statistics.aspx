@@ -107,7 +107,7 @@
                         </Model>
                     </ext:Store>
                 </Bin>
-            
+
                 <LayoutConfig>
                     <ext:VBoxLayoutConfig Align="Stretch" />    
                 </LayoutConfig>
@@ -160,6 +160,51 @@
                                 </Series>
                             </ext:Chart>
                         </Items>
+                        <TopBar>
+                            <ext:Toolbar runat="server" ID="SelectionToolBar">
+                                <Items>
+                                    <ext:ComboBox 
+                                        runat="server" 
+                                        ID="YearSelectorComboBox" 
+                                        FieldLabel="Year" 
+                                        LabelSeparator=":" 
+                                        DisplayField="Year" 
+                                        ValueField="Year"
+                                        TriggerAction="All" 
+                                        QueryMode="Local" >
+                                        <Store>
+                                            <ext:Store 
+                                                ID="YearsOfgatewayUsageStore" 
+                                                runat="server">
+                                                <Model>
+                                                    <ext:Model ID="YearsOfgatewayUsageModel" runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="Year" Type="int" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                         </Store>
+                                    </ext:ComboBox>
+
+                                    <ext:ComboBox 
+                                        runat="server" 
+                                        ID="QuarterSelectorComboBox" 
+                                        FieldLabel="Quarter" 
+                                        LabelSeparator=":" 
+                                        DisplayField="Quarter" 
+                                        ValueField="Quarter">
+                                        <Items>
+                                            <ext:ListItem Text="First Quarter" Value="1" />
+                                            <ext:ListItem Text="Second Quarter" Value="2" />
+                                            <ext:ListItem Text="Third Quarter" Value="3" />
+                                            <ext:ListItem Text="Forth Quarter" Value="4" />
+                                        </Items>
+                                    </ext:ComboBox>
+
+                                </Items>
+                            </ext:Toolbar>
+                        </TopBar>
                     </ext:Panel>
                     
 
@@ -288,55 +333,3 @@
         </div>
     </div>
 </asp:Content>
-
-
-<%--
-    <ext:Panel ID="Panel3" 
-        runat="server" 
-        Flex="4" 
-        Title="Gateway Details" 
-        MarginSpec="0 0 0 5">
-        <LayoutConfig>
-            <ext:VBoxLayoutConfig Align="Stretch" />
-        </LayoutConfig>
-
-        <Items>
-            <ext:Chart ID="Chart1" 
-                runat="server" 
-                Margin="0" 
-                InsetPadding="20" 
-                Flex="1"
-                StandardTheme="Blue" 
-                Animate="true">
-                <Store>
-                    <ext:Store 
-                        ID="RadarStore" 
-                        runat="server" 
-                        AutoDataBind="true">
-                        <Model>
-                            <ext:Model ID="Model2" runat="server">
-                                <Fields>
-                                    <ext:ModelField Name="Name" />
-                                    <ext:ModelField Name="Data" />
-                                </Fields>
-                            </ext:Model>
-                        </Model>
-                    </ext:Store>
-                </Store>
-                <Axes>
-                    <ext:RadialAxis Steps="5" Maximum="100" />
-                </Axes>
-                <Series>
-                    <ext:RadarSeries 
-                        XField="Name" 
-                        YField="Data" 
-                        ShowInLegend="false" 
-                        ShowMarkers="true">
-                        <MarkerConfig Radius="4" Size="4" />
-                        <Style Fill="rgb(194,214,240)" Opacity="0.5" StrokeWidth="0.5" />
-                    </ext:RadarSeries>
-                </Series>
-            </ext:Chart>
-        </Items>
-    </ext:Panel>
---%>

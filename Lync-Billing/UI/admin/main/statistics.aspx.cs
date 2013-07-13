@@ -41,8 +41,10 @@ namespace Lync_Billing.ui.admin.main
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
             List<GatewaysUsage> gatewaysUsage = new List<GatewaysUsage>();
-            gatewaysUsage = GetGatewaysUsageChartData(2013, 1, 12);
-            GatewaysDataStore.DataSource = gatewaysUsage;
+            YearSelectorComboBox.GetStore().DataSource = GatewaysUsage.GetYears();
+            YearSelectorComboBox.GetStore().DataBind();
+
+            GatewaysDataStore.DataSource = GetGatewaysUsageChartData(2013, 1, 12);
             GatewaysDataStore.DataBind();
         }
 
