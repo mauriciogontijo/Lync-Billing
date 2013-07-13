@@ -11,7 +11,7 @@
                 <ext:Panel
                     ID="NumberOfCallsChartPanel"
                     runat="server"
-                    Width="364"
+                    Width="740"
                     Height="700"
                     Header="True"
                     Title="Empty Statistics Chart Panel 1"
@@ -23,10 +23,10 @@
                             Animate="true"
                             Shadow="true"
                             InsetPadding="20"
-                            Width="465"
-                            Height="350"
-                            Theme="Base:gradients">
-                            <LegendConfig Position="Right" />
+                            Theme="Base:gradients"
+                            Legend="true"
+                            ViewBox="true">
+                            <LegendConfig Position="Bottom" ItemSpacing="1" Padding="5" />
                             <Store>
                                 <ext:Store
                                     ID="NumberOfCallsChartStore"
@@ -34,7 +34,7 @@
                                     <Model>
                                         <ext:Model ID="NumberOfCallsChartChartModel" runat="server">
                                             <Fields>
-                                                <ext:ModelField Name="ToGateway" />
+                                                <ext:ModelField Name="GatewayName" />
                                                 <ext:ModelField Name="NumberOfOutgoingCalls" />
                                                 <ext:ModelField Name="TotalDuration" />
                                                 <ext:ModelField Name="TotalCost" />
@@ -46,26 +46,37 @@
 
                             <Series>
                                 <ext:PieSeries
-                                    AngleField="ToGateway"
+                                    AngleField="NumberOfOutgoingCalls"
                                     ShowInLegend="true"
                                     Donut="30"
                                     Highlight="true"
                                     HighlightSegmentMargin="10">
-                                    <%--<Label Field="Name" Display="Rotate" Contrast="true" Font="16px Arial">
-                                        <Renderer Fn="TotalDuration_LableRenderer" />
+                                    <Label Field="GatewayName" Display="Rotate" Contrast="true" Font="16px Arial">
+                                        <%--<Renderer Fn="TotalDuration_LableRenderer" />--%>
                                     </Label>
                                     <Tips ID="Tips1" runat="server" TrackMouse="true" Width="200" Height="75">
-                                        <Renderer Fn="TotalDuration_TipRenderer" />
-                                    </Tips>--%>
+                                        <%--<Renderer Fn="TotalDuration_TipRenderer" />--%>
+                                    </Tips>
                                 </ext:PieSeries>
                             </Series>
                         </ext:Chart>
+
+                        <%--<ext:Toolbar
+                            ID="DateTimeToolbar"
+                            runat="server">
+                            <Items>
+                                <ext:ComboBox
+                                    ID="Year">
+
+                                </ext:ComboBox>
+                            </Items>
+                        </ext:Toolbar>--%>
                     </Items>
                 </ext:Panel>
             </div>
         </div>
 
-        <div id='second-chart' class='block float-right w49p hauto'>
+        <%--<div id='second-chart' class='block float-right w49p hauto'>
             <div class="block-body pt5">
                 <ext:Panel
                     ID="GatewaysUsageChartPanel"
@@ -99,6 +110,6 @@
                     </Items>
                 </ext:Panel>
             </div>
-        </div>
+        </div>--%>
     </div>
 </asp:Content>
