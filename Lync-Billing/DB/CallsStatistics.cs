@@ -71,6 +71,28 @@ namespace Lync_Billing.DB
             return gatewaysUsage;
           }
 
+
+        public static List<GatewaysUsage> GetGatewaysSummationResults(List<GatewaysUsage> gatewaysUsage) 
+        {
+            var gatewaysUsageData =
+              (
+                  from data in gatewaysUsage.AsEnumerable()
+
+                  group data by new { data.GatewayName, data.Year } into res
+
+                  select new GatewaysUsage
+                  {
+                      GatewayName = res.Key.GatewayName,
+                      Year = res.Key.Year,
+                      NumberOfOutgoingCalls = res.Sum(x => x.NumberOfOutgoingCalls),
+                      TotalDuration = res.Sum(x => x.TotalDuration),
+                      TotalCost = res.Sum(x => x.TotalCost),
+                  }
+              ).Where(e => e.NumberOfOutgoingCalls > 0).ToList();
+
+            return gatewaysUsageData;
+        }
+
         public static List<int> GetYears() 
         {
             Statistics DBRoutines = new Statistics();
