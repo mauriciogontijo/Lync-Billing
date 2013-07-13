@@ -58,6 +58,21 @@ namespace Lync_Billing.DB
             }
             return gatewaysUsage;
           }
+
+        public static List<int> GetYears() 
+        {
+            Statistics DBRoutines = new Statistics();
+
+            DataTable dt = new DataTable();
+
+            List<int> years = new List<int>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                if( row["Year"] != null )
+                    years.Add((int)row["Year"]);
+            }
+            return years;
         }
     }
 
