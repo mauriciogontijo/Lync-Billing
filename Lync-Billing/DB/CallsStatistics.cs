@@ -132,12 +132,12 @@ namespace Lync_Billing.DB
                     gatewayUsage.NumberOfOutgoingCallsPercentage = 0;
 
                 if (gatewayUsage.NumberOfOutgoingCalls.ToString() != null && gatewayUsage.NumberOfOutgoingCalls > 0)
-                    gatewayUsage.TotalCostPercentage = Math.Round((gatewayUsage.TotalCost * 100 )/ totalCostCount,3);
+                    gatewayUsage.TotalCostPercentage = Math.Round((gatewayUsage.TotalCost * 100 )/ totalCostCount,2);
                 else
                     gatewayUsage.TotalCostPercentage = 0;
 
                 if (gatewayUsage.NumberOfOutgoingCalls.ToString() != null && gatewayUsage.NumberOfOutgoingCalls > 0)
-                    gatewayUsage.TotalDurationPercentage = Math.Round((gatewayUsage.TotalDuration) * 100 / totalCostCount,3);
+                    gatewayUsage.TotalDurationPercentage = Math.Round((gatewayUsage.TotalDuration) * 100 / totalCostCount,2);
                 else
                     gatewayUsage.TotalDurationPercentage = 0;
             }
