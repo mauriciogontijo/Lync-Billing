@@ -54,21 +54,7 @@ namespace Lync_Billing.ui.admin.main
 
             tmpData.AddRange(GatewaysUsage.GetGatewaysUsage(year, fromMonth, toMonth).AsEnumerable<GatewaysUsage>());
 
-            var gatewaysUsageData =
-                (
-                    from data in tmpData.AsEnumerable()
-
-                    group data by new { data.GatewayName, data.Year } into res
-
-                    select new GatewaysUsage
-                    {
-                        GatewayName = res.Key.GatewayName,
-                        Year = res.Key.Year,
-                        NumberOfOutgoingCalls = res.Sum(x => x.NumberOfOutgoingCalls),
-                        TotalDuration = res.Sum(x => x.TotalDuration),
-                        TotalCost = res.Sum(x => x.TotalCost),
-                    }
-                ).Where(e => e.NumberOfOutgoingCalls > 0).ToList();
+            var gatewaysUsageData = GatewaysUsage.GetGatewaysStatisticsResults(tmpData);
 
             return gatewaysUsageData;
         }
