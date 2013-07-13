@@ -63,6 +63,7 @@ namespace Lync_Billing.ui.admin.main
                     select new GatewaysUsage
                     {
                         GatewayName = res.Key.GatewayName,
+                        Year = res.Key.Year,
                         NumberOfOutgoingCalls = res.Sum(x => x.NumberOfOutgoingCalls),
                         TotalDuration = res.Sum(x => x.TotalDuration),
                         TotalCost = res.Sum(x => x.TotalCost),

@@ -34,8 +34,10 @@
                                     <Model>
                                         <ext:Model ID="NumberOfCallsChartChartModel" runat="server">
                                             <Fields>
-                                                <ext:ModelField Name="GatewayName" />
+                                                <ext:ModelField Name="ToGateway" />
                                                 <ext:ModelField Name="NumberOfOutgoingCalls" />
+                                                <ext:ModelField Name="TotalDuration" />
+                                                <ext:ModelField Name="TotalCost" />
                                             </Fields>
                                         </ext:Model>
                                     </Model>
@@ -44,7 +46,7 @@
 
                             <Series>
                                 <ext:PieSeries
-                                    AngleField="GatewayName"
+                                    AngleField="ToGateway"
                                     ShowInLegend="true"
                                     Donut="30"
                                     Highlight="true"
