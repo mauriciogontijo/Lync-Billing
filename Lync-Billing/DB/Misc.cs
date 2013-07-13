@@ -57,7 +57,7 @@ namespace Lync_Billing.DB
             return hours_str + ':' + mins_str + ':' + secs_str;
         }
 
-        bool GetResolvedConnecionIPAddress(string serverNameOrURL, out IPAddress resolvedIPAddress) 
+        public static bool GetResolvedConnecionIPAddress(string serverNameOrURL, out string resolvedIPAddress) 
         {
             bool isResolved = false;
             IPHostEntry hostEntry = null;
@@ -102,7 +102,7 @@ namespace Lync_Billing.DB
             }
             finally
             {
-                resolvedIPAddress = resolvIP;
+                resolvedIPAddress = resolvIP.ToString();
             }
 
             return isResolved;
