@@ -54,7 +54,7 @@ namespace Lync_Billing.ui.admin.main
 
             tmpData.AddRange(GatewaysUsage.GetGatewaysUsage(year, fromMonth, toMonth).AsEnumerable<GatewaysUsage>());
 
-            var gatewaysUsageData = GatewaysUsage.GetGatewaysStatisticsResults(tmpData);
+            var gatewaysUsageData = GatewaysUsage.SetGatewaysUsagePercentagesPerCallsCount(tmpData);
 
             return gatewaysUsageData;
         }
