@@ -149,18 +149,26 @@ namespace Lync_Billing.DB
             return gatewaysUsageData; 
         }
 
-        public static List<int> GetYears() 
+        public static List<Years> GetYears() 
         {
             Statistics DBRoutines = new Statistics();
 
             DataTable dt = new DataTable();
 
-            List<int> years = new List<int>();
+            List<Years> years = new List<Years>();
+            Years year; 
 
+            dt = DBRoutines.GET_GATEWAYS_YEARS_OF_USAGE();
+            
             foreach (DataRow row in dt.Rows)
             {
+                year = new Years();
+
                 if( row["Year"] != null )
-                    years.Add((int)row["Year"]);
+                {
+                    year.Year = (int)row["Year"];
+                    years.Add(year);
+                }
             }
             return years;
         }
@@ -259,4 +267,10 @@ namespace Lync_Billing.DB
             return topDestinations;
         }
     }
+
+    public class Years 
+    {
+        public int Year { get; set; }
+    }
+       
 }
