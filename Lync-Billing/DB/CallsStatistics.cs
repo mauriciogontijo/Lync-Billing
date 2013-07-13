@@ -54,7 +54,11 @@ namespace Lync_Billing.DB
                         gatewayUsage.TotalCost = (decimal)row[column.ColumnName];
                 }
 
-                gatewayUsage.Date = new DateTime(gatewayUsage.Year, gatewayUsage.Month, 1);
+                gatewayUsage.Date = 
+                    new DateTime(
+                        gatewayUsage.Year, 
+                        gatewayUsage.Month, 
+                        DateTime.DaysInMonth(gatewayUsage.Year,gatewayUsage.Month));
                 gatewaysUsage.Add(gatewayUsage);
             }
             return gatewaysUsage;
