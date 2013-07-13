@@ -137,7 +137,7 @@ namespace Lync_Billing.DB
                     gatewayUsage.TotalCostPercentage = 0;
 
                 if (gatewayUsage.TotalDuration.ToString() != null && gatewayUsage.TotalDuration > 0)
-                    gatewayUsage.TotalDurationPercentage = Math.Round((gatewayUsage.TotalDuration) * 100 / totalCostCount,2);
+                    gatewayUsage.TotalDurationPercentage = (gatewayUsage.TotalDuration * 100) / totalDurationCount;
                 else
                     gatewayUsage.TotalDurationPercentage = 0;
             }
