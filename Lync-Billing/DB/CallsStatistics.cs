@@ -72,7 +72,7 @@ namespace Lync_Billing.DB
           }
 
 
-        public static List<GatewaysUsage> GetGatewaysSummationResults(List<GatewaysUsage> gatewaysUsage) 
+        public static List<GatewaysUsage> GetGatewaysStatisticsResults(List<GatewaysUsage> gatewaysUsage) 
         {
             var gatewaysUsageData =
               (
