@@ -88,9 +88,61 @@ namespace Lync_Billing.DB
                       TotalDuration = res.Sum(x => x.TotalDuration),
                       TotalCost = res.Sum(x => x.TotalCost),
                   }
-              ).Where(e => e.NumberOfOutgoingCalls > 0).ToList();
+              ).Where(e => e.NumberOfOutgoingCalls > 200).ToList();
 
             return gatewaysUsageData;
+        }
+
+        public static List<GatewaysUsage> SetGatewaysUsagePercentagesPerCallsCount(List<GatewaysUsage> gatewaysUsage) 
+        {
+            long totalOutGoingCallsCount = 0;
+            long totalDurationCount = 0;
+            decimal totalCostCount = 0;
+
+            var gatewaysUsageData =
+            (
+                from data in gatewaysUsage.AsEnumerable()
+
+                group data by new { data.GatewayName, data.Year} into res
+
+                select new GatewaysUsage
+                {
+                    GatewayName = res.Key.GatewayName,
+                    Year = res.Key.Year,
+
+                    NumberOfOutgoingCalls = res.Sum(x => x.NumberOfOutgoingCalls),
+                    TotalDuration = res.Sum(x => x.TotalDuration),
+                    TotalCost = res.Sum(x => x.TotalCost)
+                }
+            ).Where(e => e.NumberOfOutgoingCalls > 200).ToList(); 
+
+            foreach (GatewaysUsage gatewayUsage in gatewaysUsageData) 
+            {
+                totalCostCount += gatewayUsage.TotalCost;
+                totalOutGoingCallsCount += gatewayUsage.NumberOfOutgoingCalls;
+                totalDurationCount += gatewayUsage.TotalDuration;
+            }
+
+
+            foreach (GatewaysUsage gatewayUsage in gatewaysUsageData) 
+            {
+                if (gatewayUsage.NumberOfOutgoingCalls.ToString() != null && gatewayUsage.NumberOfOutgoingCalls > 0)
+                    gatewayUsage.NumberOfOutgoingCallsPercentage = (gatewayUsage.NumberOfOutgoingCalls * 100 )/ totalOutGoingCallsCount;
+                else
+                    gatewayUsage.NumberOfOutgoingCallsPercentage = 0;
+
+                if (gatewayUsage.NumberOfOutgoingCalls.ToString() != null && gatewayUsage.NumberOfOutgoingCalls > 0)
+                    gatewayUsage.TotalCostPercentage = Math.Round((gatewayUsage.TotalCost * 100 )/ totalCostCount,3);
+                else
+                    gatewayUsage.TotalCostPercentage = 0;
+
+                if (gatewayUsage.NumberOfOutgoingCalls.ToString() != null && gatewayUsage.NumberOfOutgoingCalls > 0)
+                    gatewayUsage.TotalDurationPercentage = Math.Round((gatewayUsage.TotalDuration) * 100 / totalCostCount,3);
+                else
+                    gatewayUsage.TotalDurationPercentage = 0;
+            }
+
+            return gatewaysUsageData; 
         }
 
         public static List<int> GetYears() 
