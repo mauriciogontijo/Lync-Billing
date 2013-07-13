@@ -127,7 +127,7 @@ namespace Lync_Billing.DB
             foreach (GatewaysUsage gatewayUsage in gatewaysUsageData) 
             {
                 if (gatewayUsage.NumberOfOutgoingCalls.ToString() != null && gatewayUsage.NumberOfOutgoingCalls > 0)
-                    gatewayUsage.NumberOfOutgoingCallsPercentage = (gatewayUsage.NumberOfOutgoingCalls * 100 )/ totalOutGoingCallsCount;
+                    gatewayUsage.NumberOfOutgoingCallsPercentage =  Math.Round(Convert.ToDecimal((gatewayUsage.NumberOfOutgoingCalls * 100 )/ totalOutGoingCallsCount),2);
                 else
                     gatewayUsage.NumberOfOutgoingCallsPercentage = 0;
 
@@ -137,7 +137,7 @@ namespace Lync_Billing.DB
                     gatewayUsage.TotalCostPercentage = 0;
 
                 if (gatewayUsage.TotalDuration.ToString() != null && gatewayUsage.TotalDuration > 0)
-                    gatewayUsage.TotalDurationPercentage = (gatewayUsage.TotalDuration * 100) / totalDurationCount;
+                    gatewayUsage.TotalDurationPercentage = Math.Round(Convert.ToDecimal((gatewayUsage.TotalDuration * 100) / totalDurationCount),2);
                 else
                     gatewayUsage.TotalDurationPercentage = 0;
             }
