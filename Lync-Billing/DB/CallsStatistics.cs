@@ -7,8 +7,58 @@ using System.Data;
 
 namespace Lync_Billing.DB
 {
-    public class CallsStatistics
+    public class GatewaysUsage
     {
+        public string GatewayName { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public Int64 NumberOfOutgoingCalls { get; set; }
+        public Int64 TotalDuration { get; set; }
+        public decimal TotalCost { set; get; }
+
+        public static List<GatewaysUsage> GetGatewaysUsage (int year,int fromMonth, int toMonth)
+        {
+            Statistics DBRoutines = new Statistics();
+
+            DataTable dt = new DataTable();
+
+            List<GatewaysUsage> gatewaysUsage = new List<GatewaysUsage>();
+
+            GatewaysUsage gatewayUsage;
+
+            dt = DBRoutines.GET_GATEWAYS_USAGE(year, fromMonth, toMonth);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                gatewayUsage = new GatewaysUsage();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                     if (column.ColumnName == "ToGateway")
+                        gatewayUsage.GatewayName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == "Month")
+                        gatewayUsage.Month = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == "Year")
+                        gatewayUsage.Year = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == "NumberOfOutgoingCalls")
+                        gatewayUsage.NumberOfOutgoingCalls = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == "TotalDuartion")
+                        gatewayUsage.TotalDuration = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == "TotalCost")
+                        gatewayUsage.TotalCost = (decimal)row[column.ColumnName];
+
+                   
+                }
+                gatewaysUsage.Add(gatewayUsage);
+            }
+            return gatewaysUsage;
+          }
+        }
     }
 
 
