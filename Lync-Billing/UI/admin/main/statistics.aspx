@@ -116,8 +116,9 @@
                     <ext:Panel ID="Panel1"
                         runat="server"
                         Height="400"
+                        Width="740"
                         Layout="FitLayout"
-                        MarginSpec="0 0 3 0">
+                        MarginSpec="5 5 5 5">
                         <Items>
                             <ext:Chart 
                                 ID="GatewaysBarChart" 
@@ -176,9 +177,10 @@
                                 ID="GatewaysGrid" 
                                 runat="server" 
                                 Flex="6" 
-                                Title="Gateways Data"
+                                Width="400"
+                                Title="Gateways Usage Summary"
                                 StoreID="GatewaysDataStore"
-                                MarginSpec="5 5 0 0">
+                                MarginSpec="5 5 5 5">
                                 <ColumnModel>
                                     <Columns>
                                         <ext:Column 
@@ -186,33 +188,27 @@
                                             runat="server" 
                                             Text="Gateway" 
                                             Flex="1" 
-                                            DataIndex="GatewayName" 
-                                            Width="60" />
+                                            DataIndex="GatewayName" />
 
                                         <ext:Column ID="NumberOfCallsCol" 
                                             runat="server" 
                                             Text="Total Calls"
-                                            Width="75" 
-                                            DataIndex="NumberOfOutgoingCallsPercentage" 
-                                            Align="Right">
+                                            DataIndex="NumberOfOutgoingCallsPercentage">
                                             <Renderer Handler="return value + '%';" />
                                         </ext:Column>
                                         
                                         <ext:Column ID="DurationPercentageCol" 
                                             runat="server" 
                                             Text="Duration" 
-                                            Width="75" 
-                                            DataIndex="TotalDurationPercentage" 
-                                            Align="Right">
+                                            
+                                            DataIndex="TotalDurationPercentage">
                                             <Renderer Handler="return value + '%';" />
                                         </ext:Column>
                                         
                                         <ext:Column ID="CostPercentageCol" 
                                             runat="server" 
                                             Text="Cost" 
-                                            Width="75" 
-                                            DataIndex="TotalCostPercentage" 
-                                            Align="Right">
+                                            DataIndex="TotalCostPercentage">
                                             <Renderer Handler="return value + '%';" />
                                         </ext:Column>
                                     </Columns>
@@ -237,8 +233,9 @@
                                 runat="server" 
                                 Flex="4" 
                                 Header="true"
+                                Width="300"
                                 frame="true"
-                                MarginSpec="5 0 0 0">
+                                MarginSpec="5 5 5 5">
                                 <LayoutConfig>
                                     <ext:VBoxLayoutConfig Align="Stretch" />
                                 </LayoutConfig>
