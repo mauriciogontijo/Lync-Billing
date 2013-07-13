@@ -12,6 +12,7 @@ namespace Lync_Billing.DB
         public string GatewayName { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
+        public DateTime Date { get; set; }
         public Int64 NumberOfOutgoingCalls { get; set; }
         public Int64 TotalDuration { get; set; }
         public decimal TotalCost { set; get; }
@@ -52,6 +53,8 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == "TotalCost")
                         gatewayUsage.TotalCost = (decimal)row[column.ColumnName];
                 }
+
+                gatewayUsage.Date = new DateTime(gatewayUsage.Year, gatewayUsage.Month, 1);
                 gatewaysUsage.Add(gatewayUsage);
             }
             return gatewaysUsage;

@@ -16,6 +16,10 @@ namespace Lync_Billing.ui.admin.main
     public partial class statistics : System.Web.UI.Page
     {
         private string sipAccount = string.Empty;
+        
+        public List<string> COLORS = new List<string> {
+            "rgb(47, 162, 223)", "rgb(60, 133, 46)", "rgb(234, 102, 17)", "rgb(154, 176, 213)", "rgb(186, 10, 25)", "rgb(40, 40, 40)"
+        };
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,6 +43,8 @@ namespace Lync_Billing.ui.admin.main
             }
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+
+
         }
     }
 }
