@@ -14,8 +14,8 @@ namespace Lync_Billing.DB
         public int Month { get; set; }
         public DateTime Date { get; set; }
         
-        public long NumberOfOutgoingCalls { get; set; }
-        public long TotalDuration { get; set; }
+        public decimal NumberOfOutgoingCalls { get; set; }
+        public decimal TotalDuration { get; set; }
         public decimal TotalCost { set; get; }
 
         public decimal NumberOfOutgoingCallsPercentage { get; set; }
@@ -95,8 +95,8 @@ namespace Lync_Billing.DB
 
         public static List<GatewaysUsage> SetGatewaysUsagePercentagesPerCallsCount(List<GatewaysUsage> gatewaysUsage) 
         {
-            long totalOutGoingCallsCount = 0;
-            long totalDurationCount = 0;
+            decimal totalOutGoingCallsCount = 0;
+            decimal totalDurationCount = 0;
             decimal totalCostCount = 0;
 
             var gatewaysUsageData =
@@ -131,7 +131,7 @@ namespace Lync_Billing.DB
                     gatewayUsage.GatewayName = resolvedGatewayAddress;
 
                 if (gatewayUsage.NumberOfOutgoingCalls.ToString() != null && gatewayUsage.NumberOfOutgoingCalls > 0)
-                    gatewayUsage.NumberOfOutgoingCallsPercentage =  Math.Round(Convert.ToDecimal((gatewayUsage.NumberOfOutgoingCalls * 100 )/ totalOutGoingCallsCount));
+                    gatewayUsage.NumberOfOutgoingCallsPercentage =  Math.Round((gatewayUsage.NumberOfOutgoingCalls * 100 / totalOutGoingCallsCount),2);
                 else
                     gatewayUsage.NumberOfOutgoingCallsPercentage = 0;
 
@@ -141,7 +141,7 @@ namespace Lync_Billing.DB
                     gatewayUsage.TotalCostPercentage = 0;
 
                 if (gatewayUsage.TotalDuration.ToString() != null && gatewayUsage.TotalDuration > 0)
-                    gatewayUsage.TotalDurationPercentage = Math.Round(Convert.ToDecimal((gatewayUsage.TotalDuration * 100) / totalDurationCount),2);
+                    gatewayUsage.TotalDurationPercentage = Math.Round((gatewayUsage.TotalDuration * 100 / totalDurationCount),2);
                 else
                     gatewayUsage.TotalDurationPercentage = 0;
             }
