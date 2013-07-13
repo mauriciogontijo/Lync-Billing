@@ -7,7 +7,7 @@
             selectedStoreItem = false;
 
         var selectItem = function (storeItem) {
-            var name = storeItem.get('company'),
+            var name = storeItem.get('GatewayName'),
                 series = App.main_content_place_holder_GatewaysBarChart.series.get(0),
                 i, items, l;
 
@@ -35,40 +35,32 @@
         };
 
         var onSelectionChange = function (model, records) {
-            var json,
-                    name,
-                    i,
-                    l,
-                    items,
-                    series,
-                    fields;
+            var json;
 
             if (records[0]) {
                 rec = records[0];
-                if (!form) {
-                    form = this.up('form').getForm();
-                    fields = form.getFields();
-                    fields.each(function (field) {
-                        if (field.name != 'GatewayNameCol') {
-                            field.setDisabled(false);
-                        }
-                    });
-                } else {
-                    fields = form.getFields();
-                }
-
-                // prevent change events from firing
-                fields.each(function (field) {
-                    field.suspendEvents();
-                });
-
-                form.loadRecord(rec);
                 updateRecord(rec);
-
-                fields.each(function (field) {
-                    field.resumeEvents();
-                });
             }
+        };
+
+        var updateRecord = function (rec) {
+            var name,
+                series,
+                i,
+                l,
+                items,
+                json = [{
+                    'Name': 'Calls %',
+                    'Data': rec.get('NumberOfOutgoingCallsPercentage')
+                }, {
+                    'Name': 'Duration %',
+                    'Data': rec.get('TotalDurationPercentage')
+                }, {
+                    'Name': 'Cost %',
+                    'Data': rec.get('TotalCostPercentage')
+                }];
+            App.main_content_place_holder_RadarStore.loadData(json);
+            selectItem(rec);
         };
     </script>
 
@@ -86,7 +78,7 @@
                 ID="NumberOfCallsChartPanel"
                 runat="server"
                 Width="740"
-                Height="800"
+                Height="820"
                 Header="True"
                 Frame="true"
                 BodyPadding="5"
@@ -97,7 +89,7 @@
                         runat="server" 
                         AutoDataBind="true"
                         IsPagingStore="true"
-                        PageSize="18">
+                        PageSize="11">
                         <Model>
                             <ext:Model ID="Model1" runat="server">
                                 <Fields>
@@ -123,7 +115,7 @@
                 <Items>
                     <ext:Panel ID="Panel1"
                         runat="server"
-                        Height="200"
+                        Height="400"
                         Layout="FitLayout"
                         MarginSpec="0 0 3 0">
                         <Items>
@@ -140,7 +132,7 @@
                                     <ext:CategoryAxis Position="Bottom" Fields="GatewayName">
                                         <Label Font="9px Arial">
                                             <Rotate Degrees="270" />
-                                            <Renderer Handler="return Ext.String.ellipsis(value, 10, false);" />
+                                            <Renderer Handler="return Ext.String.ellipsis(value, 20, false);" />
                                         </Label>
                                     </ext:CategoryAxis>
                                 </Axes> 
@@ -158,9 +150,8 @@
                                             Display="InsideEnd" 
                                             Field="NumberOfOutgoingCalls" 
                                             Color="#000" 
-                                            Orientation="Vertical" 
-                                            TextAnchor="middle"
-                                            />
+                                            Orientation="Vertical" />
+
                                         <Listeners>
                                             <ItemMouseUp Fn="onMouseUp" />
                                         </Listeners>
@@ -202,7 +193,7 @@
                                             runat="server" 
                                             Text="Total Calls"
                                             Width="75" 
-                                            DataIndex="NumberOfOutgoingCalls" 
+                                            DataIndex="NumberOfOutgoingCallsPercentage" 
                                             Align="Right">
                                         </ext:Column>
                                         
@@ -210,7 +201,7 @@
                                             runat="server" 
                                             Text="Duration" 
                                             Width="75" 
-                                            DataIndex="TotalDuration" 
+                                            DataIndex="TotalDurationPercentage" 
                                             Align="Right">
                                             <Renderer Handler="return value + '%';" />
                                         </ext:Column>
@@ -219,12 +210,16 @@
                                             runat="server" 
                                             Text="Cost" 
                                             Width="75" 
-                                            DataIndex="TotalCost" 
+                                            DataIndex="TotalCostPercentage" 
                                             Align="Right">
                                             <Renderer Handler="return value + '%';" />
                                         </ext:Column>
                                     </Columns>
                                 </ColumnModel>
+                                
+                                <Listeners>
+                                    <SelectionChange Fn="onSelectionChange" />
+                                </Listeners>
 
                                 <BottomBar>
                                     <ext:PagingToolbar
