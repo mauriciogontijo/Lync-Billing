@@ -163,7 +163,7 @@
                         <TopBar>
                             <ext:Toolbar runat="server" ID="SelectionToolBar">
                                 <Items>
-                                    <ext:ComboBox 
+                                     <ext:ComboBox 
                                         runat="server" 
                                         ID="YearSelectorComboBox" 
                                         FieldLabel="Year" 
@@ -171,7 +171,8 @@
                                         DisplayField="Year" 
                                         ValueField="Year"
                                         TriggerAction="All" 
-                                        QueryMode="Local" >
+                                        QueryMode="Local" 
+                                        LabelWidth="30">
                                         <Store>
                                             <ext:Store 
                                                 ID="YearsOfgatewayUsageStore" 
@@ -185,13 +186,16 @@
                                                 </Model>
                                             </ext:Store>
                                          </Store>
+                                       
                                     </ext:ComboBox>
 
                                     <ext:ComboBox 
                                         runat="server" 
                                         ID="QuarterSelectorComboBox" 
-                                        FieldLabel="Quarter" 
+                                        FieldLabel="Quarter"
+                                        LabelWidth="50" 
                                         LabelSeparator=":" 
+                                        Margins="5 15 0 20"
                                         DisplayField="Quarter" 
                                         ValueField="Quarter">
                                         <Items>
@@ -199,7 +203,11 @@
                                             <ext:ListItem Text="Second Quarter" Value="2" />
                                             <ext:ListItem Text="Third Quarter" Value="3" />
                                             <ext:ListItem Text="Forth Quarter" Value="4" />
+                                            <ext:ListItem Text="All Quarters" Value="5" />
                                         </Items>
+                                        <DirectEvents>
+                                            <Select OnEvent="QuarterSelection" />
+                                        </DirectEvents>
                                     </ext:ComboBox>
 
                                 </Items>

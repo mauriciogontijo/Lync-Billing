@@ -44,19 +44,19 @@ namespace Lync_Billing.ui.admin.main
             YearSelectorComboBox.GetStore().DataSource = GatewaysUsage.GetYears();
             YearSelectorComboBox.GetStore().DataBind();
 
-            GatewaysDataStore.DataSource = GetGatewaysUsageChartData(2013, 1, 12);
-            GatewaysDataStore.DataBind();
+            Bind();
         }
 
         protected List<GatewaysUsage> GetGatewaysUsageChartData(int year, int fromMonth, int toMonth)
         {
             List<GatewaysUsage> tmpData = new List<GatewaysUsage>();
 
-            tmpData.AddRange(GatewaysUsage.GetGatewaysUsage(year, fromMonth, toMonth).AsEnumerable<GatewaysUsage>());
-
-            var gatewaysUsageData = GatewaysUsage.SetGatewaysUsagePercentagesPerCallsCount(tmpData);
-
-            return gatewaysUsageData;
+            //tmpData.AddRange(GatewaysUsage.GetGatewaysUsage(year, fromMonth, toMonth).AsEnumerable<GatewaysUsage>());
+            //var gatewaysUsageData = GatewaysUsage.SetGatewaysUsagePercentagesPerCallsCount(tmpData);
+            //return gatewaysUsageData;
+            tmpData.AddRange(GatewaysUsage.SetGatewaysUsagePercentagesPerCallsCount(year, fromMonth, toMonth).AsEnumerable<GatewaysUsage>());
+            
+            return tmpData;
         }
 
         public List<object> RadarData
@@ -71,5 +71,47 @@ namespace Lync_Billing.ui.admin.main
                 };
             }
         }
+
+        protected void QuarterSelection(object sender, DirectEventArgs e)
+        {
+            int qaurter = Convert.ToInt32(QuarterSelectorComboBox.SelectedItem.Value);
+
+            int year = Convert.ToInt32(YearSelectorComboBox.SelectedItem.Value);
+
+            switch (qaurter)
+            {
+                case 1:
+                    GatewaysDataStore.DataSource = GetGatewaysUsageChartData(year, 1, 3);
+                    break;
+                case 2:
+                    GatewaysDataStore.DataSource = GetGatewaysUsageChartData(year, 4, 6);
+                    break;
+                case 3:
+                    GatewaysDataStore.DataSource = GetGatewaysUsageChartData(year, 7, 9);
+                    break;
+                case 4:
+                    GatewaysDataStore.DataSource = GetGatewaysUsageChartData(year, 10, 12);
+                    break;
+                case 5:
+                    GatewaysDataStore.DataSource = GetGatewaysUsageChartData(year, 1, 12);
+                    break;
+            }
+            GatewaysDataStore.DataBind();
+        }
+
+        protected void AllYearsButton_DirectClick(object sender, DirectEventArgs e)
+        {
+
+        }
+
+        public void Bind()
+        {
+            if (YearSelectorComboBox.SelectedItem.Value == null && QuarterSelectorComboBox.SelectedItem.Value == null)
+            {
+                GatewaysDataStore.DataSource = GetGatewaysUsageChartData(DateTime.Now.Year, 1, 12);
+                GatewaysDataStore.DataBind();
+            }
+        }
+        
     }
 }
