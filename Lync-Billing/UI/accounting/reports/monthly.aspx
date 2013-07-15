@@ -217,6 +217,7 @@
                         ID="MonthlyReportsStore"
                         runat="server"
                         RemoteSort="true"
+                        IsPagingStore="true"
                         PageSize="25"
                         OnSubmitData="MonthlyReportsStore_SubmitData">
                         <Model>
@@ -249,7 +250,7 @@
 
                 <ColumnModel ID="MonthlyReportsColumnModel" runat="server" Flex="1">
                     <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="35" />
 
                         <ext:Column
                             ID="EmployeeIDCol"
