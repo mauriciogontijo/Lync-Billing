@@ -89,7 +89,8 @@
                                 DisplayField="SiteName"
                                 ValueField="SiteName"
                                 FieldLabel="Site:"
-                                LabelWidth="35"
+                                LabelWidth="25"
+                                Width="230"
                                 Margins="5 15 0 5">
                                 <Store>
                                     <ext:Store
@@ -114,11 +115,11 @@
                             <ext:DateField
                                 ID="ReportDateField"
                                 runat="server"
-                                FieldLabel="Choose Date:"
-                                LabelWidth="80"
+                                FieldLabel="Date:"
+                                LabelWidth="30"
                                 EmptyText="Empty Date"
-                                Width="250"
-                                Margins="5 170 5 5"
+                                Width="230"
+                                Margins="5 150 5 5"
                                 Disabled="true">
                                 <DirectEvents>
                                     <Select OnEvent="ReportDateField_Selection" />
