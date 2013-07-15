@@ -102,10 +102,9 @@ namespace Lync_Billing.ui.accounting.reports
             foreach (UserRole role in userRoles)
             {
                 DB.Site tmpSite = new DB.Site();
-                //if (role.RoleID == 7 || role.RoleID == 1)
-                // sites.Add(GetSiteObject(role.SiteID));
-                   tmpSite.SiteID = userRoles.First(item => item.SiteID == role.SiteID && ( item.RoleID == 7|| item.RoleID ==1)).SiteID;
-                   sites.Add(tmpSite);
+              
+                tmpSite.SiteID = userRoles.First(item => item.SiteID == role.SiteID && ( item.RoleID == 7|| item.RoleID ==1)).SiteID;
+                sites.Add(tmpSite);
             }
 
             List<Site> tmpSites = DB.Site.GetSites();
