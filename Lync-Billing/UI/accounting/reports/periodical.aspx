@@ -1,7 +1,65 @@
 ﻿<%@ Page Title="eBill Accounting | Periodical Reports" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="periodical.aspx.cs" Inherits="Lync_Billing.ui.accounting.reports.periodical" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
-    
+    <ext:XScript ID="XScript1" runat="server">
+        <script>       
+            var applyFilter = function (field) {                
+                var store = #{PeriodicalReportsGrid}.getStore();
+                store.filterBy(getRecordFilter());                                                
+            };
+             
+            var clearFilter = function () {
+                #{EmployeeIDFilter}.reset();
+                #{SipAccountFilter}.reset();
+                #{FullNameFilter}.reset();
+                
+                #{PeriodicalReportsStore}.clearFilter();
+            }
+ 
+            var filterString = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if (typeof val != "string") {
+                    return value.length == 0;
+                }
+                
+                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+            };
+ 
+            var getRecordFilter = function () {
+                var f = [];
+ 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{EmployeeIDFilter}.getValue(), "EmployeeID", record);
+                    }
+                });
+                 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{SipAccountFilter}.getValue(), "SipAccount", record);
+                    }
+                });
+
+                f.push({
+                    filter: function(record) {
+                        return filterString(#{FullNameFilter}.getValue(), "FullName", record);
+                    }
+                });
+ 
+                var len = f.length;
+                 
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
+            };
+        </script>
+    </ext:XScript>
 </asp:Content>
   
 
@@ -16,7 +74,7 @@
                 Header="true"
                 Title="Generate Periodical Reports"
                 Width="740"
-                Height="63"
+                Height="65"
                 Layout="AnchorLayout">
                 <TopBar>
                     <ext:Toolbar
@@ -29,7 +87,7 @@
                                 FieldLabel="From:"
                                 LabelWidth="30"
                                 EmptyText="Empty Date"
-                                Width="200"
+                                Width="130"
                                 Margins="5 10 5 5">
                             </ext:DateField>
 
@@ -39,7 +97,7 @@
                                 FieldLabel="To:"
                                 LabelWidth="20"
                                 EmptyText="Empty Date"
-                                Width="200"
+                                Width="130"
                                 Margins="0 10 5 5">
                             </ext:DateField>
 
@@ -51,7 +109,7 @@
                                 Height="22"
                                 FieldLabel=""
                                 OnDirectClick ="ViewMonthlyBills_DirectClick"
-                                Margins="5 110 5 5">
+                                Margins="5 80 5 5">
                             </ext:Button>
 
                             <ext:Label
@@ -120,6 +178,8 @@
                                     <ext:ModelField Name="FullName" Type="String" />
                                     <ext:ModelField Name="SipAccount" Type="String" />
                                     <ext:ModelField Name="PersonalCallsCost" Type="String" />
+                                    <ext:ModelField Name="BusinessCallsCost" Type="String" />
+                                    <ext:ModelField Name="UnmarkedCallsCost" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
@@ -129,6 +189,16 @@
                     </ext:Store>
                 </Store>
 
+                <Features>
+                    <ext:GridFilters ID="MonthlyReportsGridFilters" Local="true">
+                        <Filters>
+                            <ext:StringFilter DataIndex="EmployeeID" />
+                            <ext:StringFilter DataIndex="SipAccount" />
+                            <ext:StringFilter DataIndex="FullName" />
+                        </Filters>
+                    </ext:GridFilters>
+                </Features>
+
                 <ColumnModel ID="PeriodicalReportsColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
@@ -137,29 +207,87 @@
                             ID="EmployeeID"
                             runat="server"
                             Text="Employee ID"
-                            Width="160"
-                            DataIndex="EmployeeID" />
+                            Width="90"
+                            DataIndex="EmployeeID">
+                            <HeaderItems>
+                                <ext:TextField ID="EmployeeIDFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearEmployeeIDFilterButton" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
+                        </ext:Column>
 
                         <ext:Column
                             ID="SipAccount"
                             runat="server"
                             Text="Sip Account"
                             Width="160"
-                            DataIndex="SipAccount" />
+                            DataIndex="SipAccount">
+                            <HeaderItems>
+                                <ext:TextField ID="SipAccountFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearSipAccountFilterButton" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
+                        </ext:Column>
 
                         <ext:Column
                             ID="FullName"
                             runat="server"
                             Text="Full Name"
-                            Width="200"
-                            DataIndex="FullName" />
+                            Width="180"
+                            DataIndex="FullName">
+                            <HeaderItems>
+                                <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearFullNameFilterButton" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
+                        </ext:Column>
 
                         <ext:Column
-                            ID="PersonalCallsCost"
+                            ID="GrouopedCostsColumns"
                             runat="server"
-                            Text="Cost"
-                            Width="160"
-                            DataIndex="PersonalCallsCost" />
+                            MenuDisabled="false"
+                            Sortable="false"
+                            Groupable="false"
+                            Resizable="false"
+                            Text="Calls Costs">
+                            <Columns>
+                                <ext:Column
+                                    ID="PersonalCallsCostCol"
+                                    runat="server"
+                                    Text="Personal"
+                                    Width="80"
+                                    DataIndex="PersonalCallsCost" />
+
+                                <ext:Column
+                                    ID="BusinessCallsCostCol"
+                                    runat="server"
+                                    Text="Business"
+                                    Width="80"
+                                    DataIndex="BusinessCallsCost" />
+
+                                <ext:Column
+                                    ID="UnmarkedCallsCostCol"
+                                    runat="server"
+                                    Text="Unallocated"
+                                    Width="80"
+                                    DataIndex="UnmarkedCallsCost" />
+                            </Columns>
+                        </ext:Column>
                     </Columns>
                 </ColumnModel>
 
