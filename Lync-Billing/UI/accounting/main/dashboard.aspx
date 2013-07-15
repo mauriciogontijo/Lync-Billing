@@ -71,7 +71,7 @@
             <% } %>
 
 
-            <div id='main' class='main-container'>
+            <div id='main' class='main-container bottom-rounded'>
                 <asp:HiddenField ID="ThisPageReferrer" runat="server" Value="" />
 
                 <!-- *** START OF SIDEBAR *** -->

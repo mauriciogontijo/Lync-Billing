@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.accounting.reports {
     public partial class monthly {
         
         /// <summary>
+        /// XScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript XScript1;
+        
+        /// <summary>
         /// FormatType control.
         /// </summary>
         /// <remarks>
@@ -121,6 +130,15 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Model MonthlyReportsModel;
         
         /// <summary>
+        /// MonthlyReportsGridFilters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridFilters MonthlyReportsGridFilters;
+        
+        /// <summary>
         /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
@@ -139,6 +157,24 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Column EmployeeID;
         
         /// <summary>
+        /// EmployeeIDFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField EmployeeIDFilter;
+        
+        /// <summary>
+        /// ClearEmployeeIDFilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearEmployeeIDFilterButton;
+        
+        /// <summary>
         /// SipAccount control.
         /// </summary>
         /// <remarks>
@@ -146,6 +182,24 @@ namespace Lync_Billing.ui.accounting.reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column SipAccount;
+        
+        /// <summary>
+        /// SipAccountFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField SipAccountFilter;
+        
+        /// <summary>
+        /// ClearSipAccountFilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearSipAccountFilterButton;
         
         /// <summary>
         /// FullName control.
@@ -157,13 +211,58 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Column FullName;
         
         /// <summary>
-        /// PersonalCallsCost control.
+        /// FullNameFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column PersonalCallsCost;
+        protected global::Ext.Net.TextField FullNameFilter;
+        
+        /// <summary>
+        /// ClearFullNameFilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearFullNameFilterButton;
+        
+        /// <summary>
+        /// GrouopedCostsColumns control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column GrouopedCostsColumns;
+        
+        /// <summary>
+        /// PersonalCallsCostCol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column PersonalCallsCostCol;
+        
+        /// <summary>
+        /// BusinessCallsCostCol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column BusinessCallsCostCol;
+        
+        /// <summary>
+        /// UnmarkedCallsCostCol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column UnmarkedCallsCostCol;
         
         /// <summary>
         /// CheckboxSelectionModel1 control.
