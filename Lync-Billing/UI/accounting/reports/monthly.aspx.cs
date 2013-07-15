@@ -64,7 +64,9 @@ namespace Lync_Billing.ui.accounting.reports
             if (FilterReportsBySite.SelectedItem != null && !string.IsNullOrEmpty(FilterReportsBySite.SelectedItem.Value))
             {
                 site = FilterReportsBySite.SelectedItem.Value;
-                listOfUsersCallsSummary.AddRange(UsersCallsSummary.GetUsersCallsSummary(date, date, site).Where(e => e.PersonalCallsCost != 0).AsEnumerable<UsersCallsSummary>());
+                listOfUsersCallsSummary.AddRange(
+                    UsersCallsSummary.GetUsersCallsSummary(date, date, site).Where
+                                (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != null).AsEnumerable<UsersCallsSummary>());
             }
             
             return listOfUsersCallsSummary;
@@ -102,6 +104,19 @@ namespace Lync_Billing.ui.accounting.reports
                 if (role.RoleID == 7 || role.RoleID == 1)
                     sites.Add(GetSiteObject(role.SiteID));
             }
+
+            List<Site> tmpSites = DB.Site.GetSites();
+            DB.Site tmpSite;
+            foreach (DB.Site site in sites) 
+            {
+                tmpSite = new DB.Site();
+
+                tmpSite = tmpSites.First(e => e.SiteID == site.SiteID);
+
+                site.SiteName = tmpSite.SiteName;
+                site.CountryCode = tmpSite.CountryCode;
+            }
+
 
             return sites;
         }
