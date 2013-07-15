@@ -66,7 +66,7 @@ namespace Lync_Billing.ui.accounting.reports
                 site = FilterReportsBySite.SelectedItem.Value;
                 listOfUsersCallsSummary.AddRange(
                     UsersCallsSummary.GetUsersCallsSummary(date, date, site).Where
-                                (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != null).AsEnumerable<UsersCallsSummary>());
+                                (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != 0).AsEnumerable<UsersCallsSummary>());
             }
             
             return listOfUsersCallsSummary;
