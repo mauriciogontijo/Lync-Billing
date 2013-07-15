@@ -72,25 +72,25 @@ namespace Lync_Billing.ui.accounting.reports
             return listOfUsersCallsSummary;
         }
 
-        public string GetSiteName(int siteID)
-        {
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            wherePart.Add("SiteID", siteID);
+        //public string GetSiteName(int siteID)
+        //{
+        //    Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        //    wherePart.Add("SiteID", siteID);
 
-            List<Site> sites = DB.Site.GetSites(null, wherePart, 0);
+        //    List<Site> sites = DB.Site.GetSites(null, wherePart, 0);
 
-            return sites[0].SiteName;
-        }
+        //    return sites[0].SiteName;
+        //}
 
-        public Site GetSiteObject(int siteID)
-        {
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            wherePart.Add("SiteID", siteID);
+        //public Site GetSiteObject(int siteID)
+        //{
+        //    Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        //    wherePart.Add("SiteID", siteID);
 
-            List<Site> sites = DB.Site.GetSites(null, wherePart, 0);
+        //    List<Site> sites = DB.Site.GetSites(null, wherePart, 0);
 
-            return sites[0];
-        }
+        //    return sites[0];
+        //}
 
         public List<Site> GetAccountantSites()
         {
