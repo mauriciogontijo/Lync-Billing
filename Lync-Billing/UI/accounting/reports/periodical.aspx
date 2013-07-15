@@ -51,18 +51,45 @@
                                 Height="22"
                                 FieldLabel=""
                                 OnDirectClick ="ViewMonthlyBills_DirectClick"
-                                Margins="5 120 5 0">
+                                Margins="5 110 5 5">
                             </ext:Button>
 
-                            <ext:Button 
+                            <ext:Label
+                                ID="ExportReportsButtonGroupLabel"
                                 runat="server"
-                                Text="To Excel" 
-                                Icon="PageExcel"
-                                Margins="5 0 5 0">
-                                 <Listeners>
-                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, 'xls');" />
-                                </Listeners>
-                            </ext:Button>
+                                Html="Export Report:"
+                                Width="80"
+                                Margins="10 0 0 0" />
+
+                            <ext:ButtonGroup
+                                ID="ExportReportsButtonGroup"
+                                runat="server"
+                                Layout="TableLayout"
+                                Width="255"
+                                Frame="false"
+                                ButtonAlign="Left"
+                                Margins="5 0 0 0">
+                                <Buttons>
+                                    <ext:Button ID="ExportSummaryReportButton" 
+                                        runat="server"
+                                        Text="Summary" 
+                                        Icon="PageExcel">
+                                        <Listeners>
+                                            <Click Handler="submitValue(#{PeriodicalReportsGrid}, 'xls');" />
+                                        </Listeners>
+                                    </ext:Button>
+
+                                    <ext:Button ID="ExportDetailedReportButton" 
+                                        runat="server"
+                                        Text="Detailed" 
+                                        Icon="PageExcel"
+                                        OnDirectClick="ExportDetailedReportButton_DirectClick">
+                                       <%-- <Listeners>
+                                            <Click Handler="submitValue(#{PeriodicalReportsGrid}, 'xls');" />
+                                        </Listeners>--%>
+                                    </ext:Button>
+                                </Buttons>
+                            </ext:ButtonGroup>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -81,13 +108,13 @@
                 
                 <Store>
                     <ext:Store
-                        ID="MonthlyReportsStore"
+                        ID="PeriodicalReportsStore"
                         runat="server"
                         RemoteSort="true"
                         PageSize="25"
-                        OnSubmitData="MonthlyReportsStore_SubmitData">
+                        OnSubmitData="PeriodicalReportsStore_SubmitData">
                         <Model>
-                            <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
+                            <ext:Model ID="PeriodicalReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
                                     <ext:ModelField Name="EmployeeID" Type="String" />
                                     <ext:ModelField Name="FullName" Type="String" />
@@ -102,7 +129,7 @@
                     </ext:Store>
                 </Store>
 
-                <ColumnModel ID="MonthlyReportsColumnModel" runat="server" Flex="1">
+                <ColumnModel ID="PeriodicalReportsColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
 

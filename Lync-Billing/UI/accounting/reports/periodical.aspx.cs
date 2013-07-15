@@ -151,7 +151,7 @@ namespace Lync_Billing.ui.accounting.reports
             }
         }
 
-        protected void MonthlyReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
+        protected void PeriodicalReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
             string format = this.FormatType.Value.ToString();
             XmlNode xml = e.Xml;
@@ -164,6 +164,11 @@ namespace Lync_Billing.ui.accounting.reports
             xtExcel.Transform(xml, null, Response.OutputStream);
 
             this.Response.End();
+        }
+
+        protected void ExportDetailedReportButton_DirectClick(object sender, DirectEventArgs e)
+        {
+
         }
     }
 }
