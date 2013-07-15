@@ -71,10 +71,11 @@
                                     <ext:Button ID="ExportDetailedReportButton" 
                                         runat="server"
                                         Text="Detailed" 
-                                        Icon="PageExcel">
-                                        <Listeners>
+                                        Icon="PageExcel"
+                                        OnDirectClick="ExportDetailedReportButton_DirectClick">
+                                       <%-- <Listeners>
                                             <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
-                                        </Listeners>
+                                        </Listeners>--%>
                                     </ext:Button>
                                 </Buttons>
                             </ext:ButtonGroup>
@@ -84,6 +85,7 @@
             </ext:Panel>
 
             <div class="h5 clear"></div>
+            
             <ext:GridPanel
                 ID="MonthlyReportsGrids"
                 runat="server"

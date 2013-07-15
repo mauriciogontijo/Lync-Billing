@@ -142,5 +142,10 @@ namespace Lync_Billing.ui.accounting.reports
             this.Response.End();
         }
 
+        protected void ExportDetailedReportButton_DirectClick(object sender, DirectEventArgs e)
+        {
+
+        }
+
     }
 }
