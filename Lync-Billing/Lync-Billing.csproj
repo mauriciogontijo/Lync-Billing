@@ -55,6 +55,9 @@
     <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.JScript" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -197,6 +200,7 @@
     <Compile Include="Libs\Dispatcher.cs" />
     <Compile Include="Libs\DBLib.cs" />
     <Compile Include="DB\Enums.cs" />
+    <Compile Include="Libs\ExportToExcel.cs" />
     <Compile Include="Libs\JsonTranslator.cs" />
     <Compile Include="Libs\Mailer.cs" />
     <Compile Include="Libs\ntlm\ImpersonateUser.cs" />
@@ -402,7 +406,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

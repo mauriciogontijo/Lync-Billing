@@ -17,6 +17,9 @@ using System.IO;
 using System.Text;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Lync_Billing.ui.accounting.reports
 {
@@ -142,10 +145,49 @@ namespace Lync_Billing.ui.accounting.reports
             this.Response.End();
         }
 
-        protected void ExportDetailedReportButton_DirectClick(object sender, DirectEventArgs e)
-        {
+        //protected void ExportDetailedReportButton_DirectClick(object sender, DirectEventArgs e)
+        //{
+        //    Store detailedReportStore = new Store();
 
-        }
+        //    List<string> columns = new List<string>();
+        //    Dictionary<string, object> wherePart = new Dictionary<string, object>();
+
+        //    columns.Add("SourceUserUri");
+        //    columns.Add("SourceNumberUri");
+        //    columns.Add("DestinationNumberUri");
+        //    columns.Add("ResponseTime");
+        //    columns.Add("Duration");
+        //    columns.Add("ui_CallType");
+        //    columns.Add("marker_CallCost");
+
+        //    wherePart.Add("marker_CallTypeID", "1");
+        //    wherePart.Add("ac_IsInvoiced", "NO");
+
+        //    List<PhoneCall> phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+
+        //    detailedReportStore.ID = "detailedReportStore";
+        //    detailedReportStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+
+        //    using (MemoryStream ms = new MemoryStream()) 
+        //    {
+        //        Document doc = new Document();
+        //        PdfWriter writer = PdfWriter.GetInstance(doc, ms);
+                
+        //        doc.SetPageSize(PageSize.LETTER);
+        //        doc.Open();
+                
+        //        PdfContentByte cb = writer.DirectContent;
+        //        PdfImportedPage page;
+        //        PdfReader reader;
+
+        //        foreach (PhoneCall phoneCall in phoneCalls) 
+        //        {
+                    
+        //        }
+
+        //    }
+
+        //}
 
     }
 }

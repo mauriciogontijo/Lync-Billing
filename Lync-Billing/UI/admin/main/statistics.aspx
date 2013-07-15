@@ -287,6 +287,7 @@
                                 Flex="4" 
                                 Header="true"
                                 Width="300"
+                                Height="300"
                                 frame="true"
                                 MarginSpec="5 5 5 5">
                                 <LayoutConfig>
