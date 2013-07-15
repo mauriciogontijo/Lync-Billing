@@ -60,6 +60,49 @@ namespace Lync_Billing.DB
             return roles;
         }
 
+        public static List<UserRole> GetRolesPerSipAccount(string sipAccount) 
+        {
+            UserRole userRole;
+            DataTable dt = new DataTable();
+            List<UserRole> roles = new List<UserRole>();
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName),"SipAccount",sipAccount);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                userRole = new UserRole();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.RoleID) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.RoleID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.SipAccount = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.SiteID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.PoolID) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.PoolID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.GatewayID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.UsersRolesID) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.UsersRolesID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.Notes))
+                        userRole.Notes = (string)row[column.ColumnName];
+
+                }
+                roles.Add(userRole);
+            }
+            return roles;
+
+
+        }
+
         public static int InsertUserRole(UserRole userRole)
         {
             int rowID = 0;
@@ -160,6 +203,9 @@ namespace Lync_Billing.DB
             else
                 return false;
         }
+    
+        
+    
     }
 
 }
