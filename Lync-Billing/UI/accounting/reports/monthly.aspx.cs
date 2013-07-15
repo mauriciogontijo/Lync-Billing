@@ -112,7 +112,7 @@ namespace Lync_Billing.ui.accounting.reports
             
             foreach (DB.Site site in sites) 
             {
-                DB.Site tmpSite; = new DB.Site();
+                DB.Site tmpSite = new DB.Site();
 
                 tmpSite = tmpSites.First(e => e.SiteID == site.SiteID);
 
