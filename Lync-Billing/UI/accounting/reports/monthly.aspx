@@ -15,7 +15,7 @@
                 Header="true"
                 Title="Generate Monthly Reports"
                 Width="740"
-                Height="63"
+                Height="65"
                 Layout="AnchorLayout">
                 <TopBar>
                     <ext:Toolbar
@@ -40,18 +40,44 @@
                                 Width="100"
                                 Height="22"
                                 OnDirectClick ="ViewMonthlyBills_DirectClick"
-                                Margins="5 5 5 5">
+                                Margins="5 110 5 5">
                             </ext:Button>
                             
-                            <ext:Button 
+                            <ext:Label
+                                ID="ExportReportsButtonGroupLabel"
                                 runat="server"
-                                Text="To Excel" 
-                                Icon="PageExcel"
-                                Margins="5 5 5 280">
-                                <Listeners>
-                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
-                                </Listeners>
-                            </ext:Button>
+                                Html="Export Report:"
+                                Width="80"
+                                Margins="10 0 0 0" />
+
+                            <ext:ButtonGroup
+                                ID="ExportReportsButtonGroup"
+                                runat="server"
+                                Layout="TableLayout"
+                                Width="255"
+                                Frame="false"
+                                ButtonAlign="Left"
+                                Margins="5 0 0 0">
+                                <Buttons>
+                                    <ext:Button ID="ExportSummaryReportButton" 
+                                        runat="server"
+                                        Text="Summary" 
+                                        Icon="PageExcel">
+                                        <Listeners>
+                                            <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
+                                        </Listeners>
+                                    </ext:Button>
+
+                                    <ext:Button ID="ExportDetailedReportButton" 
+                                        runat="server"
+                                        Text="Detailed" 
+                                        Icon="PageExcel">
+                                        <Listeners>
+                                            <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
+                                        </Listeners>
+                                    </ext:Button>
+                                </Buttons>
+                            </ext:ButtonGroup>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>

@@ -58,6 +58,42 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Button ViewMonthlyBills;
         
         /// <summary>
+        /// ExportReportsButtonGroupLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Label ExportReportsButtonGroupLabel;
+        
+        /// <summary>
+        /// ExportReportsButtonGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ButtonGroup ExportReportsButtonGroup;
+        
+        /// <summary>
+        /// ExportSummaryReportButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button ExportSummaryReportButton;
+        
+        /// <summary>
+        /// ExportDetailedReportButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button ExportDetailedReportButton;
+        
+        /// <summary>
         /// MonthlyReportsGrids control.
         /// </summary>
         /// <remarks>
