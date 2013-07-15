@@ -9,6 +9,7 @@ using System.Collections;
 using Ext.Net;
 using System.Web.Script.Serialization;
 using Lync_Billing.DB;
+using Lync_Billing.Libs;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Xsl;
@@ -17,7 +18,6 @@ using System.IO;
 using System.Text;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
-using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -145,49 +145,69 @@ namespace Lync_Billing.ui.accounting.reports
             this.Response.End();
         }
 
-        //protected void ExportDetailedReportButton_DirectClick(object sender, DirectEventArgs e)
-        //{
-        //    Store detailedReportStore = new Store();
+        protected void ExportDetailedReportButton_DirectClick(object sender, DirectEventArgs e)
+        {
 
-        //    List<string> columns = new List<string>();
-        //    Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            List<string> columns = new List<string>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
-        //    columns.Add("SourceUserUri");
-        //    columns.Add("SourceNumberUri");
-        //    columns.Add("DestinationNumberUri");
-        //    columns.Add("ResponseTime");
-        //    columns.Add("Duration");
-        //    columns.Add("ui_CallType");
-        //    columns.Add("marker_CallCost");
+            columns.Add("SourceUserUri");
+            columns.Add("SourceNumberUri");
+            columns.Add("DestinationNumberUri");
+            columns.Add("ResponseTime");
+            columns.Add("Duration");
+            columns.Add("ui_CallType");
+            columns.Add("marker_CallCost");
 
-        //    wherePart.Add("marker_CallTypeID", "1");
-        //    wherePart.Add("ac_IsInvoiced", "NO");
+            wherePart.Add("marker_CallTypeID", "1");
+            wherePart.Add("ac_IsInvoiced", "NO");
+            wherePart.Add("ui_CallType", "Personal");
 
-        //    List<PhoneCall> phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            DBLib dbRoutines = new DBLib();
+            DataTable dt = new DataTable();
 
-        //    detailedReportStore.ID = "detailedReportStore";
-        //    detailedReportStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            dt = dbRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, 0);
 
-        //    using (MemoryStream ms = new MemoryStream()) 
-        //    {
-        //        Document doc = new Document();
-        //        PdfWriter writer = PdfWriter.GetInstance(doc, ms);
-                
-        //        doc.SetPageSize(PageSize.LETTER);
-        //        doc.Open();
-                
-        //        PdfContentByte cb = writer.DirectContent;
-        //        PdfImportedPage page;
-        //        PdfReader reader;
+            Document pdfDoc = new Document(PageSize.A4, 30, 30, 40, 25);
+            System.IO.MemoryStream mStream = new System.IO.MemoryStream();
+            PdfWriter writer = PdfWriter.GetInstance(pdfDoc, mStream);
+            int cols = dt.Columns.Count;
+            int rows = dt.Rows.Count;
+            pdfDoc.Open();
 
-        //        foreach (PhoneCall phoneCall in phoneCalls) 
-        //        {
-                    
-        //        }
+            PdfPTable pdfTable = new PdfPTable(cols);
 
-        //    }
+            //creating table headers
+            for (int i = 0; i < cols; i++)
+            {
+                PdfPCell cellCols = new PdfPCell();
+                Font ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 12, Font.BOLD);
+                Chunk chunkCols = new Chunk(dt.Columns[i].ColumnName, ColFont);
+                cellCols.AddElement(chunkCols);
+                pdfTable.AddCell(cellCols);
+            }
 
-        //}
+            //creating table data (actual result)
+            for (int k = 0; k < rows; k++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    PdfPCell cellRows = new PdfPCell();
+                    Font RowFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                    Chunk chunkRows = new Chunk(dt.Rows[k][j].ToString(), RowFont);
+                    cellRows.AddElement(chunkRows);
+                    pdfTable.AddCell(cellRows);
 
+                }
+            }
+
+            pdfDoc.Add(pdfTable);
+            pdfDoc.Close();
+            Response.ContentType = "application/octet-stream";
+            Response.AddHeader("Content-Disposition", "attachment; filename=Report.pdf");
+            Response.Clear();
+            Response.BinaryWrite(mStream.ToArray());
+            Response.End();
+        }
     }
 }
