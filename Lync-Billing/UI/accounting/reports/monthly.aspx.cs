@@ -51,21 +51,20 @@ namespace Lync_Billing.ui.accounting.reports
             }
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
-            FilterReportsBySite.GetStore().DataSource = GetAccountantSiteName();
+            FilterReportsBySite.GetStore().DataSource = GetAccountantSites();
             FilterReportsBySite.GetStore().DataBind();
         }
 
 
         protected List<UsersCallsSummary> MonthlyReports( DateTime date)
         {
-            List<string> sites = new List<string>();
+            string site = string.Empty;
             List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
-           
-            sites = GetAccountantSiteName();
 
-            foreach (string site in sites) 
+            if (FilterReportsBySite.SelectedItem != null && !string.IsNullOrEmpty(FilterReportsBySite.SelectedItem.Value))
             {
-                listOfUsersCallsSummary.AddRange(UsersCallsSummary.GetUsersCallsSummary(date, date, site).Where(e => e.PersonalCallsCost !=0).AsEnumerable<UsersCallsSummary>());
+                site = FilterReportsBySite.SelectedItem.Value;
+                listOfUsersCallsSummary.AddRange(UsersCallsSummary.GetUsersCallsSummary(date, date, site).Where(e => e.PersonalCallsCost != 0).AsEnumerable<UsersCallsSummary>());
             }
             
             return listOfUsersCallsSummary;
@@ -81,19 +80,29 @@ namespace Lync_Billing.ui.accounting.reports
             return sites[0].SiteName;
         }
 
-        public List<string> GetAccountantSiteName()
+        public Site GetSiteObject(int siteID)
         {
-            UserSession session = (UserSession)Session.Contents["UserData"];
-            
-            List<string> sites = new List<string>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            wherePart.Add("SiteID", siteID);
 
+            List<Site> sites = DB.Site.GetSites(null, wherePart, 0);
+
+            return sites[0];
+        }
+
+        public List<Site> GetAccountantSites()
+        {
+            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            List<Site> sites = new List<Site>();
             List<UserRole> userRoles = session.Roles;
 
             foreach (UserRole role in userRoles)
             {
-                if (role.RoleID == 7 || role.RoleID == 1) 
-                    sites.Add(GetSiteName(role.SiteID));
+                if (role.RoleID == 7 || role.RoleID == 1)
+                    sites.Add(GetSiteObject(role.SiteID));
             }
+
             return sites;
         }
 
