@@ -49,8 +49,14 @@
     <Reference Include="Ext.Net.Utilities">
       <HintPath>..\packages\Ext.NET.Utilities.2.2.1\Ext.NET.Utilities.2.2.1\lib\Ext.Net.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="itextsharp" />
+    <Reference Include="iTextSharp">
+      <Private>True</Private>
+      <HintPath>..\packages\iTextSharp-LGPL.4.1.6\lib\iTextSharp.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp.pdfa" />
+    <Reference Include="itextsharp.xmlworker">
+      <HintPath>..\packages\itextsharp.xmlworker.5.4.2\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp.xtra" />
     <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="Microsoft.CSharp" />

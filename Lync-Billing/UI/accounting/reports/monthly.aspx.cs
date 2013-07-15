@@ -203,11 +203,20 @@ namespace Lync_Billing.ui.accounting.reports
 
             pdfDoc.Add(pdfTable);
             pdfDoc.Close();
-            Response.ContentType = "application/octet-stream";
-            Response.AddHeader("Content-Disposition", "attachment; filename=Report.pdf");
+
+            Response.Buffer = false;
             Response.Clear();
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "Application/pdf";
             Response.BinaryWrite(mStream.ToArray());
+            Response.Flush();
             Response.End();
+            //Response.ContentType = "application/octet-stream";
+            //Response.AddHeader("Content-Disposition", "attachment; filename=Report.pdf");
+            //Response.Clear();
+            //Response.BinaryWrite(mStream.ToArray());
+            //Response.End();
         }
     }
 }
