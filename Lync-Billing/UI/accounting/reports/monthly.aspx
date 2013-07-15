@@ -73,20 +73,20 @@
                 Header="true"
                 Title="Generate Monthly Reports"
                 Width="740"
-                Height="65"
+                Height="61"
                 Layout="AnchorLayout">
                 <TopBar>
                     <ext:Toolbar
                         ID="FilterAndSearthToolbar"
                         runat="server">
                         <Items>
-                            <ext:ComboBox 
-                                ID="FilterReportsBySite" 
-                                runat="server" 
-                                Icon="Find" 
-                                TriggerAction="All" 
-                                QueryMode="Local" 
-                                DisplayField="SiteName" 
+                            <ext:ComboBox
+                                ID="FilterReportsBySite"
+                                runat="server"
+                                Icon="Find"
+                                TriggerAction="All"
+                                QueryMode="Local"
+                                DisplayField="SiteName"
                                 ValueField="SiteName"
                                 FieldLabel="Site:"
                                 LabelWidth="35"
@@ -111,21 +111,62 @@
                                 </DirectEvents>
                             </ext:ComboBox>
 
-                            <ext:DateField 
+                            <ext:DateField
                                 ID="ReportDateField"
-                                runat="server" 
+                                runat="server"
                                 FieldLabel="Choose Date:"
                                 LabelWidth="80"
                                 EmptyText="Empty Date"
                                 Width="250"
-                                Margins="5 10 5 5"
+                                Margins="5 170 5 5"
                                 Disabled="true">
                                 <DirectEvents>
                                     <Select OnEvent="ReportDateField_Selection" />
                                 </DirectEvents>
                             </ext:DateField>
 
-                            <ext:ButtonGroup
+                            <ext:Button
+                                ID="ReportExportOptions"
+                                runat="server"
+                                Text="Export Report">
+                                <Menu>
+                                    <ext:Menu ID="ReportExportOptionsMenu" runat="server">
+                                        <Items>
+                                            <ext:MenuItem ID="ExportSummary" runat="server" Text="Export Summary" Icon="PageExcel">
+                                                <Listeners>
+                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
+                                                </Listeners>
+
+                                                <%--<DirectEvents>
+                                                    <Click OnEvent="AssignAlwaysBusiness">
+                                                        <EventMask ShowMask="true" />
+                                                        <ExtraParams>
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                        </ExtraParams>
+                                                    </Click>
+                                                </DirectEvents>--%>
+                                            </ext:MenuItem>
+
+                                            <ext:MenuItem ID="ExportDetailed" runat="server" Text="Export Detailed" Icon="PageExcel">
+                                                <%--<Listeners>
+                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
+                                                </Listeners>
+
+                                                <DirectEvents>
+                                                    <Click OnEvent="AssignAlwaysPersonal">
+                                                        <EventMask ShowMask="true" />
+                                                        <ExtraParams>
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                        </ExtraParams>
+                                                    </Click>
+                                                </DirectEvents>--%>
+                                            </ext:MenuItem>
+                                        </Items>
+                                    </ext:Menu>
+                                </Menu>
+                            </ext:Button>
+
+                            <%--<ext:ButtonGroup
                                 ID="ExportReportsButtonGroup"
                                 runat="server"
                                 Layout="TableLayout"
@@ -148,19 +189,19 @@
                                         Text="Detailed" 
                                         Icon="PageExcel"
                                         OnDirectClick="ExportDetailedReportButton_DirectClick">
-                                        <%--<Listeners>
+                                        <Listeners>
                                             <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
-                                        </Listeners>--%>
+                                        </Listeners>
                                     </ext:Button>
                                 </Buttons>
-                            </ext:ButtonGroup>
+                            </ext:ButtonGroup>--%>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
             </ext:Panel>
 
             <div class="h5 clear"></div>
-            
+
             <ext:GridPanel
                 ID="MonthlyReportsGrids"
                 runat="server"
@@ -169,7 +210,7 @@
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout">
-                
+
                 <Store>
                     <ext:Store
                         ID="MonthlyReportsStore"
@@ -204,7 +245,7 @@
                         </Filters>
                     </ext:GridFilters>
                 </Features>
-                
+
                 <ColumnModel ID="MonthlyReportsColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
@@ -218,7 +259,7 @@
                             <HeaderItems>
                                 <ext:TextField ID="EmployeeIDFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
-                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                        <Change Handler="applyFilter(this);" Buffer="250" />
                                     </Listeners>
                                     <Plugins>
                                         <ext:ClearButton ID="ClearEmployeeIDFilterButton" runat="server" />
@@ -236,7 +277,7 @@
                             <HeaderItems>
                                 <ext:TextField ID="SipAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
-                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                        <Change Handler="applyFilter(this);" Buffer="250" />
                                     </Listeners>
                                     <Plugins>
                                         <ext:ClearButton ID="ClearSipAccountFilterButton" runat="server" />
@@ -254,7 +295,7 @@
                             <HeaderItems>
                                 <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
-                                        <Change Handler="applyFilter(this);" Buffer="250" />                                                
+                                        <Change Handler="applyFilter(this);" Buffer="250" />
                                     </Listeners>
                                     <Plugins>
                                         <ext:ClearButton ID="ClearFullNameFilterButton" runat="server" />
@@ -306,7 +347,7 @@
                         CheckOnly="true">
                     </ext:CheckboxSelectionModel>
                 </SelectionModel>
-                
+
                 <BottomBar>
                     <ext:PagingToolbar
                         ID="MonthlyReportsPagingToolbar"

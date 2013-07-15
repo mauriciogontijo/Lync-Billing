@@ -85,31 +85,40 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.DateField ReportDateField;
         
         /// <summary>
-        /// ExportReportsButtonGroup control.
+        /// ReportExportOptions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ButtonGroup ExportReportsButtonGroup;
+        protected global::Ext.Net.Button ReportExportOptions;
         
         /// <summary>
-        /// ExportSummaryReportButton control.
+        /// ReportExportOptionsMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button ExportSummaryReportButton;
+        protected global::Ext.Net.Menu ReportExportOptionsMenu;
         
         /// <summary>
-        /// ExportDetailedReportButton control.
+        /// ExportSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button ExportDetailedReportButton;
+        protected global::Ext.Net.MenuItem ExportSummary;
+        
+        /// <summary>
+        /// ExportDetailed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem ExportDetailed;
         
         /// <summary>
         /// MonthlyReportsGrids control.
