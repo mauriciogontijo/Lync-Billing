@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="eBill Accounting | Monthly Reports" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="monthly.aspx.cs" Inherits="Lync_Billing.ui.accounting.reports.monthly" %>
 
-<asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <ext:XScript ID="XScript1" runat="server">
         <script>       
             var applyFilter = function (field) {                
@@ -62,7 +62,7 @@
     </ext:XScript>
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
+<asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='generate-report-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
@@ -80,33 +80,50 @@
                         ID="FilterAndSearthToolbar"
                         runat="server">
                         <Items>
+                            <ext:ComboBox 
+                                ID="FilterReportsBySite" 
+                                runat="server" 
+                                Icon="Find" 
+                                TriggerAction="All" 
+                                QueryMode="Local" 
+                                DisplayField="SiteName" 
+                                ValueField="SiteName"
+                                FieldLabel="Site:"
+                                LabelWidth="35"
+                                Margins="5 15 0 5">
+                                <Store>
+                                    <ext:Store
+                                        ID="SitesStore"
+                                        runat="server">
+                                        <Model>
+                                            <ext:Model ID="SitesModel" runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="SiteID" />
+                                                    <ext:ModelField Name="SiteName" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
+
+                                <DirectEvents>
+                                    <Change OnEvent="EnableReportsTools" />
+                                </DirectEvents>
+                            </ext:ComboBox>
+
                             <ext:DateField 
-                                ID="reportDateField"
+                                ID="ReportDateField"
                                 runat="server" 
                                 FieldLabel="Choose Date:"
                                 LabelWidth="80"
                                 EmptyText="Empty Date"
                                 Width="250"
-                                Margins="5 10 5 5">
+                                Margins="5 10 5 5"
+                                Disabled="true">
+                                <DirectEvents>
+                                    <Select OnEvent="ReportDateField_Selection" />
+                                </DirectEvents>
                             </ext:DateField>
-
-                            <ext:Button
-                                ID="ViewMonthlyBills"
-                                runat="server"
-                                Icon="UserMagnify"
-                                Text="Create Report"
-                                Width="100"
-                                Height="22"
-                                OnDirectClick ="ViewMonthlyBills_DirectClick"
-                                Margins="5 110 5 5">
-                            </ext:Button>
-                            
-                            <ext:Label
-                                ID="ExportReportsButtonGroupLabel"
-                                runat="server"
-                                Html="Export Report:"
-                                Width="80"
-                                Margins="10 0 0 0" />
 
                             <ext:ButtonGroup
                                 ID="ExportReportsButtonGroup"
@@ -131,7 +148,7 @@
                                         Text="Detailed" 
                                         Icon="PageExcel"
                                         OnDirectClick="ExportDetailedReportButton_DirectClick">
-                                       <%-- <Listeners>
+                                        <%--<Listeners>
                                             <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
                                         </Listeners>--%>
                                     </ext:Button>
@@ -193,7 +210,7 @@
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
 
                         <ext:Column
-                            ID="EmployeeID"
+                            ID="EmployeeIDCol"
                             runat="server"
                             Text="Employee ID"
                             Width="90"
@@ -211,7 +228,7 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="SipAccount"
+                            ID="SipAccountCol"
                             runat="server"
                             Text="Sip Account"
                             Width="160"
@@ -229,7 +246,7 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="FullName"
+                            ID="FullNameCol"
                             runat="server"
                             Text="Full Name"
                             Width="180"
@@ -247,7 +264,7 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="GrouopedCostsColumns"
+                            ID="GrouopedCostsColumnsCol"
                             runat="server"
                             MenuDisabled="false"
                             Sortable="false"
@@ -280,20 +297,8 @@
                     </Columns>
                 </ColumnModel>
 
-                <%--<Features>
-                    <ext:GridFilters>
-                        <Filters>
-                            <ext:StringFilter DataIndex="EmployeeID" />
-                            <ext:StringFilter DataIndex="SipAccount" />
-                            <ext:StringFilter DataIndex="FullName" />
-                            <ext:NumericFilter DataIndex="Month" />
-                            <ext:NumericFilter DataIndex="Year" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>--%>
-
                 <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                    <ext:CheckboxSelectionModel ID="MonthlyReportsCheckboxSelectionModel"
                         runat="server"
                         Mode="Multi"
                         AllowDeselect="true"
@@ -304,7 +309,7 @@
                 
                 <BottomBar>
                     <ext:PagingToolbar
-                        ID="PagingToolbar1"
+                        ID="MonthlyReportsPagingToolbar"
                         runat="server"
                         StoreID="PhoneCallStore"
                         DisplayInfo="true"

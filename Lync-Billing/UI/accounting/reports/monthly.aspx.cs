@@ -25,10 +25,9 @@ namespace Lync_Billing.ui.accounting.reports
 {
     public partial class monthly : System.Web.UI.Page
     {
-
         private StoreReadDataEventArgs e;
         List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
-
+        private string sipAccount = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -50,6 +49,10 @@ namespace Lync_Billing.ui.accounting.reports
                     Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
                 }
             }
+
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            FilterReportsBySite.GetStore().DataSource = GetAccountantSiteName();
+            FilterReportsBySite.GetStore().DataBind();
         }
 
 
@@ -122,9 +125,9 @@ namespace Lync_Billing.ui.accounting.reports
 
         protected void ViewMonthlyBills_DirectClick(object sender, DirectEventArgs e)
         {
-            if (reportDateField.SelectedValue != null)
+            if (this.ReportDateField.SelectedValue != null)
             {
-                listOfUsersCallsSummary = MonthlyReports(reportDateField.SelectedDate);
+                listOfUsersCallsSummary = MonthlyReports(this.ReportDateField.SelectedDate);
                 MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
                 MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
             }
@@ -217,6 +220,28 @@ namespace Lync_Billing.ui.accounting.reports
             //Response.Clear();
             //Response.BinaryWrite(mStream.ToArray());
             //Response.End();
+        }
+
+        protected void EnableReportsTools(object sender, DirectEventArgs e)
+        {
+            if (FilterReportsBySite.SelectedItem.Index != -1)
+            {
+                ReportDateField.Disabled = false;
+            }
+            else
+            {
+                ReportDateField.Disabled = true;
+            }
+        }
+
+        protected void ReportDateField_Selection(object sender, DirectEventArgs e)
+        {
+            if (ReportDateField.SelectedValue != null)
+            {
+                listOfUsersCallsSummary = MonthlyReports(ReportDateField.SelectedDate);
+                MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
+                MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
+            }
         }
     }
 }

@@ -49,31 +49,40 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Toolbar FilterAndSearthToolbar;
         
         /// <summary>
-        /// reportDateField control.
+        /// FilterReportsBySite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.DateField reportDateField;
+        protected global::Ext.Net.ComboBox FilterReportsBySite;
         
         /// <summary>
-        /// ViewMonthlyBills control.
+        /// SitesStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button ViewMonthlyBills;
+        protected global::Ext.Net.Store SitesStore;
         
         /// <summary>
-        /// ExportReportsButtonGroupLabel control.
+        /// SitesModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Label ExportReportsButtonGroupLabel;
+        protected global::Ext.Net.Model SitesModel;
+        
+        /// <summary>
+        /// ReportDateField control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.DateField ReportDateField;
         
         /// <summary>
         /// ExportReportsButtonGroup control.
@@ -148,13 +157,13 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
         
         /// <summary>
-        /// EmployeeID control.
+        /// EmployeeIDCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column EmployeeID;
+        protected global::Ext.Net.Column EmployeeIDCol;
         
         /// <summary>
         /// EmployeeIDFilter control.
@@ -175,13 +184,13 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.ClearButton ClearEmployeeIDFilterButton;
         
         /// <summary>
-        /// SipAccount control.
+        /// SipAccountCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column SipAccount;
+        protected global::Ext.Net.Column SipAccountCol;
         
         /// <summary>
         /// SipAccountFilter control.
@@ -202,13 +211,13 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.ClearButton ClearSipAccountFilterButton;
         
         /// <summary>
-        /// FullName control.
+        /// FullNameCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column FullName;
+        protected global::Ext.Net.Column FullNameCol;
         
         /// <summary>
         /// FullNameFilter control.
@@ -229,13 +238,13 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.ClearButton ClearFullNameFilterButton;
         
         /// <summary>
-        /// GrouopedCostsColumns control.
+        /// GrouopedCostsColumnsCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column GrouopedCostsColumns;
+        protected global::Ext.Net.Column GrouopedCostsColumnsCol;
         
         /// <summary>
         /// PersonalCallsCostCol control.
@@ -265,21 +274,21 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Column UnmarkedCallsCostCol;
         
         /// <summary>
-        /// CheckboxSelectionModel1 control.
+        /// MonthlyReportsCheckboxSelectionModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.CheckboxSelectionModel CheckboxSelectionModel1;
+        protected global::Ext.Net.CheckboxSelectionModel MonthlyReportsCheckboxSelectionModel;
         
         /// <summary>
-        /// PagingToolbar1 control.
+        /// MonthlyReportsPagingToolbar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.PagingToolbar PagingToolbar1;
+        protected global::Ext.Net.PagingToolbar MonthlyReportsPagingToolbar;
     }
 }
