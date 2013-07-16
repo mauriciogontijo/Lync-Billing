@@ -109,7 +109,7 @@
                                 </Store>
 
                                 <DirectEvents>
-                                    <Change OnEvent="EnableReportsTools" />
+                                    <Select OnEvent="FilterReportsBySite_Selecting" />
                                 </DirectEvents>
                             </ext:ComboBox>
 

@@ -190,15 +190,27 @@ namespace Lync_Billing.ui.accounting.reports
             this.Response.End();
         }
 
-        protected void EnableReportsTools(object sender, DirectEventArgs e)
+        protected void FilterReportsBySite_Selecting(object sender, DirectEventArgs e)
         {
             if (FilterReportsBySite.SelectedItem.Index != -1)
             {
                 StartingDate.Disabled = false;
+
+                //If the dates were previously chosen, jsut refresh the data!
+                if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
+                {
+                    ReportExportOptions.Disabled = false;
+
+                    listOfUsersCallsSummary = PeriodicalReport(FilterReportsBySite.SelectedItem.Value, StartingDate.SelectedDate, EndingDate.SelectedDate);
+                    PeriodicalReportsGrid.GetStore().DataSource = listOfUsersCallsSummary;
+                    PeriodicalReportsGrid.GetStore().LoadData(listOfUsersCallsSummary);
+                }
             }
             else
             {
                 StartingDate.Disabled = true;
+                EndingDate.Disabled = true;
+                ReportExportOptions.Disabled = true;
             }
         }
 
@@ -207,7 +219,6 @@ namespace Lync_Billing.ui.accounting.reports
             if (StartingDate.SelectedValue != null)
             {
                 EndingDate.Disabled = false;
-                ReportExportOptions.Disabled = false;
             }
             else
             {
@@ -220,9 +231,15 @@ namespace Lync_Billing.ui.accounting.reports
         {
             if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
             {
+                ReportExportOptions.Disabled = false;
+
                 listOfUsersCallsSummary = PeriodicalReport(FilterReportsBySite.SelectedItem.Value, StartingDate.SelectedDate, EndingDate.SelectedDate);
                 PeriodicalReportsGrid.GetStore().DataSource = listOfUsersCallsSummary;
                 PeriodicalReportsGrid.GetStore().LoadData(listOfUsersCallsSummary);
+            }
+            else
+            {
+                ReportExportOptions.Disabled = true;
             }
         }
 

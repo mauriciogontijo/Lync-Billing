@@ -129,7 +129,8 @@
                             <ext:Button
                                 ID="ReportExportOptions"
                                 runat="server"
-                                Text="Export Report">
+                                Text="Export Report"
+                                Disabled="true">
                                 <Menu>
                                     <ext:Menu ID="ReportExportOptionsMenu" runat="server">
                                         <Items>
