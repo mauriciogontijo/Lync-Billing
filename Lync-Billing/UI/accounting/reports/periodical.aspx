@@ -91,7 +91,7 @@
                                 ValueField="SiteName"
                                 FieldLabel="Site:"
                                 LabelWidth="25"
-                                Width="200"
+                                Width="230"
                                 Margins="5 15 0 5">
                                 <Store>
                                     <ext:Store
@@ -102,6 +102,7 @@
                                                 <Fields>
                                                     <ext:ModelField Name="SiteID" />
                                                     <ext:ModelField Name="SiteName" />
+                                                    <ext:ModelField Name="CountryCode" />
                                                 </Fields>
                                             </ext:Model>
                                         </Model>
@@ -111,6 +112,16 @@
                                 <DirectEvents>
                                     <Select OnEvent="FilterReportsBySite_Selecting" />
                                 </DirectEvents>
+
+                                <ListConfig>
+                                    <ItemTpl ID="SitesItemTpl" runat="server">
+                                        <Html>
+                                            <div data-qtip="{SiteName}. {CountryCode}">
+                                                {SiteName} ({CountryCode})
+                                            </div>
+                                        </Html>
+                                    </ItemTpl>
+                                </ListConfig>
                             </ext:ComboBox>
 
                             <ext:DateField 
@@ -134,7 +145,7 @@
                                 LabelWidth="20"
                                 EmptyText="Empty Date"
                                 Width="130"
-                                Margins="5 130 5 5"
+                                Margins="5 100 5 5"
                                 Disabled="true">
                                 <DirectEvents>
                                     <Select OnEvent="EndingDate_Selection" />

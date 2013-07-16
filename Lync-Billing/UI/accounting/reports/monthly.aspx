@@ -101,6 +101,7 @@
                                                 <Fields>
                                                     <ext:ModelField Name="SiteID" />
                                                     <ext:ModelField Name="SiteName" />
+                                                    <ext:ModelField Name="CountryCode" />
                                                 </Fields>
                                             </ext:Model>
                                         </Model>
@@ -110,6 +111,16 @@
                                 <DirectEvents>
                                     <Select OnEvent="FilterReportsBySite_Selecting" />
                                 </DirectEvents>
+
+                                <ListConfig>
+                                    <ItemTpl ID="SitesItemTpl" runat="server">
+                                        <Html>
+                                            <div data-qtip="{SiteName}. {CountryCode}">
+                                                {SiteName} ({CountryCode})
+                                            </div>
+                                        </Html>
+                                    </ItemTpl>
+                                </ListConfig>
                             </ext:ComboBox>
 
                             <ext:DateField
