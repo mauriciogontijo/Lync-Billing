@@ -108,7 +108,7 @@
                                 </Store>
 
                                 <DirectEvents>
-                                    <Change OnEvent="EnableReportsTools" />
+                                    <Select OnEvent="FilterReportsBySite_Selecting" />
                                 </DirectEvents>
                             </ext:ComboBox>
 
@@ -137,65 +137,22 @@
                                                 <Listeners>
                                                     <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
                                                 </Listeners>
-
-                                                <%--<DirectEvents>
-                                                    <Click OnEvent="AssignAlwaysBusiness">
-                                                        <EventMask ShowMask="true" />
-                                                        <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                        </ExtraParams>
-                                                    </Click>
-                                                </DirectEvents>--%>
                                             </ext:MenuItem>
 
                                             <ext:MenuItem ID="ExportDetailed" runat="server" Text="Export Detailed" Icon="PageExcel">
-                                                <%--<Listeners>
-                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
-                                                </Listeners>
-
                                                 <DirectEvents>
-                                                    <Click OnEvent="AssignAlwaysPersonal">
+                                                    <Click OnEvent="ExportDetailedReportButton_DirectClick">
                                                         <EventMask ShowMask="true" />
-                                                        <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                        </ExtraParams>
+                                                        <%--<ExtraParams>
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{MonthlyReportsTools}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                        </ExtraParams>--%>
                                                     </Click>
-                                                </DirectEvents>--%>
+                                                </DirectEvents>
                                             </ext:MenuItem>
                                         </Items>
                                     </ext:Menu>
                                 </Menu>
                             </ext:Button>
-
-                            <%--<ext:ButtonGroup
-                                ID="ExportReportsButtonGroup"
-                                runat="server"
-                                Layout="TableLayout"
-                                Width="255"
-                                Frame="false"
-                                ButtonAlign="Left"
-                                Margins="5 0 0 0">
-                                <Buttons>
-                                    <ext:Button ID="ExportSummaryReportButton" 
-                                        runat="server"
-                                        Text="Summary" 
-                                        Icon="PageExcel">
-                                        <Listeners>
-                                            <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
-                                        </Listeners>
-                                    </ext:Button>
-
-                                    <ext:Button ID="ExportDetailedReportButton" 
-                                        runat="server"
-                                        Text="Detailed" 
-                                        Icon="PageExcel"
-                                        OnDirectClick="ExportDetailedReportButton_DirectClick">
-                                        <Listeners>
-                                            <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
-                                        </Listeners>
-                                    </ext:Button>
-                                </Buttons>
-                            </ext:ButtonGroup>--%>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -257,7 +214,8 @@
                             runat="server"
                             Text="Employee ID"
                             Width="90"
-                            DataIndex="EmployeeID">
+                            DataIndex="EmployeeID"
+                            Sortable="true">
                             <HeaderItems>
                                 <ext:TextField ID="EmployeeIDFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -275,7 +233,8 @@
                             runat="server"
                             Text="Sip Account"
                             Width="160"
-                            DataIndex="SipAccount">
+                            DataIndex="SipAccount"
+                            Sortable="true">
                             <HeaderItems>
                                 <ext:TextField ID="SipAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -293,7 +252,8 @@
                             runat="server"
                             Text="Full Name"
                             Width="180"
-                            DataIndex="FullName">
+                            DataIndex="FullName"
+                            Sortable="true">
                             <HeaderItems>
                                 <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
                                     <Listeners>

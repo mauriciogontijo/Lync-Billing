@@ -56,41 +56,16 @@ namespace Lync_Billing.ui.accounting.reports
         }
 
 
-        protected List<UsersCallsSummary> MonthlyReports( DateTime date)
+        protected List<UsersCallsSummary> MonthlyReports(string site, DateTime date)
         {
-            string site = string.Empty;
             List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
-
-            if (FilterReportsBySite.SelectedItem != null && !string.IsNullOrEmpty(FilterReportsBySite.SelectedItem.Value))
-            {
-                site = FilterReportsBySite.SelectedItem.Value;
-                listOfUsersCallsSummary.AddRange(
-                    UsersCallsSummary.GetUsersCallsSummary(date, date, site).Where
-                                (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != 0).AsEnumerable<UsersCallsSummary>());
-            }
+            
+            listOfUsersCallsSummary.AddRange(
+                UsersCallsSummary.GetUsersCallsSummary(date, date, site).Where
+                            (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != 0).AsEnumerable<UsersCallsSummary>());
             
             return listOfUsersCallsSummary;
         }
-
-        //public string GetSiteName(int siteID)
-        //{
-        //    Dictionary<string, object> wherePart = new Dictionary<string, object>();
-        //    wherePart.Add("SiteID", siteID);
-
-        //    List<Site> sites = DB.Site.GetSites(null, wherePart, 0);
-
-        //    return sites[0].SiteName;
-        //}
-
-        //public Site GetSiteObject(int siteID)
-        //{
-        //    Dictionary<string, object> wherePart = new Dictionary<string, object>();
-        //    wherePart.Add("SiteID", siteID);
-
-        //    List<Site> sites = DB.Site.GetSites(null, wherePart, 0);
-
-        //    return sites[0];
-        //}
 
         public List<Site> GetAccountantSites()
         {
@@ -149,16 +124,6 @@ namespace Lync_Billing.ui.accounting.reports
             return users[0].SiteName;
         }
 
-        protected void ViewMonthlyBills_DirectClick(object sender, DirectEventArgs e)
-        {
-            if (this.ReportDateField.SelectedValue != null)
-            {
-                listOfUsersCallsSummary = MonthlyReports(this.ReportDateField.SelectedDate);
-                MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
-                MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
-            }
-        }
-
         protected void MonthlyReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
             string format = this.FormatType.Value.ToString();
@@ -174,9 +139,37 @@ namespace Lync_Billing.ui.accounting.reports
             this.Response.End();
         }
 
+        protected void FilterReportsBySite_Selecting(object sender, DirectEventArgs e)
+        {
+            if (FilterReportsBySite.SelectedItem.Index != -1)
+            {
+                ReportDateField.Disabled = false;
+
+                if (ReportDateField.SelectedValue != null)
+                {
+                    listOfUsersCallsSummary = MonthlyReports(FilterReportsBySite.SelectedItem.Value, ReportDateField.SelectedDate);
+                    MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
+                    MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
+                }
+            }
+            else
+            {
+                ReportDateField.Disabled = true;
+            }
+        }
+
+        protected void ReportDateField_Selection(object sender, DirectEventArgs e)
+        {
+            if (FilterReportsBySite.SelectedItem.Index != -1 && ReportDateField.SelectedValue != null)
+            {
+                listOfUsersCallsSummary = MonthlyReports(FilterReportsBySite.SelectedItem.Value, ReportDateField.SelectedDate);
+                MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
+                MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
+            }
+        }
+
         protected void ExportDetailedReportButton_DirectClick(object sender, DirectEventArgs e)
         {
-
             List<string> columns = new List<string>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
@@ -248,26 +241,5 @@ namespace Lync_Billing.ui.accounting.reports
             //Response.End();
         }
 
-        protected void EnableReportsTools(object sender, DirectEventArgs e)
-        {
-            if (FilterReportsBySite.SelectedItem.Index != -1)
-            {
-                ReportDateField.Disabled = false;
-            }
-            else
-            {
-                ReportDateField.Disabled = true;
-            }
-        }
-
-        protected void ReportDateField_Selection(object sender, DirectEventArgs e)
-        {
-            if (ReportDateField.SelectedValue != null)
-            {
-                listOfUsersCallsSummary = MonthlyReports(ReportDateField.SelectedDate);
-                MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
-                MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
-            }
-        }
     }
 }
