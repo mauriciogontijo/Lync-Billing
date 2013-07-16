@@ -49,6 +49,33 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Toolbar FilterAndSearthToolbar;
         
         /// <summary>
+        /// FilterReportsBySite control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox FilterReportsBySite;
+        
+        /// <summary>
+        /// SitesStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store SitesStore;
+        
+        /// <summary>
+        /// SitesModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model SitesModel;
+        
+        /// <summary>
         /// StartingDate control.
         /// </summary>
         /// <remarks>
@@ -67,49 +94,40 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.DateField EndingDate;
         
         /// <summary>
-        /// ViewMonthlyBills control.
+        /// ReportExportOptions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button ViewMonthlyBills;
+        protected global::Ext.Net.Button ReportExportOptions;
         
         /// <summary>
-        /// ExportReportsButtonGroupLabel control.
+        /// ReportExportOptionsMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Label ExportReportsButtonGroupLabel;
+        protected global::Ext.Net.Menu ReportExportOptionsMenu;
         
         /// <summary>
-        /// ExportReportsButtonGroup control.
+        /// ExportSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ButtonGroup ExportReportsButtonGroup;
+        protected global::Ext.Net.MenuItem ExportSummary;
         
         /// <summary>
-        /// ExportSummaryReportButton control.
+        /// ExportDetailed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button ExportSummaryReportButton;
-        
-        /// <summary>
-        /// ExportDetailedReportButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button ExportDetailedReportButton;
+        protected global::Ext.Net.MenuItem ExportDetailed;
         
         /// <summary>
         /// PeriodicalReportsGrid control.
@@ -157,13 +175,13 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
         
         /// <summary>
-        /// EmployeeID control.
+        /// EmployeeIDCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column EmployeeID;
+        protected global::Ext.Net.Column EmployeeIDCol;
         
         /// <summary>
         /// EmployeeIDFilter control.
@@ -184,13 +202,13 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.ClearButton ClearEmployeeIDFilterButton;
         
         /// <summary>
-        /// SipAccount control.
+        /// SipAccountCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column SipAccount;
+        protected global::Ext.Net.Column SipAccountCol;
         
         /// <summary>
         /// SipAccountFilter control.
@@ -211,13 +229,13 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.ClearButton ClearSipAccountFilterButton;
         
         /// <summary>
-        /// FullName control.
+        /// FullNameCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column FullName;
+        protected global::Ext.Net.Column FullNameCol;
         
         /// <summary>
         /// FullNameFilter control.

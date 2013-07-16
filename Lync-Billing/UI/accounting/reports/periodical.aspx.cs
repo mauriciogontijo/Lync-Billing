@@ -9,6 +9,7 @@ using System.Collections;
 using Ext.Net;
 using System.Web.Script.Serialization;
 using Lync_Billing.DB;
+using Lync_Billing.Libs;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Xsl;
@@ -17,6 +18,8 @@ using System.IO;
 using System.Text;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Lync_Billing.ui.accounting.reports
 {
@@ -24,7 +27,8 @@ namespace Lync_Billing.ui.accounting.reports
     {
 
         List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
-        List<string> sites = new List<string>(); 
+        List<string> sites = new List<string>();
+        private string sipAccount = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -46,19 +50,19 @@ namespace Lync_Billing.ui.accounting.reports
                     Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
                 }
             }
+
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            FilterReportsBySite.GetStore().DataSource = GetAccountantSites();
+            FilterReportsBySite.GetStore().DataBind();
         }
 
-        List<UsersCallsSummary> PeriodicalReport(DateTime startingDate, DateTime endingDate) 
+        List<UsersCallsSummary> PeriodicalReport(string site, DateTime startingDate, DateTime endingDate) 
         {
             List<UsersCallsSummary> tmp = new List<UsersCallsSummary>();
 
-            sites = GetAccountantSiteName();
-
-            foreach (string site in sites)
-            {
-                tmp.AddRange(UsersCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UsersCallsSummary>());
-            }
-
+            
+            tmp.AddRange(UsersCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UsersCallsSummary>());
+            
             var sipAccounts = 
                 (
                     from data in tmp.AsEnumerable()
@@ -87,6 +91,37 @@ namespace Lync_Billing.ui.accounting.reports
                 ).Where(e=> e.PersonalCallsCost > 0).ToList();
 
             return sipAccounts;
+        }
+
+        public List<Site> GetAccountantSites()
+        {
+            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            List<Site> sites = new List<Site>();
+            List<UserRole> userRoles = session.Roles;
+
+            foreach (UserRole role in userRoles)
+            {
+                DB.Site tmpSite = new DB.Site();
+
+                tmpSite.SiteID = userRoles.First(item => item.SiteID == role.SiteID && (item.RoleID == 7 || item.RoleID == 1)).SiteID;
+                sites.Add(tmpSite);
+            }
+
+            List<Site> tmpSites = DB.Site.GetSites();
+
+            foreach (DB.Site site in sites)
+            {
+                DB.Site tmpSite = new DB.Site();
+
+                tmpSite = tmpSites.First(e => e.SiteID == site.SiteID);
+
+                site.SiteName = tmpSite.SiteName;
+                site.CountryCode = tmpSite.CountryCode;
+            }
+
+
+            return sites;
         }
 
         public string GetSiteName(int siteID)
@@ -140,17 +175,6 @@ namespace Lync_Billing.ui.accounting.reports
             return users[0].SiteName;
         }
 
-
-        protected void ViewMonthlyBills_DirectClick(object sender, DirectEventArgs e)
-        {
-            if (StartingDate.SelectedValue != null && EndingDate.SelectedValue != null )
-            {
-                listOfUsersCallsSummary = PeriodicalReport(StartingDate.SelectedDate,EndingDate.SelectedDate);
-                PeriodicalReportsGrid.GetStore().DataSource = listOfUsersCallsSummary;
-                PeriodicalReportsGrid.GetStore().LoadData(listOfUsersCallsSummary);
-            }
-        }
-
         protected void PeriodicalReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
             string format = this.FormatType.Value.ToString();
@@ -166,9 +190,114 @@ namespace Lync_Billing.ui.accounting.reports
             this.Response.End();
         }
 
+        protected void EnableReportsTools(object sender, DirectEventArgs e)
+        {
+            if (FilterReportsBySite.SelectedItem.Index != -1)
+            {
+                StartingDate.Disabled = false;
+            }
+            else
+            {
+                StartingDate.Disabled = true;
+            }
+        }
+
+        protected void StartingDate_Selection(object sender, DirectEventArgs e)
+        {
+            if (StartingDate.SelectedValue != null)
+            {
+                EndingDate.Disabled = false;
+                ReportExportOptions.Disabled = false;
+            }
+            else
+            {
+                EndingDate.Disabled = true;
+                ReportExportOptions.Disabled = true;
+            }
+        }
+
+        protected void EndingDate_Selection(object sender, DirectEventArgs e)
+        {
+            if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
+            {
+                listOfUsersCallsSummary = PeriodicalReport(FilterReportsBySite.SelectedItem.Value, StartingDate.SelectedDate, EndingDate.SelectedDate);
+                PeriodicalReportsGrid.GetStore().DataSource = listOfUsersCallsSummary;
+                PeriodicalReportsGrid.GetStore().LoadData(listOfUsersCallsSummary);
+            }
+        }
+
         protected void ExportDetailedReportButton_DirectClick(object sender, DirectEventArgs e)
         {
+            List<string> columns = new List<string>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
+            columns.Add("SourceUserUri");
+            columns.Add("SourceNumberUri");
+            columns.Add("DestinationNumberUri");
+            columns.Add("ResponseTime");
+            columns.Add("Duration");
+            columns.Add("ui_CallType");
+            columns.Add("marker_CallCost");
+
+            wherePart.Add("marker_CallTypeID", "1");
+            wherePart.Add("ac_IsInvoiced", "NO");
+            wherePart.Add("ui_CallType", "Personal");
+
+            DBLib dbRoutines = new DBLib();
+            DataTable dt = new DataTable();
+
+            dt = dbRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, 0);
+
+            Document pdfDoc = new Document(PageSize.A4, 30, 30, 40, 25);
+            System.IO.MemoryStream mStream = new System.IO.MemoryStream();
+            PdfWriter writer = PdfWriter.GetInstance(pdfDoc, mStream);
+            int cols = dt.Columns.Count;
+            int rows = dt.Rows.Count;
+            pdfDoc.Open();
+
+            PdfPTable pdfTable = new PdfPTable(cols);
+
+            //creating table headers
+            for (int i = 0; i < cols; i++)
+            {
+                PdfPCell cellCols = new PdfPCell();
+                Font ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 12, Font.BOLD);
+                Chunk chunkCols = new Chunk(dt.Columns[i].ColumnName, ColFont);
+                cellCols.AddElement(chunkCols);
+                pdfTable.AddCell(cellCols);
+            }
+
+            //creating table data (actual result)
+            for (int k = 0; k < rows; k++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    PdfPCell cellRows = new PdfPCell();
+                    Font RowFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                    Chunk chunkRows = new Chunk(dt.Rows[k][j].ToString(), RowFont);
+                    cellRows.AddElement(chunkRows);
+                    pdfTable.AddCell(cellRows);
+
+                }
+            }
+
+            pdfDoc.Add(pdfTable);
+            pdfDoc.Close();
+
+            Response.Buffer = false;
+            Response.Clear();
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "Application/pdf";
+            Response.BinaryWrite(mStream.ToArray());
+            Response.Flush();
+            Response.End();
+            //Response.ContentType = "application/octet-stream";
+            //Response.AddHeader("Content-Disposition", "attachment; filename=Report.pdf");
+            //Response.Clear();
+            //Response.BinaryWrite(mStream.ToArray());
+            //Response.End();
         }
+
     }
 }

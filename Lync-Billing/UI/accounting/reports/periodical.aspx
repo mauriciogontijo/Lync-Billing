@@ -74,13 +74,45 @@
                 Header="true"
                 Title="Generate Periodical Reports"
                 Width="740"
-                Height="65"
+                Height="61"
                 Layout="AnchorLayout">
                 <TopBar>
                     <ext:Toolbar
                         ID="FilterAndSearthToolbar"
                         runat="server">
                         <Items>
+                            <ext:ComboBox
+                                ID="FilterReportsBySite"
+                                runat="server"
+                                Icon="Find"
+                                TriggerAction="All"
+                                QueryMode="Local"
+                                DisplayField="SiteName"
+                                ValueField="SiteName"
+                                FieldLabel="Site:"
+                                LabelWidth="25"
+                                Width="200"
+                                Margins="5 15 0 5">
+                                <Store>
+                                    <ext:Store
+                                        ID="SitesStore"
+                                        runat="server">
+                                        <Model>
+                                            <ext:Model ID="SitesModel" runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="SiteID" />
+                                                    <ext:ModelField Name="SiteName" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
+
+                                <DirectEvents>
+                                    <Change OnEvent="EnableReportsTools" />
+                                </DirectEvents>
+                            </ext:ComboBox>
+
                             <ext:DateField 
                                 ID="StartingDate"
                                 runat="server" 
@@ -88,7 +120,11 @@
                                 LabelWidth="30"
                                 EmptyText="Empty Date"
                                 Width="130"
-                                Margins="5 10 5 5">
+                                Margins="5 10 5 5"
+                                Disabled="true">
+                                <DirectEvents>
+                                    <Select OnEvent="StartingDate_Selection" />
+                                </DirectEvents>
                             </ext:DateField>
 
                             <ext:DateField 
@@ -98,56 +134,41 @@
                                 LabelWidth="20"
                                 EmptyText="Empty Date"
                                 Width="130"
-                                Margins="0 10 5 5">
+                                Margins="5 130 5 5"
+                                Disabled="true">
+                                <DirectEvents>
+                                    <Select OnEvent="EndingDate_Selection" />
+                                </DirectEvents>
                             </ext:DateField>
 
                             <ext:Button
-                                ID="ViewMonthlyBills"
+                                ID="ReportExportOptions"
                                 runat="server"
-                                Icon="UserMagnify"
-                                Text="Create Report"
-                                Height="22"
-                                FieldLabel=""
-                                OnDirectClick ="ViewMonthlyBills_DirectClick"
-                                Margins="5 80 5 5">
+                                Text="Export Report"
+                                Disabled="true">
+                                <Menu>
+                                    <ext:Menu ID="ReportExportOptionsMenu" runat="server">
+                                        <Items>
+                                            <ext:MenuItem ID="ExportSummary" runat="server" Text="Export Summary" Icon="PageExcel">
+                                                <Listeners>
+                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
+                                                </Listeners>
+                                            </ext:MenuItem>
+
+                                            <ext:MenuItem ID="ExportDetailed" runat="server" Text="Export Detailed" Icon="PageExcel">
+                                                <DirectEvents>
+                                                    <Click OnEvent="ExportDetailedReportButton_DirectClick">
+                                                        <EventMask ShowMask="true" />
+                                                        <%--<ExtraParams>
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{MonthlyReportsTools}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                        </ExtraParams>--%>
+                                                    </Click>
+                                                </DirectEvents>
+                                            </ext:MenuItem>
+                                        </Items>
+                                    </ext:Menu>
+                                </Menu>
                             </ext:Button>
-
-                            <ext:Label
-                                ID="ExportReportsButtonGroupLabel"
-                                runat="server"
-                                Html="Export Report:"
-                                Width="80"
-                                Margins="10 0 0 0" />
-
-                            <ext:ButtonGroup
-                                ID="ExportReportsButtonGroup"
-                                runat="server"
-                                Layout="TableLayout"
-                                Width="255"
-                                Frame="false"
-                                ButtonAlign="Left"
-                                Margins="5 0 0 0">
-                                <Buttons>
-                                    <ext:Button ID="ExportSummaryReportButton" 
-                                        runat="server"
-                                        Text="Summary" 
-                                        Icon="PageExcel">
-                                        <Listeners>
-                                            <Click Handler="submitValue(#{PeriodicalReportsGrid}, 'xls');" />
-                                        </Listeners>
-                                    </ext:Button>
-
-                                    <ext:Button ID="ExportDetailedReportButton" 
-                                        runat="server"
-                                        Text="Detailed" 
-                                        Icon="PageExcel"
-                                        OnDirectClick="ExportDetailedReportButton_DirectClick">
-                                       <%-- <Listeners>
-                                            <Click Handler="submitValue(#{PeriodicalReportsGrid}, 'xls');" />
-                                        </Listeners>--%>
-                                    </ext:Button>
-                                </Buttons>
-                            </ext:ButtonGroup>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -201,10 +222,10 @@
 
                 <ColumnModel ID="PeriodicalReportsColumnModel" runat="server" Flex="1">
                     <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
+                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="35" />
 
                         <ext:Column
-                            ID="EmployeeID"
+                            ID="EmployeeIDCol"
                             runat="server"
                             Text="Employee ID"
                             Width="90"
@@ -222,7 +243,7 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="SipAccount"
+                            ID="SipAccountCol"
                             runat="server"
                             Text="Sip Account"
                             Width="160"
@@ -240,7 +261,7 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="FullName"
+                            ID="FullNameCol"
                             runat="server"
                             Text="Full Name"
                             Width="180"
