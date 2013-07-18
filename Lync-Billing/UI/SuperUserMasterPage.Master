@@ -210,7 +210,7 @@
                                             <p>Statistics</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../main/statistics.aspx' id="ui_admin_main_statistics">View Statistics</a></p>
+                                            <p><a href='../main/statistics.aspx' id="ui_sysadmin_main_statistics">View Statistics</a></p>
                                         </div>
                                     </div>
 

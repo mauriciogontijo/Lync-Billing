@@ -123,6 +123,7 @@
     <Content Include="ui\admin\users\delegates.aspx" />
     <Content Include="ui\sysadmin\main\configuration.aspx" />
     <Content Include="ui\sysadmin\main\dashboard.aspx" />
+    <Content Include="ui\sysadmin\main\statistics.aspx" />
     <Content Include="ui\sysadmin\users\delegates.aspx" />
     <Content Include="ui\resources\css\css3-buttons.css" />
     <Content Include="ui\resources\css\dropdown-menu-white.css" />
@@ -286,6 +287,13 @@
     </Compile>
     <Compile Include="ui\sysadmin\main\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\main\statistics.aspx.cs">
+      <DependentUpon>statistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\main\statistics.aspx.designer.cs">
+      <DependentUpon>statistics.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\users\delegates.aspx.cs">
       <DependentUpon>delegates.aspx</DependentUpon>
