@@ -114,41 +114,39 @@ namespace Lync_Billing.ui.user
         {
             XmlNode xml = e.Xml;
 
-          
+            //UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            //sipAccount = userSession.EffectiveSipAccount;
 
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            //wherePart.Add("SourceUserUri", sipAccount);
+            ////wherePart.Add("ac_IsInvoiced", "NO");
+            //wherePart.Add("marker_CallTypeID", 1);
 
-            wherePart.Add("SourceUserUri", sipAccount);
-            //wherePart.Add("ac_IsInvoiced", "NO");
-            wherePart.Add("marker_CallTypeID", 1);
+            //columns.Add("SessionIdTime");
+            //columns.Add("SessionIdSeq");
+            //columns.Add("ResponseTime");
+            //columns.Add("SessionEndTime");
+            //columns.Add("marker_CallToCountry");
+            //columns.Add("DestinationNumberUri");
+            //columns.Add("Duration");
+            //columns.Add("marker_CallCost");
+            //columns.Add("ui_CallType");
+            //columns.Add("ui_MarkedOn");
 
-            columns.Add("SessionIdTime");
-            columns.Add("SessionIdSeq");
-            columns.Add("ResponseTime");
-            columns.Add("SessionEndTime");
-            columns.Add("marker_CallToCountry");
-            columns.Add("DestinationNumberUri");
-            columns.Add("Duration");
-            columns.Add("marker_CallCost");
-            columns.Add("ui_CallType");
-            columns.Add("ui_MarkedOn");
+            //userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
 
-            userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+            //xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);
 
-            xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);
+            //XmlDocument doc = new XmlDocument();
+            //doc.LoadXml(xmldoc);
 
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xmldoc);
-
-            XmlNode node = doc.DocumentElement;
+            //XmlNode node = doc.DocumentElement;
   
             this.Response.Clear();
             this.Response.ContentType = "application/vnd.ms-excel";
             this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
             XslCompiledTransform xtExcel = new XslCompiledTransform();
             xtExcel.Load(Server.MapPath("~/Resources/csv.xsl"));
-            xtExcel.Transform(node, null, Response.OutputStream);
+            xtExcel.Transform(xml, null, Response.OutputStream);
         }
 
         protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
