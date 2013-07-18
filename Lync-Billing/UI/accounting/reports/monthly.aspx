@@ -109,7 +109,9 @@
                                 </Store>
 
                                 <DirectEvents>
-                                    <Select OnEvent="FilterReportsBySite_Selecting" />
+                                    <Select OnEvent="FilterReportsBySite_Selecting">
+                                        <EventMask ShowMask="true" />
+                                    </Select>
                                 </DirectEvents>
 
                                 <ListConfig>
@@ -133,7 +135,9 @@
                                 Margins="5 150 5 5"
                                 Disabled="true">
                                 <DirectEvents>
-                                    <Select OnEvent="ReportDateField_Selection" />
+                                    <Select OnEvent="ReportDateField_Selection">
+                                        <EventMask ShowMask="true" />
+                                    </Select>
                                 </DirectEvents>
                             </ext:DateField>
 
