@@ -120,6 +120,8 @@
                                                         <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../session/authenticate.aspx?access=accounting">Accounting Role</a></li>
                                                     <% } if (current_session.IsAdmin || current_session.IsDeveloper) { %>
                                                         <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../session/authenticate.aspx?access=admin">Administrator Role</a></li>
+                                                    <% } if (current_session.IsDeveloper) { %>
+                                                        <li class="first-child last-child"><a title="Elevate Access to Developer Role" href="../session/authenticate.aspx?access=developer">Developer Role</a></li>
                                                     <% } %>
                                                 </ul>
                                             </li>

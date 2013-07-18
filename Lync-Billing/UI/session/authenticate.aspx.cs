@@ -75,7 +75,7 @@ namespace Lync_Billing.ui.session
                         }
 
                         //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
-                        else if ((accessParam == "admin" && session.IsAdmin) || (accessParam == "accounting" && session.IsAccountant) || session.IsDeveloper)
+                        else if ((accessParam == "admin" && session.IsAdmin) || (accessParam == "accounting" && session.IsAccountant) || (accessParam == "developer" && session.IsDeveloper) || session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
                             this.access_level.Value = accessParam;
@@ -180,6 +180,10 @@ namespace Lync_Billing.ui.session
             {
                 Response.Redirect("~/ui/accounting/main/dashboard.aspx");
             }
+            else if (role == "developer")
+            {
+                Response.Redirect("~/ui/developer/main/dashboard.aspx");
+            }
         }
 
 
@@ -188,6 +192,7 @@ namespace Lync_Billing.ui.session
         {
             AccessLevels.Add("accounting");
             AccessLevels.Add("admin");
+            AccessLevels.Add("developer");
         }
 
         //This function handles the switching to delegees
@@ -275,6 +280,11 @@ namespace Lync_Billing.ui.session
                         {
                             session.ActiveRoleName = "accounting";
                             Response.Redirect("~/ui/accounting/main/dashboard.aspx");
+                        }
+                        else if (this.access_level.Value == "developer")
+                        {
+                            session.ActiveRoleName = "developer";
+                            Response.Redirect("~/ui/developer/main/dashboard.aspx");
                         }
                         else if (this.access_level.Value == "delegee" && this.delegee_identity != null)
                         {

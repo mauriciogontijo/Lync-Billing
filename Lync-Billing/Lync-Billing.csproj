@@ -121,6 +121,9 @@
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
     <Content Include="ui\admin\users\delegates.aspx" />
+    <Content Include="ui\developer\main\configuration.aspx" />
+    <Content Include="ui\developer\main\dashboard.aspx" />
+    <Content Include="ui\developer\users\delegates.aspx" />
     <Content Include="ui\resources\css\css3-buttons.css" />
     <Content Include="ui\resources\css\dropdown-menu-white.css" />
     <Content Include="ui\resources\css\dropdown-menu.css" />
@@ -268,6 +271,27 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ui\admin\users\delegates.aspx.designer.cs">
+      <DependentUpon>delegates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\developer\main\configuration.aspx.cs">
+      <DependentUpon>configuration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\developer\main\configuration.aspx.designer.cs">
+      <DependentUpon>configuration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\developer\main\dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\developer\main\dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\developer\users\delegates.aspx.cs">
+      <DependentUpon>delegates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\developer\users\delegates.aspx.designer.cs">
       <DependentUpon>delegates.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\session\authenticate.aspx.cs">
