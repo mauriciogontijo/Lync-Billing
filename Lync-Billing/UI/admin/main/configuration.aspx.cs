@@ -32,9 +32,9 @@ namespace Lync_Billing.ui.admin.main
                 UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "admin")
+                if (session.ActiveRoleName != "sysadmin")
                 {
-                    Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
+                    Response.Redirect("~/ui/session/authenticate.aspx?access=sysadmin");
                 }
             }
 
@@ -43,24 +43,6 @@ namespace Lync_Billing.ui.admin.main
 
         protected void GetConfigurationRecords(object sender, DirectEventArgs e)
         {
-            //if (FilterDelegatesBySite.SelectedItem != null)
-            //{
-            //    string site = FilterDelegatesBySite.SelectedItem.Value;
-
-            //    List<UsersDelegates> usersDelgates = new List<UsersDelegates>();
-            //    List<UsersDelegates> tmpUsersDelegates = new List<UsersDelegates>();
-            //    List<string> usersPersite = new List<string>();
-
-            //    usersPersite = GetUsersPerSite(site);
-
-            //    usersDelgates = UsersDelegates.GetDelgatees();
-
-            //    tmpUsersDelegates = usersDelgates.Where(item => usersPersite.Contains(item.SipAccount)).ToList();
-
-            //    ManageDelegatesGrid.GetStore().DataSource = tmpUsersDelegates;
-            //    ManageDelegatesGrid.GetStore().DataBind();
-            //}
-
             AppConfigGrid.GetStore().DataSource = Persistence.GetDefinitions();
             AppConfigGrid.GetStore().DataBind();
         }

@@ -165,10 +165,10 @@
                             <ext:DateField 
                                 ID="BillDateField"
                                 runat="server" 
-                                FieldLabel="Choose Date:"
-                                LabelWidth="70"
+                                FieldLabel="Date:"
+                                LabelWidth="30"
                                 EmptyText="Empty Date"
-                                Width="220"
+                                Width="190"
                                 Margins="5 15 0 5"
                                 Editable="false">
                                 <DirectEvents>
@@ -184,8 +184,9 @@
                                 QueryMode="Local" 
                                 DisplayField="SiteName" 
                                 ValueField="SiteName"
-                                FieldLabel="Choose Site"
-                                LabelWidth="65"
+                                FieldLabel="Site"
+                                LabelWidth="25"
+                                Width="250"
                                 Margins="5 15 0 5"
                                 Disabled="true">
                                 <Store>

@@ -41,40 +41,37 @@ namespace Lync_Billing.ui.admin.notifications
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
-            FilterUsersBySite.GetStore().DataSource = GetAccountantSiteName();
+            FilterUsersBySite.GetStore().DataSource = GetAdminSites();
             FilterUsersBySite.GetStore().DataBind();
         }
 
-        public string GetSiteName(int siteID)
+        public List<Site> GetAdminSites()
         {
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            wherePart.Add("SiteID", siteID);
-
-            List<Site> sites = DB.Site.GetSites(null, wherePart, 0);
-
-            return sites[0].SiteName;
-        }
-
-        public List<Site> GetAccountantSiteName()
-        {
-            UserSession session = (UserSession)Session.Contents["UserData"];
+            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             List<Site> sites = new List<Site>();
-            Site site;
-
             List<UserRole> userRoles = session.Roles;
 
             foreach (UserRole role in userRoles)
             {
-                if (role.RoleID == 5 || role.RoleID == 1)
-                {
-                    site = new DB.Site();
-                    site.SiteID = role.SiteID;
-                    site.SiteName = GetSiteName(role.SiteID);
+                DB.Site tmpSite = new DB.Site();
 
-                    sites.Add(site);
-                }
+                tmpSite.SiteID = userRoles.First(item => item.SiteID == role.SiteID && (item.RoleID == 5 || item.RoleID == 1)).SiteID;
+                sites.Add(tmpSite);
             }
+
+            List<Site> tmpSites = DB.Site.GetSites();
+
+            foreach (DB.Site site in sites)
+            {
+                DB.Site tmpSite = new DB.Site();
+
+                tmpSite = tmpSites.First(e => e.SiteID == site.SiteID);
+
+                site.SiteName = tmpSite.SiteName;
+                site.CountryCode = tmpSite.CountryCode;
+            }
+
             return sites;
         }
 

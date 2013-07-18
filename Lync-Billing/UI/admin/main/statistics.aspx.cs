@@ -32,9 +32,9 @@ namespace Lync_Billing.ui.admin.main
                 UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "admin")
+                if (session.ActiveRoleName != "sysadmin")
                 {
-                    Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
+                    Response.Redirect("~/ui/session/authenticate.aspx?access=sysadmin");
                 }
             }
 
@@ -50,10 +50,6 @@ namespace Lync_Billing.ui.admin.main
         protected List<GatewaysUsage> GetGatewaysUsageChartData(int year, int fromMonth, int toMonth)
         {
             List<GatewaysUsage> tmpData = new List<GatewaysUsage>();
-
-            //tmpData.AddRange(GatewaysUsage.GetGatewaysUsage(year, fromMonth, toMonth).AsEnumerable<GatewaysUsage>());
-            //var gatewaysUsageData = GatewaysUsage.SetGatewaysUsagePercentagesPerCallsCount(tmpData);
-            //return gatewaysUsageData;
             tmpData.AddRange(GatewaysUsage.SetGatewaysUsagePercentagesPerCallsCount(year, fromMonth, toMonth).AsEnumerable<GatewaysUsage>());
             
             return tmpData;

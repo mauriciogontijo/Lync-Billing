@@ -78,7 +78,7 @@ namespace Lync_Billing.ui.accounting.reports
             {
                 DB.Site tmpSite = new DB.Site();
               
-                tmpSite.SiteID = userRoles.First(item => item.SiteID == role.SiteID && ( item.RoleID == 7|| item.RoleID ==1)).SiteID;
+                tmpSite.SiteID = userRoles.First(item => item.SiteID == role.SiteID && ( item.RoleID == 7 || item.RoleID ==1)).SiteID;
                 sites.Add(tmpSite);
             }
 
@@ -93,7 +93,6 @@ namespace Lync_Billing.ui.accounting.reports
                 site.SiteName = tmpSite.SiteName;
                 site.CountryCode = tmpSite.CountryCode;
             }
-
 
             return sites;
         }

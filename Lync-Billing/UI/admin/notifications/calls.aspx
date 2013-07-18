@@ -217,9 +217,9 @@
                                 ValueField="SiteName"
                                 Width="250"
                                 Margins="5 390 0 5"
-                                FieldLabel="Choose Site"
+                                FieldLabel="Site"
                                 LabelSeparator=":"
-                                LabelWidth="70">
+                                LabelWidth="25">
                                 <Store>
                                     <ext:Store
                                         ID="SitesStore"
