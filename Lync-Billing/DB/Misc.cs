@@ -5,6 +5,9 @@ using System.Web;
 using Ext.Net;
 using System.Net;
 using System.Net.Sockets;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Lync_Billing.DB
 {
@@ -18,9 +21,9 @@ namespace Lync_Billing.DB
             notificationConfig.Html = msg;
             notificationConfig.HideDelay = 5000;
 
-            if (type == "success") 
+            if (type == "success")
                 notificationConfig.Icon = Icon.Accept;
-            else if(type == "info")
+            else if (type == "info")
                 notificationConfig.Icon = Icon.Information;
             else if (type == "warning")
                 notificationConfig.Icon = Icon.AsteriskYellow;
@@ -30,7 +33,7 @@ namespace Lync_Billing.DB
             Notification.Show(notificationConfig);
         }
 
-        public static string ConvertSecondsToReadable(int secondsParam) 
+        public static string ConvertSecondsToReadable(int secondsParam)
         {
             int hours = Convert.ToInt32(Math.Floor((double)(secondsParam / 3600)));
             int minutes = Convert.ToInt32(Math.Floor((double)(secondsParam - (hours * 3600)) / 60));
@@ -57,7 +60,7 @@ namespace Lync_Billing.DB
             return hours_str + ':' + mins_str + ':' + secs_str;
         }
 
-        public static bool GetResolvedConnecionIPAddress(string serverNameOrURL, out string resolvedIPAddress) 
+        public static bool GetResolvedConnecionIPAddress(string serverNameOrURL, out string resolvedIPAddress)
         {
             bool isResolved = false;
             IPHostEntry hostEntry = null;
@@ -107,7 +110,27 @@ namespace Lync_Billing.DB
 
             return isResolved;
         }
-    }
 
-    
+        public static string SerializeObject<T>(T source)
+        {
+            var serializer = new XmlSerializer(typeof(T));
+
+            using (var sw = new System.IO.StringWriter())
+            using (var writer = new XmlTextWriter(sw))
+            {
+                serializer.Serialize(writer, source);
+                return sw.ToString();
+            }
+        }
+
+        public static T DeSerializeObject<T>(string xml)
+        {
+            using (System.IO.StringReader sr = new System.IO.StringReader(xml))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                return (T)serializer.Deserialize(sr);
+            }
+        }
+    }           
+
 }
