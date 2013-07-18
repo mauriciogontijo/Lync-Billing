@@ -6,6 +6,7 @@ using Lync_Billing.Libs;
 using System.Data;
 using Ext.Net;
 using System.Xml;
+using System.Xml.Linq;
 using System.Text;
 
 namespace Lync_Billing.DB
@@ -144,34 +145,25 @@ namespace Lync_Billing.DB
             return phoneCalls;
         }
 
-        public static XmlDocument GetPhoneCallsXML(List<string> columns, Dictionary<string, object> wherePart, int limits) 
+        public static XmlNode GetPhoneCallsXML(List<string> columns, Dictionary<string, object> wherePart, int limits) 
         {
             DataTable dt = new DataTable();
+            XmlDocument xml = new XmlDocument();
+            string xmldoc = string.Empty;
+            StringBuilder sb = new StringBuilder();
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
 
-            XmlDocument xml = new XmlDocument();
-            StringBuilder sb = new StringBuilder();
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dt);
+
+            xmldoc = ds.GetXml();
             
-            sb.Append("<?xml version='1.0' encoding='utf-8' ?>");
-            sb.Append("<DocumentElement>");
 
-            foreach (DataRow dr in dt.Rows)
-            {
-                sb.Append("<" + dt.TableName + ">");
-
-                foreach (DataColumn dc in dt.Columns)
-                    sb.Append("<" + dc.ColumnName + ">" +
-                            dr[dc].ToString() +
-                         "</" + dc.ColumnName + ">");
-
-                sb.Append("</" + dt.TableName + ">");
-            }
-
-            sb.Append("</DocumentElement>");
-            xml.LoadXml(sb.ToString());
-
-            return xml;
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xmldoc);
+            
+            return  doc.DocumentElement;
         }
 
         public static bool UpdatePhoneCall(PhoneCall phoneCall) 
