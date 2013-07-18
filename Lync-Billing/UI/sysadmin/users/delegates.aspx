@@ -246,9 +246,10 @@
                                 QueryMode="Local"
                                 DisplayField="SiteName"
                                 ValueField="SiteName"
-                                FieldLabel="Choose Site"
-                                LabelWidth="65"
-                                Margins="5 5 0 5">
+                                FieldLabel="Site"
+                                LabelWidth="25"
+                                Margins="5 5 0 5"
+                                Width="250">
                                 <Store>
                                     <ext:Store
                                         ID="DelegatesSitesStore"
@@ -258,11 +259,23 @@
                                                 <Fields>
                                                     <ext:ModelField Name="SiteID" />
                                                     <ext:ModelField Name="SiteName" />
+                                                    <ext:ModelField Name="CountryCode" />
                                                 </Fields>
                                             </ext:Model>
                                         </Model>
                                     </ext:Store>
                                 </Store>
+
+                                <ListConfig>
+                                    <ItemTpl ID="SitesItemTpl" runat="server">
+                                        <Html>
+                                            <div data-qtip="{SiteName}. {CountryCode}">
+                                                {SiteName} ({CountryCode})
+                                            </div>
+                                        </Html>
+                                    </ItemTpl>
+                                </ListConfig>
+
                                 <DirectEvents>
                                     <Change OnEvent="GetDelegates" />
                                 </DirectEvents>
@@ -273,7 +286,7 @@
                                 runat="server"
                                 Text="Save Changes"
                                 Icon="ApplicationEdit"
-                                Margins="5 10 0 280">
+                                Margins="5 10 0 250">
                                 <DirectEvents>
                                     <Click OnEvent="UpdateEdited_DirectEvent" before="return #{ManageDelegatesStore}.isDirty();">
                                         <EventMask ShowMask="true" />

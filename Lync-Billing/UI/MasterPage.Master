@@ -117,11 +117,11 @@
                                                 <a href="#">Elevate Access<span class="drop"></span></a>
                                                 <ul id="roles-dropdown">
                                                     <% if(current_session.IsProjectAccountant || current_session.IsDeveloper) { %>
-                                                        <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../session/authenticate.aspx?access=accounting">Accounting Role</a></li>
+                                                        <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../session/authenticate.aspx?access=accounting">Project Accountant</a></li>
                                                     <% } if (current_session.IsProjectAdmin || current_session.IsDeveloper) { %>
-                                                        <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../session/authenticate.aspx?access=admin">Administrator Role</a></li>
+                                                        <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../session/authenticate.aspx?access=admin">Project Administrator</a></li>
                                                     <% } if (current_session.IsSystemAdmin || current_session.IsDeveloper) { %>
-                                                        <li class="first-child last-child"><a title="Elevate Access to Developer Role" href="../session/authenticate.aspx?access=sysadmin">System Admin Role</a></li>
+                                                        <li class="first-child last-child"><a title="Elevate Access to Developer Role" href="../session/authenticate.aspx?access=sysadmin">System Administrator</a></li>
                                                     <% } %>
                                                 </ul>
                                             </li>

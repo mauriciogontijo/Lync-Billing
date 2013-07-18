@@ -113,7 +113,7 @@ div#main_content_place_holder_ManageGatewaysForm *,
 div#main_content_place_holder_UsersBillsGrid *,
 div#main_content_place_holder_ManageDelegatesGrid *,
 div#main_content_place_holder_ManageRatesGrid *,
-div#main_content_place_holder_ViewRatesGrid,
+div#main_content_place_holder_ViewRatesGrid *,
 div#main_content_place_holder_NumberOfCallsChartPanel * { 
     vertical-align: bottom; 
 }

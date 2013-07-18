@@ -40,15 +40,15 @@ namespace Lync_Billing.ui
             //Initialize the DropAccess button's text
             if (PAGE_NAME.Contains("ui_accounting"))
             {
-                DROP_ACCESS_BUTTON_TEXT = "Drop Accounting Access";
+                DROP_ACCESS_BUTTON_TEXT = "Drop Project Accountant Access";
             }
             else if(PAGE_NAME.Contains("ui_admin"))
             {
-                DROP_ACCESS_BUTTON_TEXT = "Drop Admin Access";
+                DROP_ACCESS_BUTTON_TEXT = "Drop Project Administrator Access";
             }
             else if (PAGE_NAME.Contains("ui_sysadmin"))
             {
-                DROP_ACCESS_BUTTON_TEXT = "Drop System Admin Access";
+                DROP_ACCESS_BUTTON_TEXT = "Drop System Administrator Access";
             }
         }
     }
