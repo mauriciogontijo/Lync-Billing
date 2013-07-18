@@ -28,13 +28,13 @@
  
             var getRecordFilter = function () {
                 var f = [];
- 
+                
                 f.push({
                     filter: function (record) {                         
                         return filterString(#{EmployeeIDFilter}.getValue(), "EmployeeID", record);
                     }
                 });
-                 
+                
                 f.push({
                     filter: function (record) {                         
                         return filterString(#{SipAccountFilter}.getValue(), "SipAccount", record);
@@ -46,9 +46,9 @@
                         return filterString(#{FullNameFilter}.getValue(), "FullName", record);
                     }
                 });
- 
+
                 var len = f.length;
-                 
+
                 return function (record) {
                     for (var i = 0; i < len; i++) {
                         if (!f[i].filter(record)) {
