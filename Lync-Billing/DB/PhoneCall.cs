@@ -144,7 +144,7 @@ namespace Lync_Billing.DB
             return phoneCalls;
         }
 
-        public static XmlDocument GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits) 
+        public static XmlDocument GetPhoneCallsXML(List<string> columns, Dictionary<string, object> wherePart, int limits) 
         {
             DataTable dt = new DataTable();
 
