@@ -61,7 +61,7 @@ namespace Lync_Billing.ui.user
             if (userSession.PhoneCalls == null || userSession.PhoneCalls.Count == 0 || force == true)
             {
                 wherePart.Add("SourceUserUri", sipAccount);
-                wherePart.Add("ac_IsInvoiced", "NO");
+                //wherePart.Add("ac_IsInvoiced", "NO");
                 wherePart.Add("marker_CallTypeID", 1);
 
                 columns.Add("SessionIdTime");
@@ -75,8 +75,8 @@ namespace Lync_Billing.ui.user
                 columns.Add("ui_CallType");
                 columns.Add("ui_MarkedOn");
 
-                userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-
+                //userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
                 xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);
 
             }
@@ -120,7 +120,7 @@ namespace Lync_Billing.ui.user
             sipAccount = userSession.EffectiveSipAccount;
 
             wherePart.Add("SourceUserUri", sipAccount);
-            wherePart.Add("ac_IsInvoiced", "NO");
+            //wherePart.Add("ac_IsInvoiced", "NO");
             wherePart.Add("marker_CallTypeID", 1);
 
             columns.Add("SessionIdTime");
@@ -134,7 +134,7 @@ namespace Lync_Billing.ui.user
             columns.Add("ui_CallType");
             columns.Add("ui_MarkedOn");
 
-            userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
 
             xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);
 
@@ -147,7 +147,7 @@ namespace Lync_Billing.ui.user
             this.Response.ContentType = "application/vnd.ms-excel";
             this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
             XslCompiledTransform xtExcel = new XslCompiledTransform();
-            xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
+            xtExcel.Load(Server.MapPath("~/Resources/csv.xsl"));
             xtExcel.Transform(node, null, Response.OutputStream);
         }
 
@@ -223,6 +223,7 @@ namespace Lync_Billing.ui.user
                         break;
 
                     matchedDestinationCall.UI_CallType = "Personal";
+                    
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
                     matchedDestinationCall.UI_UpdatedByUser = sipAccount;
 
