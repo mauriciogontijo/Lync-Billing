@@ -24,15 +24,21 @@ namespace Lync_Billing.Libs
                     status = true;
             }
 
-            if (session.IsAccountant)
+            if (session.IsProjectAccountant)
             {
                 if (URL.Contains(@"/accounting/") || URL.Contains(@"/user/"))
                     status = true;
             }
 
-            if (session.IsAdmin)
+            if (session.IsProjectAdmin)
             {
                 if (URL.Contains(@"/admin/") || URL.Contains(@"/user/"))
+                    status = true;
+            }
+
+            if (session.IsSystemAdmin)
+            {
+                if (URL.Contains(@"/sysadmin/") || URL.Contains(@"/user/"))
                     status = true;
             }
 

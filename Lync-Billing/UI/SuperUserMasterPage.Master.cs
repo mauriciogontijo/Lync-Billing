@@ -46,9 +46,9 @@ namespace Lync_Billing.ui
             {
                 DROP_ACCESS_BUTTON_TEXT = "Drop Admin Access";
             }
-            else if (PAGE_NAME.Contains("ui_developer"))
+            else if (PAGE_NAME.Contains("ui_sysadmin"))
             {
-                DROP_ACCESS_BUTTON_TEXT = "Drop Developer Access";
+                DROP_ACCESS_BUTTON_TEXT = "Drop System Admin Access";
             }
         }
     }

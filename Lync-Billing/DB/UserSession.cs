@@ -29,11 +29,12 @@ namespace Lync_Billing.DB
         public Dictionary<string, string> ClientData { set; get; }
                
         //Generic User Roles
+        //public bool IsAdmin { set; get; }
+        //public bool IsAccountant { set; get; }
         public bool IsDeveloper { set; get; }
-        public bool IsAdmin { set; get; }
-        public bool IsAccountant { set; get; }
 
         //Specific User Roles
+        public bool IsSystemAdmin { set; get; }
         public bool IsProjectAdmin { set; get; }
         public bool IsProjectAccountant { set; get; }
         
@@ -56,9 +57,10 @@ namespace Lync_Billing.DB
         public UserSession()
         {
             //By default the roles are set to false unless initialized as otherwise!
+            //IsAdmin = false;
+            //IsAccountant = false;
             IsDeveloper = false;
-            IsAdmin = false;
-            IsAccountant = false;
+            IsSystemAdmin = false;
             IsProjectAdmin = false;
             IsProjectAccountant = false;
             IsDelegate = false;
@@ -98,13 +100,18 @@ namespace Lync_Billing.DB
                             break;
 
                         case 5:
-                            IsAdmin = true;
+                            //IsAdmin = true;
                             IsProjectAdmin = true;
                             break;
 
                         case 7:
-                            IsAccountant = true;
+                            //IsAccountant = true;
                             IsProjectAccountant = true;
+                            break;
+
+                        case 8:
+                            //IsAdmin = true;
+                            IsSystemAdmin = true;
                             break;
                     }
                 }

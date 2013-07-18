@@ -29,7 +29,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 var referrer = $("#ThisPageReferrer").val();
-                if (referrer.search("ui_admin") != -1 || referrer.search("ui_accounting") != -1 || referrer.search("ui_developer") != -1) {
+                if (referrer.search("ui_admin") != -1 || referrer.search("ui_accounting") != -1 || referrer.search("ui_sysadmin") != -1) {
                     var starting_index = referrer.search("ui");
                     var button_id = referrer.substr(starting_index, referrer.length);
                     $("#" + button_id).addClass("selected");
@@ -184,8 +184,8 @@
                         </div>
                     </div>
                     <!-- *** END OF ADMIN SIDEBAR *** -->
-                <% } else if (PAGE_NAME.Contains("ui_developer")) { %>
-                    <!-- *** START OF DEVELOPER SIDEBAR *** -->
+                <% } else if (PAGE_NAME.Contains("ui_sysadmin")) { %>
+                    <!-- *** START OF SYSADMIN SIDEBAR *** -->
                     <div id='Div1' class='sidebar block float-left w20p'>
                         <div class="block-body">
                             <ext:Panel ID="Panel1"
@@ -201,7 +201,7 @@
                                             <p>Users</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../users/delegates.aspx' id="ui_developer_users_delegates">Manage Delegates</a></p>
+                                            <p><a href='../users/delegates.aspx' id="ui_sysadmin_users_delegates">Manage Delegates</a></p>
                                         </div>
                                     </div>
 
@@ -210,14 +210,14 @@
                                             <p>Application Configuration</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../main/configuration.aspx' id="ui_developer_main_configuration">Manage Configuration</a></p>
+                                            <p><a href='../main/configuration.aspx' id="ui_sysadmin_main_configuration">Manage Configuration</a></p>
                                         </div>
                                     </div>
                                 </Content>
                             </ext:Panel>
                         </div>
                     </div>
-                    <!-- *** END OF ADMIN SIDEBAR *** -->
+                    <!-- *** END OF SYSADMIN SIDEBAR *** -->
                 <% } %>
 
 

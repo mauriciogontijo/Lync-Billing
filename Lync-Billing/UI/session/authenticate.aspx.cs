@@ -69,13 +69,13 @@ namespace Lync_Billing.ui.session
                         ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
 
                         //if the user was authenticated already
-                        if (session.ActiveRoleName != "user" && (session.IsAdmin || session.IsAccountant || session.IsDeveloper))
+                        if (session.ActiveRoleName != "user" && (session.IsProjectAdmin || session.IsProjectAccountant || session.IsDeveloper))
                         {
                             RedirectToElevatedAccessDasboard(session.ActiveRoleName);
                         }
 
                         //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
-                        else if ((accessParam == "admin" && session.IsAdmin) || (accessParam == "accounting" && session.IsAccountant) || (accessParam == "developer" && session.IsDeveloper) || session.IsDeveloper)
+                        else if ((accessParam == "admin" && session.IsProjectAdmin) || (accessParam == "accounting" && session.IsProjectAccountant) || (accessParam == "sysadmin" && session.IsSystemAdmin) || session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
                             this.access_level.Value = accessParam;
@@ -114,8 +114,9 @@ namespace Lync_Billing.ui.session
                         //Case 1: Drop Admin or Accounting Access
                         if (AccessLevels.Contains(dropParam))
                         {
-                            if ((dropParam == "admin" && session.IsAdmin && session.ActiveRoleName == "admin") ||
-                                (dropParam == "accounting" && session.IsAccountant && session.ActiveRoleName == "accounting") ||
+                            if ((dropParam == "admin" && session.IsProjectAdmin && session.ActiveRoleName == "admin") ||
+                                (dropParam == "accounting" && session.IsProjectAccountant && session.ActiveRoleName == "accounting") ||
+                                (dropParam == "sysadmin" && session.IsSystemAdmin && session.ActiveRoleName == "sysadmin") ||
                                 session.IsDeveloper)
                             {
                                 DropAccess(dropParam);
@@ -180,9 +181,9 @@ namespace Lync_Billing.ui.session
             {
                 Response.Redirect("~/ui/accounting/main/dashboard.aspx");
             }
-            else if (role == "developer")
+            else if (role == "sysadmin")
             {
-                Response.Redirect("~/ui/developer/main/dashboard.aspx");
+                Response.Redirect("~/ui/sysadmin/main/dashboard.aspx");
             }
         }
 
@@ -190,9 +191,14 @@ namespace Lync_Billing.ui.session
         //This function is responsilbe for initializing the value of the AccessLevels List instance variable
         private void InitAccessLevels()
         {
-            AccessLevels.Add("accounting");
+            //role_id=; project-admin
             AccessLevels.Add("admin");
-            AccessLevels.Add("developer");
+
+            //role_id=7; project-accountant
+            AccessLevels.Add("accounting");
+
+            //role_id=8; system-admin
+            AccessLevels.Add("sysadmin");
         }
 
         //This function handles the switching to delegees
@@ -281,10 +287,10 @@ namespace Lync_Billing.ui.session
                             session.ActiveRoleName = "accounting";
                             Response.Redirect("~/ui/accounting/main/dashboard.aspx");
                         }
-                        else if (this.access_level.Value == "developer")
+                        else if (this.access_level.Value == "sysadmin")
                         {
-                            session.ActiveRoleName = "developer";
-                            Response.Redirect("~/ui/developer/main/dashboard.aspx");
+                            session.ActiveRoleName = "sysadmin";
+                            Response.Redirect("~/ui/sysadmin/main/dashboard.aspx");
                         }
                         else if (this.access_level.Value == "delegee" && this.delegee_identity != null)
                         {
