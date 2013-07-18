@@ -237,7 +237,9 @@
                                     </ItemTpl>
                                 </ListConfig>
                                 <DirectEvents>
-                                    <Change OnEvent="GetGatewaysForSite" />
+                                    <Change OnEvent="GetGatewaysForSite">
+                                        <EventMask ShowMask="true" />
+                                    </Change>
                                 </DirectEvents>
                             </ext:ComboBox>
 
@@ -269,7 +271,9 @@
                                     </ext:Store>
                                 </Store>
                                 <DirectEvents>
-                                    <Select OnEvent="GetRates" />
+                                    <Select OnEvent="GetRates">
+                                        <EventMask ShowMask="true" />
+                                    </Select>
                                 </DirectEvents>
                             </ext:ComboBox>
 

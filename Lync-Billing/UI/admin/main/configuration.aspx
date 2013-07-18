@@ -163,7 +163,9 @@
                                 Text="Add Record"
                                 Icon="Add">
                                 <DirectEvents>
-                                    <Click OnEvent="ShowAddDefinitionPanel" />
+                                    <Click OnEvent="ShowAddDefinitionPanel">
+                                        <EventMask ShowMask="true" />
+                                    </Click>
                                 </DirectEvents>
                             </ext:Button>
 

@@ -148,15 +148,6 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Toolbar FilterToolBar;
         
         /// <summary>
-        /// BillDateField control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.DateField BillDateField;
-        
-        /// <summary>
         /// FilterUsersBySite control.
         /// </summary>
         /// <remarks>
@@ -182,6 +173,15 @@ namespace Lync_Billing.ui.admin.notifications {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Model SitesModel;
+        
+        /// <summary>
+        /// BillDateField control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.DateField BillDateField;
         
         /// <summary>
         /// EmailAlertButton control.

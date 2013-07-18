@@ -162,20 +162,6 @@
                 <TopBar>
                     <ext:Toolbar ID="FilterToolBar" runat="server">
                         <Items>
-                            <ext:DateField 
-                                ID="BillDateField"
-                                runat="server" 
-                                FieldLabel="Date:"
-                                LabelWidth="30"
-                                EmptyText="Empty Date"
-                                Width="190"
-                                Margins="5 15 0 5"
-                                Editable="false">
-                                <DirectEvents>
-                                    <Select OnEvent="BillDateField_Selection" />
-                                </DirectEvents>
-                            </ext:DateField>
-
                             <ext:ComboBox 
                                 ID="FilterUsersBySite" 
                                 runat="server" 
@@ -188,7 +174,7 @@
                                 LabelWidth="25"
                                 Width="250"
                                 Margins="5 15 0 5"
-                                Disabled="true">
+                                Disabled="false">
                                 <Store>
                                     <ext:Store
                                         ID="SitesStore"
@@ -198,24 +184,56 @@
                                                 <Fields>
                                                     <ext:ModelField Name="SiteID" />
                                                     <ext:ModelField Name="SiteName" />
+                                                    <ext:ModelField Name="CountryCode" />
                                                 </Fields>
                                             </ext:Model>
                                         </Model>
                                     </ext:Store>
                                 </Store>
+
+                                <ListConfig>
+                                    <ItemTpl ID="SitesItemTpl" runat="server">
+                                        <Html>
+                                            <div data-qtip="{SiteName}. {CountryCode}">
+                                                {SiteName} ({CountryCode})
+                                            </div>
+                                        </Html>
+                                    </ItemTpl>
+                                </ListConfig>
+
                                 <DirectEvents>
-                                    <Change OnEvent="GetUsersBillsForSite" />
+                                    <Change OnEvent="FilterUsersBySite_Selected">
+                                        <EventMask ShowMask="true" />
+                                    </Change>
                                 </DirectEvents>
                             </ext:ComboBox>
+
+                            <ext:DateField 
+                                ID="BillDateField"
+                                runat="server" 
+                                FieldLabel="Date:"
+                                LabelWidth="30"
+                                EmptyText="Empty Date"
+                                Width="190"
+                                Margins="5 175 0 5"
+                                Editable="false"
+                                Disabled="true">
+                                <DirectEvents>
+                                    <Select OnEvent="GetUsersBillsForSite">
+                                        <EventMask ShowMask="true" />
+                                    </Select>
+                                </DirectEvents>
+                            </ext:DateField>
 
                             <ext:Button 
                                 ID="EmailAlertButton" 
                                 runat="server" 
                                 Text="Email Alert" 
                                 Icon="EmailAdd" 
-                                Margins="5 5 0 160">
+                                Margins="5 5 5 5">
                                 <DirectEvents>
                                     <Click OnEvent="NotifyUsers">
+                                        <EventMask ShowMask="true" />
                                         <ExtraParams>
                                             <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw"/>
                                         </ExtraParams>

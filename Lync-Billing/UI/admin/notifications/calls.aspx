@@ -229,14 +229,27 @@
                                                 <Fields>
                                                     <ext:ModelField Name="SiteID" />
                                                     <ext:ModelField Name="SiteName" />
+                                                    <ext:ModelField Name="CountryCode" />
                                                 </Fields>
                                             </ext:Model>
                                         </Model>            
                                     </ext:Store>
                                 </Store>
 
+                                <ListConfig>
+                                    <ItemTpl ID="SitesItemTpl" runat="server">
+                                        <Html>
+                                            <div data-qtip="{SiteName}. {CountryCode}">
+                                                {SiteName} ({CountryCode})
+                                            </div>
+                                        </Html>
+                                    </ItemTpl>
+                                </ListConfig>
+
                                 <DirectEvents>
-                                    <Change OnEvent="GetUnmarkedCallsForSite" />
+                                    <Change OnEvent="GetUnmarkedCallsForSite">
+                                        <EventMask ShowMask="true" />
+                                    </Change>
                                 </DirectEvents>
                             </ext:ComboBox>
 
@@ -248,6 +261,7 @@
                                 Margins="5 5 0 0">
                                <DirectEvents>
                                    <Click OnEvent="NotifyUsers">
+                                       <EventMask ShowMask="true" />
                                        <ExtraParams>
                                            <ext:Parameter Name="Values" Value="Ext.encode(#{UnmarkedCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw"/>
                                        </ExtraParams>

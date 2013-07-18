@@ -66,7 +66,9 @@
                                     </ext:Store>
                                 </Store>
                                 <DirectEvents>
-                                    <Change OnEvent="GetDetails" />
+                                    <Change OnEvent="GetDetails">
+                                        <EventMask ShowMask="true" />
+                                    </Change>
                                 </DirectEvents>
                             </ext:ComboBox>
 

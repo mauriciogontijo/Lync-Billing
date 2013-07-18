@@ -146,15 +146,15 @@ namespace Lync_Billing.ui.admin.notifications
             return UserBills;
         }
 
-        protected void BillDateField_Selection(object sender, DirectEventArgs e)
+        protected void FilterUsersBySite_Selected(object sender, DirectEventArgs e)
         {
-            if (BillDateField.SelectedDate != null)
+            if (FilterUsersBySite.SelectedItem.Index != -1)
             {
-                FilterUsersBySite.Disabled = false;
+                BillDateField.Disabled = false;
             }
             else
             {
-                FilterUsersBySite.Disabled = true;
+                BillDateField.Disabled = true;
             }
         }
 
