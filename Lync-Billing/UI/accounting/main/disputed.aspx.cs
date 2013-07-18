@@ -49,7 +49,7 @@ namespace Lync_Billing.ui.accounting.main
             List<string> sites = GetAccountantSiteName(userSession.PrimarySipAccount);
 
             wherePart.Add("marker_CallTypeID", 1);
-            wherePart.Add("ac_IsInvoiced", "NO");
+            //wherePart.Add("ac_IsInvoiced", "NO");
             wherePart.Add("ui_CallType", "Disputed");
 
             columns.Add("SessionIdTime");
@@ -63,7 +63,7 @@ namespace Lync_Billing.ui.accounting.main
             columns.Add("ac_DisputeStatus");
             columns.Add("ui_MarkedOn");
 
-            usersCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            usersCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
 
             foreach (PhoneCall phoneCall in usersCalls) 
             {
