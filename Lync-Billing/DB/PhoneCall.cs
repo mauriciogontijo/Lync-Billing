@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using Lync_Billing.Libs;
 using System.Data;
-using Ext.Net
-;
+using Ext.Net;
+using System.Xml;
+using System.Text;
+
 namespace Lync_Billing.DB
 {
     public class PhoneCall
@@ -140,6 +142,36 @@ namespace Lync_Billing.DB
                 phoneCalls.Add(phoneCall);
             }
             return phoneCalls;
+        }
+
+        public static XmlDocument GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits) 
+        {
+            DataTable dt = new DataTable();
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
+
+            XmlDocument xml = new XmlDocument();
+            StringBuilder sb = new StringBuilder();
+            
+            sb.Append("<?xml version='1.0' encoding='utf-8' ?>");
+            sb.Append("<DocumentElement>");
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                sb.Append("<" + dt.TableName + ">");
+
+                foreach (DataColumn dc in dt.Columns)
+                    sb.Append("<" + dc.ColumnName + ">" +
+                            dr[dc].ToString() +
+                         "</" + dc.ColumnName + ">");
+
+                sb.Append("</" + dt.TableName + ">");
+            }
+
+            sb.Append("</DocumentElement>");
+            xml.LoadXml(sb.ToString());
+
+            return xml;
         }
 
         public static bool UpdatePhoneCall(PhoneCall phoneCall) 
