@@ -25,6 +25,8 @@ namespace Lync_Billing.ui.user
         private string pageData = string.Empty;
         private StoreReadDataEventArgs e;
 
+        string xmldoc = string.Empty;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -54,6 +56,8 @@ namespace Lync_Billing.ui.user
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = userSession.EffectiveSipAccount;
 
+           
+
             if (userSession.PhoneCalls == null || userSession.PhoneCalls.Count == 0 || force == true)
             {
                 wherePart.Add("SourceUserUri", sipAccount);
@@ -72,6 +76,9 @@ namespace Lync_Billing.ui.user
                 columns.Add("ui_MarkedOn");
 
                 userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+
+                xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);
+
             }
         }
 
@@ -107,12 +114,41 @@ namespace Lync_Billing.ui.user
         {
             XmlNode xml = e.Xml;
 
+          
+
+            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = userSession.EffectiveSipAccount;
+
+            wherePart.Add("SourceUserUri", sipAccount);
+            wherePart.Add("ac_IsInvoiced", "NO");
+            wherePart.Add("marker_CallTypeID", 1);
+
+            columns.Add("SessionIdTime");
+            columns.Add("SessionIdSeq");
+            columns.Add("ResponseTime");
+            columns.Add("SessionEndTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+            columns.Add("ui_CallType");
+            columns.Add("ui_MarkedOn");
+
+            userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+
+            xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xmldoc);
+
+            XmlNode node = doc.DocumentElement;
+  
             this.Response.Clear();
             this.Response.ContentType = "application/vnd.ms-excel";
             this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
             XslCompiledTransform xtExcel = new XslCompiledTransform();
             xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
-            xtExcel.Transform(xml, null, Response.OutputStream);
+            xtExcel.Transform(node, null, Response.OutputStream);
         }
 
         protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
