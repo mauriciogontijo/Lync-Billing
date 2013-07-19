@@ -158,11 +158,11 @@
     <Content Include="ui\resources\js\ext-all.js" />
     <Content Include="ui\resources\js\jquery-1.9.1.min.js" />
     <Content Include="ui\resources\js\stacktrace.js" />
+    <Content Include="ui\test\export.aspx" />
     <Content Include="ui\test\redbtn.aspx" />
     <Content Include="ui\user\bills.aspx" />
     <Content Include="ui\user\dashboard.aspx" />
     <Content Include="ui\user\addressbook.aspx" />
-    <Content Include="ui\user\delegees.aspx" />
     <Content Include="ui\user\history.aspx" />
     <Content Include="ui\user\phonecalls.aspx" />
     <Content Include="ui\user\rates.aspx" />
@@ -365,6 +365,13 @@
     <Compile Include="ui\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
+    <Compile Include="ui\test\export.aspx.cs">
+      <DependentUpon>export.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\test\export.aspx.designer.cs">
+      <DependentUpon>export.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ui\test\redbtn.aspx.cs">
       <DependentUpon>redbtn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -392,13 +399,6 @@
     </Compile>
     <Compile Include="ui\user\addressbook.aspx.designer.cs">
       <DependentUpon>addressbook.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ui\user\delegees.aspx.cs">
-      <DependentUpon>delegees.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ui\user\delegees.aspx.designer.cs">
-      <DependentUpon>delegees.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\user\history.aspx.cs">
       <DependentUpon>history.aspx</DependentUpon>

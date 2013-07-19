@@ -113,7 +113,20 @@ namespace Lync_Billing.DB
 
         public static string SerializeObject<T>(T source)
         {
-            var serializer = new XmlSerializer(typeof(T));
+            
+            XmlAttributeOverrides attrOverrides = new XmlAttributeOverrides();
+            XmlAttributes attrs = new XmlAttributes();
+
+            if (typeof(T) == typeof(List<PhoneCall>))
+            {
+                XmlElementAttribute attr = new XmlElementAttribute("record", typeof(PhoneCall));
+
+                attrs.XmlElements.Add(attr);
+                attrOverrides.Add(typeof(List<PhoneCall>), "records", attrs);
+            }
+
+            //var serializer = new XmlSerializer(typeof(T));
+            XmlSerializer serializer = new XmlSerializer(typeof(T), attrOverrides);
 
             using (var sw = new System.IO.StringWriter())
             using (var writer = new XmlTextWriter(sw))
