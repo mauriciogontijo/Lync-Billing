@@ -120,7 +120,7 @@
                         StoreID="PhoneCallStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Phone Calls {0} - {1} of {2}" />
+                        DisplayMsg="Cofiguration Records {0} - {1} of {2}" />
                 </BottomBar>
 
                 <TopBar>

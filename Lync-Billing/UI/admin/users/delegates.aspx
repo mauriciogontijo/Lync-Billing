@@ -307,7 +307,7 @@
                         StoreID="ManageDelegatesStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Delegates {0} - {1} of {2}" />
+                        DisplayMsg="Users Delegates {0} - {1} of {2}" />
                 </BottomBar>
 
             </ext:GridPanel>

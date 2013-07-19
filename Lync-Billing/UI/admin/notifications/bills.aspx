@@ -261,7 +261,7 @@
                         StoreID="UsersBillsStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Users Bills {0} - {1} of {2}" />
+                        DisplayMsg="Users' Bills {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
         </div>

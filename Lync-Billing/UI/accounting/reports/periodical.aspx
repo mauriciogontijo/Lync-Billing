@@ -359,7 +359,7 @@
                         StoreID="PeriodicalReportsStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Phone Calls {0} - {1} of {2}" />
+                        DisplayMsg="Users {0} - {1} of {2}" />
                 </BottomBar>
 
             </ext:GridPanel>

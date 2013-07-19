@@ -223,7 +223,7 @@
                         StoreID="ViewRatesStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Delegates {0} - {1} of {2}" />
+                        DisplayMsg="Telephony Rates {0} - {1} of {2}" />
                 </BottomBar>
 
             </ext:GridPanel>
