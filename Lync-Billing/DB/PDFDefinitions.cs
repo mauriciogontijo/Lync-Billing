@@ -50,7 +50,7 @@ namespace Lync_Billing.DB
 
         }
 
-        public string GetDescription(Enum value)
+        public static string GetDescription(Enum value)
         {
             FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
 
