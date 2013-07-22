@@ -7,10 +7,12 @@ using System.ComponentModel;
 
 namespace Lync_Billing.DB
 {
-    public static enum PDFDefinitions 
+    public static class PDFDefinitions
     {
+        public  enum PDF
+        {
+
+        }
 
     }
-
-    
 }
