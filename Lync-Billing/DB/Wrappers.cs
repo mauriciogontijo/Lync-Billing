@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace Lync_Billing.DB
 {
 
-    [XmlRoot("Documnet")]
+    [XmlRoot("Document")]
     public class PhoneCallsWrapper 
     {
         [XmlArray("records"), XmlArrayItem(typeof(PhoneCall), ElementName = "record")]
