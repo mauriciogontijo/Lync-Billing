@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Xml.Serialization;
 
 namespace Lync_Billing.DB
 {
@@ -47,7 +48,9 @@ namespace Lync_Billing.DB
 
         //Phone Calls and Phone Book Related
         public string PhoneCallsPerPage { set; get; }
+
         public List<PhoneCall> PhoneCalls { set; get; }
+
         public List<PhoneCall> PhoneCallsHistory { set; get; }
         public Dictionary<string, PhoneBook> PhoneBook { set; get; }
 
