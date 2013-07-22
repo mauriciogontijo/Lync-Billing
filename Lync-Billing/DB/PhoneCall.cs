@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace Lync_Billing.DB
 {
-    [XmlRoot("records")]
+    [XmlRoot("Documnet")]
     //[XmlInclude(typeof(PhoneCall))]
     public class PhoneCall
     {
@@ -236,7 +236,11 @@ namespace Lync_Billing.DB
         
         public string GetPhoneCallsXML(List<PhoneCall> phonecalls) 
         {
-            return Misc.SerializeObject<List<PhoneCall>>(phonecalls);
+            PhoneCallsWrapper phonecallsWrapper = new PhoneCallsWrapper();
+
+            phonecallsWrapper.Records = phonecalls;
+
+            return Misc.SerializeObject<PhoneCallsWrapper>(phonecallsWrapper);
         }
     
     }
