@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
+
 namespace Lync_Billing.DB
 {
     [XmlRoot("Document")]
@@ -234,7 +235,7 @@ namespace Lync_Billing.DB
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
 
-            PDFLib.CreatePDF(dt);
+            return PDFLib.CreatePDF(dt);
         }
         
         public string GetPhoneCallsXML(List<PhoneCall> phonecalls) 

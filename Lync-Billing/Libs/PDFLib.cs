@@ -18,6 +18,7 @@ namespace Lync_Billing.Libs
             
             string path = HttpRuntime.AppDomainAppPath;
 
+
             PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(path.ToString() + @"\Exported.pdf", FileMode.Create));
             document.Open();
             Font font5 = FontFactory.GetFont(FontFactory.HELVETICA, 5);
@@ -47,7 +48,10 @@ namespace Lync_Billing.Libs
                         table.AddCell(new Phrase(r[colum.ColumnName].ToString(),font5));
                 }
             } document.Add(table);
+            
             document.Close();
+                      
+
         }
 
     }

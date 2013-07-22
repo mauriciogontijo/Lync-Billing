@@ -14,6 +14,10 @@ using Lync_Billing.Libs;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 
 
 namespace Lync_Billing.ui.user
@@ -129,24 +133,32 @@ namespace Lync_Billing.ui.user
             columns.Add("marker_CallCost");
 
             userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
-            PhoneCall.ExportPhoneCalls(columns, wherePart, 0);
+            
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            
+           // Document doc = PhoneCall.ExportPhoneCalls(columns, wherePart, 0);
             //xmldoc = Misc.SerializeObject <List<PhoneCall>> (userSession.PhoneCalls);
 
-            PhoneCall phoneCalls = new PhoneCall();
+            //PhoneCall phoneCalls = new PhoneCall();
 
-            string xmldoc = phoneCalls.GetPhoneCallsXML(userSession.PhoneCalls);
+            //string xmldoc = phoneCalls.GetPhoneCallsXML(userSession.PhoneCalls);
 
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xmldoc);
+            //XmlDocument doc = new XmlDocument();
+            //doc.LoadXml(xmldoc);
 
-            XmlNode node = doc.DocumentElement;
+            //XmlNode node = doc.DocumentElement;
   
-            this.Response.Clear();
-            this.Response.ContentType = "application/vnd.ms-excel";
-            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
-            XslCompiledTransform xtExcel = new XslCompiledTransform();
-            xtExcel.Load(Server.MapPath("~/Resources/excel.xsl"));
-            xtExcel.Transform(xml, null, Response.OutputStream);
+            //this.Response.Clear();
+            //this.Response.ContentType = "application/vnd.ms-excel";
+            //this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+            //XslCompiledTransform xtExcel = new XslCompiledTransform();
+            //xtExcel.Load(Server.MapPath("~/Resources/excel.xsl"));
+            //xtExcel.Transform(xml, null, Response.OutputStream);
+            doc.Close();
+            Response.Write(doc);
+            Response.End();
         }
 
         protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
