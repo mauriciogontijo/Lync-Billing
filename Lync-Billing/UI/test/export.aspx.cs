@@ -13,6 +13,7 @@ using Lync_Billing.DB;
 using Lync_Billing.Libs;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
+using System.Xml.Serialization;
 
 namespace Lync_Billing.ui.test
 {
@@ -21,11 +22,15 @@ namespace Lync_Billing.ui.test
         private Dictionary<string, object> wherePart = new Dictionary<string, object>();
         private List<string> columns = new List<string>();
         private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
-        private List<PhoneCall> PhoneCallsList = new List<PhoneCall>();
+
         private string sipAccount = string.Empty;
         private string pageData = string.Empty;
         private string PhoneCallsPerPage = string.Empty;
         private StoreReadDataEventArgs e;
+
+        [XmlArray("records")]
+        [XmlArrayItem("record")]
+        private List<PhoneCall> PhoneCallsList = new List<PhoneCall>();
 
         string xmldoc = string.Empty;
 

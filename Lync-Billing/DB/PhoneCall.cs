@@ -8,9 +8,12 @@ using Ext.Net;
 using System.Xml;
 using System.Xml.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Lync_Billing.DB
 {
+    [XmlRoot("records")]
+    [XmlInclude(typeof(PhoneCall))]
     public class PhoneCall
     {
         public PhoneCall() { }
@@ -48,6 +51,10 @@ namespace Lync_Billing.DB
         public string PhoneBookName { set; get; }
 
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
+
+        [XmlArray("records")]
+        [XmlArrayItem("record")]
+        public List<PhoneCall> ListOfPhoneCalls { get; set; }
 
         public static List<PhoneCall> GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
