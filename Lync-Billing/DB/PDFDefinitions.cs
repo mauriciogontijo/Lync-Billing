@@ -11,57 +11,41 @@ namespace Lync_Billing.DB
     {
         public  enum PDF
         {
-            [Description("SessionIdTime")]
+            [Description("Session Time")]
             SessionIdTime,
-            [Description("SessionIdSeq")]
+            [Description("Session Seq")]
             SessionIdSeq,
-            [Description("ResponseTime")]
+            [Description("Response Time")]
             ResponseTime,
-            [Description("SessionEndTime")]
+            [Description("Session End Time")]
             SessionEndTime,
-            [Description("SourceUserUri")]
+            [Description("Email Address")]
             SourceUserUri,
-            [Description("SourceNumberUri")]
+            [Description("Telephone No")]
             SourceNumberUri,
-            [Description("DestinationNumberUri")]
+            [Description("Destination No")]
             DestinationNumberUri,
-            [Description("FromMediationServer")]
-            FromMediationServer,
-            [Description("ToMediationServer")]
-            ToMediationServer,
-            [Description("FromGateway")]
-            FromGateway,
-            [Description("ToGateway")]
-            ToGateway,
-            [Description("SourceUserEdgeServer")]
-            SourceUserEdgeServer,
-            [Description("DestinationUserEdgeServer")]
-            DestinationUserEdgeServer,
-            [Description("ServerFQDN")]
-            ServerFQDN,
-            [Description("PoolFQDN")]
-            PoolFQDN,
             [Description("Duration")]
             Duration,
             [Description("marker_CallToCountry")]
             Marker_CallToCountry,
-            [Description("marker_CallType")]
+            [Description("Marker Call Type")]
             Marker_CallType,
-            [Description("marker_CallCost")]
+            [Description("Cost")]
             Marker_CallCost,
-            [Description("ui_MarkedOn")]
+            [Description("Marked On")]
             UI_MarkedOn,
-            [Description("ui_UpdatedByUser")]
+            [Description("Updated By")]
             UI_UpdatedByUser,
-            [Description("ui_CallType")]
+            [Description("Call Type")]
             UI_CallType,
-            [Description("ac_DisputeStatus")]
+            [Description("Dispute Status")]
             AC_DisputeStatus,
-            [Description("ac_DisputeResolvedOn")]
+            [Description("Dispute Resolved On")]
             AC_DisputeResolvedOn,
-            [Description("ac_IsInvoiced")]
+            [Description("Is Invoiced")]
             AC_IsInvoiced,
-            [Description("ac_InvoiceDate")]
+            [Description("Invoice Date")]
             AC_InvoiceDate
 
         }
