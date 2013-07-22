@@ -9,7 +9,7 @@ namespace Lync_Billing.DB
 {
     public static class PDFDefinitions
     {
-        public  enum PDF
+        public enum PDF
         {
             [Description("Session Time")]
             SessionIdTime,
@@ -50,32 +50,32 @@ namespace Lync_Billing.DB
 
         }
 
-        public static string GetDescription(Enum value)
-        {
-            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
+        //public static string GetDescription(Enum value)
+        //{
+        //    FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
 
-            DescriptionAttribute[] descAttributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+        //    DescriptionAttribute[] descAttributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-            if (descAttributes != null && descAttributes.Length > 0)
-                return descAttributes[0].Description;
-            else
-                return value.ToString();
-        }
+        //    if (descAttributes != null && descAttributes.Length > 0)
+        //        return descAttributes[0].Description;
+        //    else
+        //        return value.ToString();
+        //}
 
-        public static T GetDescription<T>(string description)
-        {
-            MemberInfo[] fis = typeof(T).GetFields();
+        //public static T GetDescription<T>(string description)
+        //{
+        //    MemberInfo[] fis = typeof(T).GetFields();
 
-            foreach (var fi in fis)
-            {
-                DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+        //    foreach (var fi in fis)
+        //    {
+        //        DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-                if (attributes != null && attributes.Length > 0 && attributes[0].Description == description)
-                    return (T)Enum.Parse(typeof(T), fi.Name);
-            }
+        //        if (attributes != null && attributes.Length > 0 && attributes[0].Description == description)
+        //            return (T)Enum.Parse(typeof(T), fi.Name);
+        //    }
 
-            throw new Exception("Not found");
-        }
+        //    throw new Exception("Not found");
+        //}
 
 
     }
