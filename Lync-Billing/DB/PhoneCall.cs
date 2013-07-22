@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 namespace Lync_Billing.DB
 {
     [XmlRoot("records")]
-    [XmlInclude(typeof(PhoneCall))]
+    //[XmlInclude(typeof(PhoneCall))]
     public class PhoneCall
     {
         public PhoneCall() { }
@@ -52,14 +52,16 @@ namespace Lync_Billing.DB
 
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
-        [XmlArray("records")]
-        [XmlArrayItem("record")]
-        public List<PhoneCall> ListOfPhoneCalls { get; set; }
-
+        //[XmlArray("records")]
+        //[XmlArrayItem("record")]
+        //public List<PhoneCall> ListOfPhoneCalls { get; set; }
+        
         public static List<PhoneCall> GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             PhoneCall phoneCall;
             DataTable dt = new DataTable();
+
+            
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
@@ -219,6 +221,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
+        
         public static List<PhoneCall> GetPhoneCallsFilter(List<string> columns, Dictionary<string, object> wherePart, int start, int limit, out int count)
         {
             List<PhoneCall> phoneCalls = GetPhoneCalls(columns, wherePart, 0);
@@ -228,5 +231,13 @@ namespace Lync_Billing.DB
             return phoneCalls.Skip(start).Take(limit).ToList();
             
         }
+
+
+        
+        public string GetPhoneCallsXML(List<PhoneCall> phonecalls) 
+        {
+            return Misc.SerializeObject<List<PhoneCall>>(phonecalls);
+        }
+    
     }
 }
