@@ -4,18 +4,50 @@ using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
+using System.Data;
+using System.Web;
 
 namespace Lync_Billing.Libs
 {
     public class PDFLib 
     {
-        StyleSheet styles = new StyleSheet();
-        string fontPath = Environment.GetEnvironmentVariable("SystemRoot") + "\\fonts\\verdana.ttf";
-        //FontFactory fontFactory = b
-
-        public string WriteToPDF(string htmlString) 
+        public static void CreatePDF(DataTable dt) 
         {
-            return null;
+            Document document = new Document();
+            
+            string path = HttpRuntime.AppDomainAppPath;
+
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(path.ToString() + @"\Exported.pdf", FileMode.Create));
+            document.Open();
+            Font font5 = FontFactory.GetFont(FontFactory.HELVETICA, 5);
+
+            PdfPTable table = new PdfPTable(dt.Columns.Count);
+            PdfPRow row = null;
+            float[] widths = new float[] { 4f, 4f, 4f, 4f };
+
+            //table.SetWidths(widths);
+
+            table.WidthPercentage = 100;
+            int iCol = 0;
+            string colname = "";
+            PdfPCell cell = new PdfPCell(new Phrase("PhoneCalls"));
+
+            cell.Colspan = dt.Columns.Count;
+
+            foreach (DataColumn c in dt.Columns)
+            {
+
+                table.AddCell(new Phrase(c.ColumnName, font5));
+            }
+
+            foreach (DataRow r in dt.Rows)
+            {
+                foreach(DataColumn colum in dt.Columns)
+                {
+                        table.AddCell(new Phrase(r[colum.ColumnName].ToString(),font5));
+                }
+            } document.Add(table);
+            document.Close();
         }
 
     }
