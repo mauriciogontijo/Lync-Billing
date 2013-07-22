@@ -10,12 +10,12 @@ using Lync_Billing.DB;
 
 namespace Lync_Billing.Libs
 {
-    public class PDFLib
+    public class PDFLib 
     {
-        public static void CreatePDF(DataTable dt)
+        public static void CreatePDF(DataTable dt) 
         {
             Document document = new Document();
-
+            
             string path = HttpRuntime.AppDomainAppPath;
 
             PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(path.ToString() + @"\Exported.pdf", FileMode.Create));
@@ -24,7 +24,7 @@ namespace Lync_Billing.Libs
 
             PdfPTable table = new PdfPTable(dt.Columns.Count);
             PdfPRow row = null;
-
+            
             //float[] widths = new float[] { 4f, 4f, 4f, 4f };
             //table.SetWidths(widths);
 
@@ -37,14 +37,15 @@ namespace Lync_Billing.Libs
 
             foreach (DataColumn c in dt.Columns)
             {
-                table.AddCell(new Phrase(PDFDefinitions.GetDescription((PDFDefinitions.PDF)c.ColumnName), font5));
+
+                table.AddCell(new Phrase(c.ColumnName, font5));
             }
 
             foreach (DataRow r in dt.Rows)
             {
-                foreach (DataColumn colum in dt.Columns)
+                foreach(DataColumn colum in dt.Columns)
                 {
-                    table.AddCell(new Phrase(r[colum.ColumnName].ToString(), font5));
+                        table.AddCell(new Phrase(r[colum.ColumnName].ToString(),font5));
                 }
             } document.Add(table);
             document.Close();
