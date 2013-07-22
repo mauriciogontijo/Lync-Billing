@@ -228,7 +228,14 @@ namespace Lync_Billing.DB
             
         }
 
+        public static void ExportPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits) 
+        {
+            DataTable dt = new DataTable();
 
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
+
+            PDFLib.CreatePDF(dt);
+        }
         
         public string GetPhoneCallsXML(List<PhoneCall> phonecalls) 
         {
