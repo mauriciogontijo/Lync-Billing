@@ -51,10 +51,6 @@ namespace Lync_Billing.DB
         public string PhoneBookName { set; get; }
 
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
-
-        //[XmlArray("records")]
-        //[XmlArrayItem("record")]
-        //public List<PhoneCall> ListOfPhoneCalls { get; set; }
         
         public static List<PhoneCall> GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
