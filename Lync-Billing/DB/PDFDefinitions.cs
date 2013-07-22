@@ -66,5 +66,17 @@ namespace Lync_Billing.DB
 
         }
 
+        public string GetDescription(Enum value)
+        {
+            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
+
+            DescriptionAttribute[] descAttributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            if (descAttributes != null && descAttributes.Length > 0)
+                return descAttributes[0].Description;
+            else
+                return value.ToString();
+        }
+
     }
 }
