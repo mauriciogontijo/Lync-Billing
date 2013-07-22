@@ -196,6 +196,7 @@
     <Compile Include="DB\Site.cs" />
     <Compile Include="DB\Users.cs" />
     <Compile Include="DB\UserSession.cs" />
+    <Compile Include="DB\Wrappers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
