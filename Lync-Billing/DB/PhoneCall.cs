@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace Lync_Billing.DB
 {
-    [XmlRoot("Documnet")]
+    [XmlRoot("Document")]
     //[XmlInclude(typeof(PhoneCall))]
     public class PhoneCall
     {
