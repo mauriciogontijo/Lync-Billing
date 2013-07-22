@@ -37,7 +37,7 @@ namespace Lync_Billing.Libs
 
             foreach (DataColumn c in dt.Columns)
             {
-                table.AddCell(new Phrase(c.ColumnName, font5));
+                table.AddCell(new Phrase(PDFDefinitions.GetDescription(c.ColumnName), font5));
             }
 
             foreach (DataRow r in dt.Rows)
