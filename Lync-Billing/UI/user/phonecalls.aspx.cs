@@ -13,6 +13,8 @@ using Lync_Billing.DB;
 using Lync_Billing.Libs;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
+using System.Xml.Serialization;
+
 
 namespace Lync_Billing.ui.user
 {
@@ -49,7 +51,6 @@ namespace Lync_Billing.ui.user
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
             ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(sipAccount);
         }
-
 
         protected void getPhoneCalls(bool force = false)
         {
@@ -134,7 +135,11 @@ namespace Lync_Billing.ui.user
 
             userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
 
-            xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);
+            //xmldoc = Misc.SerializeObject <List<PhoneCall>> (userSession.PhoneCalls);
+
+            PhoneCall phoneCalls = new PhoneCall();
+
+            string xmldoc = phoneCalls.GetPhoneCallsXML(userSession.PhoneCalls);
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xmldoc);
@@ -475,7 +480,7 @@ namespace Lync_Billing.ui.user
 
             string json = e.ExtraParams["Values"];
 
-            List<PhoneCall> phoneCalls = new List<PhoneCall>();
+            List<PhoneCall> phoneCalls = new List<PhoneCall>();                 
             List<PhoneCall> perPagePhoneCalls = new List<PhoneCall>();
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
