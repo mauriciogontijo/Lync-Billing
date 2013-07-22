@@ -118,28 +118,28 @@ namespace Lync_Billing.ui.user
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = userSession.EffectiveSipAccount;
 
-            //wherePart.Add("SourceUserUri", sipAccount);
-            ////wherePart.Add("ac_IsInvoiced", "NO");
-            //wherePart.Add("marker_CallTypeID", 1);
-            
-            //columns.Add("ResponseTime");
-            //columns.Add("marker_CallToCountry");
-            //columns.Add("DestinationNumberUri");
-            //columns.Add("Duration");
-            //columns.Add("marker_CallCost");
+            wherePart.Add("SourceUserUri", sipAccount);
+            //wherePart.Add("ac_IsInvoiced", "NO");
+            wherePart.Add("marker_CallTypeID", 1);
 
-            //userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
-            //PhoneCall.ExportPhoneCalls(columns, wherePart, 0);
-            ////xmldoc = Misc.SerializeObject <List<PhoneCall>> (userSession.PhoneCalls);
+            columns.Add("ResponseTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
 
-            //PhoneCall phoneCalls = new PhoneCall();
+            userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+            PhoneCall.ExportPhoneCalls(columns, wherePart, 0);
+            //xmldoc = Misc.SerializeObject <List<PhoneCall>> (userSession.PhoneCalls);
 
-            //string xmldoc = phoneCalls.GetPhoneCallsXML(userSession.PhoneCalls);
+            PhoneCall phoneCalls = new PhoneCall();
 
-            //XmlDocument doc = new XmlDocument();
-            //doc.LoadXml(xmldoc);
+            string xmldoc = phoneCalls.GetPhoneCallsXML(userSession.PhoneCalls);
 
-            //XmlNode node = doc.DocumentElement;
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xmldoc);
+
+            XmlNode node = doc.DocumentElement;
   
             this.Response.Clear();
             this.Response.ContentType = "application/vnd.ms-excel";
