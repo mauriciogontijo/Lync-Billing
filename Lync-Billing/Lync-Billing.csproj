@@ -181,6 +181,7 @@
     <Compile Include="DB\MailTemplates.cs" />
     <Compile Include="DB\Misc.cs" />
     <Compile Include="DB\NumberingPlan.cs" />
+    <Compile Include="DB\PDFDefinitions.cs" />
     <Compile Include="DB\Persistence.cs" />
     <Compile Include="DB\PhoneBook.cs" />
     <Compile Include="DB\TmpUsers.cs" />
