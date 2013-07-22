@@ -9,45 +9,38 @@ namespace Lync_Billing.DB
 {
     public static class PDFDefinitions
     {
-        public enum PDF
+        public static Dictionary<string, string> Definitions = new Dictionary<string, string>()
         {
-            [Description("Session Time")]
-            SessionIdTime,
-            [Description("Session Seq")]
-            SessionIdSeq,
-            [Description("Response Time")]
-            ResponseTime,
-            [Description("Session End Time")]
-            SessionEndTime,
-            [Description("Email Address")]
-            SourceUserUri,
-            [Description("Telephone No")]
-            SourceNumberUri,
-            [Description("Destination No")]
-            DestinationNumberUri,
-            [Description("Duration")]
-            Duration,
-            [Description("marker_CallToCountry")]
-            Marker_CallToCountry,
-            [Description("Marker Call Type")]
-            Marker_CallType,
-            [Description("Cost")]
-            Marker_CallCost,
-            [Description("Marked On")]
-            UI_MarkedOn,
-            [Description("Updated By")]
-            UI_UpdatedByUser,
-            [Description("Call Type")]
-            UI_CallType,
-            [Description("Dispute Status")]
-            AC_DisputeStatus,
-            [Description("Dispute Resolved On")]
-            AC_DisputeResolvedOn,
-            [Description("Is Invoiced")]
-            AC_IsInvoiced,
-            [Description("Invoice Date")]
-            AC_InvoiceDate
+            {"SessionIdTime", "Session Time"},
+            {"SessionIdSeq", "Session Seq"},
+            {"ResponseTime", "Response Time"},
+            {"SessionEndTime", "Session End Time"},
+            {"SourceUserUri", "Email Address"},
+            {"SourceNumberUri", "Telephone No"},
+            {"DestinationNumberUri", "Destination No"},
+            {"Duration", "Duration"},
+            {"Marker_CallToCountry", "marker_CallToCountry"},
+            {"Marker_CallType", "Marker Call Type"},
+            {"Marker_CallCost", "Cost"},
+            {"UI_MarkedOn", "Marked On"},
+            {"UI_UpdatedByUser", "Updated By"},
+            {"UI_CallType", "Call Type"},
+            {"AC_DisputeStatus", "Dispute Status"},
+            {"AC_DisputeResolvedOn", "Dispute Resolved On"},
+            {"AC_IsInvoiced", "Is Invoiced"},
+            {"AC_InvoiceDate", "Invoice Date"}
+        };
 
+        public static string GetDescription(string value)
+        {
+            if (!string.IsNullOrEmpty(value) && Definitions.Keys.Contains(value))
+            {
+                return Definitions[value];
+            }
+            else
+            {
+                return value;
+            }
         }
 
         //public static string GetDescription(Enum value)

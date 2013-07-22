@@ -119,7 +119,11 @@ namespace Lync_Billing.ui.test
 
             PhoneCallsList = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
 
-            xmldoc = Misc.SerializeObject<List<PhoneCall>>(PhoneCallsList);
+            //xmldoc = Misc.SerializeObject <List<PhoneCall>> (userSession.PhoneCalls);
+
+            PhoneCall phoneCalls = new PhoneCall();
+
+            string xmldoc = phoneCalls.GetPhoneCallsXML(PhoneCallsList);
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xmldoc);
