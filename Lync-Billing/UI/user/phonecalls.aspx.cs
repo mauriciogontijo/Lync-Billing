@@ -121,20 +121,15 @@ namespace Lync_Billing.ui.user
             wherePart.Add("SourceUserUri", sipAccount);
             //wherePart.Add("ac_IsInvoiced", "NO");
             wherePart.Add("marker_CallTypeID", 1);
-
-            columns.Add("SessionIdTime");
-            columns.Add("SessionIdSeq");
+            
             columns.Add("ResponseTime");
-            columns.Add("SessionEndTime");
             columns.Add("marker_CallToCountry");
             columns.Add("DestinationNumberUri");
             columns.Add("Duration");
             columns.Add("marker_CallCost");
-            columns.Add("ui_CallType");
-            columns.Add("ui_MarkedOn");
 
             userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
-
+            PhoneCall.ExportPhoneCalls(columns, wherePart, 0);
             //xmldoc = Misc.SerializeObject <List<PhoneCall>> (userSession.PhoneCalls);
 
             PhoneCall phoneCalls = new PhoneCall();
