@@ -142,14 +142,11 @@ namespace Lync_Billing.ui.user
             PhoneCall.ExportPhoneCalls(columns, wherePart, 0,Response,out doc);
 
             Response.Write(doc);
-            //xmldoc = Misc.SerializeObject <List<PhoneCall>> (userSession.PhoneCalls);
-            //PhoneCall phoneCalls = new PhoneCall();
-            //string xmldoc = phoneCalls.GetPhoneCallsXML(userSession.PhoneCalls);
 
-            //XmlDocument doc = new XmlDocument();
-            //doc.LoadXml(xmldoc);
-
-            //XmlNode node = doc.DocumentElement;
+            doc.Close();
+            Response.Write(doc);
+            Response.End();
+            
   
             //this.Response.Clear();
             //this.Response.ContentType = "application/vnd.ms-excel";
@@ -157,9 +154,7 @@ namespace Lync_Billing.ui.user
             //XslCompiledTransform xtExcel = new XslCompiledTransform();
             //xtExcel.Load(Server.MapPath("~/Resources/excel.xsl"));
             //xtExcel.Transform(xml, null, Response.OutputStream);
-            doc.Close();
-            Response.Write(doc);
-            Response.End();
+           
         }
 
         protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
