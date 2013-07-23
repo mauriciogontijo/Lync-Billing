@@ -12,6 +12,8 @@
     <!-- *** START OF PHONE CALLS HISTORY GRID *** -->
     <div id='phone-call-history' class='block float-right wauto h100p' style="visibility: visible;">
         <div class="block-body pt5">
+            <ext:Hidden ID="FormatType" runat="server" />
+
             <asp:ObjectDataSource 
                 ID="PhoneCallsDataSource" 
                 runat="server" 
@@ -171,7 +173,7 @@
                                 Width="200"
                                 FieldLabel="View:"
                                 LabelWidth="30"
-                                Margins="5 450 0 5">
+                                Margins="5 390 0 5">
                                 
                                 <Items>
                                     <ext:ListItem Text="Everything" Value="Everything"/>
@@ -189,9 +191,23 @@
                                 </SelectedItems>
                             </ext:ComboBox>
 
-                            <ext:Button ID="ExportToExcel" runat="server" Text="To Excel" Icon="PageExcel">
-                                 <Listeners>
-                                    <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, 'xls');" />
+                            <ext:Button
+                                ID="ExportToPDFButton"
+                                runat="server"
+                                Text="To PDF"
+                                Icon="PageSave">
+                                <Listeners>
+                                    <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, #{FormatType}, 'pdf');" />
+                                </Listeners>
+                            </ext:Button>
+
+                            <ext:Button
+                                ID="ExportToExcelButton"
+                                runat="server"
+                                Text="To Excel"
+                                Icon="PageExcel">
+                                <Listeners>
+                                    <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, #{FormatType}, 'xls');" />
                                 </Listeners>
                             </ext:Button>
                         </Items>

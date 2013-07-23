@@ -153,8 +153,14 @@ namespace Lync_Billing.ui.user
                     Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
                     
+                    Dictionary<string, string> headers = new Dictionary<string,string>()
+                    {
+                        {"title", userSession.EffectiveDisplayName.ToString() + "(#" + userSession.EmployeeID.ToString() + ")" },
+                        {"subtitle", "The List of Uninvoiced Phone Calls"}
+                    };
+
                     Document doc = new Document();
-                    PhoneCall.ExportPhoneCalls(columns, wherePart, 0,Response,out doc);
+                    PhoneCall.ExportPhoneCalls(columns, wherePart, 0, Response, out doc, headers);
                     
                     Response.Write(doc);
 
