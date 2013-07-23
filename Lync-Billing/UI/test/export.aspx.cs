@@ -14,6 +14,7 @@ using Lync_Billing.Libs;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
+using iTextSharp.text;
 
 namespace Lync_Billing.ui.test
 {
@@ -98,44 +99,52 @@ namespace Lync_Billing.ui.test
 
         protected void PhoneCallsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
+            string format = this.FormatType.Value.ToString();
+
             XmlNode xml = e.Xml;
 
-            sipAccount = "AAlhour@ccc.gr";
-
-            wherePart.Add("SourceUserUri", sipAccount);
-            //wherePart.Add("ac_IsInvoiced", "NO");
-            wherePart.Add("marker_CallTypeID", 1);
-
-            columns.Add("SessionIdTime");
-            columns.Add("SessionIdSeq");
-            columns.Add("ResponseTime");
-            columns.Add("SessionEndTime");
-            columns.Add("marker_CallToCountry");
-            columns.Add("DestinationNumberUri");
-            columns.Add("Duration");
-            columns.Add("marker_CallCost");
-            columns.Add("ui_CallType");
-            columns.Add("ui_MarkedOn");
-
-            PhoneCallsList = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
-
-            //xmldoc = Misc.SerializeObject <List<PhoneCall>> (userSession.PhoneCalls);
-
-            PhoneCall phoneCalls = new PhoneCall();
-
-            string xmldoc = phoneCalls.GetPhoneCallsXML(PhoneCallsList);
-
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xmldoc);
-
-            XmlNode node = doc.DocumentElement;
-
             this.Response.Clear();
-            this.Response.ContentType = "application/vnd.ms-excel";
-            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
-            XslCompiledTransform xtExcel = new XslCompiledTransform();
-            xtExcel.Load(Server.MapPath("~/Resources/csv.xsl"));
-            xtExcel.Transform(node, null, Response.OutputStream);
+
+            switch (format)
+            {
+                case "xls":
+                    this.Response.Clear();
+                    this.Response.ContentType = "application/vnd.ms-excel";
+                    this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+                    XslCompiledTransform xtExcel = new XslCompiledTransform();
+                    xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
+                    xtExcel.Transform(xml, null, Response.OutputStream);
+
+                    break;
+
+                case "pdf":
+                    UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+                    sipAccount = userSession.EffectiveSipAccount;
+
+                    wherePart.Add("SourceUserUri", sipAccount);
+                    wherePart.Add("marker_CallTypeID", 1);
+                    //wherePart.Add("ac_IsInvoiced", "NO");
+
+                    columns.Add("ResponseTime");
+                    columns.Add("marker_CallToCountry");
+                    columns.Add("DestinationNumberUri");
+                    columns.Add("Duration");
+                    columns.Add("marker_CallCost");
+
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                    Document doc = new Document();
+                    PhoneCall.ExportPhoneCalls(columns, wherePart, 0, Response, out doc);
+
+                    Response.Write(doc);
+                    doc.Close();
+
+                    break;
+            }
+
+            this.Response.End();
         }
 
         protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
