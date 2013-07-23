@@ -118,8 +118,7 @@ namespace Lync_Billing.ui.test
                     break;
 
                 case "pdf":
-                    UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-                    sipAccount = userSession.EffectiveSipAccount;
+                    sipAccount = "AAlhour@ccc.gr";
 
                     wherePart.Add("SourceUserUri", sipAccount);
                     wherePart.Add("marker_CallTypeID", 1);
@@ -135,12 +134,11 @@ namespace Lync_Billing.ui.test
                     Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
-                    Document doc = new Document();
+                    Document doc;
                     PhoneCall.ExportPhoneCalls(columns, wherePart, 0, Response, out doc);
 
                     Response.Write(doc);
-                    doc.Close();
-
+                    
                     break;
             }
 

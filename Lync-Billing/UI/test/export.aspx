@@ -41,7 +41,7 @@
                                 FieldLabel="View Calls:"
                                 LabelWidth="60"
                                 Width="200"
-                                Margins="5 450 5 5">
+                                Margins="5 390 5 5">
                                 <Items>
                                     <ext:ListItem Text="Unallocated" Value="Unmarked" />
                                     <ext:ListItem Text="Business" Value="Business" />

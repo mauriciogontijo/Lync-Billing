@@ -157,7 +157,6 @@ namespace Lync_Billing.ui.user
                     PhoneCall.ExportPhoneCalls(columns, wherePart, 0,Response,out doc);
                     
                     Response.Write(doc);
-                    doc.Close();
 
                     break;
             }

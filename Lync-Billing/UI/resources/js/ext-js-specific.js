@@ -151,7 +151,7 @@ function GetMinutes(value, meta, record, rowIndex, colIndex, store) {
         seconds = "0" + seconds;
     }
 
-    return hours + ':' + minutes + ':' + seconds;;
+    return hours + ':' + minutes + ':' + seconds;
 }
 
 //This is used in the PhoneCalls page, User Statistics, and User Dashboard page
