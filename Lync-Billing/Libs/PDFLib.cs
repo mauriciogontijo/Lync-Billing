@@ -22,6 +22,8 @@ namespace Lync_Billing.Libs
             //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(path.ToString() + @"\Exported.pdf", FileMode.Create));
             PdfWriter writer = PdfWriter.GetInstance(document, response.OutputStream);
             document.Open();
+            document.AddHeader("header", "semsem wa7ad");
+
             Font font5 = FontFactory.GetFont(FontFactory.HELVETICA, 5);
 
             PdfPTable table = new PdfPTable(dt.Columns.Count);

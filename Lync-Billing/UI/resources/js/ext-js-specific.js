@@ -164,6 +164,7 @@ var GetHoursFromMinutes = function (value) {
 
 
 var submitValue = function (grid, hiddenFormat, format) {
+    hiddenFormat.setValue(format);
     grid.submitData(false, { isUpload: true });
 };
 

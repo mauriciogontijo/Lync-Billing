@@ -15,6 +15,8 @@
     <!-- *** START OF MANAGE PHONE CALLS GRID *** -->
     <div id='manage-phone-calls-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
+            <ext:Hidden ID="FormatType" runat="server" />
+
             <ext:Panel
                 ID="FilterPhoneCallsPanel"
                 runat="server"
@@ -39,7 +41,7 @@
                                 FieldLabel="View Calls:"
                                 LabelWidth="60"
                                 Width="200"
-                                Margins="5 450 5 5">
+                                Margins="5 390 5 5">
                                 <Items>
                                     <ext:ListItem Text="Unallocated" Value="Unmarked" />
                                     <ext:ListItem Text="Business" Value="Business" />
@@ -55,12 +57,22 @@
                             </ext:ComboBox>
 
                             <ext:Button
+                                ID="Button1"
+                                runat="server"
+                                Text="To PDF"
+                                Icon="PageSave">
+                                <Listeners>
+                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, #{FormatType}, 'pdf');" />
+                                </Listeners>
+                            </ext:Button>
+
+                            <ext:Button
                                 ID="ExportToExcel"
                                 runat="server"
                                 Text="To Excel"
                                 Icon="PageExcel">
                                 <Listeners>
-                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, 'xls');" />
+                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, #{FormatType}, 'xls');" />
                                 </Listeners>
                             </ext:Button>
                         </Items>
