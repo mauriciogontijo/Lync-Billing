@@ -138,11 +138,12 @@ namespace Lync_Billing.ui.user
             Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             
-           // Document doc = PhoneCall.ExportPhoneCalls(columns, wherePart, 0);
+            Document doc = new Document();
+            PhoneCall.ExportPhoneCalls(columns, wherePart, 0,Response,out doc);
+
+            Response.Write(doc);
             //xmldoc = Misc.SerializeObject <List<PhoneCall>> (userSession.PhoneCalls);
-
             //PhoneCall phoneCalls = new PhoneCall();
-
             //string xmldoc = phoneCalls.GetPhoneCallsXML(userSession.PhoneCalls);
 
             //XmlDocument doc = new XmlDocument();

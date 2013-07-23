@@ -12,14 +12,15 @@ namespace Lync_Billing.Libs
 {
     public class PDFLib 
     {
-        public static void CreatePDF(DataTable dt) 
+        public static Document CreatePDF(DataTable dt,HttpResponse response) 
         {
             Document document = new Document();
             
             string path = HttpRuntime.AppDomainAppPath;
 
 
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(path.ToString() + @"\Exported.pdf", FileMode.Create));
+            //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(path.ToString() + @"\Exported.pdf", FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(document, response.OutputStream);
             document.Open();
             Font font5 = FontFactory.GetFont(FontFactory.HELVETICA, 5);
 
@@ -48,8 +49,9 @@ namespace Lync_Billing.Libs
                         table.AddCell(new Phrase(r[colum.ColumnName].ToString(),font5));
                 }
             } document.Add(table);
-            
-            document.Close();
+
+            return document;
+            //document.Close();
                       
 
         }

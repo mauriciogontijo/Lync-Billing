@@ -9,6 +9,10 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 
 
 namespace Lync_Billing.DB
@@ -229,13 +233,13 @@ namespace Lync_Billing.DB
             
         }
 
-        public static void ExportPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits) 
+        public static void ExportPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits, HttpResponse response,out Document documnet) 
         {
             DataTable dt = new DataTable();
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
 
-            return PDFLib.CreatePDF(dt);
+            documnet =  PDFLib.CreatePDF(dt,response);
         }
         
         public string GetPhoneCallsXML(List<PhoneCall> phonecalls) 
