@@ -233,13 +233,24 @@ namespace Lync_Billing.DB
             
         }
 
-        public static void ExportPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits, HttpResponse response,out Document document) 
+        public static void ExportPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits, HttpResponse response, out Document document) 
         {
             DataTable dt = new DataTable();
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
+            
+            Dictionary<string, object> totals = new Dictionary<string, object>()
+            {
+                {"Duration", Misc.ConvertSecondsToReadable(Convert.ToInt32(dt.Compute("Sum(Duration)", "Duration > 0")))},
+                {"marker_CallCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(marker_CallCost)", "marker_CallCost > 0")), 2)},
+            };
 
-            document = PDFLib.CreatePDF(dt, response);
+            document = PDFLib.InitializePDFDocument(response);
+            PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count);
+            PDFLib.AddPDFHeader(ref document, "Example Header", "Example Subheader");
+            PDFLib.AddPDFTableContents(ref document, ref pdfContentsTable, dt);
+            PDFLib.AddPDFTableTotalsRow(ref document, totals, dt);
+            PDFLib.ClosePDFDocument(ref document);
         }
         
         public string GetPhoneCallsXML(List<PhoneCall> phonecalls) 
