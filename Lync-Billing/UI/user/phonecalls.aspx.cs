@@ -132,7 +132,7 @@ namespace Lync_Billing.ui.user
             columns.Add("Duration");
             columns.Add("marker_CallCost");
 
-            userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+            //userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
             
             Response.ContentType = "application/pdf";
             Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
