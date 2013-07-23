@@ -6,56 +6,153 @@ using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using System.Data;
 using System.Web;
+using System.Collections.Generic;
 using Lync_Billing.DB;
 
 namespace Lync_Billing.Libs
 {
     public class PDFLib 
     {
-        public static Document CreatePDF(DataTable dt,HttpResponse response) 
+        private static Font titleFont = FontFactory.GetFont("Arial", 20, Font.BOLD);
+        private static Font subTitleFont = FontFactory.GetFont("Arial", 16, Font.BOLD);
+        private static Font boldTableFont = FontFactory.GetFont("Arial", 12, Font.BOLD);
+        private static Font endingMessageFont = FontFactory.GetFont("Arial", 10, Font.ITALIC);
+        private static Font bodyFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
+        private static Font bodyFontSmall = FontFactory.GetFont("Arial", 10, Font.NORMAL);
+
+        public static Document InitializePDFDocument(HttpResponse response)
         {
             Document document = new Document();
-            
-            string path = HttpRuntime.AppDomainAppPath;
-
-
-            //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(path.ToString() + @"\Exported.pdf", FileMode.Create));
             PdfWriter writer = PdfWriter.GetInstance(document, response.OutputStream);
             document.Open();
-            document.AddHeader("header", "semsem wa7ad");
 
-            Font font5 = FontFactory.GetFont(FontFactory.HELVETICA, 5);
+            return document;
+        }
 
-            PdfPTable table = new PdfPTable(dt.Columns.Count);
-            PdfPRow row = null;
-            
-            //float[] widths = new float[] { 4f, 4f, 4f, 4f };
-            //table.SetWidths(widths);
+        public static PdfPTable InitializePDFTable(int ColumnsCount)
+        {
+            //Create the actual data table
+            PdfPTable pdfTable = new PdfPTable(ColumnsCount);
+            pdfTable.HorizontalAlignment = 0;
+            pdfTable.SpacingBefore = 25;
+            pdfTable.SpacingAfter = 10;
+            pdfTable.DefaultCell.Border = 0;
+            //pdfTable.DefaultCell.Padding = 2;
+            pdfTable.DefaultCell.PaddingBottom = 5;
+            pdfTable.DefaultCell.PaddingTop = 5;
+            pdfTable.DefaultCell.PaddingLeft = 2;
+            pdfTable.DefaultCell.PaddingRight = 2;
+            pdfTable.SetWidths(new int[] { 7, 4, 7, 4, 4 });
+            pdfTable.WidthPercentage = 100;
 
-            table.WidthPercentage = 100;
-            int iCol = 0;
-            string colname = "";
-            PdfPCell cell = new PdfPCell(new Phrase("PhoneCalls"));
+            return pdfTable;
+        }
 
-            cell.Colspan = dt.Columns.Count;
+        public static Document AddPDFHeader(ref Document document, string title, string subtitle = "")
+        {
+            var titleParagraph = new Paragraph(title, titleFont);
+            var subTitleParagraph = new Paragraph(subtitle, subTitleFont);
+            document.Add(titleParagraph);
+            document.Add(subTitleParagraph);
 
+            return document;
+        }
+
+        public static Document AddPDFTableContents(ref Document document, ref PdfPTable pdfTable, DataTable dt) 
+        {
             foreach (DataColumn c in dt.Columns)
             {
-                table.AddCell(new Phrase(PDFDefinitions.GetDescription(c.ColumnName), font5));
+                pdfTable.AddCell(new Phrase(PDFDefinitions.GetDescription(c.ColumnName), boldTableFont));
             }
 
             foreach (DataRow r in dt.Rows)
             {
                 foreach(DataColumn colum in dt.Columns)
                 {
-                        table.AddCell(new Phrase(r[colum.ColumnName].ToString(),font5));
+                    //Declare the pdfTable cell and fill it.
+                    PdfPCell entryCell;
+
+                    //Format the cell text if it's the case of Duration
+                    if(PDFDefinitions.GetDescription(colum.ColumnName) == "Duration")
+                        entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(r[colum.ColumnName])), bodyFontSmall));
+                    else
+                        entryCell = new PdfPCell(new Phrase(r[colum.ColumnName].ToString(), bodyFontSmall));
+
+                    //Set the cell padding, border configurations and then add it to the the pdfTable
+                    entryCell.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER;
+                    entryCell.PaddingTop = 5;
+                    entryCell.PaddingBottom = 5;
+                    entryCell.PaddingLeft = 2;
+                    entryCell.PaddingRight = 2;
+                    pdfTable.AddCell(entryCell);
                 }
-            } document.Add(table);
+            }
 
+            // Add the Paragraph object to the document
+            document.Add(pdfTable);
             return document;
-            //document.Close();
-                      
+        }
 
+        public static Document AddPDFTableTotalsRow(ref Document document, Dictionary<string, object> totals, DataTable dt)
+        {
+            //if (dt.Columns.Contains("Duration") || dt.Columns.Contains("duration"))
+            //    totalDuration = Convert.ToInt32(dt.Compute("Sum(Duration)", "Duration > 0"));
+            //if (dt.Columns.Contains("marker_CallCost") || dt.Columns.Contains("Marker_CallCost"))
+            //    totalCost = Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(marker_CallCost)", "marker_CallCost > 0")), 2);
+
+            //foreach (DataColumn c in dt.Columns)
+            //{
+            //    if (dt.Columns[0].ColumnName == c.ColumnName)
+            //    {
+            //        pdfTable.AddCell(new Phrase("Total", boldTableFont));
+            //    }
+            //    else if (PDFDefinitions.GetDescription(c.ColumnName) == "Cost")
+            //    {
+            //        pdfTable.AddCell(new Phrase(totalCost.ToString(), boldTableFont));
+            //    }
+            //    else if (PDFDefinitions.GetDescription(c.ColumnName) == "Duration")
+            //    {
+            //        pdfTable.AddCell(new Phrase(Misc.ConvertSecondsToReadable(totalDuration), boldTableFont));
+            //    }
+            //    else
+            //    {
+            //        pdfTable.AddCell(new Phrase(string.Empty, boldTableFont));
+            //    }
+            //}
+
+            PdfPTable pdfTable = new PdfPTable(dt.Columns.Count);
+            pdfTable.HorizontalAlignment = 0;
+            pdfTable.DefaultCell.Border = 0;
+            pdfTable.DefaultCell.PaddingBottom = 5;
+            pdfTable.DefaultCell.PaddingTop = 5;
+            pdfTable.DefaultCell.PaddingLeft = 2;
+            pdfTable.DefaultCell.PaddingRight = 2;
+            pdfTable.SetWidths(new int[] { 7, 4, 7, 4, 4 });
+            pdfTable.WidthPercentage = 100;
+
+            foreach(DataColumn column in dt.Columns)
+            {
+                if (dt.Columns[0].ColumnName == column.ColumnName)
+                {
+                    pdfTable.AddCell(new Phrase("Total", boldTableFont));
+                }
+                else if (totals.ContainsKey(column.ColumnName))
+                {
+                    pdfTable.AddCell(new Phrase(totals[column.ColumnName].ToString(), boldTableFont));
+                }
+                else
+                {
+                    pdfTable.AddCell(new Phrase(string.Empty, boldTableFont));
+                }
+            }
+
+            document.Add(pdfTable);
+            return document;
+        }
+
+        public static void ClosePDFDocument(ref Document document)
+        {
+            document.Close();
         }
 
     }
