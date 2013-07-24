@@ -122,7 +122,7 @@ namespace Lync_Billing.ui.test
 
                     wherePart.Add("SourceUserUri", sipAccount);
                     //wherePart.Add("ui_CallType", "Personal");
-                    //wherePart.Add("marker_CallTypeID", 1);
+                    wherePart.Add("marker_CallTypeID", 1);
                     //wherePart.Add("ac_IsInvoiced", "NO");
 
                     columns.Add("ResponseTime");
