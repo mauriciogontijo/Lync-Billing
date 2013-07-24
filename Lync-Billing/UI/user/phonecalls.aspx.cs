@@ -148,6 +148,7 @@ namespace Lync_Billing.ui.user
                     columns.Add("DestinationNumberUri");
                     columns.Add("Duration");
                     columns.Add("marker_CallCost");
+                    columns.Add("ui_CallType");
 
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");

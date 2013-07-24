@@ -233,23 +233,40 @@ namespace Lync_Billing.DB
             
         }
 
-        public static void ExportPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits, HttpResponse response, out Document document) 
+        public static void ExportPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             DataTable dt = new DataTable();
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
-            
-            Dictionary<string, object> totals = new Dictionary<string, object>()
+
+            Dictionary<string, object> totals;
+
+            //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
+            try
             {
-                {"Duration", Misc.ConvertSecondsToReadable(Convert.ToInt32(dt.Compute("Sum(Duration)", "Duration > 0")))},
-                {"marker_CallCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(marker_CallCost)", "marker_CallCost > 0")), 2)},
-            };
+                totals = new Dictionary<string, object>()
+                {
+                    {"Duration", Misc.ConvertSecondsToReadable(Convert.ToInt32(dt.Compute("Sum(Duration)", "Duration > 0 and ui_CallType == Personal")))},
+                    {"marker_CallCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(marker_CallCost)", "marker_CallCost > 0 and ui_CallType == Personal")), 2)},
+                };
+            }
+            catch (Exception e)
+            {
+                totals = new Dictionary<string, object>()
+                {
+                    {"Duration", 0},
+                    {"marker_CallCost", 0.00},
+                };
+            }
+
+            int[] widths = new int [] { 6, 3, 5, 3, 3, 3 };
+            //int[] widths = new int[] { };
 
             document = PDFLib.InitializePDFDocument(response);
-            PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count);
-            PDFLib.AddPDFHeader(ref document, "Example Header", "Example Subheader");
+            PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
+            PDFLib.AddPDFHeader(ref document, headers["title"], headers["subtitle"]);
             PDFLib.AddPDFTableContents(ref document, ref pdfContentsTable, dt);
-            PDFLib.AddPDFTableTotalsRow(ref document, totals, dt);
+            PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
             PDFLib.ClosePDFDocument(ref document);
         }
         

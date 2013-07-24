@@ -121,7 +121,8 @@ namespace Lync_Billing.ui.test
                     sipAccount = "AAlhour@ccc.gr";
 
                     wherePart.Add("SourceUserUri", sipAccount);
-                    wherePart.Add("marker_CallTypeID", 1);
+                    //wherePart.Add("ui_CallType", "Personal");
+                    //wherePart.Add("marker_CallTypeID", 1);
                     //wherePart.Add("ac_IsInvoiced", "NO");
 
                     columns.Add("ResponseTime");
@@ -129,13 +130,20 @@ namespace Lync_Billing.ui.test
                     columns.Add("DestinationNumberUri");
                     columns.Add("Duration");
                     columns.Add("marker_CallCost");
+                    columns.Add("ui_CallType");
 
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
-                    Document doc;
-                    PhoneCall.ExportPhoneCalls(columns, wherePart, 0, Response, out doc);
+                    Dictionary<string, string> headers = new Dictionary<string,string>()
+                    {
+                        {"title", "Ahmad Alhour (#595233)"},
+                        {"subtitle", "History of Phone Calls"}
+                    };
+
+                    Document doc = new Document();
+                    PhoneCall.ExportPhoneCalls(columns, wherePart, 0, Response, out doc, headers);
 
                     Response.Write(doc);
                     

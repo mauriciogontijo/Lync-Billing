@@ -17,18 +17,19 @@ namespace Lync_Billing.DB
             {"SessionEndTime", "Session End Time"},
             {"SourceUserUri", "Email Address"},
             {"SourceNumberUri", "Telephone No"},
-            {"DestinationNumberUri", "Destination Number"},
+            //{"DestinationNumberUri", "Destination Number"},
+            {"DestinationNumberUri", "Destination"},
             {"Duration", "Duration"},
             {"marker_CallToCountry", "Country"},
-            {"Marker_CallType", "Marker Call Type"},
+            {"marker_CallType", "Marker Call Type"},
             {"marker_CallCost", "Cost"},
-            {"UI_MarkedOn", "Marked On"},
-            {"UI_UpdatedByUser", "Updated By"},
-            {"UI_CallType", "Call Type"},
-            {"AC_DisputeStatus", "Dispute Status"},
-            {"AC_DisputeResolvedOn", "Dispute Resolved On"},
-            {"AC_IsInvoiced", "Is Invoiced"},
-            {"AC_InvoiceDate", "Invoice Date"}
+            {"ui_MarkedOn", "Marked On"},
+            {"ui_UpdatedByUser", "Updated By"},
+            {"ui_CallType", "Call Type"},
+            {"ac_DisputeStatus", "Dispute Status"},
+            {"ac_DisputeResolvedOn", "Dispute Resolved On"},
+            {"ac_IsInvoiced", "Is Invoiced"},
+            {"ac_InvoiceDate", "Invoice Date"}
         };
 
         public static string GetDescription(string value)

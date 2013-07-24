@@ -29,7 +29,7 @@ namespace Lync_Billing.Libs
             return document;
         }
 
-        public static PdfPTable InitializePDFTable(int ColumnsCount)
+        public static PdfPTable InitializePDFTable(int ColumnsCount, int[] widths)
         {
             //Create the actual data table
             PdfPTable pdfTable = new PdfPTable(ColumnsCount);
@@ -42,15 +42,18 @@ namespace Lync_Billing.Libs
             pdfTable.DefaultCell.PaddingTop = 5;
             pdfTable.DefaultCell.PaddingLeft = 2;
             pdfTable.DefaultCell.PaddingRight = 2;
-            pdfTable.SetWidths(new int[] { 7, 4, 7, 4, 4 });
             pdfTable.WidthPercentage = 100;
+            if (widths.Length > 0)
+                pdfTable.SetWidths(widths);
+            //else
+            //    pdfTable.SetWidths(new int[] { 7, 4, 7, 4, 4 });
 
             return pdfTable;
         }
 
         public static Document AddPDFHeader(ref Document document, string title, string subtitle = "")
         {
-            var titleParagraph = new Paragraph(title, titleFont);
+            var titleParagraph = new Paragraph("eBill | " + title, titleFont);
             var subTitleParagraph = new Paragraph(subtitle, subTitleFont);
             document.Add(titleParagraph);
             document.Add(subTitleParagraph);
@@ -93,33 +96,8 @@ namespace Lync_Billing.Libs
             return document;
         }
 
-        public static Document AddPDFTableTotalsRow(ref Document document, Dictionary<string, object> totals, DataTable dt)
+        public static Document AddPDFTableTotalsRow(ref Document document, Dictionary<string, object> totals, DataTable dt, int[] widths)
         {
-            //if (dt.Columns.Contains("Duration") || dt.Columns.Contains("duration"))
-            //    totalDuration = Convert.ToInt32(dt.Compute("Sum(Duration)", "Duration > 0"));
-            //if (dt.Columns.Contains("marker_CallCost") || dt.Columns.Contains("Marker_CallCost"))
-            //    totalCost = Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(marker_CallCost)", "marker_CallCost > 0")), 2);
-
-            //foreach (DataColumn c in dt.Columns)
-            //{
-            //    if (dt.Columns[0].ColumnName == c.ColumnName)
-            //    {
-            //        pdfTable.AddCell(new Phrase("Total", boldTableFont));
-            //    }
-            //    else if (PDFDefinitions.GetDescription(c.ColumnName) == "Cost")
-            //    {
-            //        pdfTable.AddCell(new Phrase(totalCost.ToString(), boldTableFont));
-            //    }
-            //    else if (PDFDefinitions.GetDescription(c.ColumnName) == "Duration")
-            //    {
-            //        pdfTable.AddCell(new Phrase(Misc.ConvertSecondsToReadable(totalDuration), boldTableFont));
-            //    }
-            //    else
-            //    {
-            //        pdfTable.AddCell(new Phrase(string.Empty, boldTableFont));
-            //    }
-            //}
-
             PdfPTable pdfTable = new PdfPTable(dt.Columns.Count);
             pdfTable.HorizontalAlignment = 0;
             pdfTable.DefaultCell.Border = 0;
@@ -127,8 +105,11 @@ namespace Lync_Billing.Libs
             pdfTable.DefaultCell.PaddingTop = 5;
             pdfTable.DefaultCell.PaddingLeft = 2;
             pdfTable.DefaultCell.PaddingRight = 2;
-            pdfTable.SetWidths(new int[] { 7, 4, 7, 4, 4 });
             pdfTable.WidthPercentage = 100;
+            if (widths.Length > 0)
+                pdfTable.SetWidths(widths);
+            //else
+            //    pdfTable.SetWidths(new int[] { 7, 4, 7, 4, 4 });
 
             foreach(DataColumn column in dt.Columns)
             {
