@@ -244,10 +244,11 @@ namespace Lync_Billing.DB
             //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
             try
             {
+
                 totals = new Dictionary<string, object>()
                 {
-                    {"Duration", Misc.ConvertSecondsToReadable(Convert.ToInt32(dt.Compute("Sum(Duration)", "Duration > 0 and ui_CallType == Personal")))},
-                    {"marker_CallCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(marker_CallCost)", "marker_CallCost > 0 and ui_CallType == Personal")), 2)},
+                    {"Duration", Misc.ConvertSecondsToReadable(Convert.ToInt32(dt.Compute("Sum(Duration)", "Duration > 0 and ui_CallType='Personal'")))},
+                    {"marker_CallCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(marker_CallCost)", "marker_CallCost > 0 and ui_CallType='Personal'")), 2)},
                 };
             }
             catch (Exception e)
