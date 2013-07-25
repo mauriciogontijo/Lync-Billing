@@ -71,7 +71,7 @@
                         IsPagingStore="true"
                         PageSize="25">
                         <Model>
-                            <ext:Model ID="UsersBillsModel" runat="server" IDProperty="BillsModel">
+                            <ext:Model ID="UsersBillsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
                                     <ext:ModelField Name="SipAccount" Type="String" />
                                     <ext:ModelField Name="FullName" Type="String" />
@@ -84,6 +84,9 @@
                                 </Fields>
                          </ext:Model>
                        </Model>
+                         <Sorters>
+                            <ext:DataSorter Property="SipAccount" Direction="DESC" />
+                        </Sorters>
                     </ext:Store>
                 </Store>
 
@@ -235,6 +238,7 @@
                                     <Click OnEvent="NotifyUsers">
                                         <EventMask ShowMask="true" />
                                         <ExtraParams>
+                                           <%-- <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillGrid}.getRowsValues({selectedOnly : true}))" Mode="Raw"/>--%>
                                             <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillGrid}.getRowsValues({selectedOnly : true}))" Mode="Raw"/>
                                         </ExtraParams>
                                     </Click>

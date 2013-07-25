@@ -169,27 +169,27 @@ namespace Lync_Billing.ui.admin.notifications
             string json = e.ExtraParams["Values"];
 
             List<UsersCallsSummary> usersSummary = JSON.Deserialize<List<UsersCallsSummary>>(json);
-            
-            //MailTemplates mailTemplate = MailTemplates.GetMailTemplates().First(item => item.TemplateID == 2);
 
-            //subject = mailTemplate.TemplateSubject;
-            //Body = mailTemplate.TemplateBody;
+            MailTemplates mailTemplate = MailTemplates.GetMailTemplates().First(item => item.TemplateID == 2);
 
-            //foreach (UsersCallsSummary userSummary in usersSummary)
-            //{
-            //    sipAccount = userSummary.SipAccount;
+            subject = mailTemplate.TemplateSubject;
+            Body = mailTemplate.TemplateBody;
 
-            //    string RealBody =
-            //        string.Format(
-            //                Body,
-            //                userSummary.FullName,
-            //                userSummary.MonthDate.ToString("MMM", CultureInfo.InvariantCulture) + " " + userSummary.MonthDate.Year,
-            //                userSummary.PersonalCallsCount,
-            //                DB.Misc.ConvertSecondsToReadable(userSummary.PersonalCallsDuration),
-            //                userSummary.PersonalCallsCost);
+            foreach (UsersCallsSummary userSummary in usersSummary)
+            {
+                sipAccount = userSummary.SipAccount;
 
-            //    Mailer mailer = new Mailer(sipAccount, subject, RealBody);
-            //}
+                string RealBody =
+                    string.Format(
+                            Body,
+                            userSummary.FullName,
+                            userSummary.MonthDate.ToString("MMM", CultureInfo.InvariantCulture) + " " + userSummary.MonthDate.Year,
+                            userSummary.PersonalCallsCount,
+                            DB.Misc.ConvertSecondsToReadable(userSummary.PersonalCallsDuration),
+                            userSummary.PersonalCallsCost);
+
+                Mailer mailer = new Mailer(sipAccount, subject, RealBody);
+            }
 
         }
     }
