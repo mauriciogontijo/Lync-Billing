@@ -5,7 +5,7 @@
         <script>
                          
             var applyFilter = function (field) {                
-                var store = #{UsersBillGrid}.getStore();
+                var store = #{UsersBillsGrid}.getStore();
                 store.filterBy(getRecordFilter());                                                
             };
              
@@ -54,7 +54,7 @@
     <div id='email-notifications' class='block float-right wauto h100p'>
         <div class="block-body pt5">
             <ext:GridPanel
-                ID="UsersBillGrid" 
+                ID="UsersBillsGrid" 
                 runat="server" 
                 Title="Users Bills Notifications"
                 Width="740"
@@ -91,7 +91,7 @@
                 </Store>
 
                 <Features>
-                    <ext:GridFilters ID="UsersBillGridFilters" Local="true">
+                    <ext:GridFilters ID="UsersBillsGridFilters" Local="true">
                         <Filters>
                             <ext:StringFilter DataIndex="FullName" />
                         </Filters>
@@ -238,8 +238,8 @@
                                     <Click OnEvent="NotifyUsers">
                                         <EventMask ShowMask="true" />
                                         <ExtraParams>
-                                           <%-- <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillGrid}.getRowsValues({selectedOnly : true}))" Mode="Raw"/>--%>
-                                            <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillGrid}.getRowsValues({selectedOnly : true}))" Mode="Raw"/>
+                                           <%-- <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillsGrid}.getRowsValues({selectedOnly : true}))" Mode="Raw"/>--%>
+                                            <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillsGrid}.getRowsValues({selectedOnly : true}))" Mode="Raw"/>
                                         </ExtraParams>
                                     </Click>
                                 </DirectEvents>

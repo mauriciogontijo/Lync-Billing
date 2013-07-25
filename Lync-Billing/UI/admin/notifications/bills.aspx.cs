@@ -113,8 +113,8 @@ namespace Lync_Billing.ui.admin.notifications
                 DateTime month_start = new DateTime(BillDateField.SelectedDate.Year, BillDateField.SelectedDate.Month, 1);
                 DateTime month_end = month_start.AddMonths(1).AddDays(-1);
 
-                UsersBillGrid.GetStore().DataSource = GetUsersBills(month_start, month_end, site);
-                UsersBillGrid.GetStore().DataBind();
+                UsersBillsGrid.GetStore().DataSource = GetUsersBills(month_start, month_end, site);
+                UsersBillsGrid.GetStore().DataBind();
             }
         }
 
