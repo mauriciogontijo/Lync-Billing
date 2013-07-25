@@ -161,7 +161,8 @@ namespace Lync_Billing.ui.accounting.reports
         {
             if (FilterReportsBySite.SelectedItem.Index != -1 && ReportDateField.SelectedValue != null)
             {
-                ReportExportOptions.Disabled = false;
+                ExportExcelReport.Disabled = false;
+                ExportPDFReport.Disabled = false;
 
                 listOfUsersCallsSummary = MonthlyReports(FilterReportsBySite.SelectedItem.Value, ReportDateField.SelectedDate);
                 MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
@@ -169,7 +170,8 @@ namespace Lync_Billing.ui.accounting.reports
             }
             else
             {
-                ReportExportOptions.Disabled = true;
+                ExportExcelReport.Disabled = true;
+                ExportPDFReport.Disabled = true;
             }
         }
 

@@ -149,7 +149,7 @@
                                 LabelWidth="20"
                                 EmptyText="Empty Date"
                                 Width="130"
-                                Margins="5 100 5 5"
+                                Margins="5 40 5 5"
                                 Disabled="true">
                                 <DirectEvents>
                                     <Select OnEvent="EndingDate_Selection">
@@ -159,20 +159,53 @@
                             </ext:DateField>
 
                             <ext:Button
-                                ID="ReportExportOptions"
+                                ID="ExportPDFReport"
                                 runat="server"
-                                Text="Export Report"
-                                Disabled="true">
+                                Text="To PDF"
+                                Disabled="true"
+                                Icon="PageSave">
+                                <Menu>
+                                    <ext:Menu ID="Menu1" runat="server">
+                                        <Items>
+                                            <ext:MenuItem ID="ExportPDFSummaryRreport" runat="server" Text="Summary Report" Icon="PageSave">
+                                                <%--<DirectEvents>
+                                                    <Click OnEvent="ExportDetailedReportButton_DirectClick">
+                                                        <EventMask ShowMask="true" />
+                                                    </Click>
+                                                </DirectEvents>--%>
+                                            </ext:MenuItem>
+
+                                            <ext:MenuItem ID="ExportPDFDetailedReport" runat="server" Text="Detailed Report" Icon="PageSave">
+                                                <%--<DirectEvents>
+                                                    <Click OnEvent="ExportDetailedReportButton_DirectClick">
+                                                        <EventMask ShowMask="true" />
+                                                        <ExtraParams>
+                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{MonthlyReportsTools}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                        </ExtraParams>
+                                                    </Click>
+                                                </DirectEvents>--%>
+                                            </ext:MenuItem>
+                                        </Items>
+                                    </ext:Menu>
+                                </Menu>
+                            </ext:Button>
+
+                            <ext:Button
+                                ID="ExportExcelReport"
+                                runat="server"
+                                Text="To Excel"
+                                Disabled="true"
+                                Icon="PageExcel">
                                 <Menu>
                                     <ext:Menu ID="ReportExportOptionsMenu" runat="server">
                                         <Items>
-                                            <ext:MenuItem ID="ExportSummary" runat="server" Text="Export Summary" Icon="PageExcel">
+                                            <ext:MenuItem ID="ExportExcelSummaryReport" runat="server" Text="Summary Report" Icon="PageExcel">
                                                 <Listeners>
                                                     <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
                                                 </Listeners>
                                             </ext:MenuItem>
 
-                                            <ext:MenuItem ID="ExportDetailed" runat="server" Text="Export Detailed" Icon="PageExcel">
+                                            <ext:MenuItem ID="ExportExcelDetailedReport" runat="server" Text="Detailed Report" Icon="PageExcel">
                                                 <DirectEvents>
                                                     <Click OnEvent="ExportDetailedReportButton_DirectClick">
                                                         <EventMask ShowMask="true" />

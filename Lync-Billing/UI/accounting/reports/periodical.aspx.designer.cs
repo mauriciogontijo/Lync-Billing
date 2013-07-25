@@ -94,13 +94,49 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.DateField EndingDate;
         
         /// <summary>
-        /// ReportExportOptions control.
+        /// ExportPDFReport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button ReportExportOptions;
+        protected global::Ext.Net.Button ExportPDFReport;
+        
+        /// <summary>
+        /// Menu1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Menu Menu1;
+        
+        /// <summary>
+        /// ExportPDFSummaryRreport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem ExportPDFSummaryRreport;
+        
+        /// <summary>
+        /// ExportPDFDetailedReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem ExportPDFDetailedReport;
+        
+        /// <summary>
+        /// ExportExcelReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button ExportExcelReport;
         
         /// <summary>
         /// ReportExportOptionsMenu control.
@@ -112,22 +148,22 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Menu ReportExportOptionsMenu;
         
         /// <summary>
-        /// ExportSummary control.
+        /// ExportExcelSummaryReport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.MenuItem ExportSummary;
+        protected global::Ext.Net.MenuItem ExportExcelSummaryReport;
         
         /// <summary>
-        /// ExportDetailed control.
+        /// ExportExcelDetailedReport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.MenuItem ExportDetailed;
+        protected global::Ext.Net.MenuItem ExportExcelDetailedReport;
         
         /// <summary>
         /// PeriodicalReportsGrid control.

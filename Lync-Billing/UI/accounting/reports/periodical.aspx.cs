@@ -199,7 +199,8 @@ namespace Lync_Billing.ui.accounting.reports
                 //If the dates were previously chosen, jsut refresh the data!
                 if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
                 {
-                    ReportExportOptions.Disabled = false;
+                    ExportExcelReport.Disabled = false;
+                    ExportPDFReport.Disabled = false;
 
                     listOfUsersCallsSummary = PeriodicalReport(FilterReportsBySite.SelectedItem.Value, StartingDate.SelectedDate, EndingDate.SelectedDate);
                     PeriodicalReportsGrid.GetStore().DataSource = listOfUsersCallsSummary;
@@ -210,7 +211,8 @@ namespace Lync_Billing.ui.accounting.reports
             {
                 StartingDate.Disabled = true;
                 EndingDate.Disabled = true;
-                ReportExportOptions.Disabled = true;
+                ExportExcelReport.Disabled = true;
+                ExportPDFReport.Disabled = true;
             }
         }
 
@@ -223,7 +225,8 @@ namespace Lync_Billing.ui.accounting.reports
             else
             {
                 EndingDate.Disabled = true;
-                ReportExportOptions.Disabled = true;
+                ExportExcelReport.Disabled = true;
+                ExportPDFReport.Disabled = true;
             }
         }
 
@@ -231,7 +234,8 @@ namespace Lync_Billing.ui.accounting.reports
         {
             if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
             {
-                ReportExportOptions.Disabled = false;
+                ExportExcelReport.Disabled = false;
+                ExportPDFReport.Disabled = false;
 
                 listOfUsersCallsSummary = PeriodicalReport(FilterReportsBySite.SelectedItem.Value, StartingDate.SelectedDate, EndingDate.SelectedDate);
                 PeriodicalReportsGrid.GetStore().DataSource = listOfUsersCallsSummary;
@@ -239,7 +243,8 @@ namespace Lync_Billing.ui.accounting.reports
             }
             else
             {
-                ReportExportOptions.Disabled = true;
+                ExportExcelReport.Disabled = true;
+                ExportPDFReport.Disabled = true;
             }
         }
 
