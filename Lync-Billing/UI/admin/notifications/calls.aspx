@@ -274,7 +274,8 @@
                 </TopBar>
 
                 <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="UnmarkedCallsCheckboxSelectionModel"
+                    <ext:CheckboxSelectionModel 
+                        ID="UnmarkedCallsCheckboxSelectionModel"
                         runat="server"
                         Mode="Multi"
                         AllowDeselect="true"
