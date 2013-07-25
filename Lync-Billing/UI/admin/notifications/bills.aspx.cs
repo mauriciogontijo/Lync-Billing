@@ -113,8 +113,8 @@ namespace Lync_Billing.ui.admin.notifications
                 DateTime month_start = new DateTime(BillDateField.SelectedDate.Year, BillDateField.SelectedDate.Month, 1);
                 DateTime month_end = month_start.AddMonths(1).AddDays(-1);
 
-                UsersBillsGrid.GetStore().DataSource = GetUsersBills(month_start, month_end, site);
-                UsersBillsGrid.GetStore().DataBind();
+                UsersBillGrid.GetStore().DataSource = GetUsersBills(month_start, month_end, site);
+                UsersBillGrid.GetStore().DataBind();
             }
         }
 
@@ -169,27 +169,27 @@ namespace Lync_Billing.ui.admin.notifications
             string json = e.ExtraParams["Values"];
 
             List<UsersCallsSummary> usersSummary = JSON.Deserialize<List<UsersCallsSummary>>(json);
+            
+            //MailTemplates mailTemplate = MailTemplates.GetMailTemplates().First(item => item.TemplateID == 2);
 
-            MailTemplates mailTemplate = MailTemplates.GetMailTemplates().First(item => item.TemplateID == 2);
+            //subject = mailTemplate.TemplateSubject;
+            //Body = mailTemplate.TemplateBody;
 
-            subject = mailTemplate.TemplateSubject;
-            Body = mailTemplate.TemplateBody;
+            //foreach (UsersCallsSummary userSummary in usersSummary)
+            //{
+            //    sipAccount = userSummary.SipAccount;
 
-            foreach (UsersCallsSummary userSummary in usersSummary)
-            {
-                sipAccount = userSummary.SipAccount;
+            //    string RealBody =
+            //        string.Format(
+            //                Body,
+            //                userSummary.FullName,
+            //                userSummary.MonthDate.ToString("MMM", CultureInfo.InvariantCulture) + " " + userSummary.MonthDate.Year,
+            //                userSummary.PersonalCallsCount,
+            //                DB.Misc.ConvertSecondsToReadable(userSummary.PersonalCallsDuration),
+            //                userSummary.PersonalCallsCost);
 
-                string RealBody =
-                    string.Format(
-                            Body,
-                            userSummary.FullName,
-                            userSummary.MonthDate.ToString("MMM", CultureInfo.InvariantCulture) + " " + userSummary.MonthDate.Year,
-                            userSummary.PersonalCallsCount,
-                            DB.Misc.ConvertSecondsToReadable(userSummary.PersonalCallsDuration),
-                            userSummary.PersonalCallsCost);
-
-                Mailer mailer = new Mailer(sipAccount, subject, RealBody);
-            }
+            //    Mailer mailer = new Mailer(sipAccount, subject, RealBody);
+            //}
 
         }
     }

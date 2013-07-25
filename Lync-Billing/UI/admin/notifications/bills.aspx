@@ -5,7 +5,7 @@
         <script>
                          
             var applyFilter = function (field) {                
-                var store = #{UsersBillsGrid}.getStore();
+                var store = #{UsersBillGrid}.getStore();
                 store.filterBy(getRecordFilter());                                                
             };
              
@@ -54,7 +54,7 @@
     <div id='email-notifications' class='block float-right wauto h100p'>
         <div class="block-body pt5">
             <ext:GridPanel
-                ID="UsersBillsGrid" 
+                ID="UsersBillGrid" 
                 runat="server" 
                 Title="Users Bills Notifications"
                 Width="740"
@@ -88,7 +88,7 @@
                 </Store>
 
                 <Features>
-                    <ext:GridFilters ID="UsersBillsGridFilters" Local="true">
+                    <ext:GridFilters ID="UsersBillGridFilters" Local="true">
                         <Filters>
                             <ext:StringFilter DataIndex="FullName" />
                         </Filters>
@@ -235,7 +235,7 @@
                                     <Click OnEvent="NotifyUsers">
                                         <EventMask ShowMask="true" />
                                         <ExtraParams>
-                                            <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw"/>
+                                            <ext:Parameter Name="Values" Value="Ext.encode(#{UsersBillGrid}.getRowsValues({selectedOnly : true}))" Mode="Raw"/>
                                         </ExtraParams>
                                     </Click>
                                 </DirectEvents>
@@ -245,7 +245,8 @@
                 </TopBar>
 
                 <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                    <ext:CheckboxSelectionModel 
+                        ID="CheckboxSelectionModel1"
                         runat="server"
                         Mode="Multi"
                         AllowDeselect="true"

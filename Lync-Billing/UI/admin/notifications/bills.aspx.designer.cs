@@ -22,13 +22,13 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.XScript XScript1;
         
         /// <summary>
-        /// UsersBillsGrid control.
+        /// UsersBillGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridPanel UsersBillsGrid;
+        protected global::Ext.Net.GridPanel UsersBillGrid;
         
         /// <summary>
         /// UsersBillsStore control.
@@ -49,13 +49,13 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Model UsersBillsModel;
         
         /// <summary>
-        /// UsersBillsGridFilters control.
+        /// UsersBillGridFilters control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridFilters UsersBillsGridFilters;
+        protected global::Ext.Net.GridFilters UsersBillGridFilters;
         
         /// <summary>
         /// RowNumbererColumn2 control.
