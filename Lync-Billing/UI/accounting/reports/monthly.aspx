@@ -256,7 +256,7 @@
                             ID="EmployeeIDCol"
                             runat="server"
                             Text="Employee ID"
-                            Width="90"
+                            Width="100"
                             DataIndex="EmployeeID"
                             Sortable="true">
                             <HeaderItems>
@@ -322,36 +322,26 @@
                                     ID="PersonalCallsCostCol"
                                     runat="server"
                                     Text="Personal"
-                                    Width="80"
+                                    Width="85"
                                     DataIndex="PersonalCallsCost" />
 
                                 <ext:Column
                                     ID="BusinessCallsCostCol"
                                     runat="server"
                                     Text="Business"
-                                    Width="80"
+                                    Width="85"
                                     DataIndex="BusinessCallsCost" />
 
                                 <ext:Column
                                     ID="UnmarkedCallsCostCol"
                                     runat="server"
                                     Text="Unallocated"
-                                    Width="80"
+                                    Width="85"
                                     DataIndex="UnmarkedCallsCost" />
                             </Columns>
                         </ext:Column>
                     </Columns>
                 </ColumnModel>
-
-                <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="MonthlyReportsCheckboxSelectionModel"
-                        runat="server"
-                        Mode="Multi"
-                        AllowDeselect="true"
-                        IgnoreRightMouseSelection="true"
-                        CheckOnly="true">
-                    </ext:CheckboxSelectionModel>
-                </SelectionModel>
 
                 <BottomBar>
                     <ext:PagingToolbar

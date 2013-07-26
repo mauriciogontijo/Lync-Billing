@@ -261,7 +261,7 @@
                             ID="EmployeeIDCol"
                             runat="server"
                             Text="Employee ID"
-                            Width="90"
+                            Width="100"
                             DataIndex="EmployeeID">
                             <HeaderItems>
                                 <ext:TextField ID="EmployeeIDFilter" runat="server" Icon="Magnifier">
@@ -324,21 +324,21 @@
                                     ID="PersonalCallsCostCol"
                                     runat="server"
                                     Text="Personal"
-                                    Width="80"
+                                    Width="85"
                                     DataIndex="PersonalCallsCost" />
 
                                 <ext:Column
                                     ID="BusinessCallsCostCol"
                                     runat="server"
                                     Text="Business"
-                                    Width="80"
+                                    Width="85"
                                     DataIndex="BusinessCallsCost" />
 
                                 <ext:Column
                                     ID="UnmarkedCallsCostCol"
                                     runat="server"
                                     Text="Unallocated"
-                                    Width="80"
+                                    Width="85"
                                     DataIndex="UnmarkedCallsCost" />
                             </Columns>
                         </ext:Column>
@@ -357,16 +357,6 @@
                     </ext:GridFilters>
                 </Features>
 
-                <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
-                        runat="server"
-                        Mode="Multi"
-                        AllowDeselect="true"
-                        IgnoreRightMouseSelection="true"
-                        CheckOnly="true">
-                    </ext:CheckboxSelectionModel>
-                </SelectionModel>
-                
                 <BottomBar>
                     <ext:PagingToolbar
                         ID="PagingToolbar1"
