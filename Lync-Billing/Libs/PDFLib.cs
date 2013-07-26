@@ -60,19 +60,28 @@ namespace Lync_Billing.Libs
             {
                 if (headers.ContainsKey("title"))
                 {
-                    var titleParagraph = new Paragraph("eBill | " + headers["title"], titleFont);
+                    Paragraph titleParagraph = new Paragraph("eBill | " + headers["title"], titleFont);
                     titleParagraph.SpacingAfter = 5;
                     document.Add(titleParagraph);
                 }
                 if (headers.ContainsKey("subTitle"))
                 {
-                    var subTitleParagraph = new Paragraph(headers["subTitle"], subTitleFont);
+                    Paragraph subTitleParagraph;
+                    if (headers.ContainsKey("siteName"))
+                    {
+                        subTitleParagraph = new Paragraph(headers["siteName"] + " site | " + headers["subTitle"], subTitleFont);
+                    }
+                    else
+                    {
+                        subTitleParagraph = new Paragraph(headers["subTitle"], subTitleFont);
+                    }
                     subTitleParagraph.SpacingAfter = 5;
                     document.Add(subTitleParagraph);
                 }
                 if (headers.ContainsKey("comments"))
                 {
                     var commentsParagraph = new Paragraph(headers["comments"], headerCommentsFont);
+                    commentsParagraph.SpacingBefore = 10;
                     commentsParagraph.SpacingAfter = 5;
                     document.Add(commentsParagraph);
                 }
@@ -156,5 +165,7 @@ namespace Lync_Billing.Libs
             document.Close();
         }
 
+
+        public static IElement titleParagraph { get; set; }
     }
 }
