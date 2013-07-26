@@ -29,7 +29,12 @@ namespace Lync_Billing.DB
             {"ac_DisputeStatus", "Dispute Status"},
             {"ac_DisputeResolvedOn", "Dispute Resolved On"},
             {"ac_IsInvoiced", "Is Invoiced"},
-            {"ac_InvoiceDate", "Invoice Date"}
+            {"ac_InvoiceDate", "Invoice Date"},
+            {"AD_UserID", "Group No."},
+            {"AD_DisplayName", "Name"},
+            {"BusinessCost", "Bus. Cost"},
+            {"PersonalCost", "Per. Cost"},
+            {"UnMarkedCost", "Unac. Cost"}
         };
 
         public static string GetDescription(string value)

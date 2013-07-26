@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Lync_Billing.Libs;
 using System.Data;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 namespace Lync_Billing.DB
 {
     public class UsersCallsSummaryChartData 
@@ -155,81 +157,6 @@ namespace Lync_Billing.DB
         public int Year { get; set; }
         public int Month { get; set; }
 
-        //Depricated
-        //public static UsersCallsSummary GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate)
-        //{
-        //    wherePart = new Dictionary<string, object>();
-        //    columns = new List<string>();
-
-        //    DataTable dt = new DataTable();
-        //    UsersCallsSummary userSummary = new UsersCallsSummary();
-
-        //    wherePart.Add("SourceUserUri", sipAccount);
-        //    wherePart.Add("startingDate", startingDate);
-        //    wherePart.Add("endingDate", endingDate);
-
-        //    dt = DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
-
-            
-        //    foreach (DataRow row in dt.Rows)
-        //    {
-        //        if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Business")
-        //        {
-        //            if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
-        //                userSummary.BusinessCallsCount = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
-        //            else
-        //                userSummary.BusinessCallsCount = 0;
-
-        //            if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
-        //                userSummary.BusinessCallsCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
-        //            else
-        //                userSummary.BusinessCallsCost = 0;
-
-        //            if (row[dt.Columns["TotalDuration"]] != System.DBNull.Value)
-        //                userSummary.BusinessCallsDuration = Convert.ToInt32(row[dt.Columns["TotalDuration"]]);
-        //            else
-        //                userSummary.BusinessCallsDuration = 0;
-        //        }
-
-        //        else if (row[dt.Columns["PhoneCallType"]] != System.DBNull.Value && row[dt.Columns["PhoneCallType"]].ToString() == "Personal")
-        //        {
-        //            if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
-        //                userSummary.PersonalCallsCount = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
-        //            else
-        //                userSummary.PersonalCallsCount = 0;
-
-        //            if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
-        //                userSummary.PersonalCallsCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
-        //            else
-        //                userSummary.PersonalCallsCost = 0;
-
-        //            if (row[dt.Columns["TotalDuration"]] != System.DBNull.Value)
-        //                userSummary.PersonalCallsDuration = Convert.ToInt32(row[dt.Columns["TotalDuration"]]);
-        //            else
-        //                userSummary.PersonalCallsDuration = 0;
-        //        }
-
-        //        else if (row[dt.Columns["PhoneCallType"]] == System.DBNull.Value)
-        //        {
-        //            if (row[dt.Columns["ui_CallType"]] != System.DBNull.Value)
-        //                userSummary.UnmarkedCallsCount = Convert.ToInt32(row[dt.Columns["ui_CallType"]]);
-        //            else
-        //                userSummary.UnmarkedCallsCount = 0;
-
-        //            if (row[dt.Columns["TotalCost"]] != System.DBNull.Value)
-        //                userSummary.UnmarkedCallsCost = Convert.ToInt32(row[dt.Columns["TotalCost"]]);
-        //            else
-        //                userSummary.UnmarkedCallsCost = 0;
-
-        //            if (row[dt.Columns["TotalDuration"]] != System.DBNull.Value)
-        //                userSummary.UnmarkedCallsDuration = Convert.ToInt32( row[dt.Columns["TotalDuration"]]);
-        //            else
-        //                userSummary.UnmarkedCallsDuration = 0;
-        //        }
-        //    }
-        //    return userSummary;
-        //}
-
         public static List<UsersCallsSummary> GetUsersCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
         {
             columns = new List<string>();
@@ -302,6 +229,46 @@ namespace Lync_Billing.DB
                 usersSummaryList.Add(userSummary);
             }
             return usersSummaryList;
+        }
+
+        public static void ExportUsersCallsSummaryToPDF(DateTime startingDate, DateTime endingDate, string siteName, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        {
+            DataTable dt = new DataTable();
+            List<string> columns = new List<string>() { "SourceUserUri", "AD_UserID", "AD_DisplayName", "BusinessCost", "PersonalCost", "UnMarkedCost" };
+
+            dt = StatRoutines.USERS_STATS(startingDate, endingDate, siteName, columns);
+
+            Dictionary<string, object> totals;
+
+            //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
+            try
+            {
+                totals = new Dictionary<string, object>()
+                {
+                    {"PersonalCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(PersonalCost)", "PersonalCost > 0")), 2)},
+                    {"BusinessCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(BusinessCost)", "BusinessCost > 0")), 2)},
+                    {"UnMarkedCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(UnMarkedCost)", "UnMarkedCost > 0")), 2)}
+                };
+            }
+            catch (Exception e)
+            {
+                totals = new Dictionary<string, object>()
+                {
+                    {"PersonalCost", 0.00},
+                    {"BusinessCost", 0.00},
+                    {"UnMarkedCost", 0.00}
+                };
+            }
+
+            int[] widths = new int[] { 6, 4, 7, 4, 4, 4 };
+            headers.Add("comments", "* Please note that the terms: Business, Personal and Unallocated Calls Costs were abbreviated as Bus. Cost, Per. Cost and Unac. Cost respectively in the following report's columns-headers.");
+
+            document = PDFLib.InitializePDFDocument(response);
+            PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
+            PDFLib.AddPDFHeader(ref document, headers);
+            PDFLib.AddPDFTableContents(ref document, ref pdfContentsTable, dt);
+            PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
+            PDFLib.ClosePDFDocument(ref document);
         }
 
         private static object ReturnZeroIfNull(object value) 

@@ -265,7 +265,7 @@ namespace Lync_Billing.DB
 
             document = PDFLib.InitializePDFDocument(response);
             PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
-            PDFLib.AddPDFHeader(ref document, headers["title"], headers["subtitle"]);
+            PDFLib.AddPDFHeader(ref document, headers);
             PDFLib.AddPDFTableContents(ref document, ref pdfContentsTable, dt);
             PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
             PDFLib.ClosePDFDocument(ref document);
