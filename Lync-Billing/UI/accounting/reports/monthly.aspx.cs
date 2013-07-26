@@ -186,9 +186,6 @@ namespace Lync_Billing.ui.accounting.reports
                     break;
 
                 case "pdf":
-                    UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-                    sipAccount = userSession.EffectiveSipAccount;
-
                     DateTime month_start = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
                     DateTime month_end = month_start.AddMonths(1).AddDays(-1);
                     string siteName = FilterReportsBySite.SelectedItem.Value;
@@ -199,15 +196,14 @@ namespace Lync_Billing.ui.accounting.reports
 
                     Dictionary<string, string> headers = new Dictionary<string, string>()
                     {
+                        {"siteName", siteName},
                         {"title", "Accounting Monthly Report [Summary]"},
-                        {"subTitle", "As Per: " + month_start.Month + "/" + month_start.Year + ". For the site: " + siteName}
+                        {"subTitle", "As Per: " + month_start.Month + "-" + month_start.Year}
                     };
 
                     Document doc = new Document();
                     UsersCallsSummary.ExportUsersCallsSummaryToPDF(month_start, month_end, siteName, Response, out doc, headers);
-
                     Response.Write(doc);
-
                     break;
             }
 
