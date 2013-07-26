@@ -148,13 +148,25 @@ namespace Lync_Billing.ui.admin.notifications
 
         protected void FilterUsersBySite_Selected(object sender, DirectEventArgs e)
         {
-            if (FilterUsersBySite.SelectedItem.Index != -1)
+            if (FilterUsersBySite.SelectedItem.Index != -1 && !string.IsNullOrEmpty(FilterUsersBySite.SelectedItem.Value))
             {
                 BillDateField.Disabled = false;
+                if (BillDateField.SelectedValue != null)
+                {
+                    string site = FilterUsersBySite.SelectedItem.Value;
+
+                    DateTime month_start = new DateTime(BillDateField.SelectedDate.Year, BillDateField.SelectedDate.Month, 1);
+                    DateTime month_end = month_start.AddMonths(1).AddDays(-1);
+
+                    UsersBillsGrid.GetStore().DataSource = GetUsersBills(month_start, month_end, site);
+                    UsersBillsGrid.GetStore().DataBind();
+                }
             }
             else
             {
                 BillDateField.Disabled = true;
+                //BillDateField.Clear();
+                //UsersBillsGrid.ClearContent();
             }
         }
 
