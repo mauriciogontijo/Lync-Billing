@@ -25,6 +25,8 @@ namespace Lync_Billing.ui.accounting.reports
 {
     public partial class monthly : System.Web.UI.Page
     {
+        private Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        private List<string> columns = new List<string>();
         private StoreReadDataEventArgs e;
         List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
         private string sipAccount = string.Empty;
@@ -59,9 +61,12 @@ namespace Lync_Billing.ui.accounting.reports
         protected List<UsersCallsSummary> MonthlyReports(string site, DateTime date)
         {
             List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
-            
+
+            DateTime month_start = new DateTime(date.Year, date.Month, 1);
+            DateTime month_end = month_start.AddMonths(1).AddDays(-1);
+
             listOfUsersCallsSummary.AddRange(
-                UsersCallsSummary.GetUsersCallsSummary(date, date, site).Where
+                UsersCallsSummary.GetUsersCallsSummary(month_start, month_end, site).Where
                             (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != 0).AsEnumerable<UsersCallsSummary>());
             
             return listOfUsersCallsSummary;
@@ -123,21 +128,6 @@ namespace Lync_Billing.ui.accounting.reports
             return users[0].SiteName;
         }
 
-        protected void MonthlyReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
-        {
-            string format = this.FormatType.Value.ToString();
-            XmlNode xml = e.Xml;
-
-            this.Response.Clear();
-            this.Response.ContentType = "application/vnd.ms-excel";
-            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
-            XslCompiledTransform xtExcel = new XslCompiledTransform();
-            xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
-            xtExcel.Transform(xml, null, Response.OutputStream);
-
-            this.Response.End();
-        }
-
         protected void FilterReportsBySite_Selecting(object sender, DirectEventArgs e)
         {
             if (FilterReportsBySite.SelectedItem.Index != -1)
@@ -173,6 +163,55 @@ namespace Lync_Billing.ui.accounting.reports
                 ExportExcelReport.Disabled = true;
                 ExportPDFReport.Disabled = true;
             }
+        }
+
+        protected void MonthlyReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
+        {
+            string format = this.FormatType.Value.ToString();
+
+            XmlNode xml = e.Xml;
+
+            this.Response.Clear();
+
+            switch (format)
+            {
+                case "xls":
+                    this.Response.Clear();
+                    this.Response.ContentType = "application/vnd.ms-excel";
+                    this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+                    XslCompiledTransform xtExcel = new XslCompiledTransform();
+                    xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
+                    xtExcel.Transform(xml, null, Response.OutputStream);
+
+                    break;
+
+                case "pdf":
+                    UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+                    sipAccount = userSession.EffectiveSipAccount;
+
+                    DateTime month_start = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
+                    DateTime month_end = month_start.AddMonths(1).AddDays(-1);
+                    string siteName = FilterReportsBySite.SelectedItem.Value;
+
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("content-disposition", "attachment;filename=AccountingMonthlyReport_Summary.pdf");
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                    Dictionary<string, string> headers = new Dictionary<string, string>()
+                    {
+                        {"title", "Accounting Monthly Report [Summary]"},
+                        {"subTitle", "As Per: " + month_start.Month + "/" + month_start.Year + ". For the site: " + siteName}
+                    };
+
+                    Document doc = new Document();
+                    UsersCallsSummary.ExportUsersCallsSummaryToPDF(month_start, month_end, siteName, Response, out doc, headers);
+
+                    Response.Write(doc);
+
+                    break;
+            }
+
+            this.Response.End();
         }
 
         protected void ExportDetailedReportButton_DirectClick(object sender, DirectEventArgs e)

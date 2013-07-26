@@ -121,15 +121,6 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.MenuItem ExportPDFSummaryRreport;
         
         /// <summary>
-        /// ExportPDFDetailedReport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem ExportPDFDetailedReport;
-        
-        /// <summary>
         /// ExportExcelReport control.
         /// </summary>
         /// <remarks>
@@ -155,15 +146,6 @@ namespace Lync_Billing.ui.accounting.reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.MenuItem ExportExcelSummaryReport;
-        
-        /// <summary>
-        /// ExportExcelDetailedReport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem ExportExcelDetailedReport;
         
         /// <summary>
         /// PeriodicalReportsGrid control.

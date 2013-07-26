@@ -168,23 +168,13 @@
                                     <ext:Menu ID="Menu1" runat="server">
                                         <Items>
                                             <ext:MenuItem ID="ExportPDFSummaryRreport" runat="server" Text="Summary Report" Icon="PageSave">
-                                                <%--<DirectEvents>
-                                                    <Click OnEvent="ExportDetailedReportButton_DirectClick">
-                                                        <EventMask ShowMask="true" />
-                                                    </Click>
-                                                </DirectEvents>--%>
+                                                <Listeners>
+                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'pdf');" />
+                                                </Listeners>
                                             </ext:MenuItem>
 
-                                            <ext:MenuItem ID="ExportPDFDetailedReport" runat="server" Text="Detailed Report" Icon="PageSave">
-                                                <%--<DirectEvents>
-                                                    <Click OnEvent="ExportDetailedReportButton_DirectClick">
-                                                        <EventMask ShowMask="true" />
-                                                        <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{MonthlyReportsTools}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                        </ExtraParams>
-                                                    </Click>
-                                                </DirectEvents>--%>
-                                            </ext:MenuItem>
+                                            <%--<ext:MenuItem ID="ExportPDFDetailedReport" runat="server" Text="Detailed Report" Icon="PageSave">
+                                            </ext:MenuItem>--%>
                                         </Items>
                                     </ext:Menu>
                                 </Menu>
@@ -201,20 +191,12 @@
                                         <Items>
                                             <ext:MenuItem ID="ExportExcelSummaryReport" runat="server" Text="Summary Report" Icon="PageExcel">
                                                 <Listeners>
-                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, 'xls');" />
+                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'xls');" />
                                                 </Listeners>
                                             </ext:MenuItem>
 
-                                            <ext:MenuItem ID="ExportExcelDetailedReport" runat="server" Text="Detailed Report" Icon="PageExcel">
-                                                <DirectEvents>
-                                                    <Click OnEvent="ExportDetailedReportButton_DirectClick">
-                                                        <EventMask ShowMask="true" />
-                                                        <%--<ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{MonthlyReportsTools}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                        </ExtraParams>--%>
-                                                    </Click>
-                                                </DirectEvents>
-                                            </ext:MenuItem>
+                                            <%--<ext:MenuItem ID="ExportExcelDetailedReport" runat="server" Text="Detailed Report" Icon="PageExcel">
+                                            </ext:MenuItem>--%>
                                         </Items>
                                     </ext:Menu>
                                 </Menu>

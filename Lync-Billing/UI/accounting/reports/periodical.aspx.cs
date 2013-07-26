@@ -25,7 +25,8 @@ namespace Lync_Billing.ui.accounting.reports
 {
     public partial class periodical : System.Web.UI.Page
     {
-
+        private Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        private List<string> columns = new List<string>();
         List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
         List<string> sites = new List<string>();
         private string sipAccount = string.Empty;
@@ -178,14 +179,55 @@ namespace Lync_Billing.ui.accounting.reports
         protected void PeriodicalReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
             string format = this.FormatType.Value.ToString();
+
             XmlNode xml = e.Xml;
 
             this.Response.Clear();
-            this.Response.ContentType = "application/vnd.ms-excel";
-            this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
-            XslCompiledTransform xtExcel = new XslCompiledTransform();
-            xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
-            xtExcel.Transform(xml, null, Response.OutputStream);
+
+            switch (format)
+            {
+                case "xls":
+                    this.Response.Clear();
+                    this.Response.ContentType = "application/vnd.ms-excel";
+                    this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
+                    XslCompiledTransform xtExcel = new XslCompiledTransform();
+                    xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
+                    xtExcel.Transform(xml, null, Response.OutputStream);
+
+                    break;
+
+                case "pdf":
+                    UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+                    sipAccount = userSession.EffectiveSipAccount;
+
+                    wherePart.Add("SourceUserUri", sipAccount);
+                    wherePart.Add("marker_CallTypeID", 1);
+                    //wherePart.Add("ac_IsInvoiced", "NO");
+
+                    columns.Add("ResponseTime");
+                    columns.Add("marker_CallToCountry");
+                    columns.Add("DestinationNumberUri");
+                    columns.Add("Duration");
+                    columns.Add("marker_CallCost");
+                    columns.Add("ui_CallType");
+
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                    Dictionary<string, string> headers = new Dictionary<string, string>()
+                    {
+                        {"title", userSession.EffectiveDisplayName.ToString() + "(#" + userSession.EmployeeID.ToString() + ")" },
+                        {"subtitle", "The List of Uninvoiced Phone Calls"}
+                    };
+
+                    Document doc = new Document();
+                    PhoneCall.ExportPhoneCalls(columns, wherePart, 0, Response, out doc, headers);
+
+                    Response.Write(doc);
+
+                    break;
+            }
 
             this.Response.End();
         }
