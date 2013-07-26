@@ -13,7 +13,7 @@ namespace Lync_Billing.DB
         {
             {"SessionIdTime", "Session Time"},
             {"SessionIdSeq", "Session Seq"},
-            {"ResponseTime", "Response Time"},
+            {"ResponseTime", "Date"},
             {"SessionEndTime", "Session End Time"},
             {"SourceUserUri", "Email Address"},
             {"SourceNumberUri", "Telephone No"},
