@@ -157,7 +157,7 @@ namespace Lync_Billing.ui.user
                     Dictionary<string, string> headers = new Dictionary<string,string>()
                     {
                         {"title", userSession.EffectiveDisplayName.ToString() + "(#" + userSession.EmployeeID.ToString() + ")" },
-                        {"subtitle", "The List of Uninvoiced Phone Calls"}
+                        {"subTitle", "The List of Uninvoiced Phone Calls"}
                     };
 
                     Document doc = new Document();

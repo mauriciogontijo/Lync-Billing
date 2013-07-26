@@ -56,7 +56,7 @@
                                 </DirectEvents>
                             </ext:ComboBox>
 
-                            <ext:Button
+                            <%--<ext:Button
                                 ID="ExportToPDFButton"
                                 runat="server"
                                 Text="To PDF"
@@ -74,7 +74,7 @@
                                 <Listeners>
                                     <Click Handler="submitValue(#{ManagePhoneCallsGrid}, #{FormatType}, 'xls');" />
                                 </Listeners>
-                            </ext:Button>
+                            </ext:Button>--%>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>

@@ -49,24 +49,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ComboBox FilterTypeComboBox;
         
         /// <summary>
-        /// ExportToPDFButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button ExportToPDFButton;
-        
-        /// <summary>
-        /// ExportToExcelButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button ExportToExcelButton;
-        
-        /// <summary>
         /// PhoneCallsDataSource control.
         /// </summary>
         /// <remarks>

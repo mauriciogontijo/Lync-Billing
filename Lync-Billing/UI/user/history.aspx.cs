@@ -94,7 +94,7 @@ namespace Lync_Billing.ui.user
                     Dictionary<string, string> headers = new Dictionary<string,string>()
                     {
                         {"title", userSession.EffectiveDisplayName + "(#" + userSession.EmployeeID + ")" },
-                        {"subtitle", "History of Phone Calls"}
+                        {"subTitle", "History of Phone Calls"}
                     };
 
                     Document doc = new Document();
