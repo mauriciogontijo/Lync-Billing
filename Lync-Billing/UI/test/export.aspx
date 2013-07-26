@@ -57,7 +57,7 @@
                             </ext:ComboBox>
 
                             <ext:Button
-                                ID="Button1"
+                                ID="ExportToPdf"
                                 runat="server"
                                 Text="To PDF"
                                 Icon="PageSave">

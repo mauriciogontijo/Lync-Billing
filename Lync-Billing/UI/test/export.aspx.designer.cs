@@ -49,13 +49,13 @@ namespace Lync_Billing.ui.test {
         protected global::Ext.Net.ComboBox FilterTypeComboBox;
         
         /// <summary>
-        /// Button1 control.
+        /// ExportToPdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button Button1;
+        protected global::Ext.Net.Button ExportToPdf;
         
         /// <summary>
         /// ExportToExcel control.

@@ -20,6 +20,8 @@ namespace Lync_Billing.Libs
         private static Font bodyFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
         private static Font bodyFontSmall = FontFactory.GetFont("Arial", 10, Font.NORMAL);
 
+        
+
         public static Document InitializePDFDocument(HttpResponse response)
         {
             Document document = new Document();
