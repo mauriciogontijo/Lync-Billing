@@ -197,35 +197,22 @@ namespace Lync_Billing.ui.accounting.reports
                     break;
 
                 case "pdf":
-                    UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-                    sipAccount = userSession.EffectiveSipAccount;
-
-                    wherePart.Add("SourceUserUri", sipAccount);
-                    wherePart.Add("marker_CallTypeID", 1);
-                    //wherePart.Add("ac_IsInvoiced", "NO");
-
-                    columns.Add("ResponseTime");
-                    columns.Add("marker_CallToCountry");
-                    columns.Add("DestinationNumberUri");
-                    columns.Add("Duration");
-                    columns.Add("marker_CallCost");
-                    columns.Add("ui_CallType");
+                    string siteName = FilterReportsBySite.SelectedItem.Value;
 
                     Response.ContentType = "application/pdf";
-                    Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
+                    Response.AddHeader("content-disposition", "attachment;filename=AccountingMonthlyReport_Summary.pdf");
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
                     Dictionary<string, string> headers = new Dictionary<string, string>()
                     {
-                        {"title", userSession.EffectiveDisplayName.ToString() + "(#" + userSession.EmployeeID.ToString() + ")" },
-                        {"subtitle", "The List of Uninvoiced Phone Calls"}
+                        {"siteName", siteName},
+                        {"title", "Accounting Perdiodical Report [Summary]"},
+                        {"subTitle", "From " + StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + ", to " + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year}
                     };
 
                     Document doc = new Document();
-                    PhoneCall.ExportPhoneCalls(columns, wherePart, 0, Response, out doc, headers);
-
+                    UsersCallsSummary.ExportUsersCallsSummaryToPDF(StartingDate.SelectedDate, EndingDate.SelectedDate, siteName, Response, out doc, headers);
                     Response.Write(doc);
-
                     break;
             }
 
