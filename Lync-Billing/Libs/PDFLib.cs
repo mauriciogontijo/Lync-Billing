@@ -107,8 +107,14 @@ namespace Lync_Billing.Libs
                     //Format the cell text if it's the case of Duration
                     if(PDFDefinitions.GetDescription(colum.ColumnName) == "Duration")
                         entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(r[colum.ColumnName])), bodyFontSmall));
-                    else
-                        entryCell = new PdfPCell(new Phrase(r[colum.ColumnName].ToString(), bodyFontSmall));
+                    else {
+                        string rowText = r[colum.ColumnName].ToString();
+                        
+                        if (string.IsNullOrEmpty(rowText)) 
+                            rowText = "N/A";
+
+                        entryCell = new PdfPCell(new Phrase(rowText, bodyFontSmall));
+                    }
 
                     //Set the cell padding, border configurations and then add it to the the pdfTable
                     entryCell.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER;
