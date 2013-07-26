@@ -48,7 +48,7 @@ namespace Lync_Billing.Libs
 
          }
 
-        public DataTable USERS_STATS(DateTime startingDate,DateTime endingDate,string siteName) 
+        public DataTable USERS_STATS(DateTime startingDate, DateTime endingDate, string siteName)
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
@@ -60,10 +60,71 @@ namespace Lync_Billing.Libs
                 selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Date BETWEEN '{1}' AND '{2}'",
                 siteName, startingDate, endingDate);
             }
-            else if(startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+            else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
             {
                 selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Year={1} AND Month={2}",
                siteName, startingDate.Year, startingDate.Month);
+            }
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
+        public DataTable USERS_STATS(DateTime startingDate, DateTime endingDate, string siteName, List<string> columns)
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            StringBuilder selectedfields = new StringBuilder();
+
+            if (columns != null)
+            {
+                if (columns.Count != 0)
+                {
+                    foreach (string fieldName in columns)
+                    {
+                        selectedfields.Append(fieldName + ",");
+                    }
+                    selectedfields.Remove(selectedfields.Length - 1, 1);
+                }
+                else
+                    selectedfields.Append("*");
+            }
+            else
+            {
+                selectedfields.Append("*");
+            }
+
+            string selectQuery = string.Empty;
+
+            if (startingDate != endingDate)
+            {
+                //selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Date BETWEEN '{1}' AND '{2}'",
+                //siteName, startingDate, endingDate);
+                selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Date BETWEEN '{2}' AND '{3}'",
+                    selectedfields.ToString(), siteName, startingDate, endingDate);
+            }
+            else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+            {
+                //selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Year={1} AND Month={2}",
+                //siteName, startingDate.Year, startingDate.Month);
+
+                selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Year={1} AND Month={2}",
+                    selectedfields.ToString(), siteName, startingDate.Year, startingDate.Month);
             }
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
