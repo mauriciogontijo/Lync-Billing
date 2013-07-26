@@ -113,18 +113,52 @@ namespace Lync_Billing.Libs
 
             if (startingDate != endingDate)
             {
-                //selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Date BETWEEN '{1}' AND '{2}'",
-                //siteName, startingDate, endingDate);
                 selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Date BETWEEN '{2}' AND '{3}'",
                     selectedfields.ToString(), siteName, startingDate, endingDate);
             }
             else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
             {
-                //selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Year={1} AND Month={2}",
-                //siteName, startingDate.Year, startingDate.Month);
-
                 selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Year={1} AND Month={2}",
                     selectedfields.ToString(), siteName, startingDate.Year, startingDate.Month);
+            }
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
+        public DataTable DISTINCT_USERS_STATS(DateTime startingDate, DateTime endingDate, string siteName)
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectFields = "SourceUserUri,AD_UserID,AD_DisplayName,SUM(BusinessCost) AS BusinessCost,SUM(PersonalCost) AS PersonalCost,SUM(UnMarkedCost) AS UnMarkedCost";
+            string groupBy = "SourceUserUri, AD_UserID, AD_DisplayName";
+
+            string selectQuery = string.Empty;
+
+            if (startingDate != endingDate)
+            {
+                selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Date BETWEEN '{2}' AND '{3}' Group by {4}",
+                    selectFields, siteName, startingDate, endingDate, groupBy);
+            }
+            else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+            {
+                selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Year={1} AND Month={2} Group by {3}",
+                    selectFields, siteName, startingDate.Year, startingDate.Month, groupBy);
             }
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
