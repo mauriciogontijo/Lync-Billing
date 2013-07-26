@@ -228,6 +228,7 @@ namespace Lync_Billing.ui.accounting.reports
             columns.Add("marker_CallCost");
 
             wherePart.Add("marker_CallTypeID", "1");
+            wherePart.Add("Exclude", false);
             wherePart.Add("ac_IsInvoiced", "NO");
             wherePart.Add("ui_CallType", "Personal");
 
