@@ -15,6 +15,7 @@ namespace Lync_Billing.Libs
     {
         private static Font titleFont = FontFactory.GetFont("Arial", 20, Font.BOLD);
         private static Font subTitleFont = FontFactory.GetFont("Arial", 16, Font.BOLD);
+        private static Font headerCommentsFont = FontFactory.GetFont("Arial", 9, Font.ITALIC);
         private static Font boldTableFont = FontFactory.GetFont("Arial", 12, Font.BOLD);
         private static Font endingMessageFont = FontFactory.GetFont("Arial", 10, Font.ITALIC);
         private static Font bodyFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
@@ -36,8 +37,8 @@ namespace Lync_Billing.Libs
             //Create the actual data table
             PdfPTable pdfTable = new PdfPTable(ColumnsCount);
             pdfTable.HorizontalAlignment = 0;
-            pdfTable.SpacingBefore = 25;
-            pdfTable.SpacingAfter = 10;
+            pdfTable.SpacingBefore = 30;
+            pdfTable.SpacingAfter = 30;
             pdfTable.DefaultCell.Border = 0;
             //pdfTable.DefaultCell.Padding = 2;
             pdfTable.DefaultCell.PaddingBottom = 5;
@@ -45,7 +46,7 @@ namespace Lync_Billing.Libs
             pdfTable.DefaultCell.PaddingLeft = 2;
             pdfTable.DefaultCell.PaddingRight = 2;
             pdfTable.WidthPercentage = 100;
-            if (widths.Length > 0)
+            if (widths.Length > 0 && widths.Length == ColumnsCount)
                 pdfTable.SetWidths(widths);
             //else
             //    pdfTable.SetWidths(new int[] { 7, 4, 7, 4, 4 });
@@ -53,12 +54,29 @@ namespace Lync_Billing.Libs
             return pdfTable;
         }
 
-        public static Document AddPDFHeader(ref Document document, string title, string subtitle = "")
+        public static Document AddPDFHeader(ref Document document, Dictionary<string, string> headers)
         {
-            var titleParagraph = new Paragraph("eBill | " + title, titleFont);
-            var subTitleParagraph = new Paragraph(subtitle, subTitleFont);
-            document.Add(titleParagraph);
-            document.Add(subTitleParagraph);
+            if (headers.Count > 0)
+            {
+                if (headers.ContainsKey("title"))
+                {
+                    var titleParagraph = new Paragraph("eBill | " + headers["title"], titleFont);
+                    titleParagraph.SpacingAfter = 5;
+                    document.Add(titleParagraph);
+                }
+                if (headers.ContainsKey("subTitle"))
+                {
+                    var subTitleParagraph = new Paragraph(headers["subTitle"], subTitleFont);
+                    subTitleParagraph.SpacingAfter = 5;
+                    document.Add(subTitleParagraph);
+                }
+                if (headers.ContainsKey("comments"))
+                {
+                    var commentsParagraph = new Paragraph(headers["comments"], headerCommentsFont);
+                    commentsParagraph.SpacingAfter = 5;
+                    document.Add(commentsParagraph);
+                }
+            }
 
             return document;
         }
@@ -108,7 +126,7 @@ namespace Lync_Billing.Libs
             pdfTable.DefaultCell.PaddingLeft = 2;
             pdfTable.DefaultCell.PaddingRight = 2;
             pdfTable.WidthPercentage = 100;
-            if (widths.Length > 0)
+            if (widths.Length > 0 && widths.Length == dt.Columns.Count)
                 pdfTable.SetWidths(widths);
             //else
             //    pdfTable.SetWidths(new int[] { 7, 4, 7, 4, 4 });
