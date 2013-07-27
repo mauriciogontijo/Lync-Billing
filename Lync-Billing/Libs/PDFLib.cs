@@ -131,6 +131,61 @@ namespace Lync_Billing.Libs
             return document;
         }
 
+        public static Document AddPDFTableContents(ref Document document, ref PdfPTable pdfTable, DataTable dt, List<string> columnSchema)
+        {
+            if(columnSchema != null && columnSchema.Count > 0)
+            {
+                foreach (string column in columnSchema)
+                {
+                    if (dt.Columns.Contains(column))
+                    {
+                        pdfTable.AddCell(new Phrase(PDFDefinitions.GetDescription(column), boldTableFont));
+                    }
+                }
+
+                foreach (DataRow r in dt.Rows)
+                {
+                    //foreach (DataColumn colum in dt.Columns)
+                    foreach(string column in columnSchema)
+                    {
+                        //Declare the pdfTable cell and fill it.
+                        PdfPCell entryCell;
+
+                        //Format the cell text if it's the case of Duration
+                        if (dt.Columns.Contains(column))
+                        {
+                            if (PDFDefinitions.GetDescription(column) == "Duration")
+                            {
+                                entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(r[column])), bodyFontSmall));
+                            }
+                            else
+                            {
+                                string rowText = r[column].ToString();
+
+                                if (string.IsNullOrEmpty(rowText))
+                                    rowText = "N/A";
+
+                                entryCell = new PdfPCell(new Phrase(rowText, bodyFontSmall));
+                            }
+
+                            //Set the cell padding, border configurations and then add it to the the pdfTable
+                            entryCell.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER;
+                            entryCell.PaddingTop = 5;
+                            entryCell.PaddingBottom = 5;
+                            entryCell.PaddingLeft = 2;
+                            entryCell.PaddingRight = 2;
+                            pdfTable.AddCell(entryCell);
+                        }
+                    }
+                }
+
+                // Add the pdf-contents-table object to the document
+                document.Add(pdfTable);
+            }
+
+            return document;
+        }
+
         public static Document AddPDFTableTotalsRow(ref Document document, Dictionary<string, object> totals, DataTable dt, int[] widths)
         {
             PdfPTable pdfTable = new PdfPTable(dt.Columns.Count);
