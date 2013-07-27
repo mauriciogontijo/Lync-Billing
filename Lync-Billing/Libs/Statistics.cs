@@ -146,29 +146,45 @@ namespace Lync_Billing.Libs
             DataTable dt = new DataTable();
             OleDbDataReader dr;
             string selectQuery = string.Empty;
-            string selectFields = "SourceUserUri, AD_UserID, AD_DisplayName, SUM(BusinessCost) AS BusinessCost, SUM(PersonalCost) AS PersonalCost, SUM(UnMarkedCost) AS UnMarkedCost";
+            StringBuilder selectedFields = new StringBuilder();
+
+            List<string> defaultSelectedFields = new List<string>() { "SourceUserUri", "AD_UserID", "AD_DisplayName", "SUM(BusinessCost) AS BusinessCost", "SUM(PersonalCost) AS PersonalCost", "SUM(UnMarkedCost) AS UnMarkedCost" };
             string groupBy = "SourceUserUri, AD_UserID, AD_DisplayName";
 
+
+            //First, initialize the selectedFields with the defaultSelectedFields
+            foreach(string column in defaultSelectedFields)
+            {
+                selectedFields.Append(column + ",");
+            }
+            selectedFields.Remove(selectedFields.Length - 1, 1);
+
+            //Add the passed list of extra columns to the selectedFields
             if (columns != null)
             {
                 if (columns.Count > 0)
                 {
                     foreach(string col in columns)
                     {
-                        selectFields = selectFields + ", " + col;
+                        if (!defaultSelectedFields.Contains(col))
+                        {
+                            selectedFields.Append(col + ",");
+                        }
                     }
+                    selectedFields.Remove(selectedFields.Length - 1, 1);
                 }
             }
+
 
             if (startingDate != endingDate)
             {
                 selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Date BETWEEN '{2}' AND '{3}' Group by {4}",
-                    selectFields, siteName, startingDate, endingDate, groupBy);
+                    selectedFields.ToString(), siteName, startingDate, endingDate, groupBy);
             }
             else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
             {
                 selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Year={1} AND Month={2} Group by {3}",
-                    selectFields, siteName, startingDate.Year, startingDate.Month, groupBy);
+                    selectedFields.ToString(), siteName, startingDate.Year, startingDate.Month, groupBy);
             }
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
