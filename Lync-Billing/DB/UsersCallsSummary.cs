@@ -234,9 +234,9 @@ namespace Lync_Billing.DB
         public static void ExportUsersCallsSummaryToPDF(DateTime startingDate, DateTime endingDate, string siteName, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             DataTable dt = new DataTable();
-            //List<string> columns = new List<string>() { "SourceUserUri", "AD_UserID", "AD_DisplayName", "BusinessCost", "PersonalCost", "UnMarkedCost" };
+            List<string> columns = new List<string>();
 
-            dt = StatRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName);
+            dt = StatRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, columns);
 
             Dictionary<string, object> totals;
 
