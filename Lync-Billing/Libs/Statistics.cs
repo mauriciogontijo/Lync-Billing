@@ -141,14 +141,24 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
-        public DataTable DISTINCT_USERS_STATS(DateTime startingDate, DateTime endingDate, string siteName)
+        public DataTable DISTINCT_USERS_STATS(DateTime startingDate, DateTime endingDate, string siteName, List<string> columns)
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
+            string selectQuery = string.Empty;
             string selectFields = "SourceUserUri, AD_UserID, AD_DisplayName, SUM(BusinessCost) AS BusinessCost, SUM(PersonalCost) AS PersonalCost, SUM(UnMarkedCost) AS UnMarkedCost";
             string groupBy = "SourceUserUri, AD_UserID, AD_DisplayName";
 
-            string selectQuery = string.Empty;
+            if (columns != null)
+            {
+                if (columns.Count > 0)
+                {
+                    foreach(string col in columns)
+                    {
+                        selectFields = selectFields + ", " + col;
+                    }
+                }
+            }
 
             if (startingDate != endingDate)
             {
