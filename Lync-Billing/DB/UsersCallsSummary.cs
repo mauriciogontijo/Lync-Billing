@@ -234,7 +234,11 @@ namespace Lync_Billing.DB
         public static void ExportUsersCallsSummaryToPDF(DateTime startingDate, DateTime endingDate, string siteName, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             DataTable dt = new DataTable();
-            List<string> columns = new List<string>();
+            List<string> columns = new List<string>(); //this is used to be passed tothe DISNTINCT_USERS_STATS function, as an empty list param
+            List<string> columnSchema = new List<string>() { "AD_UserID", "SourceUserUri", "AD_DisplayName", "BusinessCost", "PersonalCost", "UnMarkedCost" }; //This is passed to the PdfLib
+            int[] widths = new int[] { 4, 6, 7, 4, 4, 4 };
+            
+            headers.Add("comments", "* Please note that the terms: Business, Personal and Unallocated Calls Costs were abbreviated as Bus. Cost, Per. Cost and Unac. Cost respectively in the following report's columns-headers.");
 
             dt = StatRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, columns);
 
@@ -260,13 +264,10 @@ namespace Lync_Billing.DB
                 };
             }
 
-            int[] widths = new int[] { 6, 4, 7, 4, 4, 4 };
-            headers.Add("comments", "* Please note that the terms: Business, Personal and Unallocated Calls Costs were abbreviated as Bus. Cost, Per. Cost and Unac. Cost respectively in the following report's columns-headers.");
-
             document = PDFLib.InitializePDFDocument(response);
             PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
             PDFLib.AddPDFHeader(ref document, headers);
-            PDFLib.AddPDFTableContents(ref document, ref pdfContentsTable, dt);
+            PDFLib.AddPDFTableContents(ref document, ref pdfContentsTable, dt, columnSchema);
             PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
             PDFLib.ClosePDFDocument(ref document);
         }
