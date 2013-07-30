@@ -167,9 +167,17 @@ namespace Lync_Billing.ui.accounting.reports
 
         protected void MonthlyReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
-            string format = this.FormatType.Value.ToString();
+            DateTime beginningOfTheMonth;
+            DateTime endOfTheMonth;
+            Document pdfDocument;
+            Dictionary<string, string> pdfDocumentHeaders;
+            List<string> SipAccountsList;
+            JavaScriptSerializer jSerializer;
+            
 
             XmlNode xml = e.Xml;
+            string siteName = FilterReportsBySite.SelectedItem.Value;
+            string format = this.FormatType.Value.ToString();
 
             this.Response.Clear();
 
@@ -186,24 +194,50 @@ namespace Lync_Billing.ui.accounting.reports
                     break;
 
                 case "pdf":
-                    DateTime month_start = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
-                    DateTime month_end = month_start.AddMonths(1).AddDays(-1);
-                    string siteName = FilterReportsBySite.SelectedItem.Value;
+                    beginningOfTheMonth = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
+                    endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
 
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=AccountingMonthlyReport_Summary.pdf");
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
-                    Dictionary<string, string> headers = new Dictionary<string, string>()
+                    pdfDocumentHeaders = new Dictionary<string, string>()
                     {
                         {"siteName", siteName},
                         {"title", "Accounting Monthly Report [Summary]"},
-                        {"subTitle", "As Per: " + month_start.Month + "-" + month_start.Year}
+                        {"subTitle", "As Per: " + beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year}
                     };
 
-                    Document doc = new Document();
-                    UsersCallsSummary.ExportUsersCallsSummaryToPDF(month_start, month_end, siteName, Response, out doc, headers);
-                    Response.Write(doc);
+                    pdfDocument = new Document();
+                    UsersCallsSummary.ExportUsersCallsSummaryToPDF(beginningOfTheMonth, endOfTheMonth, siteName, Response, out pdfDocument, pdfDocumentHeaders);
+                    Response.Write(pdfDocument);
+                    break;
+
+                case "pdf-d":
+                    SipAccountsList = new List<string>();
+                    jSerializer = new JavaScriptSerializer();
+                    List<Users> usersData = jSerializer.Deserialize<List<Users>>(e.Json);
+                    foreach (Users user in usersData) { 
+                        SipAccountsList.Add(user.SipAccount); 
+                    }
+
+                    beginningOfTheMonth = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
+                    endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
+
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("content-disposition", "attachment;filename=AccountingMonthlyReport_Detailed.pdf");
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                    pdfDocumentHeaders = new Dictionary<string, string>()
+                    {
+                        {"siteName", siteName},
+                        {"title", "Accounting Monthly Report [Summary]"},
+                        {"subTitle", "As Per: " + beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year}
+                    };
+
+                    pdfDocument = new Document();
+                    UsersCallsSummary.ExportUsersCallsDetailedToPDF(beginningOfTheMonth, endOfTheMonth, SipAccountsList, Response, out pdfDocument, pdfDocumentHeaders);
+                    Response.Write(pdfDocument);
                     break;
             }
 

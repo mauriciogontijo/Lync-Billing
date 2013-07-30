@@ -157,11 +157,11 @@
                                                 </Listeners>
                                             </ext:MenuItem>
 
-                                            <%--<ext:MenuItem ID="ExportPDFDetailedReport" runat="server" Text="Detailed Report" Icon="PageSave">
+                                            <ext:MenuItem ID="ExportPDFDetailedRreport" runat="server" Text="Detailed Report" Icon="PageSave">
                                                 <Listeners>
-                                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, #{FormatType}, 'pdf');" />
+                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'pdf-d');" />
                                                 </Listeners>
-                                            </ext:MenuItem>--%>
+                                            </ext:MenuItem>
                                         </Items>
                                     </ext:Menu>
                                 </Menu>
@@ -207,7 +207,7 @@
                 ID="MonthlyReportsGrids"
                 runat="server"
                 Width="740"
-                Height="720"
+                Height="710"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout">
