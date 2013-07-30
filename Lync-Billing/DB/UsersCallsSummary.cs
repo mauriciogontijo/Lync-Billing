@@ -286,7 +286,7 @@ namespace Lync_Billing.DB
             document = PDFLib.InitializePDFDocument(response);
             //PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
             PDFLib.AddPDFHeader(ref document, headers);
-            PDFLib.AddCombinedPDFTablesContents(ref document, dt, widths, "SourceUserUri", SipAccountsList, pdfColumnSchema);
+            PDFLib.AddCombinedPDFTablesContents(ref document, dt, widths, "SourceUserUri", SipAccountsList, pdfColumnSchema, headers["siteName"]);
             //PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
             PDFLib.ClosePDFDocument(ref document);
         }
