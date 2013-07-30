@@ -258,13 +258,14 @@ namespace Lync_Billing.Libs
             return document;
         }
 
-        public static Document AddCombinedPDFTablesContents(ref Document document, DataTable dt, int[] pdfReportColumnsWidths, string handleName, List<string> handles, List<string> pdfReportColumnScheme)
+        public static Document AddCombinedPDFTablesContents(ref Document document, DataTable dt, int[] pdfReportColumnsWidths, string handleName, List<string> handles, List<string> pdfReportColumnScheme, string siteName = "")
         {
             DataRow[] selectedDataRows;
             string selectExpression = string.Empty;
             string pageTitleText = string.Empty;
             string cellText = string.Empty;
             Paragraph pageTitleParagraph;
+            ADUserInfo userInfo = new ADUserInfo();
 
             //Exit the function in case the handles array is empty or the pdfReportColumnScheme is either empty or it's size exceeds the DataTable's Columns number.
             if (handles == null || handles.Count == 0 || pdfReportColumnScheme == null || pdfReportColumnScheme.Count == 0 || pdfReportColumnScheme.Count > dt.Columns.Count)
@@ -276,13 +277,35 @@ namespace Lync_Billing.Libs
                 //start by sorting the handles array.
                 handles.Sort();
 
+                //Get the users information in case we are dealing with a Users Related Data Table.
+                Dictionary<string, Dictionary<string, string>> usersInformation = new Dictionary<string, Dictionary<string, string>>();
+                if (handleName == "SourceUserUri")
+                {
+                    //List<Users> usersList = Users.GetUsers(siteName);
+                    Dictionary<string, string> info;
+                    List<string> columns = new List<string>();
+                    Dictionary<string, object> where = new Dictionary<string, object>() { { "AD_PhysicalDeliveryOfficeName", siteName } };
+                    List<Users> usersList = Users.GetUsers(columns, where, 0);
+
+                    foreach(Users user in usersList)
+                    {
+                        info = new Dictionary<string, string>() { 
+                            {"FullName", user.FullName},
+                            {"ID", user.UserID.ToString()}
+                        };
+
+                        usersInformation.Add(user.SipAccount.ToLower(), info);
+                    }
+                }
+
+                //Begin the construction of the document.
                 foreach (string handleItem in handles)
                 {
                     PdfPTable pdfTable = InitializePDFTable(pdfReportColumnScheme.Count, pdfReportColumnsWidths);
                     document.NewPage();
 
                     if (handleName == "SourceUserUri")
-                        pageTitleText = "Employee #" + Users.GetUserInfo(handleItem.ToLower()).EmployeeID + " | " + handleItem.Split('@')[0].ToUpper();
+                        pageTitleText = usersInformation[handleItem.ToLower()]["FullName"] + " [Group Number: " + usersInformation[handleItem.ToLower()]["ID"] + "]";
                     else
                         pageTitleText = handleItem;
 
