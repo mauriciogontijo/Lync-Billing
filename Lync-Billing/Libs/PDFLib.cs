@@ -283,7 +283,7 @@ namespace Lync_Billing.Libs
                 {
                     //List<Users> usersList = Users.GetUsers(siteName);
                     Dictionary<string, string> info;
-                    List<string> columns = new List<string>();
+                    List<string> columns = new List<string>() { "AD_UserID", "SipAccount", "AD_DisplayName", "AD_PhysicalDeliveryOfficeName" };
                     Dictionary<string, object> where = new Dictionary<string, object>() { { "AD_PhysicalDeliveryOfficeName", siteName } };
                     List<Users> usersList = Users.GetUsers(columns, where, 0);
 
