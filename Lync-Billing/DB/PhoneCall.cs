@@ -233,7 +233,7 @@ namespace Lync_Billing.DB
             
         }
 
-        public static void ExportPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        public static void ExportUserPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             DataTable dt = new DataTable();
 
@@ -271,6 +271,7 @@ namespace Lync_Billing.DB
             PDFLib.ClosePDFDocument(ref document);
         }
         
+
         public string GetPhoneCallsXML(List<PhoneCall> phonecalls) 
         {
             PhoneCallsWrapper phonecallsWrapper = new PhoneCallsWrapper();

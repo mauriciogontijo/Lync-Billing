@@ -272,6 +272,47 @@ namespace Lync_Billing.DB
             PDFLib.ClosePDFDocument(ref document);
         }
 
+        public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, List<string> SipAccountsList, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        {
+            DataTable dt = new DataTable();
+            List<string> columns = new List<string>() { "SourceUserUri", "ResponseTime", "marker_CallToCountry", "DestinationNumberUri", "Duration", "marker_CallCost", "ui_CallType" };
+            List<string> pdfColumnSchema = new List<string>() { "SourceUserUri", "ResponseTime", "marker_CallToCountry", "DestinationNumberUri", "Duration", "marker_CallCost", "ui_CallType" }; //This is passed to the PdfLib
+            int[] widths = new int[] { 6, 6, 3, 5, 5, 3, 3 };
+
+            headers.Add("comments", "* Please note that the terms: Business, Personal and Unallocated Calls Costs were abbreviated as Bus. Cost, Per. Cost and Unac. Cost respectively in the following report's columns-headers.");
+
+            dt = StatRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, SipAccountsList, columns);
+
+            Dictionary<string, object> totals;
+
+            //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
+            try
+            {
+                totals = new Dictionary<string, object>()
+                {
+                    {"PersonalCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(PersonalCost)", "PersonalCost > 0")), 2)},
+                    {"BusinessCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(BusinessCost)", "BusinessCost > 0")), 2)},
+                    {"UnMarkedCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(UnMarkedCost)", "UnMarkedCost > 0")), 2)}
+                };
+            }
+            catch (Exception e)
+            {
+                totals = new Dictionary<string, object>()
+                {
+                    {"PersonalCost", 0.00},
+                    {"BusinessCost", 0.00},
+                    {"UnMarkedCost", 0.00}
+                };
+            }
+
+            document = PDFLib.InitializePDFDocument(response);
+            PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
+            PDFLib.AddPDFHeader(ref document, headers);
+            PDFLib.AddPDFTableContents(ref document, ref pdfContentsTable, dt);
+            PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
+            PDFLib.ClosePDFDocument(ref document);
+        }
+
         private static object ReturnZeroIfNull(object value) 
         {
             if (value == System.DBNull.Value)
