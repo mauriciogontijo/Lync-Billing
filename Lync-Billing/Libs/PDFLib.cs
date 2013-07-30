@@ -101,21 +101,18 @@ namespace Lync_Billing.Libs
 
             foreach (DataRow r in dt.Rows)
             {
-                foreach(DataColumn colum in dt.Columns)
+                foreach(DataColumn column in dt.Columns)
                 {
                     //Declare the pdfTable cell and fill it.
                     PdfPCell entryCell;
                     
                     //Check if the cell being processed in not  empty nor null.
-                    cellText = r[colum.ColumnName].ToString();
-
+                    cellText = r[column.ColumnName].ToString();
                     if (string.IsNullOrEmpty(cellText))
-                    {
                         cellText = "N/A";
-                    }
 
                     //Format the cell text if it's the case of Duration
-                    if (PDFDefinitions.GetDescription(colum.ColumnName) == "Duration" && cellText != "N/A")
+                    if (PDFDefinitions.GetDescription(column.ColumnName) == "Duration" && cellText != "N/A")
                     {
                         entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(cellText)), bodyFontSmall));
                     }
@@ -153,7 +150,7 @@ namespace Lync_Billing.Libs
 
                 foreach (DataRow r in dt.Rows)
                 {
-                    //foreach (DataColumn colum in dt.Columns)
+                    //foreach (DataColumn column in dt.Columns)
                     foreach(string column in columnSchema)
                     {
                         //Declare the pdfTable cell and fill it.
@@ -191,6 +188,163 @@ namespace Lync_Billing.Libs
                 document.Add(pdfTable);
             }
 
+            return document;
+        }
+
+        public static Document AddCombinedPDFTablesContents(ref Document document, DataTable dt, int[] pdfReportColumnsWidths, List<string> handles)
+        {
+            string cellText = string.Empty;
+            DataRow[] selectedDataRows;
+            string selectExpression = string.Empty;
+            handles.Sort();
+
+            if(handles != null && handles.Count > 0)
+            {
+                foreach(string handleItem in handles)
+                {
+                    PdfPTable pdfTable = InitializePDFTable(dt.Columns.Count, pdfReportColumnsWidths);
+                    document.NewPage();
+
+                    Paragraph pageTitleParagraph = new Paragraph(handleItem.Split('@')[0].ToUpper(), subTitleFont);
+                    pageTitleParagraph.SpacingAfter = 25;
+                    document.Add(pageTitleParagraph);
+
+                    selectExpression = "SourceUserUri = '" + handleItem + "'";
+                    selectedDataRows = dt.Select(selectExpression);
+
+                    foreach (DataColumn c in dt.Columns)
+                    {
+                        pdfTable.AddCell(new Phrase(PDFDefinitions.GetDescription(c.ColumnName), boldTableFont));
+                    }
+
+                    foreach (DataRow r in selectedDataRows)
+                    {
+                        foreach (DataColumn column in dt.Columns)
+                        {
+                            //Declare the pdfTable cell and fill it.
+                            PdfPCell entryCell;
+
+                            //Check if the cell being processed in not  empty nor null.
+                            cellText = r[column.ColumnName].ToString();
+                            if (string.IsNullOrEmpty(cellText))
+                                cellText = "N/A";
+
+                            //Format the cell text if it's the case of Duration
+                            if (PDFDefinitions.GetDescription(column.ColumnName) == "Duration" && cellText != "N/A")
+                            {
+                                entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(cellText)), bodyFontSmall));
+                            }
+                            else
+                            {
+                                entryCell = new PdfPCell(new Phrase(cellText, bodyFontSmall));
+                            }
+
+                            //Set the cell padding, border configurations and then add it to the the pdfTable
+                            entryCell.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER;
+                            entryCell.PaddingTop = 5;
+                            entryCell.PaddingBottom = 5;
+                            entryCell.PaddingLeft = 2;
+                            entryCell.PaddingRight = 2;
+                            pdfTable.AddCell(entryCell);
+                        }
+                    }
+
+                    // Add the Paragraph object to the document
+                    document.Add(pdfTable);
+                    selectExpression = string.Empty;
+                    Array.Clear(selectedDataRows, 0, selectedDataRows.Length);
+                }
+            }
+            return document;
+        }
+
+        public static Document AddCombinedPDFTablesContents(ref Document document, DataTable dt, int[] pdfReportColumnsWidths, string handleName, List<string> handles, List<string> pdfReportColumnScheme)
+        {
+            DataRow[] selectedDataRows;
+            string selectExpression = string.Empty;
+            string pageTitleText = string.Empty;
+            string cellText = string.Empty;
+            Paragraph pageTitleParagraph;
+
+            //Exit the function in case the handles array is empty or the pdfReportColumnScheme is either empty or it's size exceeds the DataTable's Columns number.
+            if (handles == null || handles.Count == 0 || pdfReportColumnScheme == null || pdfReportColumnScheme.Count == 0 || pdfReportColumnScheme.Count > dt.Columns.Count)
+            {
+                return document;
+            }
+            else
+            {
+                //start by sorting the handles array.
+                handles.Sort();
+
+                foreach (string handleItem in handles)
+                {
+                    PdfPTable pdfTable = InitializePDFTable(pdfReportColumnScheme.Count, pdfReportColumnsWidths);
+                    document.NewPage();
+
+                    if (handleName == "SourceUserUri")
+                        pageTitleText = "Employee #" + Users.GetUserInfo(handleItem.ToLower()).EmployeeID + " | " + handleItem.Split('@')[0].ToUpper();
+                    else
+                        pageTitleText = handleItem;
+
+                    pageTitleParagraph = new Paragraph(pageTitleText, subTitleFont);
+                    pageTitleParagraph.SpacingAfter = 20;
+                    document.Add(pageTitleParagraph);
+
+                    //Select the rows that are associated to the supplied handles
+                    selectExpression = handleName + " = '" + handleItem + "'";
+                    selectedDataRows = dt.Select(selectExpression);
+
+                    //Print the report table columns headers
+                    foreach (string column in pdfReportColumnScheme)
+                    {
+                        if (dt.Columns.Contains(column))
+                        {
+                            pdfTable.AddCell(new Phrase(PDFDefinitions.GetDescription(column), boldTableFont));
+                        }
+                    }
+
+                    //Bind the data cells to the respective columns
+                    foreach (DataRow r in selectedDataRows)
+                    {
+                        foreach (string column in pdfReportColumnScheme)
+                        {
+                            if (dt.Columns.Contains(column))
+                            {
+                                //Declare the pdfTable cell and fill it.
+                                PdfPCell entryCell;
+
+                                //Check if the cell being processed in not  empty nor null.
+                                cellText = r[column].ToString();
+                                if (string.IsNullOrEmpty(cellText))
+                                    cellText = "N/A";
+
+                                //Format the cell text if it's the case of Duration
+                                if (PDFDefinitions.GetDescription(column) == "Duration" && cellText != "N/A")
+                                {
+                                    entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(cellText)), bodyFontSmall));
+                                }
+                                else
+                                {
+                                    entryCell = new PdfPCell(new Phrase(cellText, bodyFontSmall));
+                                }
+
+                                //Set the cell padding, border configurations and then add it to the the pdfTable
+                                entryCell.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER;
+                                entryCell.PaddingTop = 5;
+                                entryCell.PaddingBottom = 5;
+                                entryCell.PaddingLeft = 2;
+                                entryCell.PaddingRight = 2;
+                                pdfTable.AddCell(entryCell);
+                            }
+                        }
+                    }
+
+                    // Add the Paragraph object to the document
+                    document.Add(pdfTable);
+                    selectExpression = string.Empty;
+                    Array.Clear(selectedDataRows, 0, selectedDataRows.Length);
+                }
+            }
             return document;
         }
 

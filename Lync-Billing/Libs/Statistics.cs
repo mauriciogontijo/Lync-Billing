@@ -259,7 +259,10 @@ namespace Lync_Billing.Libs
 
             //construct the sql query
             selectQuery = string.Format(
-                "SELECT {0} FROM [dbo].[PhoneCalls] WHERE SourceUserUri in ({1}) and ResponseTime BETWEEN '{2}' AND '{3}' ORDER BY SourceUserUri ASC",
+                "SELECT {0} FROM [dbo].[PhoneCalls] WHERE SourceUserUri in ({1}) " +
+                "AND marker_CallTypeID = 1 " + 
+                "AND ResponseTime BETWEEN '{2}' AND '{3}' " + 
+                "ORDER BY SourceUserUri ASC",
                 selectedFields.ToString(), sipAccountsWhereStatement.ToString(), startingDate, endingDate);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
