@@ -92,6 +92,8 @@ namespace Lync_Billing.Libs
 
         public static Document AddPDFTableContents(ref Document document, ref PdfPTable pdfTable, DataTable dt) 
         {
+            string cellText = string.Empty;
+
             foreach (DataColumn c in dt.Columns)
             {
                 pdfTable.AddCell(new Phrase(PDFDefinitions.GetDescription(c.ColumnName), boldTableFont));
@@ -103,17 +105,23 @@ namespace Lync_Billing.Libs
                 {
                     //Declare the pdfTable cell and fill it.
                     PdfPCell entryCell;
+                    
+                    //Check if the cell being processed in not  empty nor null.
+                    cellText = r[colum.ColumnName].ToString();
+
+                    if (string.IsNullOrEmpty(cellText))
+                    {
+                        cellText = "N/A";
+                    }
 
                     //Format the cell text if it's the case of Duration
-                    if(PDFDefinitions.GetDescription(colum.ColumnName) == "Duration")
-                        entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(r[colum.ColumnName])), bodyFontSmall));
-                    else {
-                        string rowText = r[colum.ColumnName].ToString();
-                        
-                        if (string.IsNullOrEmpty(rowText)) 
-                            rowText = "N/A";
-
-                        entryCell = new PdfPCell(new Phrase(rowText, bodyFontSmall));
+                    if (PDFDefinitions.GetDescription(colum.ColumnName) == "Duration" && cellText != "N/A")
+                    {
+                        entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(cellText)), bodyFontSmall));
+                    }
+                    else
+                    {
+                        entryCell = new PdfPCell(new Phrase(cellText, bodyFontSmall));
                     }
 
                     //Set the cell padding, border configurations and then add it to the the pdfTable

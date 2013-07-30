@@ -206,6 +206,81 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
+        public DataTable DISTINCT_USERS_STATS_DETAILED(DateTime startingDate, DateTime endingDate, List<string> SipAccountsList, List<string> columns)
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+            StringBuilder selectedFields = new StringBuilder();
+            StringBuilder sipAccountsWhereStatement = new StringBuilder();
+
+            //Add the passed list of extra columns to the selectedFields
+            if (columns != null && columns.Count > 0)
+            {
+                foreach (string col in columns)
+                {
+                    selectedFields.Append(col + ",");
+                }
+
+                //this is required for the order-procedure!
+                if (!columns.Contains("SourceUserUri"))
+                {
+                    selectedFields.Append("SourceUserUri" + ",");
+                }
+                
+                selectedFields.Remove(selectedFields.Length - 1, 1);
+            }
+            else
+            {
+                selectedFields.Append("*");
+            }
+
+            //Format the lis of SipAccounts to be included in the sql statement below
+            if(SipAccountsList != null && SipAccountsList.Count > 0)
+            {
+                foreach (string SipAccount in SipAccountsList)
+                {
+                    sipAccountsWhereStatement.Append("'" + SipAccount + "'" + ",");
+                }
+            }
+            sipAccountsWhereStatement.Remove(sipAccountsWhereStatement.Length - 1, 1);
+
+            //construct the sql query
+            //if (startingDate != endingDate)
+            //{
+            //    selectQuery = string.Format("SELECT {0} FROM [dbo].[PhoneCalls] WHERE SourceUserUri in ('{1}') and ResponseTime BETWEEN '{2}' AND '{3}'",
+            //        selectedFields.ToString(), sipAccountsWhereStatement.ToString(), startingDate, endingDate);
+            //}
+            //else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+            //{
+            //    selectQuery = string.Format("SELECT {0} FROM [dbo].[PhoneCalls] WHERE SourceUserUri in ('{1}') Year={2} AND Month={3}",
+            //        selectedFields.ToString(), sipAccountsWhereStatement.ToString(), startingDate.Year, startingDate.Month);
+            //}
+
+            //construct the sql query
+            selectQuery = string.Format(
+                "SELECT {0} FROM [dbo].[PhoneCalls] WHERE SourceUserUri in ({1}) and ResponseTime BETWEEN '{2}' AND '{3}' ORDER BY SourceUserUri ASC",
+                selectedFields.ToString(), sipAccountsWhereStatement.ToString(), startingDate, endingDate);
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
         public DataTable RATES_PER_GATEWAY(string RatesTableName)
         {
             DataTable dt = new DataTable();
