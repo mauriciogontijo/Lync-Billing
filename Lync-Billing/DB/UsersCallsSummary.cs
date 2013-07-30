@@ -276,8 +276,8 @@ namespace Lync_Billing.DB
         {
             DataTable dt = new DataTable();
             List<string> columns = new List<string>() { "SourceUserUri", "ResponseTime", "marker_CallToCountry", "DestinationNumberUri", "Duration", "marker_CallCost", "ui_CallType" };
-            List<string> pdfColumnSchema = new List<string>() { "SourceUserUri", "ResponseTime", "marker_CallToCountry", "DestinationNumberUri", "Duration", "marker_CallCost", "ui_CallType" }; //This is passed to the PdfLib
-            int[] widths = new int[] { 6, 6, 3, 5, 5, 3, 3 };
+            List<string> pdfColumnSchema = new List<string>() { "ResponseTime", "marker_CallToCountry", "DestinationNumberUri", "Duration", "marker_CallCost", "ui_CallType" }; //This is passed to the PdfLib
+            int[] widths = new int[] { 6, 4, 6, 4, 4, 4 };
 
             headers.Add("comments", "* Please note that the terms: Business, Personal and Unallocated Calls Costs were abbreviated as Bus. Cost, Per. Cost and Unac. Cost respectively in the following report's columns-headers.");
 
@@ -306,9 +306,9 @@ namespace Lync_Billing.DB
             }
 
             document = PDFLib.InitializePDFDocument(response);
-            PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
+            //PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
             PDFLib.AddPDFHeader(ref document, headers);
-            PDFLib.AddPDFTableContents(ref document, ref pdfContentsTable, dt);
+            PDFLib.AddCombinedPDFTablesContents(ref document, dt, widths, "SourceUserUri", SipAccountsList, pdfColumnSchema);
             PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
             PDFLib.ClosePDFDocument(ref document);
         }
