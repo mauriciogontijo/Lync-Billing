@@ -246,18 +246,6 @@ namespace Lync_Billing.Libs
             sipAccountsWhereStatement.Remove(sipAccountsWhereStatement.Length - 1, 1);
 
             //construct the sql query
-            //if (startingDate != endingDate)
-            //{
-            //    selectQuery = string.Format("SELECT {0} FROM [dbo].[PhoneCalls] WHERE SourceUserUri in ('{1}') and ResponseTime BETWEEN '{2}' AND '{3}'",
-            //        selectedFields.ToString(), sipAccountsWhereStatement.ToString(), startingDate, endingDate);
-            //}
-            //else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
-            //{
-            //    selectQuery = string.Format("SELECT {0} FROM [dbo].[PhoneCalls] WHERE SourceUserUri in ('{1}') Year={2} AND Month={3}",
-            //        selectedFields.ToString(), sipAccountsWhereStatement.ToString(), startingDate.Year, startingDate.Month);
-            //}
-
-            //construct the sql query
             selectQuery = string.Format(
                 "SELECT {0} FROM [dbo].[PhoneCalls] WHERE SourceUserUri in ({1}) " +
                 "AND marker_CallTypeID = 1 " + 
