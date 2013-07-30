@@ -174,7 +174,6 @@ namespace Lync_Billing.ui.accounting.reports
             List<string> SipAccountsList;
             JavaScriptSerializer jSerializer;
             
-
             XmlNode xml = e.Xml;
             string siteName = FilterReportsBySite.SelectedItem.Value;
             string format = this.FormatType.Value.ToString();
