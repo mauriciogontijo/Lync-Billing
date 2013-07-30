@@ -37,8 +37,6 @@ namespace Lync_Billing.DB
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_UserID) && row[column.ColumnName] != null)
                         user.UserID = (int)row[column.ColumnName];
-                    else
-                        user.UserID = 0;
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
                         user.SipAccount = (string)row[column.ColumnName];
