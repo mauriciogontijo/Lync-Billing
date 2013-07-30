@@ -284,7 +284,7 @@ namespace Lync_Billing.DB
             dt = StatRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, SipAccountsList, columns);
 
             document = PDFLib.InitializePDFDocument(response);
-            //PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
+            //PdfPTable pdfCon tentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
             PDFLib.AddPDFHeader(ref document, headers);
             PDFLib.AddCombinedPDFTablesContents(ref document, dt, widths, "SourceUserUri", SipAccountsList, pdfColumnSchema, headers["siteName"]);
             //PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
