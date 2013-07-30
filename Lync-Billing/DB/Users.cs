@@ -43,18 +43,12 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) && row[column.ColumnName] != DBNull.Value)
                         user.SiteName = (string)row[column.ColumnName];
-                    else
-                        user.SiteName = string.Empty;
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_DisplayName) && row[column.ColumnName] != DBNull.Value)
                         user.FullName = (string)row[column.ColumnName];
-                    else
-                        user.FullName = string.Empty;
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_Department) && row[column.ColumnName] != DBNull.Value)
                         user.Department = (string)row[column.ColumnName];
-                    else
-                        user.Department = string.Empty;
                 }
                 users.Add(user);
             }
