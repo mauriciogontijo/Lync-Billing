@@ -283,33 +283,11 @@ namespace Lync_Billing.DB
 
             dt = StatRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, SipAccountsList, columns);
 
-            Dictionary<string, object> totals;
-
-            //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
-            try
-            {
-                totals = new Dictionary<string, object>()
-                {
-                    {"PersonalCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(PersonalCost)", "PersonalCost > 0")), 2)},
-                    {"BusinessCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(BusinessCost)", "BusinessCost > 0")), 2)},
-                    {"UnMarkedCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(UnMarkedCost)", "UnMarkedCost > 0")), 2)}
-                };
-            }
-            catch (Exception e)
-            {
-                totals = new Dictionary<string, object>()
-                {
-                    {"PersonalCost", 0.00},
-                    {"BusinessCost", 0.00},
-                    {"UnMarkedCost", 0.00}
-                };
-            }
-
             document = PDFLib.InitializePDFDocument(response);
             //PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
             PDFLib.AddPDFHeader(ref document, headers);
             PDFLib.AddCombinedPDFTablesContents(ref document, dt, widths, "SourceUserUri", SipAccountsList, pdfColumnSchema);
-            PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
+            //PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
             PDFLib.ClosePDFDocument(ref document);
         }
 
