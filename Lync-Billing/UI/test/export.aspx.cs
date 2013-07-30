@@ -143,7 +143,7 @@ namespace Lync_Billing.ui.test
                     };
 
                     Document doc = new Document();
-                    PhoneCall.ExportPhoneCalls(columns, wherePart, 0, Response, out doc, headers);
+                    PhoneCall.ExportUserPhoneCalls(columns, wherePart, 0, Response, out doc, headers);
 
                     Response.Write(doc);
                     
