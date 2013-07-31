@@ -72,12 +72,14 @@ namespace Lync_Billing.Libs
                     msg = "Error: Couldn't fetch user information!";
                     return false;
                 }
-                DirectoryEntry directoryEntry = new DirectoryEntry(LocalGCUri, userInfo.SamAccountName, password);
+                DirectoryEntry directoryEntry = new DirectoryEntry(LocalGCUri, userInfo.Upn, password);
+                directoryEntry.AuthenticationType = AuthenticationTypes.None;
                 string localFilter = string.Format(ADSearchFilter, EmailAddress);
+
 
                 DirectorySearcher localSearcher = new DirectorySearcher(directoryEntry);
                 localSearcher.PropertiesToLoad.Add("mail");
-                // localSearcher.Filter = localFilter;
+                localSearcher.Filter = localFilter;
 
                 SearchResult result = localSearcher.FindOne();
 
