@@ -193,6 +193,11 @@ namespace Lync_Billing.DB
             return userSummary;
         }
 
+        public Dictionary<string, UsersCallsSummary> GetUsersCallSummary(List<string> sipAccounts, DateTime startingDate, DateTime endingDate) 
+        {
+
+        }
+
         public static List<UsersCallsSummary> GetUsersCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
         {
             columns = new List<string>();
