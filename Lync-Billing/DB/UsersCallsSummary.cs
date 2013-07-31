@@ -193,8 +193,6 @@ namespace Lync_Billing.DB
             return userSummary;
         }
 
-       
-
         public static List<UsersCallsSummary> GetUsersCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
         {
             columns = new List<string>();
@@ -269,7 +267,7 @@ namespace Lync_Billing.DB
             return usersSummaryList;
         }
 
-        public Dictionary<string, UsersCallsSummary> GetUsersCallSummary(List<string> sipAccounts, DateTime startingDate, DateTime endingDate, string siteName)
+        public static Dictionary<string, UsersCallsSummary> GetUsersCallsSummary(List<string> sipAccounts, DateTime startingDate, DateTime endingDate, string siteName)
         {
             DataTable dt = new DataTable();
             UsersCallsSummary userSummary;
@@ -343,19 +341,42 @@ namespace Lync_Billing.DB
             PDFLib.ClosePDFDocument(ref document);
         }
 
-        //The extraParams parameter should be provided ... it should at least contain the siteName fpr which the report being generated.
-        public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers, Dictionary<string, object> extraParams)
+        public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, string siteName, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             DataTable dt = new DataTable();
-            List<string> columns = new List<string>() { "SourceUserUri", "ResponseTime", "marker_CallToCountry", "DestinationNumberUri", "Duration", "marker_CallCost", "ui_CallType" };
-            List<string> pdfColumnSchema = new List<string>() { "ResponseTime", "marker_CallToCountry", "DestinationNumberUri", "Duration", "marker_CallCost", "ui_CallType" }; //This is passed to the PdfLib
+
+            //PDF Document related variables;
+            List<string> columns = new List<string>()
+            { 
+                "SourceUserUri", 
+                "ResponseTime", 
+                "marker_CallToCountry", 
+                "DestinationNumberUri", 
+                "Duration", 
+                "marker_CallCost", 
+                "ui_CallType"
+            };
+
+            //This is passed to the PdfLib
+            List<string> pdfColumnSchema = new List<string>()
+            {
+                "ResponseTime",
+                "marker_CallToCountry",
+                "DestinationNumberUri",
+                "Duration",
+                "marker_CallCost",
+                "ui_CallType"
+            };
+
             int[] widths = new int[] { 7, 4, 6, 4, 3, 4 };
 
+            //The PDF report body contents
             dt = StatRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
+            Dictionary<string, UsersCallsSummary> UsersSummaires = UsersCallsSummary.GetUsersCallsSummary(UsersCollection.Keys.ToList(), startingDate, endingDate, siteName);
 
             document = PDFLib.InitializePDFDocument(response);
             PDFLib.AddPDFHeader(ref document, headers);
-            PDFLib.AddAccountingDetailedReportBody(ref document, dt, widths, "SourceUserUri", UsersCollection, pdfColumnSchema, extraParams);
+            PDFLib.AddAccountingDetailedReportBody(ref document, dt, widths, pdfColumnSchema, "SourceUserUri", UsersCollection, UsersSummaires);
             //PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
             PDFLib.ClosePDFDocument(ref document);
         }
