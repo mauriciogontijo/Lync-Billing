@@ -172,6 +172,7 @@ namespace Lync_Billing.ui.accounting.reports
             Document pdfDocument;
             Dictionary<string, string> pdfDocumentHeaders;
             List<string> SipAccountsList;
+            Dictionary<string, Dictionary<string, object>> UsersCollection;
             JavaScriptSerializer jSerializer;
             
             XmlNode xml = e.Xml;
@@ -214,10 +215,29 @@ namespace Lync_Billing.ui.accounting.reports
 
                 case "pdf-d":
                     SipAccountsList = new List<string>();
+                    UsersCollection = new Dictionary<string, Dictionary<string, object>>();
                     jSerializer = new JavaScriptSerializer();
-                    List<Users> usersData = jSerializer.Deserialize<List<Users>>(e.Json);
-                    foreach (Users user in usersData) { 
-                        SipAccountsList.Add(user.SipAccount); 
+                    List<UsersCallsSummary> usersData = jSerializer.Deserialize<List<UsersCallsSummary>>(e.Json);
+
+                    Dictionary<string, object> tempUserDataContainer = new Dictionary<string,object>();
+                    foreach (UsersCallsSummary user in usersData)
+                    {
+                        //SipAccountsList.Add(user.SipAccount);
+
+                        tempUserDataContainer.Clear();
+                        tempUserDataContainer.Add("FullName", user.FullName);
+                        tempUserDataContainer.Add("EmployeeID", user.EmployeeID);
+                        tempUserDataContainer.Add("SipAccount", user.SipAccount);
+
+                        tempUserDataContainer.Add("BusinessCost", user.BusinessCallsCost);
+                        tempUserDataContainer.Add("PersonalCost", user.PersonalCallsCost);
+                        tempUserDataContainer.Add("UnallocatedCost", user.UnmarkedCallsCost);
+                        
+                        tempUserDataContainer.Add("BusinessDuration", user.BusinessCallsDuration);
+                        tempUserDataContainer.Add("PersonalDuration", user.PersonalCallsDuration);
+                        tempUserDataContainer.Add("UnallocatedDuration", user.UnmarkedCallsDuration);
+
+                        UsersCollection.Add(user.SipAccount, tempUserDataContainer);
                     }
 
                     beginningOfTheMonth = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
@@ -235,7 +255,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     pdfDocument = new Document();
-                    UsersCallsSummary.ExportUsersCallsDetailedToPDF(beginningOfTheMonth, endOfTheMonth, SipAccountsList, Response, out pdfDocument, pdfDocumentHeaders);
+                    UsersCallsSummary.ExportUsersCallsDetailedToPDF(beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
                     Response.Write(pdfDocument);
                     break;
             }
