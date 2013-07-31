@@ -133,7 +133,10 @@ namespace Lync_Billing.DB
         public static bool UpdateUser(Users user)
         {
             bool status = false;
-
+            Dictionary<string,object> wherePart = new Dictionary<string,object>();
+            
+            wherePart.Add(Enums.GetDescription(Enums.Users.SipAccount),user.SipAccount);
+            
             Dictionary<string, object> setPart = new Dictionary<string, object>();
             //Set Part
              if ((user.UserID).ToString() != null)
@@ -152,12 +155,16 @@ namespace Lync_Billing.DB
                 setPart.Add(Enums.GetDescription(Enums.Users.AD_Department), user.Department);
 
             //Execute Update
+            //status = DBRoutines.UPDATE(
+            //    Enums.GetDescription(Enums.Users.TableName),
+            //    setPart,
+            //    Enums.GetDescription(Enums.Users.SipAccount), 
+            //    user.SipAccount);
+
             status = DBRoutines.UPDATE(
                 Enums.GetDescription(Enums.Users.TableName),
                 setPart,
-                Enums.GetDescription(Enums.Users.AD_UserID), 
-                user.UserID);
-                
+                wherePart);
 
             return status;
         }
