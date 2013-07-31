@@ -270,28 +270,61 @@ namespace Lync_Billing.DB
         public static Dictionary<string, UsersCallsSummary> GetUsersCallsSummary(List<string> sipAccounts, DateTime startingDate, DateTime endingDate, string siteName)
         {
             DataTable dt = new DataTable();
+            
+            List<string> columns = new List<string>()
+            {
+                "SUM(BusinessDuration) AS BusinessDuration",
+                "SUM(PersonalDuration) AS PersonalDuration",
+                "SUM(UnMarkedDuration) AS UnMarkedDuration"
+            };
+
             UsersCallsSummary userSummary;
             Dictionary<string, UsersCallsSummary> usersSummaryList = new Dictionary<string, UsersCallsSummary>();
 
-            dt = StatRoutines.USERS_STATS(startingDate, endingDate, siteName);
+            dt = StatRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, columns);
 
             foreach (DataRow row in dt.Rows)
             {
                 userSummary = new UsersCallsSummary();
 
-                userSummary.BusinessCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessDuration"]]));
-                userSummary.BusinessCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessCallsCount"]]));
-                userSummary.BusinessCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["BusinessCost"]]));
-                userSummary.PersonalCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalDuration"]]));
-                userSummary.PersonalCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalCallsCount"]]));
-                userSummary.PersonalCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["PersonalCost"]]));
-                userSummary.UnmarkedCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
-                userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
-                userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
-                userSummary.SipAccount = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns["SourceUserUri"]]));
-                userSummary.FullName = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_DisplayName)]]));
-                userSummary.EmployeeID = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_UserID)]]));
-                userSummary.SiteName = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName)]]));
+                if (dt.Columns.Contains("BusinessCallsCount"))
+                    userSummary.BusinessCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessCallsCount"]]));
+                
+                if(dt.Columns.Contains("PersonalCallsCount"))
+                    userSummary.PersonalCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalCallsCount"]]));
+
+                if(dt.Columns.Contains("UnMarkedCallsCount"))
+                    userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
+
+                if (dt.Columns.Contains("BusinessDuration"))
+                    userSummary.BusinessCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessDuration"]]));
+
+                if (dt.Columns.Contains("BusinessCost"))
+                    userSummary.BusinessCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["BusinessCost"]]));
+
+                if (dt.Columns.Contains("PersonalDuration"))
+                    userSummary.PersonalCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalDuration"]]));
+
+                if (dt.Columns.Contains("PersonalCost"))
+                    userSummary.PersonalCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["PersonalCost"]]));
+
+                if (dt.Columns.Contains("UnMarkedDuration"))
+                    userSummary.UnmarkedCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
+
+                if (dt.Columns.Contains("UnMarkedCost"))
+                    userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
+
+                if (dt.Columns.Contains("SourceUserUri"))
+                    userSummary.SipAccount = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns["SourceUserUri"]]));
+
+                if (dt.Columns.Contains(Enums.GetDescription(Enums.Users.AD_DisplayName)))
+                    userSummary.FullName = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_DisplayName)]]));
+
+                if (dt.Columns.Contains(Enums.GetDescription(Enums.Users.AD_UserID)))
+                    userSummary.EmployeeID = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_UserID)]]));
+
+                if (dt.Columns.Contains(Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName)))
+                    userSummary.SiteName = Convert.ToString(ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName)]]));
 
                 userSummary.Duration = userSummary.PersonalCallsDuration / 60;
 
@@ -376,7 +409,7 @@ namespace Lync_Billing.DB
 
             document = PDFLib.InitializePDFDocument(response);
             PDFLib.AddPDFHeader(ref document, headers);
-            PDFLib.AddAccountingDetailedReportBody(ref document, dt, widths, pdfColumnSchema, "SourceUserUri", UsersCollection, UsersSummaires);
+            PDFLib.AddAccountingDetailedReportBody(ref document, dt, widths, pdfColumnSchema, headers, "SourceUserUri", UsersCollection, UsersSummaires);
             //PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
             PDFLib.ClosePDFDocument(ref document);
         }

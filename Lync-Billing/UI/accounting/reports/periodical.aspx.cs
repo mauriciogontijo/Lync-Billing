@@ -178,9 +178,17 @@ namespace Lync_Billing.ui.accounting.reports
 
         protected void PeriodicalReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
-            string format = this.FormatType.Value.ToString();
+            DateTime startDate;
+            DateTime endDate;
+            Document pdfDocument;
+            Dictionary<string, string> pdfDocumentHeaders;
+            List<string> SipAccountsList;
+            Dictionary<string, Dictionary<string, object>> UsersCollection;
+            JavaScriptSerializer jSerializer;
 
             XmlNode xml = e.Xml;
+            string siteName = FilterReportsBySite.SelectedItem.Value;
+            string format = this.FormatType.Value.ToString();
 
             this.Response.Clear();
 
@@ -197,8 +205,6 @@ namespace Lync_Billing.ui.accounting.reports
                     break;
 
                 case "pdf":
-                    string siteName = FilterReportsBySite.SelectedItem.Value;
-
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=AccountingPeriodicalReport_Summary.pdf");
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -213,6 +219,44 @@ namespace Lync_Billing.ui.accounting.reports
                     Document doc = new Document();
                     UsersCallsSummary.ExportUsersCallsSummaryToPDF(StartingDate.SelectedDate, EndingDate.SelectedDate, siteName, Response, out doc, headers);
                     Response.Write(doc);
+                    break;
+
+                case "pdf-d":
+                    SipAccountsList = new List<string>();
+                    UsersCollection = new Dictionary<string, Dictionary<string, object>>();
+                    jSerializer = new JavaScriptSerializer();
+                    List<Users> usersData = jSerializer.Deserialize<List<Users>>(e.Json);
+
+                    Dictionary<string, object> tempUserDataContainer;
+                    foreach (Users user in usersData)
+                    {
+                        //SipAccountsList.Add(user.SipAccount);
+                        tempUserDataContainer = new Dictionary<string, object>();
+                        tempUserDataContainer.Add("FullName", user.FullName);
+                        tempUserDataContainer.Add("EmployeeID", user.EmployeeID);
+                        tempUserDataContainer.Add("SipAccount", user.SipAccount);
+
+                        UsersCollection.Add(user.SipAccount, tempUserDataContainer);
+                    }
+
+                    startDate = StartingDate.SelectedDate;
+                    endDate = EndingDate.SelectedDate;
+
+                    //Initialize the response.
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("content-disposition", "attachment;filename=AccountingMonthlyReport_Detailed.pdf");
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                    pdfDocumentHeaders = new Dictionary<string, string>()
+                    {
+                        {"siteName", siteName},
+                        {"title", "Accounting Monthly Report [Detailed]"},
+                        {"subTitle", "From: " + startDate.Month + "-" + startDate.Year + ", to: " + endDate.Month + "-" + endDate.Year + "."}
+                    };
+
+                    pdfDocument = new Document();
+                    UsersCallsSummary.ExportUsersCallsDetailedToPDF(startDate, endDate, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
+                    Response.Write(pdfDocument);
                     break;
             }
 

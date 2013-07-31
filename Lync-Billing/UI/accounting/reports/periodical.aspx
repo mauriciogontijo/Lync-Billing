@@ -173,8 +173,11 @@
                                                 </Listeners>
                                             </ext:MenuItem>
 
-                                            <%--<ext:MenuItem ID="ExportPDFDetailedReport" runat="server" Text="Detailed Report" Icon="PageSave">
-                                            </ext:MenuItem>--%>
+                                            <ext:MenuItem ID="ExportPDFDetailedRreport" runat="server" Text="Detailed Report" Icon="PageSave">
+                                                <Listeners>
+                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'pdf-d');" />
+                                                </Listeners>
+                                            </ext:MenuItem>
                                         </Items>
                                     </ext:Menu>
                                 </Menu>

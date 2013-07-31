@@ -71,7 +71,7 @@ namespace Lync_Billing.Libs
                     Paragraph subTitleParagraph;
                     if (headers.ContainsKey("siteName"))
                     {
-                        subTitleParagraph = new Paragraph(headers["siteName"] + " site | " + headers["subTitle"], subTitleFont);
+                        subTitleParagraph = new Paragraph(headers["siteName"] + " | " + headers["subTitle"], subTitleFont);
                     }
                     else
                     {
@@ -265,6 +265,7 @@ namespace Lync_Billing.Libs
             DataTable dt, 
             int[] pdfReportColumnsWidths,
             List<string> pdfReportColumnScheme, 
+            Dictionary<string, string> pdfDocumentHeaders,
             string handleName, 
             Dictionary<string, Dictionary<string, object>> UsersCollection, 
             Dictionary<string, UsersCallsSummary> UsersSummaries)
@@ -274,11 +275,13 @@ namespace Lync_Billing.Libs
             string pageTitleText = string.Empty;
             string cellText = string.Empty;
             Paragraph pageTitleParagraph;
+            Paragraph pageSubTitleParagraph;
             ADUserInfo userInfo = new ADUserInfo();
 
             //Exit the function in case the handles array is empty or the pdfReportColumnScheme is either empty or it's size exceeds the DataTable's Columns number.
             if (UsersSummaries == null || UsersSummaries.Count == 0 || 
                 UsersCollection == null || UsersCollection.Count == 0 || 
+                pdfDocumentHeaders == null || pdfDocumentHeaders.Count == 0 || 
                 pdfReportColumnScheme == null || pdfReportColumnScheme.Count == 0 || pdfReportColumnScheme.Count > dt.Columns.Count)
             {
                 return document;
@@ -313,8 +316,12 @@ namespace Lync_Billing.Libs
                     }
 
                     pageTitleParagraph = new Paragraph(pageTitleText, subTitleFont);
-                    pageTitleParagraph.SpacingAfter = 20;
+                    pageTitleParagraph.SpacingAfter = 10;
                     document.Add(pageTitleParagraph);
+
+                    pageSubTitleParagraph = new Paragraph(pdfDocumentHeaders["subTitle"], subTitleFont);
+                    pageSubTitleParagraph.SpacingAfter = 20;
+                    document.Add(pageSubTitleParagraph);
 
                     //Select the rows that are associated to the supplied handles
                     selectExpression = handleName + " = '" + sipAccount + "'";
