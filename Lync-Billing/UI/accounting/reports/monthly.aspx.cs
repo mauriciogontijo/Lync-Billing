@@ -173,7 +173,6 @@ namespace Lync_Billing.ui.accounting.reports
             Dictionary<string, string> pdfDocumentHeaders;
             List<string> SipAccountsList;
             Dictionary<string, Dictionary<string, object>> UsersCollection;
-            Dictionary<string, object> UserSpecificParams; 
             JavaScriptSerializer jSerializer;
             
             XmlNode xml = e.Xml;
@@ -217,7 +216,6 @@ namespace Lync_Billing.ui.accounting.reports
                 case "pdf-d":
                     SipAccountsList = new List<string>();
                     UsersCollection = new Dictionary<string, Dictionary<string, object>>();
-                    UserSpecificParams = new Dictionary<string, object>();
                     jSerializer = new JavaScriptSerializer();
                     List<Users> usersData = jSerializer.Deserialize<List<Users>>(e.Json);
 
@@ -235,15 +233,7 @@ namespace Lync_Billing.ui.accounting.reports
 
                     beginningOfTheMonth = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
                     endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
-
-                    //These User-Specific parameters are used to add the totals of Costs and Durations to the Users detailed reports
-                    //Rather than use the DataTable Compute method, we tweaked the inner functionality to query the database for direct user-related sums and totals.
-                    //See the PDFLib#AddCombinedPDFTablesContents function.
-                    //At least the SiteName should be sent!
-                    UserSpecificParams.Add("SiteName", siteName);
-                    UserSpecificParams.Add("StartDate", beginningOfTheMonth);
-                    UserSpecificParams.Add("EndDate", endOfTheMonth);
-
+                    
                     //Initialize the response.
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=AccountingMonthlyReport_Detailed.pdf");
@@ -257,7 +247,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     pdfDocument = new Document();
-                    UsersCallsSummary.ExportUsersCallsDetailedToPDF(beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, UserSpecificParams);
+                    UsersCallsSummary.ExportUsersCallsDetailedToPDF(beginningOfTheMonth, endOfTheMonth, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
                     Response.Write(pdfDocument);
                     break;
             }
