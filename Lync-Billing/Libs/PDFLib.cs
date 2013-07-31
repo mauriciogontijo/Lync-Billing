@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Data;
+using System.Web;
+using System.Linq;
+using System.Collections.Generic;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
-using System.Data;
-using System.Web;
-using System.Collections.Generic;
 using Lync_Billing.DB;
 
 namespace Lync_Billing.Libs
@@ -370,6 +371,115 @@ namespace Lync_Billing.Libs
             }
             return document;
         }
+
+
+        public static Document AddCombinedPDFTablesContents(ref Document document, DataTable dt, int[] pdfReportColumnsWidths, string handleName, Dictionary<string, Dictionary<string, object>> UsersCollection, List<string> pdfReportColumnScheme, string siteName = "")
+        {
+            DataRow[] selectedDataRows;
+            string selectExpression = string.Empty;
+            string pageTitleText = string.Empty;
+            string cellText = string.Empty;
+            Paragraph pageTitleParagraph;
+            ADUserInfo userInfo = new ADUserInfo();
+
+            //Exit the function in case the handles array is empty or the pdfReportColumnScheme is either empty or it's size exceeds the DataTable's Columns number.
+            if (UsersCollection == null || UsersCollection.Count == 0 || pdfReportColumnScheme == null || pdfReportColumnScheme.Count == 0 || pdfReportColumnScheme.Count > dt.Columns.Count)
+            {
+                return document;
+            }
+            else
+            {
+                //start by sorting the handles array.
+                List<string> SipAccounts = UsersCollection.Keys.ToList();
+                SipAccounts.Sort();
+                
+                //Begin the construction of the document.
+                foreach (string sipAccount in SipAccounts)
+                {
+                    PdfPTable pdfTable = InitializePDFTable(pdfReportColumnScheme.Count, pdfReportColumnsWidths);
+                    document.NewPage();
+
+                    if (handleName == "SourceUserUri")
+                    {
+                        string name = UsersCollection[sipAccount]["FullName"].ToString();
+                        string groupNo = UsersCollection[sipAccount]["EmployeeID"].ToString();
+
+                        if (string.IsNullOrEmpty(name))
+                            name = sipAccount.ToLower();
+                        if(!string.IsNullOrEmpty(groupNo))
+                            groupNo = " [Group No. " + UsersCollection[sipAccount]["EmployeeID"].ToString() + "]";
+
+                        pageTitleText = name + groupNo;
+                    }
+                    else
+                    {
+                        pageTitleText = sipAccount;
+                    }
+
+                    pageTitleParagraph = new Paragraph(pageTitleText, subTitleFont);
+                    pageTitleParagraph.SpacingAfter = 20;
+                    document.Add(pageTitleParagraph);
+
+                    //Select the rows that are associated to the supplied handles
+                    selectExpression = handleName + " = '" + sipAccount + "'";
+                    selectedDataRows = dt.Select(selectExpression);
+
+                    //Print the report table columns headers
+                    foreach (string column in pdfReportColumnScheme)
+                    {
+                        if (dt.Columns.Contains(column))
+                        {
+                            pdfTable.AddCell(new Phrase(PDFDefinitions.GetDescription(column), boldTableFont));
+                        }
+                    }
+
+                    //Bind the data cells to the respective columns
+                    foreach (DataRow r in selectedDataRows)
+                    {
+                        foreach (string column in pdfReportColumnScheme)
+                        {
+                            if (dt.Columns.Contains(column))
+                            {
+                                //Declare the pdfTable cell and fill it.
+                                PdfPCell entryCell;
+
+                                //Check if the cell being processed in not  empty nor null.
+                                cellText = r[column].ToString();
+                                if (string.IsNullOrEmpty(cellText))
+                                    cellText = "N/A";
+
+                                //Format the cell text if it's the case of Duration
+                                if (PDFDefinitions.GetDescription(column) == "Duration" && cellText != "N/A")
+                                {
+                                    entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(cellText)), bodyFontSmall));
+                                }
+                                else
+                                {
+                                    entryCell = new PdfPCell(new Phrase(cellText, bodyFontSmall));
+                                }
+
+                                //Set the cell padding, border configurations and then add it to the the pdfTable
+                                entryCell.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER;
+                                entryCell.PaddingTop = 5;
+                                entryCell.PaddingBottom = 5;
+                                entryCell.PaddingLeft = 2;
+                                entryCell.PaddingRight = 2;
+                                pdfTable.AddCell(entryCell);
+                            }
+                        }
+                    }
+
+                    // Add the Paragraph object to the document
+                    document.Add(pdfTable);
+
+
+                    selectExpression = string.Empty;
+                    Array.Clear(selectedDataRows, 0, selectedDataRows.Length);
+                }
+            }
+            return document;
+        }
+
 
         public static Document AddPDFTableTotalsRow(ref Document document, Dictionary<string, object> totals, DataTable dt, int[] widths)
         {
