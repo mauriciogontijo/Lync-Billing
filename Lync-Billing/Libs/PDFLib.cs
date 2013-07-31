@@ -260,7 +260,14 @@ namespace Lync_Billing.Libs
             return document;
         }
 
-        public static Document AddAccountingDetailedReportBody(ref Document document, DataTable dt, int[] pdfReportColumnsWidths, string handleName, Dictionary<string, Dictionary<string, object>> UsersCollection, List<string> pdfReportColumnScheme, Dictionary<string, object> extraParams = null)
+        public static Document AddAccountingDetailedReportBody(
+            ref Document document, 
+            DataTable dt, 
+            int[] pdfReportColumnsWidths,
+            List<string> pdfReportColumnScheme, 
+            string handleName, 
+            Dictionary<string, Dictionary<string, object>> UsersCollection, 
+            Dictionary<string, UsersCallsSummary> UsersSummaries)
         {
             DataRow[] selectedDataRows;
             string selectExpression = string.Empty;
@@ -270,7 +277,9 @@ namespace Lync_Billing.Libs
             ADUserInfo userInfo = new ADUserInfo();
 
             //Exit the function in case the handles array is empty or the pdfReportColumnScheme is either empty or it's size exceeds the DataTable's Columns number.
-            if (UsersCollection == null || UsersCollection.Count == 0 || pdfReportColumnScheme == null || pdfReportColumnScheme.Count == 0 || pdfReportColumnScheme.Count > dt.Columns.Count)
+            if (UsersSummaries == null || UsersSummaries.Count == 0 || 
+                UsersCollection == null || UsersCollection.Count == 0 || 
+                pdfReportColumnScheme == null || pdfReportColumnScheme.Count == 0 || pdfReportColumnScheme.Count > dt.Columns.Count)
             {
                 return document;
             }
@@ -359,7 +368,8 @@ namespace Lync_Billing.Libs
                     // Add the Paragraph object to the document
                     document.Add(pdfTable);
 
-                    AddAccountingDetailedReportTotalsRow(ref document, sipAccount, extraParams);
+                    if (UsersSummaries[sipAccount] != null)
+                        AddAccountingDetailedReportTotalsRow(ref document, UsersSummaries[sipAccount]);
 
                     selectExpression = string.Empty;
                     Array.Clear(selectedDataRows, 0, selectedDataRows.Length);
@@ -403,7 +413,7 @@ namespace Lync_Billing.Libs
         }
 
 
-        private static Document AddAccountingDetailedReportTotalsRow(ref Document document, string sipAccount, Dictionary<string, object> extraParams)
+        private static Document AddAccountingDetailedReportTotalsRow(ref Document document, UsersCallsSummary userSummary)
         {
             PdfPTable pdfTable = new PdfPTable(5);
             pdfTable.HorizontalAlignment = 0;
@@ -417,11 +427,11 @@ namespace Lync_Billing.Libs
             int[] widths = new int[] { 8, 5, 8, 8, 8 };
             pdfTable.SetWidths(widths);
             
-            int year = ((DateTime)extraParams["StartDate"]).Year;
-            int startMonth = ((DateTime)extraParams["StartDate"]).Month;
-            int endMonth = ((DateTime)extraParams["EndDate"]).Month;
+            //int year = ((DateTime)extraParams["StartDate"]).Year;
+            //int startMonth = ((DateTime)extraParams["StartDate"]).Month;
+            //int endMonth = ((DateTime)extraParams["EndDate"]).Month;
 
-            UsersCallsSummary userSummary = UsersCallsSummary.GetUserCallsSummary(sipAccount, year, startMonth, endMonth);
+            //UsersCallsSummary userSummary = UsersCallsSummary.GetUserCallsSummary(sipAccount, year, startMonth, endMonth);
 
             //TOTALS HEADERS
             pdfTable.AddCell(new Phrase("Totals", boldTableFont));
