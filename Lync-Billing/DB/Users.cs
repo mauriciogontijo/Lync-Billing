@@ -10,7 +10,12 @@ namespace Lync_Billing.DB
     public class Users
     {
         public static DBLib DBRoutines = new DBLib();
+        
+        //This was written to get the EmployeeID on Deserialization in case of some grids.
+        //Please check the Monthly Accounting Reports.
+        public int EmployeeID { get; set; }
 
+        //Default class instance variables.
         public int UserID { get; set; }
         public string SipAccount { get; set; }
         public string SiteName { get; set; }
