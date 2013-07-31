@@ -1,0 +1,17 @@
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\bin\Lync_Billing.dll
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\bin\Lync_Billing.pdb
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\obj\Debug\Lync_Billing.dll
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\obj\Debug\Lync_Billing.pdb
+C:\Users\sghaida\Documents\Visual Studio 2012\Projects\Lync-Billing\Lync-Billing\obj\Debug\Lync-Billing.csprojResolveAssemblyReference.cache
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\obj\Debug\Lync-Billing.csprojResolveAssemblyReference.cache
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\obj\Debug\Lync_Billing.dll
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\obj\Debug\Lync_Billing.pdb
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\bin\Lync_Billing.dll
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\bin\Lync_Billing.pdb
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\bin\Ext.Net.dll
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\bin\Ext.Net.Utilities.dll
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\bin\Transformer.NET.dll
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\bin\Ext.Net.xml
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\bin\Ext.Net.Utilities.xml
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\bin\Newtonsoft.Json.xml
+C:\Users\aalhour\Documents\Visual Studio 2012\Projects\Lync-Billing(1)\Lync-Billing\bin\Transformer.NET.xml
