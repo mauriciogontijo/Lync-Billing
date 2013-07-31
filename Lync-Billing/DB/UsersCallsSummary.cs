@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Lync_Billing.Libs;
 using System.Data;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Lync_Billing.Libs;
+
 namespace Lync_Billing.DB
 {
     public class UsersCallsSummaryChartData 
@@ -272,21 +273,18 @@ namespace Lync_Billing.DB
             PDFLib.ClosePDFDocument(ref document);
         }
 
-        public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, List<string> SipAccountsList, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             DataTable dt = new DataTable();
             List<string> columns = new List<string>() { "SourceUserUri", "ResponseTime", "marker_CallToCountry", "DestinationNumberUri", "Duration", "marker_CallCost", "ui_CallType" };
             List<string> pdfColumnSchema = new List<string>() { "ResponseTime", "marker_CallToCountry", "DestinationNumberUri", "Duration", "marker_CallCost", "ui_CallType" }; //This is passed to the PdfLib
-            int[] widths = new int[] { 6, 4, 6, 4, 4, 4 };
+            int[] widths = new int[] { 7, 4, 6, 4, 3, 4 };
 
-            headers.Add("comments", "* Please note that the terms: Business, Personal and Unallocated Calls Costs were abbreviated as Bus. Cost, Per. Cost and Unac. Cost respectively in the following report's columns-headers.");
-
-            dt = StatRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, SipAccountsList, columns);
+            dt = StatRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
 
             document = PDFLib.InitializePDFDocument(response);
-            //PdfPTable pdfCon tentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
             PDFLib.AddPDFHeader(ref document, headers);
-            PDFLib.AddCombinedPDFTablesContents(ref document, dt, widths, "SourceUserUri", SipAccountsList, pdfColumnSchema, headers["siteName"]);
+            PDFLib.AddCombinedPDFTablesContents(ref document, dt, widths, "SourceUserUri", UsersCollection, pdfColumnSchema, headers["siteName"]);
             //PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
             PDFLib.ClosePDFDocument(ref document);
         }
