@@ -64,11 +64,11 @@ namespace Lync_Billing.DB
                     dbUser.FullName = string.Empty;
                 try
                 {
-                    dbUser.UserID = Convert.ToInt32((userInfo.EmployeeID));
+                    dbUser.EmployeeID = Convert.ToInt32((userInfo.EmployeeID));
                 }
                 catch (Exception ex) 
                 {
-                    dbUser.UserID = 0;
+                    dbUser.EmployeeID = 0;
                 }
                 dbUser.SiteName = "UNIDENTIFIED";
 

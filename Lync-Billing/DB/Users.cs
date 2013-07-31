@@ -11,12 +11,8 @@ namespace Lync_Billing.DB
     {
         public static DBLib DBRoutines = new DBLib();
         
-        //This was written to get the EmployeeID on Deserialization in case of some grids.
-        //Please check the Monthly Accounting Reports.
-        public int EmployeeID { get; set; }
-
         //Default class instance variables.
-        public int UserID { get; set; }
+        public int EmployeeID { get; set; }
         public string SipAccount { get; set; }
         public string SiteName { get; set; }
         public string FullName { get; set; }
@@ -41,7 +37,7 @@ namespace Lync_Billing.DB
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_UserID) && row[column.ColumnName] != null)
-                        user.UserID = (int)row[column.ColumnName];
+                        user.EmployeeID = (int)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
                         user.SipAccount = (string)row[column.ColumnName];
@@ -80,9 +76,9 @@ namespace Lync_Billing.DB
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.AD_UserID) && row[column.ColumnName] != null)
-                        user.UserID = (int)row[column.ColumnName];
+                        user.EmployeeID = (int)row[column.ColumnName];
                     else
-                        user.UserID = 0;
+                        user.EmployeeID = 0;
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
                         user.SipAccount = (string)row[column.ColumnName];
@@ -114,8 +110,8 @@ namespace Lync_Billing.DB
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
 
             //Set Part
-            if ((user.UserID).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_UserID), user.UserID);
+            if ((user.EmployeeID).ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_UserID), user.EmployeeID);
 
             if ((user.SipAccount).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Users.SipAccount), user.SipAccount);
@@ -144,8 +140,8 @@ namespace Lync_Billing.DB
             
             Dictionary<string, object> setPart = new Dictionary<string, object>();
             //Set Part
-             if ((user.UserID).ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.Users.AD_UserID), user.UserID);
+             if ((user.EmployeeID).ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Users.AD_UserID), user.EmployeeID);
             
             if ((user.SipAccount).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.Users.SipAccount), user.SipAccount);
@@ -180,7 +176,7 @@ namespace Lync_Billing.DB
 
             status = DBRoutines.DELETE(
                 Enums.GetDescription(Enums.Users.TableName),
-                Enums.GetDescription(Enums.Users.AD_UserID), user.UserID);
+                Enums.GetDescription(Enums.Users.AD_UserID), user.EmployeeID);
 
             return status;
         }

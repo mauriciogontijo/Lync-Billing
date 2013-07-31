@@ -291,7 +291,7 @@ namespace Lync_Billing.Libs
                     {
                         info = new Dictionary<string, string>() { 
                             {"FullName", user.FullName},
-                            {"ID", user.UserID.ToString()}
+                            {"ID", user.EmployeeID.ToString()}
                         };
 
                         usersInformation.Add(user.SipAccount.ToLower(), info);

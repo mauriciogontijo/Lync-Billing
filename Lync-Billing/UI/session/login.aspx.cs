@@ -95,13 +95,13 @@ namespace Lync_Billing.ui.session
 
                         //If user information from Active directory doesnt match the one in Users Table : update user table 
                         if ((ListOfUsers[0]).SipAccount != userInfo.SipAccount.Replace("sip:", "") ||
-                            (ListOfUsers[0]).UserID.ToString() != userInfo.EmployeeID ||
+                            (ListOfUsers[0]).EmployeeID.ToString() != userInfo.EmployeeID ||
                             (ListOfUsers[0]).SiteName != userInfo.physicalDeliveryOfficeName ||
                             (ListOfUsers[0]).Department != userInfo.department)
                         {
                             Users user = new Users();
                             user.SiteName = userInfo.physicalDeliveryOfficeName;
-                            user.UserID = Convert.ToInt32(userInfo.EmployeeID);
+                            user.EmployeeID = Convert.ToInt32(userInfo.EmployeeID);
                             user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                             user.FullName = userInfo.FirstName + " " + userInfo.LastName;
                             user.Department = userInfo.department;
@@ -149,7 +149,7 @@ namespace Lync_Billing.ui.session
                         Users user = new Users();
                         user.SiteName = userInfo.physicalDeliveryOfficeName;
                         user.Department = userInfo.department;
-                        user.UserID = Convert.ToInt32(userInfo.EmployeeID);
+                        user.EmployeeID = Convert.ToInt32(userInfo.EmployeeID);
                         user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                         user.FullName = userInfo.FirstName + " " + userInfo.LastName;
                      
