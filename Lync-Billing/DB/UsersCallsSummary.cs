@@ -158,6 +158,41 @@ namespace Lync_Billing.DB
         public int Year { get; set; }
         public int Month { get; set; }
 
+        public static UsersCallsSummary GetUserCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
+        {
+            columns = new List<string>();
+
+            DataTable dt = new DataTable();
+            UsersCallsSummary userSummary = new UsersCallsSummary();
+
+            dt = StatRoutines.USER_STATS(sipAccount, Year, fromMonth, toMonth);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int year = Convert.ToInt32(row[dt.Columns["Year"]]);
+                int month = Convert.ToInt32(row[dt.Columns["Month"]]);
+
+                userSummary.MonthDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+
+                userSummary.BusinessCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessDuration"]]));
+                userSummary.BusinessCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessCallsCount"]]));
+                userSummary.BusinessCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["BusinessCost"]]));
+                userSummary.PersonalCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalDuration"]]));
+                userSummary.PersonalCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalCallsCount"]]));
+                userSummary.PersonalCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["PersonalCost"]]));
+                userSummary.UnmarkedCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
+                userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
+                userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
+                //userSummary.Month = mfi.GetAbbreviatedMonthName(month);
+                userSummary.Year = year;
+                userSummary.Month = month;
+
+                userSummary.Duration = userSummary.PersonalCallsDuration / 60;
+            }
+
+            return userSummary;
+        }
+
         public static List<UsersCallsSummary> GetUsersCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
         {
             columns = new List<string>();
@@ -273,7 +308,8 @@ namespace Lync_Billing.DB
             PDFLib.ClosePDFDocument(ref document);
         }
 
-        public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        //The extraParams parameter should be provided ... it should at least contain the siteName fpr which the report being generated.
+        public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers, Dictionary<string, object> extraParams)
         {
             DataTable dt = new DataTable();
             List<string> columns = new List<string>() { "SourceUserUri", "ResponseTime", "marker_CallToCountry", "DestinationNumberUri", "Duration", "marker_CallCost", "ui_CallType" };
@@ -284,7 +320,7 @@ namespace Lync_Billing.DB
 
             document = PDFLib.InitializePDFDocument(response);
             PDFLib.AddPDFHeader(ref document, headers);
-            PDFLib.AddCombinedPDFTablesContents(ref document, dt, widths, "SourceUserUri", UsersCollection, pdfColumnSchema, headers["siteName"]);
+            PDFLib.AddAccountingDetailedReportBody(ref document, dt, widths, "SourceUserUri", UsersCollection, pdfColumnSchema, extraParams);
             //PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
             PDFLib.ClosePDFDocument(ref document);
         }
