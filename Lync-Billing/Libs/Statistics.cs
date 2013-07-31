@@ -188,36 +188,49 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
-        public DataTable DISTINCT_USERS_STATS(DateTime startingDate, DateTime endingDate, string siteName, List<string> columns)
+        public DataTable DISTINCT_USERS_STATS(DateTime startingDate, DateTime endingDate, string siteName, List<string> columns = null)
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
             string selectQuery = string.Empty;
             StringBuilder selectedFields = new StringBuilder();
 
-            List<string> defaultSelectedFields = new List<string>() { "SourceUserUri", "AD_UserID", "AD_DisplayName", "SUM(BusinessCost) AS BusinessCost", "SUM(PersonalCost) AS PersonalCost", "SUM(UnMarkedCost) AS UnMarkedCost" };
+            List<string> defaultSelectedFields = new List<string>()
+            { 
+                "SourceUserUri", 
+                "AD_UserID", 
+                "AD_DisplayName", 
+                "SUM(BusinessCost) AS BusinessCost", 
+                "SUM(PersonalCost) AS PersonalCost", 
+                "SUM(UnMarkedCost) AS UnMarkedCost" 
+            };
+            
             string groupBy = "SourceUserUri, AD_UserID, AD_DisplayName";
-
 
             //First, initialize the selectedFields with the defaultSelectedFields
             foreach(string column in defaultSelectedFields)
             {
                 selectedFields.Append(column + ",");
             }
-            selectedFields.Remove(selectedFields.Length - 1, 1);
+
 
             //Add the passed list of extra columns to the selectedFields
             if (columns != null)
             {
                 if (columns.Count > 0)
                 {
-                    foreach(string col in columns)
+                    foreach (string col in columns)
                     {
                         if (!defaultSelectedFields.Contains(col))
                         {
                             selectedFields.Append(col + ",");
                         }
                     }
+
+                    selectedFields.Remove(selectedFields.Length - 1, 1);
+                }
+                else
+                {
                     selectedFields.Remove(selectedFields.Length - 1, 1);
                 }
             }
@@ -295,7 +308,8 @@ namespace Lync_Billing.Libs
             //construct the sql query
             selectQuery = string.Format(
                 "SELECT {0} FROM [dbo].[PhoneCalls] WHERE SourceUserUri in ({1}) " +
-                "AND marker_CallTypeID = 1 " + 
+                "AND marker_CallTypeID = 1 " +
+                "AND Exclude = 0 " + 
                 "AND ResponseTime BETWEEN '{2}' AND '{3}' " + 
                 "ORDER BY SourceUserUri ASC",
                 selectedFields.ToString(), sipAccountsWhereStatement.ToString(), startingDate, endingDate);
