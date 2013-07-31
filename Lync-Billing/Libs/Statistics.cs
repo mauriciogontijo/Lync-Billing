@@ -48,6 +48,53 @@ namespace Lync_Billing.Libs
 
          }
 
+        public DataTable USERS_STATS(List<string> sipAccounts, DateTime startingDate, DateTime endingDate,string siteName) 
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            string subSelect = string.Empty;
+
+            foreach (string sipAccount in sipAccounts) 
+            {
+                subSelect += "'" +sipAccounts + "',";
+            }
+
+            subSelect.Remove(subSelect.Length -1 , 1);
+
+            if (startingDate != endingDate)
+            {
+
+                selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE SourceUserUri in ({1}) AND Date BETWEEN '{2}' AND '{3}'",
+                siteName, subSelect, startingDate, endingDate);
+            }
+            else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+            {
+                selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE SourceUserUri in ({1}) AND Year={2} AND Month={3}",
+               siteName, subSelect, startingDate.Year, startingDate.Month);
+            }
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+
+        }
+
         public DataTable USERS_STATS(DateTime startingDate, DateTime endingDate, string siteName)
         {
             DataTable dt = new DataTable();
