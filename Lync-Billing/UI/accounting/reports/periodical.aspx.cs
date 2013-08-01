@@ -100,27 +100,16 @@ namespace Lync_Billing.ui.accounting.reports
 
             List<Site> sites = new List<Site>();
             List<UserRole> userRoles = session.Roles;
+            List<int> tmpUserSites = new List<int>();
 
-            foreach (UserRole role in userRoles)
+            tmpUserSites = userRoles.Where(item => item.RoleID == 7 || item.RoleID == 1).Select(item => item.SiteID).ToList();
+
+            foreach(int site in tmpUserSites )
             {
-                DB.Site tmpSite = new DB.Site();
-
-                tmpSite.SiteID = userRoles.First(item => item.SiteID == role.SiteID && (item.RoleID == 7 || item.RoleID == 1)).SiteID;
-                sites.Add(tmpSite);
+                sites.Add(DB.Site.getSite(site));
             }
 
             List<Site> tmpSites = DB.Site.GetSites();
-
-            foreach (DB.Site site in sites)
-            {
-                DB.Site tmpSite = new DB.Site();
-
-                tmpSite = tmpSites.First(e => e.SiteID == site.SiteID);
-
-                site.SiteName = tmpSite.SiteName;
-                site.CountryCode = tmpSite.CountryCode;
-            }
-
 
             return sites;
         }
