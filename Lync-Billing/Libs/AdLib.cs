@@ -215,6 +215,43 @@ namespace Lync_Billing.Libs
             }
         }
 
+        public List<ADUserInfo> GetSipAccounts(string fullName) 
+        {
+            string localFilter = string.Format("(&(objectClass=user)(objectCategory=person)(cn={0}))",fullName);
+
+            localSearcher.Filter = localFilter;
+            
+            List<ADUserInfo> listOfUsers = new List<ADUserInfo>();
+            ADUserInfo userInfo;
+
+            try
+            {
+                SearchResultCollection localForestResult = localSearcher.FindAll();
+
+                foreach (SearchResult result in localForestResult) 
+                {
+                    userInfo = new ADUserInfo();
+
+                    if( result.Properties.Contains("mail"))
+                        userInfo.EmailAddress = (string)result.Properties["mail"][0];
+
+                    if (result.Properties.Contains("cn"))
+                        userInfo.DisplayName = (string)result.Properties["cn"][0];
+
+                    if (result.Properties.Contains("employeeid"))
+                        userInfo.EmployeeID = (string)result.Properties["employeeid"][0];
+
+                    listOfUsers.Add(userInfo);
+                }
+
+                return listOfUsers;
+            }
+            catch (Exception ex) 
+            {
+                return null; 
+            }
+        }
+
         /// <summary>
         /// Get User Attributes From Phone Number
         /// </summary>
