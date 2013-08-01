@@ -58,7 +58,10 @@ namespace Lync_Billing.ui.session
             if (status == true)
             {
                 userInfo = Users.GetUserInfo(email.Text);
-
+                
+                //To impersonate user identity 
+                //userInfo = Users.GetUserInfo("shaj@ccc.ae");
+                
                 // User Information was found in active directory
                 if (!userInfo.Equals(null))
                 {
