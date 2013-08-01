@@ -293,7 +293,7 @@ namespace Lync_Billing.Libs
                 SipAccounts.Sort();
                 
                 //Begin the construction of the document.
-                foreach (string sipAccount in SipAccounts)
+                foreach (string sipAccount in SipAccounts) 
                 {
                     PdfPTable pdfTable = InitializePDFTable(pdfReportColumnScheme.Count, pdfReportColumnsWidths);
                     document.NewPage();
