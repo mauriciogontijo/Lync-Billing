@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lync_Billing.ui.session {
+namespace Lync_Billing.ui.session { 
     
     
     public partial class login {
