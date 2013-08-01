@@ -215,7 +215,7 @@
                 ID="PeriodicalReportsGrid"
                 runat="server"
                 Width="740"
-                Height="720"
+                Height="710"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="FitLayout">
