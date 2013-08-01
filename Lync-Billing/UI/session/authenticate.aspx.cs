@@ -275,6 +275,9 @@ namespace Lync_Billing.ui.session
                     status = athenticator.AuthenticateUser(user_email, this.password.Text, out msg);
                     AuthenticationMessage = msg;
 
+                    // To spoof identity for intermediate authentication
+                    //status = true;
+
                     if (status == true)
                     {
                         if (this.access_level.Value == "admin")
