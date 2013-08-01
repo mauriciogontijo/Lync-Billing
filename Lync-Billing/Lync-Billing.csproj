@@ -121,7 +121,6 @@
     <Content Include="ui\admin\main\statistics.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
-    <Content Include="ui\admin\users\delegates.aspx" />
     <Content Include="ui\sysadmin\main\configuration.aspx" />
     <Content Include="ui\sysadmin\main\dashboard.aspx" />
     <Content Include="ui\sysadmin\main\statistics.aspx" />
@@ -269,13 +268,6 @@
     </Compile>
     <Compile Include="ui\admin\notifications\calls.aspx.designer.cs">
       <DependentUpon>calls.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ui\admin\users\delegates.aspx.cs">
-      <DependentUpon>delegates.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ui\admin\users\delegates.aspx.designer.cs">
-      <DependentUpon>delegates.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\main\configuration.aspx.cs">
       <DependentUpon>configuration.aspx</DependentUpon>
