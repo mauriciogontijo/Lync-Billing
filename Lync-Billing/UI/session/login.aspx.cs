@@ -60,7 +60,7 @@ namespace Lync_Billing.ui.session
                 userInfo = Users.GetUserInfo(email.Text);
                 
                 //To impersonate user identity 
-                //userInfo = Users.GetUserInfo("shaj@ccc.ae");
+                //userInfo = Users.GetUserInfo("rchandran@ccc.com.sa");
                 
                 // User Information was found in active directory
                 if (!userInfo.Equals(null))
