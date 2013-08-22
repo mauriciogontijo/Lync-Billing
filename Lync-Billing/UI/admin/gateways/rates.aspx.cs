@@ -45,7 +45,7 @@ namespace Lync_Billing.ui.admin.gateways
             SitesStore.DataSource = GetAdminSites();
             SitesStore.DataBind();
         }
-
+        
         protected void UpdateEdited_DirectEvent(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
@@ -116,6 +116,7 @@ namespace Lync_Billing.ui.admin.gateways
                     else 
                     {
                         // Some needs to be updated and some needs to be inserted
+
                         foreach (DialingPrefixsRates dialingPrefixRate in dialingPrefixsRates)
                         {
                             if (dialingPrefixRate.RateID == 0)
