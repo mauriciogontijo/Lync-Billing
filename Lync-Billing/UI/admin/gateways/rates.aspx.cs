@@ -116,6 +116,50 @@ namespace Lync_Billing.ui.admin.gateways
                     else 
                     {
                         // Some needs to be updated and some needs to be inserted
+                        foreach (DialingPrefixsRates dialingPrefixRate in dialingPrefixsRates)
+                        {
+                            if (dialingPrefixRate.RateID == 0)
+                            {
+                                if (dialingPrefixRate.TypeOfService == "gsm")
+                                    dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
+                                else
+                                    dialingPrefixRate.CountryRate = countryRate.FixedLineRate;
+
+                                int rateID = DialingPrefixsRates.InsertRate(ratesTableName, dialingPrefixRate);
+                            }
+                            else if (dialingPrefixRate.RateID != 0)
+                            {
+                                bool status = false;
+
+                                if (dialingPrefixRate.TypeOfService == "gsm" && dialingPrefixRate.CountryRate != countryRate.MobileLineRate)
+                                {
+                                    status = true;
+                                    dialingPrefixRate.CountryRate = countryRate.MobileLineRate;
+                                }
+                                else if (dialingPrefixRate.TypeOfService != "gsm" && dialingPrefixRate.CountryRate != countryRate.MobileLineRate)
+                                {
+                                    status = true;
+                                    dialingPrefixRate.CountryRate = countryRate.FixedLineRate;
+                                }
+                                else
+                                {
+                                    status = false;
+                                }
+
+                                if (status == true)
+                                    DialingPrefixsRates.UpdatetRate(ratesTableName, dialingPrefixRate);
+                                else
+                                    continue;
+                            }
+                            else 
+                            {
+                                // Catcher should be implemented 
+                            }
+                            
+                        }
+
+                        ManageRatesStore.Find("CountryCode", countryRate.CountryCode).Commit();
+
                     }
                 }
             }
