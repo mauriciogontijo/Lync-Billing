@@ -209,7 +209,7 @@ namespace Lync_Billing.ui.session
 
             //Switch identity
             session.EffectiveSipAccount = delegeeSipAccount;
-            session.EffectiveDisplayName = session.ListOfDelegees[session.EffectiveSipAccount];
+            session.EffectiveDisplayName = formatDisplayName(session.ListOfDelegees[session.EffectiveSipAccount]);
 
             //Initialize the PhoneBook in the session
             session.PhoneBook = new Dictionary<string, PhoneBook>();
@@ -237,7 +237,7 @@ namespace Lync_Billing.ui.session
             {
                 //Switch back to original identity
                 session.EffectiveSipAccount = session.PrimarySipAccount;
-                session.EffectiveDisplayName = session.PrimaryDisplayName;
+                session.EffectiveDisplayName = formatDisplayName(session.PrimaryDisplayName);
 
                 //Initialize the PhoneBook in the session
                 session.PhoneBook = new Dictionary<string, PhoneBook>();
@@ -331,6 +331,26 @@ namespace Lync_Billing.ui.session
             else
             {
                 Response.Redirect("~/ui/session/login.aspx");
+            }
+        }
+        
+        //This function formats teh display-name of a user,
+        //and removes unnecessary extra information.
+        private string formatDisplayName(string displayName)
+        {
+            //Get the first part of the User's Display Name if s/he has a name like this: "User Name (text)"
+            if (!string.IsNullOrEmpty(displayName))
+            {
+                string name = displayName;
+                if (name.Contains('(') && name.Contains(')') && (name.Split('(')).Length > 1)
+                {
+                    name = (name.Split('('))[0];
+                }
+                return name;
+            }
+            else
+            {
+                return "eBill User";
             }
         }//END OF FUNCTION
     }

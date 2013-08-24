@@ -40,6 +40,27 @@ namespace Lync_Billing.ui.session
             AuthenticationMessage = string.Empty;
         }
 
+        //This function formats teh display-name of a user,
+        //and removes unnecessary extra information.
+        private string formatDisplayName(string displayName)
+        {
+            //Get the first part of the User's Display Name if s/he has a name like this: "firstname lastname (extra text)"
+            //removes the "(extra text)" part
+            if (!string.IsNullOrEmpty(displayName))
+            {
+                string name = displayName;
+                if (name.Contains('(') && name.Contains(')') && (name.Split('(')).Length > 1)
+                {
+                    name = (name.Split('('))[0];
+                }
+                return name;
+            }
+            else
+            {
+                return "eBill User";
+            }
+        }
+
         protected void SigninButton_Click(object sender, EventArgs e)
         {
             bool status = false;
@@ -66,8 +87,11 @@ namespace Lync_Billing.ui.session
                 if (!userInfo.Equals(null))
                 {
                     session.EmailAddress = userInfo.EmailAddress;
-                    session.PrimaryDisplayName = userInfo.DisplayName;
-                    session.EffectiveDisplayName = userInfo.DisplayName;
+
+                    //Get the first part of the User's Display Name if s/he has a name like this: "User Name (text)"
+                    session.PrimaryDisplayName = formatDisplayName(userInfo.DisplayName);
+                    session.EffectiveDisplayName = session.PrimaryDisplayName;
+
                     session.TelephoneNumber = userInfo.Telephone;
                     session.IpAddress = HttpContext.Current.Request.UserHostAddress;
                     session.UserAgent = HttpContext.Current.Request.UserAgent;
