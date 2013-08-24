@@ -58,15 +58,6 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.GridFilters UnmarkedCallsGridFilters;
         
         /// <summary>
-        /// UnmarkedCalls_ColumnRowNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.RowNumbererColumn UnmarkedCalls_ColumnRowNumber;
-        
-        /// <summary>
         /// EmployeeIDCol control.
         /// </summary>
         /// <remarks>

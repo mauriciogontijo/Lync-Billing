@@ -250,8 +250,6 @@
 
                 <ColumnModel ID="MonthlyReportsColumnModel" runat="server" Flex="1">
                     <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="35" />
-
                         <ext:Column
                             ID="EmployeeIDCol"
                             runat="server"
@@ -275,7 +273,7 @@
                             ID="SipAccountCol"
                             runat="server"
                             Text="Sip Account"
-                            Width="160"
+                            Width="175"
                             DataIndex="SipAccount"
                             Sortable="true">
                             <HeaderItems>
@@ -294,7 +292,7 @@
                             ID="FullNameCol"
                             runat="server"
                             Text="Full Name"
-                            Width="180"
+                            Width="200"
                             DataIndex="FullName"
                             Sortable="true">
                             <HeaderItems>

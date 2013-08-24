@@ -193,15 +193,6 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.GridFilters MonthlyReportsGridFilters;
         
         /// <summary>
-        /// RowNumbererColumn2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
-        
-        /// <summary>
         /// EmployeeIDCol control.
         /// </summary>
         /// <remarks>

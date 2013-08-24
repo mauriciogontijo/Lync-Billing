@@ -9,6 +9,7 @@
             };
              
             var clearFilter = function () {
+                #{CountryNameFilter}.reset();
                 #{CountryCodeFilter}.reset();
                 
                 #{ManageRatesStore}.clearFilter();
@@ -32,7 +33,13 @@
                         return filterString(#{CountryCodeFilter}.getValue(), "CountryCode", record);
                     }
                 });
- 
+                
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{CountryNameFilter}.getValue(), "CountryName", record);
+                    }
+                });
+
                 var len = f.length;
                  
                 return function (record) {

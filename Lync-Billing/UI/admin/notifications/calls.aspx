@@ -114,8 +114,6 @@
 
                 <ColumnModel ID="UnmarkedCallsColumnModel" runat="server" Flex="1">
                     <Columns>
-                        <ext:RowNumbererColumn ID="UnmarkedCalls_ColumnRowNumber" runat="server" Width="25" />
-
                         <ext:Column
                             ID="EmployeeIDCol"
                             runat="server"
@@ -138,7 +136,7 @@
                             ID="SipAccountCol"
                             runat="server"
                             Text="Sip Account"
-                            Width="150"
+                            Width="165"
                             DataIndex="SipAccount">
                             <HeaderItems>
                                 <ext:TextField ID="SipAccountFilter" runat="server" Icon="Magnifier">
@@ -156,7 +154,7 @@
                             ID="FullNameCol"
                             runat="server"
                             Text="Full Name"
-                            Width="180"
+                            Width="190"
                             DataIndex="FullName">
                             <HeaderItems>
                                 <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
