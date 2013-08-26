@@ -100,12 +100,10 @@
 
                 <ColumnModel ID="BillsColumnModel" runat="server" Flex="1">
 		            <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="35" />
-
                         <ext:Column ID="UserFullName" 
                             runat="server" 
                             Text="Full Name" 
-                            Width="220" 
+                            Width="240" 
                             DataIndex="FullName">
                             <HeaderItems>
                                 <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
@@ -122,7 +120,7 @@
                         <ext:Column ID="MonthDate" 
                             runat="server" 
                             Text="Date" 
-                            Width="120" 
+                            Width="140" 
                             DataIndex="MonthDate"
                             Groupable="false"
                             Align="Center">
@@ -139,7 +137,7 @@
                                 <ext:Column ID="TotalDuration"
                                     runat="server"
                                     Text="Duration"
-                                    Width="120"
+                                    Width="125"
                                     DataIndex="PersonalCallsDuration">
                                     <Renderer Fn="GetMinutes" />
                                 </ext:Column>
