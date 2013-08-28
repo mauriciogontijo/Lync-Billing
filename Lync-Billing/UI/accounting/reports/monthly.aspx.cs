@@ -168,6 +168,7 @@ namespace Lync_Billing.ui.accounting.reports
             XmlNode xml = e.Xml;
             string siteName = FilterReportsBySite.SelectedItem.Value;
             string format = this.FormatType.Value.ToString();
+            string pdfReportFileName = string.Empty;
 
             this.Response.Clear();
 
@@ -187,8 +188,13 @@ namespace Lync_Billing.ui.accounting.reports
                     beginningOfTheMonth = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
                     endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
 
+                    //Initialize the response.
+                    pdfReportFileName = string.Format(
+                        "{0}_Monthly_Summary_Report_{1}.pdf",
+                        siteName.ToUpper(), beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year
+                    );
                     Response.ContentType = "application/pdf";
-                    Response.AddHeader("content-disposition", "attachment;filename=AccountingMonthlyReport_Summary.pdf");
+                    Response.AddHeader("content-disposition", "attachment;filename=" + pdfReportFileName);
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
                     pdfDocumentHeaders = new Dictionary<string, string>()
@@ -223,10 +229,14 @@ namespace Lync_Billing.ui.accounting.reports
 
                     beginningOfTheMonth = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
                     endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
-                    
+
                     //Initialize the response.
+                    pdfReportFileName = string.Format(
+                        "{0}_Monthly_Detailed_Report_{1}.pdf",
+                        siteName.ToUpper(), beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year
+                    );
                     Response.ContentType = "application/pdf";
-                    Response.AddHeader("content-disposition", "attachment;filename=AccountingMonthlyReport_Detailed.pdf");
+                    Response.AddHeader("content-disposition", "attachment;filename=" + pdfReportFileName);
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
                     pdfDocumentHeaders = new Dictionary<string, string>()
