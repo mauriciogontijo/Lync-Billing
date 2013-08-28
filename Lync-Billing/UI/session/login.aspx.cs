@@ -80,7 +80,7 @@ namespace Lync_Billing.ui.session
                 
                 /** ----
                  * To impersonate user identity 
-                 */ userInfo = Users.GetUserInfo("shaj@ccc.ae");
+                 * userInfo = Users.GetUserInfo("shaj@ccc.ae");
                  /* -------
                  */
                 
