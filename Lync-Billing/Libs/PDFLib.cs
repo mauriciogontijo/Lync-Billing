@@ -269,9 +269,11 @@ namespace Lync_Billing.Libs
             string handleName, 
             Dictionary<string, Dictionary<string, object>> UsersCollection, 
             Dictionary<string, UsersCallsSummary> UsersSummaries)
-        {
+        { 
+            //START THE FUNCTION
             DataRow[] selectedDataRows;
             string selectExpression = string.Empty;
+            string selectOrder = string.Empty;
             string pageTitleText = string.Empty;
             string cellText = string.Empty;
             Paragraph pageTitleParagraph;
@@ -324,8 +326,10 @@ namespace Lync_Billing.Libs
                     document.Add(pageSubTitleParagraph);
 
                     //Select the rows that are associated to the supplied handles
+                    if (pdfReportColumnScheme.Contains("ResponseTime"))
+                        selectOrder = "ResponseTime ASC";
                     selectExpression = handleName + " = '" + sipAccount + "'";
-                    selectedDataRows = dt.Select(selectExpression);
+                    selectedDataRows = dt.Select(selectExpression, selectOrder);
 
                     //Print the report table columns headers
                     foreach (string column in pdfReportColumnScheme)
@@ -379,6 +383,7 @@ namespace Lync_Billing.Libs
                         AddAccountingDetailedReportTotalsRow(ref document, UsersSummaries[sipAccount]);
 
                     selectExpression = string.Empty;
+                    selectOrder = string.Empty;
                     Array.Clear(selectedDataRows, 0, selectedDataRows.Length);
                 }
             }
