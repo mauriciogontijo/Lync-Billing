@@ -150,13 +150,8 @@
                         HideGroupedHeader="true" 
                         EnableGroupingMenu="true"
                         EnableNoGroups="true"
-                        ShowSummaryRow="true"/>
-                    <ext:GridFilters ID="StatusTypeFilter" runat="server">
-                        <Filters>
-                            <ext:StringFilter DataIndex="UI_CallType"/>
-                        </Filters>
-                    </ext:GridFilters>
-
+                        ShowSummaryRow="true">
+                    </ext:GroupingSummary>
                 </Features>
 
                 <TopBar>

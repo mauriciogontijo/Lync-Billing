@@ -91,15 +91,6 @@
                     </ext:Store>
                 </Store>
 
-                <Features>
-                    <ext:GridFilters ID="TelephonyRatesGridFilters" Local="true">
-                        <Filters>
-                            <ext:StringFilter DataIndex="CountryCode" />
-                            <ext:StringFilter DataIndex="CountryName" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>
-
                 <ColumnModel ID="ViewRatesColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn
@@ -165,13 +156,15 @@
                                     runat="server"
                                     Text="Fixedline Rate"
                                     Width="160"
-                                    DataIndex="FixedLineRate" />
+                                    DataIndex="FixedLineRate"
+                                    MenuDisabled="true" />
 
                                 <ext:Column
                                     runat="server"
                                     Text="Mobile Rate"
                                     Width="160"
-                                    DataIndex="MobileLineRate" />
+                                    DataIndex="MobileLineRate"
+                                    MenuDisabled="true" />
                             </Columns>
                         </ext:Column>
 

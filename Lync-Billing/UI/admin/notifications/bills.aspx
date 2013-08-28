@@ -90,14 +90,6 @@
                     </ext:Store>
                 </Store>
 
-                <Features>
-                    <ext:GridFilters ID="UsersBillsGridFilters" Local="true">
-                        <Filters>
-                            <ext:StringFilter DataIndex="FullName" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>
-
                 <ColumnModel ID="BillsColumnModel" runat="server" Flex="1">
 		            <Columns>
                         <ext:Column ID="UserFullName" 
@@ -138,7 +130,8 @@
                                     runat="server"
                                     Text="Duration"
                                     Width="125"
-                                    DataIndex="PersonalCallsDuration">
+                                    DataIndex="PersonalCallsDuration"
+                                    MenuDisabled="true">
                                     <Renderer Fn="GetMinutes" />
                                 </ext:Column>
 
@@ -146,13 +139,15 @@
                                     runat="server"
                                     Text="Number of Calls"
                                     Width="100"
-                                    DataIndex="PersonalCallsCount"/>
+                                    DataIndex="PersonalCallsCount"
+                                    MenuDisabled="true" />
                                 
 		                        <ext:Column ID="TotalCost"
                                     runat="server"
                                     Text="Total Cost"
                                     Width="100"
-                                    DataIndex="PersonalCallsCost">
+                                    DataIndex="PersonalCallsCost"
+                                    MenuDisabled="true">
                                     <Renderer Fn="RoundCost"/>
                                 </ext:Column>
                             </Columns>

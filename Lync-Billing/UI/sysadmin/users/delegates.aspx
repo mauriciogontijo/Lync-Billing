@@ -97,16 +97,6 @@
                     </ext:Store>
                 </Store>
 
-                <Features>
-                    <ext:GridFilters ID="ManageDelegatesGridFilters" Local="true">
-                        <Filters>
-                            <ext:StringFilter DataIndex="SipAccount" />
-                            <ext:StringFilter DataIndex="DelegeeAccount" />
-                            <ext:StringFilter DataIndex="Description" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>
-
                 <ColumnModel ID="ManageDelegatesColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />

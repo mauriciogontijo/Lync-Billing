@@ -102,16 +102,6 @@
                     </ext:Store>
                 </Store>
 
-                <Features>
-                    <ext:GridFilters ID="UnmarkedCallsGridFilters" Local="true">
-                        <Filters>
-                            <ext:StringFilter DataIndex="EmployeeID" />
-                            <ext:StringFilter DataIndex="SipAccount" />
-                            <ext:StringFilter DataIndex="FullName" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>
-
                 <ColumnModel ID="UnmarkedCallsColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:Column
@@ -180,7 +170,8 @@
                                     runat="server"
                                     Text="Duration"
                                     Width="90"
-                                    DataIndex="UnmarkedCallsDuration">
+                                    DataIndex="UnmarkedCallsDuration"
+                                    MenuDisabled="true">
                                     <Renderer Fn="GetMinutes" />
                                 </ext:Column>
 
@@ -189,14 +180,16 @@
                                     runat="server"
                                     Text="Number of Calls"
                                     Width="90"
-                                    DataIndex="UnmarkedCallsCount" />
+                                    DataIndex="UnmarkedCallsCount"
+                                    MenuDisabled="true" />
 
                                 <ext:Column
                                     ID="UnmarkedCallsCostCol"
                                     runat="server"
                                     Text="Cost"
                                     Width="80"
-                                    DataIndex="UnmarkedCallsCost" />
+                                    DataIndex="UnmarkedCallsCost"
+                                    MenuDisabled="true" />
                             </Columns>
                         </ext:Column>
                     </Columns>

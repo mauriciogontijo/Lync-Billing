@@ -238,16 +238,6 @@
                     </ext:Store>
                 </Store>
 
-                <Features>
-                    <ext:GridFilters ID="MonthlyReportsGridFilters" Local="true">
-                        <Filters>
-                            <ext:StringFilter DataIndex="EmployeeID" />
-                            <ext:StringFilter DataIndex="SipAccount" />
-                            <ext:StringFilter DataIndex="FullName" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>
-
                 <ColumnModel ID="MonthlyReportsColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:Column
@@ -310,7 +300,7 @@
                         <ext:Column
                             ID="GrouopedCostsColumnsCol"
                             runat="server"
-                            MenuDisabled="false"
+                            MenuDisabled="true"
                             Sortable="false"
                             Groupable="false"
                             Resizable="false"
@@ -321,21 +311,24 @@
                                     runat="server"
                                     Text="Personal"
                                     Width="85"
-                                    DataIndex="PersonalCallsCost" />
+                                    DataIndex="PersonalCallsCost"
+                                    MenuDisabled="true" />
 
                                 <ext:Column
                                     ID="BusinessCallsCostCol"
                                     runat="server"
                                     Text="Business"
                                     Width="85"
-                                    DataIndex="BusinessCallsCost" />
+                                    DataIndex="BusinessCallsCost"
+                                    MenuDisabled="true" />
 
                                 <ext:Column
                                     ID="UnmarkedCallsCostCol"
                                     runat="server"
                                     Text="Unallocated"
                                     Width="85"
-                                    DataIndex="UnmarkedCallsCost" />
+                                    DataIndex="UnmarkedCallsCost"
+                                    MenuDisabled="true" />
                             </Columns>
                         </ext:Column>
                     </Columns>

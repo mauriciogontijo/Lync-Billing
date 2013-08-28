@@ -204,14 +204,7 @@
                         </ext:Column>
                     </Columns>
                 </ColumnModel>
-                <Features>
-                    <ext:GridFilters ID="StatusTypeFilter" runat="server">
-                        <Filters>
-                            <ext:StringFilter DataIndex="UI_CallType" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>
-
+                
                 <SelectionModel>
                     <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
                         runat="server"

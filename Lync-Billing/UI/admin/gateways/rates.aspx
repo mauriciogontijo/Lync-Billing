@@ -93,14 +93,6 @@
                     <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
                 </Plugins>
 
-                <Features>
-                    <ext:GridFilters ID="ManageDelegatesGridFilters" Local="true">
-                        <Filters>
-                            <ext:StringFilter DataIndex="CountryCode" />
-                        </Filters>
-                    </ext:GridFilters>
-                </Features>
-
                 <ColumnModel ID="ManageRatesColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="35" />
@@ -163,7 +155,8 @@
                                     runat="server"
                                     Text="Fixedline Rate"
                                     Width="155"
-                                    DataIndex="FixedLineRate">
+                                    DataIndex="FixedLineRate"
+                                    MenuDisabled="true">
                                     <Editor>
                                         <ext:TextField
                                             ID="FixedLineRateTextbox"
@@ -177,7 +170,8 @@
                                     runat="server"
                                     Text="Mobile Rate"
                                     Width="155"
-                                    DataIndex="MobileLineRate">
+                                    DataIndex="MobileLineRate"
+                                    MenuDisabled="true">
                                     <Editor>
                                         <ext:TextField
                                             ID="MobileLineRateTextbox"

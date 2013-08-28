@@ -175,15 +175,6 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.Model MonthlyReportsModel;
         
         /// <summary>
-        /// MonthlyReportsGridFilters control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridFilters MonthlyReportsGridFilters;
-        
-        /// <summary>
         /// EmployeeIDCol control.
         /// </summary>
         /// <remarks>

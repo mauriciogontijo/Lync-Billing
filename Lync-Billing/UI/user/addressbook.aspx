@@ -57,18 +57,6 @@
                             return filterString(#{ContactNameFilter}.getValue(), "Name", record);
                         }
                     });
-
-                    //f.push({
-                    //    filter: function (record) {                         
-                    //        return filterString(#{DestCountryFilter}.getValue(), "DestinationCountry", record);
-                    //    }
-                    //});
-
-                    //f.push({
-                    //    filter: function (record) {                         
-                    //        return filterString(#{ContactTypeFilter}.getValue(), "Type", record);
-                    //    }
-                    //});
                 }
                 else if(grid != undefined && grid == "import")
                 {
@@ -152,17 +140,6 @@
                             <ext:CellEditing ID="CellEditing2" runat="server" ClicksToEdit="2" />
                         </Plugins>
 
-                        <Features>
-                            <ext:GridFilters ID="AddressbookGridFilters" Local="true">
-                                <Filters>
-                                    <ext:StringFilter DataIndex="DestinationNumber" />
-                                    <ext:StringFilter DataIndex="DestinationCountry" />
-                                    <ext:StringFilter DataIndex="Name" />
-                                    <ext:StringFilter DataIndex="Type" />
-                                </Filters>
-                            </ext:GridFilters>
-                        </Features>
-
                         <ColumnModel ID="AddressBookColumnModel" runat="server" Flex="1">
                             <Columns>
                                 <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
@@ -230,8 +207,8 @@
                                             DataIndex="DestinationCountry"
                                             Sortable="true"
                                             Groupable="true"
-                                            Resizable="false">
-                                        </ext:Column>
+                                            Resizable="false"
+                                            MenuDisabled="true" />
 
                                         <ext:Column
                                             ID="ADContactTypeCol"
@@ -243,7 +220,8 @@
                                             Selectable="true"
                                             Sortable="true"
                                             Groupable="true"
-                                            Resizable="false">
+                                            Resizable="false"
+                                            MenuDisabled="true">
                                             <Editor>
                                                 <ext:ComboBox
                                                     ID="ADContactTypeCombo"
@@ -379,17 +357,6 @@
                         <Plugins>
                             <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
                         </Plugins>
-
-                        <Features>
-                            <ext:GridFilters ID="ImportContactsGridFilters" Local="true">
-                                <Filters>
-                                    <ext:StringFilter DataIndex="DestinationNumber" />
-                                    <ext:StringFilter DataIndex="DestinationCountry" />
-                                    <ext:StringFilter DataIndex="Name" />
-                                    <ext:StringFilter DataIndex="Type" />
-                                </Filters>
-                            </ext:GridFilters>
-                        </Features>
 
                         <ColumnModel ID="ImportContactsColumnModel" runat="server" Flex="1">
                             <Columns>

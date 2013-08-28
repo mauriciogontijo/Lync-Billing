@@ -67,15 +67,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.CellEditing CellEditing2;
         
         /// <summary>
-        /// AddressbookGridFilters control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridFilters AddressbookGridFilters;
-        
-        /// <summary>
         /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
@@ -272,15 +263,6 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.CellEditing CellEditing1;
-        
-        /// <summary>
-        /// ImportContactsGridFilters control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridFilters ImportContactsGridFilters;
         
         /// <summary>
         /// RowNumbererColumn1 control.
