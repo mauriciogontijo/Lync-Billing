@@ -187,8 +187,11 @@ namespace Lync_Billing.ui.admin.gateways
             {
                 DB.Site tmpSite = new DB.Site();
 
-                tmpSite.SiteID = userRoles.First(item => item.SiteID == role.SiteID && (item.RoleID == 5 || item.RoleID == 1)).SiteID;
-                sites.Add(tmpSite);
+                if (role.SiteID != 0 && (role.RoleID == 5 || role.RoleID == 1))
+                {
+                    tmpSite.SiteID = role.SiteID;
+                    sites.Add(tmpSite);
+                }
             }
 
             List<Site> tmpSites = DB.Site.GetSites();
