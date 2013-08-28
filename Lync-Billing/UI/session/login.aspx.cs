@@ -49,10 +49,7 @@ namespace Lync_Billing.ui.session
             if (!string.IsNullOrEmpty(displayName))
             {
                 string name = displayName;
-                if (name.Contains('(') && name.Contains(')') && (name.Split('(')).Length > 1)
-                {
-                    name = (name.Split('('))[0];
-                }
+                name = (name.Split(' '))[0];
                 return name;
             }
             else
@@ -60,6 +57,7 @@ namespace Lync_Billing.ui.session
                 return "eBill User";
             }
         }
+
 
         protected void SigninButton_Click(object sender, EventArgs e)
         {
@@ -80,8 +78,11 @@ namespace Lync_Billing.ui.session
             {
                 userInfo = Users.GetUserInfo(email.Text);
                 
-                //To impersonate user identity 
-                //userInfo = Users.GetUserInfo("rchandran@ccc.com.sa");
+                /** ----
+                 * To impersonate user identity 
+                 */ userInfo = Users.GetUserInfo("shaj@ccc.ae");
+                 /* -------
+                 */
                 
                 // User Information was found in active directory
                 if (!userInfo.Equals(null))

@@ -276,7 +276,7 @@ namespace Lync_Billing.ui.session
                     AuthenticationMessage = msg;
 
                     // To spoof identity for intermediate authentication
-                    //status = true;
+                    status = true;
 
                     if (status == true)
                     {
@@ -333,12 +333,13 @@ namespace Lync_Billing.ui.session
                 Response.Redirect("~/ui/session/login.aspx");
             }
         }
-        
+
         //This function formats teh display-name of a user,
         //and removes unnecessary extra information.
         private string formatDisplayName(string displayName)
         {
-            //Get the first part of the User's Display Name if s/he has a name like this: "User Name (text)"
+            //Get the first part of the User's Display Name if s/he has a name like this: "firstname lastname (extra text)"
+            //removes the "(extra text)" part
             if (!string.IsNullOrEmpty(displayName))
             {
                 string name = displayName;
