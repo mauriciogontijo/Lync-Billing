@@ -27,9 +27,9 @@
                             <ext:Model ID="AppConfigStoreModel" runat="server">
                                 <Fields>
                                     <ext:ModelField Name="ID" Type="String" />
-                                    <ext:ModelField Name="Module" Type="String" />
-                                    <ext:ModelField Name="ModuleKey" Type="String" />
-                                    <ext:ModelField Name="Modulevalue" Type="String" />
+                                    <ext:ModelField Name="Module" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="ModuleKey" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="Modulevalue" Type="String" SortType="AsText" />
                                 </Fields>
                             </ext:Model>
                         </Model>
@@ -51,7 +51,8 @@
                             runat="server"
                             Text="Module Name"
                             Width="180"
-                            DataIndex="Module">
+                            DataIndex="Module"
+                            Sortable="true">
                             <Editor>
                                 <ext:TextField
                                     ID="ModuleNameTextbox"
@@ -65,7 +66,8 @@
                             runat="server"
                             DataIndex="ModuleKey"
                             Text="Module Key"
-                            Width="220">
+                            Width="220"
+                            Sortable="true">
                             <Editor>
                                 <ext:TextField
                                     ID="ModuleKeyTextbox"
@@ -78,7 +80,8 @@
                             ID="ModuleValueCol"
                             runat="server"
                             Text="Module Value"
-                            Width="240">
+                            Width="240"
+                            Sortable="true">
                             <Editor>
                                 <ext:TextField
                                     ID="ModuleValueTextbox"

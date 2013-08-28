@@ -73,14 +73,13 @@
                     <ext:Store
                         ID="ManageRatesStore"
                         runat="server"
-                        RemoteSort="true"
                         PageSize="25">
                         <Model>
                             <ext:Model ID="ManageRatesModel" runat="server" IDProperty="ID">
                                 <Fields>
                                     <ext:ModelField Name="RateID" Type="Int" />
-                                    <ext:ModelField Name="CountryCode" Type="String" />
-                                    <ext:ModelField Name="CountryName" Type="String" />
+                                    <ext:ModelField Name="CountryCode" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="CountryName" Type="String" SortType="AsText" />
                                     <ext:ModelField Name="FixedLineRate" Type="String" />
                                     <ext:ModelField Name="MobileLineRate" Type="String" />
                                 </Fields>
@@ -156,7 +155,8 @@
                                     Text="Fixedline Rate"
                                     Width="155"
                                     DataIndex="FixedLineRate"
-                                    MenuDisabled="true">
+                                    MenuDisabled="true"
+                                    Sortable="false">
                                     <Editor>
                                         <ext:TextField
                                             ID="FixedLineRateTextbox"
@@ -171,7 +171,8 @@
                                     Text="Mobile Rate"
                                     Width="155"
                                     DataIndex="MobileLineRate"
-                                    MenuDisabled="true">
+                                    MenuDisabled="true"
+                                    Sortable="false">
                                     <Editor>
                                         <ext:TextField
                                             ID="MobileLineRateTextbox"

@@ -181,17 +181,6 @@
                                                     <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'xls');" />
                                                 </Listeners>
                                             </ext:MenuItem>
-
-                                            <%--<ext:MenuItem ID="ExportExcelDetailedReport" runat="server" Text="Detailed Report" Icon="PageExcel">
-                                                <DirectEvents>
-                                                    <Click OnEvent="ExportDetailedReportButton_DirectClick">
-                                                        <EventMask ShowMask="true" />
-                                                        <ExtraParams>
-                                                            <ext:Parameter Name="Values" Value="Ext.encode(#{MonthlyReportsTools}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                        </ExtraParams>
-                                                    </Click>
-                                                </DirectEvents>
-                                            </ext:MenuItem>--%>
                                         </Items>
                                     </ext:Menu>
                                 </Menu>
@@ -216,16 +205,14 @@
                     <ext:Store
                         ID="MonthlyReportsStore"
                         runat="server"
-                        RemoteSort="true"
                         IsPagingStore="true"
-                        PageSize="25"
-                        OnSubmitData="MonthlyReportsStore_SubmitData">
+                        PageSize="25">
                         <Model>
                             <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
-                                    <ext:ModelField Name="EmployeeID" Type="String" />
-                                    <ext:ModelField Name="FullName" Type="String" />
-                                    <ext:ModelField Name="SipAccount" Type="String" />
+                                    <ext:ModelField Name="EmployeeID" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="FullName" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="SipAccount" Type="String" SortType="AsText" />
                                     <ext:ModelField Name="PersonalCallsCost" Type="String" />
                                     <ext:ModelField Name="BusinessCallsCost" Type="String" />
                                     <ext:ModelField Name="UnmarkedCallsCost" Type="String" />

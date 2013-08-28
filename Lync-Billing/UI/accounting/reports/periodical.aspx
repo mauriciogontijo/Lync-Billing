@@ -197,9 +197,6 @@
                                                     <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'xls');" />
                                                 </Listeners>
                                             </ext:MenuItem>
-
-                                            <%--<ext:MenuItem ID="ExportExcelDetailedReport" runat="server" Text="Detailed Report" Icon="PageExcel">
-                                            </ext:MenuItem>--%>
                                         </Items>
                                     </ext:Menu>
                                 </Menu>
@@ -224,16 +221,15 @@
                     <ext:Store
                         ID="PeriodicalReportsStore"
                         runat="server"
-                        RemoteSort="true"
                         IsPagingStore="true"
                         PageSize="25"
                         OnSubmitData="PeriodicalReportsStore_SubmitData">
                         <Model>
                             <ext:Model ID="PeriodicalReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
-                                    <ext:ModelField Name="EmployeeID" Type="String" />
-                                    <ext:ModelField Name="FullName" Type="String" />
-                                    <ext:ModelField Name="SipAccount" Type="String" />
+                                    <ext:ModelField Name="EmployeeID" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="FullName" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="SipAccount" Type="String" SortType="AsText" />
                                     <ext:ModelField Name="PersonalCallsCost" Type="String" />
                                     <ext:ModelField Name="BusinessCallsCost" Type="String" />
                                     <ext:ModelField Name="UnmarkedCallsCost" Type="String" />
@@ -253,7 +249,8 @@
                             runat="server"
                             Text="Employee ID"
                             Width="100"
-                            DataIndex="EmployeeID">
+                            DataIndex="EmployeeID"
+                            Sortable="true">
                             <HeaderItems>
                                 <ext:TextField ID="EmployeeIDFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -271,7 +268,8 @@
                             runat="server"
                             Text="Sip Account"
                             Width="175"
-                            DataIndex="SipAccount">
+                            DataIndex="SipAccount"
+                            Sortable="true">
                             <HeaderItems>
                                 <ext:TextField ID="SipAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -289,7 +287,8 @@
                             runat="server"
                             Text="Full Name"
                             Width="200"
-                            DataIndex="FullName">
+                            DataIndex="FullName"
+                            Sortable="true">
                             <HeaderItems>
                                 <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
                                     <Listeners>

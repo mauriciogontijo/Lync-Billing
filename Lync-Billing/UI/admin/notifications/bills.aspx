@@ -73,10 +73,10 @@
                         <Model>
                             <ext:Model ID="UsersBillsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
-                                    <ext:ModelField Name="SipAccount" Type="String" />
-                                    <ext:ModelField Name="FullName" Type="String" />
-                                    <ext:ModelField Name="EmployeeID" Type="String" />
-                                    <ext:ModelField Name="SiteName" Type="String" />
+                                    <ext:ModelField Name="SipAccount" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="FullName" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="EmployeeID" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="SiteName" Type="String" SortType="AsText" />
                                     <ext:ModelField Name="MonthDate" Type="Date" />
                                     <ext:ModelField Name="PersonalCallsCost" Type="Float" />
                                     <ext:ModelField Name="PersonalCallsCount" Type="Int" />
@@ -96,7 +96,8 @@
                             runat="server" 
                             Text="Full Name" 
                             Width="240" 
-                            DataIndex="FullName">
+                            DataIndex="FullName"
+                            Sortable="true">
                             <HeaderItems>
                                 <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -115,7 +116,8 @@
                             Width="140" 
                             DataIndex="MonthDate"
                             Groupable="false"
-                            Align="Center">
+                            Align="Center"
+                            Sortable="true">
                             <Renderer Fn="SpecialDateRenderer" />
                         </ext:Column>
 
@@ -131,7 +133,8 @@
                                     Text="Duration"
                                     Width="125"
                                     DataIndex="PersonalCallsDuration"
-                                    MenuDisabled="true">
+                                    MenuDisabled="true"
+                                    Sortable="false">
                                     <Renderer Fn="GetMinutes" />
                                 </ext:Column>
 
@@ -140,14 +143,16 @@
                                     Text="Number of Calls"
                                     Width="100"
                                     DataIndex="PersonalCallsCount"
-                                    MenuDisabled="true" />
+                                    MenuDisabled="true"
+                                    Sortable="false" />
                                 
 		                        <ext:Column ID="TotalCost"
                                     runat="server"
                                     Text="Total Cost"
                                     Width="100"
                                     DataIndex="PersonalCallsCost"
-                                    MenuDisabled="true">
+                                    MenuDisabled="true"
+                                    Sortable="false">
                                     <Renderer Fn="RoundCost"/>
                                 </ext:Column>
                             </Columns>

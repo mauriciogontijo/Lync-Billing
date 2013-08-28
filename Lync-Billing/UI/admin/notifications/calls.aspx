@@ -80,16 +80,15 @@
                     <ext:Store
                         ID="UnmarkedCallsStore"
                         runat="server"
-                        RemoteSort="true"
                         IsPagingStore="true"
                         PageSize="25">
                         <Model>
                             <ext:Model ID="UnmarkedCallsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
-                                    <ext:ModelField Name="SipAccount" Type="String" />
-                                    <ext:ModelField Name="EmployeeID" Type="String" />
-                                    <ext:ModelField Name="FullName" Type="String" />
-                                    <ext:ModelField Name="Site" Type="String" />
+                                    <ext:ModelField Name="SipAccount" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="EmployeeID" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="FullName" Type="String" SortType="AsText" />
+                                    <ext:ModelField Name="Site" Type="String" SortType="AsText" />
                                     <ext:ModelField Name="UnmarkedCallsCost" Type="Float" />
                                     <ext:ModelField Name="UnmarkedCallsCount" Type="Int" />
                                     <ext:ModelField Name="UnmarkedCallsDuration" Type="Int" />
@@ -109,7 +108,8 @@
                             runat="server"
                             Text="Employee ID"
                             Width="90"
-                            DataIndex="EmployeeID">
+                            DataIndex="EmployeeID"
+                            Sortable="true">
                             <HeaderItems>
                                 <ext:TextField ID="EmployeeIDFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -127,7 +127,8 @@
                             runat="server"
                             Text="Sip Account"
                             Width="165"
-                            DataIndex="SipAccount">
+                            DataIndex="SipAccount"
+                            Sortable="true">
                             <HeaderItems>
                                 <ext:TextField ID="SipAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -145,7 +146,8 @@
                             runat="server"
                             Text="Full Name"
                             Width="190"
-                            DataIndex="FullName">
+                            DataIndex="FullName"
+                            Sortable="true">
                             <HeaderItems>
                                 <ext:TextField ID="FullNameFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -171,7 +173,8 @@
                                     Text="Duration"
                                     Width="90"
                                     DataIndex="UnmarkedCallsDuration"
-                                    MenuDisabled="true">
+                                    MenuDisabled="true"
+                                    Sortable="false">
                                     <Renderer Fn="GetMinutes" />
                                 </ext:Column>
 
@@ -181,7 +184,8 @@
                                     Text="Number of Calls"
                                     Width="90"
                                     DataIndex="UnmarkedCallsCount"
-                                    MenuDisabled="true" />
+                                    MenuDisabled="true"
+                                    Sortable="false" />
 
                                 <ext:Column
                                     ID="UnmarkedCallsCostCol"
@@ -189,7 +193,8 @@
                                     Text="Cost"
                                     Width="80"
                                     DataIndex="UnmarkedCallsCost"
-                                    MenuDisabled="true" />
+                                    MenuDisabled="true"
+                                    Sortable="false" />
                             </Columns>
                         </ext:Column>
                     </Columns>
