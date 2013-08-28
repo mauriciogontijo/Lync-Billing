@@ -309,6 +309,7 @@ namespace Lync_Billing.ui.user
             wherePart.Add("SourceUserUri", sipAccount);
             wherePart.Add("marker_CallTypeID", 1);
             wherePart.Add("ui_CallType", null);
+            wherePart.Add("Exclude", 0);
             //wherePart.Add("ac_IsInvoiced", "NO");
 
             phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
