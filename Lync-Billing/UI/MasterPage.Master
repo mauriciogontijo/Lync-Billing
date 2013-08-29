@@ -117,9 +117,9 @@
                                                 <a href="#">Elevate Access<span class="drop"></span></a>
                                                 <ul id="roles-dropdown">
                                                     <% if(current_session.IsSiteAccountant || current_session.IsDeveloper) { %>
-                                                        <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../session/authenticate.aspx?access=accounting">Project Accountant</a></li>
+                                                        <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../session/authenticate.aspx?access=accounting">Site Accountant</a></li>
                                                     <% } if (current_session.IsSiteAdmin || current_session.IsDeveloper) { %>
-                                                        <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../session/authenticate.aspx?access=admin">Project Administrator</a></li>
+                                                        <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../session/authenticate.aspx?access=admin">Site Administrator</a></li>
                                                     <% } if (current_session.IsSystemAdmin || current_session.IsDeveloper) { %>
                                                         <li class="first-child last-child"><a title="Elevate Access to Developer Role" href="../session/authenticate.aspx?access=sysadmin">System Administrator</a></li>
                                                     <% } %>
