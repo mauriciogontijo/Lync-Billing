@@ -69,13 +69,13 @@ namespace Lync_Billing.ui.session
                         ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
 
                         //if the user was authenticated already
-                        if (session.ActiveRoleName != "user" && (session.IsProjectAdmin || session.IsProjectAccountant || session.IsDeveloper))
+                        if (session.ActiveRoleName != "user" && (session.IsSiteAdmin || session.IsProjectAccountant || session.IsDeveloper))
                         {
                             RedirectToElevatedAccessDasboard(session.ActiveRoleName);
                         }
 
                         //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
-                        else if ((accessParam == "admin" && session.IsProjectAdmin) || (accessParam == "accounting" && session.IsProjectAccountant) || (accessParam == "sysadmin" && session.IsSystemAdmin) || session.IsDeveloper)
+                        else if ((accessParam == "admin" && session.IsSiteAdmin) || (accessParam == "accounting" && session.IsProjectAccountant) || (accessParam == "sysadmin" && session.IsSystemAdmin) || session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
                             this.access_level.Value = accessParam;
@@ -114,7 +114,7 @@ namespace Lync_Billing.ui.session
                         //Case 1: Drop Admin or Accounting Access
                         if (AccessLevels.Contains(dropParam))
                         {
-                            if ((dropParam == "admin" && session.IsProjectAdmin && session.ActiveRoleName == "admin") ||
+                            if ((dropParam == "admin" && session.IsSiteAdmin && session.ActiveRoleName == "admin") ||
                                 (dropParam == "accounting" && session.IsProjectAccountant && session.ActiveRoleName == "accounting") ||
                                 (dropParam == "sysadmin" && session.IsSystemAdmin && session.ActiveRoleName == "sysadmin") ||
                                 session.IsDeveloper)
@@ -347,10 +347,7 @@ namespace Lync_Billing.ui.session
             if (!string.IsNullOrEmpty(displayName))
             {
                 string name = displayName;
-                if (name.Contains('(') && name.Contains(')') && (name.Split('(')).Length > 1)
-                {
-                    name = (name.Split('('))[0];
-                }
+                name = (name.Split(' '))[0];
                 return name;
             }
             else

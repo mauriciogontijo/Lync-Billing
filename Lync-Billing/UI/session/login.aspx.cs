@@ -40,6 +40,7 @@ namespace Lync_Billing.ui.session
             AuthenticationMessage = string.Empty;
         }
 
+
         //This function formats teh display-name of a user,
         //and removes unnecessary extra information.
         private string formatDisplayName(string displayName)
