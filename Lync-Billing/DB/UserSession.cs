@@ -100,25 +100,21 @@ namespace Lync_Billing.DB
                     if (role.IsDeveloper())
                     {
                         IsDeveloper = true;
-                        break;
                     }
 
                     if (role.IsSystemAdmin())
                     {
                         IsSystemAdmin = true;
-                        break;
                     }
 
                     if (role.IsSiteAdmin())
                     {
                         IsSiteAdmin = true;
-                        break;
                     }
 
                     if (role.IsSiteAccountant())
                     {
                         IsSiteAccountant = true;
-                        break;
                     }
                 }
             } else {
