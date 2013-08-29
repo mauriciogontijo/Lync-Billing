@@ -129,7 +129,17 @@ namespace Lync_Billing.ui.session
                         {
                             Users user = new Users();
                             user.SiteName = userInfo.physicalDeliveryOfficeName;
-                            user.EmployeeID = Convert.ToInt32(userInfo.EmployeeID);
+
+                            int employeeID = 0;
+                            
+                            // Validate employeeID if it could be parsed as integer or not
+                            bool result = Int32.TryParse(userInfo.EmployeeID, out employeeID);
+
+                            if (result)
+                                user.EmployeeID = employeeID;
+                            else
+                                user.EmployeeID = 0;
+                            
                             user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                             user.FullName = userInfo.FirstName + " " + userInfo.LastName;
                             user.Department = userInfo.department;
@@ -177,7 +187,17 @@ namespace Lync_Billing.ui.session
                         Users user = new Users();
                         user.SiteName = userInfo.physicalDeliveryOfficeName;
                         user.Department = userInfo.department;
-                        user.EmployeeID = Convert.ToInt32(userInfo.EmployeeID);
+
+                        int employeeID = 0;
+
+                        bool result = Int32.TryParse(userInfo.EmployeeID, out employeeID);
+
+                        if (result)
+                            user.EmployeeID = employeeID;
+                        else
+                            user.EmployeeID = 0;
+
+                        //user.EmployeeID = Convert.ToInt32(userInfo.EmployeeID);
                         user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                         user.FullName = userInfo.FirstName + " " + userInfo.LastName;
                      
