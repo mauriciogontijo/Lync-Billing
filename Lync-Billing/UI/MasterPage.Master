@@ -110,7 +110,7 @@
 
                                         <%
                                             //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
-                                            bool higher_access = (current_session.IsSiteAccountant || current_session.IsDeveloper || current_session.IsSiteAdmin) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
+                                            bool higher_access = (current_session.IsDeveloper || current_session.IsSystemAdmin || current_session.IsSiteAdmin || current_session.IsSiteAccountant) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
                                             if (higher_access) {
                                         %>
                                             <li id="switch-roles" class="">

@@ -165,7 +165,7 @@ namespace Lync_Billing.ui.accounting.main
 
             foreach (UserRole role in userRoles)
             {
-                if ((role.RoleID == 40 || role.RoleID == 10 )) 
+                if ((role.IsSiteAccountant() || role.IsDeveloper())) 
                 {
                     accountantSites.Add(GetSiteName(role.SiteID));
                 }

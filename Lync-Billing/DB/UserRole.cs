@@ -20,32 +20,24 @@ namespace Lync_Billing.DB
         public string Notes { get; set; }
 
         //Generic User Roles
-        public bool IsDeveloper
+        public bool IsDeveloper()
         {
-            get { 
-                return this.RoleID == 10 ? true : false; 
-            }
+            return this.RoleID == 10 ? true : false; 
         }
 
-        public bool IsSystemAdmin
+        public bool IsSystemAdmin()
         {
-            get { 
-                return this.RoleID == 20 ? true : false; 
-            }
+            return this.RoleID == 20 ? true : false; 
         }
 
-        public bool IsSiteAdmin
-        {
-            get { 
-                return this.RoleID == 30 ? true : false; 
-            }
+        public bool IsSiteAdmin()
+        { 
+            return this.RoleID == 30 ? true : false; 
         }
 
-        public bool IsSiteAccountant
+        public bool IsSiteAccountant()
         {
-            get { 
-                return this.RoleID == 40 ? true : false; 
-            }
+            return this.RoleID == 40 ? true : false; 
         }
 
 

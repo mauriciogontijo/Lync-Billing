@@ -97,17 +97,29 @@ namespace Lync_Billing.DB
         {
             if (UserRoles != null && UserRoles.Count > 0) {
                 foreach (UserRole role in UserRoles) {
-                    if(role.IsDeveloper)
+                    if (role.IsDeveloper())
+                    {
                         IsDeveloper = true;
-                    
-                    if(role.IsSystemAdmin)
+                        break;
+                    }
+
+                    if (role.IsSystemAdmin())
+                    {
                         IsSystemAdmin = true;
-                        
-                    if(role.IsSiteAdmin)
+                        break;
+                    }
+
+                    if (role.IsSiteAdmin())
+                    {
                         IsSiteAdmin = true;
-                    
-                    if(role.IsSiteAccountant)
+                        break;
+                    }
+
+                    if (role.IsSiteAccountant())
+                    {
                         IsSiteAccountant = true;
+                        break;
+                    }
                 }
             } else {
                 //do nothing
