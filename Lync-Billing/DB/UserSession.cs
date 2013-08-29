@@ -105,22 +105,21 @@ namespace Lync_Billing.DB
                         continue;
                     }
 
-                    if (role.IsSystemAdmin())
+                    else if (role.IsSystemAdmin())
                     {
                         IsSystemAdmin = true;
                         continue;
                     }
 
-                    if (role.IsSiteAdmin())
+                    else if (role.IsSiteAdmin())
                     {
                         IsSiteAdmin = true;
                         continue;
                     }
 
-                    if (role.IsSiteAccountant())
+                    else if (role.IsSiteAccountant())
                     {
                         IsSiteAccountant = true;
-                        continue;
                     }
                 }
             }
