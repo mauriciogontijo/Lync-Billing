@@ -95,8 +95,10 @@ namespace Lync_Billing.DB
 
         public void InitializeRoles(List<UserRole> UserRoles = null)
         {
-            if (UserRoles != null && UserRoles.Count > 0) {
-                foreach (UserRole role in UserRoles) {
+            if (UserRoles != null && UserRoles.Count > 0) 
+            {
+                foreach (UserRole role in UserRoles)
+                {
                     if (role.IsDeveloper())
                     {
                         IsDeveloper = true;
@@ -121,7 +123,9 @@ namespace Lync_Billing.DB
                         continue;
                     }
                 }
-            } else {
+            }
+            else
+            {
                 //do nothing
                 //keeps default values as is, which were set by the constructor to FALSE
             }
