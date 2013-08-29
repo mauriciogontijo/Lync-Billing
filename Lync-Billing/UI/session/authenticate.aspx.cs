@@ -69,13 +69,13 @@ namespace Lync_Billing.ui.session
                         ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
 
                         //if the user was authenticated already
-                        if (session.ActiveRoleName != "user" && (session.IsSiteAdmin || session.IsProjectAccountant || session.IsDeveloper))
+                        if (session.ActiveRoleName != "user" && (session.IsSiteAdmin || session.IsSiteAccountant || session.IsDeveloper))
                         {
                             RedirectToElevatedAccessDasboard(session.ActiveRoleName);
                         }
 
                         //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
-                        else if ((accessParam == "admin" && session.IsSiteAdmin) || (accessParam == "accounting" && session.IsProjectAccountant) || (accessParam == "sysadmin" && session.IsSystemAdmin) || session.IsDeveloper)
+                        else if ((accessParam == "admin" && session.IsSiteAdmin) || (accessParam == "accounting" && session.IsSiteAccountant) || (accessParam == "sysadmin" && session.IsSystemAdmin) || session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
                             this.access_level.Value = accessParam;
@@ -115,7 +115,7 @@ namespace Lync_Billing.ui.session
                         if (AccessLevels.Contains(dropParam))
                         {
                             if ((dropParam == "admin" && session.IsSiteAdmin && session.ActiveRoleName == "admin") ||
-                                (dropParam == "accounting" && session.IsProjectAccountant && session.ActiveRoleName == "accounting") ||
+                                (dropParam == "accounting" && session.IsSiteAccountant && session.ActiveRoleName == "accounting") ||
                                 (dropParam == "sysadmin" && session.IsSystemAdmin && session.ActiveRoleName == "sysadmin") ||
                                 session.IsDeveloper)
                             {

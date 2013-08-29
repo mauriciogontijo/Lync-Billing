@@ -24,7 +24,7 @@ namespace Lync_Billing.Libs
                     status = true;
             }
 
-            if (session.IsProjectAccountant)
+            if (session.IsSiteAccountant)
             {
                 if (URL.Contains(@"/accounting/") || URL.Contains(@"/user/"))
                     status = true;

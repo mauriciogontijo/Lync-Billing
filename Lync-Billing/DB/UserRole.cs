@@ -19,6 +19,37 @@ namespace Lync_Billing.DB
         public int GatewayID { get; set; }
         public string Notes { get; set; }
 
+        //Generic User Roles
+        public bool IsDeveloper
+        {
+            get { 
+                return this.RoleID == 10 ? true : false; 
+            }
+        }
+
+        public bool IsSystemAdmin
+        {
+            get { 
+                return this.RoleID == 20 ? true : false; 
+            }
+        }
+
+        public bool IsSiteAdmin
+        {
+            get { 
+                return this.RoleID == 30 ? true : false; 
+            }
+        }
+
+        public bool IsSiteAccountant
+        {
+            get { 
+                return this.RoleID == 40 ? true : false; 
+            }
+        }
+
+
+        //Get Users Roles
         public static List<UserRole> GetUsersRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             UserRole userRole;

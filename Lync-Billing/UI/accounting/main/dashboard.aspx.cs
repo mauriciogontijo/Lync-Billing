@@ -36,30 +36,6 @@ namespace Lync_Billing.ui.accounting.main
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
                 }
-
-                //if ((currentSession.IsDeveloper || currentSession.IsAccountant))
-                //{
-                //    if (currentSession.PrimarySipAccount == currentSession.EffectiveSipAccount)
-                //    {
-                //        if (currentSession.ActiveRoleName != "accounting")
-                //        {
-                //            Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
-                //        }
-                //    }
-                //    else
-                //    {
-                //        Response.Redirect("~/ui/user/dashboard.aspx");
-                //    }
-                //}
-                //else
-                //{
-                //    Response.Redirect("~/ui/user/dashboard.aspx");
-                //}
-
-                //if ((!current_session.IsDeveloper || !current_session.IsAccountant) && current_session.PrimarySipAccount != current_session.EffectiveSipAccount && current_session.ActiveRoleName != "accounting")
-                //{
-                //    Response.Redirect("~/ui/user/dashboard.aspx");
-                //}
             }
         }
     }

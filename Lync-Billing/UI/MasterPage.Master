@@ -110,15 +110,15 @@
 
                                         <%
                                             //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
-                                            bool higher_access = (current_session.IsProjectAccountant || current_session.IsDeveloper || current_session.IsProjectAdmin) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
+                                            bool higher_access = (current_session.IsSiteAccountant || current_session.IsDeveloper || current_session.IsSiteAdmin) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
                                             if (higher_access) {
                                         %>
                                             <li id="switch-roles" class="">
                                                 <a href="#">Elevate Access<span class="drop"></span></a>
                                                 <ul id="roles-dropdown">
-                                                    <% if(current_session.IsProjectAccountant || current_session.IsDeveloper) { %>
+                                                    <% if(current_session.IsSiteAccountant || current_session.IsDeveloper) { %>
                                                         <li class="first-child last-child"><a title="Elevate Access to Accounting Role" href="../session/authenticate.aspx?access=accounting">Project Accountant</a></li>
-                                                    <% } if (current_session.IsProjectAdmin || current_session.IsDeveloper) { %>
+                                                    <% } if (current_session.IsSiteAdmin || current_session.IsDeveloper) { %>
                                                         <li class="first-child last-child"><a title="Elevate Access to Administrator Role" href="../session/authenticate.aspx?access=admin">Project Administrator</a></li>
                                                     <% } if (current_session.IsSystemAdmin || current_session.IsDeveloper) { %>
                                                         <li class="first-child last-child"><a title="Elevate Access to Developer Role" href="../session/authenticate.aspx?access=sysadmin">System Administrator</a></li>

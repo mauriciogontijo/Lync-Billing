@@ -37,7 +37,7 @@ namespace Lync_Billing.DB
         //Specific User Roles
         public bool IsSystemAdmin { set; get; }
         public bool IsSiteAdmin { set; get; }
-        public bool IsProjectAccountant { set; get; }
+        public bool IsSiteAccountant { set; get; }
         
         //Delegate-capability check
         public bool IsDelegate { set; get; }
@@ -65,7 +65,7 @@ namespace Lync_Billing.DB
             IsDeveloper = false;
             IsSystemAdmin = false;
             IsSiteAdmin = false;
-            IsProjectAccountant = false;
+            IsSiteAccountant = false;
             IsDelegate = false;
 
             //Empty all of the sip accounts
@@ -95,31 +95,23 @@ namespace Lync_Billing.DB
 
         public void InitializeRoles(List<UserRole> UserRoles = null)
         {
-            if (UserRoles != null) {
+            if (UserRoles != null && UserRoles.Count > 0) {
                 foreach (UserRole role in UserRoles) {
-                    switch (role.RoleID) {
-                        case 10:
-                            IsDeveloper = true;
-                            break;
-
-                        case 20:
-                            //IsAdmin = true;
-                            IsSystemAdmin = true;
-                            break;
-
-                        case 30:
-                            //IsAdmin = true;
-                            IsSiteAdmin = true;
-                            break;
-
-                        case 40:
-                            //IsAccountant = true;
-                            IsProjectAccountant = true;
-                            break;
-                    }
+                    if(role.IsDeveloper)
+                        IsDeveloper = true;
+                    
+                    if(role.IsSystemAdmin)
+                        IsSystemAdmin = true;
+                        
+                    if(role.IsSiteAdmin)
+                        IsSiteAdmin = true;
+                    
+                    if(role.IsSiteAccountant)
+                        IsSiteAccountant = true;
                 }
             } else {
                 //do nothing
+                //keeps default values as is, which were set by the constructor to FALSE
             }
         }//END PF FUNCTION
 
