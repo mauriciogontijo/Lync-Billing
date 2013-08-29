@@ -102,7 +102,7 @@ namespace Lync_Billing.ui.accounting.reports
             List<UserRole> userRoles = session.Roles;
             List<int> tmpUserSites = new List<int>();
 
-            tmpUserSites = userRoles.Where(item => item.RoleID == 7 || item.RoleID == 1).Select(item => item.SiteID).ToList();
+            tmpUserSites = userRoles.Where(item => item.RoleID == 40 || item.RoleID == 10).Select(item => item.SiteID).ToList();
 
             foreach(int site in tmpUserSites )
             {
@@ -134,7 +134,7 @@ namespace Lync_Billing.ui.accounting.reports
 
             foreach (UserRole role in userRoles)
             {
-                if (role.RoleID == 7 || role.RoleID == 1)
+                if (role.RoleID == 40 || role.RoleID == 10)
                     sites.Add(GetSiteName(role.SiteID));
             }
             return sites;

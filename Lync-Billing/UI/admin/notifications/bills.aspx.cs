@@ -59,7 +59,7 @@ namespace Lync_Billing.ui.admin.notifications
             {
                 DB.Site tmpSite = new DB.Site();
 
-                if (role.SiteID != 0 && (role.RoleID == 5 || role.RoleID == 1))
+                if (role.SiteID != 0 && (role.RoleID == 30 || role.RoleID == 10))
                 {
                     tmpSite.SiteID = role.SiteID;
                     sites.Add(tmpSite);

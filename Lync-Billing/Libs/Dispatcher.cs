@@ -30,7 +30,7 @@ namespace Lync_Billing.Libs
                     status = true;
             }
 
-            if (session.IsProjectAdmin)
+            if (session.IsSiteAdmin)
             {
                 if (URL.Contains(@"/admin/") || URL.Contains(@"/user/"))
                     status = true;

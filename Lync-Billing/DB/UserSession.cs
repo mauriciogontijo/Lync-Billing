@@ -36,7 +36,7 @@ namespace Lync_Billing.DB
 
         //Specific User Roles
         public bool IsSystemAdmin { set; get; }
-        public bool IsProjectAdmin { set; get; }
+        public bool IsSiteAdmin { set; get; }
         public bool IsProjectAccountant { set; get; }
         
         //Delegate-capability check
@@ -64,7 +64,7 @@ namespace Lync_Billing.DB
             //IsAccountant = false;
             IsDeveloper = false;
             IsSystemAdmin = false;
-            IsProjectAdmin = false;
+            IsSiteAdmin = false;
             IsProjectAccountant = false;
             IsDelegate = false;
 
@@ -98,23 +98,23 @@ namespace Lync_Billing.DB
             if (UserRoles != null) {
                 foreach (UserRole role in UserRoles) {
                     switch (role.RoleID) {
-                        case 1:
+                        case 10:
                             IsDeveloper = true;
                             break;
 
-                        case 5:
-                            //IsAdmin = true;
-                            IsProjectAdmin = true;
-                            break;
-
-                        case 7:
-                            //IsAccountant = true;
-                            IsProjectAccountant = true;
-                            break;
-
-                        case 8:
+                        case 20:
                             //IsAdmin = true;
                             IsSystemAdmin = true;
+                            break;
+
+                        case 30:
+                            //IsAdmin = true;
+                            IsSiteAdmin = true;
+                            break;
+
+                        case 40:
+                            //IsAccountant = true;
+                            IsProjectAccountant = true;
                             break;
                     }
                 }

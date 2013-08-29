@@ -73,7 +73,7 @@ namespace Lync_Billing.ui.sysadmin.users
             {
                 DB.Site tmpSite = new DB.Site();
 
-                tmpSite.SiteID = userRoles.First(item => item.SiteID == role.SiteID && (item.RoleID == 5 || item.RoleID == 1)).SiteID;
+                tmpSite.SiteID = userRoles.First(item => item.SiteID == role.SiteID && (item.RoleID == 30 || item.RoleID == 10)).SiteID;
                 sites.Add(tmpSite);
             }
 
