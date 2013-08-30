@@ -157,5 +157,51 @@ namespace Lync_Billing.DB
             return status;
         }
 
+        /// <summary>
+        /// Given a list of user roles for a specific user, his SipAccount and his granted user-roles, return a list of the sites on which he was granted elevated access.
+        /// </summary>
+        /// <param name="userRoles">A list of the user's roles, taken from the session.</param>
+        /// <param name="sipAccount">This is the user's SipAccount, taken from the session.</param>
+        /// <param name="enumValidRole">This is parameter of the type DB.Enum.ValidRoles.</param>
+        /// <returns>The list of sites on which the user was granted an elevated-access, such as: SiteAdmin, SiteAccountant. Developer is a universal access-role.</returns>
+        public static List<Site> GetUserRoleSites(List<UserRole> userRoles, string enumValidRole)
+        {
+            List<Site> sites = new List<Site>();
+            List<int> tmpUserSites = new List<int>();
+
+            UserRole DeveloperRole = userRoles.Find(role => role.IsDeveloper() == true);
+            if (DeveloperRole != null && DeveloperRole.IsDeveloper())
+            {
+                return DB.Site.GetSites();
+            }
+
+            else if (Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin) == enumValidRole)
+            {
+                tmpUserSites = userRoles.Where(item => item.IsSiteAdmin()).Select(item => item.SiteID).ToList();
+
+                foreach (int site in tmpUserSites)
+                {
+                    sites.Add(DB.Site.getSite(site));
+                }
+
+                return sites;
+            }
+
+            else if (Enums.GetDescription(Enums.ValidRoles.IsSiteAccountant) == enumValidRole)
+            {
+                tmpUserSites = userRoles.Where(item => item.IsSiteAccountant()).Select(item => item.SiteID).ToList();
+
+                foreach (int site in tmpUserSites)
+                {
+                    sites.Add(DB.Site.getSite(site));
+                }
+
+                return sites;
+            }
+
+            //else return an empty list of sites
+            return (new List<Site>());
+        }
+
     }
 }

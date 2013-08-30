@@ -392,6 +392,18 @@ namespace Lync_Billing.DB
             ModuleValue
         }
 
+        public enum ValidRoles
+        {
+            [Description("IsDeveloper")]
+            IsDeveloper,
+            [Description("IsSystemAdmin")]
+            IsSystemAdmin,
+            [Description("IsSiteAdmin")]
+            IsSiteAdmin,
+            [Description("IsSiteAccountant")]
+            IsSiteAccountant
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
