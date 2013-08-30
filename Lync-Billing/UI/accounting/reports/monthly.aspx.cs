@@ -30,6 +30,7 @@ namespace Lync_Billing.ui.accounting.reports
         private StoreReadDataEventArgs e;
         List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
         private string sipAccount = string.Empty;
+        private UserSession session;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,7 +44,6 @@ namespace Lync_Billing.ui.accounting.reports
             }
             else
             {
-                UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
                 if (session.ActiveRoleName != "accounting")
@@ -53,10 +53,11 @@ namespace Lync_Billing.ui.accounting.reports
             }
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
-            FilterReportsBySite.GetStore().DataSource = GetAccountantSites();
+            
+            //Get the list of sites for this accountant
+            FilterReportsBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.Roles, Enums.GetDescription(Enums.ValidRoles.IsSiteAccountant));
             FilterReportsBySite.GetStore().DataBind();
         }
-
 
         protected List<UsersCallsSummary> MonthlyReports(string site, DateTime date)
         {
@@ -70,52 +71,6 @@ namespace Lync_Billing.ui.accounting.reports
                             (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != 0).AsEnumerable<UsersCallsSummary>());
             
             return listOfUsersCallsSummary;
-        }
-
-        public List<Site> GetAccountantSites()
-        {
-            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-
-            List<Site> sites = new List<Site>();
-            List<UserRole> userRoles = session.Roles;
-            List<int> tmpUserSites = new List<int>();
-
-            tmpUserSites = userRoles.Where(item => item.IsSiteAccountant() || item.IsDeveloper()).Select(item => item.SiteID).ToList();
-
-            foreach (int site in tmpUserSites)
-            {
-                sites.Add(DB.Site.getSite(site));
-            }
-
-            List<Site> tmpSites = DB.Site.GetSites();
-
-            return sites;
-        }
-
-        public string GetSipAccount(string employeeID)
-        {
-            Dictionary<string, object> whereStatement = new Dictionary<string, object>();
-            List<string> fields = new List<string>();
-            List<Users> users = new List<Users>();
-
-            whereStatement.Add("UserID", employeeID);
-            fields.Add("SipAccount");
-
-            users = Users.GetUsers(fields, whereStatement, 0);
-            return users[0].SipAccount;
-        }
-
-        public string GetSipAccountSite(string employeeID)
-        {
-            Dictionary<string, object> whereStatement = new Dictionary<string, object>();
-            // List<string> fields = new List<string>();
-            List<Users> users = new List<Users>();
-
-            whereStatement.Add("UserID", employeeID);
-
-
-            users = Users.GetUsers(null, whereStatement, 0);
-            return users[0].SiteName;
         }
 
         protected void FilterReportsBySite_Selecting(object sender, DirectEventArgs e)

@@ -206,7 +206,8 @@
                         ID="MonthlyReportsStore"
                         runat="server"
                         IsPagingStore="true"
-                        PageSize="25">
+                        PageSize="25"
+                        OnSubmitData="MonthlyReportsStore_SubmitData">
                         <Model>
                             <ext:Model ID="MonthlyReportsModel" runat="server" IDProperty="SipAccount">
                                 <Fields>
