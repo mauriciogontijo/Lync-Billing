@@ -18,6 +18,7 @@ namespace Lync_Billing.ui.admin.gateways
         private string sipAccount = string.Empty;
         private List<Gateway> gateways = new List<Gateway>();
         private List<Gateway> filteredGateways = new List<Gateway>();
+        private UserSession session;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,8 +32,7 @@ namespace Lync_Billing.ui.admin.gateways
             }
             else
             {
-                UserSession session = new UserSession();
-                session = (UserSession)Session.Contents["UserData"];
+                session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
                 if (session.ActiveRoleName != "admin")
                 {
@@ -40,9 +40,9 @@ namespace Lync_Billing.ui.admin.gateways
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = session.EffectiveSipAccount;
 
-            SitesStore.DataSource = GetAdminSites();
+            SitesStore.DataSource = DB.Site.GetUserRoleSites(session.Roles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
             SitesStore.DataBind();
         }
         

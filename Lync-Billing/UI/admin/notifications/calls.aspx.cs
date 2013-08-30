@@ -17,7 +17,7 @@ namespace Lync_Billing.ui.admin.notifications
     public partial class calls : System.Web.UI.Page
     {
         private string sipAccount = string.Empty;
-        private UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+        private UserSession session;
 
         protected void Page_Load(object sender, EventArgs e)
         {
