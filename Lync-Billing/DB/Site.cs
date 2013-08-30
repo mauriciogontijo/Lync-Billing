@@ -175,6 +175,18 @@ namespace Lync_Billing.DB
                 return DB.Site.GetSites();
             }
 
+            else if (Enums.GetDescription(Enums.ValidRoles.IsSystemAdmin) == enumValidRole)
+            {
+                tmpUserSites = userRoles.Where(item => item.IsSystemAdmin()).Select(item => item.SiteID).ToList();
+
+                foreach (int site in tmpUserSites)
+                {
+                    sites.Add(DB.Site.getSite(site));
+                }
+
+                return sites;
+            }
+
             else if (Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin) == enumValidRole)
             {
                 tmpUserSites = userRoles.Where(item => item.IsSiteAdmin()).Select(item => item.SiteID).ToList();
