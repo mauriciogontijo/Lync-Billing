@@ -190,7 +190,7 @@
                         <div class="block-body">
                             <ext:Panel ID="Panel1"
                                 runat="server"
-                                Height="525"
+                                Height="550"
                                 Width="180"
                                 Title="Admin Tools"
                                 Collapsed="false"
@@ -212,6 +212,7 @@
                                         </div>
                                         <div class="sidebar-section-body">
                                             <p><a href='#' id="A1">Sites</a></p>
+                                            <p><a href='../gateways/manage.aspx' id="ui_sysadmin_gateways_manage">Gateways</a></p>
                                             <p><a href='#' id="A2">Lync Pools</a></p>
                                             <p><a href='#' id="A3">Currencies</a></p>
                                         </div>

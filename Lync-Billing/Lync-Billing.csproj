@@ -120,6 +120,7 @@
     <Content Include="ui\admin\main\dashboard.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
+    <Content Include="ui\sysadmin\gateways\manage.aspx" />
     <Content Include="ui\sysadmin\main\configuration.aspx" />
     <Content Include="ui\sysadmin\main\dashboard.aspx" />
     <Content Include="ui\sysadmin\main\statistics.aspx" />
@@ -260,6 +261,13 @@
     </Compile>
     <Compile Include="ui\admin\notifications\calls.aspx.designer.cs">
       <DependentUpon>calls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\gateways\manage.aspx.cs">
+      <DependentUpon>manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\gateways\manage.aspx.designer.cs">
+      <DependentUpon>manage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\main\configuration.aspx.cs">
       <DependentUpon>configuration.aspx</DependentUpon>
