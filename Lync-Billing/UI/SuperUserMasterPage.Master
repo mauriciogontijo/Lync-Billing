@@ -161,24 +161,6 @@
                                             <p><a href='#' id="ui_admin_main_statistics">View Statistics</a></p>
                                         </div>
                                     </div>
-
-                                    <%--<div class='sidebar-section'>
-                                        <div class="sidebar-section-header">
-                                            <p>Users</p>
-                                        </div>
-                                        <div class="sidebar-section-body">
-                                            <p><a href='../users/delegates.aspx' id="ui_admin_users_delegates">Manage Delegates</a></p>
-                                        </div>
-                                    </div>
-
-                                    <div class='sidebar-section'>
-                                        <div class="sidebar-section-header">
-                                            <p>Application Configuration</p>
-                                        </div>
-                                        <div class="sidebar-section-body">
-                                            <p><a href='../main/configuration.aspx' id="ui_admin_main_configuration">Manage Configuration</a></p>
-                                        </div>
-                                    </div>--%>
                                 </Content>
                             </ext:Panel>
                         </div>
@@ -232,7 +214,7 @@
                                             <p>Application Configuration</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../main/configuration.aspx' id="ui_sysadmin_main_configuration">Translations</a></p>
+                                            <p><a href='../main/translations.aspx' id="ui_sysadmin_main_translations">Translations</a></p>
                                             <p><a href='#' id="ui_sysadmin_main_mail">Mail Templates</a></p>
                                             <p><a href='#' id="ui_sysadmin_main_announcements">Announcements</a></p>
                                             <p><a href='#' id="ui_sysadmin_main_exceptions">Exceptions List</a></p>

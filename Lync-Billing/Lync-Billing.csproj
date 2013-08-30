@@ -121,7 +121,7 @@
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
     <Content Include="ui\sysadmin\gateways\manage.aspx" />
-    <Content Include="ui\sysadmin\main\configuration.aspx" />
+    <Content Include="ui\sysadmin\main\translations.aspx" />
     <Content Include="ui\sysadmin\main\dashboard.aspx" />
     <Content Include="ui\sysadmin\main\statistics.aspx" />
     <Content Include="ui\sysadmin\users\delegates.aspx" />
@@ -269,12 +269,12 @@
     <Compile Include="ui\sysadmin\gateways\manage.aspx.designer.cs">
       <DependentUpon>manage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\sysadmin\main\configuration.aspx.cs">
-      <DependentUpon>configuration.aspx</DependentUpon>
+    <Compile Include="ui\sysadmin\main\translations.aspx.cs">
+      <DependentUpon>translations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\sysadmin\main\configuration.aspx.designer.cs">
-      <DependentUpon>configuration.aspx</DependentUpon>
+    <Compile Include="ui\sysadmin\main\translations.aspx.designer.cs">
+      <DependentUpon>translations.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\main\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
