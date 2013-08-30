@@ -208,12 +208,12 @@
 
                                     <div class='sidebar-section'>
                                         <div class="sidebar-section-header">
-                                            <p>Sites</p>
+                                            <p>Management</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='#' id="A1">Manage Sites</a></p>
-                                            <p><a href='#' id="A2">Manage Pools</a></p>
-                                            <p><a href='#' id="A3">Manage Currencies</a></p>
+                                            <p><a href='#' id="A1">Sites</a></p>
+                                            <p><a href='#' id="A2">Lync Pools</a></p>
+                                            <p><a href='#' id="A3">Currencies</a></p>
                                         </div>
                                     </div>
 
