@@ -44,7 +44,7 @@ namespace Lync_Billing.ui.accounting.reports
             }
             else
             {
-                session = (UserSession)Session.Contents["UserData"];
+                session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
                 if (session.ActiveRoleName != "accounting")
                 {
@@ -52,7 +52,7 @@ namespace Lync_Billing.ui.accounting.reports
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = session.EffectiveSipAccount;
             
             //Get the list of sites for this accountant
             FilterReportsBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.Roles, Enums.GetDescription(Enums.ValidRoles.IsSiteAccountant));

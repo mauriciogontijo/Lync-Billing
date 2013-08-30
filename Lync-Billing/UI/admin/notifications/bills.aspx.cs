@@ -17,8 +17,8 @@ namespace Lync_Billing.ui.admin.notifications
 {
     public partial class bills : System.Web.UI.Page
     {
-
         private string sipAccount = string.Empty;
+        private UserSession session;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,8 +32,7 @@ namespace Lync_Billing.ui.admin.notifications
             }
             else
             {
-                UserSession session = new UserSession();
-                session = (UserSession)Session.Contents["UserData"];
+                session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
                 if (session.ActiveRoleName != "admin")
                 {
@@ -41,9 +40,9 @@ namespace Lync_Billing.ui.admin.notifications
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = session.EffectiveSipAccount;
 
-            FilterUsersBySite.GetStore().DataSource = GetAdminSites();
+            FilterUsersBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.Roles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
             FilterUsersBySite.GetStore().DataBind();
         }
 
