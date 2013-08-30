@@ -190,7 +190,7 @@
                         <div class="block-body">
                             <ext:Panel ID="Panel1"
                                 runat="server"
-                                Height="300"
+                                Height="525"
                                 Width="180"
                                 Title="Admin Tools"
                                 Collapsed="false"
@@ -202,6 +202,18 @@
                                         </div>
                                         <div class="sidebar-section-body">
                                             <p><a href='../users/delegates.aspx' id="ui_sysadmin_users_delegates">Manage Delegates</a></p>
+                                            <p><a href='../users/delegates.aspx' id="ui_sysadmin_users_roles">Manage Users Roles</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Sites</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='#' id="A1">Manage Sites</a></p>
+                                            <p><a href='#' id="A2">Manage Pools</a></p>
+                                            <p><a href='#' id="A3">Manage Currencies</a></p>
                                         </div>
                                     </div>
 
@@ -219,7 +231,11 @@
                                             <p>Application Configuration</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../main/configuration.aspx' id="ui_sysadmin_main_configuration">Manage Configuration</a></p>
+                                            <p><a href='../main/configuration.aspx' id="ui_sysadmin_main_configuration">Manage Configurations</a></p>
+                                            <p><a href='#' id="ui_sysadmin_main_mail">Mail Templates</a></p>
+                                            <p><a href='#' id="ui_sysadmin_main_announcements">System Announcements</a></p>
+                                            <p><a href='#' id="ui_sysadmin_main_exceptions">Exceptions List</a></p>
+                                            <p><a href='#' id="ui_sysadmin_users_systemroles">System Roles</a></p>
                                         </div>
                                     </div>
                                 </Content>
