@@ -231,9 +231,9 @@
                                             <p>Application Configuration</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../main/configuration.aspx' id="ui_sysadmin_main_configuration">Manage Configurations</a></p>
+                                            <p><a href='../main/configuration.aspx' id="ui_sysadmin_main_configuration">Translations</a></p>
                                             <p><a href='#' id="ui_sysadmin_main_mail">Mail Templates</a></p>
-                                            <p><a href='#' id="ui_sysadmin_main_announcements">System Announcements</a></p>
+                                            <p><a href='#' id="ui_sysadmin_main_announcements">Announcements</a></p>
                                             <p><a href='#' id="ui_sysadmin_main_exceptions">Exceptions List</a></p>
                                             <p><a href='#' id="ui_sysadmin_users_systemroles">System Roles</a></p>
                                         </div>
