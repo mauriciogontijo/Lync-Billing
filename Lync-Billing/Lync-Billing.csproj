@@ -118,7 +118,6 @@
     <Content Include="ui\admin\gateways\rates.aspx" />
     <Content Include="ui\admin\main\configuration.aspx" />
     <Content Include="ui\admin\main\dashboard.aspx" />
-    <Content Include="ui\admin\main\statistics.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
     <Content Include="ui\sysadmin\main\configuration.aspx" />
@@ -247,13 +246,6 @@
     </Compile>
     <Compile Include="ui\admin\main\configuration.aspx.designer.cs">
       <DependentUpon>configuration.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ui\admin\main\statistics.aspx.cs">
-      <DependentUpon>statistics.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ui\admin\main\statistics.aspx.designer.cs">
-      <DependentUpon>statistics.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\admin\notifications\bills.aspx.cs">
       <DependentUpon>bills.aspx</DependentUpon>
