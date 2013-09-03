@@ -8,7 +8,7 @@
         <div class="block-body pt5">
 
             <ext:GridPanel
-                ID="ManageUsersRolesGrid"
+                ID="SystemRolesGrid"
                 runat="server"
                 Width="740"
                 Height="765"
@@ -20,74 +20,36 @@
 
                 <Store>
                     <ext:Store
-                        ID="ManageUsersRolesStore"
+                        ID="SystemRolesStore"
                         runat="server"
                         RemoteSort="true"
                         PageSize="25">
                         <Model>
-                            <ext:Model ID="ManageDelegatesModel" runat="server" IDProperty="ID">
+                            <ext:Model ID="SystemRolesModel" runat="server" IDProperty="ID">
                                 <Fields>
-                                    <ext:ModelField Name="UsersRolesID" Type="Int" />
-                                    <ext:ModelField Name="SipAccount" Type="String" />
                                     <ext:ModelField Name="RoleID" Type="Int" />
-                                    <ext:ModelField Name="SiteID" Type="Int" />
-                                    <ext:ModelField Name="PoolID" Type="Int" />
-                                    <ext:ModelField Name="GatewayID" Type="Int" />
+                                    <ext:ModelField Name="RoleName" Type="String" />
+                                    <ext:ModelField Name="RoleDescription" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
                     </ext:Store>
                 </Store>
 
-                <ColumnModel ID="ManageDelegatesColumnModel" runat="server" Flex="1">
+                <ColumnModel ID="SystemRolesColumnModel" runat="server" Flex="1">
                     <Columns>
-                        <ext:Column ID="Column1"
-                            runat="server"
-                            Text="User Email"
-                            Width="200"
-                            DataIndex="SipAccount"
-                            Sortable="true"
-                            Groupable="true">
-                        </ext:Column>
-
-                        <ext:Column ID="Column2"
-                            runat="server"
-                            Text="Role"
-                            Width="150"
-                            DataIndex="RoleID"
-                            Sortable="true"
-                            Groupable="true">
-                        </ext:Column>
-
-                        <ext:Column ID="Column4"
-                            runat="server"
-                            Text="Pool"
-                            Width="180"
-                            DataIndex="PoolID"
-                            Sortable="true"
-                            Groupable="true">
-                        </ext:Column>
-
-                        <ext:Column ID="Column5"
-                            runat="server"
-                            Text="Gateway"
-                            Width="200"
-                            DataIndex="GatewayID"
-                            Sortable="true"
-                            Groupable="true">
-                        </ext:Column>
 
                     </Columns>
                 </ColumnModel>
                 
                 <BottomBar>
                     <ext:PagingToolbar
-                        ID="ManageDelegatesPagingToolbar"
+                        ID="SystemRolesPagingToolbar"
                         runat="server"
-                        StoreID="ManageDelegatesStore"
+                        StoreID="SystemRolesStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Users Delegates {0} - {1} of {2}" />
+                        DisplayMsg="Roles {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
 

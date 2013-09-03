@@ -13,75 +13,39 @@ namespace Lync_Billing.ui.sysadmin.configuration {
     public partial class systemroles {
         
         /// <summary>
-        /// ManageUsersRolesGrid control.
+        /// SystemRolesGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridPanel ManageUsersRolesGrid;
+        protected global::Ext.Net.GridPanel SystemRolesGrid;
         
         /// <summary>
-        /// ManageUsersRolesStore control.
+        /// SystemRolesStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store ManageUsersRolesStore;
+        protected global::Ext.Net.Store SystemRolesStore;
         
         /// <summary>
-        /// ManageDelegatesModel control.
+        /// SystemRolesModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model ManageDelegatesModel;
+        protected global::Ext.Net.Model SystemRolesModel;
         
         /// <summary>
-        /// Column1 control.
+        /// SystemRolesPagingToolbar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column1;
-        
-        /// <summary>
-        /// Column2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column Column2;
-        
-        /// <summary>
-        /// Column4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column Column4;
-        
-        /// <summary>
-        /// Column5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column Column5;
-        
-        /// <summary>
-        /// ManageDelegatesPagingToolbar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.PagingToolbar ManageDelegatesPagingToolbar;
+        protected global::Ext.Net.PagingToolbar SystemRolesPagingToolbar;
     }
 }
