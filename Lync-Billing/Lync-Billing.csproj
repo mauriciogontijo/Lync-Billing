@@ -120,10 +120,13 @@
     <Content Include="ui\admin\main\dashboard.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
-    <Content Include="ui\sysadmin\gateways\manage.aspx" />
+    <Content Include="ui\sysadmin\manage\currencies.aspx" />
+    <Content Include="ui\sysadmin\manage\gateways.aspx" />
     <Content Include="ui\sysadmin\main\translations.aspx" />
     <Content Include="ui\sysadmin\main\dashboard.aspx" />
     <Content Include="ui\sysadmin\main\statistics.aspx" />
+    <Content Include="ui\sysadmin\manage\pools.aspx" />
+    <Content Include="ui\sysadmin\manage\sites.aspx" />
     <Content Include="ui\sysadmin\users\delegates.aspx" />
     <Content Include="ui\resources\css\css3-buttons.css" />
     <Content Include="ui\resources\css\dropdown-menu-white.css" />
@@ -263,12 +266,19 @@
     <Compile Include="ui\admin\notifications\calls.aspx.designer.cs">
       <DependentUpon>calls.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\sysadmin\gateways\manage.aspx.cs">
-      <DependentUpon>manage.aspx</DependentUpon>
+    <Compile Include="ui\sysadmin\manage\currencies.aspx.cs">
+      <DependentUpon>currencies.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\sysadmin\gateways\manage.aspx.designer.cs">
-      <DependentUpon>manage.aspx</DependentUpon>
+    <Compile Include="ui\sysadmin\manage\currencies.aspx.designer.cs">
+      <DependentUpon>currencies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\manage\gateways.aspx.cs">
+      <DependentUpon>gateways.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\manage\gateways.aspx.designer.cs">
+      <DependentUpon>gateways.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\main\translations.aspx.cs">
       <DependentUpon>translations.aspx</DependentUpon>
@@ -290,6 +300,20 @@
     </Compile>
     <Compile Include="ui\sysadmin\main\statistics.aspx.designer.cs">
       <DependentUpon>statistics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\manage\pools.aspx.cs">
+      <DependentUpon>pools.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\manage\pools.aspx.designer.cs">
+      <DependentUpon>pools.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\manage\sites.aspx.cs">
+      <DependentUpon>sites.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\manage\sites.aspx.designer.cs">
+      <DependentUpon>sites.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\users\delegates.aspx.cs">
       <DependentUpon>delegates.aspx</DependentUpon>

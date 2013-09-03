@@ -193,10 +193,10 @@
                                             <p>Management</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='#' id="A1">Sites</a></p>
-                                            <p><a href='../gateways/manage.aspx' id="ui_sysadmin_gateways_manage">Gateways</a></p>
-                                            <p><a href='#' id="A2">Lync Pools</a></p>
-                                            <p><a href='#' id="A3">Currencies</a></p>
+                                            <p><a href='../manage/sites.aspx' id="ui_sysadmin_manage_sites">Sites</a></p>
+                                            <p><a href='../manage/gateways.aspx' id="ui_sysadmin_manage_gateways">Gateways</a></p>
+                                            <p><a href='../manage/pools.aspx' id="ui_sysadmin_manage_pools">Lync Pools</a></p>
+                                            <p><a href='../manage/currencies.aspx' id="ui_sysadmin_manage_currencies">Currencies</a></p>
                                         </div>
                                     </div>
 
