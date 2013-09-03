@@ -168,12 +168,12 @@
 
                 <BottomBar>
                     <ext:PagingToolbar
-                        ID="ManageDelegatesPagingToolbar"
+                        ID="ManageUsersRolesPagingToolbar"
                         runat="server"
-                        StoreID="ManageDelegatesStore"
+                        StoreID="ManageUsersRolesStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Users Delegates {0} - {1} of {2}" />
+                        DisplayMsg="Users Roles {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
 
