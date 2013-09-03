@@ -120,9 +120,13 @@
     <Content Include="ui\admin\main\dashboard.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
+    <Content Include="ui\sysadmin\configuration\announcements.aspx" />
+    <Content Include="ui\sysadmin\configuration\exceptions.aspx" />
+    <Content Include="ui\sysadmin\configuration\mail.aspx" />
+    <Content Include="ui\sysadmin\configuration\systemroles.aspx" />
     <Content Include="ui\sysadmin\manage\currencies.aspx" />
     <Content Include="ui\sysadmin\manage\gateways.aspx" />
-    <Content Include="ui\sysadmin\main\translations.aspx" />
+    <Content Include="ui\sysadmin\configuration\translations.aspx" />
     <Content Include="ui\sysadmin\main\dashboard.aspx" />
     <Content Include="ui\sysadmin\main\statistics.aspx" />
     <Content Include="ui\sysadmin\manage\pools.aspx" />
@@ -266,6 +270,34 @@
     <Compile Include="ui\admin\notifications\calls.aspx.designer.cs">
       <DependentUpon>calls.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ui\sysadmin\configuration\announcements.aspx.cs">
+      <DependentUpon>announcements.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\configuration\announcements.aspx.designer.cs">
+      <DependentUpon>announcements.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\configuration\exceptions.aspx.cs">
+      <DependentUpon>exceptions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\configuration\exceptions.aspx.designer.cs">
+      <DependentUpon>exceptions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\configuration\mail.aspx.cs">
+      <DependentUpon>mail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\configuration\mail.aspx.designer.cs">
+      <DependentUpon>mail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\configuration\systemroles.aspx.cs">
+      <DependentUpon>systemroles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\configuration\systemroles.aspx.designer.cs">
+      <DependentUpon>systemroles.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ui\sysadmin\manage\currencies.aspx.cs">
       <DependentUpon>currencies.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -280,11 +312,11 @@
     <Compile Include="ui\sysadmin\manage\gateways.aspx.designer.cs">
       <DependentUpon>gateways.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\sysadmin\main\translations.aspx.cs">
+    <Compile Include="ui\sysadmin\configuration\translations.aspx.cs">
       <DependentUpon>translations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\sysadmin\main\translations.aspx.designer.cs">
+    <Compile Include="ui\sysadmin\configuration\translations.aspx.designer.cs">
       <DependentUpon>translations.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\main\dashboard.aspx.cs">

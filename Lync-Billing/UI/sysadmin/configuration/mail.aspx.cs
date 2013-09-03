@@ -11,9 +11,9 @@ using System.Xml.Xsl;
 using Ext.Net;
 using Lync_Billing.DB;
 
-namespace Lync_Billing.ui.sysadmin.manage
+namespace Lync_Billing.ui.sysadmin.configuration
 {
-    public partial class currencies : System.Web.UI.Page
+    public partial class mail : System.Web.UI.Page
     {
         private UserSession session;
 
