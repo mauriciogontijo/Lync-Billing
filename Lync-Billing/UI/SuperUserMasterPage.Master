@@ -184,7 +184,7 @@
                                         </div>
                                         <div class="sidebar-section-body">
                                             <p><a href='../users/delegates.aspx' id="ui_sysadmin_users_delegates">Manage Delegates</a></p>
-                                            <p><a href='../users/delegates.aspx' id="ui_sysadmin_users_roles">Manage Users Roles</a></p>
+                                            <p><a href='../users/roles.aspx' id="ui_sysadmin_users_roles">Manage Users Roles</a></p>
                                         </div>
                                     </div>
 

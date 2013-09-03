@@ -158,6 +158,7 @@
     <Content Include="ui\resources\js\ext-all.js" />
     <Content Include="ui\resources\js\jquery-1.9.1.min.js" />
     <Content Include="ui\resources\js\stacktrace.js" />
+    <Content Include="ui\sysadmin\users\roles.aspx" />
     <Content Include="ui\test\export.aspx" />
     <Content Include="ui\test\redbtn.aspx" />
     <Content Include="ui\user\bills.aspx" />
@@ -359,6 +360,13 @@
     </Compile>
     <Compile Include="ui\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\users\roles.aspx.cs">
+      <DependentUpon>roles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\users\roles.aspx.designer.cs">
+      <DependentUpon>roles.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\test\export.aspx.cs">
       <DependentUpon>export.aspx</DependentUpon>
