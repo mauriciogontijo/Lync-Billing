@@ -31,13 +31,13 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Store ManageUsersRolesStore;
         
         /// <summary>
-        /// ManageDelegatesModel control.
+        /// ManageUsersRolesModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model ManageDelegatesModel;
+        protected global::Ext.Net.Model ManageUsersRolesModel;
         
         /// <summary>
         /// Column1 control.
@@ -94,40 +94,40 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.CellEditing CellEditing1;
         
         /// <summary>
-        /// FilterDelegatesSitesToolBar control.
+        /// FilterToolBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Toolbar FilterDelegatesSitesToolBar;
+        protected global::Ext.Net.Toolbar FilterToolBar;
         
         /// <summary>
-        /// FilterDelegatesBySite control.
+        /// FilterUsersRolesBySite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComboBox FilterDelegatesBySite;
+        protected global::Ext.Net.ComboBox FilterUsersRolesBySite;
         
         /// <summary>
-        /// DelegatesSitesStore control.
+        /// SitesStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store DelegatesSitesStore;
+        protected global::Ext.Net.Store SitesStore;
         
         /// <summary>
-        /// DelegatesSitesModel control.
+        /// SiteModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model DelegatesSitesModel;
+        protected global::Ext.Net.Model SiteModel;
         
         /// <summary>
         /// UpdateEditedRecords control.

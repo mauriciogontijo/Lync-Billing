@@ -25,7 +25,7 @@
                         RemoteSort="true"
                         PageSize="25">
                         <Model>
-                            <ext:Model ID="ManageDelegatesModel" runat="server" IDProperty="ID">
+                            <ext:Model ID="ManageUsersRolesModel" runat="server" IDProperty="ID">
                                 <Fields>
                                     <ext:ModelField Name="UsersRolesID" Type="Int" />
                                     <ext:ModelField Name="SipAccount" Type="String" />
@@ -39,7 +39,7 @@
                     </ext:Store>
                 </Store>
 
-                <ColumnModel ID="ManageDelegatesColumnModel" runat="server" Flex="1">
+                <ColumnModel ID="ManageUsersRolesColumnModel" runat="server" Flex="1">
                     <Columns>
                         <ext:Column ID="Column1"
                             runat="server"
@@ -89,10 +89,10 @@
                 </Plugins>
 
                 <TopBar>
-                    <ext:Toolbar ID="FilterDelegatesSitesToolBar" runat="server">
+                    <ext:Toolbar ID="FilterToolBar" runat="server">
                         <Items>
                             <ext:ComboBox
-                                ID="FilterDelegatesBySite"
+                                ID="FilterUsersRolesBySite"
                                 runat="server"
                                 Icon="Find"
                                 TriggerAction="All"
@@ -105,10 +105,10 @@
                                 Width="250">
                                 <Store>
                                     <ext:Store
-                                        ID="DelegatesSitesStore"
+                                        ID="SitesStore"
                                         runat="server">
                                         <Model>
-                                            <ext:Model ID="DelegatesSitesModel" runat="server">
+                                            <ext:Model ID="SiteModel" runat="server">
                                                 <Fields>
                                                     <ext:ModelField Name="SiteID" />
                                                     <ext:ModelField Name="SiteName" />
