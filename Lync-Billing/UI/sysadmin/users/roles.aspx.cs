@@ -44,7 +44,7 @@ namespace Lync_Billing.ui.sysadmin.users
         //PRIVATE METHOD USED INSIDE THE CLASS
         private List<UserRole> getUsersRolesPerSite(string siteName)
         {
-            List<string> DbSiteColumns = new List<string>;
+            List<string> DbSiteColumns = new List<string>();
             Dictionary<string, object> DbSiteWherePart = new Dictionary<string, object>()
             {
                 {"SiteName", siteName},
