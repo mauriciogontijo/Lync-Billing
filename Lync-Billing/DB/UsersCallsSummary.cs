@@ -278,6 +278,8 @@ namespace Lync_Billing.DB
                 "SUM(UnMarkedDuration) AS UnMarkedDuration"
             };
 
+            List<string> sipAccount = new List<string>();
+
             UsersCallsSummary userSummary;
             Dictionary<string, UsersCallsSummary> usersSummaryList = new Dictionary<string, UsersCallsSummary>();
 
@@ -333,7 +335,7 @@ namespace Lync_Billing.DB
             return usersSummaryList;
         }
 
-        public static void ExportUsersCallsSummaryToPDF(DateTime startingDate, DateTime endingDate, string siteName, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        public static void ExportUsersCallsSummaryToPDF(DateTime startingDate, DateTime endingDate, string siteName, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             DataTable dt = new DataTable();
             List<string> columns = new List<string>(); //this is used to be passed tothe DISNTINCT_USERS_STATS function, as an empty list param
@@ -342,18 +344,20 @@ namespace Lync_Billing.DB
             
             headers.Add("comments", "* Please note that the terms: Business, Personal and Unallocated Calls Costs were abbreviated as Bus. Cost, Per. Cost and Unac. Cost respectively in the following report's columns-headers.");
 
-            dt = StatRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, columns);
+            //dt = StatRoutines.DISTINCT_USERS_STATS_SUMMARY(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
+            dt = StatRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, UsersCollection.Keys.ToList(), columns);
 
             Dictionary<string, object> totals;
 
             //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
+            
             try
             {
                 totals = new Dictionary<string, object>()
                 {
-                    {"PersonalCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(PersonalCost)", "PersonalCost > 0")), 2)},
-                    {"BusinessCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(BusinessCost)", "BusinessCost > 0")), 2)},
-                    {"UnMarkedCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(UnMarkedCost)", "UnMarkedCost > 0")), 2)}
+                    {"PersonalCost", Decimal.Round(Convert.ToDecimal(ReturnZeroIfNull(dt.Compute("Sum(PersonalCost)", "PersonalCost > 0"))), 2)},
+                    {"BusinessCost", Decimal.Round(Convert.ToDecimal(ReturnZeroIfNull(dt.Compute("Sum(BusinessCost)", "BusinessCost > 0"))), 2)},
+                    {"UnMarkedCost", Decimal.Round(Convert.ToDecimal(ReturnZeroIfNull(dt.Compute("Sum(UnMarkedCost)", "UnMarkedCost > 0"))), 2)}
                 };
             }
             catch (Exception e)
@@ -366,12 +370,7 @@ namespace Lync_Billing.DB
                 };
             }
 
-            document = PDFLib.InitializePDFDocument(response);
-            PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
-            PDFLib.AddPDFHeader(ref document, headers);
-            PDFLib.AddPDFTableContents(ref document, ref pdfContentsTable, dt, columnSchema);
-            PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
-            PDFLib.ClosePDFDocument(ref document);
+            document = PDFLib.CreateAccountingSummaryReport(response, dt, totals, headers, columnSchema, widths);
         }
 
         public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, string siteName, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
@@ -407,12 +406,10 @@ namespace Lync_Billing.DB
             dt = StatRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
             Dictionary<string, UsersCallsSummary> UsersSummaires = UsersCallsSummary.GetUsersCallsSummary(UsersCollection.Keys.ToList(), startingDate, endingDate, siteName);
 
-            document = PDFLib.InitializePDFDocument(response);
-            PDFLib.AddPDFHeader(ref document, headers);
-            PDFLib.AddAccountingDetailedReportBody(ref document, dt, widths, pdfColumnSchema, headers, "SourceUserUri", UsersCollection, UsersSummaires);
-            //PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
-            PDFLib.ClosePDFDocument(ref document);
+            //Get a closed instance of the document which contains all the formatted data
+            document = PDFLib.CreateAccountingDetailedReport(response, dt, widths, pdfColumnSchema, headers, "SourceUserUri", UsersCollection, UsersSummaires);
         }
+
 
         private static object ReturnZeroIfNull(object value) 
         {
@@ -421,6 +418,8 @@ namespace Lync_Billing.DB
             else
                 return value;
         }
+
+
         private static object ReturnEmptyIfNull(object value) 
         {
             if (value == System.DBNull.Value)

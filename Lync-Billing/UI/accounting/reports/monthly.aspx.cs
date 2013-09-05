@@ -120,6 +120,10 @@ namespace Lync_Billing.ui.accounting.reports
             Dictionary<string, Dictionary<string, object>> UsersCollection;
             JavaScriptSerializer jSerializer;
             
+            //These are created to hold the data submitted through the grid as JSON
+            List<Users> usersData;
+            Dictionary<string, object> tempUserDataContainer;
+            
             XmlNode xml = e.Xml;
             string siteName = FilterReportsBySite.SelectedItem.Value;
             string format = this.FormatType.Value.ToString();
@@ -140,6 +144,21 @@ namespace Lync_Billing.ui.accounting.reports
                     break;
 
                 case "pdf":
+                    UsersCollection = new Dictionary<string, Dictionary<string, object>>();
+                    jSerializer = new JavaScriptSerializer();
+                    usersData = jSerializer.Deserialize<List<Users>>(e.Json);
+
+                    foreach (Users user in usersData)
+                    {
+                        //SipAccountsList.Add(user.SipAccount);
+                        tempUserDataContainer = new Dictionary<string, object>();
+                        tempUserDataContainer.Add("FullName", user.FullName);
+                        tempUserDataContainer.Add("EmployeeID", user.EmployeeID);
+                        tempUserDataContainer.Add("SipAccount", user.SipAccount);
+
+                        UsersCollection.Add(user.SipAccount, tempUserDataContainer);
+                    }
+
                     beginningOfTheMonth = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
                     endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
 
@@ -160,7 +179,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     pdfDocument = new Document();
-                    UsersCallsSummary.ExportUsersCallsSummaryToPDF(beginningOfTheMonth, endOfTheMonth, siteName, Response, out pdfDocument, pdfDocumentHeaders);
+                    UsersCallsSummary.ExportUsersCallsSummaryToPDF(beginningOfTheMonth, endOfTheMonth, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
                     Response.Write(pdfDocument);
                     break;
 
@@ -168,9 +187,8 @@ namespace Lync_Billing.ui.accounting.reports
                     SipAccountsList = new List<string>();
                     UsersCollection = new Dictionary<string, Dictionary<string, object>>();
                     jSerializer = new JavaScriptSerializer();
-                    List<Users> usersData = jSerializer.Deserialize<List<Users>>(e.Json);
+                    usersData = jSerializer.Deserialize<List<Users>>(e.Json);
 
-                    Dictionary<string, object> tempUserDataContainer;
                     foreach (Users user in usersData)
                     {
                         //SipAccountsList.Add(user.SipAccount);

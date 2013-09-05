@@ -104,7 +104,10 @@ namespace Lync_Billing.ui.accounting.reports
             Dictionary<string, string> pdfDocumentHeaders;
             List<string> SipAccountsList;
             Dictionary<string, Dictionary<string, object>> UsersCollection;
-            JavaScriptSerializer jSerializer;
+
+            //These are created to hold the data submitted through the grid as JSON
+            List<Users> usersData;
+            Dictionary<string, object> tempUserDataContainer;
 
             XmlNode xml = e.Xml;
             string siteName = FilterReportsBySite.SelectedItem.Value;
@@ -126,6 +129,20 @@ namespace Lync_Billing.ui.accounting.reports
                     break;
 
                 case "pdf":
+                    UsersCollection = new Dictionary<string, Dictionary<string, object>>();
+                    usersData = (new JavaScriptSerializer()).Deserialize<List<Users>>(e.Json);
+
+                    foreach (Users user in usersData)
+                    {
+                        //SipAccountsList.Add(user.SipAccount);
+                        tempUserDataContainer = new Dictionary<string, object>();
+                        tempUserDataContainer.Add("FullName", user.FullName);
+                        tempUserDataContainer.Add("EmployeeID", user.EmployeeID);
+                        tempUserDataContainer.Add("SipAccount", user.SipAccount);
+
+                        UsersCollection.Add(user.SipAccount, tempUserDataContainer);
+                    }
+
                     pdfReportFileName = string.Format(
                         "{0}_Periodical_Summary_Report_{1}.pdf", 
                         siteName.ToUpper(), StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + "--" + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year
@@ -142,17 +159,15 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     Document doc = new Document();
-                    UsersCallsSummary.ExportUsersCallsSummaryToPDF(StartingDate.SelectedDate, EndingDate.SelectedDate, siteName, Response, out doc, headers);
+                    UsersCallsSummary.ExportUsersCallsSummaryToPDF(StartingDate.SelectedDate, EndingDate.SelectedDate, siteName, UsersCollection, Response, out doc, headers);
                     Response.Write(doc);
                     break;
 
                 case "pdf-d":
                     SipAccountsList = new List<string>();
                     UsersCollection = new Dictionary<string, Dictionary<string, object>>();
-                    jSerializer = new JavaScriptSerializer();
-                    List<Users> usersData = jSerializer.Deserialize<List<Users>>(e.Json);
+                    usersData = (new JavaScriptSerializer()).Deserialize<List<Users>>(e.Json);
 
-                    Dictionary<string, object> tempUserDataContainer;
                     foreach (Users user in usersData)
                     {
                         //SipAccountsList.Add(user.SipAccount);

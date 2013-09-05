@@ -163,9 +163,17 @@ var GetHoursFromMinutes = function (value) {
 };
 
 
-var submitValue = function (grid, hiddenFormat, format) {
+var submitValue = function (grid, hiddenFormat, format, selectedRowsOnly) {
+    var config = {};
+
+    if (selectedRowsOnly !== undefined && selectedRowsOnly == true) {
+        if (grid.getSelectionModel().selected.length > 0) {
+            config = { selectedOnly: true };
+        }
+    }
+
     hiddenFormat.setValue(format);
-    grid.submitData(false, { isUpload: true });
+    grid.submitData(config, { isUpload: true });
 };
 
 

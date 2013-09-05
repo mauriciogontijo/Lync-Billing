@@ -153,13 +153,13 @@
                                         <Items>
                                             <ext:MenuItem ID="ExportPDFSummaryRreport" runat="server" Text="Summary Report" Icon="PageSave">
                                                 <Listeners>
-                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'pdf');" />
+                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'pdf', true);" />
                                                 </Listeners>
                                             </ext:MenuItem>
 
                                             <ext:MenuItem ID="ExportPDFDetailedRreport" runat="server" Text="Detailed Report" Icon="PageSave">
                                                 <Listeners>
-                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'pdf-d');" />
+                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'pdf-d', true);" />
                                                 </Listeners>
                                             </ext:MenuItem>
                                         </Items>
@@ -178,7 +178,7 @@
                                         <Items>
                                             <ext:MenuItem ID="ExportExcelSummaryReport" runat="server" Text="Summary Report" Icon="PageExcel">
                                                 <Listeners>
-                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'xls');" />
+                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'xls', true);" />
                                                 </Listeners>
                                             </ext:MenuItem>
                                         </Items>
@@ -251,7 +251,7 @@
                             ID="SipAccountCol"
                             runat="server"
                             Text="Sip Account"
-                            Width="175"
+                            Width="160"
                             DataIndex="SipAccount"
                             Sortable="true">
                             <HeaderItems>
@@ -270,7 +270,7 @@
                             ID="FullNameCol"
                             runat="server"
                             Text="Full Name"
-                            Width="200"
+                            Width="190"
                             DataIndex="FullName"
                             Sortable="true">
                             <HeaderItems>
@@ -321,6 +321,16 @@
                         </ext:Column>
                     </Columns>
                 </ColumnModel>
+
+                <SelectionModel>
+                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                        runat="server"
+                        Mode="Multi"
+                        AllowDeselect="true"
+                        IgnoreRightMouseSelection="true"
+                        CheckOnly="true">
+                    </ext:CheckboxSelectionModel>
+                </SelectionModel>
 
                 <BottomBar>
                     <ext:PagingToolbar

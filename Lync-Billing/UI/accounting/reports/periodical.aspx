@@ -169,13 +169,13 @@
                                         <Items>
                                             <ext:MenuItem ID="ExportPDFSummaryRreport" runat="server" Text="Summary Report" Icon="PageSave">
                                                 <Listeners>
-                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'pdf');" />
+                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'pdf', true);" />
                                                 </Listeners>
                                             </ext:MenuItem>
 
                                             <ext:MenuItem ID="ExportPDFDetailedRreport" runat="server" Text="Detailed Report" Icon="PageSave">
                                                 <Listeners>
-                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'pdf-d');" />
+                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'pdf-d', true);" />
                                                 </Listeners>
                                             </ext:MenuItem>
                                         </Items>
@@ -194,7 +194,7 @@
                                         <Items>
                                             <ext:MenuItem ID="ExportExcelSummaryReport" runat="server" Text="Summary Report" Icon="PageExcel">
                                                 <Listeners>
-                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'xls');" />
+                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'xls', true);" />
                                                 </Listeners>
                                             </ext:MenuItem>
                                         </Items>
@@ -337,6 +337,16 @@
                         </ext:Column>
                     </Columns>
                 </ColumnModel>
+
+                <SelectionModel>
+                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                        runat="server"
+                        Mode="Multi"
+                        AllowDeselect="true"
+                        IgnoreRightMouseSelection="true"
+                        CheckOnly="true">
+                    </ext:CheckboxSelectionModel>
+                </SelectionModel>
 
                 <BottomBar>
                     <ext:PagingToolbar
