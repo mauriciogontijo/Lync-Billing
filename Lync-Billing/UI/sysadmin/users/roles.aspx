@@ -129,9 +129,9 @@
                                     </ItemTpl>
                                 </ListConfig>
 
-                                <%--<DirectEvents>
-                                    <Change OnEvent="" />
-                                </DirectEvents>--%>
+                                <DirectEvents>
+                                    <Change OnEvent="GetUsersRolesPerSite" />
+                                </DirectEvents>
                             </ext:ComboBox>
 
                             <ext:Button

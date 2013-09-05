@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Lync_Billing.DB;
 using Ext.Net;
 using Newtonsoft.Json;
+using Lync_Billing.DB;
 
 namespace Lync_Billing.ui.sysadmin.users
 {
@@ -40,5 +40,42 @@ namespace Lync_Billing.ui.sysadmin.users
             FilterUsersRolesBySite.GetStore().DataBind();
         }
 
+
+        //PRIVATE METHOD USED INSIDE THE CLASS
+        private List<UserRole> getUsersRolesPerSite(string siteName)
+        {
+            List<string> DbSiteColumns = new List<string>;
+            Dictionary<string, object> DbSiteWherePart = new Dictionary<string, object>()
+            {
+                {"SiteName", siteName},
+            };
+            
+            List<DB.Site> sitesResults = DB.Site.GetSites(DbSiteColumns, DbSiteWherePart, 0);
+            DB.Site site = sitesResults.First();
+
+
+            List<string> columns = new List<string>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>()
+            {
+                {"SiteID", site.SiteID},
+            };
+            
+            List<UserRole> userRolesPerSite = UserRole.GetUsersRoles(columns, wherePart, 0);
+
+            return userRolesPerSite;
+        }
+
+
+        //DIRECT EVENT CALLED BY THE FilterUsersRolesPerSite DROPDOWN MENU
+        protected void GetUsersRolesPerSite(object sender, DirectEventArgs e)
+        {
+            if (FilterUsersRolesBySite.SelectedItem != null)
+            {
+                string siteName = FilterUsersRolesBySite.SelectedItem.Value;
+
+                ManageUsersRolesGrid.GetStore().DataSource = getUsersRolesPerSite(siteName);
+                ManageUsersRolesGrid.GetStore().DataBind();
+            }
+        }
     }
 }
