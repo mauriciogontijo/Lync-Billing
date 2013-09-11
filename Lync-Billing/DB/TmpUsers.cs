@@ -55,7 +55,11 @@ namespace Lync_Billing.DB
 
                 userInfo = ADRoutine.GetUserAttributes(user);
 
+                if (userInfo == null)
+                    continue;
+
                 dbUser.SipAccount = user;
+
                 if (userInfo.FirstName != null)
                     dbUser.FullName = userInfo.FirstName + " " + userInfo.LastName;
                 else if (userInfo.DisplayName != null)
@@ -70,9 +74,17 @@ namespace Lync_Billing.DB
                 {
                     dbUser.EmployeeID = 0;
                 }
-                dbUser.SiteName = "UNIDENTIFIED";
+                
+                dbUser.SiteName = userInfo.physicalDeliveryOfficeName;
+                dbUser.Department = userInfo.department;
 
-                Users.InsertUser(dbUser);
+                //get the actual data from ADUser table to match if exists and needs to be updated or inserted 
+                Users adUser = Users.GetUser(dbUser.SipAccount);
+
+                if (adUser == null)
+                    Users.InsertUser(dbUser);
+                else
+                    Users.UpdateUser(dbUser);
 
             }
 
