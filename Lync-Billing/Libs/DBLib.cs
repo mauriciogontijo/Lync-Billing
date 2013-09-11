@@ -339,7 +339,10 @@ namespace Lync_Billing.Libs
                 else if (valueType == typeof(DateTime) && (DateTime)pair.Value == DateTime.MinValue)
                     continue;
                 else
-                    values.Append("'" + pair.Value + "'" + ",");
+                {
+                    
+                    values.Append("'" + pair.Value.ToString().Replace("'","`") + "'" + ",");
+                }
             }
 
             fields.Remove(fields.Length - 1, 1).Append(")");
@@ -437,7 +440,7 @@ namespace Lync_Billing.Libs
                 else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
                     continue;
                 else
-                    fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value + "'" + ",");  
+                    fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value.ToString().Replace("'","`") + "'" + ",");  
             }
             
             fieldsValues.Remove(fieldsValues.Length - 1, 1);
@@ -455,7 +458,7 @@ namespace Lync_Billing.Libs
                 else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
                     continue;
                 else
-                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
+                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value.ToString().Replace("'","`") + "' AND ");
 
             }
             whereStatement.Remove(whereStatement.Length - 5, 5);
