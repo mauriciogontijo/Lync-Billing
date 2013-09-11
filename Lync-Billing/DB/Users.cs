@@ -104,6 +104,44 @@ namespace Lync_Billing.DB
             return users;
         }
 
+        public static Users GetUser(string sipAccount) 
+        {
+            Users user = new Users();
+            DataTable dt = new DataTable();
+
+            dt = DBRoutines.SELECT(
+                Enums.GetDescription(Enums.Users.TableName),
+                Enums.GetDescription(Enums.Users.SipAccount),
+                sipAccount);
+
+            if (dt.Rows.Count > 0)
+            {
+
+                if (dt.Rows[0][Enums.GetDescription(Enums.Users.AD_UserID)] != null)
+                {
+                    user.EmployeeID = (int)dt.Rows[0][Enums.GetDescription(Enums.Users.AD_UserID)];
+                }
+
+                if ((user.FullName = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.AD_DisplayName)]) != null) { }
+
+                if ((user.SipAccount = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.SipAccount)]) != null) { }
+
+                if ((user.SiteName = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName)]) != null) { }
+
+                if (dt.Rows[0][Enums.GetDescription(Enums.Users.AD_Department)] != DBNull.Value)
+                    user.Department = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.AD_Department)];
+                else
+                    user.Department = string.Empty;
+
+                return user;
+            }
+            else 
+            {
+                return null;
+            }
+            
+        }
+
         public static int InsertUser(Users user)
         {
             int rowID = 0;
@@ -116,14 +154,18 @@ namespace Lync_Billing.DB
             if ((user.SipAccount).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Users.SipAccount), user.SipAccount);
 
-            if ((user.SiteName).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName), user.SiteName);
+            if (user.SiteName != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName), user.SiteName.ToString());
+            else
+                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName), "UNIDENTIFIED");
 
-            if ((user.FullName).ToString() != null)
+            if (user.FullName != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Users.AD_DisplayName), user.FullName);
 
-            if ((user.Department).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_Department), user.Department);
+            if (user.Department != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_Department), user.Department.ToString());
+            else
+                columnsValues.Add(Enums.GetDescription(Enums.Users.AD_Department), "UNIDENTIFIED");
 
             //Execute Insert
             rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Users.TableName), columnsValues,Enums.GetDescription(Enums.Users.AD_UserID));
