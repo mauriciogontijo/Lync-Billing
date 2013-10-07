@@ -266,11 +266,11 @@
 
                     <Content>
                         <div class="p10 font-14">
-                            <p class="mb5">Number of Received Mails: <%= userMailStatistics.ReceivedCount %></p>
-                            <p class="mb5">Size of Received Mails: <%= userMailStatistics.ReceivedSize %> (in MB)</p>
+                            <p class="mb5">Number of Received Mails: <span class="bold red-color"><%= userMailStatistics.ReceivedCount %></span></p>
+                            <p class="mb5">Size of Received Mails: <span class="bold red-color"><%= userMailStatistics.ReceivedSize %> (in MB)</span></p>
                             <div class="clear h15"></div>
-                            <p class="mb5">Number of Sent Mails: <%= userMailStatistics.SentCount %></p>
-                            <p class="mb5">Size of Sent Mails: <%= userMailStatistics.SentSize %> (in MB)</p>
+                            <p class="mb5">Number of Sent Mails: <span class="bold blue-color"><%= userMailStatistics.SentCount %></span></p>
+                            <p class="mb5">Size of Sent Mails: <span class="bold blue-color"><%= userMailStatistics.SentSize %> (in MB)</span></p>
                         </div>
                     </Content>
                 </ext:Panel>
