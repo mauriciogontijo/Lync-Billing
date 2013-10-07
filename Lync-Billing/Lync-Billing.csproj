@@ -186,6 +186,7 @@
     <Compile Include="DB\Currencies.cs" />
     <Compile Include="DB\DialingPrefixsRates.cs" />
     <Compile Include="DB\Gateway.cs" />
+    <Compile Include="DB\MailStatistics.cs" />
     <Compile Include="DB\MailTemplates.cs" />
     <Compile Include="DB\Misc.cs" />
     <Compile Include="DB\NumberingPlan.cs" />
