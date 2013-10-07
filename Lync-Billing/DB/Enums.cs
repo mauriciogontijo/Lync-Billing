@@ -370,7 +370,7 @@ namespace Lync_Billing.DB
         {
             [Description("MailStatistics")]
             TableName,
-            [Description("ID")]
+            [Description("id")]
             ID,
             [Description("ReceivedCount")]
             ReceivedCount,
