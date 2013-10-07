@@ -366,6 +366,22 @@ namespace Lync_Billing.DB
             CurrencyISOName
         }
 
+        public enum MailStatistics
+        {
+            [Description("MailStatistics")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("ReceivedCount")]
+            ReceivedCount,
+            [Description("ReceivedSize")]
+            ReceivedSize,
+            [Description("SentCount")]
+            SentCount,
+            [Description("SentSize")]
+            SentSize
+        }
+
         public enum MailTemplates
         {
             [Description("MailTemplates")]
