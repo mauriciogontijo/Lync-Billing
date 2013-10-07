@@ -110,10 +110,10 @@
         <div class='clear h20'></div>
     <% } %>
 
-    <% if(unmarked_calls_count != null) { %>
-        <% if(unmarked_calls_count > 0) { %>
+    <% if(unmarkedCallsCount != null) { %>
+        <% if(unmarkedCallsCount > 0) { %>
             <div id='warning-block' class='warning-block shadow'>
-                <p class="message"><%= String.Format("You have a total of <span class='bold'>{0}&nbsp;unmarked</span> calls, please click <a class='link bold' href='../user/phonecalls.aspx'>here</a> to mark them.", unmarked_calls_count) %></p>
+                <p class="message"><%= String.Format("You have a total of <span class='bold'>{0}&nbsp;unmarked</span> calls, please click <a class='link bold' href='../user/phonecalls.aspx'>here</a> to mark them.", unmarkedCallsCount) %></p>
             </div>
         <% } else { %>
             <div id='information-block' class='info-block shadow'>
@@ -251,34 +251,29 @@
     <div style="float: right; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
         <div id='calls-summary-block' class='block wauto'>
             <div class='content wauto float-left mb10'>
-                <ext:TabPanel
+                <ext:Panel
                     ID="CallsSummary" 
                     runat="server"
                     Header="true"
-                    Title="Your Phone Calls Summary"
+                    Title="Mail Statistics"
+                    PaddingSummary="10px 10px 10px 10px"
                     Width="465"
                     Height="180"
-                    Plain="false">
+                    ButtonAlign="Center">
                     <Defaults>
                         <ext:Parameter Name="bodyPadding" Value="5" Mode="Raw" />
                     </Defaults>
 
-                    <Items>
-                        <ext:Panel
-                            ID="PersonalCallsSummary" 
-                            runat="server" 
-                            Title="Personal" 
-                            Icon="Phone" 
-                            AutoDataBind="true" />
-
-                        <ext:Panel
-                            ID="BusinessCallsSummary"
-                            runat="server" 
-                            Title="Business"
-                            Icon="Phone" 
-                            AutoDataBind="true" />
-                    </Items>
-                </ext:TabPanel>
+                    <Content>
+                        <div class="p10 font-14">
+                            <p class="mb5">Number of Received Mails: <%= userMailStatistics.ReceivedCount %></p>
+                            <p class="mb5">Size of Received Mails: <%= userMailStatistics.ReceivedSize %> (in MB)</p>
+                            <div class="clear h15"></div>
+                            <p class="mb5">Number of Sent Mails: <%= userMailStatistics.SentCount %></p>
+                            <p class="mb5">Size of Sent Mails: <%= userMailStatistics.SentSize %> (in MB)</p>
+                        </div>
+                    </Content>
+                </ext:Panel>
             </div>
             <!-- END OF CONTENT -->
         </div>

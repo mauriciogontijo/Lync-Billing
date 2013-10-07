@@ -590,6 +590,38 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
+        public DataTable GET_MAIL_STATISTICS(string SipAccount, DateTime date)
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+            DateTime startOfThisMonth = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
+            DateTime endOfThisMonth = startOfThisMonth.AddMonths(1).AddDays(-1);
+
+            selectQuery = string.Format(
+                "select * from [dbo].[MailStatistics] WHERE TimeStamp between '{0}' and '{1}' and EmailAddress='{2}'", 
+                startOfThisMonth, endOfThisMonth, SipAccount
+            );
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argex = new System.ArgumentException("exception", "ex", ex);
+                throw argex;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
         private static void ConvertDateToYearMonth(DateTime date,out int year, out int month) 
          {
              year = date.Year;

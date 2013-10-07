@@ -16,7 +16,7 @@ namespace Lync_Billing.ui.user
 {
     public partial class dashboard : System.Web.UI.Page
     {
-        public int unmarked_calls_count = 0;
+        public int unmarkedCallsCount = 0;
         UsersCallsSummary UserSummary = new UsersCallsSummary();
         List<UsersCallsSummary> UserSummaryList = new List<UsersCallsSummary>();
 
@@ -29,6 +29,7 @@ namespace Lync_Billing.ui.user
         public Dictionary<string, object> wherePart = new Dictionary<string, object>();
         public List<string> columns = new List<string>();
         public List<PhoneCall> phoneCalls;
+        public MailStatistics userMailStatistics;
 
         //This actually takes a copy of the current session for some uses on the frontend.
         public UserSession current_session { get; set; }
@@ -60,18 +61,17 @@ namespace Lync_Billing.ui.user
             sipAccount = current_session.EffectiveSipAccount;
 
             //Initialize the unmarked calls counter - this is being used in the frontend.
-            unmarked_calls_count = getUnmarkedCallsCount();
+            unmarkedCallsCount = getUnmarkedCallsCount();
 
             //Initialize the Address Book data.
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
-            //Get the Calls Summary Block data
-            PersonalCallsSummary.Html = GetCallsSummary("Personal");
-            BusinessCallsSummary.Html = GetCallsSummary("Business");
-
             //Get the phone calls chart data.
             DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
+
+            //Get this user's mail statistics
+            userMailStatistics = MailStatistics.GetMailStatistics(sipAccount, DateTime.Now);
 
             //Configure the welcome ext-js toggled welcome-message.
             //Misc.Message("Welcome","Welcome " + current_session.PrimaryDisplayName,"info");

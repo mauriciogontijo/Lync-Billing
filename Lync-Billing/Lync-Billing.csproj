@@ -54,9 +54,6 @@
       <HintPath>..\packages\iTextSharp-LGPL.4.1.6\lib\iTextSharp.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp.pdfa" />
-    <Reference Include="itextsharp.xmlworker">
-      <HintPath>..\packages\itextsharp.xmlworker.5.4.2\lib\itextsharp.xmlworker.dll</HintPath>
-    </Reference>
     <Reference Include="itextsharp.xtra" />
     <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="Microsoft.CSharp" />
