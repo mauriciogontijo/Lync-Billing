@@ -31,12 +31,57 @@ namespace Lync_Billing.ui.dephead.users {
         protected global::Ext.Net.Toolbar FilterToolbar1;
         
         /// <summary>
-        /// ComboBox1 control.
+        /// FilterDepartments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComboBox ComboBox1;
+        protected global::Ext.Net.ComboBox FilterDepartments;
+        
+        /// <summary>
+        /// DepartmentsFilterStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store DepartmentsFilterStore;
+        
+        /// <summary>
+        /// DepartmentHeadsStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model DepartmentHeadsStoreModel;
+        
+        /// <summary>
+        /// FilterUsersByDepartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox FilterUsersByDepartment;
+        
+        /// <summary>
+        /// FilterUsersByDepartmentStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store FilterUsersByDepartmentStore;
+        
+        /// <summary>
+        /// FilterUsersByDepartmentModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model FilterUsersByDepartmentModel;
     }
 }

@@ -3,7 +3,37 @@
 <%-- DEPARTMENT-HEAD # USERS # PHONECALLS --%>
 
 <asp:Content ID="HeaderContentPlaceHolder" ContentPlaceHolderID="head" runat="server">
-    
+    <style>
+        .search-item {
+            font          : normal 11px tahoma, arial, helvetica, sans-serif;
+            padding       : 3px 10px 3px 10px;
+            border        : 1px solid #fff;
+            border-bottom : 1px solid #eeeeee;
+            white-space   : normal;
+            color         : #555;
+        }
+        
+        .search-item h3 {
+            display     : block;
+            font        : inherit;
+            font-weight : bold;
+            color       : #222;
+            margin      : 0px;
+        }
+
+        .search-item h3 span {
+            float       : right;
+            font-weight : normal;
+            margin      : 0 0 5px 5px;
+            width       : 175px;
+            display     : block;
+            clear       : none;
+        } 
+        
+        p { width: 650px; }
+        
+        .ext-ie .x-form-text { position : static !important; }
+    </style>
 </asp:Content>
 
 <asp:Content ID="MainBodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -24,23 +54,84 @@
                         runat="server">
                         <Items>
                             <ext:ComboBox
-                                ID="ComboBox1"
+                                ID="FilterDepartments"
                                 runat="server"
                                 Icon="Find"
-                                TriggerAction="All"
+                                TriggerAction="Query"
                                 QueryMode="Local"
-                                DisplayField="TypeName"
-                                ValueField="TypeValue"
-                                FieldLabel="View Calls:"
+                                DisplayField="DepartmentName"
+                                ValueField="DepartmentName"
+                                FieldLabel="Department:"
                                 LabelWidth="60"
-                                Width="200"
-                                Margins="5 390 5 5">
+                                Width="250"
+                                Margins="5 15 5 5">
                                 <Store>
-
+                                    <ext:Store 
+                                        ID="DepartmentsFilterStore"
+                                        runat="server">
+                                        <Model>
+                                            <ext:Model 
+                                                ID="DepartmentHeadsStoreModel"
+                                                runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="DepartmentName" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
                                 </Store>
-                                <SelectedItems>
-                                    <ext:ListItem Text="Unallocated" Value="Unmarked" />
-                                </SelectedItems>
+                                <DirectEvents>
+                                    <Change OnEvent="GetUsersPerDepartment">
+                                        <EventMask ShowMask="true" />
+                                    </Change>
+                                </DirectEvents>
+                            </ext:ComboBox>
+
+                            <ext:ComboBox
+                                ID="FilterUsersByDepartment"
+                                runat="server"
+                                Icon="Find"
+                                TriggerAction="Query"
+                                QueryMode="Local"
+                                DisplayField="SipAccount"
+                                ValueField="SipAccount"
+                                FieldLabel="User:"
+                                LabelWidth="30"
+                                Width="450"
+                                Disabled="true">
+                                <Store>
+                                    <ext:Store 
+                                        ID="FilterUsersByDepartmentStore"
+                                        runat="server">
+                                        <Model>
+                                            <ext:Model 
+                                                ID="FilterUsersByDepartmentModel"
+                                                runat="server">
+                                                <Fields>
+                                                    <ext:ModelField Name="EmployeeID" />
+                                                    <ext:ModelField Name="SipAccount" />
+                                                    <ext:ModelField Name="SiteName" />
+                                                    <ext:ModelField Name="FullName" />
+                                                    <ext:ModelField Name="Department" />
+                                                </Fields>
+                                            </ext:Model>
+                                        </Model>
+                                    </ext:Store>
+                                </Store>
+                                <ListConfig  LoadingText="Searching...">
+                                    <ItemTpl ID="ItemTpl1" runat="server">
+                                        <Html>
+                                            <div class="search-item">
+							                    <h3><span>{SipAccount}</span>{FullName}</h3>
+						                    </div>
+                                        </Html>
+                                    </ItemTpl>
+                                </ListConfig>
+                                <DirectEvents>
+                                    <Select OnEvent="GetPhoneCallsForUser">
+                                        <EventMask ShowMask="true" />
+                                    </Select>
+                                </DirectEvents>
                             </ext:ComboBox>
                         </Items>
                     </ext:Toolbar>

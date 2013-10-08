@@ -417,7 +417,21 @@ namespace Lync_Billing.DB
             [Description("IsSiteAdmin")]
             IsSiteAdmin,
             [Description("IsSiteAccountant")]
-            IsSiteAccountant
+            IsSiteAccountant,
+            [Description("IsDepartmentHead")]
+            IsDepartmentHead
+        }
+
+        public enum DepartmentHeads
+        {
+            [Description("DepartmentHeads")]
+            TableName,
+            [Description("id")]
+            ID,
+            [Description("SipAccount")]
+            SipAccount,
+            [Description("Department")]
+            Department
         }
 
         /// <summary>

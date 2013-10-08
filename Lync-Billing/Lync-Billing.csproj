@@ -184,6 +184,7 @@
     <Compile Include="DB\Announcements.cs" />
     <Compile Include="DB\CallsStatistics.cs" />
     <Compile Include="DB\Currencies.cs" />
+    <Compile Include="DB\DepartmentHead.cs" />
     <Compile Include="DB\DialingPrefixsRates.cs" />
     <Compile Include="DB\Gateway.cs" />
     <Compile Include="DB\MailStatistics.cs" />
