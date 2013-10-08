@@ -50,6 +50,10 @@ namespace Lync_Billing.ui
             {
                 DROP_ACCESS_BUTTON_TEXT = "Drop System Administrator Access";
             }
+            else if (PAGE_NAME.Contains("ui_dephead"))
+            {
+                DROP_ACCESS_BUTTON_TEXT = "Drop System Administrator Access";
+            }
         }
     }
 }

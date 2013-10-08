@@ -29,7 +29,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 var referrer = $("#ThisPageReferrer").val();
-                if (referrer.search("ui_admin") != -1 || referrer.search("ui_accounting") != -1 || referrer.search("ui_sysadmin") != -1) {
+                if (referrer.search("ui_admin") != -1 || referrer.search("ui_accounting") != -1 || referrer.search("ui_sysadmin") != -1 || referrer.search("ui_dephead")) {
                     var starting_index = referrer.search("ui");
                     var button_id = referrer.substr(starting_index, referrer.length);
                     $("#" + button_id).addClass("selected");
@@ -166,6 +166,7 @@
                         </div>
                     </div>
                     <!-- *** END OF ADMIN SIDEBAR *** -->
+
                 <% } else if (PAGE_NAME.Contains("ui_sysadmin")) { %>
                     <!-- *** START OF SYSADMIN SIDEBAR *** -->
                     <div id='Div1' class='sidebar block float-left w20p'>
@@ -219,6 +220,33 @@
                                             <p><a href='../configuration/announcements.aspx' id="ui_sysadmin_configuration_announcements">Announcements</a></p>
                                             <p><a href='../configuration/exceptions.aspx' id="ui_sysadmin_configuration_exceptions">Exceptions List</a></p>
                                             <p><a href='../configuration/systemroles.aspx' id="ui_sysadmin_configuration_systemroles">System Roles</a></p>
+                                        </div>
+                                    </div>
+                                </Content>
+                            </ext:Panel>
+                        </div>
+                    </div>
+                    <!-- *** END OF SYSADMIN SIDEBAR *** -->
+
+                <% } else if (PAGE_NAME.Contains("ui_dephead")) { %>
+                    <!-- *** START OF SYSADMIN SIDEBAR *** -->
+                    <div id='Div2' class='sidebar block float-left w20p'>
+                        <div class="block-body">
+                            <ext:Panel ID="Panel2"
+                                runat="server"
+                                Height="160"
+                                Width="180"
+                                Title="Admin Tools"
+                                Collapsed="false"
+                                Collapsible="true">
+                                <Content>
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Phonecalls</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='#' id="ui_dephead_main_statistics">Department Statistics</a></p>
+                                            <p><a href='#' id="ui_dephead_users_phonecalls">Users Phonecalls</a></p>
                                         </div>
                                     </div>
                                 </Content>
