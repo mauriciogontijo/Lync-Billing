@@ -115,7 +115,8 @@ div#main_content_place_holder_ManageDelegatesGrid *,
 div#main_content_place_holder_ManageRatesGrid *,
 div#main_content_place_holder_ViewRatesGrid *,
 div#main_content_place_holder_NumberOfCallsChartPanel *,
-div#main_content_place_holder_ManageUsersRolesGrid * { 
+div#main_content_place_holder_ManageUsersRolesGrid *,
+div#main_content_place_holder_ViewPhoneCallsGrid * { 
     vertical-align: bottom; 
 }
 /* end asp & ext blocks styling */

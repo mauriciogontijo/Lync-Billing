@@ -198,7 +198,7 @@
                             ID="SipAccountCol"
                             runat="server"
                             Text="User Email"
-                            Width="140"
+                            Width="160"
                             DataIndex="SourceUserUri">
                         </ext:Column>
 
@@ -206,7 +206,7 @@
                             ID="SessionIdTime"
                             runat="server"
                             Text="Date"
-                            Width="140"
+                            Width="150"
                             DataIndex="SessionIdTime">
                             <Renderer Fn="DateRenderer" />
                         </ext:Column>
@@ -215,14 +215,14 @@
                             ID="Marker_CallToCountry"
                             runat="server"
                             Text="Country"
-                            Width="90"
+                            Width="100"
                             DataIndex="Marker_CallToCountry" />
 
                         <ext:Column
                             ID="Duration"
                             runat="server"
                             Text="Duration"
-                            Width="80"
+                            Width="100"
                             DataIndex="Duration">
                             <Renderer Fn="GetMinutes" />
                         </ext:Column>
@@ -231,7 +231,7 @@
                             ID="Marker_CallCost"
                             runat="server"
                             Text="Cost"
-                            Width="60"
+                            Width="100"
                             DataIndex="Marker_CallCost">
                             <Renderer Fn="RoundCost" />
                         </ext:Column>
