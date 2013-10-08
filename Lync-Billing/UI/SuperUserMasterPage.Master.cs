@@ -52,7 +52,7 @@ namespace Lync_Billing.ui
             }
             else if (PAGE_NAME.Contains("ui_dephead"))
             {
-                DROP_ACCESS_BUTTON_TEXT = "Drop System Administrator Access";
+                DROP_ACCESS_BUTTON_TEXT = "Drop Department Head Access";
             }
         }
     }
