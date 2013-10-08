@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.dephead.main.dashboard" %>
+﻿<%@ Page Title="eBill Depart. Head | Announcements" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.dephead.main.dashboard" %>
 
 <%-- DEPARTMENT-HEAD DASHBOARD --%>
 

@@ -118,6 +118,8 @@
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
     <Content Include="ui\dephead\main\dashboard.aspx" />
+    <Content Include="ui\dephead\main\statistics.aspx" />
+    <Content Include="ui\dephead\users\phonecalls.aspx" />
     <Content Include="ui\sysadmin\configuration\announcements.aspx" />
     <Content Include="ui\sysadmin\configuration\exceptions.aspx" />
     <Content Include="ui\sysadmin\configuration\mail.aspx" />
@@ -275,6 +277,20 @@
     </Compile>
     <Compile Include="ui\dephead\main\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\dephead\main\statistics.aspx.cs">
+      <DependentUpon>statistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\dephead\main\statistics.aspx.designer.cs">
+      <DependentUpon>statistics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\dephead\users\phonecalls.aspx.cs">
+      <DependentUpon>phonecalls.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\dephead\users\phonecalls.aspx.designer.cs">
+      <DependentUpon>phonecalls.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\configuration\announcements.aspx.cs">
       <DependentUpon>announcements.aspx</DependentUpon>
