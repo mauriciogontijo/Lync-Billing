@@ -38,6 +38,7 @@ namespace Lync_Billing.DB
         public bool IsSystemAdmin { set; get; }
         public bool IsSiteAdmin { set; get; }
         public bool IsSiteAccountant { set; get; }
+        public bool IsDepartmentHead { get; set; }
         
         //Delegate-capability check
         public bool IsDelegate { set; get; }
@@ -67,6 +68,7 @@ namespace Lync_Billing.DB
             IsSiteAdmin = false;
             IsSiteAccountant = false;
             IsDelegate = false;
+            IsDepartmentHead = false;
 
             //Empty all of the sip accounts
             PrimarySipAccount = string.Empty;
@@ -117,6 +119,11 @@ namespace Lync_Billing.DB
                     else if (role.IsSiteAccountant())
                     {
                         IsSiteAccountant = true;
+                    }
+
+                    else if (role.IsDepartmentHead())
+                    {
+                        IsDepartmentHead = true;
                     }
                 }
             }

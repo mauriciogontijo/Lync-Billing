@@ -40,6 +40,11 @@ namespace Lync_Billing.DB
             return this.RoleID == 40 ? true : false; 
         }
 
+        public bool IsDepartmentHead()
+        {
+            return this.RoleID == 50 ? true : false; 
+        }
+
 
         //Get Users Roles
         public static List<UserRole> GetUsersRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)

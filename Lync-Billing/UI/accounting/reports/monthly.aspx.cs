@@ -27,8 +27,7 @@ namespace Lync_Billing.ui.accounting.reports
     {
         private Dictionary<string, object> wherePart = new Dictionary<string, object>();
         private List<string> columns = new List<string>();
-        private StoreReadDataEventArgs e;
-        List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
+        private List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
         private string sipAccount = string.Empty;
         private UserSession session;
 

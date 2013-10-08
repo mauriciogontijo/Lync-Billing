@@ -69,13 +69,18 @@ namespace Lync_Billing.ui.session
                         ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
 
                         //if the user was authenticated already
-                        if (session.ActiveRoleName != "user" && (session.IsSiteAdmin || session.IsSiteAccountant || session.IsDeveloper))
+                        if (session.ActiveRoleName != "user" && (session.IsSiteAdmin || session.IsSiteAccountant || session.IsDeveloper || session.IsDepartmentHead))
                         {
                             RedirectToElevatedAccessDasboard(session.ActiveRoleName);
                         }
 
                         //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
-                        else if ((accessParam == "admin" && session.IsSiteAdmin) || (accessParam == "accounting" && session.IsSiteAccountant) || (accessParam == "sysadmin" && session.IsSystemAdmin) || session.IsDeveloper)
+                        else if (
+                            (accessParam == "admin" && session.IsSiteAdmin) || 
+                            (accessParam == "accounting" && session.IsSiteAccountant) || 
+                            (accessParam == "sysadmin" && session.IsSystemAdmin) ||
+                            (accessParam == "dephead" && session.IsDepartmentHead) || 
+                            session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
                             this.access_level.Value = accessParam;
@@ -117,6 +122,7 @@ namespace Lync_Billing.ui.session
                             if ((dropParam == "admin" && session.IsSiteAdmin && session.ActiveRoleName == "admin") ||
                                 (dropParam == "accounting" && session.IsSiteAccountant && session.ActiveRoleName == "accounting") ||
                                 (dropParam == "sysadmin" && session.IsSystemAdmin && session.ActiveRoleName == "sysadmin") ||
+                                (dropParam == "dephead" && session.IsDepartmentHead && session.ActiveRoleName == "dephead") ||
                                 session.IsDeveloper)
                             {
                                 DropAccess(dropParam);
@@ -185,20 +191,27 @@ namespace Lync_Billing.ui.session
             {
                 Response.Redirect("~/ui/sysadmin/main/dashboard.aspx");
             }
+            else if (role == "dephead")
+            {
+                Response.Redirect("~/ui/dephead/main/dashboard.aspx");
+            }
         }
 
 
         //This function is responsilbe for initializing the value of the AccessLevels List instance variable
         private void InitAccessLevels()
         {
-            //role_id=; project-admin
+            //role_id=30; site-admin
             AccessLevels.Add("admin");
 
-            //role_id=7; project-accountant
+            //role_id=40; site-accountant
             AccessLevels.Add("accounting");
 
-            //role_id=8; system-admin
+            //role_id=20; system-admin
             AccessLevels.Add("sysadmin");
+
+            //role_id=50; department-head
+            AccessLevels.Add("dephead");
         }
 
         //This function handles the switching to delegees
@@ -298,6 +311,11 @@ namespace Lync_Billing.ui.session
                         {
                             session.ActiveRoleName = "sysadmin";
                             Response.Redirect("~/ui/sysadmin/main/dashboard.aspx");
+                        }
+                        else if (this.access_level.Value == "dephead")
+                        {
+                            session.ActiveRoleName = "dephead";
+                            Response.Redirect("~/ui/dephead/main/dashboard.aspx");
                         }
                         else if (this.access_level.Value == "delegee" && this.delegee_identity != null)
                         {

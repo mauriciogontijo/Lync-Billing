@@ -261,7 +261,7 @@
                     Height="180"
                     ButtonAlign="Center">
                     <Defaults>
-                        <ext:Parameter Name="bodyPadding" Value="5" Mode="Raw" />
+                        <ext:Parameter Name="bodyPadding" Value="10" Mode="Raw" />
                     </Defaults>
 
                     <Content>
