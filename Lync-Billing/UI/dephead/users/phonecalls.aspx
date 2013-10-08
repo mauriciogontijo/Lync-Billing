@@ -4,6 +4,14 @@
 
 <asp:Content ID="HeaderContentPlaceHolder" ContentPlaceHolderID="head" runat="server">
     <style>
+        /* start manage-phone-calls grid styling */
+        .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
+        .row-green { background-color: rgb(46, 143, 42); }
+        .row-red { background-color: rgb(201, 20, 20); }
+        .row-yellow { background-color: yellow; }
+        /* end manage-phone-calls grid styling */
+
+        /* start users search query result styling */
         .search-item {
             font          : normal 11px tahoma, arial, helvetica, sans-serif;
             padding       : 3px 10px 3px 10px;
@@ -33,6 +41,7 @@
         p { width: 650px; }
         
         .ext-ie .x-form-text { position : static !important; }
+        /* end users search query result styling */
     </style>
 </asp:Content>
 
@@ -140,8 +149,8 @@
 
             <div class="h5 clear"></div>
 
-            <%--<ext:GridPanel
-                ID="ManagePhoneCallsGrid"
+            <ext:GridPanel
+                ID="ViewPhoneCallsGrid"
                 runat="server"
                 Width="740"
                 Height="720"
@@ -152,18 +161,23 @@
                     <ext:Store
                         ID="PhoneCallsStore"
                         runat="server"
-                        PageSize="25"
-                        OnReadData="PhoneCallsStore_ReadData">
+                        IsPagingStore="true"
+                        PageSize="25">
                         <Model>
                             <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
                                 <Fields>
+                                    <ext:ModelField Name="SourceUserUri" Type="String" />
                                     <ext:ModelField Name="SessionIdTime" Type="String" />
+                                    <ext:ModelField Name="SessionIdSeq" Type="Int" />
                                     <ext:ModelField Name="ResponseTime" Type="String" />
                                     <ext:ModelField Name="SessionEndTime" Type="String" />
                                     <ext:ModelField Name="Marker_CallToCountry" Type="String" />
+                                    <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
                                     <ext:ModelField Name="Marker_CallCost" Type="Float" />
                                     <ext:ModelField Name="UI_CallType" Type="String" />
+                                    <ext:ModelField Name="UI_MarkedOn" Type="Date" />
+                                    <ext:ModelField Name="PhoneBookName" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
@@ -172,12 +186,21 @@
                         </Sorters>
                     </ext:Store>
                 </Store>
+
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn
                             ID="RowNumbererColumn2"
                             runat="server"
                             Width="45" />
+
+                        <ext:Column
+                            ID="SipAccountCol"
+                            runat="server"
+                            Text="User Email"
+                            Width="140"
+                            DataIndex="SourceUserUri">
+                        </ext:Column>
 
                         <ext:Column
                             ID="SessionIdTime"
@@ -247,9 +270,9 @@
                                 <SelectedItems>
                                     <ext:ListItem Text="Unallocated" Value="Unmarked" />
                                 </SelectedItems>
-                                <DirectEvents>
+                                <%--<DirectEvents>
                                     <Select OnEvent="PhoneCallsHistoryFilter" />
-                                </DirectEvents>
+                                </DirectEvents>--%>
                             </ext:ComboBox>
                         </Items>
                     </ext:Toolbar>
@@ -265,7 +288,7 @@
                         DisplayMsg="Phone Calls {0} - {1} of {2}" />
                 </BottomBar>
 
-            </ext:GridPanel>--%>
+            </ext:GridPanel>
         </div>
     </div>
     <!-- *** END OF ADMIN MAIN BODY *** -->

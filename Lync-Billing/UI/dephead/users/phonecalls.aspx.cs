@@ -11,8 +11,8 @@ namespace Lync_Billing.ui.dephead.users
 {
     public partial class phonecalls : System.Web.UI.Page
     {
-        private Dictionary<string, object> wherePart = new Dictionary<string, object>();
-        private List<string> columns = new List<string>();
+        private Dictionary<string, object> wherePart;
+        private List<string> columns;
         private string sipAccount = string.Empty;
         private UserSession session;
         private List<Department> departments;
@@ -95,7 +95,49 @@ namespace Lync_Billing.ui.dephead.users
                 {
                     FilterUsersByDepartment.ReadOnly = false;
                 }
+
+                //ViewPhoneCallsGrid.ClearContent();
             }
+        }
+
+
+        protected void GetPhoneCallsForUser(object sender, DirectEventArgs e)
+        {
+            if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
+            {
+                if(FilterUsersByDepartment.SelectedItem != null && !string.IsNullOrEmpty(FilterUsersByDepartment.SelectedItem.Value))
+                {
+                    List<PhoneCall> phoneCalls = GetUserPhoneCalls(FilterUsersByDepartment.SelectedItem.Value);
+
+                    ViewPhoneCallsGrid.GetStore().DataSource = phoneCalls;
+                    ViewPhoneCallsGrid.GetStore().DataBind();
+                }
+            }
+        }
+
+        private List<PhoneCall> GetUserPhoneCalls(string userSipAccount)
+        {
+            wherePart = new Dictionary<string, object>();
+            columns = new List<string>();
+
+            wherePart.Add("SourceUserUri", userSipAccount);
+            //wherePart.Add("ac_IsInvoiced", "NO");
+            wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("Exclude", false);
+
+            columns.Add("SourceUserUri");
+            columns.Add("SessionIdTime");
+            columns.Add("SessionIdSeq");
+            columns.Add("ResponseTime");
+            columns.Add("SessionEndTime");
+            columns.Add("marker_CallToCountry");
+            columns.Add("DestinationNumberUri");
+            columns.Add("Duration");
+            columns.Add("marker_CallCost");
+            columns.Add("ui_CallType");
+            columns.Add("ui_MarkedOn");
+
+            return PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
         }
 
 
