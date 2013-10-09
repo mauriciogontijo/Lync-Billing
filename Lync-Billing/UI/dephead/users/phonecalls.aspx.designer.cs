@@ -184,13 +184,13 @@ namespace Lync_Billing.ui.dephead.users {
         protected global::Ext.Net.Toolbar Toolbar1;
         
         /// <summary>
-        /// FilterTypeComboBox control.
+        /// FilterPhoneCallsByType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComboBox FilterTypeComboBox;
+        protected global::Ext.Net.ComboBox FilterPhoneCallsByType;
         
         /// <summary>
         /// PagingToolbar1 control.

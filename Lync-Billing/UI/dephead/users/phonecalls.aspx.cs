@@ -95,8 +95,6 @@ namespace Lync_Billing.ui.dephead.users
                 {
                     FilterUsersByDepartment.ReadOnly = false;
                 }
-
-                //ViewPhoneCallsGrid.ClearContent();
             }
         }
 
@@ -111,6 +109,9 @@ namespace Lync_Billing.ui.dephead.users
 
                     ViewPhoneCallsGrid.GetStore().DataSource = phoneCalls;
                     ViewPhoneCallsGrid.GetStore().DataBind();
+
+                    FilterPhoneCallsByType.Disabled = false;
+                    FilterPhoneCallsByType.ReadOnly = false;
                 }
             }
         }
@@ -140,6 +141,15 @@ namespace Lync_Billing.ui.dephead.users
             return PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
         }
 
+        protected void PhoneCallsHistoryFilter(object sender, DirectEventArgs e)
+        {
+            PhoneCallsStore.ClearFilter();
+
+            if (FilterPhoneCallsByType.SelectedItem.Value != "Unmarked")
+                PhoneCallsStore.Filter("UI_CallType", FilterPhoneCallsByType.SelectedItem.Value);
+
+            PhoneCallsStore.LoadPage(1);
+        }
 
     }
 }

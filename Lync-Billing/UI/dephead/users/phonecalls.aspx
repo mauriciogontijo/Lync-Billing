@@ -182,7 +182,7 @@
                             </ext:Model>
                         </Model>
                         <Sorters>
-                            <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
+                            <ext:DataSorter Property="SessionIdTime" Direction="ASC" />
                         </Sorters>
                     </ext:Store>
                 </Store>
@@ -247,10 +247,12 @@
                 </ColumnModel>
 
                 <TopBar>
-                    <ext:Toolbar ID="Toolbar1" runat="server">
+                    <ext:Toolbar
+                        ID="Toolbar1"
+                        runat="server">
                         <Items>
                             <ext:ComboBox
-                                ID="FilterTypeComboBox"
+                                ID="FilterPhoneCallsByType"
                                 runat="server"
                                 Icon="Find"
                                 TriggerAction="All"
@@ -260,7 +262,9 @@
                                 FieldLabel="View Calls:"
                                 LabelWidth="60"
                                 Width="200"
-                                Margins="5 390 5 5">
+                                Margins="5 5 5 5"
+                                Disabled="true"
+                                ReadOnly="true">
                                 <Items>
                                     <ext:ListItem Text="Unallocated" Value="Unmarked" />
                                     <ext:ListItem Text="Business" Value="Business" />
@@ -270,9 +274,9 @@
                                 <SelectedItems>
                                     <ext:ListItem Text="Unallocated" Value="Unmarked" />
                                 </SelectedItems>
-                                <%--<DirectEvents>
+                                <DirectEvents>
                                     <Select OnEvent="PhoneCallsHistoryFilter" />
-                                </DirectEvents>--%>
+                                </DirectEvents>
                             </ext:ComboBox>
                         </Items>
                     </ext:Toolbar>
