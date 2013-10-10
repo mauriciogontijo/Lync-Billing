@@ -91,15 +91,18 @@ var SpecialDateRenderer = function (value) {
 
 
 //This is used in the PhoneCalls page, History page, and Delegees page
-function getRowClassForIsPersonal(value, meta, record, rowIndex, colIndex, store) {
+function getCssColorForPhoneCallRow(value, meta, record, rowIndex, colIndex, store) {
     if (record.data != null) {
         if (record.data.UI_CallType == 'Personal') {
             meta.style = "color: rgb(201, 20, 20);";
         }
-        if (record.data.UI_CallType == 'Business') {
+        else if (record.data.UI_CallType == 'Business') {
             meta.style = "color: rgb(46, 143, 42);";
         }
-        if (record.data.UI_CallType == 'Disputed') {
+        else if (record.data.UI_CallType == 'Unallocated') {
+            meta.style = "color: rgb(0, 191, 255);";
+        }
+        else if (record.data.UI_CallType == 'Disputed') {
             meta.style = "color: rgb(31, 115, 164);";
         }
 
