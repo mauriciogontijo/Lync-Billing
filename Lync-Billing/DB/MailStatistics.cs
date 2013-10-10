@@ -42,18 +42,25 @@ namespace Lync_Billing.DB
         public static MailStatistics GetMailStatistics(string departmentName, string siteName, DateTime date)
         {
             DataTable dt = new DataTable();
-            //DateTime previousMonth = DateTime.Now.AddMonths(-1).AddDays(-(DateTime.Today.Day - 1));
             MailStatistics departmentTotalMailStats = new MailStatistics();
+            DateTime startOfThisMonth = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
+            DateTime endOfThisMonth = startOfThisMonth.AddMonths(1).AddDays(-1);
+            
+            //Initialize the select parameters for the database function
+            List<object> selectParameters = new List<object>();
+            selectParameters.Add(startOfThisMonth);
+            selectParameters.Add(endOfThisMonth);
+            selectParameters.Add(departmentName);
+            selectParameters.Add(siteName);
 
-            Statistics statsLib = new Statistics();
-            dt = statsLib.GET_MAIL_STATISTICS(departmentName, siteName, date);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetMailStatistics_PerDepartment", selectParameters, null);
 
             foreach (DataRow row in dt.Rows)
             {
-                departmentTotalMailStats.ReceivedCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["RecievedCount"]]));
-                departmentTotalMailStats.ReceivedSize = (Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["RecievedSize"]])) / 1024) / 1024; //convert Bytes to MB
-                departmentTotalMailStats.SentCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["SentCount"]]));
-                departmentTotalMailStats.SentSize = (Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["SentSize"]])) / 1024) / 1024; //convert Bytes to MB
+                departmentTotalMailStats.ReceivedCount = Convert.ToInt64(ReturnZeroIfNull(row[dt.Columns["RecievedCount"]]));
+                departmentTotalMailStats.ReceivedSize = (Convert.ToInt64(ReturnZeroIfNull(row[dt.Columns["RecievedSize"]])) / 1024) / 1024; //convert Bytes to MB
+                departmentTotalMailStats.SentCount = Convert.ToInt64(ReturnZeroIfNull(row[dt.Columns["SentCount"]]));
+                departmentTotalMailStats.SentSize = (Convert.ToInt64(ReturnZeroIfNull(row[dt.Columns["SentSize"]])) / 1024) / 1024; //convert Bytes to MB
             }
 
             return departmentTotalMailStats;

@@ -338,7 +338,7 @@ namespace Lync_Billing.DB
             parameters.Add(siteName);
 
             TopCountries topCountry;
-            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetTop5DestinationCountriesByCostPerDepartment", parameters, null);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetTop5DestinationCountriesByCost_PerDepartment", parameters, null);
 
             foreach (DataRow row in dt.Rows)
             {
