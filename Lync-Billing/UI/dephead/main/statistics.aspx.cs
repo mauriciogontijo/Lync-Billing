@@ -90,24 +90,26 @@ namespace Lync_Billing.ui.dephead.main
             DB.Site site;
             int siteID;
 
-            List<TopCountries> topCountries;
+            MailStatistics departmentMailStatisticsData;
 
             if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
             {
-                MailStatistics departmentMailStatisticsData;
-
                 departmentName = FilterDepartments.SelectedItem.Value.ToString();
                 siteID = Convert.ToInt32((from dep in UserDepartments where dep.DepartmentName == departmentName select dep.SiteID).First());
                 site = DB.Site.getSite(siteID);
 
                 if (site != null && !string.IsNullOrEmpty(site.SiteName))
                 {
-                    topCountries = TopCountries.GetTopDestinationsForDepartment(departmentName, site.SiteName);
-
-                    TopDestinationCountriesStore.DataSource = topCountries;
+                    // Get Top Countries
+                    TopDestinationCountriesStore.DataSource = TopCountries.GetTopDestinationsForDepartment(departmentName, site.SiteName);
                     TopDestinationCountriesStore.DataBind();
 
-                    //Write the Department Mail Statistics to the publicly-available varialbe: departmentMailStatisticsData
+                    // Get Department Phonecalls Summaries (for all year's month)
+                    DepartmentCallsPerMonthChart.GetStore().DataSource = DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(departmentName, site.SiteName, DateTime.Now.Year);
+                    DepartmentCallsPerMonthChart.GetStore().DataBind();
+
+                    // Get Department Mail Statistics
+                    // Write the Department Mail Statistics to the publicly-available varialbe: departmentMailStatisticsData
                     departmentMailStatisticsData = MailStatistics.GetMailStatistics(departmentName, site.SiteName, DateTime.Now);
 
                     Ext.Net.Panel htmlContainer = new Ext.Net.Panel

@@ -27,7 +27,7 @@ namespace Lync_Billing.ui.accounting.reports
     {
         private Dictionary<string, object> wherePart = new Dictionary<string, object>();
         private List<string> columns = new List<string>();
-        List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
+        List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
         List<string> sites = new List<string>();
         private string sipAccount = string.Empty;
         private UserSession session;
@@ -59,12 +59,12 @@ namespace Lync_Billing.ui.accounting.reports
             FilterReportsBySite.GetStore().DataBind();
         }
 
-        List<UsersCallsSummary> PeriodicalReport(string site, DateTime startingDate, DateTime endingDate) 
+        List<UserCallsSummary> PeriodicalReport(string site, DateTime startingDate, DateTime endingDate) 
         {
-            List<UsersCallsSummary> tmp = new List<UsersCallsSummary>();
+            List<UserCallsSummary> tmp = new List<UserCallsSummary>();
 
             
-            tmp.AddRange(UsersCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UsersCallsSummary>());
+            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UserCallsSummary>());
             
             var sipAccounts = 
                 (
@@ -72,7 +72,7 @@ namespace Lync_Billing.ui.accounting.reports
 
                         group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName } into res
 
-                        select new UsersCallsSummary
+                        select new UserCallsSummary
                         {
                             EmployeeID = res.Key.EmployeeID,
                             FullName = res.Key.FullName,
@@ -159,7 +159,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     Document doc = new Document();
-                    UsersCallsSummary.ExportUsersCallsSummaryToPDF(StartingDate.SelectedDate, EndingDate.SelectedDate, siteName, UsersCollection, Response, out doc, headers);
+                    UserCallsSummary.ExportUsersCallsSummaryToPDF(StartingDate.SelectedDate, EndingDate.SelectedDate, siteName, UsersCollection, Response, out doc, headers);
                     Response.Write(doc);
                     break;
 
@@ -199,7 +199,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     pdfDocument = new Document();
-                    UsersCallsSummary.ExportUsersCallsDetailedToPDF(startDate, endDate, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
+                    UserCallsSummary.ExportUsersCallsDetailedToPDF(startDate, endDate, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
                     Response.Write(pdfDocument);
                     break;
             }

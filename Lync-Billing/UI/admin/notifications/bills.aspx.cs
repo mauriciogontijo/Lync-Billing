@@ -120,10 +120,10 @@ namespace Lync_Billing.ui.admin.notifications
             }
         }
 
-        private List<UsersCallsSummary> GetUsersBills(DateTime startingDate, DateTime endingDate, string site)
+        private List<UserCallsSummary> GetUsersBills(DateTime startingDate, DateTime endingDate, string site)
         {
-            List<UsersCallsSummary> tmp = new List<UsersCallsSummary>();
-            tmp.AddRange(UsersCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UsersCallsSummary>());
+            List<UserCallsSummary> tmp = new List<UserCallsSummary>();
+            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UserCallsSummary>());
 
             var UserBills =
             (
@@ -131,7 +131,7 @@ namespace Lync_Billing.ui.admin.notifications
 
                 group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName, data.MonthDate } into res
 
-                select new UsersCallsSummary
+                select new UserCallsSummary
                 {
                     EmployeeID = res.Key.EmployeeID,
                     FullName = res.Key.FullName,
@@ -182,14 +182,14 @@ namespace Lync_Billing.ui.admin.notifications
 
             string json = e.ExtraParams["Values"];
 
-            List<UsersCallsSummary> usersSummary = JSON.Deserialize<List<UsersCallsSummary>>(json);
+            List<UserCallsSummary> usersSummary = JSON.Deserialize<List<UserCallsSummary>>(json);
 
             MailTemplates mailTemplate = MailTemplates.GetMailTemplates().First(item => item.TemplateID == 2);
 
             subject = mailTemplate.TemplateSubject;
             Body = mailTemplate.TemplateBody;
 
-            foreach (UsersCallsSummary userSummary in usersSummary)
+            foreach (UserCallsSummary userSummary in usersSummary)
             {
                 sipAccount = userSummary.SipAccount;
 

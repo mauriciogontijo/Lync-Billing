@@ -17,8 +17,8 @@ namespace Lync_Billing.ui.user
     public partial class dashboard : System.Web.UI.Page
     {
         public int unmarkedCallsCount = 0;
-        UsersCallsSummary UserSummary = new UsersCallsSummary();
-        List<UsersCallsSummary> UserSummaryList = new List<UsersCallsSummary>();
+        UserCallsSummary UserSummary = new UserCallsSummary();
+        List<UserCallsSummary> UserSummaryList = new List<UserCallsSummary>();
 
         private string sipAccount = string.Empty;
 
@@ -67,7 +67,7 @@ namespace Lync_Billing.ui.user
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
             //Get the phone calls chart data.
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
 
             //Get this user's mail statistics
@@ -88,7 +88,7 @@ namespace Lync_Billing.ui.user
 
         protected void DurationCostChartStore_Load(object sender, EventArgs e)
         {
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
         }
 

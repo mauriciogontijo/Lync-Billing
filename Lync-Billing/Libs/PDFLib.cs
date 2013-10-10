@@ -293,7 +293,7 @@ namespace Lync_Billing.Libs
             return document;
         }
 
-        private static Document AddAccountingDetailedReportTotalsRow(ref Document document, UsersCallsSummary userSummary)
+        private static Document AddAccountingDetailedReportTotalsRow(ref Document document, UserCallsSummary userSummary)
         {
             PdfPTable pdfTable = new PdfPTable(5);
             pdfTable.HorizontalAlignment = 0;
@@ -571,7 +571,7 @@ namespace Lync_Billing.Libs
          * 
          * @return @variable document of type Document.
          */
-        public static Document CreateAccountingDetailedReport(HttpResponse response, DataTable dt, int[] pdfColumnsWidths, List<string> pdfColumnsSchema, Dictionary<string, string> pdfDocumentHeaders, string handleName, Dictionary<string, Dictionary<string, object>> UsersCollection, Dictionary<string, UsersCallsSummary> UsersSummaries)
+        public static Document CreateAccountingDetailedReport(HttpResponse response, DataTable dt, int[] pdfColumnsWidths, List<string> pdfColumnsSchema, Dictionary<string, string> pdfDocumentHeaders, string handleName, Dictionary<string, Dictionary<string, object>> UsersCollection, Dictionary<string, UserCallsSummary> UsersSummaries)
         {
             //----------------------------------
             //INITIALIZE THE REQUIRED VARIABLES

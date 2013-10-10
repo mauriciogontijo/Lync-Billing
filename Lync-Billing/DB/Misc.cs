@@ -131,6 +131,23 @@ namespace Lync_Billing.DB
                 return (T)serializer.Deserialize(sr);
             }
         }
+
+        public static object ReturnZeroIfNull(object value)
+        {
+            if (value == System.DBNull.Value)
+                return 0;
+            else
+                return value;
+        }
+
+
+        public static object ReturnEmptyIfNull(object value)
+        {
+            if (value == System.DBNull.Value)
+                return string.Empty;
+            else
+                return value;
+        }
     }           
 
 }

@@ -44,7 +44,7 @@ namespace Lync_Billing.ui.user
             PhoneCallsCostChartStore.DataSource = getChartData();
             PhoneCallsCostChartStore.DataBind();
 
-            DurationCostChartStore.DataSource = UsersCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
+            DurationCostChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
 
             PhoneCallsDuartionChartPanel.Title = "Calls Duration Report for " + DateTime.Now.Year;

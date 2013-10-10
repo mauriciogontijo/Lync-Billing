@@ -58,42 +58,6 @@ namespace Lync_Billing.ui.dephead.main {
         protected global::Ext.Net.Model DepartmentHeadsStoreModel;
         
         /// <summary>
-        /// DepartmentCallsPerMonthChartPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel DepartmentCallsPerMonthChartPanel;
-        
-        /// <summary>
-        /// DepartmentCallsPerMonthChart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Chart DepartmentCallsPerMonthChart;
-        
-        /// <summary>
-        /// DepartmentCallsPerMonthChartStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store DepartmentCallsPerMonthChartStore;
-        
-        /// <summary>
-        /// DepartmentCallsPerMonthChartStoreModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Model DepartmentCallsPerMonthChartStoreModel;
-        
-        /// <summary>
         /// TopDestinationCountriesPanel control.
         /// </summary>
         /// <remarks>
@@ -137,5 +101,41 @@ namespace Lync_Billing.ui.dephead.main {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Panel DepartmentMailStatistics;
+        
+        /// <summary>
+        /// DepartmentCallsPerMonthChartPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel DepartmentCallsPerMonthChartPanel;
+        
+        /// <summary>
+        /// DepartmentCallsPerMonthChart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Chart DepartmentCallsPerMonthChart;
+        
+        /// <summary>
+        /// DepartmentCallsPerMonthChartStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store DepartmentCallsPerMonthChartStore;
+        
+        /// <summary>
+        /// DepartmentCallsPerMonthChartStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model DepartmentCallsPerMonthChartStoreModel;
     }
 }

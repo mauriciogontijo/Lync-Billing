@@ -27,7 +27,7 @@ namespace Lync_Billing.ui.accounting.reports
     {
         private Dictionary<string, object> wherePart = new Dictionary<string, object>();
         private List<string> columns = new List<string>();
-        private List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
+        private List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
         private string sipAccount = string.Empty;
         private UserSession session;
 
@@ -58,16 +58,16 @@ namespace Lync_Billing.ui.accounting.reports
             FilterReportsBySite.GetStore().DataBind();
         }
 
-        protected List<UsersCallsSummary> MonthlyReports(string site, DateTime date)
+        protected List<UserCallsSummary> MonthlyReports(string site, DateTime date)
         {
-            List<UsersCallsSummary> listOfUsersCallsSummary = new List<UsersCallsSummary>();
+            List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
 
             DateTime month_start = new DateTime(date.Year, date.Month, 1);
             DateTime month_end = month_start.AddMonths(1).AddDays(-1);
 
             listOfUsersCallsSummary.AddRange(
-                UsersCallsSummary.GetUsersCallsSummary(month_start, month_end, site).Where
-                            (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != 0).AsEnumerable<UsersCallsSummary>());
+                UserCallsSummary.GetUsersCallsSummary(month_start, month_end, site).Where
+                            (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != 0).AsEnumerable<UserCallsSummary>());
             
             return listOfUsersCallsSummary;
         }
@@ -178,7 +178,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     pdfDocument = new Document();
-                    UsersCallsSummary.ExportUsersCallsSummaryToPDF(beginningOfTheMonth, endOfTheMonth, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
+                    UserCallsSummary.ExportUsersCallsSummaryToPDF(beginningOfTheMonth, endOfTheMonth, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
                     Response.Write(pdfDocument);
                     break;
 
@@ -219,7 +219,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     pdfDocument = new Document();
-                    UsersCallsSummary.ExportUsersCallsDetailedToPDF(beginningOfTheMonth, endOfTheMonth, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
+                    UserCallsSummary.ExportUsersCallsDetailedToPDF(beginningOfTheMonth, endOfTheMonth, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
                     Response.Write(pdfDocument);
                     break;
             }

@@ -4,6 +4,41 @@
 
 <asp:Content ID="HeaderContentPlaceHolder" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
+        var DepartmentSummary_TipRenderer = function (storeItem, item) {
+            // UnmarkedCallsCost = Unmarked
+            if (item.yField == 'Unmarked') {
+                this.setTitle(
+                    "Unmarked Calls: " +
+                    "<br/>" + 
+                    "<br/>Total : " + storeItem.get("UnmarkedCallsCount") +
+                    "<br/>Cost : " + String(item.value[1].toFixed(2)) + 
+                    "<br/>Duration : " + chartsDurationFormat(storeItem.get("UnmarkedCallsDuration")) + ' hours.'
+                );
+            }
+
+            // Personal = PersonalCallsCost
+            else if (item.yField == 'Personal') {
+                this.setTitle(
+                    "Personal Calls: " +
+                    "<br/>" +
+                    "<br/>Total : " + storeItem.get("PersonalCallsCount") +
+                    "<br/>Cost : " + String(item.value[1].toFixed(2)) +
+                    "<br/>Duration : " + chartsDurationFormat(storeItem.get("PersonalCallsDuration")) + ' hours.'
+                );
+            }
+
+            // Business = BusinessCallsCost
+            else if (item.yField == 'Business') {
+                this.setTitle(
+                    "Business Calls: " +
+                    "<br/>" +
+                    "<br/>Total : " + storeItem.get("BusinessCallsCount") +
+                    "<br/>Cost : " + String(item.value[1].toFixed(2)) +
+                    "<br/>Duration : " + chartsDurationFormat(storeItem.get("BusinessCallsDuration")) + ' hours.'
+                );
+            }
+        };
+
         var TopCountries_LableRenderer = function (storeItem, item) {
             var total = 0,
                 all_countries_data = {},
@@ -174,81 +209,6 @@
             </div>
         </div>
 
-        <div class="h5 clear display-none"></div>
-
-        <div id='business-to-personal-phonecalls-chart' class='block float-right w100p display-none'>
-            <div class="block-body pt5">
-                <ext:Panel ID="DepartmentCallsPerMonthChartPanel" 
-                    runat="server"
-                    Width="740"
-                    Height="400"
-                    Title="Total Phonecalls Distribution For this Department"
-                    Layout="FitLayout"
-                    Visible="false">
-                    <Items>
-                        <ext:Chart 
-                            ID="DepartmentCallsPerMonthChart" 
-                            runat="server"
-                            Shadow="true"
-                            Animate="true">
-                            <Store>
-                                <ext:Store ID="DepartmentCallsPerMonthChartStore" 
-                                    runat="server" 
-                                    AutoDataBind="true">                           
-                                    <Model>
-                                        <ext:Model ID="DepartmentCallsPerMonthChartStoreModel" runat="server">
-                                            <Fields>
-                                                <ext:ModelField Name="MonthDate" />
-                                                <ext:ModelField Name="BusinessCallsCount" />
-                                                <ext:ModelField Name="PersonalCallsCount" />
-                                                <ext:ModelField Name="UnallocatedCallsCount" />
-                                            </Fields>
-                                        </ext:Model>
-                                    </Model>
-                                </ext:Store>
-                            </Store>
-
-                            <LegendConfig Position="Right" />
-
-                            <Axes>
-                                <ext:CategoryAxis
-                                    Position="Bottom"
-                                    Fields="MonthDate"
-                                    Title="Current Year">
-                                    <Label>
-                                        <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
-                                    </Label>
-                                </ext:CategoryAxis>
-
-                                <ext:NumericAxis
-                                    Title="Total Phonecalls"
-                                    Fields="Business,Personal,Unallocated"
-                                    Position="Left"
-                                    Grid="true">
-                                    <%--<Label>
-                                        <Renderer Handler="return String(value).replace(/00$/, 'M');" />
-                                    </Label>--%>
-                                </ext:NumericAxis>
-                            </Axes>
-
-                            <Series>
-                                <ext:BarSeries 
-                                    Axis="Left"
-                                    Gutter="80"
-                                    XField="Month" 
-                                    YField="Business,Personal,Unallocated"
-                                    Stacked="true">
-                                    <%--<Tips TrackMouse="true" Width="28" Height="65">
-                                        <Renderer Handler="this.setTitle(String(item.value[1] / 100) + 'M');" />
-                                    </Tips>--%>
-                                </ext:BarSeries>
-                            </Series>
-                        </ext:Chart>
-                    </Items>
-                </ext:Panel>
-            </div>
-        </div>
-
         <div class="h5 clear"></div>
 
         <div id='top-5-destinations-by-cost-chart' class='block float-right w49p hauto'>
@@ -257,7 +217,7 @@
                     ID="TopDestinationCountriesPanel"
                     runat="server"
                     Width="470"
-                    Height="350"
+                    Height="300"
                     Header="True"
                     Title="Top Destinations By Cost"
                     Layout="FitLayout">
@@ -269,7 +229,7 @@
                             Shadow="true"
                             InsetPadding="20"
                             Width="470"
-                            Height="350"
+                            Height="300"
                             Theme="Base:gradients">
                             
                             <LegendConfig Position="Right" />
@@ -319,7 +279,7 @@
                     Title="Mail Statistics"
                     PaddingSummary="10px 10px 10px 10px"
                     Width="260"
-                    Height="350"
+                    Height="300"
                     ButtonAlign="Center">
                     <Defaults>
                         <ext:Parameter Name="bodyPadding" Value="10" Mode="Raw" />
@@ -331,6 +291,86 @@
                 </ext:Panel>
             </div>
         </div>
+
+        <div class="h10 clear"></div>
+
+        <div id='business-to-personal-phonecalls-chart' class='block float-right w100p display-none'>
+            <div class="block-body pt5">
+                <ext:Panel ID="DepartmentCallsPerMonthChartPanel" 
+                    runat="server"
+                    Width="740"
+                    Height="640"
+                    Title="Total Phonecalls Distribution"
+                    Layout="FitLayout">
+                    <Items>
+                        <ext:Chart 
+                            ID="DepartmentCallsPerMonthChart" 
+                            runat="server"
+                            Shadow="true"
+                            Animate="true">
+                            <Store>
+                                <ext:Store ID="DepartmentCallsPerMonthChartStore" 
+                                    runat="server" 
+                                    AutoDataBind="true">                           
+                                    <Model>
+                                        <ext:Model ID="DepartmentCallsPerMonthChartStoreModel" runat="server">
+                                            <Fields>
+                                                <ext:ModelField Name="Month" />
+                                                <ext:ModelField Name="Year" />
+                                                <ext:ModelField Name="MonthDate" />
+                                                <ext:ModelField Name="Business" ServerMapping="BusinessCallsCost" />
+                                                <ext:ModelField Name="Personal" ServerMapping="PersonalCallsCost" />
+                                                <ext:ModelField Name="Unmarked" ServerMapping="UnmarkedCallsCost" />
+                                                <ext:ModelField Name="BusinessCallsCount" />
+                                                <ext:ModelField Name="PersonalCallsCount" />
+                                                <ext:ModelField Name="UnmarkedCallsCount" />
+                                                <ext:ModelField Name="BusinessCallsDuration" />
+                                                <ext:ModelField Name="PersonalCallsDuration" />
+                                                <ext:ModelField Name="UnmarkedCallsDuration" />
+                                            </Fields>
+                                        </ext:Model>
+                                    </Model>
+                                </ext:Store>
+                            </Store>
+
+                            <LegendConfig Position="Bottom" />
+
+                            <Axes>
+                                <ext:CategoryAxis
+                                    Position="Left"
+                                    Fields="MonthDate">
+                                    <Label>
+                                        <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
+                                    </Label>
+                                </ext:CategoryAxis>
+
+                                <ext:NumericAxis
+                                    Title="Cost"
+                                    Fields="Personal"
+                                    Position="Bottom"
+                                    Grid="true">
+                                </ext:NumericAxis>
+                            </Axes>
+
+                            <Series>
+                                <ext:BarSeries 
+                                    Axis="Left"
+                                    Gutter="80"
+                                    XField="MonthDate" 
+                                    YField="Business,Personal,Unmarked"
+                                    Stacked="true">
+                                    <Tips runat="server" TrackMouse="true" Width="170" Height="80">
+                                        <Renderer Fn="DepartmentSummary_TipRenderer" />
+                                        <%--<Renderer Handler="this.setTitle('Cost: ' + String(item.value[1].toFixed(2))); console.log(item);" />--%>
+                                    </Tips>
+                                </ext:BarSeries>
+                            </Series>
+                        </ext:Chart>
+                    </Items>
+                </ext:Panel>
+            </div>
+        </div>
+        
     </div>
     <!-- *** END OF ADMIN MAIN BODY *** -->
 </asp:Content>
