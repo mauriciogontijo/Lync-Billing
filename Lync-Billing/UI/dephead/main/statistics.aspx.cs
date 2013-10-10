@@ -77,6 +77,9 @@ namespace Lync_Billing.ui.dephead.main
                     TopDestinationCountriesStore.DataSource = topCountries;
                     TopDestinationCountriesStore.DataBind();
                 }
+
+                DepartmentCallsPerMonthChartPanel.Visible = true;
+                TopDestinationCountriesPanel.Visible = true;
             }
         }
     }

@@ -99,67 +99,146 @@
 
 <asp:Content ID="MainBodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
     <!-- *** START OF ADMIN MAIN BODY *** -->
-    <div id='main-statistics' class='block float-right wauto h100p'>
-        <div class="block-body pt5">
-            <ext:Panel
-                ID="FilterDepartmentStatisticsPanel"
-                runat="server"
-                Header="true"
-                Title="Manage Phone Calls"
-                Width="740"
-                Height="61"
-                Layout="AnchorLayout">
-                <TopBar>
-                    <ext:Toolbar
-                        ID="FilterToolbar1"
-                        runat="server">
-                        <Items>
-                            <ext:ComboBox
-                                ID="FilterDepartments"
-                                runat="server"
-                                Icon="Find"
-                                TriggerAction="Query"
-                                QueryMode="Local"
-                                DisplayField="DepartmentName"
-                                ValueField="DepartmentName"
-                                FieldLabel="Department:"
-                                LabelWidth="60"
-                                Width="250"
-                                Margins="5 15 5 5"
-                                Editable="false">
-                                <Store>
-                                    <ext:Store 
-                                        ID="DepartmentsFilterStore"
-                                        runat="server">
-                                        <Model>
-                                            <ext:Model 
-                                                ID="DepartmentHeadsStoreModel"
-                                                runat="server">
-                                                <Fields>
-                                                    <ext:ModelField Name="DepartmentName" />
-                                                </Fields>
-                                            </ext:Model>
-                                        </Model>
-                                    </ext:Store>
-                                </Store>
-                                <DirectEvents>
-                                    <Select OnEvent="DrawStatisticsForDepartment">
-                                        <EventMask ShowMask="true" />
-                                    </Select>
-                                </DirectEvents>
-                            </ext:ComboBox>
-                        </Items>
-                    </ext:Toolbar>
-                </TopBar>
-            </ext:Panel>
+    <div class="block float-right w80p h100p">
+        <div id='personal-duration-cost-chart' class='block float-right w100p'>
+            <div class="block-body pt5">
+                <ext:Panel
+                    ID="FilterDepartmentStatisticsPanel"
+                    runat="server"
+                    Header="true"
+                    Title="Manage Phone Calls"
+                    Width="740"
+                    Height="61"
+                    Layout="AnchorLayout">
+                    <TopBar>
+                        <ext:Toolbar
+                            ID="FilterToolbar1"
+                            runat="server">
+                            <Items>
+                                <ext:ComboBox
+                                    ID="FilterDepartments"
+                                    runat="server"
+                                    Icon="Find"
+                                    TriggerAction="Query"
+                                    QueryMode="Local"
+                                    DisplayField="DepartmentName"
+                                    ValueField="DepartmentName"
+                                    FieldLabel="Department:"
+                                    LabelWidth="60"
+                                    Width="250"
+                                    Margins="5 15 5 5"
+                                    Editable="false">
+                                    <Store>
+                                        <ext:Store 
+                                            ID="DepartmentsFilterStore"
+                                            runat="server">
+                                            <Model>
+                                                <ext:Model 
+                                                    ID="DepartmentHeadsStoreModel"
+                                                    runat="server">
+                                                    <Fields>
+                                                        <ext:ModelField Name="DepartmentName" />
+                                                    </Fields>
+                                                </ext:Model>
+                                            </Model>
+                                        </ext:Store>
+                                    </Store>
+                                    <DirectEvents>
+                                        <Select OnEvent="DrawStatisticsForDepartment">
+                                            <EventMask ShowMask="true" />
+                                        </Select>
+                                    </DirectEvents>
+                                </ext:ComboBox>
+                            </Items>
+                        </ext:Toolbar>
+                    </TopBar>
+                </ext:Panel>
+            </div>
+        </div>
 
-            <div class="h5 clear"></div>
+        <div class="h5 clear display-none"></div>
 
-            <div id='second-row-charts' class='block float-right w49p hauto'>
+        <div id='business-to-personal-phonecalls-chart' class='block float-right w100p display-none'>
+            <div class="block-body pt5">
+                <ext:Panel ID="DepartmentCallsPerMonthChartPanel" 
+                    runat="server"
+                    Width="740"
+                    Height="400"
+                    Title="Total Phonecalls Distribution For this Department"
+                    Layout="FitLayout"
+                    Visible="false">
+                    <Items>
+                        <ext:Chart 
+                            ID="DepartmentCallsPerMonthChart" 
+                            runat="server"
+                            Shadow="true"
+                            Animate="true">
+                            <Store>
+                                <ext:Store ID="DepartmentCallsPerMonthChartStore" 
+                                    runat="server" 
+                                    AutoDataBind="true">                           
+                                    <Model>
+                                        <ext:Model ID="DepartmentCallsPerMonthChartStoreModel" runat="server">
+                                            <Fields>
+                                                <ext:ModelField Name="MonthDate" />
+                                                <ext:ModelField Name="BusinessCallsCount" />
+                                                <ext:ModelField Name="PersonalCallsCount" />
+                                                <ext:ModelField Name="UnallocatedCallsCount" />
+                                            </Fields>
+                                        </ext:Model>
+                                    </Model>
+                                </ext:Store>
+                            </Store>
+
+                            <LegendConfig Position="Right" />
+
+                            <Axes>
+                                <ext:CategoryAxis
+                                    Position="Bottom"
+                                    Fields="MonthDate"
+                                    Title="Current Year">
+                                    <Label>
+                                        <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
+                                    </Label>
+                                </ext:CategoryAxis>
+
+                                <ext:NumericAxis
+                                    Title="Total Phonecalls"
+                                    Fields="Business,Personal,Unallocated"
+                                    Position="Left"
+                                    Grid="true">
+                                    <%--<Label>
+                                        <Renderer Handler="return String(value).replace(/00$/, 'M');" />
+                                    </Label>--%>
+                                </ext:NumericAxis>
+                            </Axes>
+
+                            <Series>
+                                <ext:BarSeries 
+                                    Axis="Left"
+                                    Gutter="80"
+                                    XField="Month" 
+                                    YField="Business,Personal,Unallocated"
+                                    Stacked="true">
+                                    <%--<Tips TrackMouse="true" Width="28" Height="65">
+                                        <Renderer Handler="this.setTitle(String(item.value[1] / 100) + 'M');" />
+                                    </Tips>--%>
+                                </ext:BarSeries>
+                            </Series>
+                        </ext:Chart>
+                    </Items>
+                </ext:Panel>
+            </div>
+        </div>
+
+        <div class="h5 clear"></div>
+
+        <div id='second-row-charts' class='block float-right w49p hauto'>
+            <div class="block-body pt5">
                 <ext:Panel
                     ID="TopDestinationCountriesPanel"
                     runat="server"
-                    Width="364"
+                    Width="430"
                     Height="320"
                     Header="True"
                     Title="Top Destination Countries"
@@ -171,8 +250,8 @@
                             Animate="true"
                             Shadow="true"
                             InsetPadding="20"
-                            Width="465"
-                            Height="350"
+                            Width="384"
+                            Height="320"
                             Theme="Base:gradients">
                             <LegendConfig Position="Right" />
                             <Store>
@@ -207,6 +286,36 @@
                             </Series>
                         </ext:Chart>
                     </Items>
+                </ext:Panel>
+            </div>
+        </div>
+
+        <div id='Div1' class='block float-right w49p hauto'>
+            <div class="block-body pt5">
+                <ext:Panel
+                    ID="DepartmentMailStatistics" 
+                    runat="server"
+                    Header="true"
+                    Title="Department Mail Statistics"
+                    PaddingSummary="10px 10px 10px 10px"
+                    Width="300"
+                    Height="320"
+                    ButtonAlign="Center">
+                    <Defaults>
+                        <ext:Parameter Name="bodyPadding" Value="10" Mode="Raw" />
+                    </Defaults>
+
+                    <Content>
+                        <div class="p10 font-14">
+                            <p class="mb5"><span class="bold red-color">[TEST SAMPLE DATA]</span></p>
+                            <div class="clear h15"></div>
+                            <p class="mb5">Number of Received Mails: <span class="bold red-color"><%= 123 %></span></p>
+                            <p class="mb5">Size of Received Mails: <span class="bold red-color"><%= 123 %> (in MB)</span></p>
+                            <div class="clear h15"></div>
+                            <p class="mb5">Number of Sent Mails: <span class="bold blue-color"><%= 123 %></span></p>
+                            <p class="mb5">Size of Sent Mails: <span class="bold blue-color"><%= 123 %> (in MB)</span></p>
+                        </div>
+                    </Content>
                 </ext:Panel>
             </div>
         </div>
