@@ -100,7 +100,7 @@ function getCssColorForPhoneCallRow(value, meta, record, rowIndex, colIndex, sto
             meta.style = "color: rgb(46, 143, 42);";
         }
         else if (record.data.UI_CallType == 'Unallocated') {
-            meta.style = "color: rgb(0, 191, 255);";
+            meta.style = "color: rgb(31, 115, 164);";
         }
         else if (record.data.UI_CallType == 'Disputed') {
             meta.style = "color: rgb(31, 115, 164);";

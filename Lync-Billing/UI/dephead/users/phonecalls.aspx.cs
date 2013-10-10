@@ -129,7 +129,8 @@ namespace Lync_Billing.ui.dephead.users
             {
                 if(FilterUsersByDepartment.SelectedItem != null && !string.IsNullOrEmpty(FilterUsersByDepartment.SelectedItem.Value))
                 {
-                    List<PhoneCall> phoneCalls = GetUserPhoneCalls(FilterUsersByDepartment.SelectedItem.Value);
+                    string userSipAccount = FilterUsersByDepartment.SelectedItem.Value;
+                    List<PhoneCall> phoneCalls = GetUserPhoneCalls(userSipAccount);
 
                     ViewPhoneCallsGrid.GetStore().DataSource = phoneCalls;
                     ViewPhoneCallsGrid.GetStore().DataBind();
