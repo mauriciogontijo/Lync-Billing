@@ -160,7 +160,7 @@ namespace Lync_Billing.ui.dephead.users
                                   SourceUserUri = e.SourceUserUri,
                                   SessionIdTime = e.SessionIdTime,
                                   Marker_CallToCountry = e.Marker_CallToCountry,
-                                  DestinationNumberUri = "********************",
+                                  DestinationNumberUri = "***************",
                                   Duration = e.Duration,
                                   Marker_CallCost = e.Marker_CallCost,
                                   UI_CallType = e.UI_CallType
