@@ -36,23 +36,51 @@ namespace Lync_Billing.ui.dephead.main
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
-            BindDepartmentsForThisUser();
-        }
 
-        private void BindDepartmentsForThisUser()
-        {
-            UserDepartments = DepartmentHead.GetDepartmentsForHead(sipAccount);
-
-            if (UserDepartments.Count == 1)
+            /***
+             * Thie following solves the issue of infinitely looping like: Page_Load--->BindDepartmentsForThisUser--->DrawStatisticsForDepartment
+             * This would happen due to a chain-reaction of triggering two DirectEvents from the aspx page
+             * The chain consist of two DirectEvents: OnDepartmentSelect X---FIRE---> DrawStatisticsForDepartment which fires Page_Load and then it goes again for ever.
+             * */
+            if (!Ext.Net.X.IsAjaxRequest)
             {
-                FilterDepartments.SetValueAndFireSelect(UserDepartments.First().DepartmentName);
-                FilterDepartments.ReadOnly = true;
+                BindDepartmentsForThisUser(true);
             }
             else
             {
-                FilterDepartments.ReadOnly = false;
+                BindDepartmentsForThisUser(false);
+            }
+        }
+
+        private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
+        {
+            UserDepartments = DepartmentHead.GetDepartmentsForHead(sipAccount);
+
+            //By default the filter combobox is not read only
+            FilterDepartments.ReadOnly = false;
+
+            if (UserDepartments.Count > 0)
+            {
+                //Handle the FireSelect event
+                if (alwaysFireSelect == true)
+                {
+                    FilterDepartments.SetValueAndFireSelect(UserDepartments.First().DepartmentName);
+                    
+                    //Handle the ReadOnly Property
+                    if (UserDepartments.Count == 1)
+                    {
+                        FilterDepartments.ReadOnly = true;
+                    }
+                }
+
+                //Bind all the Data and return to the view
                 FilterDepartments.GetStore().DataSource = UserDepartments;
                 FilterDepartments.GetStore().DataBind();
+            }
+            //in case there are no longer any departments for this user to monitor.
+            else
+            {
+                FilterDepartments.Disabled = true;
             }
         }
 
@@ -77,9 +105,6 @@ namespace Lync_Billing.ui.dephead.main
                     TopDestinationCountriesStore.DataSource = topCountries;
                     TopDestinationCountriesStore.DataBind();
                 }
-
-                DepartmentCallsPerMonthChartPanel.Visible = true;
-                TopDestinationCountriesPanel.Visible = true;
             }
         }
     }
