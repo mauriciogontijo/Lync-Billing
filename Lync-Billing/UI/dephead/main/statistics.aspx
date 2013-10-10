@@ -19,7 +19,12 @@
             });
 
             if (all_countries_data[storeItem] != undefined) {
-                return ((all_countries_data[storeItem] * 1.0 / total).toFixed(4) * 100.0).toFixed(2) + '%';
+                var percentage = ((all_countries_data[storeItem] * 1.0 / total).toFixed(4) * 100.0).toFixed(2);
+                if (percentage < 3.3) {
+                    return '';
+                } else {
+                    return percentage + '%'
+                }
             }
         };
 
@@ -106,7 +111,7 @@
                     ID="FilterDepartmentStatisticsPanel"
                     runat="server"
                     Header="true"
-                    Title="Manage Phone Calls"
+                    Title="Department Statistics"
                     Width="740"
                     Height="61"
                     Layout="AnchorLayout">
@@ -125,7 +130,7 @@
                                     ValueField="DepartmentName"
                                     FieldLabel="Department:"
                                     LabelWidth="60"
-                                    Width="250"
+                                    Width="300"
                                     Margins="5 15 5 5"
                                     Editable="false">
                                     <Store>
@@ -138,11 +143,24 @@
                                                     runat="server">
                                                     <Fields>
                                                         <ext:ModelField Name="DepartmentName" />
+                                                        <ext:ModelField Name="SiteName" />
+                                                        <ext:ModelField Name="SiteID" />
                                                     </Fields>
                                                 </ext:Model>
                                             </Model>
                                         </ext:Store>
                                     </Store>
+
+                                    <ListConfig
+                                        Border="true"
+                                        EmptyText="Please select a department...">
+                                        <ItemTpl ID="ItemTpl2" runat="server">
+                                            <Html>
+                                                <div>{DepartmentName}&nbsp;({SiteName})</div>
+                                            </Html>
+                                        </ItemTpl>
+                                    </ListConfig>
+
                                     <DirectEvents>
                                         <Select OnEvent="DrawStatisticsForDepartment">
                                             <EventMask ShowMask="true" />
@@ -238,10 +256,10 @@
                 <ext:Panel
                     ID="TopDestinationCountriesPanel"
                     runat="server"
-                    Width="440"
-                    Height="320"
+                    Width="470"
+                    Height="350"
                     Header="True"
-                    Title="Top Destination Countries"
+                    Title="Top Destinations By Cost"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
@@ -250,10 +268,12 @@
                             Animate="true"
                             Shadow="true"
                             InsetPadding="20"
-                            Width="384"
-                            Height="320"
+                            Width="470"
+                            Height="350"
                             Theme="Base:gradients">
+                            
                             <LegendConfig Position="Right" />
+                            
                             <Store>
                                 <ext:Store ID="TopDestinationCountriesStore"
                                     runat="server">
@@ -296,10 +316,10 @@
                     ID="DepartmentMailStatistics" 
                     runat="server"
                     Header="true"
-                    Title="Department Mail Statistics"
+                    Title="Mail Statistics"
                     PaddingSummary="10px 10px 10px 10px"
-                    Width="290"
-                    Height="320"
+                    Width="260"
+                    Height="350"
                     ButtonAlign="Center">
                     <Defaults>
                         <ext:Parameter Name="bodyPadding" Value="10" Mode="Raw" />

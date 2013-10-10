@@ -66,7 +66,7 @@
                                 ID="FilterDepartments"
                                 runat="server"
                                 Icon="Find"
-                                TriggerAction="Query"
+                                TriggerAction="All"
                                 QueryMode="Local"
                                 DisplayField="DepartmentName"
                                 ValueField="DepartmentName"

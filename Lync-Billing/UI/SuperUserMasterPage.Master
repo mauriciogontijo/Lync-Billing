@@ -236,16 +236,16 @@
                                 runat="server"
                                 Height="160"
                                 Width="180"
-                                Title="Admin Tools"
+                                Title="Department Head Tools"
                                 Collapsed="false"
                                 Collapsible="true">
                                 <Content>
                                     <div class='sidebar-section'>
                                         <div class="sidebar-section-header">
-                                            <p>Phonecalls</p>
+                                            <p>Overview</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../main/statistics.aspx' id="ui_dephead_main_statistics">Department Statistics</a></p>
+                                            <p><a href='../main/statistics.aspx' id="ui_dephead_main_statistics">Statistics</a></p>
                                             <p><a href='../users/phonecalls.aspx' id="ui_dephead_users_phonecalls">Users Phonecalls</a></p>
                                         </div>
                                     </div>
