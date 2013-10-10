@@ -622,40 +622,6 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
-        public DataTable GET_MAIL_STATISTICS(string departmentName, string siteName, DateTime date)
-        {
-            DataTable dt = new DataTable();
-            OleDbDataReader dr;
-            string selectQuery = string.Empty;
-            DateTime startOfThisMonth = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
-            DateTime endOfThisMonth = startOfThisMonth.AddMonths(1).AddDays(-1);
-
-            selectQuery = string.Format(
-                "SELECT SUM([RecievedCount]) as 'RecievedCount', SUM([RecievedSize]) as 'RecievedSize', SUM([SentCount]) as 'SentCount', SUM([SentSize]) as 'SentSize'  " +
-                "FROM [dbo].[MailStatistics] WHERE [TimeStamp] between '{0}' and '{1}'  " +
-                "and [EmailAddress] IN (SELECT [ActiveDirectoryUsers].[SipAccount] FROM [dbo].[ActiveDirectoryUsers] WHERE [AD_Department] = '{2}' AND [AD_PhysicalDeliveryOfficeName] = '{3}')",
-                startOfThisMonth, endOfThisMonth, departmentName, siteName
-            );
-
-            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
-            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
-
-            try
-            {
-                conn.Open();
-                dr = comm.ExecuteReader();
-                dt.Load(dr);
-            }
-            catch (Exception ex)
-            {
-                System.ArgumentException argex = new System.ArgumentException("exception", "ex", ex);
-                throw argex;
-            }
-            finally { conn.Close(); }
-
-            return dt;
-        }
-
         private static void ConvertDateToYearMonth(DateTime date,out int year, out int month) 
          {
              year = date.Year;
