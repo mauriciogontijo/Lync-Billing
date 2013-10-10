@@ -16,11 +16,12 @@
                 Title="Announcements"
                 PaddingSummary="5px 5px 0"
                 Width="740"
-                Height="120"
+                Height="150"
                 ButtonAlign="Center">
                 <Content>
                     <div class="p10 font-12">
-                        <p>This is the Department Head dashboard, you'll find the tools you need in the left sidebar, categorized already into sections based on similarity.</p>
+                        <p class="mb5">This is the Department Head dashboard.</p>
+                        <p class="mb5">You will find the tools you need in the left sidebar, categorized into sections based on similarity.</p>
                     </div>
                 </Content>
             </ext:Panel>

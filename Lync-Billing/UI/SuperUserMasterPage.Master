@@ -234,7 +234,7 @@
                         <div class="block-body">
                             <ext:Panel ID="Panel2"
                                 runat="server"
-                                Height="160"
+                                Height="150"
                                 Width="180"
                                 Title="Department Head Tools"
                                 Collapsed="false"
