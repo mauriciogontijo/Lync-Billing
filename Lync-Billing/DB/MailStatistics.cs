@@ -39,6 +39,26 @@ namespace Lync_Billing.DB
             return userMailStats;
         }
 
+        public static MailStatistics GetMailStatistics(string departmentName, string siteName, DateTime date)
+        {
+            DataTable dt = new DataTable();
+            //DateTime previousMonth = DateTime.Now.AddMonths(-1).AddDays(-(DateTime.Today.Day - 1));
+            MailStatistics departmentTotalMailStats = new MailStatistics();
+
+            Statistics statsLib = new Statistics();
+            dt = statsLib.GET_MAIL_STATISTICS(departmentName, siteName, date);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                departmentTotalMailStats.ReceivedCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["RecievedCount"]]));
+                departmentTotalMailStats.ReceivedSize = (Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["RecievedSize"]])) / 1024) / 1024; //convert Bytes to MB
+                departmentTotalMailStats.SentCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["SentCount"]]));
+                departmentTotalMailStats.SentSize = (Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["SentSize"]])) / 1024) / 1024; //convert Bytes to MB
+            }
+
+            return departmentTotalMailStats;
+        }
+
         private static object ReturnZeroIfNull(object value)
         {
             if (value == System.DBNull.Value)

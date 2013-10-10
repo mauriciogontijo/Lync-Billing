@@ -91,6 +91,7 @@ namespace Lync_Billing.ui.dephead.main
             int siteID;
 
             List<TopCountries> topCountries;
+            MailStatistics departmentMailStatistics;
 
             if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
             {
@@ -104,6 +105,8 @@ namespace Lync_Billing.ui.dephead.main
 
                     TopDestinationCountriesStore.DataSource = topCountries;
                     TopDestinationCountriesStore.DataBind();
+
+                    departmentMailStatistics = MailStatistics.GetMailStatistics(departmentName, site.SiteName, DateTime.Now);
                 }
             }
         }
