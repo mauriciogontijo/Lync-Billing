@@ -128,7 +128,7 @@
     <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
         <div id='top-destination-countries' class='block wauto'>
             <div class='content wauto float-left mb10'>
-                    <ext:Panel
+                <ext:Panel
                     ID="TopDestinationCountriesPanel"
                     runat="server"
                     Width="465"
