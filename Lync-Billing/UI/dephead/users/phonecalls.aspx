@@ -6,9 +6,6 @@
     <style>
         /* start manage-phone-calls grid styling */
         .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
-        .row-green { background-color: rgb(46, 143, 42); }
-        .row-red { background-color: rgb(201, 20, 20); }
-        .row-yellow { background-color: yellow; }
         /* end manage-phone-calls grid styling */
 
         /* start users search query result styling */
@@ -254,7 +251,7 @@
                             Text="Type"
                             Width="80"
                             DataIndex="UI_CallType">
-                            <Renderer Fn="getRowClassForIsPersonal" />
+                            <Renderer Fn="getCssColorForPhoneCallRow" />
                         </ext:Column>
                     </Columns>
                 </ColumnModel>

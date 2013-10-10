@@ -128,7 +128,7 @@
                             Width="80"
                             DataIndex="UI_CallType" 
                             Groupable="false">
-                            <Renderer Fn="getRowClassForIsPersonal" />
+                            <Renderer Fn="getCssColorForPhoneCallRow" />
                         </ext:Column>
 
                         <ext:Column ID="UI_MarkedOn"

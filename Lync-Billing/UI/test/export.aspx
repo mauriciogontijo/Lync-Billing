@@ -191,7 +191,7 @@
                             Text="Type"
                             Width="80"
                             DataIndex="UI_CallType">
-                            <Renderer Fn="getRowClassForIsPersonal" />
+                            <Renderer Fn="getCssColorForPhoneCallRow" />
                         </ext:Column>
 
                         <ext:Column

@@ -29,7 +29,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 var referrer = $("#ThisPageReferrer").val();
-                if (referrer.search("ui_admin") != -1 || referrer.search("ui_accounting") != -1 || referrer.search("ui_sysadmin") != -1 || referrer.search("ui_dephead")) {
+                if (referrer.search("ui_admin") != -1 || referrer.search("ui_accounting") != -1 || referrer.search("ui_sysadmin") != -1 || referrer.search("ui_dephead") != -1) {
                     var starting_index = referrer.search("ui");
                     var button_id = referrer.substr(starting_index, referrer.length);
                     $("#" + button_id).addClass("selected");

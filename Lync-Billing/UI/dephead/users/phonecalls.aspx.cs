@@ -164,7 +164,7 @@ namespace Lync_Billing.ui.dephead.users
                                   DestinationNumberUri = "***************",
                                   Duration = e.Duration,
                                   Marker_CallCost = e.Marker_CallCost,
-                                  UI_CallType = e.UI_CallType
+                                  UI_CallType = e.UI_CallType ?? "Unallocated"
                               }).ToList();
 
             return businessCalls.Concat(otherCalls).ToList<PhoneCall>();
