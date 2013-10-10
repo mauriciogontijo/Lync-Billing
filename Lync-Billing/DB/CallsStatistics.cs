@@ -285,7 +285,7 @@ namespace Lync_Billing.DB
         public decimal TotalDuration { private set; get; }
         public decimal TotalCost { private set; get; }
 
-        public static List<TopCountries> GetTopDestinations(string sipAccount)
+        public static List<TopCountries> GetTopDestinationsForUser(string sipAccount)
         {
             DBLib DBRoutines = new DBLib();
             DataTable dt = new DataTable();
@@ -325,7 +325,51 @@ namespace Lync_Billing.DB
 
             return topCountries;
         }
+
+        public static List<TopCountries> GetTopDestinationsForDepartment(string departmentName, string siteName)
+        {
+            DBLib DBRoutines = new DBLib();
+            DataTable dt = new DataTable();
+
+            List<TopCountries> topCountries = new List<TopCountries>();
+
+            List<object> parameters = new List<object>();
+            parameters.Add(departmentName);
+            parameters.Add(siteName);
+
+            TopCountries topCountry;
+            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetTop5DestinationCountriesByCostPerDepartment", parameters, null);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                topCountry = new TopCountries();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == "Country_Name")
+                        topCountry.CountryName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == "TotalDuration")
+                        topCountry.TotalDuration = (decimal)row[column.ColumnName];
+
+                    if (column.ColumnName == "TotalCost")
+                    {
+                        if (row[column.ColumnName] != System.DBNull.Value)
+                            topCountry.TotalCost = (decimal)row[column.ColumnName];
+                        else
+                            topCountry.TotalCost = 0;
+                    }
+                }
+                topCountries.Add(topCountry);
+            }
+
+            return topCountries;
+        }
+
+
     }
+
+
 
     public class TopDestinations 
     {
