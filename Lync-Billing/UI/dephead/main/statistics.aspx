@@ -119,7 +119,7 @@
                                     ID="FilterDepartments"
                                     runat="server"
                                     Icon="Find"
-                                    TriggerAction="Query"
+                                    TriggerAction="All"
                                     QueryMode="Local"
                                     DisplayField="DepartmentName"
                                     ValueField="DepartmentName"
@@ -233,12 +233,12 @@
 
         <div class="h5 clear"></div>
 
-        <div id='second-row-charts' class='block float-right w49p hauto'>
+        <div id='top-5-destinations-by-cost-chart' class='block float-right w49p hauto'>
             <div class="block-body pt5">
                 <ext:Panel
                     ID="TopDestinationCountriesPanel"
                     runat="server"
-                    Width="430"
+                    Width="440"
                     Height="320"
                     Header="True"
                     Title="Top Destination Countries"
@@ -290,7 +290,7 @@
             </div>
         </div>
 
-        <div id='Div1' class='block float-right w49p hauto'>
+        <div id='department-mails-statistics-textblock' class='block float-right w49p hauto'>
             <div class="block-body pt5">
                 <ext:Panel
                     ID="DepartmentMailStatistics" 
@@ -298,24 +298,16 @@
                     Header="true"
                     Title="Department Mail Statistics"
                     PaddingSummary="10px 10px 10px 10px"
-                    Width="300"
+                    Width="290"
                     Height="320"
                     ButtonAlign="Center">
                     <Defaults>
                         <ext:Parameter Name="bodyPadding" Value="10" Mode="Raw" />
                     </Defaults>
+                    
+                    <Items>
 
-                    <Content>
-                        <div class="p10 font-14">
-                            <p class="mb5"><span class="bold red-color">[TEST SAMPLE DATA]</span></p>
-                            <div class="clear h15"></div>
-                            <p class="mb5">Number of Received Mails: <span class="bold red-color"><%= 123 %></span></p>
-                            <p class="mb5">Size of Received Mails: <span class="bold red-color"><%= 123 %> (in MB)</span></p>
-                            <div class="clear h15"></div>
-                            <p class="mb5">Number of Sent Mails: <span class="bold blue-color"><%= 123 %></span></p>
-                            <p class="mb5">Size of Sent Mails: <span class="bold blue-color"><%= 123 %> (in MB)</span></p>
-                        </div>
-                    </Content>
+                    </Items>
                 </ext:Panel>
             </div>
         </div>

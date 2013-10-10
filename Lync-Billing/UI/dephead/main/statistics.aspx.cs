@@ -91,10 +91,11 @@ namespace Lync_Billing.ui.dephead.main
             int siteID;
 
             List<TopCountries> topCountries;
-            MailStatistics departmentMailStatistics;
 
             if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
             {
+                MailStatistics departmentMailStatisticsData;
+
                 departmentName = FilterDepartments.SelectedItem.Value.ToString();
                 siteID = Convert.ToInt32((from dep in UserDepartments where dep.DepartmentName == departmentName select dep.SiteID).First());
                 site = DB.Site.getSite(siteID);
@@ -106,7 +107,33 @@ namespace Lync_Billing.ui.dephead.main
                     TopDestinationCountriesStore.DataSource = topCountries;
                     TopDestinationCountriesStore.DataBind();
 
-                    departmentMailStatistics = MailStatistics.GetMailStatistics(departmentName, site.SiteName, DateTime.Now);
+                    //Write the Department Mail Statistics to the publicly-available varialbe: departmentMailStatisticsData
+                    departmentMailStatisticsData = MailStatistics.GetMailStatistics(departmentName, site.SiteName, DateTime.Now);
+
+                    Ext.Net.Panel htmlContainer = new Ext.Net.Panel
+                    {
+                        Header = false,
+                        Border = false,
+                        BodyPadding = 5,
+                        Html = string.Format(
+                            "<div class='p10 pt15 font-14'>" +
+                            "<h2 class='mb10'>Received Emails:</h2>" + 
+                            "<p class='mb5'>Total number: <span class='bold red-color'>{0}</span></p>" + 
+                            "<p class='mb5'>Total emails size: <span class='bold red-color'>{1} (in MB)</span></p>" +
+                            "<div class='clear h25'></div>" +
+                            "<h2 class='mb10'>Sent Emails:</h2>" + 
+                            "<p class='mb5'>Total number: <span class='bold blue-color'>{2}</span></p>" + 
+                            "<p class='mb5'>Total emails size: <span class='bold blue-color'>{3} (in MB)</span></p>" + 
+                            "</div>",
+                            departmentMailStatisticsData.ReceivedCount, 
+                            departmentMailStatisticsData.ReceivedSize, 
+                            departmentMailStatisticsData.SentCount, 
+                            departmentMailStatisticsData.SentSize
+                        )
+                    };
+
+                    //DepartmentMailStatistics.Body = "";
+                    htmlContainer.AddTo(this.DepartmentMailStatistics);
                 }
             }
         }
