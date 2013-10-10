@@ -90,6 +90,7 @@ namespace Lync_Billing.ui.dephead.users
 
         protected void GetUsersPerDepartment(object sender, DirectEventArgs e)
         {
+            //Clear the list of user
             FilterUsersByDepartment.Clear();
             FilterUsersByDepartment.ReadOnly = false;
 
