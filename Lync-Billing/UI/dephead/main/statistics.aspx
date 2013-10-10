@@ -125,7 +125,8 @@
                                 FieldLabel="Department:"
                                 LabelWidth="60"
                                 Width="250"
-                                Margins="5 15 5 5">
+                                Margins="5 15 5 5"
+                                Editable="false">
                                 <Store>
                                     <ext:Store 
                                         ID="DepartmentsFilterStore"
@@ -141,11 +142,11 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
-                                <%--<DirectEvents>
-                                    <Change OnEvent="GetUsersPerDepartment">
+                                <DirectEvents>
+                                    <Select OnEvent="DrawStatisticsForDepartment">
                                         <EventMask ShowMask="true" />
-                                    </Change>
-                                </DirectEvents>--%>
+                                    </Select>
+                                </DirectEvents>
                             </ext:ComboBox>
                         </Items>
                     </ext:Toolbar>
@@ -176,7 +177,6 @@
                             <LegendConfig Position="Right" />
                             <Store>
                                 <ext:Store ID="TopDestinationCountriesStore"
-                                    OnLoad="TopDestinationCountriesStore_Load"
                                     runat="server">
                                     <Model>
                                         <ext:Model ID="TopDestinationCountriesModel" runat="server">
@@ -189,6 +189,7 @@
                                     </Model>
                                 </ext:Store>
                             </Store>
+
                             <Series>
                                 <ext:PieSeries
                                     AngleField="TotalDuration"

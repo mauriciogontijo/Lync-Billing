@@ -14,6 +14,7 @@ namespace Lync_Billing.DB
         private int ID { get; set; }
         public string SipAccount { get; set; }
         public string Department { get; set; }
+        public int SiteID { get; set; }
 
         public static List<DepartmentHead> GetDepartmentHeads(string departmentName)
         {
@@ -37,6 +38,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeads.Department))
                         head.Department = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeads.SiteID))
+                        head.SiteID = Convert.ToInt32(row[column.ColumnName]);
                 }
                 
                 departmentHeads.Add(head);
@@ -53,6 +57,7 @@ namespace Lync_Billing.DB
             
             List<string> columns = new List<string>();
             columns.Add(Enums.GetDescription(Enums.DepartmentHeads.Department));
+            columns.Add(Enums.GetDescription(Enums.DepartmentHeads.SiteID));
 
             Dictionary<string, object> whereClause = new Dictionary<string, object> 
             { 
@@ -65,11 +70,9 @@ namespace Lync_Billing.DB
             {
                 department = new Department();
 
-                if (row[Enums.GetDescription(Enums.DepartmentHeads.Department)] != System.DBNull.Value)
-                {
-                    department.DepartmentName = (row[Enums.GetDescription(Enums.DepartmentHeads.Department)]).ToString();
-                    departmentsList.Add(department);
-                }
+                department.DepartmentName = (row[Enums.GetDescription(Enums.DepartmentHeads.Department)]).ToString();
+                department.SiteID = Convert.ToInt32(row[Enums.GetDescription(Enums.DepartmentHeads.SiteID)]);
+                departmentsList.Add(department);
             }
 
             return departmentsList;
@@ -80,5 +83,6 @@ namespace Lync_Billing.DB
     public class Department
     {
         public string DepartmentName { get; set; }
+        public int SiteID { get; set; }
     }
 }

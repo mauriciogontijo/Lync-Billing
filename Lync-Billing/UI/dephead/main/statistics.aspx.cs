@@ -1,4 +1,5 @@
-﻿using Lync_Billing.DB;
+﻿using Ext.Net;
+using Lync_Billing.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,9 @@ namespace Lync_Billing.ui.dephead.main
 {
     public partial class statistics : System.Web.UI.Page
     {
-        private Dictionary<string, object> wherePart;
-        private List<string> columns;
         private string sipAccount = string.Empty;
         private UserSession session;
-        private List<Department> departments;
-        public List<TopCountries> topCountries;
+        private List<Department> UserDepartments;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,46 +41,43 @@ namespace Lync_Billing.ui.dephead.main
 
         private void BindDepartmentsForThisUser()
         {
-            departments = DepartmentHead.GetDepartmentsForHead(sipAccount);
+            UserDepartments = DepartmentHead.GetDepartmentsForHead(sipAccount);
 
-            if (departments.Count == 1)
+            if (UserDepartments.Count == 1)
             {
-                FilterDepartments.SetValueAndFireSelect(departments.First().DepartmentName);
+                FilterDepartments.SetValueAndFireSelect(UserDepartments.First().DepartmentName);
                 FilterDepartments.ReadOnly = true;
             }
             else
             {
                 FilterDepartments.ReadOnly = false;
-                FilterDepartments.GetStore().DataSource = departments;
+                FilterDepartments.GetStore().DataSource = UserDepartments;
                 FilterDepartments.GetStore().DataBind();
             }
         }
 
-        protected void TopDestinationCountriesStore_Load(object sender, EventArgs e)
+        protected void DrawStatisticsForDepartment(object sender, DirectEventArgs e)
         {
             string departmentName = string.Empty;
-            string siteName = string.Empty;
+            DB.Site site;
+            int siteID;
 
-            siteName = "MOA";
-            departmentName = "ISD";
-            
-            topCountries = TopCountries.GetTopDestinationsForDepartment(departmentName, siteName);
+            List<TopCountries> topCountries;
 
-            TopDestinationCountriesStore.DataSource = topCountries;
-            TopDestinationCountriesStore.DataBind();
+            if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
+            {
+                departmentName = FilterDepartments.SelectedItem.Value.ToString();
+                siteID = Convert.ToInt32((from dep in UserDepartments where dep.DepartmentName == departmentName select dep.SiteID).First());
+                site = DB.Site.getSite(siteID);
 
-            //if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
-            //{
-            //    department = FilterDepartments.SelectedItem.Value;
+                if (site != null && !string.IsNullOrEmpty(site.SiteName))
+                {
+                    topCountries = TopCountries.GetTopDestinationsForDepartment(departmentName, site.SiteName);
 
-            //    if (topCountries == null || topCountries.Count == 0)
-            //    {
-            //        topCountries = TopCountries.GetTopDestinationsForDepartment(department);
-            //    }
-
-            //    TopDestinationCountriesStore.DataSource = topCountries;
-            //    TopDestinationCountriesStore.DataBind();
-            //}
+                    TopDestinationCountriesStore.DataSource = topCountries;
+                    TopDestinationCountriesStore.DataBind();
+                }
+            }
         }
     }
 }

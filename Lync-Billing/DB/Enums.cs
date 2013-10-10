@@ -431,7 +431,9 @@ namespace Lync_Billing.DB
             [Description("SipAccount")]
             SipAccount,
             [Description("Department")]
-            Department
+            Department,
+            [Description("SiteID")]
+            SiteID
         }
 
         /// <summary>
