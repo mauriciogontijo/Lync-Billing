@@ -267,7 +267,7 @@
                             ID="SipAccountCol"
                             runat="server"
                             Text="Sip Account"
-                            Width="175"
+                            Width="160"
                             DataIndex="SipAccount"
                             Sortable="true">
                             <HeaderItems>
@@ -286,7 +286,7 @@
                             ID="FullNameCol"
                             runat="server"
                             Text="Full Name"
-                            Width="200"
+                            Width="190"
                             DataIndex="FullName"
                             Sortable="true">
                             <HeaderItems>
