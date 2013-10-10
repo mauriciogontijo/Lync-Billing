@@ -11,6 +11,7 @@
 	    //Pie Chart Data-Lable Renderer for Personal Calls
 	    var TotalDuration_LableRenderer = function (storeItem, item) {
 	        var total = 0,
+                percentage = 0,
                 business_duration = 0,
                 personal_duration = 0,
                 unmarked_duration = 0,
@@ -36,20 +37,20 @@
 	        });
 
 	        if (storeItem == "Business") {
-	            return ((business_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
-	            //return business_duration
+	            percentage = ((business_duration / total).toFixed(4) * 100.0).toFixed(2);
+	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Personal") {
-	            return ((personal_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
-	            //return personal_duration;
+	            percentage = ((personal_duration / total).toFixed(4) * 100.0).toFixed(2);
+	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Unmarked") {
-	            return ((unmarked_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
-	            //return unmarked_duration;
+	            percentage = ((unmarked_duration / total).toFixed(4) * 100.0).toFixed(2);
+	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Disputed") {
-	            return ((dispute_duration / total).toFixed(4) * 100.0).toFixed(2) + '%';
-	            //return unmarked_duration;
+	            percentage = ((dispute_duration / total).toFixed(4) * 100.0).toFixed(2);
+	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	    };
 
@@ -77,6 +78,7 @@
 	    //Pie Chart Data-Lable Renderer for Personal Calls
 	    var TotalCost_LableRenderer = function (storeItem, item) {
 	        var total = 0,
+                percentage = 0,
                 business_cost = 0,
                 personal_cost = 0,
                 unmarked_cost = 0,
@@ -102,16 +104,20 @@
 	        });
 
 	        if (storeItem == "Business") {
-	            return ((business_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
+	            percentage = ((business_cost / total).toFixed(4) * 100.0).toFixed(2);
+	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Personal") {
-	            return ((personal_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
+	            percentage = ((personal_cost / total).toFixed(4) * 100.0).toFixed(2);
+	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Unmarked") {
-	            return ((unmarked_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
+	            percentage = ((unmarked_cost / total).toFixed(4) * 100.0).toFixed(2);
+	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Disputed") {
-	            return ((dispute_cost / total).toFixed(4) * 100.0).toFixed(2) + '%';
+	            percentage = ((dispute_cost / total).toFixed(4) * 100.0).toFixed(2);
+	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	    };
 
