@@ -84,15 +84,28 @@
                                                 runat="server">
                                                 <Fields>
                                                     <ext:ModelField Name="DepartmentName" />
+                                                    <ext:ModelField Name="SiteName" />
+                                                    <ext:ModelField Name="SiteID" />
                                                 </Fields>
                                             </ext:Model>
                                         </Model>
                                     </ext:Store>
                                 </Store>
+
+                                <ListConfig
+                                    Border="true"
+                                    EmptyText="Please select a department...">
+                                    <ItemTpl ID="ItemTpl2" runat="server">
+                                        <Html>
+                                            <div>{DepartmentName}&nbsp;({SiteName})</div>
+                                        </Html>
+                                    </ItemTpl>
+                                </ListConfig>
+
                                 <DirectEvents>
-                                    <Change OnEvent="GetUsersPerDepartment">
+                                    <Select OnEvent="GetUsersPerDepartment">
                                         <EventMask ShowMask="true" />
-                                    </Change>
+                                    </Select>
                                 </DirectEvents>
                             </ext:ComboBox>
 
@@ -106,7 +119,7 @@
                                 ValueField="SipAccount"
                                 FieldLabel="User:"
                                 LabelWidth="30"
-                                Width="450"
+                                Width="300"
                                 Disabled="true">
                                 <Store>
                                     <ext:Store 
@@ -127,7 +140,13 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
-                                <ListConfig  LoadingText="Searching...">
+                                <ListConfig
+                                    LoadingText="Searching..."
+                                    MinWidth="430"
+                                    MaxWidth="450"
+                                    Border="true"
+                                    EmptyText="Please select user..."
+                                    Frame="true">
                                     <ItemTpl ID="ItemTpl1" runat="server">
                                         <Html>
                                             <div class="search-item">
@@ -153,7 +172,7 @@
                 ID="ViewPhoneCallsGrid"
                 runat="server"
                 Width="740"
-                Height="720"
+                Height="680"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="TableLayout">
@@ -246,7 +265,7 @@
                     </Columns>
                 </ColumnModel>
 
-                <TopBar>
+                <%--<TopBar>
                     <ext:Toolbar
                         ID="Toolbar1"
                         runat="server">
@@ -280,7 +299,7 @@
                             </ext:ComboBox>
                         </Items>
                     </ext:Toolbar>
-                </TopBar>
+                </TopBar>--%>
 
                 <BottomBar>
                     <ext:PagingToolbar
