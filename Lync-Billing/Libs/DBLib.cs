@@ -220,7 +220,7 @@ namespace Lync_Billing.Libs
                 {
                     Type valueType = obj.GetType();
 
-                    if (valueType == typeof(string))
+                    if (valueType == typeof(string) || valueType == typeof(DateTime))
                         Parameters.Append("'" + obj.ToString() + "',");
                     else
                         Parameters.Append(obj + ",");
