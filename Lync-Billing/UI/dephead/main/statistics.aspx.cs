@@ -132,7 +132,7 @@ namespace Lync_Billing.ui.dephead.main
                         )
                     };
 
-                    //DepartmentMailStatistics.Body = "";
+                    DepartmentMailStatistics.RemoveAll();
                     htmlContainer.AddTo(this.DepartmentMailStatistics);
                 }
             }
