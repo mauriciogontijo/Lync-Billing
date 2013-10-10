@@ -245,7 +245,7 @@
                                             <p>Overview</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../main/statistics.aspx' id="ui_dephead_main_statistics">Statistics</a></p>
+                                            <p><a href='../main/dashboard.aspx' id="ui_dephead_main_dashboard">Dashboard</a></p>
                                             <p><a href='../users/phonecalls.aspx' id="ui_dephead_users_phonecalls">Users Phonecalls</a></p>
                                         </div>
                                     </div>
