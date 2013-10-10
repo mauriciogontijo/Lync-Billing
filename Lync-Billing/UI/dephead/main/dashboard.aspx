@@ -216,7 +216,7 @@
                 <ext:Panel
                     ID="TopDestinationCountriesPanel"
                     runat="server"
-                    Width="470"
+                    Width="510"
                     Height="300"
                     Header="True"
                     Title="Top Destinations By Cost"
@@ -278,7 +278,7 @@
                     Header="true"
                     Title="Mail Statistics"
                     PaddingSummary="10px 10px 10px 10px"
-                    Width="260"
+                    Width="220"
                     Height="300"
                     ButtonAlign="Center">
                     <Defaults>
@@ -299,7 +299,7 @@
                 <ext:Panel ID="DepartmentCallsPerMonthChartPanel" 
                     runat="server"
                     Width="740"
-                    Height="640"
+                    Height="520"
                     Title="Total Phonecalls Distribution"
                     Layout="FitLayout">
                     <Items>

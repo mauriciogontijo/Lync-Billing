@@ -119,13 +119,13 @@ namespace Lync_Billing.ui.dephead.main
                         BodyPadding = 5,
                         Html = string.Format(
                             "<div class='p10 pt15 font-14'>" +
-                            "<h2 class='mb10'>Received Emails:</h2>" + 
+                            "<h2 class='mb10'>Received:</h2>" + 
                             "<p class='mb5'>Total number: <span class='bold red-color'>{0}</span></p>" + 
-                            "<p class='mb5'>Total emails size: <span class='bold red-color'>{1} (in MB)</span></p>" +
+                            "<p class='mb5'>Total size: <span class='bold red-color'>{1} (in MB)</span></p>" +
                             "<div class='clear h25'></div>" +
-                            "<h2 class='mb10'>Sent Emails:</h2>" + 
+                            "<h2 class='mb10'>Sent:</h2>" + 
                             "<p class='mb5'>Total number: <span class='bold blue-color'>{2}</span></p>" + 
-                            "<p class='mb5'>Total emails size: <span class='bold blue-color'>{3} (in MB)</span></p>" + 
+                            "<p class='mb5'>Total size: <span class='bold blue-color'>{3} (in MB)</span></p>" + 
                             "</div>",
                             departmentMailStatisticsData.ReceivedCount, 
                             departmentMailStatisticsData.ReceivedSize, 
