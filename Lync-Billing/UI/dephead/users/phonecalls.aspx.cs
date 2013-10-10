@@ -124,15 +124,13 @@ namespace Lync_Billing.ui.dephead.users
 
                     ViewPhoneCallsGrid.GetStore().DataSource = phoneCalls;
                     ViewPhoneCallsGrid.GetStore().DataBind();
-
-                    //FilterPhoneCallsByType.Disabled = false;
-                    //FilterPhoneCallsByType.ReadOnly = false;
                 }
             }
         }
 
         private List<PhoneCall> GetUserPhoneCalls(string userSipAccount)
         {
+            List<PhoneCall> ListOfPhoneCalls;
             wherePart = new Dictionary<string, object>();
             columns = new List<string>();
 
@@ -143,28 +141,33 @@ namespace Lync_Billing.ui.dephead.users
 
             columns.Add("SourceUserUri");
             columns.Add("SessionIdTime");
-            columns.Add("SessionIdSeq");
-            columns.Add("ResponseTime");
-            columns.Add("SessionEndTime");
             columns.Add("marker_CallToCountry");
             columns.Add("DestinationNumberUri");
             columns.Add("Duration");
             columns.Add("marker_CallCost");
             columns.Add("ui_CallType");
-            columns.Add("ui_MarkedOn");
+            
+            ListOfPhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0)
+                                .Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null)
+                                .ToList();
 
-            return PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+            List<PhoneCall> businessCalls = ListOfPhoneCalls.Where(call => call.UI_CallType == "Business").ToList();
+
+            List<PhoneCall> otherCalls = (from phonecall in ListOfPhoneCalls 
+                              where phonecall.UI_CallType != "Business" 
+                              select phonecall
+                              ).Select<PhoneCall, PhoneCall>(e => new PhoneCall{
+                                  SourceUserUri = e.SourceUserUri,
+                                  SessionIdTime = e.SessionIdTime,
+                                  Marker_CallToCountry = e.Marker_CallToCountry,
+                                  DestinationNumberUri = "********************",
+                                  Duration = e.Duration,
+                                  Marker_CallCost = e.Marker_CallCost,
+                                  UI_CallType = e.UI_CallType
+                              }).ToList();
+
+            return businessCalls.Concat(otherCalls).ToList<PhoneCall>();
         }
-
-        //protected void PhoneCallsHistoryFilter(object sender, DirectEventArgs e)
-        //{
-        //    PhoneCallsStore.ClearFilter();
-        //    if (FilterPhoneCallsByType.SelectedItem.Value != "Unmarked")
-        //    {
-        //        PhoneCallsStore.Filter("UI_CallType", FilterPhoneCallsByType.SelectedItem.Value);
-        //    }
-        //    PhoneCallsStore.LoadPage(1);
-        //}
 
     }
 }

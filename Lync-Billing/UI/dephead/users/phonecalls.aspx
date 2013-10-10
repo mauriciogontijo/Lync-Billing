@@ -187,16 +187,11 @@
                                 <Fields>
                                     <ext:ModelField Name="SourceUserUri" Type="String" />
                                     <ext:ModelField Name="SessionIdTime" Type="String" />
-                                    <ext:ModelField Name="SessionIdSeq" Type="Int" />
-                                    <ext:ModelField Name="ResponseTime" Type="String" />
-                                    <ext:ModelField Name="SessionEndTime" Type="String" />
                                     <ext:ModelField Name="Marker_CallToCountry" Type="String" />
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
                                     <ext:ModelField Name="Marker_CallCost" Type="Float" />
                                     <ext:ModelField Name="UI_CallType" Type="String" />
-                                    <ext:ModelField Name="UI_MarkedOn" Type="Date" />
-                                    <ext:ModelField Name="PhoneBookName" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
@@ -214,14 +209,6 @@
                             Width="45" />
 
                         <ext:Column
-                            ID="SipAccountCol"
-                            runat="server"
-                            Text="User Email"
-                            Width="160"
-                            DataIndex="SourceUserUri">
-                        </ext:Column>
-
-                        <ext:Column
                             ID="SessionIdTime"
                             runat="server"
                             Text="Date"
@@ -236,6 +223,13 @@
                             Text="Country"
                             Width="100"
                             DataIndex="Marker_CallToCountry" />
+
+                        <ext:Column
+                            ID="Column1"
+                            runat="server"
+                            Text="Destination Number"
+                            Width="160"
+                            DataIndex="DestinationNumberUri" />
 
                         <ext:Column
                             ID="Duration"
