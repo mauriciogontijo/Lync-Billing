@@ -15,7 +15,7 @@ namespace Lync_Billing.ui.dephead.users
         private List<string> columns;
         private string sipAccount = string.Empty;
         private UserSession session;
-        private List<Department> departments;
+        private List<Department> UserDepartments;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,20 +42,35 @@ namespace Lync_Billing.ui.dephead.users
         }
 
 
-        private void BindDepartmentsForThisUser()
+        private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
         {
-            departments = DepartmentHead.GetDepartmentsForHead(sipAccount);
+            UserDepartments = DepartmentHead.GetDepartmentsForHead(sipAccount);
 
-            if (departments.Count == 1)
+            //By default the filter combobox is not read only
+            FilterDepartments.ReadOnly = false;
+
+            if (UserDepartments.Count > 0)
             {
-                FilterDepartments.SetValueAndFireSelect(departments.First().DepartmentName);
-                FilterDepartments.ReadOnly = true;
+                //Handle the FireSelect event
+                if (alwaysFireSelect == true)
+                {
+                    FilterDepartments.SetValueAndFireSelect(UserDepartments.First().DepartmentName);
+
+                    //Handle the ReadOnly Property
+                    if (UserDepartments.Count == 1)
+                    {
+                        FilterDepartments.ReadOnly = true;
+                    }
+                }
+
+                //Bind all the Data and return to the view
+                FilterDepartments.GetStore().DataSource = UserDepartments;
+                FilterDepartments.GetStore().DataBind();
             }
+            //in case there are no longer any departments for this user to monitor.
             else
             {
-                FilterDepartments.ReadOnly = false;
-                FilterDepartments.GetStore().DataSource = departments;
-                FilterDepartments.GetStore().DataBind();
+                FilterDepartments.Disabled = true;
             }
         }
 
