@@ -75,13 +75,14 @@ namespace Lync_Billing.ui.dephead.users
         }
 
 
-        private List<Users> GetUsers(string departmentName)
+        private List<Users> GetUsers(string departmentName, string siteName)
         {
             //List<Users> users = new List<Users>();
             List<string> columns = new List<string>();
             Dictionary<string, object> whereClause = new Dictionary<string, object>() 
             { 
-                { "AD_Department", departmentName } 
+                { "AD_Department", departmentName },
+                { "AD_PhysicalDeliveryOfficeName", siteName }
             };
 
             return Users.GetUsers(columns, whereClause, 0);
@@ -94,9 +95,16 @@ namespace Lync_Billing.ui.dephead.users
             FilterUsersByDepartment.Clear();
             FilterUsersByDepartment.ReadOnly = false;
 
+            //Begin fetching the users
+            string siteName = string.Empty;
+            string departmentName = string.Empty;
+
             if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
             {
-                List<Users> users = GetUsers(FilterDepartments.SelectedItem.Value);
+                departmentName = FilterDepartments.SelectedItem.Value.ToString();
+                siteName = UserDepartments.Find(dep => dep.DepartmentName == departmentName).SiteName;
+
+                List<Users> users = GetUsers(departmentName, siteName);
 
                 FilterUsersByDepartment.Disabled = false;
                 FilterUsersByDepartment.GetStore().DataSource = users;
