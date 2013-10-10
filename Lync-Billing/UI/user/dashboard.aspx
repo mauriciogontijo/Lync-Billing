@@ -249,10 +249,10 @@
 
     <!-- START OF RIGHT COLUMN -->
     <div style="float: right; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
-        <div id='calls-summary-block' class='block wauto'>
+        <div id='user-mail-statistics-block' class='block wauto'>
             <div class='content wauto float-left mb10'>
                 <ext:Panel
-                    ID="CallsSummary" 
+                    ID="UserMailStatistics" 
                     runat="server"
                     Header="true"
                     Title="Mail Statistics"

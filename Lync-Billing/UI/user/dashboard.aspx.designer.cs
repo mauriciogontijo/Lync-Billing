@@ -103,15 +103,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Column NumberOfPhoneCalls;
         
         /// <summary>
-        /// CallsSummary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Panel CallsSummary;
-        
-        /// <summary>
         /// DurationCostChartPanel control.
         /// </summary>
         /// <remarks>
