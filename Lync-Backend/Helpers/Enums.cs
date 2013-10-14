@@ -31,6 +31,18 @@ namespace Lync_Backend.Helpers
             PhoneCallsTable
         }
 
+        public enum CallsImportStatus 
+        {
+            [Description("CallsImportStatus")]
+            TableName,
+            [Description("importId")]
+            ImportID,
+            [Description("phoneCallsTableName")]
+            PhoneCallsTableName,
+            [Description("timestamp")]
+            Timestamp
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
