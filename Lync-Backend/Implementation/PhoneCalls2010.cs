@@ -115,21 +115,24 @@ namespace Lync_Backend.Implementation
             SQL = SELECT_STATEMENT + WHERE_STATEMENT;
 
             command = new OleDbCommand(SQL, sourceDBConnector);
+            command.CommandTimeout = 10000;
 
             sourceDBConnector.Open();
 
-            dataReader = command.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+
+
+            dataReader = command.ExecuteReader();
 
             while(dataReader.Read())
             {
                 column = string.Empty;
                 
                 phoneCall = new Dictionary<string,object>();
-               
-                phoneCall.Add("SessionIdTime", dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)].ToString());
+
+                phoneCall.Add("SessionIdTime", ConvertDate(dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)].ToString()));
                 phoneCall.Add("SessionIdSeq", (int)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq)]);
-                phoneCall.Add("ResponseTime", dataReader[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)].ToString());
-                phoneCall.Add("SessionEndTime", dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)].ToString());
+                phoneCall.Add("ResponseTime",  ConvertDate(dataReader[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)].ToString()));
+                phoneCall.Add("SessionEndTime",  ConvertDate(dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)].ToString()));
 
                 //Handle null values
                 column = Enums.GetDescription(Enums.PhoneCalls.SourceUserUri);
@@ -182,7 +185,13 @@ namespace Lync_Backend.Implementation
         {
             throw new NotImplementedException();
         }
-    
+
+
+        public string ConvertDate(string datetTime) 
+        {
+            DateTime date = DateTime.Parse(datetTime);
+            return date.ToString("MM/dd/yyyy hh:mm:ss.fff");
+        }
 
     }
 }
