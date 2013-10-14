@@ -9,7 +9,7 @@ using System.Data;
 using System.Configuration;
 
 
-namespace Lync_Billing.Libs
+namespace Lync_Backend.Libs
 {
     
     public class DBLib

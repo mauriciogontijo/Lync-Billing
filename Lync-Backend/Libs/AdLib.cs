@@ -7,7 +7,7 @@ using System.DirectoryServices.ActiveDirectory;
 using System.DirectoryServices.AccountManagement;
 using System.Configuration;
 
-namespace Lync_Billing.Libs
+namespace Lync_Backend.Libs
 {
     public class AdLib
     {
