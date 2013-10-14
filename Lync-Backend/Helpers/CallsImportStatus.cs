@@ -11,7 +11,7 @@ namespace Lync_Backend.Helpers
     class CallsImportStatus
     {
         public int ImportId { get; set; }
-        public string PhoneCallsTableName { get; set; }
+        public string ImportedTableName { get; set; }
         public DateTime Timestamp { get; set; }
 
         private static DBLib DBRoutines = new DBLib();
@@ -32,8 +32,8 @@ namespace Lync_Backend.Helpers
                     if (column.ColumnName == Enums.GetDescription(Enums.CallsImportStatus.ImportID) && dt.Rows[0][column.ColumnName] != System.DBNull.Value)
                         importStat.ImportId = (int)dt.Rows[0][column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.CallsImportStatus.PhoneCallsTableName) && dt.Rows[0][column.ColumnName] != System.DBNull.Value)
-                        importStat.PhoneCallsTableName = (string)dt.Rows[0][column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.CallsImportStatus.ImportedTableName) && dt.Rows[0][column.ColumnName] != System.DBNull.Value)
+                        importStat.ImportedTableName = (string)dt.Rows[0][column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.CallsImportStatus.Timestamp) && dt.Rows[0][column.ColumnName] != System.DBNull.Value)
                         importStat.Timestamp = (DateTime)dt.Rows[0][column.ColumnName];
