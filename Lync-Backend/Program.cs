@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lync_Backend;
 
 namespace Lync_Backend
 {
@@ -10,6 +11,9 @@ namespace Lync_Backend
     {
         static void Main(string[] args)
         {
+            Interfaces.IDatabaseImporter importer = new Implementation.PhoneCalls2010();
+            importer.ImportPhoneCalls();
+
         }
     }
 }
