@@ -21,6 +21,8 @@ namespace Lync_Backend.Helpers
             InstanceHostName,
             [Description("instanceName")]
             InstanceName,
+            [Description("databaseName")]
+            DatabaseName,
             [Description("userName")]
             Userame,
             [Description("password")]

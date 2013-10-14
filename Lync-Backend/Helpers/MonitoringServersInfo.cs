@@ -16,18 +16,18 @@ namespace Lync_Backend.Helpers
         public string Username { get; set; }
         public string Password { get; set; }
         public string PhoneCallsTable { get; set; }
+        public string DatabaseName { get; set; }
 
         private static DBLib DBRoutines = new DBLib();
 
-        public static List<MonitoringServersInfo> GetMonitoringServersInfo() 
+        public static Dictionary<string, MonitoringServersInfo> GetMonitoringServersInfo() 
         {
             DataTable dt = new DataTable();
             MonitoringServersInfo monInfo;
 
-            List<MonitoringServersInfo> monInfos = new List<MonitoringServersInfo>();
+            Dictionary<string, MonitoringServersInfo> monInfos = new Dictionary<string, MonitoringServersInfo>();
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.MonitoringServersInfo.TableName));
-
 
             foreach (DataRow row in dt.Rows)
             {
@@ -44,6 +44,9 @@ namespace Lync_Backend.Helpers
                     if (column.ColumnName == Enums.GetDescription(Enums.MonitoringServersInfo.InstanceName) && row[column.ColumnName] != System.DBNull.Value)
                         monInfo.InstanceName = (string)row[column.ColumnName];
 
+                    if (column.ColumnName == Enums.GetDescription(Enums.MonitoringServersInfo.DatabaseName) && row[column.ColumnName] != System.DBNull.Value)
+                        monInfo.DatabaseName = (string)row[column.ColumnName];
+                    
                     if (column.ColumnName == Enums.GetDescription(Enums.MonitoringServersInfo.Userame) && row[column.ColumnName] != System.DBNull.Value)
                         monInfo.Username = (string)row[column.ColumnName];
 
@@ -52,11 +55,38 @@ namespace Lync_Backend.Helpers
 
                     if (column.ColumnName == Enums.GetDescription(Enums.MonitoringServersInfo.PhoneCallsTable) && row[column.ColumnName] != System.DBNull.Value)
                         monInfo.PhoneCallsTable = (string)row[column.ColumnName];
+
+                 
                 }
-                monInfos.Add(monInfo);
+                monInfos.Add(monInfo.PhoneCallsTable ,monInfo);
             }
 
             return monInfos;
+        }
+
+        public static string CreateConnectionString(MonitoringServersInfo monInfo) 
+        {
+            string ConnectionString = null;
+
+            if (monInfo.InstanceName != null)
+            {
+                ConnectionString = String.Format("Provider=SQLOLEDB.1;Data Source={0}\\{1};Persist Security Info=True;User ID={2};Password='{3}';Initial Catalog={4}",
+                    monInfo.InstanceHostName,
+                    monInfo.InstanceName,
+                    monInfo.Username,
+                    monInfo.Password,
+                    monInfo.DatabaseName);
+            }
+            else
+            {
+                ConnectionString = String.Format("Provider=SQLOLEDB.1;Data Source={0};Persist Security Info=True;User ID={1};Password='{2}';Initial Catalog={3}",
+                    monInfo.InstanceHostName,
+                    monInfo.Username,
+                    monInfo.Password,
+                    monInfo.DatabaseName);
+            }
+            
+            return ConnectionString;
         }
 
     }
