@@ -44,8 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\CallsImportStatus.cs" />
     <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\MonitoringServersInfo.cs" />
+    <Compile Include="Helpers\PhoneCall.cs" />
+    <Compile Include="Helpers\UsersImporter.cs" />
+    <Compile Include="Implementation\CallMarker_PhoneCalls2010.cs" />
+    <Compile Include="Implementation\PhoneCalls2010.cs" />
+    <Compile Include="Interfaces\ICallMarker.cs" />
+    <Compile Include="Interfaces\IDatabaseImporter.cs" />
     <Compile Include="Libs\AdLib.cs" />
     <Compile Include="Libs\DBLib.cs" />
     <Compile Include="Program.cs" />
