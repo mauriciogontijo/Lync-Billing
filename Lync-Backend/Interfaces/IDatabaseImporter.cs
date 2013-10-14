@@ -9,8 +9,9 @@ namespace Lync_Backend.Interfaces
 {
     interface IDatabaseImporter
     {
-        public void ImportPhoneCalls(MonitoringServersInfo info);
-        public void ImportGateways(MonitoringServersInfo info);
-        public void ImportPools(MonitoringServersInfo info);
+        string ConstructConnectionString();
+        void ImportPhoneCalls();
+        void ImportGateways();
+        void ImportPools();
     }
 }
