@@ -56,8 +56,6 @@ namespace Lync_Backend.Helpers
 
         public enum PhoneCalls
         {
-            [Description("PhoneCalls")]
-            TableName,
             [Description("SessionIdTime")]
             SessionIdTime,
             [Description("SessionIdSeq")]
@@ -92,6 +90,22 @@ namespace Lync_Backend.Helpers
             PoolFQDN,
             [Description("Duration")]
             Duration
+        }
+
+        public enum Gateways
+        {
+            [Description("GatewayId")]
+            GatewayId,
+            [Description("Gateway")]
+            GatewayName
+        }
+
+        public enum Pools
+        {
+            [Description("PoolID")]
+            PoolID,
+            [Description("PoolFQDN")]
+            PoolFQDN
         }
 
         /// <summary>
