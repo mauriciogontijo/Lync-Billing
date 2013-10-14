@@ -77,27 +77,7 @@ namespace Lync_Backend.Helpers
             [Description("PoolFQDN")]
             PoolFQDN,
             [Description("Duration")]
-            Duration,
-            [Description("marker_CallToCountry")]
-            Marker_CallToCountry,
-            [Description("marker_CallType")]
-            Marker_CallType,
-            [Description("marker_CallCost")]
-            Marker_CallCost,
-            [Description("ui_MarkedOn")]
-            UI_MarkedOn,
-            [Description("ui_UpdatedByUser")]
-            UI_UpdatedByUser,
-            [Description("ui_CallType")]
-            UI_CallType,
-            [Description("ac_DisputeStatus")]
-            AC_DisputeStatus,
-            [Description("ac_DisputeResolvedOn")]
-            AC_DisputeResolvedOn,
-            [Description("ac_IsInvoiced")]
-            AC_IsInvoiced,
-            [Description("ac_InvoiceDate")]
-            AC_InvoiceDate
+            Duration
         }
 
         /// <summary>
