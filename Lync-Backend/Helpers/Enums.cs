@@ -26,7 +26,7 @@ namespace Lync_Backend.Helpers
             Userame,
             [Description("password")]
             Password,
-            [Description("PhoneCallsTable")]
+            [Description("phoneCallsTable")]
             PhoneCallsTable
         }
 
