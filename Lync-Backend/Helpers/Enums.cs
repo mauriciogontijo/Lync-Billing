@@ -36,8 +36,8 @@ namespace Lync_Backend.Helpers
             TableName,
             [Description("importId")]
             ImportID,
-            [Description("phoneCallsTableName")]
-            PhoneCallsTableName,
+            [Description("importedTableName")]
+            ImportedTableName,
             [Description("timestamp")]
             Timestamp
         }
