@@ -42,6 +42,18 @@ namespace Lync_Backend.Helpers
             Timestamp
         }
 
+        public enum CallMarkerStatus
+        {
+            [Description("CallMarkerStatus")]
+            TableName,
+            [Description("markerId")]
+            MarkerId,
+            [Description("phoneCallsTable")]
+            PhoneCallsTable,
+            [Description("timestamp")]
+            Timestamp
+        }
+
         public enum PhoneCalls
         {
             [Description("PhoneCalls")]
