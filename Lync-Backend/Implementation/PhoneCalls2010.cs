@@ -129,49 +129,102 @@ namespace Lync_Backend.Implementation
                 
                 phoneCall = new Dictionary<string,object>();
 
-                phoneCall.Add("SessionIdTime", ConvertDate(dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)].ToString()));
+                phoneCall.Add("SessionIdTime", ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]));
                 phoneCall.Add("SessionIdSeq", (int)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq)]);
-                phoneCall.Add("ResponseTime",  ConvertDate(dataReader[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)].ToString()));
-                phoneCall.Add("SessionEndTime",  ConvertDate(dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)].ToString()));
 
-                //Handle null values
+
+                column = Enums.GetDescription(Enums.PhoneCalls.ResponseTime);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("ResponseTime", ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)]));
+                else
+                    phoneCall.Add("ResponseTime", DBNull.Value);
+
+                
+                column = Enums.GetDescription(Enums.PhoneCalls.SessionEndTime);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("SessionEndTime", ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)]));
+                else
+                    phoneCall.Add("SessionEndTime", DBNull.Value);
+
+                
                 column = Enums.GetDescription(Enums.PhoneCalls.SourceUserUri);
-                phoneCall.Add("SourceUserUri", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("SourceUserUri", dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceUserUri)].ToString());
+                else
+                    phoneCall.Add("SourceUserUri", DBNull.Value);
 
                 column = Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri);
-                phoneCall.Add("DestinationNumberUri", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("DestinationNumberUri", dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri)].ToString());
+                else
+                    phoneCall.Add("DestinationNumberUri", DBNull.Value);
+
 
                 column = Enums.GetDescription(Enums.PhoneCalls.FromMediationServer);
-                phoneCall.Add("FromMediationServer", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("FromMediationServer", dataReader[Enums.GetDescription(Enums.PhoneCalls.FromMediationServer)].ToString());
+                else
+                    phoneCall.Add("FromMediationServer", DBNull.Value);
+
 
                 column = Enums.GetDescription(Enums.PhoneCalls.ToMediationServer);
-                phoneCall.Add("ToMediationServer", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("ToMediationServer", dataReader[Enums.GetDescription(Enums.PhoneCalls.ToMediationServer)].ToString());
+                else
+                    phoneCall.Add("ToMediationServer", DBNull.Value);
+
 
                 column = Enums.GetDescription(Enums.PhoneCalls.FromGateway);
-                phoneCall.Add("FromGateway", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("FromGateway", dataReader[Enums.GetDescription(Enums.PhoneCalls.FromGateway)].ToString());
+                else
+                    phoneCall.Add("FromGateway", DBNull.Value);
+
 
                 column = Enums.GetDescription(Enums.PhoneCalls.ToGateway);
-                phoneCall.Add("ToGateway", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("ToGateway", dataReader[Enums.GetDescription(Enums.PhoneCalls.ToGateway)].ToString());
+                else
+                    phoneCall.Add("ToGateway", DBNull.Value);
+
 
                 column = Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer);
-                phoneCall.Add("SourceUserEdgeServer", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("SourceUserEdgeServer", dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer)].ToString());
+                else
+                    phoneCall.Add("SourceUserEdgeServer", DBNull.Value);
+                
 
                 column = Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer);
-                phoneCall.Add("DestinationUserEdgeServer", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("DestinationUserEdgeServer", dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer)].ToString());
+                else
+                    phoneCall.Add("DestinationUserEdgeServer", DBNull.Value);
+
 
                 column = Enums.GetDescription(Enums.PhoneCalls.ServerFQDN);
-                phoneCall.Add("ServerFQDN", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("ServerFQDN", dataReader[Enums.GetDescription(Enums.PhoneCalls.ServerFQDN)].ToString());
+                else
+                    phoneCall.Add("ServerFQDN", DBNull.Value);
+
 
                 column = Enums.GetDescription(Enums.PhoneCalls.PoolFQDN);
-                phoneCall.Add("PoolFQDN", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("PoolFQDN", dataReader[Enums.GetDescription(Enums.PhoneCalls.PoolFQDN)].ToString());
+                else
+                    phoneCall.Add("PoolFQDN", DBNull.Value);
+
 
                 column = Enums.GetDescription(Enums.PhoneCalls.Duration);
-                phoneCall.Add("Duration", dataReader[column]);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("Duration", dataReader[Enums.GetDescription(Enums.PhoneCalls.Duration)].ToString());
+                else
+                    phoneCall.Add("Duration", Convert.ToDecimal(0));
 
 
                 //Insert the phonecall to designated PhoneCalls table
-
-                DBRoutines.INSERT(this.GetType().Name,phoneCall,Enums.GetDescription(Enums.PhoneCalls.SessionIdTime));
+                DBRoutines.INSERT(this.GetType().Name,phoneCall);
                 
             }
         }
@@ -187,10 +240,9 @@ namespace Lync_Backend.Implementation
         }
 
 
-        public string ConvertDate(string datetTime) 
+        public string ConvertDate(DateTime datetTime) 
         {
-            DateTime date = DateTime.Parse(datetTime);
-            return date.ToString("MM/dd/yyyy hh:mm:ss.fff");
+            return datetTime.ToString("MM/dd/yyyy hh:mm:ss.fff");
         }
 
     }
