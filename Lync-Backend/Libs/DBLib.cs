@@ -318,37 +318,50 @@ namespace Lync_Backend.Libs
         /// <param name="tableName">DB Table Name</param>
         /// <param name="columnsValues">Dictionary Holds Fields and Values to be inserted</param>
         /// <returns>Row ID </returns>
-        public int INSERT(string tableName, Dictionary<string, object> columnsValues,string idFieldName) 
+        public int INSERT(string tableName, Dictionary<string, object> columnsValues) 
         {
             StringBuilder fields = new StringBuilder(); fields.Append("(");
             StringBuilder values = new StringBuilder(); values.Append("(");
             StringBuilder whereStatement = new StringBuilder();
+
 
             //Fields and values
             foreach (KeyValuePair<string, object> pair in columnsValues)
             {
                 Type valueType = pair.Value.GetType();
 
-                if (valueType == typeof(DateTime) && (DateTime)pair.Value == DateTime.MinValue)
+                if (valueType == typeof(DateTime) &&  (DateTime)pair.Value == DateTime.MinValue)
+                {
                     continue;
+                }
+                else if(
+                    pair.Value == DBNull.Value ||
+                    pair.Value.ToString() == string.Empty ||
+                    pair.Value == null)
+                {
+                    continue;
+                }
                 else
                     fields.Append("[" + pair.Key + "],");
 
-                if (valueType == typeof(int) || valueType == typeof(Double))
+                if (valueType == typeof(int) || valueType == typeof(Double) || valueType == typeof(Decimal))
+                {
                     values.Append(pair.Value + ",");
+                }
                 else if (valueType == typeof(DateTime) && (DateTime)pair.Value == DateTime.MinValue)
+                {
                     continue;
+                }
                 else
                 {
-                    
-                    values.Append("'" + pair.Value.ToString().Replace("'","`") + "'" + ",");
+                    values.Append("'" + pair.Value.ToString().Replace("'", "`") + "'" + ",");
                 }
             }
 
             fields.Remove(fields.Length - 1, 1).Append(")");
             values.Remove(values.Length - 1, 1).Append(")");
 
-            string insertQuery = string.Format("INSERT INTO [{0}] {1} OUTPUT INSERTED.{2}  VALUES {3}", tableName, fields, idFieldName ,values);
+            string insertQuery = string.Format("INSERT INTO [{0}] {1} VALUES {2}", tableName, fields, values);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(insertQuery, conn);
