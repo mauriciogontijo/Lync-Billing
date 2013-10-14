@@ -244,18 +244,24 @@ namespace Lync_Backend.Implementation
 
         public void ImportGateways()
         {
-            throw new NotImplementedException();
+            OleDbCommand command;
+            OleDbDataReader dataReader;
+
+            string SQL = string.Empty;
         }
 
         public void ImportPools()
         {
-            throw new NotImplementedException();
+            OleDbCommand command;
+            OleDbDataReader dataReader;
+
+            string SQL = string.Empty;
         }
 
 
         public string ConvertDate(DateTime datetTime) 
         {
-            return datetTime.ToString("MM/dd/yyyy hh:mm:ss.fff");
+            return datetTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
         }
 
     }
