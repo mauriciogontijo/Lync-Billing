@@ -153,6 +153,19 @@ namespace Lync_Backend.Implementation
                 else
                     phoneCall.Add("SourceUserUri", DBNull.Value);
 
+                column = Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("SourceNumberUri", dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri)].ToString());
+                else
+                    phoneCall.Add("SourceNumberUri", DBNull.Value);
+
+
+                column = Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("DestinationUserUri", dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri)].ToString());
+                else
+                    phoneCall.Add("DestinationUserUri", DBNull.Value);
+
                 column = Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
                     phoneCall.Add("DestinationNumberUri", dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri)].ToString());
