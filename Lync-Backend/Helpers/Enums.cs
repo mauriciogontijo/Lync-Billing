@@ -58,6 +58,8 @@ namespace Lync_Backend.Helpers
             SourceUserUri,
             [Description("SourceNumberUri")]
             SourceNumberUri,
+            [Description("DestinationUserUri")]
+            DestinationUserUri,
             [Description("DestinationNumberUri")]
             DestinationNumberUri,
             [Description("FromMediationServer")]
