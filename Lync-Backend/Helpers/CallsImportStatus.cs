@@ -54,7 +54,16 @@ namespace Lync_Backend.Helpers
                 {Enums.GetDescription(Enums.CallsImportStatus.Timestamp), timestamp}
             };
 
-            DBRoutines.INSERT(Enums.GetDescription(Enums.CallsImportStatus.TableName), importStatusRecord);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.CallsImportStatus.TableName), "importedTableName", className);
+
+            if (dt.Rows.Count > 0)
+            {
+
+            }
+            else
+            {
+                DBRoutines.INSERT(Enums.GetDescription(Enums.CallsImportStatus.TableName), importStatusRecord);
+            }
         }
     }
 }

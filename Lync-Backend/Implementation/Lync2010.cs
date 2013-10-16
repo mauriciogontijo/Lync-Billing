@@ -108,8 +108,7 @@ namespace Lync_Backend.Implementation
                          "LEFT OUTER JOIN MediationServers ON VoipDetails.FromMediationServerId = MediationServers.MediationServerId " +
                          "LEFT OUTER JOIN Phones AS Phones_1 ON VoipDetails.ConnectedNumberId = Phones_1.PhoneId " +
                          "LEFT OUTER JOIN Phones ON VoipDetails.FromNumberId = Phones.PhoneId ON SessionDetails.SessionIdTime = VoipDetails.SessionIdTime AND " +
-                         "SessionDetails.SessionIdSeq = VoipDetails.SessionIdSeq " +
-                    " ORDER BY VoipDetails.SessionIdTime DESC "
+                         "SessionDetails.SessionIdSeq = VoipDetails.SessionIdSeq "
             );
 
             CallsImportStatus lastImportStat = CallsImportStatus.GetCallsImportStatus(this.GetType().Name);
@@ -174,7 +173,7 @@ namespace Lync_Backend.Implementation
 
             dataReader = command.ExecuteReader();
 
-            while (dataReader.Read())
+            while (false) //dataReader.Read())
             {
                 column = string.Empty;
                 
@@ -288,7 +287,7 @@ namespace Lync_Backend.Implementation
 
 
                 //Insert the phonecall to designated PhoneCalls table
-                DBRoutines.INSERT(this.GetType().Name,phoneCall);
+                DBRoutines.INSERT(PhoneCallsTableName, phoneCall);
             }
 
 

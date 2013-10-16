@@ -18,21 +18,19 @@ namespace Lync_Backend
 
             monServersInfo = MonitoringServersInfo.GetMonitoringServersInfo();
 
-            //foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monServersInfo) 
-            //{
-            //    Type type = Type.GetType("Lync_Backend.Implementation." + keyValue.Key);
+            foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monServersInfo)
+            {
+                Type type = Type.GetType("Lync_Backend.Implementation." + keyValue.Key);
 
-            //    string fqdn = typeof(Interfaces.IDatabaseImporter).AssemblyQualifiedName;
+                string fqdn = typeof(Interfaces.IDatabaseImporter).AssemblyQualifiedName;
 
-            //    //FQN  for Lync2010: Lync_Backend.Implementation.Lync2010, Lync-Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-            //    object instance = Activator.CreateInstance(type);
+                //FQN  for Lync2010: Lync_Backend.Implementation.Lync2010, Lync-Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+                object instance = Activator.CreateInstance(type);
 
-            //    ((Interfaces.IDatabaseImporter)instance).ImportPools();
-            //    ((Interfaces.IDatabaseImporter)instance).ImportGateways();
-            //}
-
-            Interfaces.IDatabaseImporter importer = new Implementation.Lync2013();
-            importer.ImportPhoneCalls();
+                //((Interfaces.IDatabaseImporter)instance).ImportPools();
+                //((Interfaces.IDatabaseImporter)instance).ImportGateways();
+                ((Interfaces.IDatabaseImporter)instance).ImportPhoneCalls();
+            }
         }
     }
 }
