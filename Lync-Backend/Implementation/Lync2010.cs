@@ -247,7 +247,39 @@ namespace Lync_Backend.Implementation
             OleDbCommand command;
             OleDbDataReader dataReader;
 
+            Dictionary<string, object> gateway;
+
+            string column = string.Empty;
             string SQL = string.Empty;
+            string WHERE_STATEMENT = string.Empty;
+            string SELECT_STATEMENT = string.Empty;
+
+            SELECT_STATEMENT = String.Format(
+                "SELECT [GatewayId], [Gateway] " +
+                "FROM [dbo].[Gateways]"
+            );
+
+            SQL = SELECT_STATEMENT;
+
+            command = new OleDbCommand(SQL, sourceDBConnector);
+            command.CommandTimeout = 10000;
+
+            sourceDBConnector.Open();
+
+            dataReader = command.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                column = string.Empty;
+                gateway = new Dictionary<string, object>();
+
+                column = Enums.GetDescription(Enums.Gateways.GatewayName);
+                gateway.Add(column, (dataReader[column]).ToString());
+
+                //Insert the phonecall to designated PhoneCalls table
+                DBRoutines.INSERT(GatewaysTableName, gateway);
+            }
+
         }
 
         override public void ImportPools()
@@ -255,7 +287,40 @@ namespace Lync_Backend.Implementation
             OleDbCommand command;
             OleDbDataReader dataReader;
 
+            Dictionary<string, object> pool;
+
+            string column = string.Empty;
             string SQL = string.Empty;
+            string WHERE_STATEMENT = string.Empty;
+            string SELECT_STATEMENT = string.Empty;
+
+            SELECT_STATEMENT = String.Format(
+                "SELECT [PoolId], [PoolFQDN] " +
+                "FROM [dbo].[Pools]"
+            );
+
+            SQL = SELECT_STATEMENT;
+
+            command = new OleDbCommand(SQL, sourceDBConnector);
+            command.CommandTimeout = 10000;
+
+            sourceDBConnector.Open();
+
+            dataReader = command.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                column = string.Empty;
+                pool = new Dictionary<string, object>();
+
+                column = Enums.GetDescription(Enums.Pools.PoolFQDN);
+                pool.Add("PoolFQDN", (dataReader[Enums.GetDescription(Enums.Pools.PoolFQDN)]).ToString());
+
+                //Insert the phonecall to designated PhoneCalls table
+                DBRoutines.INSERT(PoolsTableName, pool);
+            }
+ 
+
         }
 
         public override string PhoneCallsTableName
@@ -265,12 +330,12 @@ namespace Lync_Backend.Implementation
 
         public override string PoolsTableName
         {
-            get { return "Pools"; }
+            get { return "Pools2010"; }
         }
 
         public override string GatewaysTableName
         {
-            get { return "Gateways"; }
+            get { return "Gateways2010"; }
         }
     }
 }
