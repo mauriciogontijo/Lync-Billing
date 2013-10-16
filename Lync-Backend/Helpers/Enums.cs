@@ -30,30 +30,6 @@ namespace Lync_Backend.Helpers
             PhoneCallsTable
         }
 
-        public enum CallsImportStatus 
-        {
-            [Description("CallsImportStatus")]
-            TableName,
-            [Description("importId")]
-            ImportID,
-            [Description("importedTableName")]
-            ImportedTableName,
-            [Description("timestamp")]
-            Timestamp
-        }
-
-        public enum CallMarkerStatus
-        {
-            [Description("CallMarkerStatus")]
-            TableName,
-            [Description("markerId")]
-            MarkerId,
-            [Description("phoneCallsTable")]
-            PhoneCallsTable,
-            [Description("timestamp")]
-            Timestamp
-        }
-
         public enum PhoneCalls
         {
             [Description("SessionIdTime")]
