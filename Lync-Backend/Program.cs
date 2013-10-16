@@ -11,9 +11,9 @@ namespace Lync_Backend
     {
         static void Main(string[] args)
         {
-            //Interfaces.IDatabaseImporter importer = new Implementation.Lync2010();
-            Interfaces.IDatabaseImporter importer = new Implementation.Lync2013();
-            importer.ImportPhoneCalls();
+            Interfaces.IDatabaseImporter importer = new Implementation.Lync2010();
+            //Interfaces.IDatabaseImporter importer = new Implementation.Lync2013();
+            importer.ImportGateways();
 
         }
     }

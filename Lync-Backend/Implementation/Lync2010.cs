@@ -31,6 +31,21 @@ namespace Lync_Backend.Implementation
             }
         }
 
+        public override string PhoneCallsTableName
+        {
+            get { return "PhoneCalls2010"; }
+        }
+
+        public override string PoolsTableName
+        {
+            get { return "Pools2010"; }
+        }
+
+        public override string GatewaysTableName
+        {
+            get { return "Gateways2010"; }
+        }
+
         override public string ConstructConnectionString()
         {
             monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
@@ -323,19 +338,5 @@ namespace Lync_Backend.Implementation
 
         }
 
-        public override string PhoneCallsTableName
-        {
-            get { return "PhoneCalls2010"; }
-        }
-
-        public override string PoolsTableName
-        {
-            get { return "Pools2010"; }
-        }
-
-        public override string GatewaysTableName
-        {
-            get { return "Gateways2010"; }
-        }
     }
 }
