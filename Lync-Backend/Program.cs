@@ -24,7 +24,7 @@ namespace Lync_Backend
             {
                 Type type = Type.GetType("Lync_Backend.Implementation." + keyValue.Key);
 
-                string fqdn = typeof(Lync2010).AssemblyQualifiedName;
+                string fqdn = typeof(Interfaces.IDatabaseImporter).AssemblyQualifiedName;
 
                 //FQN  for Lync2010: Lync_Backend.Implementation.Lync2010, Lync-Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
                   object instance = Activator.CreateInstance(type);
