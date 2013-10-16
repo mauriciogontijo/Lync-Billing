@@ -203,6 +203,35 @@ namespace Lync_Backend.Libs
             return dt;
         }
 
+        public DataTable SELECT(string sqlQuery, string connectionString) 
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            StringBuilder selectedfields = new StringBuilder();
+           
+            selectQuery = string.Format("SELECT * FROM  [{0}]", sqlQuery);
+
+            OleDbConnection conn = DBInitializeConnection(connectionString);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
         public DataTable SELECT_FROM_FUNCTION(string tableName,List<object> functionParams, Dictionary<string,object> whereClause ) 
         {
             DataTable dt = new DataTable();
