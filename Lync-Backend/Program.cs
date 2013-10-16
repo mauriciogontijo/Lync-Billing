@@ -32,7 +32,7 @@ namespace Lync_Backend
             //    ((Interfaces.IDatabaseImporter)instance).ImportPhoneCalls();
             //}
 
-            Interfaces.IDatabaseImporter importer = new Lync2013();
+            Interfaces.IDatabaseImporter importer = new Lync2010();
             importer.ImportPools();
             importer.ImportGateways();
             importer.ImportPhoneCalls();
