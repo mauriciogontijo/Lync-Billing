@@ -97,5 +97,34 @@ namespace Lync_Backend.Helpers
         {
             return string.Format("SELECT MAX(SessionIdTime) as SessionIdTime FROM PhoneCalls2010");
         }
+
+        public static string CREATE_GET_RATES_PER_GATEWAY_QUERY(string RatesTableName) 
+        {
+            return string.Format(
+                "select " +
+                   "Country_Name, " +
+                   "Two_Digits_country_code, " +
+                   "Three_Digits_Country_Code, " +
+                   "max(CASE WHEN Type_Of_Service <> 'gsm'  then rate END ) Fixedline, " +
+                   "max(CASE WHEN Type_Of_Service='gsm'then rate END) GSM " +
+
+               "from " +
+               "( " +
+                   "SELECT	DISTINCT " +
+                       "numberingplan.Country_Name, " +
+                       "numberingplan.Two_Digits_country_code, " +
+                       "numberingplan.Three_Digits_Country_Code, " +
+                       "numberingplan.Type_Of_Service, " +
+                       "fixedrate.rate as rate " +
+
+                   "FROM  " +
+                       "dbo.NumberingPlan as numberingplan " +
+
+                   "LEFT JOIN " +
+                       "dbo.[{0}]  as fixedrate ON " +
+                           "numberingplan.Dialing_prefix = fixedrate.country_code_dialing_prefix) src " +
+
+               "GROUP BY Country_Name,Two_Digits_country_code,Three_Digits_Country_Code ", RatesTableName); 
+        }
     }
 }
