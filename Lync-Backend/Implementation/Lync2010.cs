@@ -166,6 +166,8 @@ namespace Lync_Backend.Implementation
             command = new OleDbCommand(SQL, sourceDBConnector);
             command.CommandTimeout = 10000;
 
+            int phoneCallsCounter = 0;
+
             dataReader = command.ExecuteReader();
 
             while (dataReader.Read())
@@ -285,11 +287,16 @@ namespace Lync_Backend.Implementation
                 DBRoutines.INSERT(PhoneCallsTableName, phoneCall);
 
 
-                //Thirdly, write the LastPhonecallDate to the CallsImportStatus table.
-                CallsImportStatus.SetCallsImportStatus(
-                    this.GetType().Name, 
-                    phoneCall[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)].ToString()
-                );
+                //Update Calls Import Status for this class every 10,000 records:
+                if (phoneCallsCounter % 10000 == 0)
+                {
+                    CallsImportStatus.SetCallsImportStatus(
+                        this.GetType().Name, 
+                        phoneCall[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)].ToString()
+                    );
+                }
+
+                phoneCallsCounter += 1;
             }
 
 
