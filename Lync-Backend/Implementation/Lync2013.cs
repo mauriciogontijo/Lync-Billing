@@ -169,7 +169,7 @@ namespace Lync_Backend.Implementation
 
             dataReader = command.ExecuteReader();
 
-            while(false) //dataReader.Read())
+            while(dataReader.Read())
             {
                 column = string.Empty;
                 
