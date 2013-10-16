@@ -251,7 +251,7 @@ namespace Lync_Backend.Implementation
 
 
                 //Insert the phonecall to designated PhoneCalls table
-                DBRoutines.INSERT(this.GetType().Name,phoneCall);
+                DBRoutines.INSERT(PhoneCallsTableName,phoneCall);
                 
             }
         }
