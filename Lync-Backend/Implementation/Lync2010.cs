@@ -158,11 +158,6 @@ namespace Lync_Backend.Implementation
                 LastPhoneCallDate = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);
             }
 
-            if (string.IsNullOrEmpty(LastPhoneCallDate))
-            {
-                LastPhoneCallDate = Misc.ConvertDate(DateTime.Now);
-            }
-
 
             /***
              * Secondly, import the Phonecalls from the source database
@@ -284,7 +279,6 @@ namespace Lync_Backend.Implementation
                     phoneCall.Add("Duration", dataReader[Enums.GetDescription(Enums.PhoneCalls.Duration)].ToString());
                 else
                     phoneCall.Add("Duration", Convert.ToDecimal(0));
-
 
                 //Insert the phonecall to designated PhoneCalls table
                 DBRoutines.INSERT(PhoneCallsTableName, phoneCall);
