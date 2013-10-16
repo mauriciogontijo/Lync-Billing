@@ -10,7 +10,10 @@ namespace Lync_Backend.Helpers
     {
         public static string ConvertDate(DateTime datetTime)
         {
-            return datetTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            if (datetTime != DateTime.MinValue || datetTime != null)
+                return datetTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            else
+                return null;
         }
 
         public static string CREATE_IMPORT_PHONE_CALLS_QUERY(string LAST_IMPORTED_PHONECALL_DATE = null) 
