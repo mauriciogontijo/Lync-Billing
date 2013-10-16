@@ -44,23 +44,16 @@ namespace Lync_Backend.Implementation
         {
             get
             {
-                throw new NotImplementedException();
+                return "Lync2010";
             }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            
         }
 
         string IDatabaseImporter.PoolsTable
         {
             get
             {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
+                return "Pools";
             }
         }
 
@@ -68,11 +61,7 @@ namespace Lync_Backend.Implementation
         {
             get
             {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
+                return "Gateways";
             }
         }
 
