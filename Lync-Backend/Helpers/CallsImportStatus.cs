@@ -48,17 +48,24 @@ namespace Lync_Backend.Helpers
         {
             DataTable dt = new DataTable();
 
+            Dictionary<string, object> wherePart = new Dictionary<string, object>()
+            {
+                {Enums.GetDescription(Enums.CallsImportStatus.ImportedTableName), className}
+            };
+
             Dictionary<string, object> importStatusRecord = new Dictionary<string, object>()
             {
                 {Enums.GetDescription(Enums.CallsImportStatus.ImportedTableName), className},
                 {Enums.GetDescription(Enums.CallsImportStatus.Timestamp), timestamp}
             };
 
+            //Check if the class name has already a CallsImportStatus record.
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.CallsImportStatus.TableName), "importedTableName", className);
 
+            //Update it if it has a record, otherwise insert a new one
             if (dt.Rows.Count > 0)
             {
-
+                DBRoutines.UPDATE(Enums.GetDescription(Enums.CallsImportStatus.TableName), importStatusRecord, wherePart);
             }
             else
             {
