@@ -22,7 +22,7 @@ namespace Lync_Backend.Helpers
             CallsImportStatus importStat = null;
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.CallsImportStatus.TableName), "importedTableName", className);
-
+            
             if (dt.Rows.Count > 0)
             {
                 importStat = new CallsImportStatus();
