@@ -48,12 +48,14 @@
     <Compile Include="Helpers\CallsImportStatus.cs" />
     <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\Gateways.cs" />
+    <Compile Include="Helpers\Misc.cs" />
     <Compile Include="Helpers\MonitoringServersInfo.cs" />
     <Compile Include="Helpers\PhoneCall.cs" />
     <Compile Include="Helpers\Pools.cs" />
     <Compile Include="Helpers\UsersImporter.cs" />
     <Compile Include="Implementation\CallMarker_Lync2010.cs" />
     <Compile Include="Implementation\Lync2010.cs" />
+    <Compile Include="Implementation\Lync2013.cs" />
     <Compile Include="Interfaces\ICallMarker.cs" />
     <Compile Include="Interfaces\IDatabaseImporter.cs" />
     <Compile Include="Libs\AdLib.cs" />
