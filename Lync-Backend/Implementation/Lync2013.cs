@@ -59,12 +59,17 @@ namespace Lync_Backend.Implementation
 
             Dictionary<string, object> phoneCall;
 
+            DateTime LastPhoneCallDate;
+            string LAST_PHONECALL_DATE_QUERY = string.Empty;
+            
+            string column = string.Empty;
+
             string SQL = string.Empty;
             string WHERE_STATEMENT = string.Empty;
             string SELECT_STATEMENT = string.Empty;
-
-            string column = string.Empty;
             
+            LAST_PHONECALL_DATE_QUERY = "SELECT MAX(SessionIdTime) as SessionIdTime FROM VoipDetails";
+
             SELECT_STATEMENT = String.Format(
                 "SELECT " +
                          "VoipDetails.SessionIdTime, " +
@@ -100,9 +105,9 @@ namespace Lync_Backend.Implementation
                          "LEFT OUTER JOIN MediationServers ON VoipDetails.FromMediationServerId = MediationServers.MediationServerId " +
                          "LEFT OUTER JOIN Phones AS Phones_1 ON VoipDetails.ConnectedNumberId = Phones_1.PhoneId " +
                          "LEFT OUTER JOIN Phones ON VoipDetails.FromNumberId = Phones.PhoneId ON SessionDetails.SessionIdTime = VoipDetails.SessionIdTime AND " +
-                         "SessionDetails.SessionIdSeq = VoipDetails.SessionIdSeq "
+                         "SessionDetails.SessionIdSeq = VoipDetails.SessionIdSeq " +
+                    " ORDER BY VoipDetails.SessionIdTime DESC "
             );
-
             
             CallsImportStatus lastImportStat = CallsImportStatus.GetCallsImportStatus(this.GetType().Name);
 
@@ -128,12 +133,31 @@ namespace Lync_Backend.Implementation
 
             SQL = SELECT_STATEMENT + WHERE_STATEMENT;
 
+
+            /***
+             * Firstly, get the Last Phonecall Date
+             * By executing the LAST_PHONECALL_DATE_QUERY
+             */
+            command = new OleDbCommand(LAST_PHONECALL_DATE_QUERY, sourceDBConnector);
+            command.CommandTimeout = 10000;
+            
+            sourceDBConnector.Open();
+            dataReader = command.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                LastPhoneCallDate = (DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)];
+            }
+
+
+            /***
+             * Secondly, import the Phonecalls from the source database
+             * By executing the long SQL query.
+             */
             command = new OleDbCommand(SQL, sourceDBConnector);
             command.CommandTimeout = 10000;
 
             sourceDBConnector.Open();
-
-
 
             dataReader = command.ExecuteReader();
 
@@ -252,8 +276,14 @@ namespace Lync_Backend.Implementation
 
                 //Insert the phonecall to designated PhoneCalls table
                 DBRoutines.INSERT(PhoneCallsTableName,phoneCall);
-                
             }
+
+
+            /***
+             * Thirdly, write the LastPhonecallDate to the CallsImportStatus table.
+             */
+            //CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDate);
+
         }
 
 
@@ -287,6 +317,9 @@ namespace Lync_Backend.Implementation
             {
                 column = string.Empty;
                 gateway = new Dictionary<string, object>();
+
+                column = Enums.GetDescription(Enums.Gateways.GatewayId);
+                gateway.Add(column, (dataReader[column]).ToString());
 
                 column = Enums.GetDescription(Enums.Gateways.GatewayName);
                 gateway.Add(column, (dataReader[column]).ToString());
@@ -328,8 +361,11 @@ namespace Lync_Backend.Implementation
                 column = string.Empty;
                 pool = new Dictionary<string, object>();
 
+                column = Enums.GetDescription(Enums.Pools.PoolId);
+                pool.Add(column, (dataReader[column]).ToString());
+
                 column = Enums.GetDescription(Enums.Pools.PoolFQDN);
-                pool.Add("PoolFQDN", (dataReader[Enums.GetDescription(Enums.Pools.PoolFQDN)]).ToString());
+                pool.Add(column, (dataReader[column]).ToString());
 
                 //Insert the phonecall to designated PhoneCalls table
                 DBRoutines.INSERT(PoolsTableName, pool);
