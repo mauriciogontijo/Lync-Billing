@@ -280,15 +280,23 @@ namespace Lync_Backend.Implementation
                 else
                     phoneCall.Add("Duration", Convert.ToDecimal(0));
 
+
                 //Insert the phonecall to designated PhoneCalls table
                 DBRoutines.INSERT(PhoneCallsTableName, phoneCall);
+
+
+                //Thirdly, write the LastPhonecallDate to the CallsImportStatus table.
+                CallsImportStatus.SetCallsImportStatus(
+                    this.GetType().Name, 
+                    phoneCall[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)].ToString()
+                );
             }
 
 
             /***
              * Thirdly, write the LastPhonecallDate to the CallsImportStatus table.
              */
-            CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDate);
+            //CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDate);
 
             sourceDBConnector.Close();
         }
