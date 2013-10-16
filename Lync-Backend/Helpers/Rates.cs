@@ -54,10 +54,6 @@ namespace Lync_Backend.Helpers
             }
             finally { conn.Close(); }
 
-
-            Statistics stats = new Statistics();
-            dt = stats.RATES_PER_GATEWAY(ratesTableName);
-
             foreach (DataRow row in dt.Rows)
             {
                 rate = new Rates();
