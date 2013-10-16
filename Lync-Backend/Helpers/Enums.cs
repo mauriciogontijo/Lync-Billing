@@ -68,6 +68,18 @@ namespace Lync_Backend.Helpers
             Duration
         }
 
+        public enum CallMarkerStatus
+        {
+            [Description("CallMarkerStatus")]
+            TableName,
+            [Description("markerId")]
+            MarkerId,
+            [Description("phoneCallsTable")]
+            PhoneCallsTable,
+            [Description("timestamp")]
+            Timestamp
+        }
+
         public enum Gateways
         {
             [Description("GatewayId")]
