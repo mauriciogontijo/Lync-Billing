@@ -299,6 +299,8 @@ namespace Lync_Backend.Implementation
                 DBRoutines.INSERT(GatewaysTableName, gateway);
             }
 
+            sourceDBConnector.Close();
+
         }
 
         override public void ImportPools()
@@ -341,8 +343,8 @@ namespace Lync_Backend.Implementation
                 //Insert the phonecall to designated PhoneCalls table
                 DBRoutines.INSERT(PoolsTableName, pool);
             }
- 
 
+            sourceDBConnector.Close();
         }
 
     }
