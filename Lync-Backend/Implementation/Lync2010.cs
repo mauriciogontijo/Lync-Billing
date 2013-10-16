@@ -39,6 +39,43 @@ namespace Lync_Backend.Implementation
             return MonitoringServersInfo.CreateConnectionString(info);
         }
 
+
+        string IDatabaseImporter.PhoneCallsTable
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        string IDatabaseImporter.PoolsTable
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        string IDatabaseImporter.GatewaysTable
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void ImportPhoneCalls()
         {
             OleDbCommand command;
@@ -258,5 +295,27 @@ namespace Lync_Backend.Implementation
             string SQL = string.Empty;
         }
 
+
+        
+
+        string IDatabaseImporter.ConstructConnectionString()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDatabaseImporter.ImportPhoneCalls()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDatabaseImporter.ImportGateways()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDatabaseImporter.ImportPools()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
