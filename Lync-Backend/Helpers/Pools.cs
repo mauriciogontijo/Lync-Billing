@@ -8,7 +8,7 @@ namespace Lync_Backend.Helpers
 {
     class Pools
     {
-        public int PoolID { set; get; }
+        public int PoolId { set; get; }
         public string PoolFQDN { set; get; }
     }
 }
