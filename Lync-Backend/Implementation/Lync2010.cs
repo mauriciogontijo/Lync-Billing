@@ -62,7 +62,11 @@ namespace Lync_Backend.Implementation
 
             Dictionary<string, object> phoneCall;
 
-            string LastPhoneCallDate = string.Empty;
+            //This keeps track of the last imported phonecall date in my table
+            string LatestPhoneCallDateInMyTable = string.Empty;
+
+            //This keeps track of the latest phonecalldate in the Lync Database
+            string LastPhoneCallDateinSourceTable = string.Empty;
             string LAST_PHONECALL_DATE_QUERY = string.Empty;
 
             string column = string.Empty;
@@ -126,15 +130,15 @@ namespace Lync_Backend.Implementation
             }
             else 
             {
-                WHERE_STATEMENT = String.Format(
+                WHERE_STATEMENT = string.Format(
                     " WHERE " +
-                        "Users_1.UserUri IS NOT NULL AND " +
-                        "SessionDetails.ResponseCode = 200 AND " +
-                        "SessionDetails.MediaTypes = 16"
+                    "Users_1.UserUri IS NOT NULL AND " +
+                    "SessionDetails.ResponseCode = 200 AND " +
+                    "SessionDetails.MediaTypes = 16 "
                 );
             }
 
-            ORDER_BY = " ORDER BY VoipDetails.SessionIdTime DESC ";
+            ORDER_BY = " ORDER BY VoipDetails.SessionIdTime ASC ";
 
             SQL = SELECT_STATEMENT + WHERE_STATEMENT + ORDER_BY;
 
@@ -148,6 +152,7 @@ namespace Lync_Backend.Implementation
             /***
              * Firstly, get the Last Phonecall Date
              * By executing the LAST_PHONECALL_DATE_QUERY
+             * If the FirstTimeImportDate is initialized then assign it to the LastPhoneCallDate
              */
             command = new OleDbCommand(LAST_PHONECALL_DATE_QUERY, sourceDBConnector);
             command.CommandTimeout = 10000;
@@ -156,7 +161,7 @@ namespace Lync_Backend.Implementation
 
             while (dataReader.Read())
             {
-                LastPhoneCallDate = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);
+                LastPhoneCallDateinSourceTable = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);
             }
 
 
@@ -284,8 +289,16 @@ namespace Lync_Backend.Implementation
                     phoneCall.Add("Duration", Convert.ToDecimal(0));
 
 
-                //Insert the phonecall to designated PhoneCalls table
-                DBRoutines.INSERT(PhoneCallsTableName, phoneCall);
+                // Insert the phonecall to designated PhoneCalls table
+                // Break out of the loop if the phonecall exists
+                try
+                {
+                    DBRoutines.INSERT(PhoneCallsTableName, phoneCall);
+                }
+                catch (Exception e)
+                {
+                    break;
+                }
 
 
                 //Update Calls Import Status for this class every 10,000 records:
@@ -304,7 +317,7 @@ namespace Lync_Backend.Implementation
             /***
              * Thirdly, write the LastPhonecallDate to the CallsImportStatus table.
              */
-            CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDate);
+            CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDateinSourceTable);
 
             sourceDBConnector.Close();
         }
