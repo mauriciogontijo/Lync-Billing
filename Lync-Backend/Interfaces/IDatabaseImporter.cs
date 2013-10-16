@@ -10,9 +10,9 @@ namespace Lync_Backend.Interfaces
     interface IDatabaseImporter
     {
 
-        string PhoneCallsTable { get; set; }
-        string PoolsTable { get; set; }
-        string GatewaysTable { get; set; }
+        string PhoneCallsTable { get;  }
+        string PoolsTable { get; }
+        string GatewaysTable { get; }
 
         string ConstructConnectionString();
         void ImportPhoneCalls();
