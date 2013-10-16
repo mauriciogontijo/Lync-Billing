@@ -8,6 +8,7 @@ using Lync_Backend.Interfaces;
 using Lync_Backend.Helpers;
 using System.Configuration;
 using Lync_Backend.Libs;
+using System.Data;
 
 namespace Lync_Backend.Implementation
 {
@@ -308,12 +309,15 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Close();
         }
 
+
         override public void ImportGateways()
         {
             OleDbCommand command;
             OleDbDataReader dataReader;
+            DataTable dt;
 
-            Dictionary<string, object> gateway;
+            Dictionary<string, object> newGateway;
+            List<string> existingGateways = new List<string>();
 
             string column = string.Empty;
             string SQL = string.Empty;
@@ -327,6 +331,26 @@ namespace Lync_Backend.Implementation
 
             SQL = SELECT_STATEMENT;
 
+
+            /***
+             * Get all the existing gateways, to avoid inserting duplicates
+             */
+            dt = DBRoutines.SELECT(GatewaysTableName, (new List<string>()), (new Dictionary<string, object>()), 0);
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row[Enums.GetDescription(Enums.Gateways.GatewayName)] != DBNull.Value)
+                    {
+                        existingGateways.Add(row[Enums.GetDescription(Enums.Gateways.GatewayName)].ToString());
+                    }
+                }
+            }
+
+
+            /***
+             * Setup the query which gets the gateways from the source database.
+             */
             command = new OleDbCommand(SQL, sourceDBConnector);
             command.CommandTimeout = 10000;
 
@@ -337,28 +361,33 @@ namespace Lync_Backend.Implementation
             while (dataReader.Read())
             {
                 column = string.Empty;
-                gateway = new Dictionary<string, object>();
+                newGateway = new Dictionary<string, object>();
 
                 column = Enums.GetDescription(Enums.Gateways.GatewayId);
-                gateway.Add(column, (dataReader[column]).ToString());
+                newGateway.Add(column, (dataReader[column]).ToString());
 
                 column = Enums.GetDescription(Enums.Gateways.GatewayName);
-                gateway.Add(column, (dataReader[column]).ToString());
+                newGateway.Add(column, (dataReader[column]).ToString());
 
-                //Insert the phonecall to designated PhoneCalls table
-                DBRoutines.INSERT(GatewaysTableName, gateway);
+                //Insert the newGateway to designated Gateways table if it doesn't exist already
+                if (!existingGateways.Contains(newGateway[Enums.GetDescription(Enums.Gateways.GatewayName)]))
+                {
+                    DBRoutines.INSERT(GatewaysTableName, newGateway);
+                }
             }
 
             sourceDBConnector.Close();
-
         }
+
 
         override public void ImportPools()
         {
             OleDbCommand command;
             OleDbDataReader dataReader;
+            DataTable dt;
 
-            Dictionary<string, object> pool;
+            Dictionary<string, object> newPool;
+            List<string> existingPools = new List<string>();
 
             string column = string.Empty;
             string SQL = string.Empty;
@@ -370,6 +399,26 @@ namespace Lync_Backend.Implementation
                 "FROM [dbo].[Pools]"
             );
 
+
+            /***
+             * Get all the existing pools, to avoid inserting duplicates
+             */
+            dt = DBRoutines.SELECT(PoolsTableName, (new List<string>()), (new Dictionary<string, object>()), 0);
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row[Enums.GetDescription(Enums.Pools.PoolFQDN)] != DBNull.Value)
+                    {
+                        existingPools.Add(row[Enums.GetDescription(Enums.Pools.PoolFQDN)].ToString());
+                    }
+                }
+            }
+
+
+            /***
+             * Setup the query which gets the pools from the source database.
+             */
             SQL = SELECT_STATEMENT;
 
             command = new OleDbCommand(SQL, sourceDBConnector);
@@ -382,16 +431,19 @@ namespace Lync_Backend.Implementation
             while (dataReader.Read())
             {
                 column = string.Empty;
-                pool = new Dictionary<string, object>();
+                newPool = new Dictionary<string, object>();
 
                 column = Enums.GetDescription(Enums.Pools.PoolId);
-                pool.Add(column, (dataReader[column]).ToString());
+                newPool.Add(column, (dataReader[column]).ToString());
 
                 column = Enums.GetDescription(Enums.Pools.PoolFQDN);
-                pool.Add(column, (dataReader[column]).ToString());
+                newPool.Add(column, (dataReader[column]).ToString());
 
-                //Insert the phonecall to designated PhoneCalls table
-                DBRoutines.INSERT(PoolsTableName, pool);
+                //Insert the newPool to designated Pools table if it doesn't exist already
+                if (!existingPools.Contains(newPool[Enums.GetDescription(Enums.Pools.PoolFQDN)]))
+                {
+                    DBRoutines.INSERT(PoolsTableName, newPool);
+                }
             }
 
             sourceDBConnector.Close();
