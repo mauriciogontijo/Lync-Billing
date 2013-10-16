@@ -31,6 +31,12 @@ namespace Lync_Backend.Implementation
             }
         }
 
+
+        public string PhoneCallsTable { get { return "PhoneCalls2010"; } }
+        public string PoolsTable { get { return "Pools2010"; } }
+        public string GatewaysTable { get { return "Gateways2010"; } }
+
+
         public string ConstructConnectionString()
         {
             monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
@@ -39,31 +45,6 @@ namespace Lync_Backend.Implementation
             return MonitoringServersInfo.CreateConnectionString(info);
         }
 
-
-        string IDatabaseImporter.PhoneCallsTable
-        {
-            get
-            {
-                return "Lync2010";
-            }
-            
-        }
-
-        string IDatabaseImporter.PoolsTable
-        {
-            get
-            {
-                return "Pools";
-            }
-        }
-
-        string IDatabaseImporter.GatewaysTable
-        {
-            get
-            {
-                return "Gateways";
-            }
-        }
 
         public void ImportPhoneCalls()
         {
@@ -263,7 +244,7 @@ namespace Lync_Backend.Implementation
 
 
                 //Insert the phonecall to designated PhoneCalls table
-                DBRoutines.INSERT(this.GetType().Name,phoneCall);
+                DBRoutines.INSERT(PhoneCallsTable, phoneCall);
                 
             }
         }
@@ -284,27 +265,5 @@ namespace Lync_Backend.Implementation
             string SQL = string.Empty;
         }
 
-
-        
-
-        string IDatabaseImporter.ConstructConnectionString()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IDatabaseImporter.ImportPhoneCalls()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IDatabaseImporter.ImportGateways()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IDatabaseImporter.ImportPools()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
