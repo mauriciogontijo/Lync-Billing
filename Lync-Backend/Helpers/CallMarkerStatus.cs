@@ -48,6 +48,5 @@ namespace Lync_Backend.Helpers
             return callMarkingStatus;
         }
     
-    
     }
 }
