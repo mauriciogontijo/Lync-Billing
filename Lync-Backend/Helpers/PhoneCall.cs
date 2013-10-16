@@ -25,6 +25,18 @@ namespace Lync_Backend.Helpers
         public string PoolFQDN { set; get; }
         public string Marker_CallToCountry { set; get; }
         public string marker_CallType { set; get; }
+
         public decimal Duration { set; get; }
+        public decimal Marker_CallCost { set; get; }
+
+        //User UI update Fields
+        public string UI_UpdatedByUser { set; get; }
+        public DateTime UI_MarkedOn { set; get; }
+        public string UI_CallType { set; get; }
+        public string AC_DisputeStatus { set; get; }
+        public DateTime AC_DisputeResolvedOn { set; get; }
+        public string AC_IsInvoiced { set; get; }
+        public DateTime AC_InvoiceDate { set; get; }
+        public string PhoneBookName { set; get; }
     }
 }
