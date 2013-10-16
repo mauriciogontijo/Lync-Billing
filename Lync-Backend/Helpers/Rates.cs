@@ -29,7 +29,7 @@ namespace Lync_Backend.Helpers
             return RatesTableName.ToString();
         }
 
-        public static List<Rates> GetRates(string ratesTableName)
+        private static List<Rates> GetRates(string ratesTableName)
         {
             List<Rates> rates = new List<Rates>();
             DataTable dt = new DataTable();
@@ -81,7 +81,38 @@ namespace Lync_Backend.Helpers
             return rates;
 
         }
-    
+
+        public static Dictionary<string, List<Rates>> GetAllGatewaysRates() 
+        {
+            Dictionary<string, List<Rates>> allRates = new Dictionary<string, List<Rates>>();
+            List<Rates> ratesPerGateway;
+
+            //Get Entire GatewaysRates to be able to get all the rates  
+            List<GatewaysRates> gatewayRates = GatewaysRates.GetGatewaysRates();
+
+            if (gatewayRates.Count > 0) 
+            {
+                foreach (GatewaysRates GatewayRateTable in gatewayRates) 
+                {
+                    // Check RateTable Exists and Rates ending time is not null or set : to get uptodate rates table
+                    if(GatewayRateTable.RatesTableName != null && 
+                        GatewayRateTable.EndingDate != DateTime.MinValue && 
+                        GatewayRateTable.EndingDate != null )
+                    {
+                        ratesPerGateway = new List<Rates>();
+                        ratesPerGateway = GetRates(GatewayRateTable.RatesTableName);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                    
+                    allRates.Add(GatewayRateTable.RatesTableName, ratesPerGateway);
+                }
+            }
+
+            return allRates;
+        }
         
     }
 }
