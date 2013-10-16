@@ -292,7 +292,7 @@ namespace Lync_Backend.Implementation
             /***
              * Thirdly, write the LastPhonecallDate to the CallsImportStatus table.
              */
-            //CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDate);
+            CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDate);
 
             sourceDBConnector.Close();
         }
