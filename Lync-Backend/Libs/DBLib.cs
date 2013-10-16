@@ -633,9 +633,21 @@ namespace Lync_Backend.Libs
 
         }
 
+        public  OleDbDataReader EXECUTEREADER(string sqlStatment, OleDbConnection connection)
+        {
+            OleDbCommand command;
+        
+            command = new OleDbCommand(sqlStatment, connection);
+            command.CommandTimeout = 10000;
+
+            return command.ExecuteReader();
+        }
+
         private static string GetDateForDatabase(DateTime dt)
         {
             return dt.Year + "-" + dt.Month + "-" + dt.Day + " " + dt.Hour + ":" + dt.Minute + ":" + dt.Second +"." + dt.Millisecond;
         }
-   }
+   
+        
+    }
 }
