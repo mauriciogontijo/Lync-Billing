@@ -31,7 +31,7 @@ namespace Lync_Backend.Implementation
 
         public override string PhoneCallsTableName
         {
-            get { return "PhoneCalls2010"; }
+            get { return "PhoneCalls2013"; }
         }
 
         public override string PoolsTableName
