@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\CallMarkerStatus.cs" />
     <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\Gateways.cs" />
     <Compile Include="Helpers\GatewaysRates.cs" />
