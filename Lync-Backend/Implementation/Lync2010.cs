@@ -249,13 +249,45 @@ namespace Lync_Backend.Implementation
             }
         }
 
+
         public void ImportGateways()
         {
             OleDbCommand command;
             OleDbDataReader dataReader;
 
+            Dictionary<string, object> gateway;
+
             string SQL = string.Empty;
+            string WHERE_STATEMENT = string.Empty;
+            string SELECT_STATEMENT = string.Empty;
+
+            SELECT_STATEMENT = String.Format(
+                "SELECT [GatewayId], [Gateway] " +
+                "FROM [dbo].[Gateways]"
+            );
+
+            //SQL = SELECT_STATEMENT + WHERE_STATEMENT;
+            SQL = SELECT_STATEMENT;
+
+            command = new OleDbCommand(SQL, sourceDBConnector);
+            command.CommandTimeout = 10000;
+
+            sourceDBConnector.Open();
+            
+            dataReader = command.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                gateway = new Dictionary<string, object>();
+
+                gateway.Add("Gateway", (dataReader[Enums.GetDescription(Enums.Gateways.GatewayName)]).ToString());
+                
+                //Insert the phonecall to designated PhoneCalls table
+                DBRoutines.INSERT(GatewaysTable, gateway);
+
+            }
         }
+
 
         public void ImportPools()
         {
