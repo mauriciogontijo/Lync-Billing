@@ -38,40 +38,20 @@ namespace Lync_Backend.Implementation
         }
 
 
-        string IDatabaseImporter.PhoneCallsTable
+        string PhoneCallsTable
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { return "PhoneCalls2013"; }
+
         }
 
-        string IDatabaseImporter.PoolsTable
+        string PoolsTable
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { return "Pools"; }
         }
 
-        string IDatabaseImporter.GatewaysTable
+        string GatewaysTable
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { return "Gateways"; }
         }
 
         public void ImportPhoneCalls()
@@ -125,7 +105,7 @@ namespace Lync_Backend.Implementation
                          "SessionDetails.SessionIdSeq = VoipDetails.SessionIdSeq "
             );
 
-            CallsImportStatus lastImportStat = CallsImportStatus.GetCallsImportStatus(this.GetType().Name);
+            CallsImportStatus lastImportStat = CallsImportStatus.GetCallsImportStatus(PhoneCallsTable);
 
             if (lastImportStat != null)
             {
@@ -307,6 +287,22 @@ namespace Lync_Backend.Implementation
         void IDatabaseImporter.ImportPools()
         {
             throw new NotImplementedException();
+        }
+
+
+        string IDatabaseImporter.GatewaysTable
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        string IDatabaseImporter.PhoneCallsTable
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        string IDatabaseImporter.PoolsTable
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

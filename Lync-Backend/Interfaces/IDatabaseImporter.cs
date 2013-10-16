@@ -7,7 +7,7 @@ using Lync_Backend.Helpers;
 
 namespace Lync_Backend.Interfaces
 {
-    interface IDatabaseImporter
+    public interface IDatabaseImporter
     {
 
         string PhoneCallsTable { get;  }
