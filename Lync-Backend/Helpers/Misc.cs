@@ -92,5 +92,10 @@ namespace Lync_Backend.Helpers
         {
             return string.Format("SELECT [PoolId], [PoolFQDN] FROM [dbo].[Pools]");
         }
+
+        public static string CREATE_LAST_IMPORTED_PHONECALL_DATE_QUERY() 
+        {
+            return string.Format("SELECT MAX(SessionIdTime) as SessionIdTime FROM PhoneCalls2010");
+        }
     }
 }
