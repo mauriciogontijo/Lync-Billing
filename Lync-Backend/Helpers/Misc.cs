@@ -82,5 +82,15 @@ namespace Lync_Backend.Helpers
 
             return  SELECT_STATEMENT + WHERE_STATEMENT + ORDER_BY;
         }
+        
+        public static string CREATE_IMPORT_GATEWAYS_QUERY()
+        {
+            return String.Format("SELECT [GatewayId], [Gateway] FROM [dbo].[Gateways]");
+        }
+
+        public static string CREATE_IMPORT_POOLS_QUERY()
+        {
+            return string.Format("SELECT [PoolId], [PoolFQDN] FROM [dbo].[Pools]");
+        }
     }
 }
