@@ -45,7 +45,6 @@ namespace Lync_Backend.Helpers
 
         public static PhoneCall ApplyCallRate(PhoneCall thisCall) 
         {
-            string calledCountry = string.Empty;
             string srcCallType = string.Empty;
             string dstCallType = string.Empty;
 
@@ -60,6 +59,9 @@ namespace Lync_Backend.Helpers
 
             //Set DestinationNumber Dialing Prefix
             thisCall.marker_CallTo = GetDialingPrefixFromNumber(FixNumberType(thisCall.DestinationNumberUri),out dstCallType);
+
+            //Get Duration in Minutes
+            duration = thisCall.Duration/60;
 
             //Get Rates Table for the 
 
@@ -88,6 +90,11 @@ namespace Lync_Backend.Helpers
                     }
                 }
             }
+
+            if (callCostPerMin != 0)
+                thisCall.Marker_CallCost = duration * callCostPerMin;
+            else
+                thisCall.Marker_CallCost = 0;
 
 
 
