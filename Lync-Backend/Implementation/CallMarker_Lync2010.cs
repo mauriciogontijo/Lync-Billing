@@ -31,7 +31,7 @@ namespace Lync_Backend.Implementation
 
         public void ApplyRates(string tableName)
         {
-            public PhoneCall phoneCall;
+            PhoneCall phoneCall;
 
             var markerStatus = CallMarkerStatus.GetCallMarkerStatus().Where(item => item.PhoneCallsTable == "PhoneCalls2010").First() as CallMarkerStatus;
 
