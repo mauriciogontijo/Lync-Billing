@@ -31,6 +31,8 @@ namespace Lync_Backend.Implementation
 
         public void ApplyRates(string tableName)
         {
+            public PhoneCall phoneCall;
+
             var markerStatus = CallMarkerStatus.GetCallMarkerStatus().Where(item => item.PhoneCallsTable == "PhoneCalls2010").First() as CallMarkerStatus;
 
             ////Get Gateways for that Marker
@@ -66,6 +68,7 @@ namespace Lync_Backend.Implementation
                 while (dataReader.Read())
                 {
                     //Apply Rate
+                    phoneCall = new PhoneCall();
                 }
 
 
@@ -79,6 +82,7 @@ namespace Lync_Backend.Implementation
 
                 while (dataReader.Read())
                 {
+                    phoneCall = new PhoneCall();
                     //Apply Rate
                 }
             
