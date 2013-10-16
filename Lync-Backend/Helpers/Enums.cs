@@ -104,6 +104,40 @@ namespace Lync_Backend.Helpers
             CurrencyCode
         }
 
+        public enum NumberingPlan
+        {
+            [Description("NumberingPlan")]
+            TableName,
+            [Description("Dialing_prefix")]
+            DialingPrefix,
+            [Description("Country_Name")]
+            CountryName,
+            [Description("Two_Digits_country_code")]
+            TwoDigitsCountryCode,
+            [Description("Three_Digits_Country_Code")]
+            ThreeDigitsCountryCode,
+            [Description("City")]
+            City,
+            [Description("Provider")]
+            Provider,
+            [Description("Type_Of_Service")]
+            TypeOfService
+        }
+
+        public enum Rates
+        {
+            [Description("RateID")]
+            RateID,
+            [Description("Three_Digits_Country_Code")]
+            CountryCode,
+            [Description("Country_Name")]
+            CountryName,
+            [Description("Fixedline")]
+            FixedlineRate,
+            [Description("GSM")]
+            MobileLineRate
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
