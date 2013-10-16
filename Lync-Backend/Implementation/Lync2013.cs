@@ -10,7 +10,7 @@ using System.Data.OleDb;
 
 namespace Lync_Backend.Implementation
 {
-    class Lync2013 : IDatabaseImporter
+    class Lync2013 : AbIdDatabaseImporter
     {
        private static DBLib DBRoutines = new DBLib();
         private static Dictionary<string, MonitoringServersInfo> monInfo = new Dictionary<string, MonitoringServersInfo>();
@@ -29,7 +29,7 @@ namespace Lync_Backend.Implementation
             }
         }
 
-        public string ConstructConnectionString()
+        override public string ConstructConnectionString()
         {
             monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
             var info = monInfo.Where(item => item.Key == this.GetType().Name).Select(item => (MonitoringServersInfo)item.Value).First() as MonitoringServersInfo;
@@ -37,24 +37,7 @@ namespace Lync_Backend.Implementation
             return MonitoringServersInfo.CreateConnectionString(info);
         }
 
-
-        string PhoneCallsTable
-        {
-            get { return "PhoneCalls2013"; }
-
-        }
-
-        string PoolsTable
-        {
-            get { return "Pools"; }
-        }
-
-        string GatewaysTable
-        {
-            get { return "Gateways"; }
-        }
-
-        public void ImportPhoneCalls()
+        override public void ImportPhoneCalls()
         {
             OleDbCommand command;
             OleDbDataReader dataReader;
@@ -105,7 +88,8 @@ namespace Lync_Backend.Implementation
                          "SessionDetails.SessionIdSeq = VoipDetails.SessionIdSeq "
             );
 
-            CallsImportStatus lastImportStat = CallsImportStatus.GetCallsImportStatus(PhoneCallsTable);
+            
+            CallsImportStatus lastImportStat = CallsImportStatus.GetCallsImportStatus(PhoneCallsTableName);
 
             if (lastImportStat != null)
             {
@@ -257,52 +241,31 @@ namespace Lync_Backend.Implementation
             }
         }
 
-        public void ImportGateways()
+        override public void ImportGateways()
         {
             throw new NotImplementedException();
         }
 
-        public void ImportPools()
+        override public void ImportPools()
         {
             throw new NotImplementedException();
+        }
+
+        public override string PhoneCallsTableName
+        {
+            get { return "PhoneCalls2010"; }
+        }
+
+        public override string PoolsTableName
+        {
+            get { return "Pools"; }
+        }
+
+        public override string GatewaysTableName
+        {
+            get { return "Gateways"; }
         }
 
         
-
-        string IDatabaseImporter.ConstructConnectionString()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IDatabaseImporter.ImportPhoneCalls()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IDatabaseImporter.ImportGateways()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IDatabaseImporter.ImportPools()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        string IDatabaseImporter.GatewaysTable
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        string IDatabaseImporter.PhoneCallsTable
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        string IDatabaseImporter.PoolsTable
-        {
-            get { throw new NotImplementedException(); }
-        }
     }
 }
