@@ -102,8 +102,8 @@ namespace Lync_Backend.Helpers
 
         public enum Pools
         {
-            [Description("PoolID")]
-            PoolID,
+            [Description("PoolId")]
+            PoolId,
             [Description("PoolFQDN")]
             PoolFQDN
         }
