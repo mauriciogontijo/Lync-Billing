@@ -25,6 +25,8 @@ namespace Lync_Backend.Helpers
         public string PoolFQDN { set; get; }
         public string Marker_CallToCountry { set; get; }
         public string marker_CallType { set; get; }
+        public long marker_CallFrom { set; get; }
+        public long marker_CallTo { set; get; }
 
         public decimal Duration { set; get; }
         public decimal Marker_CallCost { set; get; }
@@ -37,6 +39,92 @@ namespace Lync_Backend.Helpers
         public DateTime AC_DisputeResolvedOn { set; get; }
         public string AC_IsInvoiced { set; get; }
         public DateTime AC_InvoiceDate { set; get; }
-        public string PhoneBookName { set; get; }
+
+        private static List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
+        private static Dictionary<string, List<Rates>> ratesTables = Rates.GetAllGatewaysRates();
+
+        public static PhoneCall ApplyCallRate(PhoneCall thisCall) 
+        {
+            string calledCountry = string.Empty;
+            string srcCallType = string.Empty;
+            string dstCallType = string.Empty;
+
+            decimal duration = Convert.ToDecimal(0);
+            decimal callCostPerMin = Convert.ToDecimal(0);
+            
+            //Set Destination Country Name
+            thisCall.Marker_CallToCountry = numberingPlan.Where(item => item.DialingPrefix == thisCall.marker_CallTo).Select(item => item.TwoDigitsCountryCode).ToString();
+
+            //Set SourceNumberDialing Prefix
+            thisCall.marker_CallFrom = GetDialingPrefixFromNumber(FixNumberType(thisCall.SourceNumberUri),out srcCallType);
+
+            //Set DestinationNumber Dialing Prefix
+            thisCall.marker_CallTo = GetDialingPrefixFromNumber(FixNumberType(thisCall.DestinationNumberUri),out dstCallType);
+
+            //Get Rates Table for the 
+
+            foreach (KeyValuePair<string, List<Rates>> keyValue in ratesTables) 
+            {
+                if (keyValue.Key.Contains(thisCall.ToGateway)) 
+                {
+                    Rates callRate = ((List<Rates>)keyValue.Value).Where(item => item.CountryCode == thisCall.Marker_CallToCountry).First();
+
+                    if (callRate != null)
+                    {
+                        if (dstCallType == "gsm")
+                        {
+                            callCostPerMin = callRate.MobileLineRate;
+                            break;
+                        }
+                        else
+                        {
+                            callCostPerMin = callRate.FixedLineRate;
+                            break;
+                        }
+                    }
+                    else 
+                    {
+                        continue;
+                    }
+                }
+            }
+
+
+
+            return thisCall;
+        }
+
+        private static long GetDialingPrefixFromNumber(long phoneNumber,out string callType) 
+        {
+            
+            while (phoneNumber > 0) 
+            {
+               
+                var number = numberingPlan.Where(item => item.DialingPrefix == phoneNumber) as NumberingPlan;
+
+                if (number != null)
+                {
+                    callType = number.TypeOfService;
+                    return number.DialingPrefix;
+                }
+                else
+                {
+                    phoneNumber = phoneNumber / 10;
+                    continue;
+                }
+
+            }
+            
+            callType = null;
+            
+            return phoneNumber;
+        }
+
+        private static long FixNumberType(string number) 
+        {
+            number = number.Trim('+');
+            return Convert.ToInt64(number);
+        }
+
     }
 }
