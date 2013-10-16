@@ -11,7 +11,7 @@ using Lync_Backend.Libs;
 
 namespace Lync_Backend.Implementation
 {
-    class Lync2010 : IDatabaseImporter 
+    class Lync2010 : AbIdDatabaseImporter 
     {
 
         private static DBLib DBRoutines = new DBLib();
@@ -31,13 +31,7 @@ namespace Lync_Backend.Implementation
             }
         }
 
-
-        public string PhoneCallsTable { get { return "PhoneCalls2010"; } }
-        public string PoolsTable { get { return "Pools2010"; } }
-        public string GatewaysTable { get { return "Gateways2010"; } }
-
-
-        public string ConstructConnectionString()
+        override public string ConstructConnectionString()
         {
             monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
             var info = monInfo.Where(item => item.Key == this.GetType().Name).Select(item => (MonitoringServersInfo)item.Value).First() as MonitoringServersInfo;
@@ -45,8 +39,7 @@ namespace Lync_Backend.Implementation
             return MonitoringServersInfo.CreateConnectionString(info);
         }
 
-
-        public void ImportPhoneCalls()
+        override public void ImportPhoneCalls()
         {
             OleDbCommand command;
             OleDbDataReader dataReader;
@@ -244,52 +237,12 @@ namespace Lync_Backend.Implementation
 
 
                 //Insert the phonecall to designated PhoneCalls table
-                DBRoutines.INSERT(PhoneCallsTable, phoneCall);
+                DBRoutines.INSERT(this.GetType().Name,phoneCall);
                 
             }
         }
 
-
-        public void ImportGateways()
-        {
-            OleDbCommand command;
-            OleDbDataReader dataReader;
-
-            Dictionary<string, object> gateway;
-
-            string SQL = string.Empty;
-            string WHERE_STATEMENT = string.Empty;
-            string SELECT_STATEMENT = string.Empty;
-
-            SELECT_STATEMENT = String.Format(
-                "SELECT [GatewayId], [Gateway] " +
-                "FROM [dbo].[Gateways]"
-            );
-
-            //SQL = SELECT_STATEMENT + WHERE_STATEMENT;
-            SQL = SELECT_STATEMENT;
-
-            command = new OleDbCommand(SQL, sourceDBConnector);
-            command.CommandTimeout = 10000;
-
-            sourceDBConnector.Open();
-            
-            dataReader = command.ExecuteReader();
-
-            while (dataReader.Read())
-            {
-                gateway = new Dictionary<string, object>();
-
-                gateway.Add("Gateway", (dataReader[Enums.GetDescription(Enums.Gateways.GatewayName)]).ToString());
-                
-                //Insert the phonecall to designated PhoneCalls table
-                DBRoutines.INSERT(GatewaysTable, gateway);
-
-            }
-        }
-
-
-        public void ImportPools()
+        override public void ImportGateways()
         {
             OleDbCommand command;
             OleDbDataReader dataReader;
@@ -297,5 +250,27 @@ namespace Lync_Backend.Implementation
             string SQL = string.Empty;
         }
 
+        override public void ImportPools()
+        {
+            OleDbCommand command;
+            OleDbDataReader dataReader;
+
+            string SQL = string.Empty;
+        }
+
+        public override string PhoneCallsTableName
+        {
+            get { return "PhoneCalls2010"; }
+        }
+
+        public override string PoolsTableName
+        {
+            get { return "Pools"; }
+        }
+
+        public override string GatewaysTableName
+        {
+            get { return "Gateways"; }
+        }
     }
 }
