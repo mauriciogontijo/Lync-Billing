@@ -90,7 +90,7 @@ namespace Lync_Backend.Implementation
                          "SessionDetails.SessionIdSeq = VoipDetails.SessionIdSeq "
             );
 
-            CallsImportStatus lastImportStat = CallsImportStatus.GetCallsImportStatus(this.GetType().Name);
+            CallsImportStatus lastImportStat = CallsImportStatus.GetCallsImportStatus(PhoneCallsTableName);
 
             if (lastImportStat != null)
             {
