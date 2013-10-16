@@ -35,24 +35,9 @@ namespace Lync_Backend.Helpers
             DataTable dt = new DataTable();
             Rates rate;
 
-            OleDbDataReader dr;
             string selectQuery = Misc.CREATE_GET_RATES_PER_GATEWAY_QUERY(ratesTableName);
 
-            OleDbConnection conn = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
-            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
-
-            try
-            {
-                conn.Open();
-                dr = comm.ExecuteReader();
-                dt.Load(dr);
-            }
-            catch (Exception ex)
-            {
-                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
-                //throw argEx;
-            }
-            finally { conn.Close(); }
+            dt = DBRoutines.SELECT(selectQuery, ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
 
             foreach (DataRow row in dt.Rows)
             {
