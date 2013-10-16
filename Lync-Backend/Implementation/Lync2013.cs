@@ -127,20 +127,20 @@ namespace Lync_Backend.Implementation
                 
                 phoneCall = new Dictionary<string,object>();
 
-                phoneCall.Add("SessionIdTime", ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]));
+                phoneCall.Add("SessionIdTime", Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]));
                 phoneCall.Add("SessionIdSeq", (int)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq)]);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.ResponseTime);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add("ResponseTime", ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)]));
+                    phoneCall.Add("ResponseTime", Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)]));
                 else
                     phoneCall.Add("ResponseTime", DBNull.Value);
 
                 
                 column = Enums.GetDescription(Enums.PhoneCalls.SessionEndTime);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add("SessionEndTime", ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)]));
+                    phoneCall.Add("SessionEndTime", Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)]));
                 else
                     phoneCall.Add("SessionEndTime", DBNull.Value);
 
