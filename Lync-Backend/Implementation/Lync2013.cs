@@ -59,7 +59,7 @@ namespace Lync_Backend.Implementation
 
             Dictionary<string, object> phoneCall;
 
-            DateTime LastPhoneCallDate;
+            string LastPhoneCallDate = string.Empty;
             string LAST_PHONECALL_DATE_QUERY = string.Empty;
             
             string column = string.Empty;
@@ -67,6 +67,7 @@ namespace Lync_Backend.Implementation
             string SQL = string.Empty;
             string WHERE_STATEMENT = string.Empty;
             string SELECT_STATEMENT = string.Empty;
+            string ORDER_BY = string.Empty;
             
             LAST_PHONECALL_DATE_QUERY = "SELECT MAX(SessionIdTime) as SessionIdTime FROM VoipDetails";
 
@@ -105,8 +106,7 @@ namespace Lync_Backend.Implementation
                          "LEFT OUTER JOIN MediationServers ON VoipDetails.FromMediationServerId = MediationServers.MediationServerId " +
                          "LEFT OUTER JOIN Phones AS Phones_1 ON VoipDetails.ConnectedNumberId = Phones_1.PhoneId " +
                          "LEFT OUTER JOIN Phones ON VoipDetails.FromNumberId = Phones.PhoneId ON SessionDetails.SessionIdTime = VoipDetails.SessionIdTime AND " +
-                         "SessionDetails.SessionIdSeq = VoipDetails.SessionIdSeq " +
-                    " ORDER BY VoipDetails.SessionIdTime DESC "
+                         "SessionDetails.SessionIdSeq = VoipDetails.SessionIdSeq "
             );
             
             CallsImportStatus lastImportStat = CallsImportStatus.GetCallsImportStatus(this.GetType().Name);
@@ -115,23 +115,29 @@ namespace Lync_Backend.Implementation
             {
                 WHERE_STATEMENT = String.Format(
                     " WHERE " +
-                        "Users_1.UserUri IS NOT NULL AND " +
-                        "SessionDetails.ResponseCode = 200 AND " +
-                        "SessionDetails.MediaTypes = 16 AND " +
-                        "VoipDetails.SessionIdTime > '{0}'", lastImportStat.Timestamp
+                    "Users_1.UserUri IS NOT NULL AND " +
+                    "SessionDetails.ResponseCode = 200 AND " +
+                    "SessionDetails.MediaTypes = 16 AND " +
+                    "VoipDetails.SessionIdTime > '{0}'", lastImportStat.Timestamp
                 );
             }
             else 
             {
-                WHERE_STATEMENT = String.Format(
-                    " WHERE " +
-                        "Users_1.UserUri IS NOT NULL AND " +
-                        "SessionDetails.ResponseCode = 200 AND " +
-                        "SessionDetails.MediaTypes = 16"
-                );
+                WHERE_STATEMENT = " WHERE " +
+                    "Users_1.UserUri IS NOT NULL AND " +
+                    "SessionDetails.ResponseCode = 200 AND " +
+                    "SessionDetails.MediaTypes = 16";
             }
 
-            SQL = SELECT_STATEMENT + WHERE_STATEMENT;
+            ORDER_BY = " ORDER BY VoipDetails.SessionIdTime DESC ";
+
+            SQL = SELECT_STATEMENT + WHERE_STATEMENT + ORDER_BY;
+
+
+            /***
+             * Open the database connection to execute the following commands
+             */
+            sourceDBConnector.Open();
 
 
             /***
@@ -140,13 +146,17 @@ namespace Lync_Backend.Implementation
              */
             command = new OleDbCommand(LAST_PHONECALL_DATE_QUERY, sourceDBConnector);
             command.CommandTimeout = 10000;
-            
-            sourceDBConnector.Open();
+
             dataReader = command.ExecuteReader();
 
             while (dataReader.Read())
             {
-                LastPhoneCallDate = (DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)];
+                LastPhoneCallDate = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);
+            }
+
+            if (string.IsNullOrEmpty(LastPhoneCallDate))
+            {
+                LastPhoneCallDate = Misc.ConvertDate(DateTime.Now);
             }
 
 
@@ -156,8 +166,6 @@ namespace Lync_Backend.Implementation
              */
             command = new OleDbCommand(SQL, sourceDBConnector);
             command.CommandTimeout = 10000;
-
-            sourceDBConnector.Open();
 
             dataReader = command.ExecuteReader();
 
@@ -282,8 +290,9 @@ namespace Lync_Backend.Implementation
             /***
              * Thirdly, write the LastPhonecallDate to the CallsImportStatus table.
              */
-            //CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDate);
+            CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDate);
 
+            sourceDBConnector.Close();
         }
 
 

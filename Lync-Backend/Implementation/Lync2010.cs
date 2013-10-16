@@ -61,11 +61,17 @@ namespace Lync_Backend.Implementation
 
             Dictionary<string, object> phoneCall;
 
+            string LastPhoneCallDate = string.Empty;
+            string LAST_PHONECALL_DATE_QUERY = string.Empty;
+
+            string column = string.Empty;
+
             string SQL = string.Empty;
             string WHERE_STATEMENT = string.Empty;
             string SELECT_STATEMENT = string.Empty;
+            string ORDER_BY = string.Empty;
 
-            string column = string.Empty;
+            LAST_PHONECALL_DATE_QUERY = "SELECT MAX(SessionIdTime) as SessionIdTime FROM VoipDetails";
             
             SELECT_STATEMENT = String.Format(
                 "SELECT " +
@@ -128,18 +134,47 @@ namespace Lync_Backend.Implementation
                 );
             }
 
-            SQL = SELECT_STATEMENT + WHERE_STATEMENT;
+            ORDER_BY = " ORDER BY VoipDetails.SessionIdTime DESC ";
 
-            command = new OleDbCommand(SQL, sourceDBConnector);
-            command.CommandTimeout = 10000;
+            SQL = SELECT_STATEMENT + WHERE_STATEMENT + ORDER_BY;
 
+
+            /***
+             * Open the database connection to execute the following commands
+             */
             sourceDBConnector.Open();
 
 
+            /***
+             * Firstly, get the Last Phonecall Date
+             * By executing the LAST_PHONECALL_DATE_QUERY
+             */
+            command = new OleDbCommand(LAST_PHONECALL_DATE_QUERY, sourceDBConnector);
+            command.CommandTimeout = 10000;
 
             dataReader = command.ExecuteReader();
 
-            while(dataReader.Read())
+            while (dataReader.Read())
+            {
+                LastPhoneCallDate = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);
+            }
+
+            if (string.IsNullOrEmpty(LastPhoneCallDate))
+            {
+                LastPhoneCallDate = Misc.ConvertDate(DateTime.Now);
+            }
+
+
+            /***
+             * Secondly, import the Phonecalls from the source database
+             * By executing the long SQL query.
+             */
+            command = new OleDbCommand(SQL, sourceDBConnector);
+            command.CommandTimeout = 10000;
+
+            dataReader = command.ExecuteReader();
+
+            while (dataReader.Read())
             {
                 column = string.Empty;
                 
@@ -254,8 +289,15 @@ namespace Lync_Backend.Implementation
 
                 //Insert the phonecall to designated PhoneCalls table
                 DBRoutines.INSERT(this.GetType().Name,phoneCall);
-                
             }
+
+
+            /***
+             * Thirdly, write the LastPhonecallDate to the CallsImportStatus table.
+             */
+            CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDate);
+
+            sourceDBConnector.Close();
         }
 
         override public void ImportGateways()
