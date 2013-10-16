@@ -21,7 +21,7 @@ namespace Lync_Backend.Helpers
             DataTable dt = new DataTable();            
             CallsImportStatus importStat = null;
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.CallsImportStatus.TableName), "phoneCallsTable", tableName);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.CallsImportStatus.TableName), "importedTableName", tableName);
 
             if (dt.Rows.Count > 0)
             {
