@@ -16,12 +16,12 @@ namespace Lync_Backend.Helpers
 
         private static DBLib DBRoutines = new DBLib();
 
-        public static CallsImportStatus GetCallsImportStatus(string tableName)
+        public static CallsImportStatus GetCallsImportStatus(string className)
         {
             DataTable dt = new DataTable();            
             CallsImportStatus importStat = null;
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.CallsImportStatus.TableName), "importedTableName", tableName);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.CallsImportStatus.TableName), "importedTableName", className);
 
             if (dt.Rows.Count > 0)
             {
@@ -41,6 +41,20 @@ namespace Lync_Backend.Helpers
             }
 
             return importStat;
+        }
+
+
+        public static void SetCallsImportStatus(string className, string timestamp)
+        {
+            DataTable dt = new DataTable();
+
+            Dictionary<string, object> importStatusRecord = new Dictionary<string, object>()
+            {
+                {Enums.GetDescription(Enums.CallsImportStatus.ImportedTableName), className},
+                {Enums.GetDescription(Enums.CallsImportStatus.Timestamp), timestamp}
+            };
+
+            DBRoutines.INSERT(Enums.GetDescription(Enums.CallsImportStatus.TableName), importStatusRecord);
         }
     }
 }
