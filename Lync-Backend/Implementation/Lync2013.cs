@@ -8,6 +8,7 @@ using Lync_Backend.Libs;
 using Lync_Backend.Helpers;
 using System.Data.OleDb;
 using System.Data;
+using System.Configuration;
 
 namespace Lync_Backend.Implementation
 {
@@ -55,128 +56,34 @@ namespace Lync_Backend.Implementation
 
         override public void ImportPhoneCalls()
         {
-            OleDbCommand command;
+          
             OleDbDataReader dataReader;
+            OleDbConnection DestinationDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
 
             Dictionary<string, object> phoneCall;
 
-            string FirstTimeImportDate = string.Empty;
+            string LAST_IMPORTED_PHONECALL_DATE = string.Empty;
 
-            //This keeps track of the last imported phonecall date in my table
-            string LatestPhoneCallDateInMyTable = string.Empty;
-
-            //This keeps track of the latest phonecalldate in the Lync Database
-            string LastPhoneCallDateinSourceTable = string.Empty;
-            string LAST_PHONECALL_DATE_QUERY = string.Empty;
-            
             string column = string.Empty;
 
-            string SQL = string.Empty;
-            string WHERE_STATEMENT = string.Empty;
-            string SELECT_STATEMENT = string.Empty;
-            string ORDER_BY = string.Empty;
-            
-            LAST_PHONECALL_DATE_QUERY = "SELECT MAX(SessionIdTime) as SessionIdTime FROM VoipDetails";
-
-            SELECT_STATEMENT = String.Format(
-                "SELECT " +
-                         "VoipDetails.SessionIdTime, " +
-                         "VoipDetails.SessionIdSeq, " +
-                         "Users_1.UserUri AS SourceUserUri, " +
-                         "Users_2.UserUri AS DestinationUserUri, " +
-                         "Phones.PhoneUri AS SourceNumberUri, " +
-                         "Phones_1.PhoneUri AS DestinationNumberUri, " +
-                         "MediationServers.MediationServer AS FromMediationServer, " +
-                         "MediationServers_1.MediationServer AS ToMediationServer, " +
-                         "Gateways.Gateway AS FromGateway, " +
-                         "Gateways_1.Gateway AS ToGateway, " +
-                         "EdgeServers.EdgeServer AS SourceUserEdgeServer, " +
-                         "EdgeServers_1.EdgeServer AS DestinationUserEdgeServer, " +
-                         "Servers.ServerFQDN, " +
-                         "Pools.PoolFQDN, " +
-                         "SessionDetails.ResponseTime, " +
-                         "SessionDetails.SessionEndTime, " +
-                         "CONVERT(decimal(8, 0), " +
-                         "DATEDIFF(second, SessionDetails.ResponseTime,  SessionDetails.SessionEndTime)) AS Duration " +
-                "FROM     SessionDetails " +
-                         "LEFT OUTER JOIN Servers ON SessionDetails.ServerId = Servers.ServerId " +
-                         "LEFT OUTER JOIN Pools ON SessionDetails.PoolId = Pools.PoolId " +
-                         "LEFT OUTER JOIN SIPResponseMetaData ON SessionDetails.ResponseCode = SIPResponseMetaData.ResponseCode " +
-                         "LEFT OUTER JOIN EdgeServers AS EdgeServers_1 ON SessionDetails.User2EdgeServerId = EdgeServers_1.EdgeServerId " +
-                         "LEFT OUTER JOIN EdgeServers ON SessionDetails.User1EdgeServerId = EdgeServers.EdgeServerId " +
-                         "LEFT OUTER JOIN Users AS Users_2 ON SessionDetails.User2Id = Users_2.UserId " +
-                         "LEFT OUTER JOIN Users AS Users_1 ON SessionDetails.User1Id = Users_1.UserId " +
-                         "RIGHT OUTER JOIN VoipDetails " +
-                         "LEFT OUTER JOIN Gateways AS Gateways_1 ON VoipDetails.ToGatewayId = Gateways_1.GatewayId " +
-                         "LEFT OUTER JOIN Gateways ON VoipDetails.FromGatewayId = Gateways.GatewayId " +
-                         "LEFT OUTER JOIN MediationServers AS MediationServers_1 ON VoipDetails.ToMediationServerId = MediationServers_1.MediationServerId " +
-                         "LEFT OUTER JOIN MediationServers ON VoipDetails.FromMediationServerId = MediationServers.MediationServerId " +
-                         "LEFT OUTER JOIN Phones AS Phones_1 ON VoipDetails.ConnectedNumberId = Phones_1.PhoneId " +
-                         "LEFT OUTER JOIN Phones ON VoipDetails.FromNumberId = Phones.PhoneId ON SessionDetails.SessionIdTime = VoipDetails.SessionIdTime AND " +
-                         "SessionDetails.SessionIdSeq = VoipDetails.SessionIdSeq "
-            );
-            
-            CallsImportStatus lastImportStat = CallsImportStatus.GetCallsImportStatus(this.GetType().Name);
-
-            if (lastImportStat != null)
-            {
-                WHERE_STATEMENT = String.Format(
-                    " WHERE " +
-                    "Users_1.UserUri IS NOT NULL AND " +
-                    "SessionDetails.ResponseCode = 200 AND " +
-                    "SessionDetails.MediaTypes = 16 AND " +
-                    "VoipDetails.SessionIdTime > '{0}'", lastImportStat.Timestamp
-                );
-            }
-            else 
-            {
-                WHERE_STATEMENT = string.Format(
-                    " WHERE " +
-                    "Users_1.UserUri IS NOT NULL AND " +
-                    "SessionDetails.ResponseCode = 200 AND " +
-                    "SessionDetails.MediaTypes = 16 "
-                );
-            }
-
-            ORDER_BY = " ORDER BY VoipDetails.SessionIdTime ASC ";
-
-            SQL = SELECT_STATEMENT + WHERE_STATEMENT + ORDER_BY;
-
-
-            /***
-             * Open the database connection to execute the following commands
-             */
+            //OPEN CONNECTIONS
             sourceDBConnector.Open();
+            DestinationDBConnector.Open();
+
+            dataReader = DBRoutines.EXECUTEREADER(Misc.CREATE_LAST_IMPORTED_PHONECALL_DATE_QUERY(), DestinationDBConnector);
+
+            if (dataReader.Read() && !dataReader.IsDBNull(0))
+                LAST_IMPORTED_PHONECALL_DATE = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);
+            else
+                LAST_IMPORTED_PHONECALL_DATE = null;
 
 
-            /***
-             * Firstly, get the Last Phonecall Date
-             * By executing the LAST_PHONECALL_DATE_QUERY
-             * If the FirstTimeImportDate is initialized then assign it to the LastPhoneCallDateinSourceTable
-             */
-            command = new OleDbCommand(LAST_PHONECALL_DATE_QUERY, sourceDBConnector);
-            command.CommandTimeout = 10000;
-
-            dataReader = command.ExecuteReader();
+            //Construct CREATE_IMPORT_PHONE_CALLS_QUERY
+            string SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(LAST_IMPORTED_PHONECALL_DATE);
+            
+            dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
             while (dataReader.Read())
-            {
-                LastPhoneCallDateinSourceTable = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);
-            }
-
-
-            /***
-             * Secondly, import the Phonecalls from the source database
-             * By executing the long SQL query.
-             */
-            command = new OleDbCommand(SQL, sourceDBConnector);
-            command.CommandTimeout = 10000;
-
-            int phoneCallsCounter = 0;
-
-            dataReader = command.ExecuteReader();
-
-            while(dataReader.Read())
             {
                 column = string.Empty;
                 
@@ -188,109 +95,106 @@ namespace Lync_Backend.Implementation
 
                 column = Enums.GetDescription(Enums.PhoneCalls.ResponseTime);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)]));
+                    phoneCall.Add("ResponseTime", Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)]));
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("ResponseTime", DBNull.Value);
 
                 
                 column = Enums.GetDescription(Enums.PhoneCalls.SessionEndTime);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)]));
+                    phoneCall.Add("SessionEndTime", Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)]));
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("SessionEndTime", DBNull.Value);
 
                 
                 column = Enums.GetDescription(Enums.PhoneCalls.SourceUserUri);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceUserUri)].ToString());
+                    phoneCall.Add("SourceUserUri", dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceUserUri)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("SourceUserUri", DBNull.Value);
 
                 column = Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri)].ToString());
+                    phoneCall.Add("SourceNumberUri", dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("SourceNumberUri", DBNull.Value);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri)].ToString());
+                    phoneCall.Add("DestinationUserUri", dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("DestinationUserUri", DBNull.Value);
 
                 column = Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri)].ToString());
+                    phoneCall.Add("DestinationNumberUri", dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("DestinationNumberUri", DBNull.Value);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.FromMediationServer);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.FromMediationServer)].ToString());
+                    phoneCall.Add("FromMediationServer", dataReader[Enums.GetDescription(Enums.PhoneCalls.FromMediationServer)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("FromMediationServer", DBNull.Value);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.ToMediationServer);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.ToMediationServer)].ToString());
+                    phoneCall.Add("ToMediationServer", dataReader[Enums.GetDescription(Enums.PhoneCalls.ToMediationServer)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("ToMediationServer", DBNull.Value);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.FromGateway);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.FromGateway)].ToString());
+                    phoneCall.Add("FromGateway", dataReader[Enums.GetDescription(Enums.PhoneCalls.FromGateway)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("FromGateway", DBNull.Value);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.ToGateway);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.ToGateway)].ToString());
+                    phoneCall.Add("ToGateway", dataReader[Enums.GetDescription(Enums.PhoneCalls.ToGateway)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("ToGateway", DBNull.Value);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer)].ToString());
+                    phoneCall.Add("SourceUserEdgeServer", dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("SourceUserEdgeServer", DBNull.Value);
                 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer)].ToString());
+                    phoneCall.Add("DestinationUserEdgeServer", dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("DestinationUserEdgeServer", DBNull.Value);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.ServerFQDN);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.ServerFQDN)].ToString());
+                    phoneCall.Add("ServerFQDN", dataReader[Enums.GetDescription(Enums.PhoneCalls.ServerFQDN)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("ServerFQDN", DBNull.Value);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.PoolFQDN);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.PoolFQDN)].ToString());
+                    phoneCall.Add("PoolFQDN", dataReader[Enums.GetDescription(Enums.PhoneCalls.PoolFQDN)].ToString());
                 else
-                    phoneCall.Add(column, DBNull.Value);
+                    phoneCall.Add("PoolFQDN", DBNull.Value);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.Duration);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add(column, dataReader[Enums.GetDescription(Enums.PhoneCalls.Duration)].ToString());
+                    phoneCall.Add("Duration", dataReader[Enums.GetDescription(Enums.PhoneCalls.Duration)].ToString());
                 else
-                    phoneCall.Add(column, Convert.ToDecimal(0));
+                    phoneCall.Add("Duration", Convert.ToDecimal(0));
 
-
-                // Insert the phonecall to designated PhoneCalls table
-                // Break out of the loop if the phonecall exists
                 try
                 {
                     DBRoutines.INSERT(PhoneCallsTableName, phoneCall);
@@ -299,33 +203,13 @@ namespace Lync_Backend.Implementation
                 {
                     break;
                 }
-
-
-                //Update Calls Import Status for this class every 10,000 records:
-                if (phoneCallsCounter % 10000 == 0)
-                {
-                    CallsImportStatus.SetCallsImportStatus(
-                        this.GetType().Name,
-                        phoneCall[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)].ToString()
-                    );
-                }
-
-                phoneCallsCounter += 1;
             }
-
-
-            /***
-             * Thirdly, write the LastPhonecallDate to the CallsImportStatus table.
-             */
-            CallsImportStatus.SetCallsImportStatus(this.GetType().Name, LastPhoneCallDateinSourceTable);
 
             sourceDBConnector.Close();
         }
 
-
         override public void ImportGateways()
         {
-            OleDbCommand command;
             OleDbDataReader dataReader;
             DataTable dt;
 
@@ -333,18 +217,7 @@ namespace Lync_Backend.Implementation
             List<string> existingGateways = new List<string>();
 
             string column = string.Empty;
-            string SQL = string.Empty;
-            string WHERE_STATEMENT = string.Empty;
-            string SELECT_STATEMENT = string.Empty;
-
-            SELECT_STATEMENT = String.Format(
-                "SELECT [GatewayId], [Gateway] " +
-                "FROM [dbo].[Gateways]"
-            );
-
-            SQL = SELECT_STATEMENT;
-
-
+            
             /***
              * Get all the existing gateways, to avoid inserting duplicates
              */
@@ -360,16 +233,9 @@ namespace Lync_Backend.Implementation
                 }
             }
 
-
-            /***
-             * Setup the query which gets the gateways from the source database.
-             */
-            command = new OleDbCommand(SQL, sourceDBConnector);
-            command.CommandTimeout = 10000;
-
             sourceDBConnector.Open();
 
-            dataReader = command.ExecuteReader();
+            dataReader = DBRoutines.EXECUTEREADER(Misc.CREATE_IMPORT_GATEWAYS_QUERY(), sourceDBConnector);
 
             while (dataReader.Read())
             {
@@ -392,10 +258,8 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Close();
         }
 
-
         override public void ImportPools()
         {
-            OleDbCommand command;
             OleDbDataReader dataReader;
             DataTable dt;
 
@@ -403,16 +267,7 @@ namespace Lync_Backend.Implementation
             List<string> existingPools = new List<string>();
 
             string column = string.Empty;
-            string SQL = string.Empty;
-            string WHERE_STATEMENT = string.Empty;
-            string SELECT_STATEMENT = string.Empty;
-
-            SELECT_STATEMENT = String.Format(
-                "SELECT [PoolId], [PoolFQDN] " +
-                "FROM [dbo].[Pools]"
-            );
-
-
+           
             /***
              * Get all the existing pools, to avoid inserting duplicates
              */
@@ -432,14 +287,10 @@ namespace Lync_Backend.Implementation
             /***
              * Setup the query which gets the pools from the source database.
              */
-            SQL = SELECT_STATEMENT;
-
-            command = new OleDbCommand(SQL, sourceDBConnector);
-            command.CommandTimeout = 10000;
 
             sourceDBConnector.Open();
-
-            dataReader = command.ExecuteReader();
+            
+            dataReader = DBRoutines.EXECUTEREADER(Misc.CREATE_IMPORT_POOLS_QUERY(), sourceDBConnector);
 
             while (dataReader.Read())
             {
@@ -461,5 +312,6 @@ namespace Lync_Backend.Implementation
 
             sourceDBConnector.Close();
         }
+
     }
 }
