@@ -108,6 +108,26 @@ namespace Lync_Backend.Helpers
             PoolFQDN
         }
 
+        public enum GatewaysRates
+        {
+            [Description("GatewaysRates")]
+            TableName,
+            [Description("GatewaysRatesID")]
+            GatewaysRatesID,
+            [Description("GatewayID")]
+            GatewayID,
+            [Description("RatesTableName")]
+            RatesTableName,
+            [Description("StartingDate")]
+            StartingDate,
+            [Description("EndingDate")]
+            EndingDate,
+            [Description("ProviderName")]
+            ProviderName,
+            [Description("CurrencyCode")]
+            CurrencyCode
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
