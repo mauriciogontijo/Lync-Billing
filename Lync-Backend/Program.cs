@@ -30,6 +30,7 @@ namespace Lync_Backend
                   object instance = Activator.CreateInstance(type);
 
                   ((Interfaces.IDatabaseImporter)instance).ImportPools();
+                  ((Interfaces.IDatabaseImporter)instance).ImportGateways();
 
             }
 
