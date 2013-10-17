@@ -81,8 +81,8 @@ namespace Lync_Backend.Helpers
                 {
                     // Check RateTable Exists and Rates ending time is not null or set : to get uptodate rates table
                     if(GatewayRateTable.RatesTableName != null && 
-                        GatewayRateTable.EndingDate != DateTime.MinValue && 
-                        GatewayRateTable.EndingDate != null )
+                        (GatewayRateTable.EndingDate != DateTime.MinValue ||
+                        GatewayRateTable.EndingDate != null ))
                     {
                         ratesPerGateway = new List<Rates>();
                         ratesPerGateway = GetRates(GatewayRateTable.RatesTableName);
