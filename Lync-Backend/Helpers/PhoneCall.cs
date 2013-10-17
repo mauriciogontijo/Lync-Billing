@@ -53,8 +53,7 @@ namespace Lync_Backend.Helpers
             decimal duration = Convert.ToDecimal(0);
             decimal callCostPerMin = Convert.ToDecimal(0);
             
-            //Set Destination Country Name
-            thisCall.Marker_CallToCountry = numberingPlan.Where(item => item.DialingPrefix == thisCall.marker_CallTo).Select(item => item.TwoDigitsCountryCode).ToString();
+          
 
             //Set SourceNumberDialing Prefix
             thisCall.marker_CallFrom = GetDialingPrefixFromNumber(FixNumberType(thisCall.SourceNumberUri),out srcCallType);
@@ -62,8 +61,11 @@ namespace Lync_Backend.Helpers
             //Set DestinationNumber Dialing Prefix
             thisCall.marker_CallTo = GetDialingPrefixFromNumber(FixNumberType(thisCall.DestinationNumberUri),out dstCallType);
 
+            //Set Destination Country Name
+            thisCall.Marker_CallToCountry = numberingPlan.Find(item => item.DialingPrefix == thisCall.marker_CallTo).ThreeDigitsCountryCode ?? "N/A";
+
             //Get Duration in Minutes
-            duration = thisCall.Duration/60;
+            duration = Math.Round(thisCall.Duration/60,3);
 
             //Get Rates Table for the 
 
@@ -106,11 +108,12 @@ namespace Lync_Backend.Helpers
         {
             while (phoneNumber > 0) 
             {
-                var number = numberingPlan.Where(item => item.DialingPrefix == phoneNumber) as NumberingPlan;
+                var number = numberingPlan.Find(item => item.DialingPrefix == phoneNumber);
 
                 if (number != null)
                 {
-                    callType = number.TypeOfService;
+                    
+                    callType =number.TypeOfService;
                     return number.DialingPrefix;
                 }
                 else
@@ -128,8 +131,11 @@ namespace Lync_Backend.Helpers
 
         private static long FixNumberType(string number) 
         {
+            long longNumber = 0;
             number = number.Trim('+');
-            return Convert.ToInt64(number);
+            long.TryParse(number, out longNumber); ;
+            
+            return longNumber;
         }
 
     }

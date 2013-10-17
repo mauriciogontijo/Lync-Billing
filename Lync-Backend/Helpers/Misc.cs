@@ -16,6 +16,27 @@ namespace Lync_Backend.Helpers
                 return null;
         }
 
+        public static string CREATE_READ_PHONE_CALLS_QUERY(string TABLE_NAME, string TIMESTAMP = null) 
+        {
+            string SQL = string.Empty;
+            string WHERE_STATEMENT = string.Empty;
+            string SELECT_STATEMENT = string.Empty;
+            string ORDER_BY = string.Empty;
+
+            SELECT_STATEMENT = String.Format("SELECT * FROM [{0}] ",TABLE_NAME);
+
+
+            if (TIMESTAMP != null)
+            {
+                WHERE_STATEMENT = String.Format(" WHERE SessionIdTime > '{0}'", TIMESTAMP);
+            }
+
+
+            ORDER_BY = " ORDER BY SessionIdTime ASC ";
+
+            return SELECT_STATEMENT + WHERE_STATEMENT + ORDER_BY;
+        }
+
         public static string CREATE_IMPORT_PHONE_CALLS_QUERY(string LAST_IMPORTED_PHONECALL_DATE = null) 
         {
             string SQL = string.Empty;

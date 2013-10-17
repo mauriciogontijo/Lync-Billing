@@ -42,8 +42,18 @@ namespace Lync_Backend.Implementation
             PhoneCall phoneCall;
             string column = string.Empty;
             Dictionary<string, object> updateStatementValues;
+            DateTime statusTimestamp;
 
-            var markerStatus = CallMarkerStatus.GetCallMarkerStatus().Where(item => item.PhoneCallsTable == "PhoneCalls2010").First() as CallMarkerStatus;
+            var markerStatus = CallMarkerStatus.GetCallMarkerStatus().Where(item => item.PhoneCallsTable == "PhoneCalls2010");
+
+            if (markerStatus.Count() != 0)
+            {
+                statusTimestamp = ((CallMarkerStatus)markerStatus.First()).Timestamp;
+            }
+            else 
+            {
+                statusTimestamp = DateTime.MinValue;
+            }
 
             ////Get Gateways for that Marker
             //List<Gateways> gateways = Gateways.GetGateways("Gateways2010");
@@ -68,10 +78,10 @@ namespace Lync_Backend.Implementation
 
             sourceDBConnector.Open();
 
-            if (markerStatus.Timestamp == DateTime.MinValue || markerStatus.Timestamp == null)
+            if (statusTimestamp == DateTime.MinValue || statusTimestamp == null)
             {
                 // Update phone calls from the begining by iterating through them from the start
-                string SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY();
+                string SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(PhoneCallsTableName);
 
                 dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
@@ -156,7 +166,7 @@ namespace Lync_Backend.Implementation
             }
             else 
             {
-                string SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(Misc.ConvertDate(markerStatus.Timestamp));
+                string SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(Misc.ConvertDate(statusTimestamp));
 
                 dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
