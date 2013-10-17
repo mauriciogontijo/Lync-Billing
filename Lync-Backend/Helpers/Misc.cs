@@ -156,28 +156,71 @@ namespace Lync_Backend.Helpers
         {
             Dictionary<string, object> phoneCallDict = new Dictionary<string, object>();
 
-            phoneCallDict.Add("SessionIdTime", phoneCall.SessionIdTime);
-            phoneCallDict.Add("SessionIdSeq", phoneCall.SessionIdSeq);
-            phoneCallDict.Add("ResponseTime", phoneCall.ResponseTime);
-            phoneCallDict.Add("SessionEndTime", phoneCall.SessionEndTime);
-            phoneCallDict.Add("SourceUserUri", phoneCall.SourceUserUri);
-            phoneCallDict.Add("SourceNumberUri", phoneCall.SourceNumberUri);
-            phoneCallDict.Add("DestinationNumberUri", phoneCall.DestinationNumberUri);
-            phoneCallDict.Add("FromMediationServer", phoneCall.FromMediationServer);
-            phoneCallDict.Add("ToMediationServer", phoneCall.ToMediationServer);
-            phoneCallDict.Add("FromGateway", phoneCall.FromGateway);
-            phoneCallDict.Add("ToGateway", phoneCall.ToGateway);
-            phoneCallDict.Add("SourceUserEdgeServer", phoneCall.SourceUserEdgeServer);
-            phoneCallDict.Add("DestinationUserEdgeServer", phoneCall.DestinationUserEdgeServer);
-            phoneCallDict.Add("ServerFQDN", phoneCall.ServerFQDN);
-            phoneCallDict.Add("PoolFQDN", phoneCall.PoolFQDN);
-            phoneCallDict.Add("marker_CallToCountry", phoneCall.Marker_CallToCountry);
-            phoneCallDict.Add("marker_CallType", phoneCall.marker_CallType);
-            phoneCallDict.Add("marker_CallTypeID", phoneCall.Marker_CallTypeID);
-            phoneCallDict.Add("marker_CallCost", phoneCall.Marker_CallCost);
-            phoneCallDict.Add("marker_CallFrom", phoneCall.marker_CallFrom);
-            phoneCallDict.Add("marker_CallTo", phoneCall.marker_CallTo);
-            phoneCallDict.Add("Duration", phoneCall.Duration);
+            if (!string.IsNullOrEmpty(phoneCall.SessionIdTime))
+                phoneCallDict.Add("SessionIdTime", phoneCall.SessionIdTime);
+
+            if (phoneCall.SessionIdSeq != null)
+                phoneCallDict.Add("SessionIdSeq", phoneCall.SessionIdSeq);
+
+            if (!string.IsNullOrEmpty(phoneCall.ResponseTime))
+                phoneCallDict.Add("ResponseTime", phoneCall.ResponseTime);
+
+            if (!string.IsNullOrEmpty(phoneCall.SessionEndTime))
+                phoneCallDict.Add("SessionEndTime", phoneCall.SessionEndTime);
+
+            if (!string.IsNullOrEmpty(phoneCall.SourceUserUri))
+                phoneCallDict.Add("SourceUserUri", phoneCall.SourceUserUri);
+
+            if (!string.IsNullOrEmpty(phoneCall.SourceNumberUri))
+                phoneCallDict.Add("SourceNumberUri", phoneCall.SourceNumberUri);
+
+            if (!string.IsNullOrEmpty(phoneCall.DestinationNumberUri))
+                phoneCallDict.Add("DestinationNumberUri", phoneCall.DestinationNumberUri);
+
+            if (!string.IsNullOrEmpty(phoneCall.FromMediationServer))
+                phoneCallDict.Add("FromMediationServer", phoneCall.FromMediationServer);
+
+            if (!string.IsNullOrEmpty(phoneCall.ToMediationServer))
+                phoneCallDict.Add("ToMediationServer", phoneCall.ToMediationServer);
+
+            if (!string.IsNullOrEmpty(phoneCall.FromGateway))
+                phoneCallDict.Add("FromGateway", phoneCall.FromGateway);
+
+            if (!string.IsNullOrEmpty(phoneCall.ToGateway))
+                phoneCallDict.Add("ToGateway", phoneCall.ToGateway);
+
+            if (!string.IsNullOrEmpty(phoneCall.SourceUserEdgeServer))
+                phoneCallDict.Add("SourceUserEdgeServer", phoneCall.SourceUserEdgeServer);
+
+            if (!string.IsNullOrEmpty(phoneCall.DestinationUserEdgeServer))
+                phoneCallDict.Add("DestinationUserEdgeServer", phoneCall.DestinationUserEdgeServer);
+
+            if (!string.IsNullOrEmpty(phoneCall.ServerFQDN))
+                phoneCallDict.Add("ServerFQDN", phoneCall.ServerFQDN);
+
+            if (!string.IsNullOrEmpty(phoneCall.PoolFQDN))
+                phoneCallDict.Add("PoolFQDN", phoneCall.PoolFQDN);
+
+            if (!string.IsNullOrEmpty(phoneCall.Marker_CallToCountry))
+                phoneCallDict.Add("marker_CallToCountry", phoneCall.Marker_CallToCountry);
+
+            if (!string.IsNullOrEmpty(phoneCall.marker_CallType))
+                phoneCallDict.Add("marker_CallType", phoneCall.marker_CallType);
+
+            if (phoneCall.Marker_CallTypeID != null)
+                phoneCallDict.Add("marker_CallTypeID", phoneCall.Marker_CallTypeID);
+
+            if (phoneCall.Marker_CallCost != null)
+                phoneCallDict.Add("marker_CallCost", phoneCall.Marker_CallCost);
+
+            if (phoneCall.marker_CallFrom != null)
+                phoneCallDict.Add("marker_CallFrom", phoneCall.marker_CallFrom);
+
+            if (phoneCall.marker_CallTo != null)
+                phoneCallDict.Add("marker_CallTo", phoneCall.marker_CallTo);
+
+            if (phoneCall.Duration != null)
+                phoneCallDict.Add("Duration", phoneCall.Duration);
             
 
             return phoneCallDict;
