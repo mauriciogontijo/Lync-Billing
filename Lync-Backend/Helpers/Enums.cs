@@ -182,7 +182,7 @@ namespace Lync_Backend.Helpers
             CallType
         }
 
-        public enum CalTypes
+        public enum DIDs
         {
             [Description("DIDs")]
             TableName,

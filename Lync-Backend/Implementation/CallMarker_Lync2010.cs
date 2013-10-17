@@ -24,6 +24,10 @@ namespace Lync_Backend.Implementation
             get { return "PhoneCalls2010"; }
         }
 
+        public override string GatewaysTableName
+        {
+            get { return "Gateways2010"; }
+        }
 
         public override void MarkCalls(string tableName)
         {
@@ -155,13 +159,16 @@ namespace Lync_Backend.Implementation
                     column = Enums.GetDescription(Enums.PhoneCalls.Duration);
                     if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
                         phoneCall.Duration = Convert.ToDecimal(dataReader[column]);
-                    
-                    
-                    phoneCall = PhoneCall.ApplyCallRate(phoneCall);
+
+                    column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID);
+                    if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                        phoneCall.Marker_CallTypeID = Convert.ToInt32(dataReader[column]);
+
+                    phoneCall = PhoneCall.SetCallType(phoneCall);
                     updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
                     
 
-                    DBRoutines.UPDATE(PhoneCallsTableName, updateStatementValues, (new Dictionary<string,object>()));
+                    //DBRoutines.UPDATE(PhoneCallsTableName, updateStatementValues);
                 }
             }
             else 

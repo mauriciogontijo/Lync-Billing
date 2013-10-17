@@ -496,7 +496,7 @@ namespace Lync_Backend.Libs
                     else
                         whereStatement.Append("[" + pair.Key + "]='" + pair.Value.ToString().Replace("'", "`") + "' AND ");
                 }
-                
+
                 whereStatement.Remove(whereStatement.Length - 5, 5);
             }
 
@@ -519,6 +519,74 @@ namespace Lync_Backend.Libs
             finally { conn.Close(); }
 
         }
+
+
+        /// <summary>
+        /// Construct Generic UPDATE Statement
+        /// </summary>
+        /// <param name="tableName">DB Table Name</param>
+        /// <param name="columnsValues">Dictionary Holds Fields and Values to be inserted</param>
+        /// <param name="wherePart">Dictionary Holds Fields and Values to be able to construct Where Statemnet</param>
+        /// <returns></returns>
+        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues)
+        {
+            //StringBuilder fieldsValues = new StringBuilder();
+            //StringBuilder whereStatement = new StringBuilder();
+
+            //if (columnsValues.Count < 0)
+            //    return false;
+
+            //foreach (KeyValuePair<string, object> pair in columnsValues)
+            //{
+            //    Type valueType = pair.Value.GetType();
+
+            //    if (valueType == typeof(int) || valueType == typeof(Double))
+            //        fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");
+            //    else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+            //        continue;
+            //    else
+            //        fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value.ToString().Replace("'", "`") + "'" + ",");
+            //}
+
+            //fieldsValues.Remove(fieldsValues.Length - 1, 1);
+
+            //foreach (KeyValuePair<string, object> pair in wherePart)
+            //{
+            //    Type valueType = pair.Value.GetType();
+
+            //    if (valueType == typeof(int) || valueType == typeof(Double))
+            //        whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+            //    else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+            //        continue;
+            //    else
+            //        whereStatement.Append("[" + pair.Key + "]='" + pair.Value.ToString().Replace("'", "`") + "' AND ");
+            //}
+
+            //whereStatement.Remove(whereStatement.Length - 5, 5);
+
+
+            //string insertQuery = string.Format("UPDATE  [{0}] SET {1} WHERE {2}", tableName, fieldsValues, whereStatement);
+
+            //OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            //OleDbCommand comm = new OleDbCommand(insertQuery, conn);
+
+            //try
+            //{
+            //    conn.Open();
+            //    comm.ExecuteNonQuery();
+            //    return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+            //    throw argEx;
+            //}
+            //finally { conn.Close(); }
+
+            return false;
+        }
+
+
 
         /// <summary>
         /// Construct Generic DELETE Statement

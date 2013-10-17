@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace Lync_Backend.Helpers
 {
@@ -25,7 +26,9 @@ namespace Lync_Backend.Helpers
         public string ServerFQDN { set; get; }
         public string PoolFQDN { set; get; }
         public string Marker_CallToCountry { set; get; }
+        
         public string marker_CallType { set; get; }
+        public int Marker_CallTypeID { set; get; }
         public long marker_CallFrom { set; get; }
         public long marker_CallTo { set; get; }
 
@@ -42,100 +45,227 @@ namespace Lync_Backend.Helpers
         public DateTime AC_InvoiceDate { set; get; }
 
         private static List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
-        private static Dictionary<string, List<Rates>> ratesTables = Rates.GetAllGatewaysRates();
+        private static Dictionary<int, List<Rates>> ratesTables = Rates.GetAllGatewaysRates();
+        private static string gatewayTable; 
 
+        private static List<DIDs> dids = DIDs.GetDIDs();
+        private static List<CallsTypes> callTypes = CallsTypes.GetCallTypes();
 
-        public static PhoneCall ApplyCallRate(PhoneCall thisCall) 
+       
+        public static PhoneCall SetCallType(PhoneCall thisCall) 
         {
+            string srcCountry = string.Empty;
+            string dstCountry = string.Empty;
             string srcCallType = string.Empty;
             string dstCallType = string.Empty;
-
-            decimal duration = Convert.ToDecimal(0);
-            decimal callCostPerMin = Convert.ToDecimal(0);
-            
-          
 
             //Set SourceNumberDialing Prefix
             thisCall.marker_CallFrom = GetDialingPrefixFromNumber(FixNumberType(thisCall.SourceNumberUri),out srcCallType);
 
+            //if DestinationNumberUri is not valid.
+            if (string.IsNullOrEmpty(thisCall.DestinationNumberUri) && !string.IsNullOrEmpty(thisCall.DestinationUserUri) && !string.IsNullOrEmpty(thisCall.SourceUserUri))
+            {
+                thisCall.marker_CallType = "lync-to-lync";
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                return thisCall;
+            }
+
             //Set DestinationNumber Dialing Prefix
             thisCall.marker_CallTo = GetDialingPrefixFromNumber(FixNumberType(thisCall.DestinationNumberUri),out dstCallType);
 
-            //Set Destination Country Name
-            thisCall.Marker_CallToCountry = numberingPlan.Find(item => item.DialingPrefix == thisCall.marker_CallTo).ThreeDigitsCountryCode ?? "N/A";
 
-            //Get Duration in Minutes
-            duration = Math.Round(thisCall.Duration/60,3);
+            var findSrcCountry = numberingPlan.Find(item => item.DialingPrefix == thisCall.marker_CallFrom);
+            srcCountry = (findSrcCountry != null) ? findSrcCountry.ThreeDigitsCountryCode : "N/A";
 
-            //Get Rates Table for the 
+           
 
-            foreach (KeyValuePair<string, List<Rates>> keyValue in ratesTables) 
+            var findDstCountry = numberingPlan.Find(item => item.DialingPrefix == thisCall.marker_CallTo);
+            dstCountry = (findDstCountry != null) ? findDstCountry.ThreeDigitsCountryCode : "N/A";
+
+            thisCall.Marker_CallToCountry = dstCountry;
+
+            // MARK NATIONAL INTERNATIONAL FIXED/MOBILE
+            if (string.IsNullOrEmpty(thisCall.DestinationUserUri) || !Misc.IsValidEmail(thisCall.DestinationUserUri))
             {
-                if (keyValue.Key.Contains(thisCall.ToGateway)) 
+                if (srcCountry == dstCountry)
                 {
-                    Rates callRate = ((List<Rates>)keyValue.Value).Where(item => item.CountryCode == thisCall.Marker_CallToCountry).First();
-
-                    if (callRate != null)
+                    if (dstCallType == "fixedline")
                     {
-                        if (dstCallType == "gsm")
-                        {
-                            callCostPerMin = callRate.MobileLineRate;
-                            break;
-                        }
-                        else
-                        {
-                            callCostPerMin = callRate.FixedLineRate;
-                            break;
-                        }
+                        thisCall.marker_CallType = "national-fixedline";
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                        return thisCall;
+                    }
+                    else if (dstCallType == "gsm")
+                    {
+                        thisCall.marker_CallType = "national-mobile";
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                        return thisCall;
                     }
                     else 
                     {
+                        thisCall.marker_CallType = "national-fixedline";
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                        return thisCall;
+                    }
+                }
+                else
+                {
+                    if (dstCallType == "fixedline")
+                    {
+                        thisCall.marker_CallType = "international-fixedline";
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                        return thisCall;
+                    }
+                    else if (dstCallType == "gsm")
+                    {
+                        thisCall.marker_CallType = "international-mobile";
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                        return thisCall;
+                    }
+                }
+            }
+
+            return ApplyExceptions(thisCall);
+        }
+
+        public static PhoneCall ApplyExceptions(PhoneCall thisCall) 
+        {
+            //Incoming Call
+            if (string.IsNullOrEmpty(thisCall.SourceUserUri) || !Misc.IsValidEmail(thisCall.SourceUserUri))
+            {
+                thisCall.marker_CallType = "incoming-call";
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                return thisCall;
+            }
+
+            //Voice mail
+            if (thisCall.SourceNumberUri == thisCall.DestinationNumberUri)
+            {
+                thisCall.marker_CallType = "voice-mail";
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                return thisCall;
+            }
+
+            //Toll Free
+
+            if (thisCall.DestinationNumberUri.StartsWith("+800") || thisCall.DestinationNumberUri.StartsWith("800"))
+            {
+                thisCall.marker_CallType = "toll-free";
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                return thisCall;
+            }
+
+
+            //CHECK if the Source AND destination is Lync Client
+            string srcDIDdsc = string.Empty, dstDIDdsc = string.Empty;
+
+            MatchDID(thisCall.SourceNumberUri, out srcDIDdsc);
+            MatchDID(thisCall.DestinationNumberUri, out dstDIDdsc);
+
+            if (srcDIDdsc == dstDIDdsc)
+            {
+                thisCall.marker_CallType = srcDIDdsc + "-to-" + dstDIDdsc;
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "site-to-site").id;
+
+                return thisCall;
+            }
+            else 
+            {
+                //Cross Site Call
+                thisCall.marker_CallType = srcDIDdsc + "-to-" + dstDIDdsc;
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "site-to-site").id;
+            }
+
+            //FAIL SAFE for SITE TO SITE CALLS
+            if (string.IsNullOrEmpty(thisCall.FromGateway) && string.IsNullOrEmpty(thisCall.ToGateway) && string.IsNullOrEmpty(thisCall.FromMediationServer) && string.IsNullOrEmpty(thisCall.ToMediationServer)) 
+            {
+                thisCall.marker_CallType = "site-to-site";
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                return thisCall;
+            }
+
+
+            return thisCall;
+        }
+
+        private static bool MatchDID(string phoneNumber, out string site)
+        {
+            foreach (DIDs didEntry in dids)
+            {
+                string did = didEntry.did;
+
+                if (Regex.IsMatch(phoneNumber.Trim('+'), @"^"+did))
+                {
+                    site = didEntry.description;
+                    return true;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            site = string.Empty;
+            return false;
+        }
+
+        private static long GetDialingPrefixFromNumber(string phoneNumber, out string callType)
+        {
+            long numberToParse = 0;
+            
+            if (phoneNumber.Length > 0 && phoneNumber.Length != 6 && phoneNumber.Length != 7) 
+            {
+                long.TryParse(phoneNumber, out numberToParse);
+
+                while (numberToParse > 0)
+                {
+                    var number = numberingPlan.Find(item => item.DialingPrefix == numberToParse);
+
+                    if (number != null)
+                    {
+
+                        callType = number.TypeOfService;
+                        return number.DialingPrefix;
+                    }
+                    else
+                    {
+                        numberToParse = numberToParse / 10;
                         continue;
                     }
                 }
             }
 
-            if (callCostPerMin != 0)
-                thisCall.Marker_CallCost = duration * callCostPerMin;
-            else
-                thisCall.Marker_CallCost = 0;
-
-            return thisCall;
-        }
-
-
-        private static long GetDialingPrefixFromNumber(long phoneNumber,out string callType) 
-        {
-            while (phoneNumber > 0) 
-            {
-                var number = numberingPlan.Find(item => item.DialingPrefix == phoneNumber);
-
-                if (number != null)
-                {
-                    
-                    callType =number.TypeOfService;
-                    return number.DialingPrefix;
-                }
-                else
-                {
-                    phoneNumber = phoneNumber / 10;
-                    continue;
-                }
-            }
-            
             callType = null;
-            
-            return phoneNumber;
+          
+            long.TryParse(phoneNumber, out numberToParse);
+            return numberToParse;
         }
 
-
-        private static long FixNumberType(string number) 
+        private static string FixNumberType(string number)
         {
-            long longNumber = 0;
+
+            if (string.IsNullOrEmpty(number))
+                return "N/A";
+
+            if (number.Contains(";")) 
+            {
+                number = number.Split(';')[0].ToString();
+            }
+
             number = number.Trim('+');
-            long.TryParse(number, out longNumber); ;
-            
-            return longNumber;
+
+
+            return number;
         }
 
     }

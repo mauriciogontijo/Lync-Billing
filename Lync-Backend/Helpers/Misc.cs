@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Lync_Backend.Helpers
@@ -224,6 +225,14 @@ namespace Lync_Backend.Helpers
             
 
             return phoneCallDict;
+        }
+
+
+        public static bool IsValidEmail(string emailAddress)
+        {
+            string pattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+
+            return Regex.IsMatch(emailAddress, pattern);
         }
     }
 }
