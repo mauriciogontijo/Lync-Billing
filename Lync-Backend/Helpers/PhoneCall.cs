@@ -62,8 +62,77 @@ namespace Lync_Backend.Helpers
             //Set SourceNumberDialing Prefix
             thisCall.marker_CallFrom = GetDialingPrefixFromNumber(FixNumberType(thisCall.SourceNumberUri),out srcCallType);
 
+
+            //Incoming Call
+            if (string.IsNullOrEmpty(thisCall.SourceUserUri) || !Misc.IsValidEmail(thisCall.SourceUserUri))
+            {
+                thisCall.marker_CallType = "incoming-call";
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                return thisCall;
+            }
+
+            //Voice mail
+            if (thisCall.SourceNumberUri == thisCall.DestinationNumberUri)
+            {
+                thisCall.marker_CallType = "voice-mail";
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                return thisCall;
+            }
+
+            //Voice Mail
+            if (thisCall.SourceUserUri == thisCall.DestinationUserUri || thisCall.SourceNumberUri == thisCall.DestinationNumberUri)
+            {
+                thisCall.marker_CallType = "voice-mail";
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                return thisCall;
+            }
+
+            //CHECK if the Source AND destination is Lync Client
+            string srcDIDdsc = string.Empty, dstDIDdsc = string.Empty;
+
+            MatchDID(thisCall.SourceNumberUri, out srcDIDdsc);
+            MatchDID(thisCall.DestinationNumberUri, out dstDIDdsc);
+
+            if (srcDIDdsc == dstDIDdsc)
+            {
+                thisCall.marker_CallType = srcDIDdsc + "-to-" + dstDIDdsc;
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "site-to-site").id;
+
+                return thisCall;
+            }
+            else
+            {
+                if (dstDIDdsc != string.Empty)
+                {
+                    //Cross Site Call
+                    thisCall.marker_CallType = srcDIDdsc + "-to-" + dstDIDdsc;
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "site-to-site").id;
+
+                    return thisCall;
+                }
+                else
+                {
+                    thisCall.marker_CallType = "N/A";
+                    thisCall.Marker_CallTypeID = 0;
+
+                    return thisCall;
+                }
+            }
+
+            //FAIL SAFE for SITE TO SITE CALLS
+            if (string.IsNullOrEmpty(thisCall.FromGateway) && string.IsNullOrEmpty(thisCall.ToGateway) && string.IsNullOrEmpty(thisCall.FromMediationServer) && string.IsNullOrEmpty(thisCall.ToMediationServer))
+            {
+                thisCall.marker_CallType = "site-to-site";
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                return thisCall;
+            }
+
             //if DestinationNumberUri is not valid.
-            if (string.IsNullOrEmpty(thisCall.DestinationNumberUri) && !string.IsNullOrEmpty(thisCall.DestinationUserUri) && !string.IsNullOrEmpty(thisCall.SourceUserUri))
+            if (string.IsNullOrEmpty(thisCall.DestinationNumberUri))
             {
                 thisCall.marker_CallType = "lync-to-lync";
                 thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
@@ -131,75 +200,20 @@ namespace Lync_Backend.Helpers
                 }
             }
 
-            return ApplyExceptions(thisCall);
-        }
-
-        public static PhoneCall ApplyExceptions(PhoneCall thisCall) 
-        {
-            //Incoming Call
-            if (string.IsNullOrEmpty(thisCall.SourceUserUri) || !Misc.IsValidEmail(thisCall.SourceUserUri))
-            {
-                thisCall.marker_CallType = "incoming-call";
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
-
-                return thisCall;
-            }
-
-            //Voice mail
-            if (thisCall.SourceNumberUri == thisCall.DestinationNumberUri)
-            {
-                thisCall.marker_CallType = "voice-mail";
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
-
-                return thisCall;
-            }
-
-            //Toll Free
-
-            if (thisCall.DestinationNumberUri.StartsWith("+800") || thisCall.DestinationNumberUri.StartsWith("800"))
-            {
-                thisCall.marker_CallType = "toll-free";
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
-
-                return thisCall;
-            }
-
-
-            //CHECK if the Source AND destination is Lync Client
-            string srcDIDdsc = string.Empty, dstDIDdsc = string.Empty;
-
-            MatchDID(thisCall.SourceNumberUri, out srcDIDdsc);
-            MatchDID(thisCall.DestinationNumberUri, out dstDIDdsc);
-
-            if (srcDIDdsc == dstDIDdsc)
-            {
-                thisCall.marker_CallType = srcDIDdsc + "-to-" + dstDIDdsc;
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "site-to-site").id;
-
-                return thisCall;
-            }
-            else 
-            {
-                //Cross Site Call
-                thisCall.marker_CallType = srcDIDdsc + "-to-" + dstDIDdsc;
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "site-to-site").id;
-            }
-
-            //FAIL SAFE for SITE TO SITE CALLS
-            if (string.IsNullOrEmpty(thisCall.FromGateway) && string.IsNullOrEmpty(thisCall.ToGateway) && string.IsNullOrEmpty(thisCall.FromMediationServer) && string.IsNullOrEmpty(thisCall.ToMediationServer)) 
-            {
-                thisCall.marker_CallType = "site-to-site";
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
-
-                return thisCall;
-            }
-
+            thisCall.marker_CallType = "N/A";
+            thisCall.Marker_CallTypeID = 0;
 
             return thisCall;
-        }
+        }   
 
         private static bool MatchDID(string phoneNumber, out string site)
         {
+            if (string.IsNullOrEmpty(phoneNumber)) 
+            {
+                site = string.Empty;
+                return false;
+            }
+
             foreach (DIDs didEntry in dids)
             {
                 string did = didEntry.did;

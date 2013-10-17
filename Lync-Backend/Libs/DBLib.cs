@@ -530,60 +530,49 @@ namespace Lync_Backend.Libs
         /// <returns></returns>
         public bool UPDATE(string tableName, Dictionary<string, object> columnsValues)
         {
-            //StringBuilder fieldsValues = new StringBuilder();
-            //StringBuilder whereStatement = new StringBuilder();
+            StringBuilder fieldsValues = new StringBuilder();
+            StringBuilder whereStatement = new StringBuilder();
 
-            //if (columnsValues.Count < 0)
-            //    return false;
+            if (columnsValues.Count < 0)
+                return false;
 
-            //foreach (KeyValuePair<string, object> pair in columnsValues)
-            //{
-            //    Type valueType = pair.Value.GetType();
+            foreach (KeyValuePair<string, object> pair in columnsValues)
+            {
+                Type valueType = pair.Value.GetType();
 
-            //    if (valueType == typeof(int) || valueType == typeof(Double))
-            //        fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");
-            //    else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
-            //        continue;
-            //    else
-            //        fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value.ToString().Replace("'", "`") + "'" + ",");
-            //}
+                if (valueType == typeof(int) || valueType == typeof(Double))
+                    fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");
+                else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+                    continue;
+                else
+                    fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value.ToString().Replace("'", "`") + "'" + ",");
+            }
 
-            //fieldsValues.Remove(fieldsValues.Length - 1, 1);
-
-            //foreach (KeyValuePair<string, object> pair in wherePart)
-            //{
-            //    Type valueType = pair.Value.GetType();
-
-            //    if (valueType == typeof(int) || valueType == typeof(Double))
-            //        whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
-            //    else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
-            //        continue;
-            //    else
-            //        whereStatement.Append("[" + pair.Key + "]='" + pair.Value.ToString().Replace("'", "`") + "' AND ");
-            //}
-
-            //whereStatement.Remove(whereStatement.Length - 5, 5);
+            fieldsValues.Remove(fieldsValues.Length - 1, 1);
 
 
-            //string insertQuery = string.Format("UPDATE  [{0}] SET {1} WHERE {2}", tableName, fieldsValues, whereStatement);
 
-            //OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
-            //OleDbCommand comm = new OleDbCommand(insertQuery, conn);
+            whereStatement.Append(String.Format("SessionIdTime='{0}' AND SessionIdSeq={1}", columnsValues["SessionIdTime"], columnsValues["SessionIdSeq"]));
 
-            //try
-            //{
-            //    conn.Open();
-            //    comm.ExecuteNonQuery();
-            //    return true;
-            //}
-            //catch (Exception ex)
-            //{
-            //    System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
-            //    throw argEx;
-            //}
-            //finally { conn.Close(); }
 
-            return false;
+            string insertQuery = string.Format("UPDATE  [{0}] SET {1} WHERE {2}", tableName, fieldsValues, whereStatement);
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(insertQuery, conn);
+
+            try
+            {
+                conn.Open();
+                comm.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
         }
 
 
