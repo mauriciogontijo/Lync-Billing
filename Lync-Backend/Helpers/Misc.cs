@@ -173,6 +173,7 @@ namespace Lync_Backend.Helpers
             phoneCallDict.Add("PoolFQDN", phoneCall.PoolFQDN);
             phoneCallDict.Add("marker_CallToCountry", phoneCall.Marker_CallToCountry);
             phoneCallDict.Add("marker_CallType", phoneCall.marker_CallType);
+            phoneCallDict.Add("marker_CallTypeID", phoneCall.Marker_CallTypeID);
             phoneCallDict.Add("marker_CallCost", phoneCall.Marker_CallCost);
             phoneCallDict.Add("marker_CallFrom", phoneCall.marker_CallFrom);
             phoneCallDict.Add("marker_CallTo", phoneCall.marker_CallTo);

@@ -70,6 +70,8 @@ namespace Lync_Backend.Helpers
             Marker_CallToCountry,
             [Description("marker_CallType")]
             Marker_CallType,
+            [Description("marker_CallTypeID")]
+            Marker_CallTypeID,
             [Description("marker_CallCost")]
             Marker_CallCost,
             [Description("ui_MarkedOn")]
