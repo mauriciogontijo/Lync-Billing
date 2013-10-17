@@ -150,7 +150,7 @@ namespace Lync_Backend.Implementation
                     phoneCall = PhoneCall.ApplyCallRate(phoneCall);
                     updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
                     
-                    DBRoutines.UPDATE(PhoneCallsTableName, updateStatementValues);
+                    DBRoutines.UPDATE(PhoneCallsTableName, updateStatementValues, (new Dictionary<string,object>()));
                 }
             }
             else 
