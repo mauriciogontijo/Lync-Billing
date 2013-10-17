@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Lync_Backend.Libs;
+using System.Data;
 
 namespace Lync_Backend.Helpers
 {
@@ -15,7 +16,19 @@ namespace Lync_Backend.Helpers
 
         private static DBLib DBRoutines = new DBLib();
 
+        public static List<DIDs> GetDIDs() 
+        {
+            DataTable dt;
+            List<DIDs> dids = new List<DIDs>();
+            DIDs didInfo ;
 
+            dt = DBRoutines.SELECT("DIDs");
+
+
+
+
+            return dids;
+        } 
 
     }
 }
