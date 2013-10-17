@@ -67,9 +67,9 @@ namespace Lync_Backend.Helpers
 
         }
 
-        public static Dictionary<string, List<Rates>> GetAllGatewaysRates() 
+        public static Dictionary<int, List<Rates>> GetAllGatewaysRates() 
         {
-            Dictionary<string, List<Rates>> allRates = new Dictionary<string, List<Rates>>();
+            Dictionary<int, List<Rates>> allRates = new Dictionary<int, List<Rates>>();
             List<Rates> ratesPerGateway;
 
             //Get Entire GatewaysRates to be able to get all the rates  
@@ -92,7 +92,7 @@ namespace Lync_Backend.Helpers
                         continue;
                     }
                     
-                    allRates.Add(GatewayRateTable.RatesTableName, ratesPerGateway);
+                    allRates.Add(GatewayRateTable.GatewayID, ratesPerGateway);
                 }
             }
 
