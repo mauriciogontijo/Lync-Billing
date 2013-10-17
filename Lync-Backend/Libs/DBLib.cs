@@ -207,14 +207,9 @@ namespace Lync_Backend.Libs
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
-            string selectQuery = string.Empty;
-
-            StringBuilder selectedfields = new StringBuilder();
-           
-            selectQuery = string.Format("SELECT * FROM  [{0}]", sqlQuery);
-
+            
             OleDbConnection conn = DBInitializeConnection(connectionString);
-            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+            OleDbCommand comm = new OleDbCommand(sqlQuery, conn);
 
             try
             {
