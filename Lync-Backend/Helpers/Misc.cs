@@ -150,7 +150,6 @@ namespace Lync_Backend.Helpers
             phoneCallDict.Add("DestinationUserEdgeServer", phoneCall.DestinationUserEdgeServer);
             phoneCallDict.Add("ServerFQDN", phoneCall.ServerFQDN);
             phoneCallDict.Add("PoolFQDN", phoneCall.PoolFQDN);
-            phoneCallDict.Add("Duration", phoneCall.Duration);
             phoneCallDict.Add("marker_CallToCountry", phoneCall.Marker_CallToCountry);
             phoneCallDict.Add("marker_CallType", phoneCall.marker_CallType);
             phoneCallDict.Add("marker_CallCost", phoneCall.Marker_CallCost);
