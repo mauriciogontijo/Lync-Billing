@@ -182,6 +182,18 @@ namespace Lync_Backend.Helpers
             CallType
         }
 
+        public enum CalTypes
+        {
+            [Description("DIDs")]
+            TableName,
+            [Description("id")]
+            id,
+            [Description("did")]
+            did,
+            [Description("description")]
+            description
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
