@@ -116,7 +116,7 @@ namespace Lync_Backend.Implementation
 
                     column = Enums.GetDescription(Enums.PhoneCalls.ToMediationServer);
                     if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                        phoneCall.ToMediationServer = dataReader[Enums.GetDescription(Enums.PhoneCalls.ToMediationServer)].ToString());
+                        phoneCall.ToMediationServer = dataReader[Enums.GetDescription(Enums.PhoneCalls.ToMediationServer)].ToString();
 
                     column = Enums.GetDescription(Enums.PhoneCalls.FromGateway);
                     if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)

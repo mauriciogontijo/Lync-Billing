@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lync_Backend.Interfaces
 {
-    class AbDatabaseMarker : ICallMarker
+    abstract class AbDatabaseMarker : ICallMarker
     {
         public abstract string PhoneCallsTableName { get; }
 
