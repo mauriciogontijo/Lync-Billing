@@ -24,9 +24,19 @@ namespace Lync_Backend.Helpers
 
             dt = DBRoutines.SELECT("DIDs");
 
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    didInfo = new DIDs();
 
+                    didInfo.id = Convert.ToInt32(row["id"]);
+                    didInfo.did = row["did"].ToString();
+                    didInfo.description = row["description"].ToString();
 
-
+                    dids.Add(didInfo);
+                }
+            }
             return dids;
         } 
 
