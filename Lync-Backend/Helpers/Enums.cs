@@ -170,6 +170,16 @@ namespace Lync_Backend.Helpers
             MobileLineRate
         }
 
+        public enum CalTypes
+        {
+            [Description("CallTypes")]
+            TableName,
+            [Description("id")]
+            id,
+            [Description("CallType")]
+            CallType
+        }
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
