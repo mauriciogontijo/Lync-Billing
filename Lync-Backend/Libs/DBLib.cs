@@ -465,40 +465,40 @@ namespace Lync_Backend.Libs
 
             StringBuilder fieldsValues = new StringBuilder();
             StringBuilder whereStatement = new StringBuilder();
-            
 
-            foreach (KeyValuePair<string, object> pair in columnsValues)
+            if (columnsValues.Count > 0)
             {
+                foreach (KeyValuePair<string, object> pair in columnsValues)
+                {
+                    Type valueType = pair.Value.GetType();
 
-                Type valueType = pair.Value.GetType();
+                    if (valueType == typeof(int) || valueType == typeof(Double))
+                        fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");
+                    else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+                        continue;
+                    else
+                        fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value.ToString().Replace("'", "`") + "'" + ",");
+                }
 
-                if (valueType == typeof(int) || valueType == typeof(Double))
-                    fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");
-                else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
-                    continue;
-                else
-                    fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value.ToString().Replace("'","`") + "'" + ",");  
+                fieldsValues.Remove(fieldsValues.Length - 1, 1);
             }
-            
-            fieldsValues.Remove(fieldsValues.Length - 1, 1);
 
-            foreach (KeyValuePair<string, object> pair in wherePart)
+            if (wherePart.Count > 0)
             {
-                Type valueType = pair.Value.GetType();
+                foreach (KeyValuePair<string, object> pair in wherePart)
+                {
+                    Type valueType = pair.Value.GetType();
 
-                if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue)){}
-
-
-
-                if (valueType == typeof(int) || valueType == typeof(Double))
-                    whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
-                else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
-                    continue;
-                else
-                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value.ToString().Replace("'","`") + "' AND ");
-
+                    if (valueType == typeof(int) || valueType == typeof(Double))
+                        whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                    else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+                        continue;
+                    else
+                        whereStatement.Append("[" + pair.Key + "]='" + pair.Value.ToString().Replace("'", "`") + "' AND ");
+                }
+                
+                whereStatement.Remove(whereStatement.Length - 5, 5);
             }
-            whereStatement.Remove(whereStatement.Length - 5, 5);
 
             string insertQuery = string.Format("UPDATE  [{0}] SET {1} WHERE {2}", tableName, fieldsValues, whereStatement);
 
