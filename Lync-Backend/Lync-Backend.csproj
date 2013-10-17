@@ -58,6 +58,7 @@
     <Compile Include="Implementation\CallMarker_Lync2010.cs" />
     <Compile Include="Implementation\Lync2010.cs" />
     <Compile Include="Implementation\Lync2013.cs" />
+    <Compile Include="Interfaces\AbDatabaseMarker.cs" />
     <Compile Include="Interfaces\AbIdDatabaseImporter.cs" />
     <Compile Include="Interfaces\ICallMarker.cs" />
     <Compile Include="Interfaces\IDatabaseImporter.cs" />

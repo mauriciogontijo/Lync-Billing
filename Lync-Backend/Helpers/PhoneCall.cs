@@ -15,6 +15,7 @@ namespace Lync_Backend.Helpers
         public string SourceUserUri { set; get; }
         public string SourceNumberUri { set; get; }
         public string DestinationNumberUri { set; get; }
+        public string DestinationUserUri { get; set; }
         public string FromMediationServer { set; get; }
         public string ToMediationServer { set; get; }
         public string FromGateway { set; get; }
@@ -42,6 +43,7 @@ namespace Lync_Backend.Helpers
 
         private static List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
         private static Dictionary<string, List<Rates>> ratesTables = Rates.GetAllGatewaysRates();
+
 
         public static PhoneCall ApplyCallRate(PhoneCall thisCall) 
         {
@@ -96,17 +98,14 @@ namespace Lync_Backend.Helpers
             else
                 thisCall.Marker_CallCost = 0;
 
-
-
             return thisCall;
         }
 
+
         private static long GetDialingPrefixFromNumber(long phoneNumber,out string callType) 
         {
-            
             while (phoneNumber > 0) 
             {
-               
                 var number = numberingPlan.Where(item => item.DialingPrefix == phoneNumber) as NumberingPlan;
 
                 if (number != null)
@@ -119,13 +118,13 @@ namespace Lync_Backend.Helpers
                     phoneNumber = phoneNumber / 10;
                     continue;
                 }
-
             }
             
             callType = null;
             
             return phoneNumber;
         }
+
 
         private static long FixNumberType(string number) 
         {

@@ -129,5 +129,37 @@ namespace Lync_Backend.Helpers
 
                "GROUP BY Country_Name,Two_Digits_country_code,Three_Digits_Country_Code ", RatesTableName); 
         }
+
+
+        public static Dictionary<string, object> ConvertPhoneCallToDictionary(PhoneCall phoneCall)
+        {
+            Dictionary<string, object> phoneCallDict = new Dictionary<string, object>();
+
+            phoneCallDict.Add("SessionIdTime", phoneCall.SessionIdTime);
+            phoneCallDict.Add("SessionIdSeq", phoneCall.SessionIdSeq);
+            phoneCallDict.Add("ResponseTime", phoneCall.ResponseTime);
+            phoneCallDict.Add("SessionEndTime", phoneCall.SessionEndTime);
+            phoneCallDict.Add("SourceUserUri", phoneCall.SourceUserUri);
+            phoneCallDict.Add("SourceNumberUri", phoneCall.SourceNumberUri);
+            phoneCallDict.Add("DestinationNumberUri", phoneCall.DestinationNumberUri);
+            phoneCallDict.Add("FromMediationServer", phoneCall.FromMediationServer);
+            phoneCallDict.Add("ToMediationServer", phoneCall.ToMediationServer);
+            phoneCallDict.Add("FromGateway", phoneCall.FromGateway);
+            phoneCallDict.Add("ToGateway", phoneCall.ToGateway);
+            phoneCallDict.Add("SourceUserEdgeServer", phoneCall.SourceUserEdgeServer);
+            phoneCallDict.Add("DestinationUserEdgeServer", phoneCall.DestinationUserEdgeServer);
+            phoneCallDict.Add("ServerFQDN", phoneCall.ServerFQDN);
+            phoneCallDict.Add("PoolFQDN", phoneCall.PoolFQDN);
+            phoneCallDict.Add("Duration", phoneCall.Duration);
+            phoneCallDict.Add("marker_CallToCountry", phoneCall.Marker_CallToCountry);
+            phoneCallDict.Add("marker_CallType", phoneCall.marker_CallType);
+            phoneCallDict.Add("marker_CallCost", phoneCall.Marker_CallCost);
+            phoneCallDict.Add("marker_CallFrom", phoneCall.marker_CallFrom);
+            phoneCallDict.Add("marker_CallTo", phoneCall.marker_CallTo);
+            phoneCallDict.Add("Duration", phoneCall.Duration);
+            
+
+            return phoneCallDict;
+        }
     }
 }
