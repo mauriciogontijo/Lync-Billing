@@ -58,7 +58,7 @@ namespace Lync_Backend.Helpers
             string srcCallType = string.Empty;
             string dstCallType = string.Empty;
 
-            if (thisCall.SessionIdTime == "2011-10-29 07:08:46.537" ||
+            if (thisCall.SessionIdTime == "2011-11-28 05:42:04.577" ||
                 thisCall.SessionIdTime == "2012-06-05 07:55:49.230" ||
                 thisCall.SessionIdTime == "2013-02-21 05:16:47.270" ) 
             {
