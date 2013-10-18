@@ -123,7 +123,7 @@ namespace Lync_Backend.Helpers
             }
 
             // MARK NATIONAL INTERNATIONAL FIXED/MOBILE
-            if (string.IsNullOrEmpty(thisCall.ToGateway))
+            if (!string.IsNullOrEmpty(thisCall.ToGateway))
             {
                 if (srcCountry == dstCountry)
                 {
