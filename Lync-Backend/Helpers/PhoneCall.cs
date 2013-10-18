@@ -45,10 +45,13 @@ namespace Lync_Backend.Helpers
         public DateTime AC_InvoiceDate { set; get; }
 
         private static List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
+        
         private static Dictionary<int, List<Rates>> ratesTables = Rates.GetAllGatewaysRates();
 
         private static List<DIDs> dids = DIDs.GetDIDs();
+        
         private static List<CallsTypes> callTypes = CallsTypes.GetCallTypes();
+       
         private static List<string> ListOfUserUrisExceptions = PhoneCallsExceptions.GetUsersUris();
         private static List<string> ListOfUserNumbersExceptions = PhoneCallsExceptions.GetUsersNumbers();
 
@@ -125,7 +128,7 @@ namespace Lync_Backend.Helpers
             }
 
             // MARK NATIONAL INTERNATIONAL FIXED/MOBILE
-            if (!string.IsNullOrEmpty(thisCall.ToGateway))
+            if (!string.IsNullOrEmpty(thisCall.ToGateway) &&  thisCall.DestinationNumberUri.StartsWith("+"))
             {
                 //ADD THE EXCEPTIONS HERE
                 if (ListOfUserNumbersExceptions.Contains(thisCall.SourceNumberUri) || ListOfUserUrisExceptions.Contains(thisCall.SourceUserUri))
