@@ -123,6 +123,8 @@ namespace Lync_Backend.Helpers
                 {
                     thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "PUSH-TO-TALK").id;
+
+                    return thisCall;
                 }
                 else
                 {
