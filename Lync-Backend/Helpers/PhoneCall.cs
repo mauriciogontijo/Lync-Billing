@@ -58,12 +58,9 @@ namespace Lync_Backend.Helpers
             string srcCallType = string.Empty;
             string dstCallType = string.Empty;
 
-            if (thisCall.SessionIdTime == "2011-10-18 05:05:10.717" || 
-                thisCall.SessionIdTime == "2011-11-11 06:58:58.513" || 
-                thisCall.SessionIdTime == "2012-02-20 07:19:35.060" ||
-                thisCall.SessionIdTime == "2012-02-02 03:21:44.820" ||
-                thisCall.SessionIdTime ==  "2012-02-18 09:43:38.037" ||
-                thisCall.SessionIdTime == "2012-02-07 10:14:54.147") 
+            if (thisCall.SessionIdTime == "2011-10-29 07:08:46.537" ||
+                thisCall.SessionIdTime == "2012-06-05 07:55:49.230" ||
+                thisCall.SessionIdTime == "2013-02-21 05:16:47.270" ) 
             {
                 string x = string.Empty;
             }
@@ -126,7 +123,7 @@ namespace Lync_Backend.Helpers
             }
 
             // MARK NATIONAL INTERNATIONAL FIXED/MOBILE
-            if (string.IsNullOrEmpty(thisCall.DestinationUserUri) || !Misc.IsValidEmail(thisCall.DestinationUserUri))
+            if (string.IsNullOrEmpty(thisCall.ToGateway))
             {
                 if (srcCountry == dstCountry)
                 {
