@@ -49,8 +49,10 @@ namespace Lync_Backend.Helpers
 
         private static List<DIDs> dids = DIDs.GetDIDs();
         private static List<CallsTypes> callTypes = CallsTypes.GetCallTypes();
+        private static List<string> ListOfUserUrisExceptions = PhoneCallsExceptions.GetUsersUris();
+        private static List<string> ListOfUserNumbersExceptions = PhoneCallsExceptions.GetUsersNumbers();
 
-       
+        
         public static PhoneCall SetCallType(PhoneCall thisCall) 
         {
             string srcCountry = string.Empty;
@@ -125,7 +127,16 @@ namespace Lync_Backend.Helpers
             // MARK NATIONAL INTERNATIONAL FIXED/MOBILE
             if (!string.IsNullOrEmpty(thisCall.ToGateway))
             {
-                if (srcCountry == dstCountry)
+                //ADD THE EXCEPTIONS HERE
+                if (ListOfUserNumbersExceptions.Contains(thisCall.SourceNumberUri) || ListOfUserUrisExceptions.Contains(thisCall.SourceUserUri))
+                {
+                    thisCall.marker_CallType = "EXCLUDED";
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                    return thisCall;
+                }
+
+                else if (srcCountry == dstCountry)
                 {
                     if (dstCallType == "fixedline")
                     {
@@ -149,6 +160,7 @@ namespace Lync_Backend.Helpers
                         return thisCall;
                     }
                 }
+
                 else
                 {
                     if (dstCallType == "fixedline")

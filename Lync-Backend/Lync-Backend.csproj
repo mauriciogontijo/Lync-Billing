@@ -58,6 +58,7 @@
     <Compile Include="Helpers\Rates.cs" />
     <Compile Include="Helpers\UsersImporter.cs" />
     <Compile Include="Implementation\CallMarker_Lync2010.cs" />
+    <Compile Include="Implementation\CallMarker_Lync2013.cs" />
     <Compile Include="Implementation\Lync2010.cs" />
     <Compile Include="Implementation\Lync2013.cs" />
     <Compile Include="Interfaces\AbDatabaseMarker.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Interfaces\IDatabaseImporter.cs" />
     <Compile Include="Libs\AdLib.cs" />
     <Compile Include="Libs\DBLib.cs" />
+    <Compile Include="Helpers\PhoneCallsExceptions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

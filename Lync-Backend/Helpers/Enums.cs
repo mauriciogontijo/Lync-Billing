@@ -194,6 +194,21 @@ namespace Lync_Backend.Helpers
             description
         }
 
+        public enum PhoneCallsExceptions
+        {
+            [Description("PhoneCallsExceptions")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("UserUri")]
+            UserUri,
+            [Description("Number")]
+            Number,
+            [Description("Description")]
+            Description
+        }
+
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
