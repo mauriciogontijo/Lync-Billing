@@ -63,12 +63,14 @@ namespace Lync_Backend.Helpers
             string srcCallType = string.Empty;
             string dstCallType = string.Empty;
 
-            if (thisCall.SessionIdTime == "2011-11-28 05:42:04.577" ||
-                thisCall.SessionIdTime == "2012-06-05 07:55:49.230" ||
-                thisCall.SessionIdTime == "2013-02-21 05:16:47.270" ) 
+           
+
+            if (!string.IsNullOrEmpty(thisCall.DestinationNumberUri) && thisCall.DestinationNumberUri.StartsWith("+3069") )
             {
                 string x = string.Empty;
             }
+
+         
 
             //Set SourceNumberDialing Prefix
             thisCall.marker_CallFrom = GetDialingPrefixFromNumber(FixNumberType(thisCall.SourceNumberUri),out srcCallType);
@@ -149,7 +151,7 @@ namespace Lync_Backend.Helpers
             if (!string.IsNullOrEmpty(thisCall.ToGateway) && !string.IsNullOrEmpty(thisCall.DestinationNumberUri) && thisCall.DestinationNumberUri.StartsWith("+"))
             {
                 //HANDLE THE PHONECALLS-EXCEPTIONS HERE
-                if (ListOfUserNumbersExceptions.Contains(thisCall.SourceNumberUri) || ListOfUserUrisExceptions.Contains(thisCall.SourceUserUri))
+                if (ListOfUserNumbersExceptions.Contains(thisCall.DestinationNumberUri) || ListOfUserUrisExceptions.Contains(thisCall.SourceUserUri))
                 {
                     thisCall.marker_CallType = "EXCLUDED";
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
@@ -206,6 +208,57 @@ namespace Lync_Backend.Helpers
 
                         return thisCall;
                     }
+                }
+            }
+
+            //LYNC 2013
+            if (Misc.IsValidEmail(thisCall.SourceUserUri) && !string.IsNullOrEmpty(thisCall.DestinationNumberUri)) 
+            {
+                if (!string.IsNullOrEmpty(dstDIDdsc))
+                {
+                    if (dstDIDdsc == "TOLL-FREE")
+                    {
+                        thisCall.marker_CallType = dstDIDdsc;
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "TOLL-FREE").id;
+
+                        return thisCall;
+                    }
+                    else if (dstDIDdsc == "PUSH-TO-TALK")
+                    {
+                        thisCall.marker_CallType = dstDIDdsc;
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "PUSH-TO-TALK").id;
+
+                        return thisCall;
+                    }
+                    else
+                    {
+                        thisCall.marker_CallType = "TO-" + dstDIDdsc;
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
+
+                        return thisCall;
+                    }
+                }
+
+                if (dstCallType == "fixedline")
+                {
+                    thisCall.marker_CallType = "FIXEDLINE";
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                    return thisCall;
+                }
+                else if (dstCallType == "gsm")
+                {
+                    thisCall.marker_CallType = "MOBILE";
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                    return thisCall;
+                }
+                else
+                {
+                    thisCall.marker_CallType = "FIXEDLINE";
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                    return thisCall;
                 }
             }
 
