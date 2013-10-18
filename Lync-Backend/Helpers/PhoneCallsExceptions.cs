@@ -41,7 +41,8 @@ namespace Lync_Backend
                         userUri = row[column.ColumnName].ToString();
                 }
 
-                UserUris.Add(userUri);
+                if(!string.IsNullOrEmpty(userUri))
+                    UserUris.Add(userUri);
             }
 
             return UserUris;
@@ -69,7 +70,8 @@ namespace Lync_Backend
                         number = row[column.ColumnName].ToString();
                 }
 
-                UserNumbers.Add(number);
+                if (!string.IsNullOrEmpty(number))
+                    UserNumbers.Add(number);
             }
 
             return UserNumbers;

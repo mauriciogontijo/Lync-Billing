@@ -137,7 +137,7 @@ namespace Lync_Backend.Implementation
                     updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
 
 
-                    //DBRoutines.UPDATE(PhoneCallsTableName, updateStatementValues);
+                    DBRoutines.UPDATE(PhoneCallsTableName, updateStatementValues);
                 }
             }
             else

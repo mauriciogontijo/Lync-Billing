@@ -143,7 +143,7 @@ namespace Lync_Backend.Helpers
             }
 
             // MARK NATIONAL INTERNATIONAL FIXED/MOBILE
-            if (!string.IsNullOrEmpty(thisCall.ToGateway) &&  thisCall.DestinationNumberUri.StartsWith("+"))
+            if (!string.IsNullOrEmpty(thisCall.ToGateway) && !string.IsNullOrEmpty(thisCall.DestinationNumberUri) && thisCall.DestinationNumberUri.StartsWith("+"))
             {
                 //ADD THE EXCEPTIONS HERE
                 if (ListOfUserNumbersExceptions.Contains(thisCall.SourceNumberUri) || ListOfUserUrisExceptions.Contains(thisCall.SourceUserUri))
