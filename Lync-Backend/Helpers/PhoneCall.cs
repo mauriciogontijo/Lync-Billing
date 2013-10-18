@@ -112,10 +112,25 @@ namespace Lync_Backend.Helpers
 
             if (!string.IsNullOrEmpty(srcDIDdsc) && !string.IsNullOrEmpty(dstDIDdsc))
             {
-                thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
+                if (dstDIDdsc == "TOLL-FREE") 
+                {
+                    thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "TOLL-FREE").id;
 
-                return thisCall;
+                    return thisCall;
+                }
+                else if (dstDIDdsc == "PUSH-TO-TALK-UAE")
+                {
+                    thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "PUSH-TO-TALK").id;
+                }
+                else
+                {
+                    thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
+
+                    return thisCall;
+                }
             }
 
             //FAIL SAFE for LYNC TO LYNC CALLS
