@@ -142,10 +142,11 @@ namespace Lync_Backend.Helpers
                 return thisCall;
             }
 
+
             // MARK NATIONAL INTERNATIONAL FIXED/MOBILE
             if (!string.IsNullOrEmpty(thisCall.ToGateway) && !string.IsNullOrEmpty(thisCall.DestinationNumberUri) && thisCall.DestinationNumberUri.StartsWith("+"))
             {
-                //ADD THE EXCEPTIONS HERE
+                //HANDLE THE PHONECALLS-EXCEPTIONS HERE
                 if (ListOfUserNumbersExceptions.Contains(thisCall.SourceNumberUri) || ListOfUserUrisExceptions.Contains(thisCall.SourceUserUri))
                 {
                     thisCall.marker_CallType = "EXCLUDED";
@@ -154,7 +155,8 @@ namespace Lync_Backend.Helpers
                     return thisCall;
                 }
 
-                else if (srcCountry == dstCountry)
+                // CHECK FOR THE SOURCE AND DESTINATION COUNTRIES
+                if (srcCountry == dstCountry)
                 {
                     if (dstCallType == "fixedline")
                     {
