@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\CallMarkerStatus.cs" />
+    <Compile Include="Helpers\CallTypes.cs" />
+    <Compile Include="Helpers\DIDs.cs" />
     <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\Gateways.cs" />
     <Compile Include="Helpers\GatewaysRates.cs" />

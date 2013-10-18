@@ -46,7 +46,6 @@ namespace Lync_Backend.Helpers
 
         private static List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
         private static Dictionary<int, List<Rates>> ratesTables = Rates.GetAllGatewaysRates();
-        private static string gatewayTable; 
 
         private static List<DIDs> dids = DIDs.GetDIDs();
         private static List<CallsTypes> callTypes = CallsTypes.GetCallTypes();
@@ -59,32 +58,45 @@ namespace Lync_Backend.Helpers
             string srcCallType = string.Empty;
             string dstCallType = string.Empty;
 
+            if (thisCall.SessionIdTime == "2011-10-18 05:05:10.717" || 
+                thisCall.SessionIdTime == "2011-11-11 06:58:58.513" || 
+                thisCall.SessionIdTime == "2012-02-20 07:19:35.060" ||
+                thisCall.SessionIdTime == "2012-02-02 03:21:44.820" ||
+                thisCall.SessionIdTime ==  "2012-02-18 09:43:38.037" ||
+                thisCall.SessionIdTime == "2012-02-07 10:14:54.147") 
+            {
+                string x = string.Empty;
+            }
+
             //Set SourceNumberDialing Prefix
             thisCall.marker_CallFrom = GetDialingPrefixFromNumber(FixNumberType(thisCall.SourceNumberUri),out srcCallType);
 
+            //Set DestinationNumber Dialing Prefix
+            thisCall.marker_CallTo = GetDialingPrefixFromNumber(FixNumberType(thisCall.DestinationNumberUri), out dstCallType);
+
+            //Set Source Country
+            var findSrcCountry = numberingPlan.Find(item => item.DialingPrefix == thisCall.marker_CallFrom);
+            srcCountry = (findSrcCountry != null) ? findSrcCountry.ThreeDigitsCountryCode : "N/A";
+
+            //Set Destination Country
+            var findDstCountry = numberingPlan.Find(item => item.DialingPrefix == thisCall.marker_CallTo);
+            dstCountry = (findDstCountry != null) ? findDstCountry.ThreeDigitsCountryCode : "N/A";
+
+            thisCall.Marker_CallToCountry = dstCountry;
 
             //Incoming Call
             if (string.IsNullOrEmpty(thisCall.SourceUserUri) || !Misc.IsValidEmail(thisCall.SourceUserUri))
             {
-                thisCall.marker_CallType = "incoming-call";
+                thisCall.marker_CallType = "INCOMING-CALL";
                 thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
 
                 return thisCall;
-            }
-
-            //Voice mail
-            if (thisCall.SourceNumberUri == thisCall.DestinationNumberUri)
-            {
-                thisCall.marker_CallType = "voice-mail";
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
-
-                return thisCall;
-            }
+            } 
 
             //Voice Mail
             if (thisCall.SourceUserUri == thisCall.DestinationUserUri || thisCall.SourceNumberUri == thisCall.DestinationNumberUri)
             {
-                thisCall.marker_CallType = "voice-mail";
+                thisCall.marker_CallType = "VOICE-MAIL";
                 thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
 
                 return thisCall;
@@ -96,63 +108,22 @@ namespace Lync_Backend.Helpers
             MatchDID(thisCall.SourceNumberUri, out srcDIDdsc);
             MatchDID(thisCall.DestinationNumberUri, out dstDIDdsc);
 
-            if (srcDIDdsc == dstDIDdsc)
+            if (!string.IsNullOrEmpty(srcDIDdsc) && !string.IsNullOrEmpty(dstDIDdsc))
             {
-                thisCall.marker_CallType = srcDIDdsc + "-to-" + dstDIDdsc;
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "site-to-site").id;
+                thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
+                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
 
                 return thisCall;
             }
-            else
-            {
-                if (dstDIDdsc != string.Empty)
-                {
-                    //Cross Site Call
-                    thisCall.marker_CallType = srcDIDdsc + "-to-" + dstDIDdsc;
-                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "site-to-site").id;
 
-                    return thisCall;
-                }
-                else
-                {
-                    thisCall.marker_CallType = "N/A";
-                    thisCall.Marker_CallTypeID = 0;
-
-                    return thisCall;
-                }
-            }
-
-            //FAIL SAFE for SITE TO SITE CALLS
+            //FAIL SAFE for LYNC TO LYNC CALLS
             if (string.IsNullOrEmpty(thisCall.FromGateway) && string.IsNullOrEmpty(thisCall.ToGateway) && string.IsNullOrEmpty(thisCall.FromMediationServer) && string.IsNullOrEmpty(thisCall.ToMediationServer))
             {
-                thisCall.marker_CallType = "site-to-site";
+                thisCall.marker_CallType = "LYNC-TO-LYNC";
                 thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
 
                 return thisCall;
             }
-
-            //if DestinationNumberUri is not valid.
-            if (string.IsNullOrEmpty(thisCall.DestinationNumberUri))
-            {
-                thisCall.marker_CallType = "lync-to-lync";
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
-
-                return thisCall;
-            }
-
-            //Set DestinationNumber Dialing Prefix
-            thisCall.marker_CallTo = GetDialingPrefixFromNumber(FixNumberType(thisCall.DestinationNumberUri),out dstCallType);
-
-
-            var findSrcCountry = numberingPlan.Find(item => item.DialingPrefix == thisCall.marker_CallFrom);
-            srcCountry = (findSrcCountry != null) ? findSrcCountry.ThreeDigitsCountryCode : "N/A";
-
-           
-
-            var findDstCountry = numberingPlan.Find(item => item.DialingPrefix == thisCall.marker_CallTo);
-            dstCountry = (findDstCountry != null) ? findDstCountry.ThreeDigitsCountryCode : "N/A";
-
-            thisCall.Marker_CallToCountry = dstCountry;
 
             // MARK NATIONAL INTERNATIONAL FIXED/MOBILE
             if (string.IsNullOrEmpty(thisCall.DestinationUserUri) || !Misc.IsValidEmail(thisCall.DestinationUserUri))
@@ -161,21 +132,21 @@ namespace Lync_Backend.Helpers
                 {
                     if (dstCallType == "fixedline")
                     {
-                        thisCall.marker_CallType = "national-fixedline";
+                        thisCall.marker_CallType = "NATIONAL-FIXEDLINE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
 
                         return thisCall;
                     }
                     else if (dstCallType == "gsm")
                     {
-                        thisCall.marker_CallType = "national-mobile";
+                        thisCall.marker_CallType = "NATIONAL-MOBILE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
 
                         return thisCall;
                     }
-                    else 
+                    else
                     {
-                        thisCall.marker_CallType = "national-fixedline";
+                        thisCall.marker_CallType = "NATIONAL-FIXEDLINE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
 
                         return thisCall;
@@ -185,14 +156,21 @@ namespace Lync_Backend.Helpers
                 {
                     if (dstCallType == "fixedline")
                     {
-                        thisCall.marker_CallType = "international-fixedline";
+                        thisCall.marker_CallType = "INTERNATIONAL-FIXEDLINE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
 
                         return thisCall;
                     }
                     else if (dstCallType == "gsm")
                     {
-                        thisCall.marker_CallType = "international-mobile";
+                        thisCall.marker_CallType = "INTERNATIONAL-MOBILE";
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                        return thisCall;
+                    }
+                    else
+                    {
+                        thisCall.marker_CallType = "INTERNATIONAL-FIXEDLINE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
 
                         return thisCall;
@@ -237,7 +215,7 @@ namespace Lync_Backend.Helpers
         {
             long numberToParse = 0;
             
-            if (phoneNumber.Length > 0 && phoneNumber.Length != 6 && phoneNumber.Length != 7) 
+            if (phoneNumber.Length >= 9 && phoneNumber.Length != 6 && phoneNumber.Length != 7) 
             {
                 long.TryParse(phoneNumber, out numberToParse);
 
@@ -259,10 +237,10 @@ namespace Lync_Backend.Helpers
                 }
             }
 
-            callType = null;
+            callType = "N/A";
           
             long.TryParse(phoneNumber, out numberToParse);
-            return numberToParse;
+            return 0;
         }
 
         private static string FixNumberType(string number)
