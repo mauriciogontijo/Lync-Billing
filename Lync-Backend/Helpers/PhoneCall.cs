@@ -70,7 +70,10 @@ namespace Lync_Backend.Helpers
                 string x = string.Empty;
             }
 
-         
+            if (!string.IsNullOrEmpty(thisCall.DestinationNumberUri) &&  thisCall.DestinationNumberUri.StartsWith("80")) 
+            {
+                string x = string.Empty;
+            }
 
             //Set SourceNumberDialing Prefix
             thisCall.marker_CallFrom = GetDialingPrefixFromNumber(FixNumberType(thisCall.SourceNumberUri),out srcCallType);
@@ -299,7 +302,7 @@ namespace Lync_Backend.Helpers
         {
             long numberToParse = 0;
             
-            if (phoneNumber.Length >= 9 && phoneNumber.Length != 6 && phoneNumber.Length != 7) 
+            if (phoneNumber.Length >= 9 ) 
             {
                 long.TryParse(phoneNumber, out numberToParse);
 

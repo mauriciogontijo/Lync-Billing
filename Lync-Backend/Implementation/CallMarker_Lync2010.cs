@@ -31,18 +31,6 @@ namespace Lync_Backend.Implementation
 
         public override void MarkCalls(string tableName)
         {
-           
-        }
-
-
-        public override void MarkExclusion(string tableName)
-        {
-            
-        }
-
-
-        public override void ApplyRates(string tableName)
-        {
             PhoneCall phoneCall;
             string column = string.Empty;
             Dictionary<string, object> updateStatementValues;
@@ -54,31 +42,10 @@ namespace Lync_Backend.Implementation
             {
                 statusTimestamp = ((CallMarkerStatus)markerStatus.First()).Timestamp;
             }
-            else 
+            else
             {
                 statusTimestamp = DateTime.MinValue;
             }
-
-            ////Get Gateways for that Marker
-            //List<Gateways> gateways = Gateways.GetGateways("Gateways2010");
-
-            ////Get Gateway IDs from Gateways
-            //List<int> gatewaysIds = gateways.Select(item => item.GatewayId).ToList<int>();
-
-            ////Get Rates Tables for that marker
-            //List<GatewaysRates> ratesTables = GatewaysRates.GetGatewaysRates().Where(item => gatewaysIds.Contains(item.GatewayID)).ToList<GatewaysRates>();
-
-            //List<string> ratesTablesName = ratesTables.Select(item => item.RatesTableName).ToList<string>();
-
-
-            ////Get Rates for those Gateways for that marker
-            //Dictionary<string, List<Rates>> ratesPerGatway =
-            //        Rates.GetAllGatewaysRates().
-            //            Where(item => ratesTablesName.Contains(item.Key)).
-            //            ToDictionary(p => p.Key, p => p.Value);
-
-            ////Get Dialing Prefixes Information
-            //List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
 
             sourceDBConnector.Open();
 
@@ -92,10 +59,10 @@ namespace Lync_Backend.Implementation
                 while (dataReader.Read())
                 {
                     column = string.Empty;
-                    
+
                     //Apply Rate
                     phoneCall = new PhoneCall();
-                    updateStatementValues = new Dictionary<string,object>();
+                    updateStatementValues = new Dictionary<string, object>();
 
                     phoneCall.SessionIdTime = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);
                     phoneCall.SessionIdSeq = (int)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq)];
@@ -119,11 +86,11 @@ namespace Lync_Backend.Implementation
                     column = Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri);
                     if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
                         phoneCall.DestinationUserUri = dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri)].ToString();
-                    
+
                     column = Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri);
                     if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
                         phoneCall.DestinationNumberUri = dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri)].ToString();
-                    
+
                     column = Enums.GetDescription(Enums.PhoneCalls.FromMediationServer);
                     if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
                         phoneCall.FromMediationServer = dataReader[Enums.GetDescription(Enums.PhoneCalls.FromMediationServer)].ToString();
@@ -166,12 +133,12 @@ namespace Lync_Backend.Implementation
 
                     phoneCall = PhoneCall.SetCallType(phoneCall);
                     updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
-                    
+
 
                     DBRoutines.UPDATE(PhoneCallsTableName, updateStatementValues);
                 }
             }
-            else 
+            else
             {
                 string SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(Misc.ConvertDate(statusTimestamp));
 
@@ -183,6 +150,18 @@ namespace Lync_Backend.Implementation
                     //Apply Rate
                 }
             }
+        }
+
+
+        public override void MarkExclusion(string tableName)
+        {
+            
+        }
+
+
+        public override void ApplyRates(string tableName)
+        {
+            
         }
 
 
