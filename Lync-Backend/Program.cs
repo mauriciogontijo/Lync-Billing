@@ -32,9 +32,17 @@ namespace Lync_Backend
             //    ((Interfaces.IDatabaseImporter)instance).ImportPhoneCalls();
             //}
 
-            Interfaces.ICallMarker callsMarker = new CallMarker_Lync2010();
-            callsMarker.MarkCalls("PhoneCalls2010");
+            //Interfaces.IDatabaseImporter lync2013 = new Lync2013();
+            //lync2013.ImportPhoneCalls();
 
+            //Interfaces.IDatabaseImporter lync2010 = new Lync2010();
+            //lync2010.ImportPhoneCalls();
+
+            //Interfaces.ICallMarker callsMarker = new CallMarker_Lync2010();
+            //callsMarker.ApplyRates("PhoneCalls2010");
+
+            Interfaces.ICallMarker callsMarker = new CallMarker_Lync2013();
+            callsMarker.MarkCalls("PhoneCalls2013");
         }
     }
 }
