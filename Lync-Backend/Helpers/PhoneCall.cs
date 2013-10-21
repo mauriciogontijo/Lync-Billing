@@ -265,6 +265,10 @@ namespace Lync_Backend.Helpers
                 }
             }
 
+            //Lync2013
+
+            if( !string.IsNullOrEmpty(thisCall.SourceUserUri))
+
             thisCall.marker_CallType = "N/A";
             thisCall.Marker_CallTypeID = 0;
 
