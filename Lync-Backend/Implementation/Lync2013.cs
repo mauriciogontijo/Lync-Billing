@@ -70,7 +70,7 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Open();
             DestinationDBConnector.Open();
 
-            dataReader = DBRoutines.EXECUTEREADER(Misc.CREATE_LAST_IMPORTED_PHONECALL_DATE_QUERY(), DestinationDBConnector);
+            dataReader = DBRoutines.EXECUTEREADER(Misc.CREATE_LAST_IMPORTED_PHONECALL_DATE_QUERY(PhoneCallsTableName), DestinationDBConnector);
 
             if (dataReader.Read() && !dataReader.IsDBNull(0))
                 LAST_IMPORTED_PHONECALL_DATE = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);

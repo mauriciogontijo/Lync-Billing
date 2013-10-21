@@ -41,8 +41,8 @@ namespace Lync_Backend
             Interfaces.IDatabaseImporter lync2013 = new Lync2013();
             lync2013.ImportPhoneCalls();
 
-            Interfaces.ICallMarker callsMarker = new CallMarker_Lync2013();
-            callsMarker.MarkCalls("PhoneCalls2013");
+            //Interfaces.ICallMarker callsMarker = new CallMarker_Lync2013();
+            //callsMarker.MarkCalls("PhoneCalls2013");
         }
     }
 }
