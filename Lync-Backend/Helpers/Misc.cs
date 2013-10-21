@@ -90,7 +90,7 @@ namespace Lync_Backend.Helpers
                         "Users_1.UserUri IS NOT NULL AND " +
                         "Users_1.UserUri NOT LIKE '%;phone%' AND " +
                         "Users_1.UserUri NOT LIKE '%;user%' AND " +
-                        //"Users_1.UserUri NOT LIKE '+%@%' AND " +
+                        "Users_1.UserUri NOT LIKE '+%@%' AND " +
                         "SessionDetails.ResponseCode = 200 AND " +
                         "SessionDetails.MediaTypes = 16 AND " +
                         "VoipDetails.SessionIdTime > '{0}'", LAST_IMPORTED_PHONECALL_DATE
@@ -103,7 +103,7 @@ namespace Lync_Backend.Helpers
                     "Users_1.UserUri IS NOT NULL AND " +
                     "Users_1.UserUri NOT LIKE '%;phone%' AND "+
                     "Users_1.UserUri NOT LIKE '%;user%' AND " +
-                    //"Users_1.UserUri NOT LIKE '+%@%' AND " +
+                    "Users_1.UserUri NOT LIKE '+%@%' AND " +
                     "SessionDetails.ResponseCode = 200 AND " +
                     "SessionDetails.MediaTypes = 16 "
                 );
