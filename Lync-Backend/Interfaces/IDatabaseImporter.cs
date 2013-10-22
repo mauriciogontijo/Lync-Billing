@@ -12,7 +12,6 @@ namespace Lync_Backend.Interfaces
 
         string ConstructConnectionString();
         void ImportPhoneCalls();
-        void ImportGateways();
-        void ImportPools();
+        void ImportGatewaysAndPools();
     }
 }

@@ -208,19 +208,27 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Close();
         }
 
-        override public void ImportGateways()
+
+        public override void ImportGatewaysAndPools()
         {
             OleDbDataReader dataReader;
             DataTable dt;
 
+            string column = string.Empty;
+
+            // Varialbes for handling importing Gateways.
             Dictionary<string, object> newGateway;
             List<string> existingGateways = new List<string>();
 
-            string column = string.Empty;
+            // Varialbes for handling importing Pools.
+            Dictionary<string, object> newPool;
+            List<string> existingPools = new List<string>();
+            
             
             /***
              * Get all the existing gateways, to avoid inserting duplicates
              */
+            dt = new DataTable();
             dt = DBRoutines.SELECT(GatewaysTableName, (new List<string>()), (new Dictionary<string, object>()), 0);
             if (dt.Rows.Count > 0)
             {
@@ -232,9 +240,34 @@ namespace Lync_Backend.Implementation
                     }
                 }
             }
+            
+            
+            /***
+             * Get all the existing pools, to avoid inserting duplicates
+             */
+            dt.Clear();
+            dt = DBRoutines.SELECT(PoolsTableName, (new List<string>()), (new Dictionary<string, object>()), 0);
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row[Enums.GetDescription(Enums.Pools.PoolFQDN)] != DBNull.Value)
+                    {
+                        existingPools.Add(row[Enums.GetDescription(Enums.Pools.PoolFQDN)].ToString());
+                    }
+                }
+            }
 
+
+            /***
+             * Open a connection to the database
+             */
             sourceDBConnector.Open();
 
+
+            /**
+             * Start by importing the Gateways.
+             */
             dataReader = DBRoutines.EXECUTEREADER(Misc.CREATE_IMPORT_GATEWAYS_QUERY(), sourceDBConnector);
 
             while (dataReader.Read())
@@ -255,41 +288,10 @@ namespace Lync_Backend.Implementation
                 }
             }
 
-            sourceDBConnector.Close();
-        }
 
-        override public void ImportPools()
-        {
-            OleDbDataReader dataReader;
-            DataTable dt;
-
-            Dictionary<string, object> newPool;
-            List<string> existingPools = new List<string>();
-
-            string column = string.Empty;
-           
-            /***
-             * Get all the existing pools, to avoid inserting duplicates
+            /**
+             * Procede by importing the Pools.
              */
-            dt = DBRoutines.SELECT(PoolsTableName, (new List<string>()), (new Dictionary<string, object>()), 0);
-            if (dt.Rows.Count > 0)
-            {
-                foreach (DataRow row in dt.Rows)
-                {
-                    if (row[Enums.GetDescription(Enums.Pools.PoolFQDN)] != DBNull.Value)
-                    {
-                        existingPools.Add(row[Enums.GetDescription(Enums.Pools.PoolFQDN)].ToString());
-                    }
-                }
-            }
-
-
-            /***
-             * Setup the query which gets the pools from the source database.
-             */
-
-            sourceDBConnector.Open();
-            
             dataReader = DBRoutines.EXECUTEREADER(Misc.CREATE_IMPORT_POOLS_QUERY(), sourceDBConnector);
 
             while (dataReader.Read())
@@ -310,6 +312,10 @@ namespace Lync_Backend.Implementation
                 }
             }
 
+
+            /***
+             * Close the database connection
+             */
             sourceDBConnector.Close();
         }
 
