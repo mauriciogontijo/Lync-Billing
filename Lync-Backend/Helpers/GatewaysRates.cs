@@ -111,7 +111,7 @@ namespace Lync_Backend.Helpers
         {
             GatewaysRates GatewaysRates;
             DataTable dt = new DataTable();
-            List<GatewaysRates> GatewaysRatess = new List<GatewaysRates>();
+            List<GatewaysRates> GatewaysRatesList = new List<GatewaysRates>();
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysRates.TableName), columns, wherePart, limits);
 
@@ -144,9 +144,9 @@ namespace Lync_Backend.Helpers
                         GatewaysRates.CurrencyCode = (string)row[column.ColumnName];
 
                 }
-                GatewaysRatess.Add(GatewaysRates);
+                GatewaysRatesList.Add(GatewaysRates);
             }
-            return GatewaysRatess;
+            return GatewaysRatesList;
         }
 
     }

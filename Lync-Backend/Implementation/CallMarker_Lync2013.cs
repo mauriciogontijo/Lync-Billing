@@ -163,26 +163,26 @@ namespace Lync_Backend.Implementation
 
         public override void ApplyRates(string tableName)
         {
-            ////Get Gateways for that Marker
-            //List<Gateways> gateways = Gateways.GetGateways("Gateways2010");
+            //Get Gateways for that Marker
+            List<Gateways> ListofGateways = Gateways.GetGateways(GatewaysTableName);
 
-            ////Get Gateway IDs from Gateways
-            //List<int> gatewaysIds = gateways.Select(item => item.GatewayId).ToList<int>();
+            //Get Gateway IDs from Gateways
+            List<int> ListofGatewaysIds = ListofGateways.Select(item => item.GatewayId).ToList<int>();
 
-            ////Get Rates Tables for that marker
-            //List<GatewaysRates> ratesTables = GatewaysRates.GetGatewaysRates().Where(item => gatewaysIds.Contains(item.GatewayID)).ToList<GatewaysRates>();
+            //Get Rates Tables for that marker
+            List<GatewaysRates> ratesTables = GatewaysRates.GetGatewaysRates().Where(item => ListofGatewaysIds.Contains(item.GatewayID)).ToList<GatewaysRates>();
 
-            //List<string> ratesTablesName = ratesTables.Select(item => item.RatesTableName).ToList<string>();
+            List<string> ratesTablesName = ratesTables.Select(item => item.RatesTableName).ToList<string>();
 
 
-            ////Get Rates for those Gateways for that marker
-            //Dictionary<string, List<Rates>> ratesPerGatway =
-            //        Rates.GetAllGatewaysRates().
-            //            Where(item => ratesTablesName.Contains(item.Key)).
-            //            ToDictionary(p => p.Key, p => p.Value);
+            //Get Rates for those Gateways for that marker
+            Dictionary<string, List<Rates>> ratesPerGatway =
+                    Rates.GetAllGatewaysRates().
+                        Where(item => ratesTablesName.Contains(item.Key.ToString())).
+                        ToDictionary(p => p.Key.ToString(), p => p.Value);
 
-            ////Get Dialing Prefixes Information
-            //List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
+            //Get Dialing Prefixes Information
+            List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
         }
 
 
