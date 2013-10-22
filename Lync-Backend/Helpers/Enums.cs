@@ -172,7 +172,7 @@ namespace Lync_Backend.Helpers
             MobileLineRate
         }
 
-        public enum CalTypes
+        public enum CallTypes
         {
             [Description("CallTypes")]
             TableName,
