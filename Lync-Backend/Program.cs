@@ -40,8 +40,8 @@ namespace Lync_Backend
             //Interfaces.ICallMarker callsMarker = new CallMarker_Lync2013();
             //callsMarker.MarkCalls("PhoneCalls2013");
 
-            //Interfaces.ICallMarker callsMarker = new CallMarker_Lync2013();
-            //callsMarker.ApplyRates("PhoneCalls2013");
+            Interfaces.ICallMarker callsMarker = new CallMarker_Lync2013();
+            callsMarker.ApplyRates();
         }
     }
 }
