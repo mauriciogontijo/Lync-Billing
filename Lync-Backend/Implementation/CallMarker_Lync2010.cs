@@ -17,8 +17,7 @@ namespace Lync_Backend.Implementation
         OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
 
         private static DBLib DBRoutines = new DBLib();
-
-
+        
         public override string PhoneCallsTableName
         {
             get { return "PhoneCalls2010"; }
@@ -29,7 +28,7 @@ namespace Lync_Backend.Implementation
             get { return "Gateways2010"; }
         }
 
-        public override void MarkCalls(string tableName)
+        public override void MarkCalls()
         {
             PhoneCall phoneCall;
             string column = string.Empty;
@@ -153,19 +152,19 @@ namespace Lync_Backend.Implementation
         }
 
 
-        public override void MarkExclusion(string tableName)
+        public override void MarkExclusion()
         {
             
         }
 
 
-        public override void ApplyRates(string tableName)
+        public override void ApplyRates()
         {
             
         }
 
 
-        public override void ResetPhoneCallsAttributes(string tableName)
+        public override void ResetPhoneCallsAttributes()
         {
             
         }
