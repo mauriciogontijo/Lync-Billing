@@ -121,18 +121,10 @@ namespace Lync_Backend.Implementation
 
             //Get Gateway IDs from Gateways
             List<string> ListofGatewaysNames = ListofGateways.Select(item => item.GatewayName).ToList<string>();
-
-            //Get Rates Tables for that marker
-            //List<GatewaysRates> ListofRatesTables = GatewaysRates.GetGatewaysRates().Where(item => ListofGatewaysIds.Contains(item.GatewayID)).ToList<GatewaysRates>();
-            //List<string> ratesTablesName = ListofRatesTables.Select(item => item.RatesTableName).ToList<string>();
-            
+                        
             //Get Rates for those Gateways for that marker
             Dictionary<string, List<Rates>> ratesPerGatway = Rates.GetAllGatewaysRatesDictionary();
-
-            //Get Dialing Prefixes Information
-            List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
-
-
+            
             //Read the phone calls and apply the rates to them
             sourceDBConnector.Open();
 
