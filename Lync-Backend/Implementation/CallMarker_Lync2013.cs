@@ -138,9 +138,7 @@ namespace Lync_Backend.Implementation
                 phoneCallRecord = new Dictionary<string, object>();
 
                 //Skip this step in the loop if this PhoneCall record is not rates-appliant
-                if (dataReader[callTypeID] == DBNull.Value || string.IsNullOrEmpty(dataReader[callTypeID].ToString()) || 
-                    dataReader[toGateway] == DBNull.Value || string.IsNullOrEmpty(dataReader[toGateway].ToString()) ||
-                    dataReader[callToCountry] == DBNull.Value || string.IsNullOrEmpty(dataReader[callToCountry].ToString()))
+                if (dataReader[toGateway] == DBNull.Value || (int)dataReader[callTypeID] == 0 || dataReader[callToCountry].ToString() == "N/A")
                 {
                     continue;
                 }
