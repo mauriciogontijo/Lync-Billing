@@ -38,12 +38,12 @@ namespace Lync_Backend.Implementation
 
         public override string PoolsTableName
         {
-            get { return "Pools2013"; }
+            get { return "Pools"; }
         }
 
         public override string GatewaysTableName
         {
-            get { return "Gateways2013"; }
+            get { return "Gateways"; }
         }
 
         override public string ConstructConnectionString()
@@ -275,8 +275,8 @@ namespace Lync_Backend.Implementation
                 column = string.Empty;
                 newGateway = new Dictionary<string, object>();
 
-                column = Enums.GetDescription(Enums.Gateways.GatewayId);
-                newGateway.Add(column, (dataReader[column]).ToString());
+                //column = Enums.GetDescription(Enums.Gateways.GatewayId);
+                //newGateway.Add(column, (dataReader[column]).ToString());
 
                 column = Enums.GetDescription(Enums.Gateways.GatewayName);
                 newGateway.Add(column, (dataReader[column]).ToString());
@@ -299,8 +299,8 @@ namespace Lync_Backend.Implementation
                 column = string.Empty;
                 newPool = new Dictionary<string, object>();
 
-                column = Enums.GetDescription(Enums.Pools.PoolId);
-                newPool.Add(column, (dataReader[column]).ToString());
+                //column = Enums.GetDescription(Enums.Pools.PoolId);
+                //newPool.Add(column, (dataReader[column]).ToString());
 
                 column = Enums.GetDescription(Enums.Pools.PoolFQDN);
                 newPool.Add(column, (dataReader[column]).ToString());
