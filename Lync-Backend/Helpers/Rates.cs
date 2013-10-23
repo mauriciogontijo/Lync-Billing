@@ -134,7 +134,8 @@ namespace Lync_Backend.Helpers
                     var gatewayRatesTableName = GatewayRateTable.RatesTableName.Split('_');
                     gatewayName = gatewayRatesTableName[1];
 
-                    allRates.Add(gatewayName, ratesPerGateway);
+                    if(!allRates.Keys.Contains(gatewayName))
+                        allRates.Add(gatewayName, ratesPerGateway);
                 }
             }
 
