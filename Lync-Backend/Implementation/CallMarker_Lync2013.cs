@@ -123,7 +123,8 @@ namespace Lync_Backend.Implementation
             List<string> ListofGatewaysNames = ListofGateways.Select(item => item.GatewayName).ToList<string>();
                         
             //Get Rates for those Gateways for that marker
-            Dictionary<string, List<Rates>> ratesPerGatway = Rates.GetAllGatewaysRatesDictionary();
+            //Dictionary<string, List<Rates>> ratesPerGatway = Rates.GetAllGatewaysRatesDictionary();
+            Dictionary<int, List<Rates>> ratesPerGatway = Rates.GetAllGatewaysRatesList();
             
             //Read the phone calls and apply the rates to them
             sourceDBConnector.Open();
@@ -135,7 +136,7 @@ namespace Lync_Backend.Implementation
             while (dataReader.Read())
             {
                 //Skip this step in the loop if this PhoneCall record is not rates-appliant
-                if (dataReader[toGateway] == DBNull.Value || dataReader[callToCountry].ToString() == "N/A" || !ListofChargeableCallTypes.Contains((int)dataReader[callTypeID]))
+                if (dataReader[toGateway] == DBNull.Value || dataReader[callToCountry].ToString() == "N/A" || !ListofChargeableCallTypes.Contains(Convert.ToInt32(dataReader[callTypeID])))
                 {
                     continue;
                 }
@@ -146,7 +147,7 @@ namespace Lync_Backend.Implementation
 
                 // Check if we can apply the rates for this phone-call
                 var gateway = ListofGateways.Find(g => g.GatewayName == phoneCallRecord[toGateway].ToString());
-                var rates = (from keyValuePair in ratesPerGatway where keyValuePair.Key == gateway.GatewayName select keyValuePair.Value).SingleOrDefault<List<Rates>>() ?? (new List<Rates>());
+                var rates = (from keyValuePair in ratesPerGatway where keyValuePair.Key == gateway.GatewayId select keyValuePair.Value).SingleOrDefault<List<Rates>>() ?? (new List<Rates>());
 
                 if (rates.Count > 0)
                 {
