@@ -120,14 +120,14 @@ namespace Lync_Backend.Implementation
             List<Gateways> ListofGateways = Gateways.GetGateways(GatewaysTableName);
 
             //Get Gateway IDs from Gateways
-            List<int> ListofGatewaysIds = ListofGateways.Select(item => item.GatewayId).ToList<int>();
+            List<string> ListofGatewaysNames = ListofGateways.Select(item => item.GatewayName).ToList<string>();
 
             //Get Rates Tables for that marker
             //List<GatewaysRates> ListofRatesTables = GatewaysRates.GetGatewaysRates().Where(item => ListofGatewaysIds.Contains(item.GatewayID)).ToList<GatewaysRates>();
             //List<string> ratesTablesName = ListofRatesTables.Select(item => item.RatesTableName).ToList<string>();
             
             //Get Rates for those Gateways for that marker
-            Dictionary<int, List<Rates>> ratesPerGatway = Rates.GetAllGatewaysRates();
+            Dictionary<string, List<Rates>> ratesPerGatway = Rates.GetAllGatewaysRatesDictionary();
 
             //Get Dialing Prefixes Information
             List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
@@ -167,10 +167,11 @@ namespace Lync_Backend.Implementation
 
                     if (gateway != null)
                     {
-                        var rates = (from keyValuePair in ratesPerGatway where keyValuePair.Key == gateway.GatewayId select keyValuePair.Value).SingleOrDefault<List<Rates>>() ?? (new List<Rates>());
+                        var rates = (from keyValuePair in ratesPerGatway where keyValuePair.Key == gateway.GatewayName select keyValuePair.Value).SingleOrDefault<List<Rates>>() ?? (new List<Rates>());
 
                         if (rates.Count > 0 && ListofChargeableCallTypes.Contains((int)phoneCallRecord[callTypeID]))
                         {
+                            //Apply the rate for this phone call
                             var rate = (from r in rates
                                         where r.CountryCode == phoneCallRecord[callToCountry].ToString()
                                         select r).First();
