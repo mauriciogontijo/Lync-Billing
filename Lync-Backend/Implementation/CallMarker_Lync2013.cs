@@ -26,7 +26,7 @@ namespace Lync_Backend.Implementation
 
         public override string GatewaysTableName
         {
-            get { return "Gateways2013"; }
+            get { return "Gateways"; }
         }
 
         public override void MarkCalls()
