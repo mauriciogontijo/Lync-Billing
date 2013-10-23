@@ -134,45 +134,31 @@ namespace Lync_Backend.Implementation
 
             while (dataReader.Read())
             {
-                //Initialize the updateStatementValues variable
-                phoneCallRecord = new Dictionary<string, object>();
-
                 //Skip this step in the loop if this PhoneCall record is not rates-appliant
-                if (dataReader[toGateway] == DBNull.Value || (int)dataReader[callTypeID] == 0 || dataReader[callToCountry].ToString() == "N/A")
-                {
-                    continue;
-                }
-                else if ( ! ListofChargeableCallTypes.Contains(Convert.ToInt32(dataReader[callTypeID])) )
+                if (dataReader[toGateway] == DBNull.Value || dataReader[callToCountry].ToString() == "N/A" || !ListofChargeableCallTypes.Contains((int)dataReader[callTypeID]))
                 {
                     continue;
                 }
 
                 //Begin processing this PhoneCall
-                var readerInstance = dataReader;
-                phoneCallRecord = Misc.FillDictionaryFromOleDataReader(readerInstance);
+                //Initialize the phoneCallRecord variable
+                phoneCallRecord = Misc.FillDictionaryFromOleDataReader(dataReader);
 
                 // Check if we can apply the rates for this phone-call
-                if (!string.IsNullOrEmpty(phoneCallRecord[toGateway].ToString()) && (int)phoneCallRecord[callTypeID] != 0)
+                var gateway = ListofGateways.Find(g => g.GatewayName == phoneCallRecord[toGateway].ToString());
+                var rates = (from keyValuePair in ratesPerGatway where keyValuePair.Key == gateway.GatewayName select keyValuePair.Value).SingleOrDefault<List<Rates>>() ?? (new List<Rates>());
+
+                if (rates.Count > 0)
                 {
-                    var gateway = ListofGateways.Find(g => g.GatewayName == phoneCallRecord[toGateway].ToString());
+                    //Apply the rate for this phone call
+                    var rate = (from r in rates
+                                where r.CountryCode == phoneCallRecord[callToCountry].ToString()
+                                select r).First();
 
-                    if (gateway != null)
-                    {
-                        var rates = (from keyValuePair in ratesPerGatway where keyValuePair.Key == gateway.GatewayName select keyValuePair.Value).SingleOrDefault<List<Rates>>() ?? (new List<Rates>());
+                    //if the call is of type national/international MOBILE then apply the Mobile-Rate, otherwise apply the Fixedline-Rate
+                    phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 3 || (int)phoneCallRecord[callTypeID] == 5) ? rate.MobileLineRate : rate.FixedLineRate;
 
-                        if (rates.Count > 0 && ListofChargeableCallTypes.Contains((int)phoneCallRecord[callTypeID]))
-                        {
-                            //Apply the rate for this phone call
-                            var rate = (from r in rates
-                                        where r.CountryCode == phoneCallRecord[callToCountry].ToString()
-                                        select r).First();
-
-                            //if the call is of type national/international fixedline then apply the Fixedline Rate, otherwise apply the Mobile Rate
-                            phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 1 || (int)phoneCallRecord[callTypeID] == 2 || (int)phoneCallRecord[callTypeID] == 4) ? rate.FixedLineRate : rate.MobileLineRate;
-
-                            DBRoutines.UPDATE(PhoneCallsTableName, phoneCallRecord);
-                        }
-                    }
+                    DBRoutines.UPDATE(PhoneCallsTableName, phoneCallRecord);
                 }
             }//END-WHILE
 
