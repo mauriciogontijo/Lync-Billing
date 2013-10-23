@@ -67,7 +67,7 @@ namespace Lync_Backend.Helpers
 
         }
 
-        public static Dictionary<int, List<Rates>> GetAllGatewaysRates() 
+        public static Dictionary<int, List<Rates>> GetAllGatewaysRatesList() 
         {
             Dictionary<int, List<Rates>> allRates = new Dictionary<int, List<Rates>>();
             List<Rates> ratesPerGateway;
@@ -93,6 +93,48 @@ namespace Lync_Backend.Helpers
                     }
                     
                     allRates.Add(GatewayRateTable.GatewayID, ratesPerGateway);
+                }
+            }
+
+            return allRates;
+        }
+
+
+        public static Dictionary<string, List<Rates>> GetAllGatewaysRatesDictionary()
+        {
+            List<Rates> ratesPerGateway;
+            string gatewayName = string.Empty;
+            Dictionary<string, List<Rates>> allRates = new Dictionary<string, List<Rates>>();
+
+            //Get Entire GatewaysRates to be able to get all the rates  
+            List<GatewaysRates> gatewayRates = GatewaysRates.GetGatewaysRates();
+
+            if (gatewayRates.Count > 0)
+            {
+                foreach (GatewaysRates GatewayRateTable in gatewayRates)
+                {
+                    gatewayName = string.Empty;
+
+                    // Check RateTable Exists and Rates ending time is not null or set : to get uptodate rates table
+                    if (GatewayRateTable.RatesTableName != null &&
+                        (GatewayRateTable.EndingDate != DateTime.MinValue ||
+                        GatewayRateTable.EndingDate != null))
+                    {
+                        ratesPerGateway = new List<Rates>();
+                        ratesPerGateway = GetRates(GatewayRateTable.RatesTableName);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                    //Example:
+                    // GatewayRateTable.RatesTableName := "Rates_10.1.1.3_2013_04_02"
+                    // after splitting ===> gatewayRatesTableName := ["Rates", "10.1.1.3", "2013", "04", "02"]
+                    var gatewayRatesTableName = GatewayRateTable.RatesTableName.Split('_');
+                    gatewayName = gatewayRatesTableName[1];
+
+                    allRates.Add(gatewayName, ratesPerGateway);
                 }
             }
 

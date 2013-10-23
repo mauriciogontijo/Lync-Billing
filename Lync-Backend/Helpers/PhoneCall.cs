@@ -44,7 +44,7 @@ namespace Lync_Backend.Helpers
         public string AC_IsInvoiced { set; get; }
         public DateTime AC_InvoiceDate { set; get; }
 
-        //private static Dictionary<int, List<Rates>> ratesTables = Rates.GetAllGatewaysRates();
+        //private static Dictionary<int, List<Rates>> ratesTables = Rates.GetAllGatewaysRatesList();
         private static List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
         
         private static List<DIDs> dids = DIDs.GetDIDs();
