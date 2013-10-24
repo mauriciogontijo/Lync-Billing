@@ -64,12 +64,7 @@ namespace Lync_Backend.Helpers
 
            
 
-            if (!string.IsNullOrEmpty(thisCall.DestinationNumberUri) && thisCall.DestinationNumberUri.StartsWith("+3069") )
-            {
-                string x = string.Empty;
-            }
-
-            if (!string.IsNullOrEmpty(thisCall.DestinationNumberUri) &&  thisCall.DestinationNumberUri.StartsWith("80")) 
+            if (!string.IsNullOrEmpty(thisCall.DestinationNumberUri) && thisCall.DestinationNumberUri.StartsWith("+0918429") )
             {
                 string x = string.Empty;
             }
@@ -114,7 +109,7 @@ namespace Lync_Backend.Helpers
             MatchDID(thisCall.SourceNumberUri, out srcDIDdsc);
             MatchDID(thisCall.DestinationNumberUri, out dstDIDdsc);
 
-            if (!string.IsNullOrEmpty(srcDIDdsc) && !string.IsNullOrEmpty(dstDIDdsc))
+            if ((!string.IsNullOrEmpty(srcDIDdsc) && !string.IsNullOrEmpty(dstDIDdsc)))
             {
                 if (dstDIDdsc == "TOLL-FREE") 
                 {
@@ -134,6 +129,57 @@ namespace Lync_Backend.Helpers
                 {
                     thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
+
+                    return thisCall;
+                }
+            }
+
+            //LYNC 2013
+            if (Misc.IsValidEmail(thisCall.SourceUserUri) && !string.IsNullOrEmpty(thisCall.DestinationNumberUri))
+            {
+                if (!string.IsNullOrEmpty(dstDIDdsc))
+                {
+                    if (dstDIDdsc == "TOLL-FREE")
+                    {
+                        thisCall.marker_CallType = dstDIDdsc;
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "TOLL-FREE").id;
+
+                        return thisCall;
+                    }
+                    else if (dstDIDdsc == "PUSH-TO-TALK")
+                    {
+                        thisCall.marker_CallType = dstDIDdsc;
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "PUSH-TO-TALK").id;
+
+                        return thisCall;
+                    }
+                    else
+                    {
+                        thisCall.marker_CallType = "TO-" + dstDIDdsc;
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
+
+                        return thisCall;
+                    }
+                }
+
+                if (dstCallType == "fixedline")
+                {
+                    thisCall.marker_CallType = "FIXEDLINE";
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                    return thisCall;
+                }
+                else if (dstCallType == "gsm")
+                {
+                    thisCall.marker_CallType = "MOBILE";
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+
+                    return thisCall;
+                }
+                else
+                {
+                    thisCall.marker_CallType = "FIXEDLINE";
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
 
                     return thisCall;
                 }
@@ -213,56 +259,7 @@ namespace Lync_Backend.Helpers
                 }
             }
 
-            //LYNC 2013
-            if (Misc.IsValidEmail(thisCall.SourceUserUri) && !string.IsNullOrEmpty(thisCall.DestinationNumberUri)) 
-            {
-                if (!string.IsNullOrEmpty(dstDIDdsc))
-                {
-                    if (dstDIDdsc == "TOLL-FREE")
-                    {
-                        thisCall.marker_CallType = dstDIDdsc;
-                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "TOLL-FREE").id;
-
-                        return thisCall;
-                    }
-                    else if (dstDIDdsc == "PUSH-TO-TALK")
-                    {
-                        thisCall.marker_CallType = dstDIDdsc;
-                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "PUSH-TO-TALK").id;
-
-                        return thisCall;
-                    }
-                    else
-                    {
-                        thisCall.marker_CallType = "TO-" + dstDIDdsc;
-                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
-
-                        return thisCall;
-                    }
-                }
-
-                if (dstCallType == "fixedline")
-                {
-                    thisCall.marker_CallType = "FIXEDLINE";
-                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
-
-                    return thisCall;
-                }
-                else if (dstCallType == "gsm")
-                {
-                    thisCall.marker_CallType = "MOBILE";
-                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
-
-                    return thisCall;
-                }
-                else
-                {
-                    thisCall.marker_CallType = "FIXEDLINE";
-                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
-
-                    return thisCall;
-                }
-            }
+            
 
             //Lync2013
 
