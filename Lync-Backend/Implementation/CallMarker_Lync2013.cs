@@ -62,8 +62,7 @@ namespace Lync_Backend.Implementation
                     updateStatementValues = new Dictionary<string, object>();
 
                     //Fill the phoneCall Object
-                    var readerInstance = dataReader;
-                    phoneCall = Misc.FillPhoneCallFromOleDataReader(readerInstance);
+                    phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
 
                     //Call the SetType on the phoneCall object
                     phoneCall = PhoneCall.SetCallType(phoneCall);
