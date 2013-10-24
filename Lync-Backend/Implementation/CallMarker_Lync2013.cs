@@ -87,6 +87,10 @@ namespace Lync_Backend.Implementation
                     //Apply Rate
                 }
             }
+
+
+            //Close the database connection
+            sourceDBConnector.Close();
         }
 
 
