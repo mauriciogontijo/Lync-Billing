@@ -117,6 +117,7 @@ namespace Lync_Backend.Helpers
 
             //Check if the call is went through gateway which means national or international call
             // To Gateway or to mediation server should be set to be able to be able to consider this call as external
+            // There is a bug some calls went ththrough pst but the gateways is null (NADER TO INVISTAGATE) : we could apply default rates for those calls
             if (!string.IsNullOrEmpty(thisCall.SourceUserUri) &&
                 (!string.IsNullOrEmpty(thisCall.ToGateway) || !string.IsNullOrEmpty(thisCall.ToMediationServer)) &&
                 !string.IsNullOrEmpty(thisCall.DestinationNumberUri) &&
