@@ -62,9 +62,9 @@ namespace Lync_Backend.Helpers
             string srcCallType = string.Empty;
             string dstCallType = string.Empty;
 
-           
 
-            if (!string.IsNullOrEmpty(thisCall.DestinationNumberUri) && thisCall.DestinationNumberUri.StartsWith("+0918429") )
+
+            if (!string.IsNullOrEmpty(thisCall.DestinationNumberUri) && thisCall.DestinationNumberUri.StartsWith("+302106182"))
             {
                 string x = string.Empty;
             }
