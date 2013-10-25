@@ -35,6 +35,13 @@ namespace Lync_Backend.Helpers
 
             thisCall.Marker_CallToCountry = dstCountry;
 
+
+            //Test Case
+            if(thisCall.SessionIdTime=="2013-04-05 08:58:59.127")
+            {
+                string x= string.Empty;
+            }
+
             //Incoming Call
             if (string.IsNullOrEmpty(thisCall.SourceUserUri) || !Misc.IsValidEmail(thisCall.SourceUserUri))
             {
@@ -59,25 +66,40 @@ namespace Lync_Backend.Helpers
             MatchDID(thisCall.DestinationNumberUri, out dstDIDdsc);
 
             //Check if the call is lync to lync or site to site or lync call accros the site
-            if ((!string.IsNullOrEmpty(srcDIDdsc) && !string.IsNullOrEmpty(dstDIDdsc)))
+            if (!string.IsNullOrEmpty(dstDIDdsc))
             {
+                //TODO:  IF source number uri is null check if the user site could be resolved from activedirectoryUsers table
+                //       IF yes put the source site from activedirectoryUsers table instead of the soyrce did site
+               
                 if (dstDIDdsc == "TOLL-FREE")
                 {
-                    thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
+                    if(!string.IsNullOrEmpty(srcDIDdsc))
+                        thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
+                    else
+                        thisCall.marker_CallType = "UNKNOWN-TO-" + dstDIDdsc;
+                    
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "TOLL-FREE").id;
 
                     return thisCall;
                 }
                 else if (dstDIDdsc == "PUSH-TO-TALK-UAE")
                 {
-                    thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
+                    if (!string.IsNullOrEmpty(srcDIDdsc))
+                        thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
+                    else
+                        thisCall.marker_CallType = "UNKNOWN-TO-" + dstDIDdsc;
+
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "PUSH-TO-TALK").id;
 
                     return thisCall;
                 }
                 else
                 {
-                    thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
+                    if (!string.IsNullOrEmpty(srcDIDdsc))
+                        thisCall.marker_CallType = srcDIDdsc + "-TO-" + dstDIDdsc;
+                    else
+                        thisCall.marker_CallType = "UNKNOWN-TO-" + dstDIDdsc;
+
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
 
                     return thisCall;
@@ -184,6 +206,18 @@ namespace Lync_Backend.Helpers
                 }
             }
 
+            //if (!string.IsNullOrEmpty(thisCall.SourceUserUri) && Misc.IsValidEmail(thisCall.SourceUserUri)) 
+            //{
+            //    if (string.IsNullOrEmpty(thisCall.DestinationUserUri) && Misc.IsValidEmail(thisCall.DestinationUserUri)) 
+            //    {
+            //        //Check if the destination did if it is available with ccc
+            //        if (!string.IsNullOrEmpty(srcDIDdsc)) 
+            //        {
+
+            //        }
+            //    }
+            //}
+
             if (!string.IsNullOrEmpty(thisCall.SourceUserUri))
             {
                 thisCall.marker_CallType = "N/A";
@@ -191,7 +225,7 @@ namespace Lync_Backend.Helpers
 
                 return thisCall;
             }
-
+            
             thisCall.marker_CallType = "N/A";
             thisCall.Marker_CallTypeID = 0;
 
