@@ -62,7 +62,10 @@ namespace Lync_Backend.Helpers
             string srcCallType = string.Empty;
             string dstCallType = string.Empty;
 
-
+            if(thisCall.SessionIdTime == "2013-05-31 05:18:50.653")
+            {
+                 string x = string.Empty;
+            }
 
             if (!string.IsNullOrEmpty(thisCall.DestinationNumberUri) && thisCall.DestinationNumberUri.StartsWith("+302106182"))
             {
@@ -163,7 +166,7 @@ namespace Lync_Backend.Helpers
                 {
                     if (!string.IsNullOrEmpty(dstDIDdsc)) 
                     {
-                        thisCall.marker_CallType = dstDIDdsc;
+                        thisCall.marker_CallType = "TO-" + dstDIDdsc;
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
 
                         return thisCall;
@@ -196,7 +199,7 @@ namespace Lync_Backend.Helpers
                 {
                     if (!string.IsNullOrEmpty(dstDIDdsc))
                     {
-                        thisCall.marker_CallType = dstDIDdsc;
+                        thisCall.marker_CallType = "TO-" + dstDIDdsc;
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
 
                         return thisCall;
