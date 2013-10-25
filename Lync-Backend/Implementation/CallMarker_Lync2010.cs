@@ -101,8 +101,9 @@ namespace Lync_Backend.Implementation
         public override void ApplyRates()
         {
             string cost = Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost);
-            string callTypeID = Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID);
+            string duration = Enums.GetDescription(Enums.PhoneCalls.Duration);
             string toGateway = Enums.GetDescription(Enums.PhoneCalls.ToGateway);
+            string callTypeID = Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID);
             string callToCountry = Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry);
 
             //This is the data container to hold the data of the phonecall row from the database.
@@ -159,7 +160,9 @@ namespace Lync_Backend.Implementation
                                 select r).First();
 
                     //if the call is of type national/international MOBILE then apply the Mobile-Rate, otherwise apply the Fixedline-Rate
-                    phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 3 || (int)phoneCallRecord[callTypeID] == 5) ? rate.MobileLineRate : rate.FixedLineRate;
+                    phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 3 || (int)phoneCallRecord[callTypeID] == 5) ?
+                            Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.MobileLineRate :
+                            Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.FixedLineRate;
 
                     DBRoutines.UPDATE(PhoneCallsTableName, phoneCallRecord);
                 }
