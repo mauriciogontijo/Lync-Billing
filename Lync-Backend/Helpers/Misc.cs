@@ -412,5 +412,17 @@ namespace Lync_Backend.Helpers
 
             return Regex.IsMatch(emailAddress, pattern);
         }
+
+        public static bool IsIMEmail(string emailAddress) 
+        {
+            if (emailAddress.EndsWith("hotmail.com") ||
+                emailAddress.EndsWith("yahoo.com") ||
+                emailAddress.EndsWith("gmail.com") ||
+                emailAddress.EndsWith("google.com"))
+            {
+                return true;
+            }
+            else { return false; }
+        }
     }
 }
