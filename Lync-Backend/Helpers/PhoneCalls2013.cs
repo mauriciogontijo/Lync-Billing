@@ -8,7 +8,7 @@ namespace Lync_Backend.Helpers
 {
     class PhoneCalls2013 : PhoneCall
     {
-        public PhoneCall SetCallType2013(PhoneCall thisCall)
+        public PhoneCall SetCallType(PhoneCall thisCall)
         {
 
             string srcCountry = string.Empty;

@@ -44,7 +44,6 @@ namespace Lync_Backend.Helpers
         public string AC_IsInvoiced { set; get; }
         public DateTime AC_InvoiceDate { set; get; }
 
-        //private static Dictionary<int, List<Rates>> ratesTables = Rates.GetAllGatewaysRatesList();
         protected static List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
 
         protected static List<DIDs> dids = DIDs.GetDIDs();
@@ -53,18 +52,6 @@ namespace Lync_Backend.Helpers
 
         protected static List<string> ListOfUserUrisExceptions = PhoneCallsExceptions.GetUsersUris();
         protected static List<string> ListOfUserNumbersExceptions = PhoneCallsExceptions.GetUsersNumbers();
-
-        public static PhoneCall SetCallType(PhoneCall thisCall,string tablename)
-        {
-            //if (tablename == "PhoneCalls2010")
-            //    return SetCallType2010(thisCall);
-            //else if (tablename == "PhoneCalls2013")
-            //    return SetCallType2013(thisCall);
-            //else
-                return thisCall;
-        }
-        
-      
 
         protected bool MatchDID(string phoneNumber, out string site)
         {
