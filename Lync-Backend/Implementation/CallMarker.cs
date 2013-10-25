@@ -17,18 +17,8 @@ namespace Lync_Backend.Implementation
         OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
 
         private static DBLib DBRoutines = new DBLib();
-        
-        public override string PhoneCallsTableName
-        {
-            get { return "PhoneCalls2010"; }
-        }
-
-        public override string GatewaysTableName
-        {
-            get { return "Gateways"; }
-        }
-
-        public override void MarkCalls()
+       
+        public override void MarkCalls(string tablename)
         {
             PhoneCall phoneCall;
             string column = string.Empty;
@@ -51,7 +41,7 @@ namespace Lync_Backend.Implementation
             if (statusTimestamp == DateTime.MinValue || statusTimestamp == null)
             {
                 // Update phone calls from the begining by iterating through them from the start
-                string SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(PhoneCallsTableName);
+                string SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
 
                 dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
@@ -64,13 +54,13 @@ namespace Lync_Backend.Implementation
                     phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
 
                     //Call the SetType on the phoneCall object
-                    phoneCall = PhoneCall.SetCallType(phoneCall);
+                    phoneCall = PhoneCall.SetCallType(phoneCall,tablename);
 
                     //Set the updateStatementValues dictionary items with the phoneCall instance variables
                     updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
 
                     //Update the phoneCall database record
-                    DBRoutines.UPDATE(PhoneCallsTableName, updateStatementValues);
+                    DBRoutines.UPDATE(tablename, updateStatementValues);
                 }
             }
             else
@@ -92,13 +82,13 @@ namespace Lync_Backend.Implementation
         }
 
 
-        public override void MarkExclusion()
+        public override void MarkExclusion(string tablename)
         {
             
         }
 
 
-        public override void ApplyRates()
+        public override void ApplyRates(string tableName)
         {
             string cost = Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost);
             string duration = Enums.GetDescription(Enums.PhoneCalls.Duration);
@@ -120,7 +110,7 @@ namespace Lync_Backend.Implementation
             List<int> ListofChargeableCallTypes = new List<int>() { 1, 2, 3, 4, 5 };
 
             //Get Gateways for that Marker
-            List<Gateways> ListofGateways = Gateways.GetGateways(GatewaysTableName);
+            List<Gateways> ListofGateways = Gateways.GetGateways();
 
             //Get Gateway IDs from Gateways
             List<string> ListofGatewaysNames = ListofGateways.Select(item => item.GatewayName).ToList<string>();
@@ -132,7 +122,7 @@ namespace Lync_Backend.Implementation
             //Read the phone calls and apply the rates to them
             sourceDBConnector.Open();
 
-            string SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(PhoneCallsTableName);
+            string SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tableName);
 
             dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
@@ -164,7 +154,7 @@ namespace Lync_Backend.Implementation
                             Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.MobileLineRate :
                             Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.FixedLineRate;
 
-                    DBRoutines.UPDATE(PhoneCallsTableName, phoneCallRecord);
+                    DBRoutines.UPDATE(tableName, phoneCallRecord);
                 }
             }//END-WHILE
 
@@ -174,7 +164,7 @@ namespace Lync_Backend.Implementation
         }
 
 
-        public override void ResetPhoneCallsAttributes()
+        public override void ResetPhoneCallsAttributes(string tablename)
         {
             
         }

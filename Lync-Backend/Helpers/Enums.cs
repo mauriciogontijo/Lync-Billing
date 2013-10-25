@@ -106,6 +106,8 @@ namespace Lync_Backend.Helpers
 
         public enum Gateways
         {
+            [Description("Gateways")]
+            TableName,
             [Description("GatewayId")]
             GatewayId,
             [Description("Gateway")]
@@ -114,6 +116,8 @@ namespace Lync_Backend.Helpers
 
         public enum Pools
         {
+            [Description("Pools")]
+            TableName,
             [Description("PoolId")]
             PoolId,
             [Description("PoolFQDN")]

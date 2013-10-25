@@ -15,7 +15,7 @@ namespace Lync_Backend.Helpers
 
         private static DBLib DBRoutines = new DBLib();
 
-        public static List<Gateways> GetGateways(string tableName) 
+        public static List<Gateways> GetGateways() 
         {
             DataTable dt = new DataTable();
             Gateways gateway;
@@ -23,7 +23,7 @@ namespace Lync_Backend.Helpers
 
             List<Gateways> listOfGateways = new List<Gateways>();
 
-            dt = DBRoutines.SELECT(tableName);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Gateways.TableName));
 
             foreach (DataRow row in dt.Rows)
             {

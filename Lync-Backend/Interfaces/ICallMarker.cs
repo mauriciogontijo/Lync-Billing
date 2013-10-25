@@ -8,9 +8,9 @@ namespace Lync_Backend.Interfaces
 {
     interface ICallMarker
     {
-        void MarkCalls();
-        void MarkExclusion();
-        void ApplyRates();
-        void ResetPhoneCallsAttributes();
+        void MarkCalls(string tablename);
+        void MarkExclusion(string tablename);
+        void ApplyRates(string tablename);
+        void ResetPhoneCallsAttributes(string tablename);
     }
 }

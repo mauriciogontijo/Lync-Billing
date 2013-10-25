@@ -8,13 +8,11 @@ namespace Lync_Backend.Interfaces
 {
     abstract class AbDatabaseMarker : ICallMarker
     {
-        public abstract string PhoneCallsTableName { get; }
-        public abstract string GatewaysTableName { get; }
+        
+        public abstract void MarkCalls(string tablename);
+        public abstract void MarkExclusion(string tablename);
 
-        public abstract void MarkCalls();
-        public abstract void MarkExclusion();
-
-        public abstract void ApplyRates();
-        public abstract void ResetPhoneCallsAttributes();
+        public abstract void ApplyRates(string tablename);
+        public abstract void ResetPhoneCallsAttributes(string tablename);
     }
 }
