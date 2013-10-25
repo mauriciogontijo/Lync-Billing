@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lync_Backend.Interfaces;
 
 namespace Lync_Backend.Helpers
 {
-    class PhoneCalls2013 : PhoneCalls
+    class PhoneCalls2013 : PhoneCalls,IPhoneCalls
     {
         public PhoneCalls SetCallType(PhoneCalls thisCall)
         {

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lync_Backend.Interfaces;
 
 namespace Lync_Backend.Helpers
 {
-    class PhoneCalls2010 : PhoneCalls
+    class PhoneCalls2010 : PhoneCalls,IPhoneCalls
     {
         public PhoneCalls SetCallType(PhoneCalls thisCall)
         {
@@ -16,11 +17,6 @@ namespace Lync_Backend.Helpers
             string dstCallType = string.Empty;
 
             if (thisCall.SessionIdTime == "2013-05-31 05:18:50.653")
-            {
-                string x = string.Empty;
-            }
-
-            if (!string.IsNullOrEmpty(thisCall.DestinationNumberUri) && thisCall.DestinationNumberUri.StartsWith("+302106182"))
             {
                 string x = string.Empty;
             }

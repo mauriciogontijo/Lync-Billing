@@ -20,7 +20,7 @@ namespace Lync_Backend.Implementation
        
         public override void MarkCalls(string tablename)
         {
-            PhoneCall phoneCall;
+            PhoneCalls phoneCall;
             string column = string.Empty;
             Dictionary<string, object> updateStatementValues;
             DateTime statusTimestamp;
@@ -53,8 +53,13 @@ namespace Lync_Backend.Implementation
                     //Fill the phoneCall Object
                     phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
 
-                    //Call the SetType on the phoneCall object
-                    phoneCall = PhoneCall.SetCallType(phoneCall,tablename);
+                    //Call the SetType on the phoneCall object based on the class loader object
+                    
+                    Type type = Type.GetType("Lync_Backend.Helpers." + tablename);
+                    string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
+                    object instance = Activator.CreateInstance(type);
+
+                    ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
 
                     //Set the updateStatementValues dictionary items with the phoneCall instance variables
                     updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
@@ -71,7 +76,7 @@ namespace Lync_Backend.Implementation
 
                 while (dataReader.Read())
                 {
-                    phoneCall = new PhoneCall();
+                    phoneCall = new PhoneCalls();
                     //Apply Rate
                 }
             }

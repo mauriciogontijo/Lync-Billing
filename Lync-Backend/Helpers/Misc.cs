@@ -163,7 +163,7 @@ namespace Lync_Backend.Helpers
         /***
          * This converts a PhoneCall object to a dictionary.
          */
-        public static Dictionary<string, object> ConvertPhoneCallToDictionary(PhoneCall phoneCall)
+        public static Dictionary<string, object> ConvertPhoneCallToDictionary(PhoneCalls phoneCall)
         {
             Dictionary<string, object> phoneCallDict = new Dictionary<string, object>();
 
@@ -322,10 +322,10 @@ namespace Lync_Backend.Helpers
         /***
          * This is used in the CallMarker classes, to fill the PhoneCall objects from the database reader.
          */
-        public static PhoneCall FillPhoneCallFromOleDataReader(OleDbDataReader dataReader)
+        public static PhoneCalls FillPhoneCallFromOleDataReader(OleDbDataReader dataReader)
         {
             string column = string.Empty;
-            PhoneCall phoneCall = new PhoneCall();
+            PhoneCalls phoneCall = new PhoneCalls();
 
 
             //Start filling the PhoneCall object
