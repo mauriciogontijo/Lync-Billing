@@ -98,6 +98,8 @@ namespace Lync_Backend.Helpers
             MarkerId,
             [Description("phoneCallsTable")]
             PhoneCallsTable,
+            [Description("type")]
+            Type,
             [Description("timestamp")]
             Timestamp
         }

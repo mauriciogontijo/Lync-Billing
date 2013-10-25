@@ -12,6 +12,7 @@ namespace Lync_Backend.Helpers
     {
         public int MarkerId { get; set; }
         public string PhoneCallsTable { get; set; }
+        public string Type { get; set; }
         public DateTime Timestamp { get; set; }
 
         private static DBLib DBRoutines = new DBLib();
@@ -37,6 +38,9 @@ namespace Lync_Backend.Helpers
 
                     if (column.ColumnName == Enums.GetDescription(Enums.CallMarkerStatus.PhoneCallsTable) && row[column.ColumnName] != System.DBNull.Value)
                         callMarkerEntryStat.PhoneCallsTable = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.CallMarkerStatus.Type) && row[column.ColumnName] != System.DBNull.Value)
+                        callMarkerEntryStat.Type = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.CallMarkerStatus.Timestamp) && row[column.ColumnName] != System.DBNull.Value)
                         callMarkerEntryStat.Timestamp = (DateTime)row[column.ColumnName];
