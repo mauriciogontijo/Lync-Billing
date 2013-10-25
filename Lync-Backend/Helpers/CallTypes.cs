@@ -8,7 +8,7 @@ using System.Data;
 
 namespace Lync_Backend.Helpers
 {
-    class CallsTypes
+    public class CallsTypes
     {
         public int id { get; set; }
         public string CallType { get; set; }

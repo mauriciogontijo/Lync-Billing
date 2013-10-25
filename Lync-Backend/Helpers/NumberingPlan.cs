@@ -8,7 +8,7 @@ using Lync_Backend.Libs;
 
 namespace Lync_Backend.Helpers
 {
-    class NumberingPlan
+    public class NumberingPlan
     {
         public Int64 DialingPrefix { get; set; }
         public string CountryName { get; set; }
