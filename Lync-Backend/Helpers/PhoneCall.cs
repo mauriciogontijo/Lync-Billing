@@ -161,6 +161,14 @@ namespace Lync_Backend.Helpers
                 // CHECK FOR THE SOURCE AND DESTINATION COUNTRIES
                 if (srcCountry == dstCountry)
                 {
+                    if (!string.IsNullOrEmpty(dstDIDdsc)) 
+                    {
+                        thisCall.marker_CallType = dstDIDdsc;
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
+
+                        return thisCall;
+                    }
+
                     if (dstCallType == "fixedline")
                     {
                         thisCall.marker_CallType = "NATIONAL-FIXEDLINE";
@@ -186,6 +194,14 @@ namespace Lync_Backend.Helpers
 
                 else
                 {
+                    if (!string.IsNullOrEmpty(dstDIDdsc))
+                    {
+                        thisCall.marker_CallType = dstDIDdsc;
+                        thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == "SITE-TO-SITE").id;
+
+                        return thisCall;
+                    }
+
                     if (dstCallType == "fixedline")
                     {
                         thisCall.marker_CallType = "INTERNATIONAL-FIXEDLINE";
