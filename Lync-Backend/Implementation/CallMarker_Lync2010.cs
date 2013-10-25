@@ -116,8 +116,10 @@ namespace Lync_Backend.Implementation
              * 3 = NATIONAL-MOBILE
              * 4 = INTERNATIONAL-FIXEDLINE
              * 5 = INTERNATIONAL-MOBILE
+             * 21 = FIXEDLINE
+             * 22 = MOBILE
              */
-            List<int> ListofChargeableCallTypes = new List<int>() { 1, 2, 3, 4, 5 };
+            List<int> ListofChargeableCallTypes = new List<int>() { 1, 2, 3, 4, 5, 21, 22 };
 
             //Get Gateways for that Marker
             List<Gateways> ListofGateways = Gateways.GetGateways(GatewaysTableName);
@@ -160,7 +162,7 @@ namespace Lync_Backend.Implementation
                                 select r).First();
 
                     //if the call is of type national/international MOBILE then apply the Mobile-Rate, otherwise apply the Fixedline-Rate
-                    phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 3 || (int)phoneCallRecord[callTypeID] == 5) ?
+                    phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 3 || (int)phoneCallRecord[callTypeID] == 5 || (int)phoneCallRecord[callTypeID] == 22) ?
                             Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.MobileLineRate :
                             Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.FixedLineRate;
 
