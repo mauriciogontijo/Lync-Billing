@@ -37,7 +37,7 @@ namespace Lync_Backend.Helpers
 
 
             //Test Case
-            if(thisCall.SessionIdTime=="2013-04-05 08:58:59.127")
+            if (thisCall.SessionIdTime == "2013-10-14 08:18:01.593")
             {
                 string x= string.Empty;
             }
@@ -116,8 +116,9 @@ namespace Lync_Backend.Helpers
             }
 
             //Check if the call is went through gateway which means national or international call
+            // To Gateway or to mediation server should be set to be able to be able to consider this call as external
             if (!string.IsNullOrEmpty(thisCall.SourceUserUri) &&
-                !string.IsNullOrEmpty(thisCall.ToGateway) &&
+                (!string.IsNullOrEmpty(thisCall.ToGateway) || !string.IsNullOrEmpty(thisCall.ToMediationServer)) &&
                 !string.IsNullOrEmpty(thisCall.DestinationNumberUri) &&
                 thisCall.DestinationNumberUri.StartsWith("+"))
             {
@@ -206,26 +207,27 @@ namespace Lync_Backend.Helpers
                 }
             }
 
-            //if (!string.IsNullOrEmpty(thisCall.SourceUserUri) && Misc.IsValidEmail(thisCall.SourceUserUri)) 
-            //{
-            //    if (string.IsNullOrEmpty(thisCall.DestinationUserUri) && Misc.IsValidEmail(thisCall.DestinationUserUri)) 
-            //    {
-            //        //Check if the destination did if it is available with ccc
-            //        if (!string.IsNullOrEmpty(srcDIDdsc)) 
-            //        {
 
-            //        }
-            //    }
-            //}
-
-            if (!string.IsNullOrEmpty(thisCall.SourceUserUri))
+            // Handle the sourceNumber uri sip account and the destination uri is a sip account also 
+            // For the calls which doesnt have source number uri or destination number uri to bable to identify which site
+            if (!string.IsNullOrEmpty(thisCall.SourceUserUri) && 
+                !string.IsNullOrEmpty(thisCall.DestinationUserUri) && 
+                Misc.IsValidEmail(thisCall.DestinationUserUri)) 
             {
-                thisCall.marker_CallType = "N/A";
-                thisCall.Marker_CallTypeID = 0;
+                if (Misc.IsIMEmail(thisCall.DestinationUserUri))
+                {
+                    thisCall.marker_CallType = "LYNC-TO-IM";
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+                }
+                else
+                {
+                    thisCall.marker_CallType = "LYNC-TO-LYNC";
+                    thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.marker_CallType).id;
+                }
 
                 return thisCall;
             }
-            
+
             thisCall.marker_CallType = "N/A";
             thisCall.Marker_CallTypeID = 0;
 
