@@ -36,21 +36,30 @@ namespace Lync_Backend.Implementation
             Dictionary<string, object> updateStatementValues;
             DateTime statusTimestamp;
 
-            var markerStatus = CallMarkerStatus.GetCallMarkerStatus().Where(item => item.PhoneCallsTable == PhoneCallsTableName);
+            //This is used to update the CallMarkerStatus tabl
+            string lastImportedCallDate;
 
-            if (markerStatus.Count() != 0)
+            //Being
+            var markerStatus = CallMarkerStatus.GetCallMarkerStatus().SingleOrDefault(item => item.PhoneCallsTable == PhoneCallsTableName && item.Type == "mark");
+
+            if (markerStatus != null)
             {
-                statusTimestamp = ((CallMarkerStatus)markerStatus.First()).Timestamp;
+                statusTimestamp = markerStatus.Timestamp;
             }
             else
             {
                 statusTimestamp = DateTime.MinValue;
             }
 
+            //Open the database connection
             sourceDBConnector.Open();
+
 
             if (statusTimestamp == DateTime.MinValue || statusTimestamp == null)
             {
+                //Initialize the last imported phonecall date to an empty string
+                lastImportedCallDate = string.Empty;
+
                 // Update phone calls from the begining by iterating through them from the start
                 string SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(PhoneCallsTableName);
 
@@ -72,18 +81,62 @@ namespace Lync_Backend.Implementation
 
                     //Update the phoneCall database record
                     DBRoutines.UPDATE(PhoneCallsTableName, updateStatementValues);
+                    
+                    lastImportedCallDate = phoneCall.SessionIdTime;
                 }
+
+                //Update the CallMarkerStatus
+                if (!string.IsNullOrEmpty(lastImportedCallDate))
+                {
+                    Dictionary<string, object> newMarkerStatus = new Dictionary<string, object>
+                    {
+                        { Enums.GetDescription(Enums.CallMarkerStatus.Type), "mark" },
+                        { Enums.GetDescription(Enums.CallMarkerStatus.Timestamp), lastImportedCallDate },
+                        { Enums.GetDescription(Enums.CallMarkerStatus.PhoneCallsTable), PhoneCallsTableName }
+                    };
+
+                    DBRoutines.INSERT(Enums.GetDescription(Enums.CallMarkerStatus.TableName), newMarkerStatus);
+                }
+
             }
             else
             {
+                //Initialize the last imported phonecall date to an empty string
+                lastImportedCallDate = string.Empty;
+
                 string SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(Misc.ConvertDate(statusTimestamp));
 
                 dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
                 while (dataReader.Read())
                 {
-                    phoneCall = new PhoneCall();
-                    //Apply Rate
+                    //Initialize the updateStatementValues variable
+                    updateStatementValues = new Dictionary<string, object>();
+
+                    //Fill the phoneCall Object
+                    phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
+
+                    //Call the SetType on the phoneCall object
+                    phoneCall = PhoneCall.SetCallType(phoneCall);
+
+                    //Set the updateStatementValues dictionary items with the phoneCall instance variables
+                    updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
+
+                    //Update the phoneCall database record
+                    DBRoutines.UPDATE(PhoneCallsTableName, updateStatementValues);
+                }
+
+                //Update the CallMarkerStatus
+                if (!string.IsNullOrEmpty(lastImportedCallDate))
+                {
+                    Dictionary<string, object> updateMarkerStatus = new Dictionary<string, object>
+                    {
+                        { Enums.GetDescription(Enums.CallMarkerStatus.Type), "mark" },
+                        { Enums.GetDescription(Enums.CallMarkerStatus.Timestamp), lastImportedCallDate },
+                        { Enums.GetDescription(Enums.CallMarkerStatus.PhoneCallsTable), PhoneCallsTableName }
+                    };
+
+                    DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), updateMarkerStatus);
                 }
             }
 
@@ -117,8 +170,10 @@ namespace Lync_Backend.Implementation
              * 3 = NATIONAL-MOBILE
              * 4 = INTERNATIONAL-FIXEDLINE
              * 5 = INTERNATIONAL-MOBILE
+             * 21 = FIXEDLINE
+             * 22 = MOBILE
              */
-            List<int> ListofChargeableCallTypes = new List<int>() { 1, 2, 3, 4, 5 };
+            List<int> ListofChargeableCallTypes = new List<int>() { 1, 2, 3, 4, 5, 21, 22 };
 
             //Get Gateways for that Marker
             List<Gateways> ListofGateways = Gateways.GetGateways(GatewaysTableName);
@@ -162,7 +217,7 @@ namespace Lync_Backend.Implementation
 
                     //if the call is of type national/international MOBILE then apply the Mobile-Rate, otherwise apply the Fixedline-Rate
                     //decimal callDuration = Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60);
-                    phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 3 || (int)phoneCallRecord[callTypeID] == 5) ?
+                    phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 3 || (int)phoneCallRecord[callTypeID] == 5 || (int)phoneCallRecord[callTypeID] == 22) ?
                             Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.MobileLineRate :
                             Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.FixedLineRate;
 
