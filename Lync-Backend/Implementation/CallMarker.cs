@@ -37,6 +37,7 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Open();
 
             dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
+
             while (dataReader.Read())
             {
                 //Initialize the updateStatementValues variable
@@ -63,6 +64,7 @@ namespace Lync_Backend.Implementation
                 lastImportedPhoneCallDate = phoneCall.SessionIdTime;
 
             }
+
             //Close the database connection
             sourceDBConnector.Close();
         }
@@ -90,8 +92,10 @@ namespace Lync_Backend.Implementation
              * 3 = NATIONAL-MOBILE
              * 4 = INTERNATIONAL-FIXEDLINE
              * 5 = INTERNATIONAL-MOBILE
+             * 21 = FIXEDLINE
+             * 22 = MOBILE
              */
-            List<int> ListofChargeableCallTypes = new List<int>() { 1, 2, 3, 4, 5 };
+            List<int> ListofChargeableCallTypes = new List<int>() { 1, 2, 3, 4, 5, 21, 22 };
 
             //Get Gateways for that Marker
             List<Gateways> ListofGateways = Gateways.GetGateways();
@@ -100,7 +104,6 @@ namespace Lync_Backend.Implementation
             List<string> ListofGatewaysNames = ListofGateways.Select(item => item.GatewayName).ToList<string>();
 
             //Get Rates for those Gateways for that marker
-            //Dictionary<string, List<Rates>> ratesPerGatway = Rates.GetAllGatewaysRatesDictionary();
             Dictionary<int, List<Rates>> ratesPerGatway = Rates.GetAllGatewaysRatesList();
 
             //Read the phone calls and apply the rates to them
@@ -134,7 +137,7 @@ namespace Lync_Backend.Implementation
                                 select r).First();
 
                     //if the call is of type national/international MOBILE then apply the Mobile-Rate, otherwise apply the Fixedline-Rate
-                    phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 3 || (int)phoneCallRecord[callTypeID] == 5) ?
+                    phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 3 || (int)phoneCallRecord[callTypeID] == 5 || (int)phoneCallRecord[callTypeID] == 22) ?
                             Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.MobileLineRate :
                             Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.FixedLineRate;
 
