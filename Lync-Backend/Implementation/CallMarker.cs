@@ -61,8 +61,6 @@ namespace Lync_Backend.Implementation
                 //Update the phoneCall database record
                 DBRoutines.UPDATE(tablename, updateStatementValues);
 
-                lastImportedPhoneCallDate = phoneCall.SessionIdTime;
-
             }
 
             //Close the database connection
