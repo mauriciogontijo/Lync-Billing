@@ -67,12 +67,10 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Close();
         }
 
-
         public override void MarkExclusion(string tablename)
         {
             
         }
-
 
         public override void ApplyRates(string tableName)
         {
@@ -148,7 +146,6 @@ namespace Lync_Backend.Implementation
             //Close the database conenction
             sourceDBConnector.Close();
         }
-
 
         public override void ResetPhoneCallsAttributes(string tablename)
         {
