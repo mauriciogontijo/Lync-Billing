@@ -23,16 +23,16 @@ namespace Lync_Backend.Implementation
             PhoneCalls phoneCall;
            
             Dictionary<string, object> updateStatementValues;
-            DateTime statusTimestamp = DateTime.MinValue;
+            string statusTimestamp = string.Empty;
             
             string column = string.Empty;
             string SQL = string.Empty;
-            string lastImportedPhoneCallDate = string.Empty;
+            
 
-            if (statusTimestamp == DateTime.MinValue)
+            if (statusTimestamp == "N/A")
                 SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
             else
-                SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(Misc.ConvertDate(statusTimestamp));
+                SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(statusTimestamp);
 
             sourceDBConnector.Open();
 
