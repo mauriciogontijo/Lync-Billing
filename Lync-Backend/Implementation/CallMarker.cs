@@ -183,6 +183,8 @@ namespace Lync_Backend.Implementation
 
         private void UpdateCallMarkerStatus(string phoneCallTable, string type, string timestamp)
         {
+            Dictionary<string, object> whereClause;
+
             Dictionary<string, object> callMarkerStatusData = new Dictionary<string, object>
             {
                 {Enums.GetDescription(Enums.CallMarkerStatus.Type), type},
@@ -191,17 +193,21 @@ namespace Lync_Backend.Implementation
 
             };
 
-            Dictionary<string, object> whereClause = new Dictionary<string, object>
-            {
-                {Enums.GetDescription(Enums.CallMarkerStatus.PhoneCallsTable), phoneCallTable}
-            };
-
             var existingMarkerStatus = CallMarkerStatus.GetCallMarkerStatus(phoneCallTable, type);
 
-            if(existingMarkerStatus == null)
+            if (existingMarkerStatus == null)
+            {
                 DBRoutines.INSERT(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData);
+            }
             else
+            {
+                whereClause = new Dictionary<string, object>
+                {
+                    {Enums.GetDescription(Enums.CallMarkerStatus.PhoneCallsTable), phoneCallTable}
+                };
+
                 DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData, whereClause);
+            }
         }
     }
 }
