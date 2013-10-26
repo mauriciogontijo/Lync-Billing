@@ -21,14 +21,14 @@ namespace Lync_Backend.Implementation
         public override void MarkCalls(string tablename)
         {
             PhoneCalls phoneCall;
-            string column = string.Empty;
+           
             Dictionary<string, object> updateStatementValues;
-            DateTime statusTimestamp;
-
-            int dataRowsCounter = 0;
-            string lastImportedPhoneCallDate;
-            Dictionary<string, object> callMarkerStatusData;
-
+            DateTime statusTimestamp = DateTime.MinValue;
+            
+            string column = string.Empty;
+            string SQL = string.Empty;
+            string lastImportedPhoneCallDate = string.Empty;
+           
             var markerStatus = CallMarkerStatus.GetCallMarkerStatus().SingleOrDefault(item => item.PhoneCallsTable == tablename && item.Type == "Marking");
 
             if (markerStatus != null)
@@ -43,78 +43,37 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Open();
 
             if (statusTimestamp == DateTime.MinValue)
-            {
-                lastImportedPhoneCallDate = string.Empty;
-
-                // Update phone calls from the begining by iterating through them from the start
-                string SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
-
-                dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
-
-                while (dataReader.Read())
-                {
-                    //Initialize the updateStatementValues variable
-                    updateStatementValues = new Dictionary<string, object>();
-
-                    //Fill the phoneCall Object
-                    phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
-
-                    //Call the SetType on the phoneCall Related table using class loader
-
-                    Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
-                    string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
-                    object instance = Activator.CreateInstance(type);
-
-                    //Call the correct set type
-                    ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
-
-                    //Set the updateStatementValues dictionary items with the phoneCall instance variables
-                    updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
-
-                    //Update the phoneCall database record
-                    DBRoutines.UPDATE(tablename, updateStatementValues);
-
-                    lastImportedPhoneCallDate = phoneCall.SessionIdTime;
-
-                    dataRowsCounter += 1;
-                }
-            }
+                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
             else
+                SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(Misc.ConvertDate(statusTimestamp));
+            
+            dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
+            while (dataReader.Read())
             {
-                lastImportedPhoneCallDate = string.Empty;
+                //Initialize the updateStatementValues variable
+                updateStatementValues = new Dictionary<string, object>();
 
-                string SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(Misc.ConvertDate(statusTimestamp));
+                //Fill the phoneCall Object
+                phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
 
-                dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
+                //Call the SetType on the phoneCall Related table using class loader
 
-                while (dataReader.Read())
-                {
-                    //Initialize the updateStatementValues variable
-                    updateStatementValues = new Dictionary<string, object>();
+                Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
+                string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
+                object instance = Activator.CreateInstance(type);
 
-                    //Fill the phoneCall Object
-                    phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
+                //Call the correct set type
+                ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
 
-                    //Call the SetType on the phoneCall Related table using class loader
+                //Set the updateStatementValues dictionary items with the phoneCall instance variables
+                updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
 
-                    Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
-                    string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
-                    object instance = Activator.CreateInstance(type);
+                //Update the phoneCall database record
+                DBRoutines.UPDATE(tablename, updateStatementValues);
 
-                    //Call the correct set type
-                    ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
+                lastImportedPhoneCallDate = phoneCall.SessionIdTime;
 
-                    //Set the updateStatementValues dictionary items with the phoneCall instance variables
-                    updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
-
-                    //Update the phoneCall database record
-                    DBRoutines.UPDATE(tablename, updateStatementValues);
-
-                    lastImportedPhoneCallDate = Misc.ConvertDate((DateTime)updateStatementValues[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);
-                }
             }
-
-
             //Close the database connection
             sourceDBConnector.Close();
         }
