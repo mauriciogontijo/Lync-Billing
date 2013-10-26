@@ -28,25 +28,14 @@ namespace Lync_Backend.Implementation
             string column = string.Empty;
             string SQL = string.Empty;
             string lastImportedPhoneCallDate = string.Empty;
-           
-            var markerStatus = CallMarkerStatus.GetCallMarkerStatus().SingleOrDefault(item => item.PhoneCallsTable == tablename && item.Type == "Marking");
-
-            if (markerStatus != null)
-            {
-                statusTimestamp = markerStatus.Timestamp;
-            }
-            else
-            {
-                statusTimestamp = DateTime.MinValue;
-            }
-
-            sourceDBConnector.Open();
 
             if (statusTimestamp == DateTime.MinValue)
                 SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
             else
                 SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(Misc.ConvertDate(statusTimestamp));
-            
+
+            sourceDBConnector.Open();
+
             dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
             while (dataReader.Read())
             {
