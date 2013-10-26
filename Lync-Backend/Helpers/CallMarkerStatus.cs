@@ -21,7 +21,7 @@ namespace Lync_Backend.Helpers
         /// Get related information for Call Marking status
         /// </summary>
         /// <returns>list of CallMarkingStatus Objects</returns>
-        public static List<CallMarkerStatus> GetCallMarkerStatus() 
+        public static List<CallMarkerStatus> GetAllCallMarkerStatuses() 
         {
             DataTable dt = new DataTable();
             CallMarkerStatus callMarkerEntryStat;
@@ -54,6 +54,46 @@ namespace Lync_Backend.Helpers
             }
 
             return callMarkingStatus;
+        }
+
+        public static CallMarkerStatus GetCallMarkerStatus(string phoneCallTable, string type)
+        {
+            DataTable dt = new DataTable();
+            CallMarkerStatus callMarkerStatus = new CallMarkerStatus();
+
+            List<string> columns = new List<string>();
+
+            Dictionary<string, object> whereClause = new Dictionary<string,object>
+            {
+                {Enums.GetDescription(Enums.CallMarkerStatus.PhoneCallsTable), phoneCallTable},
+                {Enums.GetDescription(Enums.CallMarkerStatus.Type), type}
+            };
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.CallMarkerStatus.TableName), columns, whereClause, 1);
+
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.CallMarkerStatus.MarkerId) && dt.Rows[0][column.ColumnName] != System.DBNull.Value)
+                        callMarkerStatus.MarkerId = (int)dt.Rows[0][column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.CallMarkerStatus.PhoneCallsTable) && dt.Rows[0][column.ColumnName] != System.DBNull.Value)
+                        callMarkerStatus.PhoneCallsTable = (string)dt.Rows[0][column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.CallMarkerStatus.Type) && dt.Rows[0][column.ColumnName] != System.DBNull.Value)
+                        callMarkerStatus.Type = (string)dt.Rows[0][column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.CallMarkerStatus.Timestamp) && dt.Rows[0][column.ColumnName] != System.DBNull.Value)
+                        callMarkerStatus.Timestamp = (DateTime)dt.Rows[0][column.ColumnName];
+                }
+
+                return callMarkerStatus;
+            }
+            else
+            {
+                return null;
+            }
         }
     
     }
