@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Lync_Backend.Interfaces;
+using Lync_Backend.Helpers;
 
-namespace Lync_Backend.Helpers
+namespace Lync_Backend.Implementation
 {
     class PhoneCalls2010 : PhoneCalls,IPhoneCalls
     {
