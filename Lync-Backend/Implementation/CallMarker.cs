@@ -191,12 +191,17 @@ namespace Lync_Backend.Implementation
 
             };
 
+            Dictionary<string, object> whereClause = new Dictionary<string, object>
+            {
+                {Enums.GetDescription(Enums.CallMarkerStatus.PhoneCallsTable), phoneCallTable}
+            };
+
             var existingMarkerStatus = CallMarkerStatus.GetCallMarkerStatus(phoneCallTable, type);
 
             if(existingMarkerStatus == null)
                 DBRoutines.INSERT(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData);
             else
-                DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData, (new Dictionary<string, object>()));
+                DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData, whereClause);
         }
     }
 }
