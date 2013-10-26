@@ -462,7 +462,7 @@ namespace Lync_Backend.Libs
         /// <returns></returns>
         public bool UPDATE(string tableName, Dictionary<string, object> columnsValues, Dictionary<string,object> wherePart)
         {
-
+            string updateQuery = string.Empty;
             StringBuilder fieldsValues = new StringBuilder();
             StringBuilder whereStatement = new StringBuilder();
 
@@ -500,10 +500,13 @@ namespace Lync_Backend.Libs
                 whereStatement.Remove(whereStatement.Length - 5, 5);
             }
 
-            string insertQuery = string.Format("UPDATE  [{0}] SET {1} WHERE {2}", tableName, fieldsValues, whereStatement);
+            if(whereStatement.Length > 0)
+                updateQuery = string.Format("UPDATE  [{0}] SET {1} WHERE {2}", tableName, fieldsValues, whereStatement);
+            else
+                updateQuery = string.Format("UPDATE  [{0}] SET {1}", tableName, fieldsValues);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
-            OleDbCommand comm = new OleDbCommand(insertQuery, conn);
+            OleDbCommand comm = new OleDbCommand(updateQuery, conn);
 
             try
             {
