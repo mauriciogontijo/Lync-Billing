@@ -15,7 +15,10 @@ namespace Lync_Backend.Helpers
 
         private static DBLib DBRoutines = new DBLib();
 
-
+        /// <summary>
+        /// Get the list of all calls Types 
+        /// </summary>
+        /// <returns>List of CallTypes Objects</returns>
         public static List<CallsTypes> GetCallTypes() 
         {
             DataTable dt;
