@@ -16,7 +16,11 @@ namespace Lync_Backend.Helpers
         public DateTime Timestamp { get; set; }
 
         private static DBLib DBRoutines = new DBLib();
-
+        
+        /// <summary>
+        /// Get related information for Call Marking status
+        /// </summary>
+        /// <returns>list of CallMarkingStatus Objects</returns>
         public static List<CallMarkerStatus> GetCallMarkerStatus() 
         {
             DataTable dt = new DataTable();
