@@ -54,8 +54,8 @@ namespace Lync_Backend.Implementation
                     phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
 
                     //Call the SetType on the phoneCall Related table using class loader
-                    
-                    Type type = Type.GetType("Lync_Backend.Helpers." + tablename);
+
+                    Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
                     string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
                     object instance = Activator.CreateInstance(type);
 
