@@ -154,5 +154,15 @@ namespace Lync_Backend.Implementation
         {
             
         }
+
+        private string GetLastMarked(string phoneCallsTable) 
+        {
+            return null;
+        }
+
+        private string GetLastAppliedRate(string phoneCallsTable) 
+        {
+            return null;
+        }
     }
 }
