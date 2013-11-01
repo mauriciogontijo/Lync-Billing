@@ -8,7 +8,6 @@ using Lync_Backend.Helpers;
 using System.Data.OleDb;
 using System.Configuration;
 using Lync_Backend.Libs;
-using System.Configuration;
 
 namespace Lync_Backend.Implementation
 {
