@@ -32,17 +32,17 @@ namespace Lync_Backend.Implementation
             }
         }
 
-        public override string PhoneCallsTableName
+        override public string PhoneCallsTableName
         {
             get { return "PhoneCalls2010"; }
         }
 
-        public override string PoolsTableName
+        override public string PoolsTableName
         {
             get { return "Pools"; }
         }
 
-        public override string GatewaysTableName
+        override public string GatewaysTableName
         {
             get { return "Gateways"; }
         }
