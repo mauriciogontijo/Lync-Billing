@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\BillableCallTypesSection.cs" />
     <Compile Include="Helpers\CallMarkerStatus.cs" />
     <Compile Include="Helpers\CallTypes.cs" />
     <Compile Include="Helpers\DIDs.cs" />

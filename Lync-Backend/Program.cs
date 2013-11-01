@@ -8,6 +8,7 @@ using Lync_Backend.Helpers;
 using Lync_Backend.Libs;
 using Lync_Backend.Implementation;
 using Lync_Backend.Interfaces;
+using System.Configuration;
 
 namespace Lync_Backend
 {
@@ -37,6 +38,8 @@ namespace Lync_Backend
                 callsMarker.MarkCalls(tableName);
             }
 
+            
+            
             //Interfaces.IDatabaseImporter lync2013 = new Lync2013();
             //lync2013.ImportPhoneCalls();
 

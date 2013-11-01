@@ -17,7 +17,7 @@ namespace Lync_Backend.Helpers
         }
 
         [ConfigurationProperty("value")]
-        public int Price
+        public int Value
         {
             get { return Convert.ToInt32(this["value"]); }
         }
@@ -25,14 +25,14 @@ namespace Lync_Backend.Helpers
 
     public class BillableTypeCollection : ConfigurationElementCollection
     {
-         protected override ConfigurationElement CreateNewElement()
+        protected override ConfigurationElement CreateNewElement()
         {
-        return new BillableTypeElement();
+            return new BillableTypeElement();
         }
 
         protected override object GetElementKey(ConfigurationElement element)
         {
-        return ((BillableTypeElement)element).Name;
+            return ((BillableTypeElement)element).Name;
         }
     }
 
@@ -43,6 +43,22 @@ namespace Lync_Backend.Helpers
         {
             get { return (BillableTypeCollection)this["BillableTypes"]; }
         }
+
+        public List<int> BillableTypesList
+        {
+            get
+            {
+                List<int> billableTypesList = new List<int>() ;
+
+                foreach (BillableTypeElement el in BillableTypes)
+                {
+                    billableTypesList.Add(el.Value);
+                }
+
+                return billableTypesList;
+            }
+        }
+
         
     }
 }

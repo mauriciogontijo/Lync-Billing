@@ -8,6 +8,7 @@ using Lync_Backend.Helpers;
 using System.Data.OleDb;
 using System.Configuration;
 using Lync_Backend.Libs;
+using System.Configuration;
 
 namespace Lync_Backend.Implementation
 {
@@ -106,7 +107,10 @@ namespace Lync_Backend.Implementation
              * 21 = FIXEDLINE
              * 22 = MOBILE
              */
-            List<int> ListofChargeableCallTypes = new List<int>() { 1, 2, 3, 4, 5, 21, 22 };
+             BillableCallTypesSection section = (BillableCallTypesSection)ConfigurationManager.GetSection("BillableCallTypesSection");
+
+            //Get Billibale types from App.config
+             List<int> ListofChargeableCallTypes = section.BillableTypesList;
 
             //Get Gateways for that Marker
             List<Gateways> ListofGateways = Gateways.GetGateways();
