@@ -58,7 +58,7 @@ namespace Lync_Billing.DB
         public string PhoneBookName { set; get; }
         
         //This is used to tell where to find and update this PhoneCall
-        string PhoneCallTable { get; set; }
+        public string PhoneCallTable { get; set; }
 
         //This is a container of the PhoneCalls tables names
         public static List<string> PhoneCallsTablesList = ((PhoneCallsTablesSection)ConfigurationManager.GetSection("PhoneCallsTablesSection")).PhoneCallsTablesList;
@@ -73,6 +73,7 @@ namespace Lync_Billing.DB
         {
             PhoneCall phoneCall;
             DataTable dt = new DataTable();
+            PhoneCallsComparer linqDistinctComparer = new PhoneCallsComparer();
 
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
@@ -168,13 +169,16 @@ namespace Lync_Billing.DB
                             phoneCall.AC_InvoiceDate = (DateTime)row[column.ColumnName];
                     
                     }
-                
+                    
+                    //if(!phoneCalls.Exists(call => call.SessionIdTime == phoneCall.SessionIdTime && call.SessionIdSeq == phoneCall.SessionIdSeq))
+                    //    phoneCalls.Add(phoneCall);
+                    
                     phoneCalls.Add(phoneCall);
                 }
             }
 
             //Return a list of unique phonecalls.
-            return phoneCalls.Distinct().ToList();
+            return phoneCalls.Distinct<PhoneCall>(linqDistinctComparer).ToList();
         }
 
 
@@ -213,13 +217,8 @@ namespace Lync_Billing.DB
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), phoneCall.AC_InvoiceDate);
 
             //Execute Update
-            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneCalls.TableName), setPart, wherePart);
+            status = DBRoutines.UPDATE(phoneCall.PhoneCallTable, setPart, wherePart);
 
-            if (status == false)
-            {
-                //throw error message
-            }
-           
             //throw success message
             return status;
         }
@@ -274,5 +273,21 @@ namespace Lync_Billing.DB
             PDFLib.ClosePDFDocument(ref document);
         }
     
+    }
+
+
+    //The phonecalls version of the IEqualityComparer, used with LINQ's Distinct function
+    class PhoneCallsComparer : IEqualityComparer<PhoneCall>
+    {
+        public bool Equals(PhoneCall firstCall, PhoneCall secondCall)
+        {
+            return (firstCall.SessionIdTime == secondCall.SessionIdTime && firstCall.SessionIdSeq == secondCall.SessionIdSeq);
+        }
+
+        public int GetHashCode(PhoneCall call)
+        {
+            string hashcode = call.SessionIdTime + call.SessionIdSeq;
+            return hashcode.GetHashCode();
+        }
     }
 }
