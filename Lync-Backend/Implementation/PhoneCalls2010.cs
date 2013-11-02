@@ -352,33 +352,35 @@ namespace Lync_Backend.Implementation
         public PhoneCalls ApplyRate(PhoneCalls thisCall)
         {
 
-            // Check if we can apply the rates for this phone-call
-            var gateway = ListofGateways.Find(g => g.GatewayName == thisCall.ToGateway.ToString());
-            var rates = (from keyValuePair in ratesPerGatway where keyValuePair.Key == gateway.GatewayId select keyValuePair.Value).SingleOrDefault<List<Rates>>() ?? (new List<Rates>());
-
-            if (rates.Count > 0)
+            if (!string.IsNullOrEmpty(thisCall.ToGateway))
             {
-                //Apply the rate for this phone call
-                var rate = (from r in rates
-                            where r.CountryCode == thisCall.Marker_CallToCountry
-                            select r).First();
+                // Check if we can apply the rates for this phone-call
+                var gateway = ListofGateways.Find(g => g.GatewayName == thisCall.ToGateway.ToString());
+                var rates = (from keyValuePair in ratesPerGatway where keyValuePair.Key == gateway.GatewayId select keyValuePair.Value).SingleOrDefault<List<Rates>>() ?? (new List<Rates>());
 
-                //if the call is of type national/international MOBILE then apply the Mobile-Rate, otherwise apply the Fixedline-Rate
-
-                if (ListofChargeableCallTypes.Contains(thisCall.Marker_CallTypeID))
+                if (rates.Count > 0 && ListofChargeableCallTypes.Contains(thisCall.Marker_CallTypeID))
                 {
-                    if (ListOfFixedLinesIDs.Contains(thisCall.Marker_CallTypeID))
-                    {
-                        thisCall.Marker_CallCost = Math.Ceiling(Convert.ToDecimal(thisCall.Duration) / 60) * rate.FixedLineRate;
-                    }
-                    else if (ListOfMobileLinesIDs.Contains(thisCall.Marker_CallTypeID))
-                    {
-                        thisCall.Marker_CallCost = Math.Ceiling(Convert.ToDecimal(thisCall.Duration) / 60) * rate.MobileLineRate;
-                    }
+                    //Apply the rate for this phone call
+                    var rate = (from r in rates
+                                where r.CountryCode == thisCall.Marker_CallToCountry
+                                select r).First();
 
+                    //if the call is of type national/international MOBILE then apply the Mobile-Rate, otherwise apply the Fixedline-Rate
+
+                    if (ListofChargeableCallTypes.Contains(thisCall.Marker_CallTypeID))
+                    {
+                        if (ListOfFixedLinesIDs.Contains(thisCall.Marker_CallTypeID))
+                        {
+                            thisCall.Marker_CallCost = Math.Ceiling(Convert.ToDecimal(thisCall.Duration) / 60) * rate.FixedLineRate;
+                        }
+                        else if (ListOfMobileLinesIDs.Contains(thisCall.Marker_CallTypeID))
+                        {
+                            thisCall.Marker_CallCost = Math.Ceiling(Convert.ToDecimal(thisCall.Duration) / 60) * rate.MobileLineRate;
+                        }
+
+                    }
                 }
             }
-
             return thisCall;
         }
 
