@@ -10,5 +10,8 @@ namespace Lync_Backend.Interfaces
     interface IPhoneCalls
     {
         PhoneCalls SetCallType(PhoneCalls thisCall);
+
+        PhoneCalls ApplyRate(PhoneCalls thisCall);
+
     }
 }
