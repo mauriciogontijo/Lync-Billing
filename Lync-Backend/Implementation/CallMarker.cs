@@ -20,7 +20,7 @@ namespace Lync_Backend.Implementation
        
         public override void MarkCalls(string tablename)
         {
-            PhoneCalls phoneCall;
+           PhoneCalls phoneCall;
            
             Dictionary<string, object> updateStatementValues;
             string statusTimestamp = string.Empty;
@@ -30,6 +30,12 @@ namespace Lync_Backend.Implementation
 
             int dataRowCounter = 0;
             string lastMarkedPhoneCallDate = string.Empty;
+
+
+            //Call the SetType on the phoneCall Related table using class loader
+            Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
+            string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
+            object instance = Activator.CreateInstance(type);
 
             statusTimestamp = GetLastMarked(tablename);
 
@@ -49,11 +55,6 @@ namespace Lync_Backend.Implementation
 
                 //Fill the phoneCall Object
                 phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
-
-                //Call the SetType on the phoneCall Related table using class loader
-                Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
-                string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
-                object instance = Activator.CreateInstance(type);
 
                 //Call the correct set type
                 ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
@@ -98,6 +99,11 @@ namespace Lync_Backend.Implementation
             int dataRowCounter = 0;
             string lastRateAppliedOnPhoneCall = string.Empty;
 
+            //Call the SetType on the phoneCall Related table using class loader
+            Type type = Type.GetType("Lync_Backend.Implementation." + tableName);
+            string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
+            object instance = Activator.CreateInstance(type);
+
             statusTimestamp = GetLastAppliedRate(tableName);
 
             if (statusTimestamp == "N/A")
@@ -109,25 +115,13 @@ namespace Lync_Backend.Implementation
 
             dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
-            string cost = Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost);
-            string duration = Enums.GetDescription(Enums.PhoneCalls.Duration);
-            string toGateway = Enums.GetDescription(Enums.PhoneCalls.ToGateway);
-            string callTypeID = Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID);
-            string callToCountry = Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry);
-
             while (dataReader.Read())
             {
-
                 //Initialize the updateStatementValues variable
                 updateStatementValues = new Dictionary<string, object>();
 
                 //Fill the phoneCall Object
                 phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
-
-                //Call the SetType on the phoneCall Related table using class loader
-                Type type = Type.GetType("Lync_Backend.Implementation." + tableName);
-                string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
-                object instance = Activator.CreateInstance(type);
 
                 //Call the correct set type
                 ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
@@ -144,7 +138,6 @@ namespace Lync_Backend.Implementation
                 if (dataRowCounter % 10000 == 0)
                     UpdateCallMarkerStatus(tableName, "ApplyingRates", lastRateAppliedOnPhoneCall);
 
-              
             }//END-WHILE
 
             UpdateCallMarkerStatus(tableName, "ApplyingRates", lastRateAppliedOnPhoneCall);
