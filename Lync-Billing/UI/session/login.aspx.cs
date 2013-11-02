@@ -74,6 +74,8 @@ namespace Lync_Billing.ui.session
             //TmpUsers.InsertUsers();
             //END TMP BLOCK
 
+            //email.Text = "AAlhour@ccc.gr";
+            //status = true;
 
             if (status == true)
             {

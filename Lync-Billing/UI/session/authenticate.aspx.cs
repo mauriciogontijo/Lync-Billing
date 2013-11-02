@@ -76,10 +76,10 @@ namespace Lync_Billing.ui.session
 
                         //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
                         else if (
-                            (accessParam == "admin" && session.IsSiteAdmin) || 
-                            (accessParam == "accounting" && session.IsSiteAccountant) || 
+                            (accessParam == "admin" && session.IsSiteAdmin) ||
+                            (accessParam == "accounting" && session.IsSiteAccountant) ||
                             (accessParam == "sysadmin" && session.IsSystemAdmin) ||
-                            (accessParam == "dephead" && session.IsDepartmentHead) || 
+                            (accessParam == "dephead" && session.IsDepartmentHead) ||
                             session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
@@ -292,7 +292,7 @@ namespace Lync_Billing.ui.session
                      * -------
                      * To spoof identity for intermediate authentication
                      * status = true;
-                     * --------
+                     /* --------
                      **/
 
                     if (status == true)
