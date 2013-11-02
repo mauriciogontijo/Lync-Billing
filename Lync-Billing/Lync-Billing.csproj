@@ -180,6 +180,7 @@
     <Content Include="Libs\BillingAPI.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationSections\BillableCallTypesSection.cs" />
     <Compile Include="ConfigurationSections\PhoneCallsTablesSection.cs" />
     <Compile Include="DB\Announcements.cs" />
     <Compile Include="DB\CallsStatistics.cs" />
