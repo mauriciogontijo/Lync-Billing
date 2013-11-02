@@ -118,7 +118,7 @@ namespace Lync_Billing.Libs
             StringBuilder whereStatement = new StringBuilder();
             StringBuilder orderBy = new StringBuilder();
 
-            if (tableName == "PhoneCalls")
+            if (tableName.Contains("PhoneCalls"))
                 orderBy.Append("ORDER BY [SessionIdTime] DESC");
             else
                 orderBy.Append("");
@@ -148,10 +148,44 @@ namespace Lync_Billing.Libs
                    {
                        whereStatement.Append("[" + pair.Key + "] IS NULL" + " AND ");
                    }
-                   else if (pair.Value == "!null") 
+
+                   else if (pair.Value.ToString() == "!null") 
                    {
                        whereStatement.Append("[" + pair.Key + "] IS NOT NULL" + " AND ");
                    }
+
+                   else if (pair.Value.ToString() == "!=0")
+                   {
+                       whereStatement.Append("[" + pair.Key + "] <> 0" + " AND ");
+                   }
+
+                   else if (pair.Value is List<int>)
+                   {
+                       whereStatement.Append("[" + pair.Key + "] in ( ");
+
+                       foreach (var item in (List<int>)pair.Value) {
+                           whereStatement.Append(item.ToString() + ",");
+                       }
+                        //Remove last ','
+                       whereStatement.Remove(whereStatement.Length - 1, 1);
+
+                       whereStatement.Append(" ) AND ");
+                   }
+
+                   else if (pair.Value is List<string>)
+                   {
+                       whereStatement.Append("[" + pair.Key + "] in ( ");
+
+                       foreach (var item in (List<string>)pair.Value)
+                       {
+                           whereStatement.Append(item.ToString() + ",");
+                       }
+                       //Remove last ','
+                       whereStatement.Remove(whereStatement.Length - 1, 1);
+
+                       whereStatement.Append(" ) AND ");
+                   }
+
                    else
                    {
                        Type valueType = pair.Value.GetType();
