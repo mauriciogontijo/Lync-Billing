@@ -80,6 +80,7 @@ namespace Lync_Billing.DB
             if (wherePart.Keys.Contains("SourceUserUri"))
                 wherePart["SourceUserUri"] = wherePart["SourceUserUri"].ToString().ToLower();
 
+            //For each phonecalls table get the phonecalls from it
             foreach (string tableName in PhoneCallsTablesList)
             {
                 dt = DBRoutines.SELECT(tableName, columns, wherePart, limits);
@@ -87,6 +88,7 @@ namespace Lync_Billing.DB
                 foreach (DataRow row in dt.Rows)
                 {
                     phoneCall = new PhoneCall();
+                    phoneCall.PhoneCallTable = tableName;
                
                     foreach(DataColumn column in dt.Columns)
                     {
@@ -171,6 +173,7 @@ namespace Lync_Billing.DB
                 }
             }
 
+            //Return a list of unique phonecalls.
             return phoneCalls.Distinct().ToList();
         }
 
