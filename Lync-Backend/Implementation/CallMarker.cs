@@ -83,7 +83,7 @@ namespace Lync_Backend.Implementation
 
         public override void MarkExclusion(string tablename)
         {
-            
+            //TODO: manipluate exclusions 
         }
        
         public override void ApplyRates(string tableName)
@@ -150,7 +150,7 @@ namespace Lync_Backend.Implementation
 
         public override void ResetPhoneCallsAttributes(string tablename)
         {
-            
+            //TODO: Reset marking or rates 
         }
 
         private string GetLastMarked(string phoneCallsTable) 
