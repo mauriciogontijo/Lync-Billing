@@ -138,6 +138,8 @@ namespace Lync_Backend.Implementation
                 if (dataRowCounter % 10000 == 0)
                     UpdateCallMarkerStatus(tableName, "ApplyingRates", lastRateAppliedOnPhoneCall);
 
+                dataRowCounter += 1;
+
             }//END-WHILE
 
             UpdateCallMarkerStatus(tableName, "ApplyingRates", lastRateAppliedOnPhoneCall);

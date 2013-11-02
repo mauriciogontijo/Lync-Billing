@@ -25,13 +25,13 @@ namespace Lync_Backend.Helpers
         public string DestinationUserEdgeServer { set; get; }
         public string ServerFQDN { set; get; }
         public string PoolFQDN { set; get; }
+       
+        public long Marker_CallFrom { set; get; }
+        public long Marker_CallTo { set; get; }
         public string Marker_CallToCountry { set; get; }
-        
-        public string marker_CallType { set; get; }
         public int Marker_CallTypeID { set; get; }
-        public long marker_CallFrom { set; get; }
-        public long marker_CallTo { set; get; }
-
+        public string Marker_CallType { set; get; }
+       
         public decimal Duration { set; get; }
         public decimal Marker_CallCost { set; get; }
 

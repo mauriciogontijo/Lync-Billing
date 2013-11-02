@@ -215,13 +215,13 @@ namespace Lync_Backend.Helpers
             if (!string.IsNullOrEmpty(phoneCall.Marker_CallToCountry))
                 phoneCallDict.Add("marker_CallToCountry", phoneCall.Marker_CallToCountry);
 
-            if (!string.IsNullOrEmpty(phoneCall.marker_CallType))
-                phoneCallDict.Add("marker_CallType", phoneCall.marker_CallType);
+            if (!string.IsNullOrEmpty(phoneCall.Marker_CallType))
+                phoneCallDict.Add("marker_CallType", phoneCall.Marker_CallType);
 
             phoneCallDict.Add("marker_CallTypeID", phoneCall.Marker_CallTypeID);
             phoneCallDict.Add("marker_CallCost", phoneCall.Marker_CallCost);
-            phoneCallDict.Add("marker_CallFrom", phoneCall.marker_CallFrom);
-            phoneCallDict.Add("marker_CallTo", phoneCall.marker_CallTo);
+            phoneCallDict.Add("marker_CallFrom", phoneCall.Marker_CallFrom);
+            phoneCallDict.Add("marker_CallTo", phoneCall.Marker_CallTo);
             phoneCallDict.Add("Duration", phoneCall.Duration);
 
             return phoneCallDict;
@@ -334,71 +334,87 @@ namespace Lync_Backend.Helpers
 
             column = Enums.GetDescription(Enums.PhoneCalls.ResponseTime);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.ResponseTime = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)]);
+                phoneCall.ResponseTime = Misc.ConvertDate((DateTime)dataReader[column]);
 
             column = Enums.GetDescription(Enums.PhoneCalls.SessionEndTime);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.SessionEndTime = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)]);
+                phoneCall.SessionEndTime = Misc.ConvertDate((DateTime)dataReader[column]);
 
             column = Enums.GetDescription(Enums.PhoneCalls.SourceUserUri);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.SourceUserUri = dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceUserUri)].ToString();
+                phoneCall.SourceUserUri = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.SourceNumberUri = dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri)].ToString();
+                phoneCall.SourceNumberUri = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.DestinationUserUri = dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri)].ToString();
+                phoneCall.DestinationUserUri = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.DestinationNumberUri = dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri)].ToString();
+                phoneCall.DestinationNumberUri = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.FromMediationServer);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.FromMediationServer = dataReader[Enums.GetDescription(Enums.PhoneCalls.FromMediationServer)].ToString();
+                phoneCall.FromMediationServer = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.ToMediationServer);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.ToMediationServer = dataReader[Enums.GetDescription(Enums.PhoneCalls.ToMediationServer)].ToString();
+                phoneCall.ToMediationServer = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.FromGateway);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.FromGateway = dataReader[Enums.GetDescription(Enums.PhoneCalls.FromGateway)].ToString();
+                phoneCall.FromGateway = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.ToGateway);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.ToGateway = dataReader[Enums.GetDescription(Enums.PhoneCalls.ToGateway)].ToString();
+                phoneCall.ToGateway = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.SourceUserEdgeServer = dataReader[Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer)].ToString();
+                phoneCall.SourceUserEdgeServer = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.DestinationUserEdgeServer = dataReader[Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer)].ToString();
+                phoneCall.DestinationUserEdgeServer = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.ServerFQDN);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.ServerFQDN = dataReader[Enums.GetDescription(Enums.PhoneCalls.ServerFQDN)].ToString();
+                phoneCall.ServerFQDN = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.PoolFQDN);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.PoolFQDN = dataReader[Enums.GetDescription(Enums.PhoneCalls.PoolFQDN)].ToString();
+                phoneCall.PoolFQDN = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.Duration);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
                 phoneCall.Duration = Convert.ToDecimal(dataReader[column]);
 
+            column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallFrom);
+            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                phoneCall.Marker_CallFrom = Convert.ToInt64(dataReader[column]);
+
+            column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallTo);
+            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                phoneCall.Marker_CallTo = Convert.ToInt64(dataReader[column]);
+
+            column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry);
+            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                phoneCall.Marker_CallToCountry = dataReader[column].ToString();
+
             column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
                 phoneCall.Marker_CallTypeID = Convert.ToInt32(dataReader[column]);
 
+            column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost);
+            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                phoneCall.Marker_CallCost = Convert.ToInt32(dataReader[column]);
+
             column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallType);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                phoneCall.marker_CallType = dataReader[column].ToString();
+                phoneCall.Marker_CallType = dataReader[column].ToString();
 
 
             //Return teh filled object
