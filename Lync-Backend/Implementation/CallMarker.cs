@@ -51,13 +51,13 @@ namespace Lync_Backend.Implementation
                 phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
 
                 //Call the SetType on the phoneCall Related table using class loader
-
                 Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
                 string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
                 object instance = Activator.CreateInstance(type);
 
                 //Call the correct set type
                 ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
+
 
                 //Set the updateStatementValues dictionary items with the phoneCall instance variables
                 updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
@@ -84,42 +84,39 @@ namespace Lync_Backend.Implementation
         {
             
         }
-
+       
         public override void ApplyRates(string tableName)
         {
+
+            PhoneCalls phoneCall;
+
+            Dictionary<string, object> updateStatementValues;
+            string statusTimestamp = string.Empty;
+
+            string column = string.Empty;
+            string SQL = string.Empty;
+
+            int dataRowCounter = 0;
+            string lastRateAppliedOnPhoneCall = string.Empty;
+
+            statusTimestamp = GetLastAppliedRate(tablename);
+
+            if (statusTimestamp == "N/A")
+                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
+            else
+                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
+
+            sourceDBConnector.Open();
+
+            dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
+
             string cost = Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost);
             string duration = Enums.GetDescription(Enums.PhoneCalls.Duration);
             string toGateway = Enums.GetDescription(Enums.PhoneCalls.ToGateway);
             string callTypeID = Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID);
             string callToCountry = Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry);
 
-            //This is the data container to hold the data of the phonecall row from the database.
-            Dictionary<string, object> phoneCallRecord;
-
-            /***
-             * List of Chargeable Phonecalls Types include:
-             * 1 = LOCAL PHONECALL
-             * 2 = NATIONAL-FIXEDLINE
-             * 3 = NATIONAL-MOBILE
-             * 4 = INTERNATIONAL-FIXEDLINE
-             * 5 = INTERNATIONAL-MOBILE
-             * 21 = FIXEDLINE
-             * 22 = MOBILE
-             */
-             BillableCallTypesSection section = (BillableCallTypesSection)ConfigurationManager.GetSection("BillableCallTypesSection");
-
-            //Get Billibale types from App.config
-             List<int> ListofChargeableCallTypes = section.BillableTypesList;
-
-            //Get Gateways for that Marker
-            List<Gateways> ListofGateways = Gateways.GetGateways();
-
-            //Get Gateway IDs from Gateways
-            List<string> ListofGatewaysNames = ListofGateways.Select(item => item.GatewayName).ToList<string>();
-
-            //Get Rates for those Gateways for that marker
-            Dictionary<int, List<Rates>> ratesPerGatway = Rates.GetAllGatewaysRatesList();
-
+           
             //Read the phone calls and apply the rates to them
             sourceDBConnector.Open();
 
@@ -181,7 +178,12 @@ namespace Lync_Backend.Implementation
 
         private string GetLastAppliedRate(string phoneCallsTable) 
         {
-            return null;
+            var status = CallMarkerStatus.GetCallMarkerStatus(phoneCallsTable, "ApplyRates");
+
+            if (status != null)
+                return Misc.ConvertDate(status.Timestamp);
+            else
+                return "N/A";
         }
 
         private void UpdateCallMarkerStatus(string phoneCallTable, string type, string timestamp)
