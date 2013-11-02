@@ -66,9 +66,9 @@ namespace Lync_Billing.ui.user
             if (userSession.PhoneCalls == null || userSession.PhoneCalls.Count == 0 || force == true)
             {
                 wherePart.Add("SourceUserUri", sipAccount);
-                //wherePart.Add("ac_IsInvoiced", "NO");
-                wherePart.Add("marker_CallTypeID", 1);
+                wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
                 wherePart.Add("Exclude", false);
+                //wherePart.Add("ac_IsInvoiced", "NO");
 
                 columns.Add("SessionIdTime");
                 columns.Add("SessionIdSeq");
@@ -81,7 +81,6 @@ namespace Lync_Billing.ui.user
                 columns.Add("ui_CallType");
                 columns.Add("ui_MarkedOn");
 
-                //userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
                 userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
                 xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);
 

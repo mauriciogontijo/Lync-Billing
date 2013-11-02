@@ -77,7 +77,7 @@ namespace Lync_Billing.ui.user
                     sipAccount = userSession.EffectiveSipAccount;
 
                     wherePart.Add("SourceUserUri", sipAccount);
-                    wherePart.Add("marker_CallTypeID", 1);
+                    wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
                     //wherePart.Add("ac_IsInvoiced", "NO");
                     wherePart.Add("Exclude", false);
 
@@ -185,7 +185,7 @@ namespace Lync_Billing.ui.user
             if (userSession.PhoneCallsHistory == null || userSession.PhoneCallsHistory.Count == 0 || force == true)
             {
                 wherePart.Add("SourceUserUri", sipAccount);
-                wherePart.Add("marker_CallTypeID", 1);
+                wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
                 wherePart.Add("ac_IsInvoiced", "YES");
 
                 columns.Add("SessionIdTime");
