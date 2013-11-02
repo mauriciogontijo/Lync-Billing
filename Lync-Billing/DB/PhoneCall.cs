@@ -9,19 +9,21 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using System.Configuration;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
+using Lync_Billing.ConfigurationSections;
 
 
 namespace Lync_Billing.DB
 {
-    [XmlRoot("Document")]
-    //[XmlInclude(typeof(PhoneCall))]
+
     public class PhoneCall
     {
         public PhoneCall() { }
+
         private static DBLib DBRoutines = new DBLib();
 
         public string SessionIdTime { set; get; }
@@ -56,12 +58,12 @@ namespace Lync_Billing.DB
         public string PhoneBookName { set; get; }
 
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
-        
+        public static List<string> PhoneCallsTablesList = ((PhoneCallsTablesSection)ConfigurationManager.GetSection("PhoneCallsTablesSection")).PhoneCallsTablesList;
+
         public static List<PhoneCall> GetPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             PhoneCall phoneCall;
             DataTable dt = new DataTable();
-
             
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
