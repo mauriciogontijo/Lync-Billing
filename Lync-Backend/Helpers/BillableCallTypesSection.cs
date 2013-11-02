@@ -59,6 +59,41 @@ namespace Lync_Backend.Helpers
             }
         }
 
+        public List<int> FixedlinesIdsList 
+        {
+            get
+            {
+                List<int> fixedlinesIdsList = new List<int>();
+
+                foreach (BillableTypeElement el in BillableTypes)
+                {
+                    if (el.Name.Contains("FIXEDLINE"))
+                        fixedlinesIdsList.Add(el.Value);
+                    else
+                        continue;
+                }
+
+                return fixedlinesIdsList;
+            }
+        }
+
+        public List<int> MobileLinesIdsList 
+        {
+            get
+            {
+                List<int> mobilelinesIdsList = new List<int>();
+
+                foreach (BillableTypeElement el in BillableTypes)
+                {
+                    if (el.Name.Contains("MOBILE"))
+                        mobilelinesIdsList.Add(el.Value);
+                    else
+                        continue;
+                }
+
+                return mobilelinesIdsList;
+            }
+        }
         
     }
 }
