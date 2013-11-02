@@ -95,6 +95,5 @@ namespace Lync_Backend.Helpers
                 return null;
             }
         }
-    
     }
 }
