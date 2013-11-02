@@ -87,7 +87,6 @@ namespace Lync_Backend.Implementation
        
         public override void ApplyRates(string tableName)
         {
-
             PhoneCalls phoneCall;
 
             Dictionary<string, object> updateStatementValues;
@@ -99,12 +98,12 @@ namespace Lync_Backend.Implementation
             int dataRowCounter = 0;
             string lastRateAppliedOnPhoneCall = string.Empty;
 
-            statusTimestamp = GetLastAppliedRate(tablename);
+            statusTimestamp = GetLastAppliedRate(tableName);
 
             if (statusTimestamp == "N/A")
-                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
+                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tableName);
             else
-                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
+                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tableName, statusTimestamp);
 
             sourceDBConnector.Open();
 
@@ -116,48 +115,41 @@ namespace Lync_Backend.Implementation
             string callTypeID = Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID);
             string callToCountry = Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry);
 
-           
-            //Read the phone calls and apply the rates to them
-            sourceDBConnector.Open();
-
-            string SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tableName);
-
-            dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
-
             while (dataReader.Read())
             {
-                //Skip this step in the loop if this PhoneCall record is not rates-appliant
-                if (dataReader[toGateway] == DBNull.Value || dataReader[callToCountry].ToString() == "N/A" || !ListofChargeableCallTypes.Contains(Convert.ToInt32(dataReader[callTypeID])))
-                {
-                    continue;
-                }
 
-                //Begin processing this PhoneCall
-                //Initialize the phoneCallRecord variable
-                phoneCallRecord = Misc.FillDictionaryFromOleDataReader(dataReader);
+                //Initialize the updateStatementValues variable
+                updateStatementValues = new Dictionary<string, object>();
 
-                // Check if we can apply the rates for this phone-call
-                var gateway = ListofGateways.Find(g => g.GatewayName == phoneCallRecord[toGateway].ToString());
-                var rates = (from keyValuePair in ratesPerGatway where keyValuePair.Key == gateway.GatewayId select keyValuePair.Value).SingleOrDefault<List<Rates>>() ?? (new List<Rates>());
+                //Fill the phoneCall Object
+                phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
 
-                if (rates.Count > 0)
-                {
-                    //Apply the rate for this phone call
-                    var rate = (from r in rates
-                                where r.CountryCode == phoneCallRecord[callToCountry].ToString()
-                                select r).First();
+                //Call the SetType on the phoneCall Related table using class loader
+                Type type = Type.GetType("Lync_Backend.Implementation." + tableName);
+                string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
+                object instance = Activator.CreateInstance(type);
 
-                    //if the call is of type national/international MOBILE then apply the Mobile-Rate, otherwise apply the Fixedline-Rate
-                    phoneCallRecord[cost] = ((int)phoneCallRecord[callTypeID] == 3 || (int)phoneCallRecord[callTypeID] == 5 || (int)phoneCallRecord[callTypeID] == 22) ?
-                            Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.MobileLineRate :
-                            Math.Ceiling(Convert.ToDecimal(phoneCallRecord[duration]) / 60) * rate.FixedLineRate;
+                //Call the correct set type
+                ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
 
-                    DBRoutines.UPDATE(tableName, phoneCallRecord);
-                }
+                //Set the updateStatementValues dictionary items with the phoneCall instance variables
+                updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
+
+                //Update the phoneCall database record
+                DBRoutines.UPDATE(tableName, updateStatementValues);
+
+                lastRateAppliedOnPhoneCall = phoneCall.SessionIdTime;
+
+                //Update the CallMarkerStatus table fro this PhoneCall table.
+                if (dataRowCounter % 10000 == 0)
+                    UpdateCallMarkerStatus(tableName, "ApplyingRates", lastRateAppliedOnPhoneCall);
+
+              
             }//END-WHILE
 
+            UpdateCallMarkerStatus(tableName, "ApplyingRates", lastRateAppliedOnPhoneCall);
 
-            //Close the database conenction
+            //Close the database connection
             sourceDBConnector.Close();
         }
 
