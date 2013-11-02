@@ -178,7 +178,7 @@ namespace Lync_Backend.Implementation
 
         private string GetLastAppliedRate(string phoneCallsTable) 
         {
-            var status = CallMarkerStatus.GetCallMarkerStatus(phoneCallsTable, "ApplyRates");
+            var status = CallMarkerStatus.GetCallMarkerStatus(phoneCallsTable, "ApplyingRates");
 
             if (status != null)
                 return Misc.ConvertDate(status.Timestamp);
