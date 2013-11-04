@@ -76,21 +76,14 @@ namespace Lync_Billing.ui.user
             //Configure the welcome ext-js toggled welcome-message.
             //Misc.Message("Welcome","Welcome " + current_session.PrimaryDisplayName,"info");
         }
-        
-        public List<UsersCallsSummaryChartData> getChartData(string typeOfSummary = "")
-        {
-            CultureInfo provider = CultureInfo.InvariantCulture;
-            DateTime fromDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
-            List<UsersCallsSummaryChartData> chartData = UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, fromDate, DateTime.Now);
 
-            return chartData;
-        }
 
         protected void DurationCostChartStore_Load(object sender, EventArgs e)
         {
             DurationCostChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
             DurationCostChartStore.DataBind();
         }
+
 
         protected void TopDestinationNumbersStore_Load(object sender, EventArgs e)
         {
