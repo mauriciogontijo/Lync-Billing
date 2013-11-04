@@ -190,29 +190,32 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             UserCallsSummary userSummary = new UserCallsSummary();
 
-            dt = StatRoutines.USER_STATS(sipAccount, Year, fromMonth, toMonth);
-
-            foreach (DataRow row in dt.Rows)
+            foreach (var tableName in PhoneCall.PhoneCallsTablesList)
             {
-                int year = Convert.ToInt32(row[dt.Columns["Year"]]);
-                int month = Convert.ToInt32(row[dt.Columns["Month"]]);
+                //dt = StatRoutines.USER_STATS(sipAccount, Year, fromMonth, toMonth);
+                dt = StatRoutines.ChargeableCallsStatisticsForUser(tableName, sipAccount, Year, fromMonth, toMonth);
 
-                userSummary.MonthDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+                foreach (DataRow row in dt.Rows)
+                {
+                    int year = Convert.ToInt32(row[dt.Columns["Year"]]);
+                    int month = Convert.ToInt32(row[dt.Columns["Month"]]);
 
-                userSummary.BusinessCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessDuration"]]));
-                userSummary.BusinessCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessCallsCount"]]));
-                userSummary.BusinessCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["BusinessCost"]]));
-                userSummary.PersonalCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalDuration"]]));
-                userSummary.PersonalCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalCallsCount"]]));
-                userSummary.PersonalCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["PersonalCost"]]));
-                userSummary.UnmarkedCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
-                userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
-                userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
-                //userSummary.Month = mfi.GetAbbreviatedMonthName(month);
-                userSummary.Year = year;
-                userSummary.Month = month;
+                    userSummary.Year = year;
+                    userSummary.Month = month;
+                    userSummary.MonthDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
 
-                userSummary.Duration = userSummary.PersonalCallsDuration / 60;
+                    userSummary.BusinessCallsDuration += Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessDuration"]]));
+                    userSummary.BusinessCallsCount += Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessCallsCount"]]));
+                    userSummary.BusinessCallsCost += Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["BusinessCost"]]));
+                    userSummary.PersonalCallsDuration += Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalDuration"]]));
+                    userSummary.PersonalCallsCount += Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalCallsCount"]]));
+                    userSummary.PersonalCallsCost += Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["PersonalCost"]]));
+                    userSummary.UnmarkedCallsDuration += Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
+                    userSummary.UnmarkedCallsCount += Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
+                    userSummary.UnmarkedCallsCost += Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
+
+                    userSummary.Duration += (userSummary.PersonalCallsDuration / 60);
+                }
             }
 
             return userSummary;
@@ -226,36 +229,37 @@ namespace Lync_Billing.DB
             UserCallsSummary userSummary;
             List<UserCallsSummary> chartList = new List<UserCallsSummary>();
 
-            dt = StatRoutines.USER_STATS(sipAccount, Year, fromMonth, toMonth);
+            //foreach (var tableName in PhoneCall.PhoneCallsTablesList)
+            //{
+                dt = StatRoutines.USER_STATS(sipAccount, Year, fromMonth, toMonth);
+                //dt = StatRoutines.ChargeableCallsStatisticsForUser(tableName, sipAccount, Year, fromMonth, toMonth);
 
-            foreach (DataRow row in dt.Rows)
-            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    int year = Convert.ToInt32(row[dt.Columns["Year"]]);
+                    int month = Convert.ToInt32(row[dt.Columns["Month"]]);
 
-                int year = Convert.ToInt32(row[dt.Columns["Year"]]);
-                int month = Convert.ToInt32(row[dt.Columns["Month"]]);
-              
-                
-                userSummary = new UserCallsSummary();
+                    userSummary = new UserCallsSummary();
 
-                userSummary.MonthDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+                    userSummary.Year = year;
+                    userSummary.Month = month;
+                    userSummary.MonthDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
 
-                userSummary.BusinessCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessDuration"]]));
-                userSummary.BusinessCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessCallsCount"]]));
-                userSummary.BusinessCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["BusinessCost"]]));
-                userSummary.PersonalCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalDuration"]]));
-                userSummary.PersonalCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalCallsCount"]]));
-                userSummary.PersonalCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["PersonalCost"]]));
-                userSummary.UnmarkedCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
-                userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
-                userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
-                //userSummary.Month = mfi.GetAbbreviatedMonthName(month);
-                userSummary.Year = year;
-                userSummary.Month = month;
-                
-                userSummary.Duration = userSummary.PersonalCallsDuration / 60;
+                    userSummary.BusinessCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessDuration"]]));
+                    userSummary.BusinessCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["BusinessCallsCount"]]));
+                    userSummary.BusinessCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["BusinessCost"]]));
+                    userSummary.PersonalCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalDuration"]]));
+                    userSummary.PersonalCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["PersonalCallsCount"]]));
+                    userSummary.PersonalCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["PersonalCost"]]));
+                    userSummary.UnmarkedCallsDuration = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedDuration"]]));
+                    userSummary.UnmarkedCallsCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["UnMarkedCallsCount"]]));
+                    userSummary.UnmarkedCallsCost = Convert.ToDecimal(ReturnZeroIfNull(row[dt.Columns["UnMarkedCost"]]));
 
-                chartList.Add(userSummary);
-            }
+                    userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
+
+                    chartList.Add(userSummary);
+                }
+            //}
             return chartList;
         }
 

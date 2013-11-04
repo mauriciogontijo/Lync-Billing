@@ -6,69 +6,23 @@ using System.Configuration;
 using System.Data.OleDb;
 using System.Data;
 using System.Text;
+using Lync_Billing.DB;
 
 namespace Lync_Billing.Libs
 {
     public class Statistics
     {
+        private static void ConvertDateToYearMonth(DateTime date, out int year, out int month)
+        {
+            year = date.Year;
+            month = date.Month;
+        }
+
         public static string ConnectionString_Lync = ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString.ToString();
 
         private OleDbConnection DBInitializeConnection(string connectionString) 
         {
             return new OleDbConnection(connectionString);
-        }
-
-        public DataTable SELECT_USER_STATISTICS(string tableName, Dictionary<string, object> whereClause)
-        {
-            DataTable dt = new DataTable();
-            OleDbDataReader dr;
-            string selectQuery = string.Empty;
-
-            StringBuilder whereStatement = new StringBuilder();
-            //SourceUserUri
-
-            if (whereClause.ContainsKey("startingDate") && whereClause.ContainsKey("endingDate"))
-            {
-                whereStatement.Append(
-                    String.Format(" WHERE [SourceUserUri] = '{0}' COLLATE SQL_Latin1_General_CP1_CI_AS AND [SessionIdTime] >= '{1}' AND [SessionIdTime] < '{2}' and [marker_CallTypeID] in (1,2,3,4,5,21,22)",
-                        whereClause["SourceUserUri"].ToString(),
-                        whereClause["startingDate"].ToString(),
-                        whereClause["endingDate"].ToString()
-                    )
-                );
-            }
-            else
-            {
-                whereStatement.Append(
-                    String.Format(
-                        " WHERE [SourceUserUri] = '{0}'",
-                        whereClause["SourceUserUri"].ToString()
-                    )
-                );
-            }
-
-            selectQuery = String.Format(
-                "SELECT COUNT(*) ui_CallType, ui_CallType as PhoneCallType, SUM([Duration]) as TotalDuration, SUM([marker_CallCost]) as TotalCost FROM {0} {1} group by ui_CallType",
-                tableName, whereStatement.ToString()
-            );
-
-            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
-            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
-
-            try
-            {
-                conn.Open();
-                dr = comm.ExecuteReader();
-                dt.Load(dr);
-            }
-            catch (Exception ex)
-            {
-                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
-                throw argEx;
-            }
-            finally { conn.Close(); }
-
-            return dt;
         }
 
         public DataTable USER_STATS(string SipAccount, int Year, int startingMonth, int endingMonth)
@@ -675,10 +629,138 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
-        private static void ConvertDateToYearMonth(DateTime date,out int year, out int month) 
-         {
-             year = date.Year;
-             month = date.Month;
-         }
+
+        /******** NEW FUNCTIONS WHICH HANDLE MANY PHONECALLS TABLE ********/
+
+        public DataTable SELECT_USER_STATISTICS(string tableName, Dictionary<string, object> whereClause)
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            StringBuilder whereStatement = new StringBuilder();
+            //SourceUserUri
+
+            if (whereClause.ContainsKey("startingDate") && whereClause.ContainsKey("endingDate"))
+            {
+                whereStatement.Append(
+                    String.Format(" WHERE [SourceUserUri] = '{0}' COLLATE SQL_Latin1_General_CP1_CI_AS AND [SessionIdTime] >= '{1}' AND [SessionIdTime] < '{2}' and [marker_CallTypeID] in (1,2,3,4,5,21,22)",
+                        whereClause["SourceUserUri"].ToString(),
+                        whereClause["startingDate"].ToString(),
+                        whereClause["endingDate"].ToString()
+                    )
+                );
+            }
+            else
+            {
+                whereStatement.Append(
+                    String.Format(
+                        " WHERE [SourceUserUri] = '{0}'",
+                        whereClause["SourceUserUri"].ToString()
+                    )
+                );
+            }
+
+            selectQuery = String.Format(
+                "SELECT COUNT(*) ui_CallType, ui_CallType as PhoneCallType, SUM([Duration]) as TotalDuration, SUM([marker_CallCost]) as TotalCost FROM {0} {1} group by ui_CallType",
+                tableName, whereStatement.ToString()
+            );
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+        }
+
+        public DataTable ChargeableCallsStatisticsForUser(string TableName, string SipAccount, int Year, int startingMonth, int endingMonth)
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            StringBuilder billableCallTypes = new StringBuilder();
+            string selectQuery = string.Empty;
+            string whereStatement = string.Empty;
+            string completeQuery = string.Empty;
+            
+            //Get a string version of the billable call types, example: "1,2,3,4,5,6"
+            foreach(var type in PhoneCall.BillableCallTypesList)
+            {
+                billableCallTypes.Append(type);
+                billableCallTypes.Append(",");
+            }
+            //Remove the last ','
+            if(!string.IsNullOrEmpty(billableCallTypes.ToString()))
+                billableCallTypes.Remove(billableCallTypes.Length - 1, 1);
+
+
+            selectQuery = String.Format(
+                "SELECT	TOP 100 PERCENT " + 
+                    "[SourceUserUri], " + 
+			        "MONTH(ResponseTime) AS [Month], " +
+			        "YEAR(ResponseTime) AS [Year]," +
+			        "SUM(CASE WHEN [ui_CallType] = 'Business' THEN [Duration] END) AS BusinessDuration, " +
+			        "SUM(CASE WHEN [ui_CallType] = 'Business' THEN 1 END) AS BusinessCallsCount, " +
+			        "SUM(CASE WHEN [ui_CallType] = 'Business' THEN [marker_CallCost] END) AS BusinessCost, " +
+			        "SUM(CASE WHEN [ui_CallType] = 'Personal' THEN [Duration] END) AS PersonalDuration, " +
+			        "SUM(CASE WHEN [ui_CallType] = 'Personal' THEN 1 END) AS PersonalCallsCount, " +
+			        "SUM(CASE WHEN [ui_CallType] = 'Personal' THEN [marker_CallCost] END) AS PersonalCost, " +
+			        "SUM(CASE WHEN [ui_CallType] IS NULL THEN [Duration] END) AS UnMarkedDuration, " +
+			        "SUM(CASE WHEN [ui_CallType] IS NULL THEN 1 END) AS UnMarkedCallsCount, " +
+			        "SUM(CASE WHEN [ui_CallType] IS NULL THEN [marker_CallCost] END) AS UnMarkedCost " +
+	            "FROM		[{0}] ",
+                TableName
+            );
+
+
+            whereStatement = String.Format(
+                "WHERE		([SourceUserUri] = '{0}' COLLATE SQL_Latin1_General_CP1_CI_AS AND " +
+				            "[Exclude] = 0 AND " + 
+				            "[marker_CallTypeID] in ({1}) AND " + 
+				            "([ac_DisputeStatus] = 'Rejected' OR [ac_DisputeStatus] IS NULL)) AND " +
+                            "YEAR(ResponseTime) = {2} AND " +
+                            "MONTH(ResponseTime) BETWEEN {3} AND {4} " +
+                "GROUP BY	[SourceUserUri], MONTH(ResponseTime), YEAR(ResponseTime) " +
+                "ORDER BY	YEAR(ResponseTime) ASC, MONTH(ResponseTime) ASC, [SourceUserUri] ASC",
+                SipAccount,
+                billableCallTypes.ToString(),
+                Year,
+                startingMonth,
+                endingMonth
+            );
+
+
+            completeQuery = selectQuery + whereStatement;
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+
+        }
     }
 }
