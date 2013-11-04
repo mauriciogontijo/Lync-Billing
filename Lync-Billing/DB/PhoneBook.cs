@@ -59,7 +59,58 @@ namespace Lync_Billing.DB
             return phoneBookEntries;
         }
 
-        public static void AddPhoneBookEntries(List<PhoneBook> phoneBookEntries) 
+
+        public static List<PhoneBook> GetDestinationNumbers(string sipAccount)
+        {
+            string columnName = string.Empty;
+            DataTable dt = new DataTable();
+
+            PhoneBook phoneBookEntry;
+            List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
+            PhoneBookContactComparer linqDistinctComparer = new PhoneBookContactComparer();
+
+            int limits = 0;
+            
+            Dictionary<string, object> wherePart = new Dictionary<string,object>
+            {
+                { Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount },
+                { Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri), "!null" },
+                { Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID), PhoneCall.BillableCallTypesList }
+            };
+            
+            List<string> columns = new List<string>()
+            { 
+                Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri),
+                Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry)
+            };
+
+
+            //For each phonecall table, get all the destinations for this user where the phonecall is of a billable CallTypeID
+            foreach (string tableName in PhoneCall.PhoneCallsTablesList)
+            {
+                dt = DBRoutines.SELECT(tableName, columns, wherePart, limits);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    phoneBookEntry = new PhoneBook();
+                    
+                    columnName = Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri);
+                    phoneBookEntry.DestinationNumber = (string)row[columnName];
+
+                    columnName = Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry);
+                    phoneBookEntry.DestinationCountry = (string)row[columnName];
+
+                    phoneBookEntries.Add(phoneBookEntry);
+                }
+            }
+
+            //Filter only the distinct values.
+            phoneBookEntries = phoneBookEntries.Distinct(linqDistinctComparer).ToList();
+            return phoneBookEntries;
+        }
+
+
+        public static void AddPhoneBookEntries(List<PhoneBook> phoneBookEntries)
         {
             Dictionary<string, object> ColumnValues;
 
@@ -85,7 +136,8 @@ namespace Lync_Billing.DB
                 DBRoutines.INSERT(Enums.GetDescription(Enums.PhoneBook.TableName), ColumnValues, Enums.GetDescription(Enums.PhoneBook.ID));
             }
         }
-
+        
+        
         public static void UpdatePhoneBookEntry(PhoneBook phoneBookEntry) 
         {
             DataTable dt = new DataTable();
@@ -106,6 +158,7 @@ namespace Lync_Billing.DB
             DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneBook.TableName), setPart, wherePart);
         }
 
+
         public static void DeleteFromPhoneBook(List<PhoneBook> phoneBookEntries) 
         {
             foreach (PhoneBook phoneBookEntry in phoneBookEntries) 
@@ -114,45 +167,20 @@ namespace Lync_Billing.DB
             }
         }
 
-        public static List<PhoneBook> GetDestinationNumbers(string sipAccount) 
+    }
+
+
+    //This is used with LINQ Distinct method to compare if two contacts are the same before adding them to the "List of Contacts from Calls History"
+    class PhoneBookContactComparer : IEqualityComparer<PhoneBook>
+    {
+        public bool Equals(PhoneBook firstContact, PhoneBook secondContact)
         {
-            List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
-            List<object> param = new List<object>();
+            return (firstContact.DestinationNumber == secondContact.DestinationNumber && firstContact.DestinationCountry == secondContact.DestinationCountry);
+        }
 
-            DataTable dt = new DataTable();
-
-            PhoneBook phoneBookEntry;
-
-            param.Add(sipAccount);
-
-            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetDistinctCallsForAUser",param,null);
-            
-            foreach (DataRow row in dt.Rows)
-            {
-                phoneBookEntry = new PhoneBook();
-
-                foreach (DataColumn column in dt.Columns) 
-                {
-                    if (column.ColumnName == "DestinationNumberUri") {
-                        if (row[column.ColumnName] != System.DBNull.Value) {
-                            phoneBookEntry.DestinationNumber = (string)row[column.ColumnName];
-                        } else { 
-                            break; 
-                        }
-                    }
-                    
-                    else if (column.ColumnName == "marker_CallToCountry") {
-                        if (row[column.ColumnName] != System.DBNull.Value) {
-                            phoneBookEntry.DestinationCountry = (string)row[column.ColumnName];
-                        }
-                        else {
-                            phoneBookEntry.DestinationCountry = "NA";
-                        }
-                    }
-                }
-                phoneBookEntries.Add(phoneBookEntry);
-           }
-            return phoneBookEntries;
+        public int GetHashCode(PhoneBook contact)
+        {
+            return (contact.DestinationNumber.ToString() + contact.DestinationCountry.ToString()).GetHashCode();
         }
     }
 }
