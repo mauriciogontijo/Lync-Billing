@@ -65,7 +65,6 @@ namespace Lync_Billing.Libs
             return dt;
         }
 
-
         public DataTable SELECT(string tableName) 
         {
             DataTable dt = new DataTable();
@@ -302,49 +301,6 @@ namespace Lync_Billing.Libs
 
             return dt;
         }
-
-        public DataTable SELECT_USER_STATISTICS(string tableName, Dictionary<string, object> whereClause)
-        {
-            DataTable dt = new DataTable();
-            OleDbDataReader dr;
-            string selectQuery = string.Empty;
-
-            StringBuilder whereStatement = new StringBuilder();
-           //SourceUserUri
-
-            if (whereClause.ContainsKey("startingDate") && whereClause.ContainsKey("endingDate"))
-            {
-                whereStatement.Append(String.Format(" WHERE [SourceUserUri] = '{0}' AND [SessionIdTime] >= '{1}' AND [SessionIdTime] < '{2}' and [marker_CallTypeID]=1", whereClause["SourceUserUri"].ToString(), whereClause["startingDate"].ToString(), whereClause["endingDate"].ToString()));
-            }
-            else 
-            {
-                whereStatement.Append(String.Format(" WHERE [SourceUserUri] = '{0}'", whereClause["SourceUserUri"].ToString()));
-            }
-
-            selectQuery = String.Format(
-                "SELECT COUNT(*) ui_CallType, ui_CallType as PhoneCallType, SUM([PhoneCalls].[Duration]) as TotalDuration, SUM([PhoneCalls].[marker_CallCost]) as TotalCost from PhoneCalls {0} group by ui_CallType",
-                whereStatement.ToString()
-            );
-
-            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
-            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
-
-            try
-            {
-                conn.Open();
-                dr = comm.ExecuteReader();
-                dt.Load(dr);
-            }
-            catch (Exception ex)
-            {
-                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
-                throw argEx;
-            }
-            finally { conn.Close(); }
-
-            return dt;
-        }
-
 
         /// <summary>
         /// Construct Generic INSERT Statement

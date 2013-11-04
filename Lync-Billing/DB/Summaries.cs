@@ -12,6 +12,7 @@ namespace Lync_Billing.DB
     public class UsersCallsSummaryChartData 
     {
         private static DBLib DBRoutines = new DBLib();
+        private static Statistics StatsRoutines = new Statistics();
         
 
         private static Dictionary<string, object> wherePart;
@@ -38,7 +39,7 @@ namespace Lync_Billing.DB
             foreach (var tableName in PhoneCall.PhoneCallsTablesList)
             {
                 //dt = DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
-                dt = DBRoutines.SELECT_USER_STATISTICS(tableName, wherePart);
+                dt = StatsRoutines.SELECT_USER_STATISTICS(tableName, wherePart);
 
                 foreach (DataRow row in dt.Rows)
                 {

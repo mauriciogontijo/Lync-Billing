@@ -13,9 +13,62 @@ namespace Lync_Billing.Libs
     {
         public static string ConnectionString_Lync = ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString.ToString();
 
-         private OleDbConnection DBInitializeConnection(string connectionString) 
+        private OleDbConnection DBInitializeConnection(string connectionString) 
         {
             return new OleDbConnection(connectionString);
+        }
+
+        public DataTable SELECT_USER_STATISTICS(string tableName, Dictionary<string, object> whereClause)
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+            StringBuilder whereStatement = new StringBuilder();
+            //SourceUserUri
+
+            if (whereClause.ContainsKey("startingDate") && whereClause.ContainsKey("endingDate"))
+            {
+                whereStatement.Append(
+                    String.Format(" WHERE [SourceUserUri] = '{0}' AND [SessionIdTime] >= '{1}' AND [SessionIdTime] < '{2}' and [marker_CallTypeID] in (1,2,3,4,5,21,22)",
+                        whereClause["SourceUserUri"].ToString(),
+                        whereClause["startingDate"].ToString(),
+                        whereClause["endingDate"].ToString()
+                    )
+                );
+            }
+            else
+            {
+                whereStatement.Append(
+                    String.Format(
+                        " WHERE [SourceUserUri] = '{0}'",
+                        whereClause["SourceUserUri"].ToString()
+                    )
+                );
+            }
+
+            selectQuery = String.Format(
+                "SELECT COUNT(*) ui_CallType, ui_CallType as PhoneCallType, SUM([Duration]) as TotalDuration, SUM([marker_CallCost]) as TotalCost FROM {0} {1} group by ui_CallType",
+                tableName, whereStatement.ToString()
+            );
+
+            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
         }
 
         public DataTable USER_STATS(string SipAccount, int Year, int startingMonth, int endingMonth)
