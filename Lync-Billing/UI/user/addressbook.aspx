@@ -98,7 +98,7 @@
                 Header="true"
                 Title="Manage Address Book"
                 Width="740"
-                Height="790"
+                Height="785"
                 Plain="false">
                 
                 <Defaults>
