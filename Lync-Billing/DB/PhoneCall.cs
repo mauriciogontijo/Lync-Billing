@@ -78,8 +78,8 @@ namespace Lync_Billing.DB
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
 
             //Normalize the SipAccount for the database before continuing:
-            if (wherePart.Keys.Contains("SourceUserUri"))
-                wherePart["SourceUserUri"] = wherePart["SourceUserUri"].ToString().ToLower();
+            //if (wherePart.Keys.Contains("SourceUserUri"))
+            //    wherePart["SourceUserUri"] = wherePart["SourceUserUri"].ToString().ToLower();
 
             //For each phonecalls table get the phonecalls from it
             foreach (string tableName in PhoneCallsTablesList)
