@@ -132,16 +132,15 @@ namespace Lync_Billing.DB
                     if (existingSummary != null)
                     {
                         //Get the existing summary's index
-                        var summaryIndex = chartList.IndexOf(existingSummary);
+                        int summaryIndex = chartList.IndexOf(existingSummary);
 
                         //Compute an updated summary
-                        userSummary.TotalCalls = existingSummary.TotalCalls;
-                        userSummary.TotalCost = existingSummary.TotalCost;
-                        userSummary.TotalDuration = existingSummary.TotalDuration;
+                        userSummary.TotalCalls += existingSummary.TotalCalls;
+                        userSummary.TotalCost += existingSummary.TotalCost;
+                        userSummary.TotalDuration += existingSummary.TotalDuration;
 
-                        //Remove the old summary and add the newly updated version of it.
-                        chartList.RemoveAt(summaryIndex);
-                        chartList.Add(userSummary);
+                        //Replace the old summary with the newly updated version of it.
+                        chartList[summaryIndex] = userSummary;
                     }
                     else
                     {
