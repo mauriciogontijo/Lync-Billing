@@ -35,7 +35,7 @@ namespace Lync_Billing.DB
             wherePart.Add("startingDate", startingDate);
             wherePart.Add("endingDate", endingDate);
 
-              dt = DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
+            dt = DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
 
             
             foreach (DataRow row in dt.Rows)
