@@ -8,9 +8,9 @@ namespace Lync_Backend.Interfaces
 {
     interface ICallMarker
     {
-        void MarkCalls(string tablename);
-        void MarkExclusion(string tablename);
-        void ApplyRates(string tablename);
-        void ResetPhoneCallsAttributes(string tablename);
+        void MarkCalls(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null);
+        void MarkExclusion(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null);
+        void ApplyRates(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null);
+        void ResetPhoneCallsAttributes(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null);
     }
 }

@@ -17,9 +17,12 @@ namespace Lync_Backend.Implementation
         OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
 
         private static DBLib DBRoutines = new DBLib();
-       
-        public override void MarkCalls(DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null, string tablename)
+
+        public override void MarkCalls(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
         {
+            DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
+            DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
+
            PhoneCalls phoneCall;
            
             Dictionary<string, object> updateStatementValues;
@@ -81,13 +84,18 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Close();
         }
 
-        public override void MarkExclusion(string tablename)
+        public override void MarkExclusion(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
         {
+            DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
+            DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
             //TODO: manipluate exclusions 
         }
 
-        public override void ApplyRates(DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null, string tableName)
+        public override void ApplyRates(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
         {
+            DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
+            DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
+
             PhoneCalls phoneCall;
 
             Dictionary<string, object> updateStatementValues;
@@ -100,16 +108,16 @@ namespace Lync_Backend.Implementation
             string lastRateAppliedOnPhoneCall = string.Empty;
 
             //Call the SetType on the phoneCall Related table using class loader
-            Type type = Type.GetType("Lync_Backend.Implementation." + tableName);
+            Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
             string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
             object instance = Activator.CreateInstance(type);
 
-            statusTimestamp = GetLastAppliedRate(tableName);
+            statusTimestamp = GetLastAppliedRate(tablename);
 
             if (statusTimestamp == "N/A")
-                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tableName);
+                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
             else
-                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tableName, statusTimestamp);
+                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
 
             sourceDBConnector.Open();
 
@@ -130,26 +138,28 @@ namespace Lync_Backend.Implementation
                 updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
 
                 //Update the phoneCall database record
-                DBRoutines.UPDATE(tableName, updateStatementValues);
+                DBRoutines.UPDATE(tablename, updateStatementValues);
 
                 lastRateAppliedOnPhoneCall = phoneCall.SessionIdTime;
 
                 //Update the CallMarkerStatus table fro this PhoneCall table.
                 if (dataRowCounter % 10000 == 0)
-                    UpdateCallMarkerStatus(tableName, "ApplyingRates", lastRateAppliedOnPhoneCall);
+                    UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall);
 
                 dataRowCounter += 1;
 
             }//END-WHILE
 
-            UpdateCallMarkerStatus(tableName, "ApplyingRates", lastRateAppliedOnPhoneCall);
+            UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall);
 
             //Close the database connection
             sourceDBConnector.Close();
         }
 
-        public override void ResetPhoneCallsAttributes(string tablename)
+        public override void ResetPhoneCallsAttributes(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
         {
+            DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
+            DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
             //TODO: Reset marking or rates 
         }
 
