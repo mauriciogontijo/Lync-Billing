@@ -277,6 +277,5 @@ namespace Lync_Backend.Implementation
             }
             return thisCall;
         }
-
     }
 }
