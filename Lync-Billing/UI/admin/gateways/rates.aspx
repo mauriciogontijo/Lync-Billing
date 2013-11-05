@@ -239,9 +239,9 @@
                                     </ItemTpl>
                                 </ListConfig>
                                 <DirectEvents>
-                                    <Change OnEvent="GetGatewaysForSite">
+                                    <Select OnEvent="GetGatewaysForSite">
                                         <EventMask ShowMask="true" />
-                                    </Change>
+                                    </Select>
                                 </DirectEvents>
                             </ext:ComboBox>
 
