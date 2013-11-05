@@ -29,7 +29,7 @@ namespace Lync_Billing.DB
             DepartmentHead head;
             List<DepartmentHead> ListOfDepartmentHeads = new List<DepartmentHead>();
 
-            if (string.IsNullOrEmpty(departmentName) || siteID == null)
+            if (string.IsNullOrEmpty(departmentName))
                 return ListOfDepartmentHeads;
 
             Dictionary<string, object> whereClause = new Dictionary<string, object>
