@@ -53,16 +53,16 @@ namespace Lync_Backend.Implementation
                 if (DateTime.Compare(to, DateTime.MaxValue) == 0)
                     to = to.AddDays(-1);
 
-                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, gateway, from, to);
+                SQL = SQLs.CREATE_READ_PHONE_CALLS_QUERY(tablename, gateway, from, to);
 
                 saveState = false;
             }
             else 
             {
                 if (statusTimestamp == "N/A")
-                    SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
+                    SQL = SQLs.CREATE_READ_PHONE_CALLS_QUERY(tablename);
                 else
-                    SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
+                    SQL = SQLs.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
 
                 saveState = true;
             }
@@ -144,16 +144,16 @@ namespace Lync_Backend.Implementation
                 if (DateTime.Compare(to, DateTime.MaxValue) == 0)
                     to = to.AddDays(-1);
 
-                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, gateway, from, to);
+                SQL = SQLs.CREATE_READ_PHONE_CALLS_QUERY(tablename, gateway, from, to);
 
                 saveState = false;
             }
             else 
             {
                 if (statusTimestamp == "N/A")
-                    SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
+                    SQL = SQLs.CREATE_READ_PHONE_CALLS_QUERY(tablename);
                 else
-                    SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
+                    SQL = SQLs.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
 
                 saveState = true;
             }

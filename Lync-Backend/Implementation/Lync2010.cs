@@ -71,7 +71,7 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Open();
             DestinationDBConnector.Open();
 
-            dataReader = DBRoutines.EXECUTEREADER(Misc.CREATE_LAST_IMPORTED_PHONECALL_DATE_QUERY(PhoneCallsTableName), DestinationDBConnector);
+            dataReader = DBRoutines.EXECUTEREADER(SQLs.CREATE_LAST_IMPORTED_PHONECALL_DATE_QUERY(PhoneCallsTableName), DestinationDBConnector);
 
             if (dataReader.Read() && !dataReader.IsDBNull(0))
                 LAST_IMPORTED_PHONECALL_DATE = Misc.ConvertDate((DateTime)dataReader[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]);
@@ -80,7 +80,7 @@ namespace Lync_Backend.Implementation
 
 
             //Construct CREATE_IMPORT_PHONE_CALLS_QUERY
-            string SQL = Misc.CREATE_IMPORT_PHONE_CALLS_QUERY(LAST_IMPORTED_PHONECALL_DATE);
+            string SQL = SQLs.CREATE_IMPORT_PHONE_CALLS_QUERY(LAST_IMPORTED_PHONECALL_DATE);
             
             dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
@@ -269,7 +269,7 @@ namespace Lync_Backend.Implementation
             /**
              * Start by importing the Gateways.
              */
-            dataReader = DBRoutines.EXECUTEREADER(Misc.CREATE_IMPORT_GATEWAYS_QUERY(), sourceDBConnector);
+            dataReader = DBRoutines.EXECUTEREADER(SQLs.CREATE_IMPORT_GATEWAYS_QUERY(), sourceDBConnector);
 
             while (dataReader.Read())
             {
@@ -293,7 +293,7 @@ namespace Lync_Backend.Implementation
             /**
              * Procede by importing the Pools.
              */
-            dataReader = DBRoutines.EXECUTEREADER(Misc.CREATE_IMPORT_POOLS_QUERY(), sourceDBConnector);
+            dataReader = DBRoutines.EXECUTEREADER(SQLs.CREATE_IMPORT_POOLS_QUERY(), sourceDBConnector);
 
             while (dataReader.Read())
             {

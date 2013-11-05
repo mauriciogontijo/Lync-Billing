@@ -35,7 +35,7 @@ namespace Lync_Backend.Helpers
             DataTable dt = new DataTable();
             Rates rate;
 
-            string selectQuery = Misc.CREATE_GET_RATES_PER_GATEWAY_QUERY(ratesTableName);
+            string selectQuery = SQLs.CREATE_GET_RATES_PER_GATEWAY_QUERY(ratesTableName);
 
             dt = DBRoutines.SELECT(selectQuery, ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
 
