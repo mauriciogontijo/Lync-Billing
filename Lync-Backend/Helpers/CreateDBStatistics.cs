@@ -44,7 +44,7 @@ namespace Lync_Backend.Helpers
         #endregion
 
 
-        #region Destinations Summaries Functions
+        #region Destinations Countries Summaries Functions
 
         //Get Destinations with duration/cost/count Per User
         public static void Get_DestinationsSummary_ForUser() { }
@@ -57,6 +57,20 @@ namespace Lync_Backend.Helpers
 
         //Get Destinations with duration/cost/count  per gateway by cost
         public static void Get_DestinationsSummary_PerGateway() { }
+
+        #endregion
+
+
+        #region Destinations Numbers Functions
+
+        //Get Destinations with duration/cost/count Per User
+        public static void Get_DestinationsNumbers_ForUser() { }
+
+        //Get Destinations with duration/cost/count Per Site
+        public static void Get_DestinationsNumbers_ForSite() { }
+
+        //Get Destinations with duration/cost/count Per Department Per Site
+        public static void Get_DestinationsNumbers_ForSiteDepartment() { }
 
         #endregion
 
