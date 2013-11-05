@@ -15,8 +15,11 @@ namespace Lync_Backend.Helpers
         private OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
 
         //TODO: every Get_ChargeableCalls function should return a new column represents which table the phone call object is located 
-
+       
+        //STEP 1
         #region Chargeable Calls Functions
+        
+        //High Priority
         
         //Returns List of Chargeable Calls For A specific User
         public static void Get_ChargeableCalls_ForUser() { }
@@ -29,9 +32,11 @@ namespace Lync_Backend.Helpers
         
         #endregion
 
-
+        //STEP 2
         #region Invoiced Calls Function
-        
+
+        //High Priority
+
         //Returns List of invoiced Calls For A specific User
         public static void Get_ChargedCalls_ForUser() { }
 
@@ -43,7 +48,7 @@ namespace Lync_Backend.Helpers
 
         #endregion
 
-
+        //STEP 5
         #region Destinations Countries Summaries Functions
 
         //Get Destinations with duration/cost/count Per User
@@ -60,7 +65,7 @@ namespace Lync_Backend.Helpers
 
         #endregion
 
-
+        //6
         #region Destinations Numbers Functions
 
         //Get Destinations with duration/cost/count Per User
@@ -74,8 +79,10 @@ namespace Lync_Backend.Helpers
 
         #endregion
 
-
+        //STEP 3
         #region Calls Summaries Functions
+
+        //High Priority
 
         //Get Calls Summary Per User
         public static void Get_CallsSummary_ForUser() { }
@@ -91,7 +98,7 @@ namespace Lync_Backend.Helpers
 
         #endregion
 
-
+        //STEP 4
         #region Gateways Summaries Functions
 
         //Get Gateways Summary(Total Duration/Cost/Count) for a user
