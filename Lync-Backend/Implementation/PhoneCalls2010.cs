@@ -46,14 +46,14 @@ namespace Lync_Backend.Implementation
             string srcDIDdsc = string.Empty; 
             string dstDIDdsc = string.Empty;
 
-            if (thisCall.SessionIdTime == "2011-12-01 11:55:06.237" ||
-                thisCall.SessionIdTime == "2011-12-23 05:42:41.950" ||
-                thisCall.SessionIdTime == "2011-12-24 14:17:03.667" ||
-                thisCall.SessionIdTime == "2013-05-15 07:43:25.963" ||
-                thisCall.SessionIdTime == "2013-05-13 14:19:17.777")
-            {
-                string x = string.Empty;
-            }
+            //if (thisCall.SessionIdTime == "2011-12-01 11:55:06.237" ||
+            //    thisCall.SessionIdTime == "2011-12-23 05:42:41.950" ||
+            //    thisCall.SessionIdTime == "2011-12-24 14:17:03.667" ||
+            //    thisCall.SessionIdTime == "2013-05-15 07:43:25.963" ||
+            //    thisCall.SessionIdTime == "2013-05-13 14:19:17.777")
+            //{
+            //    string x = string.Empty;
+            //}
 
             //Set SourceNumberDialing Prefix
             thisCall.Marker_CallFrom = GetDialingPrefixFromNumber(FixNumberType(thisCall.SourceNumberUri), out srcCallType);
@@ -238,14 +238,14 @@ namespace Lync_Backend.Implementation
 
         public PhoneCalls ApplyRate(PhoneCalls thisCall)
         {
-            if (thisCall.SessionIdTime == "2011-12-01 11:55:06.237" ||
-                thisCall.SessionIdTime == "2011-12-23 05:42:41.950" ||
-                thisCall.SessionIdTime == "2011-12-24 14:17:03.667" ||
-                thisCall.SessionIdTime == "2013-05-15 07:43:25.963" ||
-                thisCall.SessionIdTime == "2013-05-13 14:19:17.777") 
-            {
-                string x = string.Empty;
-            }
+            //if (thisCall.SessionIdTime == "2011-12-01 11:55:06.237" ||
+            //    thisCall.SessionIdTime == "2011-12-23 05:42:41.950" ||
+            //    thisCall.SessionIdTime == "2011-12-24 14:17:03.667" ||
+            //    thisCall.SessionIdTime == "2013-05-15 07:43:25.963" ||
+            //    thisCall.SessionIdTime == "2013-05-13 14:19:17.777") 
+            //{
+            //    string x = string.Empty;
+            //}
 
             if (!string.IsNullOrEmpty(thisCall.ToGateway))
             {

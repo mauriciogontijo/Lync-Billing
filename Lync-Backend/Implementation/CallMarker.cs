@@ -20,10 +20,11 @@ namespace Lync_Backend.Implementation
 
         public override void MarkCalls(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
         {
+
             DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
             DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
 
-           PhoneCalls phoneCall;
+            PhoneCalls phoneCall;
            
             Dictionary<string, object> updateStatementValues;
             string statusTimestamp = string.Empty;
@@ -43,8 +44,6 @@ namespace Lync_Backend.Implementation
             object instance = Activator.CreateInstance(type);
 
             statusTimestamp = GetLastMarked(tablename);
-
-          
 
             if (DateTime.Compare(from, DateTime.MinValue) != 0 || DateTime.Compare(to, DateTime.MaxValue) != 0 || !string.IsNullOrEmpty(gateway))
             {
@@ -129,8 +128,7 @@ namespace Lync_Backend.Implementation
             int dataRowCounter = 0;
             
             bool saveState = false;
-            
-
+           
             //Call the SetType on the phoneCall Related table using class loader
             Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
             string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
@@ -138,13 +136,19 @@ namespace Lync_Backend.Implementation
 
             statusTimestamp = GetLastAppliedRate(tablename);
 
-            if (DateTime.Compare(from, DateTime.MinValue) != 0 || DateTime.Compare(to, DateTime.MaxValue) != 0 || string.IsNullOrEmpty(gateway))
+           if (DateTime.Compare(from, DateTime.MinValue) != 0 || DateTime.Compare(to, DateTime.MaxValue) != 0 || !string.IsNullOrEmpty(gateway))
             {
+                if (DateTime.Compare(from, DateTime.MinValue) != 0)
+                    from = from.AddYears(1799);
+
+                if (DateTime.Compare(to, DateTime.MaxValue) != 0)
+                    to = to.AddDays(-1);
+
                 SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, gateway, from, to);
 
                 saveState = false;
             }
-            else
+            else 
             {
                 if (statusTimestamp == "N/A")
                     SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);

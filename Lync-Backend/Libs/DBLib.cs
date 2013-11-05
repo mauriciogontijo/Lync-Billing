@@ -731,7 +731,16 @@ namespace Lync_Backend.Libs
         {
             return dt.Year + "-" + dt.Month + "-" + dt.Day + " " + dt.Hour + ":" + dt.Minute + ":" + dt.Second +"." + dt.Millisecond;
         }
-   
+
+        public void OpenConnection(ref OleDbConnection conn) 
+        {
+            conn.Open();
+        }
+
+        public void CloseConnection(ref OleDbConnection conn) 
+        {
+            conn.Close();
+        }
         
     }
 }
