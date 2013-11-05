@@ -18,7 +18,7 @@ namespace Lync_Backend.Implementation
 
         private static DBLib DBRoutines = new DBLib();
        
-        public override void MarkCalls(string tablename)
+        public override void MarkCalls(DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null, string tablename)
         {
            PhoneCalls phoneCall;
            
@@ -85,8 +85,8 @@ namespace Lync_Backend.Implementation
         {
             //TODO: manipluate exclusions 
         }
-       
-        public override void ApplyRates(string tableName)
+
+        public override void ApplyRates(DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null, string tableName)
         {
             PhoneCalls phoneCall;
 
