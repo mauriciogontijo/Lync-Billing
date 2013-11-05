@@ -277,7 +277,6 @@ namespace Lync_Backend.Helpers
             return phoneCall;
         }
 
-
         public static bool IsValidEmail(string emailAddress)
         {
             string pattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
