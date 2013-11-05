@@ -30,10 +30,10 @@ namespace Lync_Billing.DB
             foreach (DataRow row in dt.Rows)
             {
                 userMailStats.EmailAddress = (row[dt.Columns["EmailAddress"]]).ToString();
-                userMailStats.ReceivedCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["RecievedCount"]]));
-                userMailStats.ReceivedSize = (Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["RecievedSize"]])) / 1024) / 1024; //convert Bytes to MB
-                userMailStats.SentCount = Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["SentCount"]]));
-                userMailStats.SentSize = (Convert.ToInt32(ReturnZeroIfNull(row[dt.Columns["SentSize"]])) / 1024) / 1024; //convert Bytes to MB
+                userMailStats.ReceivedCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns["RecievedCount"]]));
+                userMailStats.ReceivedSize = (Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns["RecievedSize"]])) / 1024) / 1024; //convert Bytes to MB
+                userMailStats.SentCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns["SentCount"]]));
+                userMailStats.SentSize = (Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns["SentSize"]])) / 1024) / 1024; //convert Bytes to MB
             }
 
             return userMailStats;
@@ -57,29 +57,13 @@ namespace Lync_Billing.DB
 
             foreach (DataRow row in dt.Rows)
             {
-                departmentTotalMailStats.ReceivedCount = Convert.ToInt64(ReturnZeroIfNull(row[dt.Columns["RecievedCount"]]));
-                departmentTotalMailStats.ReceivedSize = (Convert.ToInt64(ReturnZeroIfNull(row[dt.Columns["RecievedSize"]])) / 1024) / 1024; //convert Bytes to MB
-                departmentTotalMailStats.SentCount = Convert.ToInt64(ReturnZeroIfNull(row[dt.Columns["SentCount"]]));
-                departmentTotalMailStats.SentSize = (Convert.ToInt64(ReturnZeroIfNull(row[dt.Columns["SentSize"]])) / 1024) / 1024; //convert Bytes to MB
+                departmentTotalMailStats.ReceivedCount = Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns["RecievedCount"]]));
+                departmentTotalMailStats.ReceivedSize = (Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns["RecievedSize"]])) / 1024) / 1024; //convert Bytes to MB
+                departmentTotalMailStats.SentCount = Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns["SentCount"]]));
+                departmentTotalMailStats.SentSize = (Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns["SentSize"]])) / 1024) / 1024; //convert Bytes to MB
             }
 
             return departmentTotalMailStats;
-        }
-
-        private static object ReturnZeroIfNull(object value)
-        {
-            if (value == System.DBNull.Value)
-                return 0;
-            else
-                return value;
-        }
-
-        private static object ReturnEmptyIfNull(object value)
-        {
-            if (value == System.DBNull.Value)
-                return string.Empty;
-            else
-                return value;
         }
         
     }
