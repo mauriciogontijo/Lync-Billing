@@ -34,6 +34,8 @@ namespace Lync_Backend.Implementation
             int dataRowCounter = 0;
             string lastMarkedPhoneCallDate = string.Empty;
 
+            bool saveState = false;
+
 
             //Call the SetType on the phoneCall Related table using class loader
             Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
@@ -42,10 +44,29 @@ namespace Lync_Backend.Implementation
 
             statusTimestamp = GetLastMarked(tablename);
 
-            if (statusTimestamp == "N/A")
-                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
-            else
-                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
+          
+
+            if (DateTime.Compare(from, DateTime.MinValue) != 0 || DateTime.Compare(to, DateTime.MaxValue) != 0 || !string.IsNullOrEmpty(gateway))
+            {
+                if (DateTime.Compare(from, DateTime.MinValue) != 0)
+                    from = from.AddYears(1799);
+
+                if (DateTime.Compare(to, DateTime.MaxValue) != 0)
+                    to = to.AddDays(-1);
+
+                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, gateway, from, to);
+
+                saveState = false;
+            }
+            else 
+            {
+                if (statusTimestamp == "N/A")
+                    SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
+                else
+                    SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
+
+                saveState = true;
+            }
 
             sourceDBConnector.Open();
 
@@ -73,12 +94,12 @@ namespace Lync_Backend.Implementation
 
                 //Update the CallMarkerStatus table fro this PhoneCall table.
                 if (dataRowCounter % 10000 == 0)
-                    UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate);
+                    UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate, saveState);
 
                 dataRowCounter += 1;
             }
 
-            UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate);
+            UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate, saveState);
 
             //Close the database connection
             sourceDBConnector.Close();
@@ -99,13 +120,16 @@ namespace Lync_Backend.Implementation
             PhoneCalls phoneCall;
 
             Dictionary<string, object> updateStatementValues;
+            
             string statusTimestamp = string.Empty;
-
+            string lastRateAppliedOnPhoneCall = string.Empty;
             string column = string.Empty;
             string SQL = string.Empty;
 
             int dataRowCounter = 0;
-            string lastRateAppliedOnPhoneCall = string.Empty;
+            
+            bool saveState = false;
+            
 
             //Call the SetType on the phoneCall Related table using class loader
             Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
@@ -114,10 +138,21 @@ namespace Lync_Backend.Implementation
 
             statusTimestamp = GetLastAppliedRate(tablename);
 
-            if (statusTimestamp == "N/A")
-                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
+            if (DateTime.Compare(from, DateTime.MinValue) != 0 || DateTime.Compare(to, DateTime.MaxValue) != 0 || string.IsNullOrEmpty(gateway))
+            {
+                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, gateway, from, to);
+
+                saveState = false;
+            }
             else
-                SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
+            {
+                if (statusTimestamp == "N/A")
+                    SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename);
+                else
+                    SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, statusTimestamp);
+
+                saveState = true;
+            }
 
             sourceDBConnector.Open();
 
@@ -144,13 +179,13 @@ namespace Lync_Backend.Implementation
 
                 //Update the CallMarkerStatus table fro this PhoneCall table.
                 if (dataRowCounter % 10000 == 0)
-                    UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall);
+                    UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall, saveState);
 
                 dataRowCounter += 1;
 
             }//END-WHILE
 
-            UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall);
+            UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall, saveState);
 
             //Close the database connection
             sourceDBConnector.Close();
@@ -183,26 +218,29 @@ namespace Lync_Backend.Implementation
                 return "N/A";
         }
 
-        private void UpdateCallMarkerStatus(string phoneCallTable, string type, string timestamp)
+        private void UpdateCallMarkerStatus(string phoneCallTable, string type, string timestamp,bool Update=true)
         {
-            Dictionary<string, object> callMarkerStatusData = new Dictionary<string, object>
+            if (Update == true)
             {
-                {Enums.GetDescription(Enums.CallMarkerStatus.Type), type},
-                {Enums.GetDescription(Enums.CallMarkerStatus.Timestamp), timestamp},
-                {Enums.GetDescription(Enums.CallMarkerStatus.PhoneCallsTable), phoneCallTable}
+                Dictionary<string, object> callMarkerStatusData = new Dictionary<string, object>
+                {
+                    {Enums.GetDescription(Enums.CallMarkerStatus.Type), type},
+                    {Enums.GetDescription(Enums.CallMarkerStatus.Timestamp), timestamp},
+                    {Enums.GetDescription(Enums.CallMarkerStatus.PhoneCallsTable), phoneCallTable}
 
-            };
+                };
 
-            var existingMarkerStatus = CallMarkerStatus.GetCallMarkerStatus(phoneCallTable, type);
+                var existingMarkerStatus = CallMarkerStatus.GetCallMarkerStatus(phoneCallTable, type);
 
-            if (existingMarkerStatus == null)
-            {
-                DBRoutines.INSERT(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData);
-            }
-            else
-            {
-                //DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData, whereClause);
-                DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData, Enums.GetDescription(Enums.CallMarkerStatus.MarkerId), existingMarkerStatus.MarkerId);
+                if (existingMarkerStatus == null)
+                {
+                    DBRoutines.INSERT(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData);
+                }
+                else
+                {
+                    //DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData, whereClause);
+                    DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData, Enums.GetDescription(Enums.CallMarkerStatus.MarkerId), existingMarkerStatus.MarkerId);
+                }
             }
         }
     }

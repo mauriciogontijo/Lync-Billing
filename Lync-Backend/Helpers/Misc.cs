@@ -17,8 +17,8 @@ namespace Lync_Backend.Helpers
             else
                 return null;
         }
-
-        public static string CREATE_READ_PHONE_CALLS_QUERY(string TABLE_NAME, string TIMESTAMP = null) 
+       
+        public static string CREATE_READ_PHONE_CALLS_QUERY(string TABLE_NAME, string SessionIdTime = null ) 
         {
             string SQL = string.Empty;
             string WHERE_STATEMENT = string.Empty;
@@ -26,15 +26,37 @@ namespace Lync_Backend.Helpers
             string ORDER_BY = string.Empty;
 
             SELECT_STATEMENT = String.Format("SELECT * FROM [{0}] ",TABLE_NAME);
-
-
-            if (TIMESTAMP != null)
+           
+            if (SessionIdTime != null)
             {
-                WHERE_STATEMENT = String.Format(" WHERE SessionIdTime > '{0}'", TIMESTAMP);
+                WHERE_STATEMENT = String.Format("WHERE " + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + " > '{0}' ", SessionIdTime);
             }
 
+            ORDER_BY = "ORDER BY " + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + " ASC ";
 
-            ORDER_BY = " ORDER BY SessionIdTime ASC ";
+            return SELECT_STATEMENT + WHERE_STATEMENT + ORDER_BY;
+        }
+
+        public static string CREATE_READ_PHONE_CALLS_QUERY(string TABLE_NAME, string gateway, DateTime? optionalFrom = null, DateTime? optionalTo = null)
+        {
+            string SQL = string.Empty;
+            string WHERE_STATEMENT = string.Empty;
+            string SELECT_STATEMENT = string.Empty;
+            string ORDER_BY = string.Empty;
+
+            DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
+            DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
+
+            SELECT_STATEMENT = String.Format("SELECT * FROM [{0}] ", TABLE_NAME);
+
+            WHERE_STATEMENT = string.Format(" WHERE " + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + " BETWEEN '{0}' AND '{1}' ", ConvertDate(from), ConvertDate(to));
+
+            if (!string.IsNullOrEmpty(gateway))
+            {
+                WHERE_STATEMENT += String.Format(" AND " + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + " " + "> '{0}' ", gateway); 
+            }
+
+            ORDER_BY = " ORDER BY " + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + " ASC ";
 
             return SELECT_STATEMENT + WHERE_STATEMENT + ORDER_BY;
         }
