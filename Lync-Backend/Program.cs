@@ -9,6 +9,7 @@ using Lync_Backend.Libs;
 using Lync_Backend.Implementation;
 using Lync_Backend.Interfaces;
 using System.Configuration;
+using Lync_Backend.Interfaces;
 
 namespace Lync_Backend
 {
@@ -20,36 +21,28 @@ namespace Lync_Backend
 
             monServersInfo = MonitoringServersInfo.GetMonitoringServersInfo();
 
-            foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monServersInfo)
-            {
-                Type type = Type.GetType("Lync_Backend.Implementation." + keyValue.Key);
+            //foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monServersInfo)
+            //{
+            //    Type type = Type.GetType("Lync_Backend.Implementation." + keyValue.Key);
 
-                string fqdn = typeof(AbIdDatabaseImporter).AssemblyQualifiedName;
+            //    string fqdn = typeof(AbIdDatabaseImporter).AssemblyQualifiedName;
 
-                //FQN  for Lync2010: Lync_Backend.Implementation.Lync2010, Lync-Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-                object instance = Activator.CreateInstance(type);
+            //    //FQN  for Lync2010: Lync_Backend.Implementation.Lync2010, Lync-Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+            //    object instance = Activator.CreateInstance(type);
 
-                ((AbIdDatabaseImporter)instance).ImportGatewaysAndPools();
-                ((AbIdDatabaseImporter)instance).ImportPhoneCalls();
+            //    ((AbIdDatabaseImporter)instance).ImportGatewaysAndPools();
+            //    ((AbIdDatabaseImporter)instance).ImportPhoneCalls();
 
-                string tableName = ((Interfaces.AbIdDatabaseImporter)instance).PhoneCallsTableName;
+            //    string tableName = ((Interfaces.AbIdDatabaseImporter)instance).PhoneCallsTableName;
 
-                Interfaces.ICallMarker callsMarker = new CallMarker();
-                callsMarker.MarkCalls(tableName);
-            }
+            //    Interfaces.ICallMarker callsMarker = new CallMarker();
+            //    callsMarker.MarkCalls(tableName);
+            //}
 
-            
-            
-            //Interfaces.IDatabaseImporter lync2013 = new Lync2013();
-            //lync2013.ImportPhoneCalls();
 
-            //Interfaces.IDatabaseImporter lync2013 = new Lync2013();
-            //lync2013.ImportGatewaysAndPools();
-
-           
-
-            //Interfaces.ICallMarker callsMarker = new CallMarker_Lync2013();
-            //callsMarker.ApplyRates();
+            ICallMarker callsMarker = new CallMarker();
+            callsMarker.ApplyRates("PhoneCalls2010");
+            //callsMarker.ApplyRates("PhoneCalls2010");
 
         }
     }
