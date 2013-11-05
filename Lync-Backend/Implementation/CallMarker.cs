@@ -47,10 +47,10 @@ namespace Lync_Backend.Implementation
 
             if (DateTime.Compare(from, DateTime.MinValue) != 0 || DateTime.Compare(to, DateTime.MaxValue) != 0 || !string.IsNullOrEmpty(gateway))
             {
-                if (DateTime.Compare(from, DateTime.MinValue) != 0)
+                if (DateTime.Compare(from, DateTime.MinValue) == 0)
                     from = from.AddYears(1799);
 
-                if (DateTime.Compare(to, DateTime.MaxValue) != 0)
+                if (DateTime.Compare(to, DateTime.MaxValue) == 0)
                     to = to.AddDays(-1);
 
                 SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, gateway, from, to);
@@ -138,10 +138,10 @@ namespace Lync_Backend.Implementation
 
            if (DateTime.Compare(from, DateTime.MinValue) != 0 || DateTime.Compare(to, DateTime.MaxValue) != 0 || !string.IsNullOrEmpty(gateway))
             {
-                if (DateTime.Compare(from, DateTime.MinValue) != 0)
+                if (DateTime.Compare(from, DateTime.MinValue) == 0)
                     from = from.AddYears(1799);
 
-                if (DateTime.Compare(to, DateTime.MaxValue) != 0)
+                if (DateTime.Compare(to, DateTime.MaxValue) == 0)
                     to = to.AddDays(-1);
 
                 SQL = Misc.CREATE_READ_PHONE_CALLS_QUERY(tablename, gateway, from, to);
