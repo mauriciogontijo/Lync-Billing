@@ -16,6 +16,8 @@ namespace Lync_Backend.Helpers
 
         //TODO: every Get_ChargeableCalls function should return a new column represents which table the phone call object is located 
 
+        #region Chargeable Calls Functions
+        
         //Returns List of Chargeable Calls For A specific User
         public static void Get_ChargeableCalls_ForUser() { }
 
@@ -24,24 +26,42 @@ namespace Lync_Backend.Helpers
 
         //Returns List of chargeable Calls for  users specific deparment in a specific Site
         public static void Get_ChargeableCalls_ForSiteDepartment() { }
+        
+        #endregion
 
-        //Top Destinations by Cost Per User
-        public static void Get_TopDestinations_ForUser_ByCost() { }
 
-        //Top Destinations by Cost Per Site
-        public static void Get_TopDestinations_ForSite_ByCost() { }
+        #region Invoiced Calls Function
+        
+        //Returns List of invoiced Calls For A specific User
+        public static void Get_ChargedCalls_ForUser() { }
 
-        //Top Destinations by Cost Per Department Per Site
-        public static void Get_TopDestinations_ForSiteDepartment_ByCost() { }
+        //Returns List of invoiced Calls For users in Specific Site
+        public static void Get_ChargedCalls_ForSite() { }
 
-        //Top Destinations By Count by Cost Per User
-        public static void Get_TopDestinations_ForUser_ByCount() { }
+        //Returns List of invoiced Calls for  users specific deparment in a specific Site
+        public static void Get_ChargedCalls_ForSiteDepartment() { }
 
-        //Top Destinations By Count by Cost Per Site
-        public static void Get_TopDestinations_ForSite_ByCount() { }
+        #endregion
 
-        //Top Destinations By Count by Cost Per Department Per Site
-        public static void Get_TopDestinations_ForSiteDepartment_ByCount() { }
+
+        #region Destinations Summaries Functions
+
+        //Get Destinations with duration/cost/count Per User
+        public static void Get_DestinationsSummary_ForUser() { }
+
+        //Get Destinations with duration/cost/count Per Site
+        public static void Get_DestinationsSummary_ForSite() { }
+
+        //Get Destinations with duration/cost/count Per Department Per Site
+        public static void Get_DestinationsSummary_ForSiteDepartment() { }
+
+        //Get Destinations with duration/cost/count  per gateway by cost
+        public static void Get_DestinationsSummary_PerGateway() { }
+
+        #endregion
+
+
+        #region Calls Summaries Functions
 
         //Get Calls Summary Per User
         public static void Get_CallsSummary_ForUser() { }
@@ -54,5 +74,27 @@ namespace Lync_Backend.Helpers
 
         //Get Calls Summary for A Department in A Site
         public static void Get_CallsSummary_ForSiteDepartment() { }
+
+        #endregion
+
+
+        #region Gateways Summaries Functions
+
+        //Get Gateways Summary(Total Duration/Cost/Count) for a user
+        public static void Get_GatewaySummary_PerUser() { }
+
+        //Get Gateways Summary(Total Duration/Cost/Count) for a site
+        public static void Get_GatewaySummary_PerSite() { }
+
+        //Get Gateways Summary(Total Duration/Cost/Count) for users per site
+        public static void Get_GatewaySummary_ForUsers_PerSite() { }
+
+        //Get Gateways Summary(Total Duration/Cost/Count) for department in a site
+        public static void Get_GatewaySummary_PerSiteDepartment() { }
+
+        //Get Gateways Summary(Total Duration/Cost/Count) for users in a department per site
+        public static void Get_GatewaySummary_ForUsers_PerSiteDepartment() { }
+        
+        #endregion
     }
 }
