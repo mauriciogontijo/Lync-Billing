@@ -46,7 +46,11 @@ namespace Lync_Backend.Implementation
             string srcDIDdsc = string.Empty; 
             string dstDIDdsc = string.Empty;
 
-            if (thisCall.SessionIdTime == "2013-05-31 05:18:50.653")
+            if (thisCall.SessionIdTime == "2011-12-01 11:55:06.237" ||
+                thisCall.SessionIdTime == "2011-12-23 05:42:41.950" ||
+                thisCall.SessionIdTime == "2011-12-24 14:17:03.667" ||
+                thisCall.SessionIdTime == "2013-05-15 07:43:25.963" ||
+                thisCall.SessionIdTime == "2013-05-13 14:19:17.777")
             {
                 string x = string.Empty;
             }
@@ -69,15 +73,6 @@ namespace Lync_Backend.Implementation
 
             MatchDID(thisCall.SourceNumberUri, out srcDIDdsc);
             MatchDID(thisCall.DestinationNumberUri, out dstDIDdsc);
-
-            //Incoming Call
-            if (string.IsNullOrEmpty(thisCall.SourceUserUri) || !Misc.IsValidEmail(thisCall.SourceUserUri))
-            {
-                thisCall.Marker_CallType = "INCOMING-CALL";
-                thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
-
-                return thisCall;
-            }
 
             //Voice Mail
             if (thisCall.SourceUserUri == thisCall.DestinationUserUri || thisCall.SourceNumberUri == thisCall.DestinationNumberUri)
@@ -243,6 +238,14 @@ namespace Lync_Backend.Implementation
 
         public PhoneCalls ApplyRate(PhoneCalls thisCall)
         {
+            if (thisCall.SessionIdTime == "2011-12-01 11:55:06.237" ||
+                thisCall.SessionIdTime == "2011-12-23 05:42:41.950" ||
+                thisCall.SessionIdTime == "2011-12-24 14:17:03.667" ||
+                thisCall.SessionIdTime == "2013-05-15 07:43:25.963" ||
+                thisCall.SessionIdTime == "2013-05-13 14:19:17.777") 
+            {
+                string x = string.Empty;
+            }
 
             if (!string.IsNullOrEmpty(thisCall.ToGateway))
             {
