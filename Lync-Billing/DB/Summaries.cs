@@ -387,7 +387,7 @@ namespace Lync_Billing.DB
                 pdfColumnsSchema = pdfReportProperties.ColumnsNames();
             }
             
-            headers.Add("comments", "* Please note that the terms: Business, Personal and Unallocated Calls Costs were abbreviated as Bus. Cost, Per. Cost and Unac. Cost respectively in the following report's columns-headers.");
+            headers.Add("comments", "* Please note that the columns headers below - Business, Personal and Unallocated - refer to the Costs of the phonecalls based on their type.");
 
 
             //Get the report content from the database
