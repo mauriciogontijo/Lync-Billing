@@ -6,6 +6,8 @@ using System.Data;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Lync_Billing.Libs;
+using Lync_Billing.ConfigurationSections;
+using System.Configuration;
 
 namespace Lync_Billing.DB
 {
@@ -366,20 +368,33 @@ namespace Lync_Billing.DB
 
         public static void ExportUsersCallsSummaryToPDF(DateTime startingDate, DateTime endingDate, string siteName, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
+            //THE PDF REPORT PROPERTIES
+            PDFReportsPropertiesSection section = ((PDFReportsPropertiesSection)ConfigurationManager.GetSection(PDFReportsPropertiesSection.ConfigurationSectionName));
+            PDFReportPropertiesElement pdfReportProperties = section.GetReportProperties("AccountingSummary");
+
+            //Database related
             DataTable dt = new DataTable();
             List<string> columns = new List<string>(); //this is used to be passed tothe DISNTINCT_USERS_STATS function, as an empty list param
-            List<string> columnSchema = new List<string>() { "AD_UserID", "SourceUserUri", "AD_DisplayName", "BusinessCost", "PersonalCost", "UnMarkedCost" }; //This is passed to the PdfLib
-            int[] widths = new int[] { 4, 6, 7, 4, 4, 4 };
+            Dictionary<string, object> totals;
+
+            //These two are passed to the PdfLib
+            int[] pdfColumnsWidths = new int[] { };
+            List<string> pdfColumnsSchema = new List<string>(); 
+            
+            if (pdfReportProperties != null)
+            {
+                pdfColumnsWidths = pdfReportProperties.ColumnsWidths();
+                pdfColumnsSchema = pdfReportProperties.ColumnsNames();
+            }
             
             headers.Add("comments", "* Please note that the terms: Business, Personal and Unallocated Calls Costs were abbreviated as Bus. Cost, Per. Cost and Unac. Cost respectively in the following report's columns-headers.");
 
-            //dt = StatRoutines.DISTINCT_USERS_STATS_SUMMARY(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
+
+            //Get the report content from the database
             dt = StatRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, UsersCollection.Keys.ToList(), columns);
 
-            Dictionary<string, object> totals;
-
-            //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
             
+            //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
             try
             {
                 totals = new Dictionary<string, object>()
@@ -399,15 +414,32 @@ namespace Lync_Billing.DB
                 };
             }
 
-            document = PDFLib.CreateAccountingSummaryReport(response, dt, totals, headers, columnSchema, widths);
+            document = PDFLib.CreateAccountingSummaryReport(response, dt, totals, headers, pdfColumnsSchema, pdfColumnsWidths);
         }
+
 
         public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, string siteName, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
-            DataTable dt = new DataTable();
+            //THE PDF REPORT PROPERTIES
+            PDFReportsPropertiesSection section = ((PDFReportsPropertiesSection)ConfigurationManager.GetSection(PDFReportsPropertiesSection.ConfigurationSectionName));
+            PDFReportPropertiesElement pdfReportProperties = section.GetReportProperties("AccountingDetailed");
 
-            //PDF Document related variables;
-            List<string> columns = new List<string>()
+            //Database query related
+            DataTable dt;
+            List<string> columns;
+
+            //This is passed to the PdfLib
+            List<string> pdfColumnsSchema = new List<string>();
+            int[] pdfColumnsWidths = new int[] { };
+
+            if (pdfReportProperties != null)
+            {
+                pdfColumnsWidths = pdfReportProperties.ColumnsWidths();
+                pdfColumnsSchema = pdfReportProperties.ColumnsNames();
+            }
+
+            //Database query related
+            columns = new List<string>()
             { 
                 "SourceUserUri", 
                 "ResponseTime", 
@@ -418,25 +450,14 @@ namespace Lync_Billing.DB
                 "ui_CallType"
             };
 
-            //This is passed to the PdfLib
-            List<string> pdfColumnSchema = new List<string>()
-            {
-                "ResponseTime",
-                "marker_CallToCountry",
-                "DestinationNumberUri",
-                "Duration",
-                "marker_CallCost",
-                "ui_CallType"
-            };
-
-            int[] widths = new int[] { 7, 4, 6, 4, 3, 4 };
-
             //The PDF report body contents
             dt = StatRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
+
+            //Get the collection of users' summaries.
             Dictionary<string, UserCallsSummary> UsersSummaires = UserCallsSummary.GetUsersCallsSummary(UsersCollection.Keys.ToList(), startingDate, endingDate, siteName);
 
             //Get a closed instance of the document which contains all the formatted data
-            document = PDFLib.CreateAccountingDetailedReport(response, dt, widths, pdfColumnSchema, headers, "SourceUserUri", UsersCollection, UsersSummaires);
+            document = PDFLib.CreateAccountingDetailedReport(response, dt, pdfColumnsWidths, pdfColumnsSchema, headers, "SourceUserUri", UsersCollection, UsersSummaires);
         }
         
     }
