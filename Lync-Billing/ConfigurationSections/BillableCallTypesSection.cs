@@ -10,13 +10,13 @@ namespace Lync_Billing.ConfigurationSections
 
     public class BillableTypeElement : ConfigurationElement
     {
-        [ConfigurationProperty("name", IsKey=true, IsRequired=true)]
+        [ConfigurationProperty("name", IsKey = true, IsRequired = true)]
         public string Name
         {
             get { return this["name"].ToString(); }
         }
 
-        [ConfigurationProperty("value")]
+        [ConfigurationProperty("value", IsRequired = true)]
         public int Value
         {
             get { return Convert.ToInt32(this["value"]); }

@@ -16,7 +16,7 @@ namespace Lync_Billing.ConfigurationSections
             get { return this["name"].ToString(); }
         }
 
-        [ConfigurationProperty("value")]
+        [ConfigurationProperty("value", IsRequired = true)]
         public string Value
         {
             get { return this["value"].ToString(); }
@@ -66,7 +66,6 @@ namespace Lync_Billing.ConfigurationSections
                 return tablesList;
             }
         }
-
-        
     }
+
 }
