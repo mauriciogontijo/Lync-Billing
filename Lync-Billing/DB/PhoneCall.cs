@@ -335,13 +335,35 @@ namespace Lync_Billing.DB
             
         }
 
-        public static void ExportUserPhoneCalls(List<string> columns, Dictionary<string, object> wherePart, int limits, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        public static void ExportUserPhoneCalls(string sipAccount, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
+            //THE PDF REPORT PROPERTIES
+            PDFReportsPropertiesSection section = ((PDFReportsPropertiesSection)ConfigurationManager.GetSection(PDFReportsPropertiesSection.ConfigurationSectionName));
+            PDFReportPropertiesElement pdfReportProperties = section.GetReportProperties("UserPhoneCalls");
+
             DataTable dt = new DataTable();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            List<string> columns = new List<string>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, limits);
-
+            int[] pdfColumnWidths = { };
             Dictionary<string, object> totals;
+
+
+            //Initialize all the database-related data collections
+            wherePart.Add("SourceUserUri", sipAccount);
+            wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("Exclude", false);
+
+            if (pdfReportProperties != null)
+            {
+                columns = pdfReportProperties.ColumnsNames();
+                pdfColumnWidths = pdfReportProperties.ColumnsWidths();
+            }
+
+
+            //Get the user phonecalls from the database
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, 0);
+
 
             //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
             try
@@ -362,14 +384,11 @@ namespace Lync_Billing.DB
                 };
             }
 
-            int[] widths = new int [] { 6, 3, 5, 3, 3, 3 };
-            //int[] widths = new int[] { };
-
             document = PDFLib.InitializePDFDocument(response);
-            PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, widths);
+            PdfPTable pdfContentsTable = PDFLib.InitializePDFTable(dt.Columns.Count, pdfColumnWidths);
             PDFLib.AddPDFHeader(ref document, headers);
             PDFLib.AddPDFTableContents(ref document, ref pdfContentsTable, dt);
-            PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, widths);
+            PDFLib.AddPDFTableTotalsRow(ref document, totals, dt, pdfColumnWidths);
             PDFLib.ClosePDFDocument(ref document);
         }
     
