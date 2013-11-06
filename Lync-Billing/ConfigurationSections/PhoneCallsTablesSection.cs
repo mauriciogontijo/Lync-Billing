@@ -46,6 +46,11 @@ namespace Lync_Billing.ConfigurationSections
 
     public class PhoneCallsTablesSection : ConfigurationSection
     {
+        public static string ConfigurationSectionName
+        {
+            get { return "PhoneCallsTablesSection"; }
+        }
+
         [ConfigurationProperty("PhoneCallsTables")]
         public PhoneCallsTablesCollection PhoneCallsTables
         {

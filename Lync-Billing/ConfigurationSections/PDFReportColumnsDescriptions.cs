@@ -36,6 +36,11 @@ namespace Lync_Billing.ConfigurationSections
 
     public class PDFReportColumnsDescriptionsSection : ConfigurationSection
     {
+        public static string ConfigurationSectionName
+        {
+            get { return "PDFReportColumnsDescriptionsSection"; }
+        }
+
         [ConfigurationProperty("PDFReportColumnsDescriptions")]
         public PDFReportColumnsDescriptionsCollection PDFReportColumnsDescriptions
         {
@@ -55,6 +60,14 @@ namespace Lync_Billing.ConfigurationSections
 
                 return columnsDescription;
             }
+        }
+
+        public string GetDescription(string columnName)
+        {
+            if (PDFReportColumnsDescriptionsMap.Keys.Contains(columnName))
+                return PDFReportColumnsDescriptionsMap[columnName];
+            else
+                return columnName;
         }
     }
 

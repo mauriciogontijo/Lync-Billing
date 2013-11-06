@@ -38,6 +38,11 @@ namespace Lync_Billing.ConfigurationSections
 
     public class BillableCallTypesSection : ConfigurationSection
     {
+        public static string ConfigurationSectionName
+        {
+            get { return "BillableCallTypesSection"; }
+        }
+
         [ConfigurationProperty("BillableTypes")]
         public BillableTypeCollection BillableTypes
         {
