@@ -49,7 +49,7 @@ namespace Lync_Billing.ui.test
             {
                 wherePart.Add("SourceUserUri", sipAccount);
                 //wherePart.Add("ac_IsInvoiced", "NO");
-                wherePart.Add("marker_CallTypeID", 1);
+                wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
 
                 columns.Add("SessionIdTime");
                 columns.Add("SessionIdSeq");
@@ -120,18 +120,6 @@ namespace Lync_Billing.ui.test
                 case "pdf":
                     sipAccount = "AAlhour@ccc.gr";
 
-                    wherePart.Add("SourceUserUri", sipAccount);
-                    //wherePart.Add("ui_CallType", "Personal");
-                    wherePart.Add("marker_CallTypeID", 1);
-                    //wherePart.Add("ac_IsInvoiced", "NO");
-
-                    columns.Add("ResponseTime");
-                    columns.Add("marker_CallToCountry");
-                    columns.Add("DestinationNumberUri");
-                    columns.Add("Duration");
-                    columns.Add("marker_CallCost");
-                    columns.Add("ui_CallType");
-
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -143,7 +131,7 @@ namespace Lync_Billing.ui.test
                     };
 
                     Document doc = new Document();
-                    PhoneCall.ExportUserPhoneCalls(columns, wherePart, 0, Response, out doc, headers);
+                    PhoneCall.ExportUserPhoneCalls(sipAccount, Response, out doc, headers);
 
                     Response.Write(doc);
                     

@@ -139,17 +139,6 @@ namespace Lync_Billing.ui.user
                     UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
                     sipAccount = userSession.EffectiveSipAccount;
 
-                    wherePart.Add("SourceUserUri", sipAccount);
-                    wherePart.Add("marker_CallTypeID", 1);
-                    //wherePart.Add("ac_IsInvoiced", "NO");
-
-                    columns.Add("ResponseTime");
-                    columns.Add("marker_CallToCountry");
-                    columns.Add("DestinationNumberUri");
-                    columns.Add("Duration");
-                    columns.Add("marker_CallCost");
-                    columns.Add("ui_CallType");
-
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -161,7 +150,7 @@ namespace Lync_Billing.ui.user
                     };
 
                     Document doc = new Document();
-                    PhoneCall.ExportUserPhoneCalls(columns, wherePart, 0, Response, out doc, headers);
+                    PhoneCall.ExportUserPhoneCalls(sipAccount, Response, out doc, headers);
                     
                     Response.Write(doc);
 
