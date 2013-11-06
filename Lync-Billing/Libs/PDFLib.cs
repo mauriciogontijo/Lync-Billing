@@ -1,22 +1,22 @@
-﻿
-using System;
+﻿using System;
 using System.IO;
 using System.Data;
 using System.Web;
 using System.Linq;
 using System.Collections.Generic;
+using System.Configuration;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using Lync_Billing.DB;
+using Lync_Billing.ConfigurationSections;
 
 namespace Lync_Billing.Libs
 {
     public class PDFLib 
     {
-        public static IElement titleParagraph { get; set; }
-
+        private static IElement titleParagraph { get; set; }
         private static Font titleFont = FontFactory.GetFont("Arial", 20, Font.BOLD);
         private static Font subTitleFont = FontFactory.GetFont("Arial", 16, Font.BOLD);
         private static Font headerCommentsFont = FontFactory.GetFont("Arial", 9, Font.ITALIC);
@@ -24,6 +24,13 @@ namespace Lync_Billing.Libs
         private static Font endingMessageFont = FontFactory.GetFont("Arial", 10, Font.ITALIC);
         private static Font bodyFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
         private static Font bodyFontSmall = FontFactory.GetFont("Arial", 10, Font.NORMAL);
+
+        //Get the whole section with it's methods
+        private static PDFReportColumnsDescriptionsSection ReportColumnsDescriptionsSection = (PDFReportColumnsDescriptionsSection)ConfigurationManager.GetSection(PDFReportColumnsDescriptionsSection.ConfigurationSectionName);
+
+        //Get the Report Columns Descriptions from the Configuration file.
+        public static Dictionary<string, string> ReportColumnsDescriptions = ReportColumnsDescriptionsSection.PDFReportColumnsDescriptionsMap;
+
 
         public static Document InitializePDFDocument(HttpResponse response)
         {
@@ -98,7 +105,7 @@ namespace Lync_Billing.Libs
 
             foreach (DataColumn c in dt.Columns)
             {
-                pdfTable.AddCell(new Phrase(PDFDefinitions.GetDescription(c.ColumnName), boldTableFont));
+                pdfTable.AddCell(new Phrase(ReportColumnsDescriptionsSection.GetDescription(c.ColumnName), boldTableFont));
             }
 
             foreach (DataRow r in dt.Rows)
@@ -114,7 +121,7 @@ namespace Lync_Billing.Libs
                         cellText = "N/A";
 
                     //Format the cell text if it's the case of Duration
-                    if (PDFDefinitions.GetDescription(column.ColumnName) == "Duration" && cellText != "N/A")
+                    if (ReportColumnsDescriptionsSection.GetDescription(column.ColumnName) == "Duration" && cellText != "N/A")
                     {
                         entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(cellText)), bodyFontSmall));
                     }
@@ -146,7 +153,7 @@ namespace Lync_Billing.Libs
                 {
                     if (dt.Columns.Contains(column))
                     {
-                        pdfTable.AddCell(new Phrase(PDFDefinitions.GetDescription(column), boldTableFont));
+                        pdfTable.AddCell(new Phrase(ReportColumnsDescriptionsSection.GetDescription(column), boldTableFont));
                     }
                 }
 
@@ -161,7 +168,7 @@ namespace Lync_Billing.Libs
                         //Format the cell text if it's the case of Duration
                         if (dt.Columns.Contains(column))
                         {
-                            if (PDFDefinitions.GetDescription(column) == "Duration")
+                            if (ReportColumnsDescriptionsSection.GetDescription(column) == "Duration")
                             {
                                 entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(r[column])), bodyFontSmall));
                             }
@@ -216,7 +223,7 @@ namespace Lync_Billing.Libs
 
                     foreach (DataColumn c in dt.Columns)
                     {
-                        pdfTable.AddCell(new Phrase(PDFDefinitions.GetDescription(c.ColumnName), boldTableFont));
+                        pdfTable.AddCell(new Phrase(ReportColumnsDescriptionsSection.GetDescription(c.ColumnName), boldTableFont));
                     }
 
                     foreach (DataRow r in selectedDataRows)
@@ -232,7 +239,7 @@ namespace Lync_Billing.Libs
                                 cellText = "N/A";
 
                             //Format the cell text if it's the case of Duration
-                            if (PDFDefinitions.GetDescription(column.ColumnName) == "Duration" && cellText != "N/A")
+                            if (ReportColumnsDescriptionsSection.GetDescription(column.ColumnName) == "Duration" && cellText != "N/A")
                             {
                                 entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(cellText)), bodyFontSmall));
                             }
@@ -467,7 +474,7 @@ namespace Lync_Billing.Libs
             {
                 if (dt.Columns.Contains(column))
                 {
-                    pdfMainTable.AddCell(new Phrase(PDFDefinitions.GetDescription(column), boldTableFont));
+                    pdfMainTable.AddCell(new Phrase(ReportColumnsDescriptionsSection.GetDescription(column), boldTableFont));
                 }
             }
 
@@ -482,7 +489,7 @@ namespace Lync_Billing.Libs
                     //Format the cell text if it's the case of Duration
                     if (dt.Columns.Contains(column))
                     {
-                        if (PDFDefinitions.GetDescription(column) == "Duration")
+                        if (ReportColumnsDescriptionsSection.GetDescription(column) == "Duration")
                         {
                             entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(r[column])), bodyFontSmall));
                         }
@@ -691,7 +698,7 @@ namespace Lync_Billing.Libs
                 {
                     if (dt.Columns.Contains(column))
                     {
-                        pdfTable.AddCell(new Phrase(PDFDefinitions.GetDescription(column), boldTableFont));
+                        pdfTable.AddCell(new Phrase(ReportColumnsDescriptionsSection.GetDescription(column), boldTableFont));
                     }
                 }
 
@@ -711,7 +718,7 @@ namespace Lync_Billing.Libs
                                 cellText = "N/A";
 
                             //Format the cell text if it's the case of Duration
-                            if (PDFDefinitions.GetDescription(column) == "Duration" && cellText != "N/A")
+                            if (ReportColumnsDescriptionsSection.GetDescription(column) == "Duration" && cellText != "N/A")
                             {
                                 entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(cellText)), bodyFontSmall));
                             }
