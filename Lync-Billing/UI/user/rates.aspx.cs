@@ -16,7 +16,10 @@ namespace Lync_Billing.ui.user
 {
     public partial class rates : System.Web.UI.Page
     {
+        UserSession session;
         private string sipAccount = string.Empty;
+        private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
+        private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.Delegee);
 
         private List<Gateway> gateways = new List<Gateway>();
         private List<Gateway> filteredGateways = new List<Gateway>();
@@ -32,8 +35,8 @@ namespace Lync_Billing.ui.user
             }
             else
             {
-                UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-                if (session.ActiveRoleName != "user" && session.ActiveRoleName != "delegee")
+                session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+                if (session.ActiveRoleName != normalUserRoleName && session.ActiveRoleName != userDelegeeRoleName)
                 {
                     string url = @"~/ui/session/authenticate.aspx?access=" + session.ActiveRoleName;
                     Response.Redirect(url);

@@ -53,7 +53,7 @@
                         ID="signin_submit" 
                         runat="server" 
                         Text="Signin" 
-                        OnClick="authenticate_user"/>
+                        OnClick="AuthenticateUser"/>
 				</div>
 
                 <div class="auth-msg red-color"><%= AuthenticationMessage.ToString() %></div>

@@ -16,23 +16,23 @@ namespace Lync_Billing.ui.admin.main
     public partial class configuration : System.Web.UI.Page
     {
         string sipAccount = string.Empty;
+        private UserSession session;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
-                string redirect_to = @"~/ui/admin/main/dashboard.aspx";
+                string redirect_to = @"~/ui/sysadmin/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
-                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
-                UserSession session = new UserSession();
-                session = (UserSession)Session.Contents["UserData"];
+                session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "sysadmin")
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=sysadmin");
                 }

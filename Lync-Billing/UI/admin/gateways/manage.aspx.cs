@@ -15,13 +15,13 @@ namespace Lync_Billing.ui.admin.gateways
 {
     public partial class manage : System.Web.UI.Page
     {
-
-        List<GatewayRate> gatewayRates = new List<GatewayRate>();
-        List<GatewayDetail> gatewayDetails = new List<GatewayDetail>();
-
-        List<Site> sites = new List<Site>();
-        List<Pool> pools = new List<Pool>();
-        List<Currencies> currencies = new List<Currencies>();
+        private List<GatewayRate> gatewayRates = new List<GatewayRate>();
+        private List<GatewayDetail> gatewayDetails = new List<GatewayDetail>();
+        private List<Site> sites = new List<Site>();
+        private List<Pool> pools = new List<Pool>();
+        private List<Currencies> currencies = new List<Currencies>();
+        private UserSession session;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,14 +31,12 @@ namespace Lync_Billing.ui.admin.gateways
                 string redirect_to = @"~/ui/admin/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
-                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
-                UserSession session = new UserSession();
-                session = (UserSession)Session.Contents["UserData"];
+                session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "admin")
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
                 }

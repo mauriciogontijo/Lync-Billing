@@ -16,11 +16,14 @@ namespace Lync_Billing.ui.user
 {
     public partial class dashboard : System.Web.UI.Page
     {
+        UserSession session;
+        private string sipAccount = string.Empty;
+        private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
+        private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.Delegee);
+        
         public int unmarkedCallsCount = 0;
         UserCallsSummary UserSummary = new UserCallsSummary();
         List<UserCallsSummary> UserSummaryList = new List<UserCallsSummary>();
-
-        private string sipAccount = string.Empty;
 
         public Dictionary<string, PhoneBook> phoneBookEntries;
         public List<TopDestinations> topDestinations;
@@ -34,6 +37,7 @@ namespace Lync_Billing.ui.user
         //This actually takes a copy of the current session for some uses on the frontend.
         public UserSession current_session { get; set; }
 
+
         protected void Page_Load(object sender, EventArgs e)
         {
            //If the user is not loggedin, redirect to Login page.
@@ -45,14 +49,13 @@ namespace Lync_Billing.ui.user
             }
             else
             {
-                UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-                if (session.ActiveRoleName != "user" && session.ActiveRoleName != "delegee")
+                session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+                if (session.ActiveRoleName != normalUserRoleName && session.ActiveRoleName != userDelegeeRoleName)
                 {
                     string url = @"~/ui/session/authenticate.aspx?access=" + session.ActiveRoleName;
                     Response.Redirect(url);
                 }
             }
-
 
             //Copy the current session to the instance variable, this is needed to make it more easier to access the current session from the front-end.
             current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
@@ -121,11 +124,11 @@ namespace Lync_Billing.ui.user
         
         protected int getUnmarkedCallsCount()
         {
-            wherePart.Add("SourceUserUri", sipAccount);
-            wherePart.Add("ui_CallType", null);
-            wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
-            wherePart.Add("Exclude", 0);
-            //wherePart.Add("ac_IsInvoiced", "NO");
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount);
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null);
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID), PhoneCall.BillableCallTypesList);
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Exclude), 0);
+            //wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "NO");
 
             phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
 

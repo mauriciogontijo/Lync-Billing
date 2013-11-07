@@ -19,6 +19,7 @@ namespace Lync_Billing.ui.admin.gateways
         private List<Gateway> gateways = new List<Gateway>();
         private List<Gateway> filteredGateways = new List<Gateway>();
         private UserSession session;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,13 +29,12 @@ namespace Lync_Billing.ui.admin.gateways
                 string redirect_to = @"~/ui/admin/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
-                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
                 session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "admin")
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
                 }

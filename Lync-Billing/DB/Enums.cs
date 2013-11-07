@@ -283,7 +283,9 @@ namespace Lync_Billing.DB
             [Description("ac_IsInvoiced")]
             AC_IsInvoiced,
             [Description("ac_InvoiceDate")]
-            AC_InvoiceDate
+            AC_InvoiceDate,
+            [Description("Exclude")]
+            Exclude
         }
 
         public enum UsersCallsSummary
@@ -470,6 +472,24 @@ namespace Lync_Billing.DB
             IsSiteAccountant,
             [Description("IsDepartmentHead")]
             IsDepartmentHead
+        }
+
+        public enum ActiveRoleNames
+        {
+            [Description("developer")]
+            Developer,
+            [Description("sysadmin")]
+            SystemAdmin,
+            [Description("admin")]
+            SiteAdmin,
+            [Description("accounting")]
+            SiteAccountant,
+            [Description("dephead")]
+            DepartmentHead,
+            [Description("delegee")]
+            Delegee,
+            [Description("user")]
+            NormalUser
         }
 
         public enum DepartmentHeads

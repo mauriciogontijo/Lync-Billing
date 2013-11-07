@@ -27,10 +27,11 @@ namespace Lync_Billing.ui.accounting.reports
     {
         private Dictionary<string, object> wherePart = new Dictionary<string, object>();
         private List<string> columns = new List<string>();
-        List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
-        List<string> sites = new List<string>();
+        private List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
+        private List<string> sites = new List<string>();
         private string sipAccount = string.Empty;
         private UserSession session;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -40,13 +41,12 @@ namespace Lync_Billing.ui.accounting.reports
                 string redirect_to = @"~/ui/accounting/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
-                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
                 session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "accounting")
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
                 }

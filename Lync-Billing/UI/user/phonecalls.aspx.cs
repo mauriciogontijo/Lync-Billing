@@ -24,10 +24,14 @@ namespace Lync_Billing.ui.user
 {
     public partial class phonecalls : System.Web.UI.Page
     {
+        UserSession session;
+        private string sipAccount = string.Empty;
+        private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
+        private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.Delegee);
+
         private Dictionary<string, object> wherePart = new Dictionary<string, object>();
         private List<string> columns = new List<string>();
         private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
-        private string sipAccount = string.Empty;
         private string pageData = string.Empty;
         private StoreReadDataEventArgs e;
 
@@ -44,8 +48,8 @@ namespace Lync_Billing.ui.user
             }
             else
             {
-                UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-                if (session.ActiveRoleName != "user" && session.ActiveRoleName != "delegee")
+                session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+                if (session.ActiveRoleName != normalUserRoleName && session.ActiveRoleName != userDelegeeRoleName)
                 {
                     string url = @"~/ui/session/authenticate.aspx?access=" + session.ActiveRoleName;
                     Response.Redirect(url);
@@ -61,25 +65,23 @@ namespace Lync_Billing.ui.user
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = userSession.EffectiveSipAccount;
 
-           
-
             if (userSession.PhoneCalls == null || userSession.PhoneCalls.Count == 0 || force == true)
             {
-                wherePart.Add("SourceUserUri", sipAccount);
-                wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
-                wherePart.Add("Exclude", 0);
-                //wherePart.Add("ac_IsInvoiced", "NO");
+                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount);
+                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID), PhoneCall.BillableCallTypesList);
+                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Exclude), 0);
+                //wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "NO");
 
-                columns.Add("SessionIdTime");
-                columns.Add("SessionIdSeq");
-                columns.Add("ResponseTime");
-                columns.Add("SessionEndTime");
-                columns.Add("marker_CallToCountry");
-                columns.Add("DestinationNumberUri");
-                columns.Add("Duration");
-                columns.Add("marker_CallCost");
-                columns.Add("ui_CallType");
-                columns.Add("ui_MarkedOn");
+                columns.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime));
+                columns.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq));
+                columns.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime));
+                columns.Add(Enums.GetDescription(Enums.PhoneCalls.SessionEndTime));
+                columns.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry));
+                columns.Add(Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri));
+                columns.Add(Enums.GetDescription(Enums.PhoneCalls.Duration));
+                columns.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost));
+                columns.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType));
+                columns.Add(Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn));
 
                 userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
                 xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);

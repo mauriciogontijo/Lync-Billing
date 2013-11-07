@@ -16,13 +16,12 @@ namespace Lync_Billing.ui.sysadmin.manage
     public partial class gateways : System.Web.UI.Page
     {
         private UserSession session;
-
-        List<GatewayRate> gatewayRates = new List<GatewayRate>();
-        List<GatewayDetail> gatewayDetails = new List<GatewayDetail>();
-
-        List<Site> sites = new List<Site>();
-        List<Pool> pools = new List<Pool>();
-        List<Currencies> currencies = new List<Currencies>();
+        private List<GatewayRate> gatewayRates = new List<GatewayRate>();
+        private List<GatewayDetail> gatewayDetails = new List<GatewayDetail>();
+        private List<Site> sites = new List<Site>();
+        private List<Pool> pools = new List<Pool>();
+        private List<Currencies> currencies = new List<Currencies>();
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,13 +31,12 @@ namespace Lync_Billing.ui.sysadmin.manage
                 string redirect_to = @"~/ui/sysadmin/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
-                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
                 session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "sysadmin")
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=sysadmin");
                 }

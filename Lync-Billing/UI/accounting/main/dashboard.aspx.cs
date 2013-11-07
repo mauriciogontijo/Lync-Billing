@@ -16,6 +16,7 @@ namespace Lync_Billing.ui.accounting.main
     public partial class dashboard : System.Web.UI.Page
     {
         public UserSession currentSession { get; set; }
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,7 +33,7 @@ namespace Lync_Billing.ui.accounting.main
                 //Initialize the local cope of the current user's session
                 currentSession = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (currentSession.ActiveRoleName != "accounting")
+                if (currentSession.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
                 }

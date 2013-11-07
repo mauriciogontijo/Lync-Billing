@@ -15,8 +15,9 @@ namespace Lync_Billing.ui.accounting.main
 {
     public partial class disputed : System.Web.UI.Page
     {
-        Dictionary<string, object> wherePart = new Dictionary<string, object>();
-        List<string> columns = new List<string>();
+        private Dictionary<string, object> wherePart = new Dictionary<string, object>();
+        private List<string> columns = new List<string>();
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,7 +34,7 @@ namespace Lync_Billing.ui.accounting.main
                 UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "accounting")
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
                 }

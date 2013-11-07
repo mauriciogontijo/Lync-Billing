@@ -24,6 +24,13 @@ namespace Lync_Billing.ui.session
         private bool redirectionFlag = true;
         private List<string> AccessLevels = new List<string>();
 
+        private string systemAdminRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
+        private string siteAdminRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
+        private string siteAccountantRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
+        private string departmentHeadRoleName = Enums.GetDescription(Enums.ActiveRoleNames.DepartmentHead);
+        private string delegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.Delegee);
+        private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
+
         protected void Page_Load(object sender, EventArgs e)
         {
             HeaderAuthBoxMessage = string.Empty;
@@ -33,7 +40,7 @@ namespace Lync_Billing.ui.session
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
-                Response.Redirect("~/ui/session/login.aspx");
+                Response.Redirect(getHomepageLink("login"));
             }
             //but if the user is actually logged in we only need to check if he was granted elevated-access(s)
             else
@@ -71,15 +78,15 @@ namespace Lync_Billing.ui.session
                         //if the user was authenticated already
                         if (session.ActiveRoleName != "user" && (session.IsSiteAdmin || session.IsSiteAccountant || session.IsDeveloper || session.IsDepartmentHead))
                         {
-                            RedirectToElevatedAccessDasboard(session.ActiveRoleName);
+                            Response.Redirect(getHomepageLink(session.ActiveRoleName));
                         }
 
                         //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
                         else if (
-                            (accessParam == "admin" && session.IsSiteAdmin) ||
-                            (accessParam == "accounting" && session.IsSiteAccountant) ||
-                            (accessParam == "sysadmin" && session.IsSystemAdmin) ||
-                            (accessParam == "dephead" && session.IsDepartmentHead) ||
+                            (accessParam == siteAdminRoleName && session.IsSiteAdmin) ||
+                            (accessParam == siteAccountantRoleName && session.IsSiteAccountant) ||
+                            (accessParam == systemAdminRoleName && session.IsSystemAdmin) ||
+                            (accessParam == departmentHeadRoleName && session.IsDepartmentHead) ||
                             session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
@@ -119,10 +126,10 @@ namespace Lync_Billing.ui.session
                         //Case 1: Drop Admin or Accounting Access
                         if (AccessLevels.Contains(dropParam))
                         {
-                            if ((dropParam == "admin" && session.IsSiteAdmin && session.ActiveRoleName == "admin") ||
-                                (dropParam == "accounting" && session.IsSiteAccountant && session.ActiveRoleName == "accounting") ||
-                                (dropParam == "sysadmin" && session.IsSystemAdmin && session.ActiveRoleName == "sysadmin") ||
-                                (dropParam == "dephead" && session.IsDepartmentHead && session.ActiveRoleName == "dephead") ||
+                            if ((session.IsSiteAdmin && dropParam == siteAdminRoleName && session.ActiveRoleName == siteAdminRoleName) ||
+                                (session.IsSiteAccountant && dropParam == siteAccountantRoleName && session.ActiveRoleName == siteAccountantRoleName) ||
+                                (session.IsSystemAdmin && dropParam == systemAdminRoleName && session.ActiveRoleName == systemAdminRoleName) ||
+                                (session.IsDepartmentHead && dropParam == departmentHeadRoleName && session.ActiveRoleName == departmentHeadRoleName) ||
                                 session.IsDeveloper)
                             {
                                 DropAccess(dropParam);
@@ -136,9 +143,9 @@ namespace Lync_Billing.ui.session
                         else
                         {
                             //The user was already authenticated, redirect him/het to the respective elevated access dashboard
-                            if (session.ActiveRoleName != "user" && session.ActiveRoleName != "delegee")
+                            if (session.ActiveRoleName != normalUserRoleName && session.ActiveRoleName != delegeeRoleName)
                             {
-                                RedirectToElevatedAccessDasboard(session.ActiveRoleName);
+                                Response.Redirect(getHomepageLink(session.ActiveRoleName));
                             }
                             else redirectionFlag = true;
                         }
@@ -152,7 +159,7 @@ namespace Lync_Billing.ui.session
                     {
                         dropParam = Request.QueryString["drop"].ToLower();
 
-                        if (dropParam == "delegee" && session.ActiveRoleName == "delegee")
+                        if (dropParam == delegeeRoleName && session.ActiveRoleName == delegeeRoleName)
                         {
                             DropAccess(dropParam);
 
@@ -168,7 +175,7 @@ namespace Lync_Billing.ui.session
                 //Or if the redirection_flag was not set to FALSE so far, we redurect the user to the USER DASHBOARD
                 if (redirectionFlag == true)
                 {
-                    Response.Redirect("~/ui/user/dashboard.aspx");
+                    Response.Redirect(getHomepageLink(normalUserRoleName));
                 }
             }
 
@@ -176,101 +183,9 @@ namespace Lync_Billing.ui.session
         }//END OF PAGE_LOAD
 
 
-        //This function handles the 
-        public void RedirectToElevatedAccessDasboard(string role)
-        {
-            if (role == "admin")
-            {
-                Response.Redirect("~/ui/admin/main/dashboard.aspx");
-            }
-            else if (role == "accounting")
-            {
-                Response.Redirect("~/ui/accounting/main/dashboard.aspx");
-            }
-            else if (role == "sysadmin")
-            {
-                Response.Redirect("~/ui/sysadmin/main/dashboard.aspx");
-            }
-            else if (role == "dephead")
-            {
-                Response.Redirect("~/ui/dephead/main/dashboard.aspx");
-            }
-        }
-
-
-        //This function is responsilbe for initializing the value of the AccessLevels List instance variable
-        private void InitAccessLevels()
-        {
-            //role_id=30; site-admin
-            AccessLevels.Add("admin");
-
-            //role_id=40; site-accountant
-            AccessLevels.Add("accounting");
-
-            //role_id=20; system-admin
-            AccessLevels.Add("sysadmin");
-
-            //role_id=50; department-head
-            AccessLevels.Add("dephead");
-        }
-
-        //This function handles the switching to delegees
-        private void SwitchToDelegee(string delegeeSipAccount)
-        {
-            //Initialize a temp copy of the User Session
-            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-
-            //Switch identity
-            session.EffectiveSipAccount = delegeeSipAccount;
-            session.EffectiveDisplayName = formatDisplayName(session.ListOfDelegees[session.EffectiveSipAccount]);
-
-            //Initialize the PhoneBook in the session
-            session.PhoneBook = new Dictionary<string, PhoneBook>();
-            session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
-
-            //Clear the PhoneCalls containers in the session
-            session.PhoneCalls = new List<PhoneCall>();
-            session.PhoneCallsPerPage = string.Empty;
-
-            //Set the ActiveRoleName to "delegee"
-            session.ActiveRoleName = "delegee";
-
-            //Redirect to Uer Dashboard
-            Response.Redirect("~/ui/user/dashboard.aspx");
-        }
-
-
-        //This function is responsible for dropping the already-granted elevated-access-permission
-        private void DropAccess(string access)
-        {
-            //Initialize a temp copy of the User Session
-            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-
-            if (access == "delegee")
-            {
-                //Switch back to original identity
-                session.EffectiveSipAccount = session.PrimarySipAccount;
-                session.EffectiveDisplayName = formatDisplayName(session.PrimaryDisplayName);
-
-                //Initialize the PhoneBook in the session
-                session.PhoneBook = new Dictionary<string, PhoneBook>();
-                session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
-
-                //Clear the PhoneCalls containers in the session
-                session.PhoneCalls = new List<PhoneCall>();
-                session.PhoneCallsPerPage = string.Empty;
-            }
-
-            //Always set the ActiveRoleName to "user"
-            session.ActiveRoleName = "user";
-
-            //Redirect to the User Dashboard
-            Response.Redirect("~/ui/user/dashboard.aspx");
-        }
-
 
         //This function is responsible for authenticating the user's information.
-        protected void authenticate_user(object sender, EventArgs e)
+        protected void AuthenticateUser(object sender, EventArgs e)
         {
             bool status = false;
             ADUserInfo userInfo = new ADUserInfo();
@@ -297,66 +212,141 @@ namespace Lync_Billing.ui.session
 
                     if (status == true)
                     {
-                        if (this.access_level.Value == "admin")
+                        if (this.access_level.Value == systemAdminRoleName)
                         {
-                            session.ActiveRoleName = "admin";
-                            Response.Redirect("~/ui/admin/main/dashboard.aspx");
+                            session.ActiveRoleName = systemAdminRoleName;
+                            Response.Redirect(getHomepageLink(systemAdminRoleName));
                         }
-                        else if (this.access_level.Value == "accounting")
+
+                        else if (this.access_level.Value == siteAdminRoleName)
                         {
-                            session.ActiveRoleName = "accounting";
-                            Response.Redirect("~/ui/accounting/main/dashboard.aspx");
+                            session.ActiveRoleName = siteAdminRoleName;
+                            Response.Redirect(getHomepageLink(siteAdminRoleName));
                         }
-                        else if (this.access_level.Value == "sysadmin")
+
+                        else if (this.access_level.Value == siteAccountantRoleName)
                         {
-                            session.ActiveRoleName = "sysadmin";
-                            Response.Redirect("~/ui/sysadmin/main/dashboard.aspx");
+                            session.ActiveRoleName = siteAccountantRoleName;
+                            Response.Redirect(getHomepageLink(siteAdminRoleName));
                         }
-                        else if (this.access_level.Value == "dephead")
+
+                        else if (this.access_level.Value == departmentHeadRoleName)
                         {
-                            session.ActiveRoleName = "dephead";
-                            Response.Redirect("~/ui/dephead/main/dashboard.aspx");
+                            session.ActiveRoleName = departmentHeadRoleName;
+                            Response.Redirect(getHomepageLink(departmentHeadRoleName));
                         }
-                        else if (this.access_level.Value == "delegee" && this.delegee_identity != null)
+
+                        else if (this.access_level.Value == delegeeRoleName && this.delegee_identity != null)
                         {
                             if (session.ListOfDelegees.Keys.Contains(this.delegee_identity.Value))
                             {
                                 SwitchToDelegee(this.delegee_identity.Value);
                             }
-                            else
-                            {
-                                //the value of the access_level hidden field has changed - fraud value!
-                                session.ActiveRoleName = "user";
-                                Response.Redirect("~/ui/user/dashboard.aspx");
-                            }
+                            //else
+                            //{
+                            //    //the value of the access_level hidden field has changed - fraud value!
+                            //    session.ActiveRoleName = normalUserRoleName;
+                            //    Response.Redirect(getHomepageLink(normalUserRoleName));
+                            //}
                         }
-                        else
-                        {
-                            //the value of the access_level hidden field has changed - fraud value!
-                            session.ActiveRoleName = "user";
-                            Response.Redirect("~/ui/user/dashboard.aspx");
-                        }
+
+                        //the value of the access_level hidden field has changed - fraud value!
+                        session.ActiveRoleName = normalUserRoleName;
+                        Response.Redirect(getHomepageLink(normalUserRoleName));
                     }
                 }
                 else
                 {
                     //the value of the access_level hidden field has changed - fraud value!
-                    session.ActiveRoleName = "user";
-                    Response.Redirect("~/ui/user/dashboard.aspx");
+                    session.ActiveRoleName = normalUserRoleName;
+                    Response.Redirect(getHomepageLink(normalUserRoleName));
                 }
 
-                if (AuthenticationMessage.ToString() != string.Empty)
-                {
-                    AuthenticationMessage = "* " + AuthenticationMessage;
-                }
+                //Setup the authentication message.
+                AuthenticationMessage = (!string.IsNullOrEmpty(AuthenticationMessage)) ? ("* " + AuthenticationMessage) : "";
             }
             else
             {
-                Response.Redirect("~/ui/session/login.aspx");
+                Response.Redirect(getHomepageLink("login"));
             }
         }
 
-        //This function formats teh display-name of a user,
+
+        //This function is responsilbe for initializing the value of the AccessLevels List instance variable
+        private void InitAccessLevels()
+        {
+            //role_id=30; site-admin
+            AccessLevels.Add(siteAdminRoleName);
+
+            //role_id=40; site-accountant
+            AccessLevels.Add(siteAccountantRoleName);
+
+            //role_id=20; system-admin
+            AccessLevels.Add(systemAdminRoleName);
+
+            //role_id=50; department-head
+            AccessLevels.Add(departmentHeadRoleName);
+
+            AccessLevels.Add(delegeeRoleName);
+        }
+
+
+        //This function handles the switching to delegees
+        private void SwitchToDelegee(string delegeeSipAccount)
+        {
+            //Initialize a temp copy of the User Session
+            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            //Switch identity
+            session.EffectiveSipAccount = delegeeSipAccount;
+            session.EffectiveDisplayName = formatDisplayName(session.ListOfDelegees[session.EffectiveSipAccount]);
+
+            //Initialize the PhoneBook in the session
+            session.PhoneBook = new Dictionary<string, PhoneBook>();
+            session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
+
+            //Clear the PhoneCalls containers in the session
+            session.PhoneCalls = new List<PhoneCall>();
+            session.PhoneCallsPerPage = string.Empty;
+
+            //Set the ActiveRoleName to "delegee"
+            session.ActiveRoleName = delegeeRoleName;
+
+            //Redirect to Uer Dashboard
+            Response.Redirect(getHomepageLink(delegeeRoleName));
+        }
+
+
+        //This function is responsible for dropping the already-granted elevated-access-permission
+        private void DropAccess(string access)
+        {
+            //Initialize a temp copy of the User Session
+            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            if (access == delegeeRoleName)
+            {
+                //Switch back to original identity
+                session.EffectiveSipAccount = session.PrimarySipAccount;
+                session.EffectiveDisplayName = formatDisplayName(session.PrimaryDisplayName);
+
+                //Initialize the PhoneBook in the session
+                session.PhoneBook = new Dictionary<string, PhoneBook>();
+                session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
+
+                //Clear the PhoneCalls containers in the session
+                session.PhoneCalls = new List<PhoneCall>();
+                session.PhoneCallsPerPage = string.Empty;
+            }
+
+            //Always set the ActiveRoleName to "user"
+            session.ActiveRoleName = normalUserRoleName;
+
+            //Redirect to the User Dashboard
+            Response.Redirect(getHomepageLink(normalUserRoleName));
+        }
+
+
+        //This function formats the display-name of a user,
         //and removes unnecessary extra information.
         private string formatDisplayName(string displayName)
         {
@@ -372,6 +362,22 @@ namespace Lync_Billing.ui.session
             {
                 return "eBill User";
             }
-        }//END OF FUNCTION
+        }
+
+
+        //This function returns the homepage link of a specific role, if given, otherwise it returns the login link.
+        private string getHomepageLink(string roleName = "")
+        {
+            if (roleName == systemAdminRoleName) return "~/ui/sysadmin/main/dashboard.aspx";
+            else if (roleName == siteAdminRoleName) return "~/ui/admin/main/dashboard.aspx";
+            else if (roleName == siteAccountantRoleName) return "~/ui/accounting/main/dashboard.aspx";
+            else if (roleName == departmentHeadRoleName) return "~/ui/dephead/main/dashboard.aspx";
+            else if (roleName == normalUserRoleName || roleName == delegeeRoleName) return "~/ui/user/dashboard.aspx";
+            
+            //default case
+            else return "~/ui/session/login.aspx";
+
+        }
+
     }
 }

@@ -15,6 +15,9 @@ namespace Lync_Billing.ui.admin.main
 {
     public partial class dashboard : System.Web.UI.Page
     {
+        private UserSession session;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -23,14 +26,12 @@ namespace Lync_Billing.ui.admin.main
                 string redirect_to = @"~/ui/admin/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
-                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
-                UserSession session = new UserSession();
-                session = (UserSession)Session.Contents["UserData"];
+                session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "admin")
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
                 }

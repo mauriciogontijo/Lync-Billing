@@ -14,6 +14,7 @@ namespace Lync_Billing.ui.dephead.main
         private string sipAccount = string.Empty;
         private UserSession session;
         private List<Department> UserDepartments;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.DepartmentHead);
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,7 +29,7 @@ namespace Lync_Billing.ui.dephead.main
             {
                 session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "dephead")
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=dephead");
                 }
