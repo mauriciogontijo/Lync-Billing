@@ -26,6 +26,14 @@ namespace Lync_Billing.DB
 
         private static DBLib DBRoutines = new DBLib();
 
+        //The private value on which we define the custom getter and setter
+        private decimal _Marker_CallCost;
+        public decimal Marker_CallCost
+        {
+            set { this._Marker_CallCost = value; }
+            get { return decimal.Round(this._Marker_CallCost, 2, MidpointRounding.AwayFromZero); }
+        }
+
         public string SessionIdTime { set; get; }
         public int SessionIdSeq { get; set; }
         public string ResponseTime { set; get; }
@@ -43,9 +51,7 @@ namespace Lync_Billing.DB
         public string PoolFQDN { set; get; }
         public string Marker_CallToCountry { set; get; }
         public string marker_CallType { set; get; }
-
         public decimal Duration { set; get; }
-        public decimal Marker_CallCost { set; get; }
        
         //User UI update Fields
         public string UI_UpdatedByUser { set; get; }
@@ -145,7 +151,7 @@ namespace Lync_Billing.DB
                             phoneCall.Marker_CallToCountry = (string)row[column.ColumnName];
 
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) && row[column.ColumnName] != System.DBNull.Value)
-                            phoneCall.Marker_CallCost = (decimal)row[column.ColumnName];
+                            phoneCall._Marker_CallCost = (decimal)row[column.ColumnName];
 
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.UI_MarkedOn = (DateTime)row[column.ColumnName];
@@ -251,7 +257,7 @@ namespace Lync_Billing.DB
                             phoneCall.Marker_CallToCountry = (string)row[column.ColumnName];
 
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) && row[column.ColumnName] != System.DBNull.Value)
-                            phoneCall.Marker_CallCost = (decimal)row[column.ColumnName];
+                            phoneCall._Marker_CallCost = (decimal)row[column.ColumnName];
 
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.UI_MarkedOn = (DateTime)row[column.ColumnName];
@@ -372,7 +378,7 @@ namespace Lync_Billing.DB
                 totals = new Dictionary<string, object>()
                 {
                     {"Duration", Misc.ConvertSecondsToReadable(Convert.ToInt32(dt.Compute("Sum(Duration)", "Duration > 0 and ui_CallType='Personal'")))},
-                    {"marker_CallCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(marker_CallCost)", "marker_CallCost > 0 and ui_CallType='Personal'")), 2)},
+                    {"_Marker_CallCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(_Marker_CallCost)", "_Marker_CallCost > 0 and ui_CallType='Personal'")), 2)},
                 };
             }
             catch (Exception e)
@@ -380,7 +386,7 @@ namespace Lync_Billing.DB
                 totals = new Dictionary<string, object>()
                 {
                     {"Duration", 0},
-                    {"marker_CallCost", 0.00},
+                    {"_Marker_CallCost", 0.00},
                 };
             }
 
