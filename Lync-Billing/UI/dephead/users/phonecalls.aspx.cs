@@ -145,8 +145,7 @@ namespace Lync_Billing.ui.dephead.users
             columns = new List<string>();
 
             wherePart.Add("SourceUserUri", userSipAccount);
-            //wherePart.Add("ac_IsInvoiced", "NO");
-            wherePart.Add("marker_CallTypeID", 1);
+            wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
             wherePart.Add("Exclude", false);
 
             columns.Add("SourceUserUri");
