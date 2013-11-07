@@ -197,13 +197,6 @@ namespace Lync_Billing.DB
             if (user.Department != null)
                 setPart.Add(Enums.GetDescription(Enums.Users.AD_Department), user.Department);
 
-            //Execute Update
-            //status = DBRoutines.UPDATE(
-            //    Enums.GetDescription(Enums.Users.TableName),
-            //    setPart,
-            //    Enums.GetDescription(Enums.Users.SipAccount), 
-            //    user.SipAccount);
-
             status = DBRoutines.UPDATE(
                 Enums.GetDescription(Enums.Users.TableName),
                 setPart,

@@ -33,7 +33,7 @@ namespace Lync_Billing.DB
             UsersDelegates delegatedAccount;
             List<UsersDelegates> DelegatedAccounts = new List<UsersDelegates>();
             DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), "DelegeeAccount", delegateAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegateAccount);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -101,7 +101,7 @@ namespace Lync_Billing.DB
             string sipAccount = string.Empty;
 
             DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), "DelegeeAccount", delegateAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegateAccount);
 
 
             foreach (DataRow row in dt.Rows)
@@ -130,7 +130,7 @@ namespace Lync_Billing.DB
             string columnName = Enums.GetDescription(Enums.Delegates.SipAccount);
 
             DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), "DelegeeAccount", delegateAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegateAccount);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -150,7 +150,7 @@ namespace Lync_Billing.DB
             UsersDelegates delegates = new UsersDelegates();
 
             DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), "SipAccount", sipAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.SipAccount), sipAccount);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -209,8 +209,8 @@ namespace Lync_Billing.DB
             bool status = false;
 
             Dictionary<string,object> wherePart = new Dictionary<string,object>();
-            wherePart.Add("SipAccount",delegee.SipAccount);
-            wherePart.Add("DelegeeAccount", delegee.DelegeeAccount);
+            wherePart.Add(Enums.GetDescription(Enums.Delegates.SipAccount),delegee.SipAccount);
+            wherePart.Add(Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegee.DelegeeAccount);
 
             status = DBRoutines.DELETE(Enums.GetDescription(Enums.Delegates.TableName), wherePart);
 

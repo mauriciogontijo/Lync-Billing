@@ -374,6 +374,8 @@ namespace Lync_Billing.DB
             TableName,
             [Description("id")]
             ID,
+            [Description("EmailAddress")]
+            EmailAddress,
             [Description("ReceivedCount")]
             ReceivedCount,
             [Description("ReceivedSize")]
@@ -394,6 +396,52 @@ namespace Lync_Billing.DB
             TemplateSubject,
             [Description("TemplateBody")]
             TemplateBody
+        }
+
+        public enum PhoneCallSummary
+        {
+            [Description("")]
+            TableName,
+            [Description("Year")]
+            Year,
+            [Description("Month")]
+            Month,
+            [Description("Date")]
+            MonthDate,
+            [Description("SourceUserUri")]
+            SipAccount,
+            [Description("startingDate")]
+            StartingDate,
+            [Description("endingDate")]
+            EndingDate,
+            [Description("PhoneCallType")]
+            PhoneCallType,
+            [Description("ui_CallType")]
+            ui_CallType,
+            [Description("TotalDuration")]
+            TotalDuration,
+            [Description("TotalCost")]
+            TotalCost,
+            [Description("BusinessDuration")]
+            BusinessCallsDuration,
+            [Description("BusinessCallsCount")]
+            BusinessCallsCount,
+            [Description("BusinessCost")]
+            BusinessCallsCost,
+            [Description("PersonalDuration")]
+            PersonalCallsDuration,
+            [Description("PersonalCallsCount")]
+            PersonalCallsCount,
+            [Description("PersonalCost")]
+            PersonalCallsCost,
+            [Description("UnMarkedDuration")]
+            UnmarkedCallsDuration,
+            [Description("UnMarkedCallsCount")]
+            UnmarkedCallsCount,
+            [Description("UnMarkedCost")]
+            UnmarkedCallsCost,
+            [Description("NumberOfDisputedCalls")]
+            NumberOfDisputedCalls
         }
 
         public enum Persistence 
