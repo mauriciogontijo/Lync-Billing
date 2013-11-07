@@ -31,7 +31,7 @@ namespace Lync_Billing.DB
         public decimal Marker_CallCost
         {
             set { this._Marker_CallCost = value; }
-            get { return decimal.Round(this._Marker_CallCost, 2, MidpointRounding.AwayFromZero); }
+            get { return decimal.Round(this._Marker_CallCost, 2); }
         }
 
         public string SessionIdTime { set; get; }
