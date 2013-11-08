@@ -87,6 +87,9 @@ namespace Lync_Backend.Helpers
             Marker_CallTypeID,
             [Description("marker_CallCost")]
             Marker_CallCost,
+            [Description("[Exclude]")]
+            Exclude
+
         }
 
         public enum CallMarkerStatus
