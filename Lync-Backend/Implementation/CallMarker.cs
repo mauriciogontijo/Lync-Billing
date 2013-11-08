@@ -25,10 +25,10 @@ namespace Lync_Backend.Implementation
             DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
 
             PhoneCalls phoneCall;
-           
+
             Dictionary<string, object> updateStatementValues;
             string statusTimestamp = string.Empty;
-            
+
             string column = string.Empty;
             string SQL = string.Empty;
 
@@ -57,7 +57,7 @@ namespace Lync_Backend.Implementation
 
                 saveState = false;
             }
-            else 
+            else
             {
                 if (statusTimestamp == "N/A")
                     SQL = SQLs.CREATE_READ_PHONE_CALLS_QUERY(tablename);
@@ -71,37 +71,41 @@ namespace Lync_Backend.Implementation
 
             dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
-            while (dataReader.Read())
+            if (dataReader.HasRows)
             {
-                //Initialize the updateStatementValues variable
-                updateStatementValues = new Dictionary<string, object>();
+                while (dataReader.Read())
+                {
 
-                //Fill the phoneCall Object
-                phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
+                    //Initialize the updateStatementValues variable
+                    updateStatementValues = new Dictionary<string, object>();
 
-                //Call the correct set type
-                ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
+                    //Fill the phoneCall Object
+                    phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
+
+                    //Call the correct set type
+                    ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
 
 
-                //Set the updateStatementValues dictionary items with the phoneCall instance variables
-                updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
+                    //Set the updateStatementValues dictionary items with the phoneCall instance variables
+                    updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
 
-                //Update the phoneCall database record
-                DBRoutines.UPDATE(tablename, updateStatementValues);
+                    //Update the phoneCall database record
+                    DBRoutines.UPDATE(tablename, updateStatementValues, ref sourceDBConnector);
 
-                lastMarkedPhoneCallDate = phoneCall.SessionIdTime;
+                    lastMarkedPhoneCallDate = phoneCall.SessionIdTime;
 
-                //Update the CallMarkerStatus table fro this PhoneCall table.
-                if (dataRowCounter % 10000 == 0)
-                    UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate, saveState);
+                    //Update the CallMarkerStatus table fro this PhoneCall table.
+                    if (dataRowCounter % 10000 == 0)
+                        UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate, ref sourceDBConnector, saveState);
 
-                dataRowCounter += 1;
+                    dataRowCounter += 1;
+                }
+
+                UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate, ref sourceDBConnector, saveState);
+
+                //Close the database connection
+                sourceDBConnector.Close();
             }
-
-            UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate, saveState);
-
-            //Close the database connection
-            sourceDBConnector.Close();
         }
 
         public override void MarkExclusion(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
@@ -119,16 +123,16 @@ namespace Lync_Backend.Implementation
             PhoneCalls phoneCall;
 
             Dictionary<string, object> updateStatementValues;
-            
+
             string statusTimestamp = string.Empty;
             string lastRateAppliedOnPhoneCall = string.Empty;
             string column = string.Empty;
             string SQL = string.Empty;
 
             int dataRowCounter = 0;
-            
+
             bool saveState = false;
-           
+
             //Call the SetType on the phoneCall Related table using class loader
             Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
             string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
@@ -136,7 +140,7 @@ namespace Lync_Backend.Implementation
 
             statusTimestamp = GetLastAppliedRate(tablename);
 
-           if (DateTime.Compare(from, DateTime.MinValue) != 0 || DateTime.Compare(to, DateTime.MaxValue) != 0 || !string.IsNullOrEmpty(gateway))
+            if (DateTime.Compare(from, DateTime.MinValue) != 0 || DateTime.Compare(to, DateTime.MaxValue) != 0 || !string.IsNullOrEmpty(gateway))
             {
                 if (DateTime.Compare(from, DateTime.MinValue) == 0)
                     from = from.AddYears(1799);
@@ -148,7 +152,7 @@ namespace Lync_Backend.Implementation
 
                 saveState = false;
             }
-            else 
+            else
             {
                 if (statusTimestamp == "N/A")
                     SQL = SQLs.CREATE_READ_PHONE_CALLS_QUERY(tablename);
@@ -162,35 +166,37 @@ namespace Lync_Backend.Implementation
 
             dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
-            while (dataReader.Read())
+            if (dataReader.HasRows)
             {
-                //Initialize the updateStatementValues variable
-                updateStatementValues = new Dictionary<string, object>();
+                while (dataReader.Read())
+                {
+                    //Initialize the updateStatementValues variable
+                    updateStatementValues = new Dictionary<string, object>();
 
-                //Fill the phoneCall Object
-                phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
+                    //Fill the phoneCall Object
+                    phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
 
-                //Call the correct set type
-                ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
+                    //Call the correct set type
+                    ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
 
-                //Set the updateStatementValues dictionary items with the phoneCall instance variables
-                updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
+                    //Set the updateStatementValues dictionary items with the phoneCall instance variables
+                    updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
 
-                //Update the phoneCall database record
-                DBRoutines.UPDATE(tablename, updateStatementValues);
+                    //Update the phoneCall database record
+                    DBRoutines.UPDATE(tablename, updateStatementValues, ref sourceDBConnector);
 
-                lastRateAppliedOnPhoneCall = phoneCall.SessionIdTime;
+                    lastRateAppliedOnPhoneCall = phoneCall.SessionIdTime;
 
-                //Update the CallMarkerStatus table fro this PhoneCall table.
-                if (dataRowCounter % 10000 == 0)
-                    UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall, saveState);
+                    //Update the CallMarkerStatus table fro this PhoneCall table.
+                    if (dataRowCounter % 10000 == 0)
+                        UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall, ref sourceDBConnector, saveState);
 
-                dataRowCounter += 1;
+                    dataRowCounter += 1;
 
-            }//END-WHILE
+                }//END-WHILE
 
-            UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall, saveState);
-
+                UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall, ref sourceDBConnector, saveState);
+            }
             //Close the database connection
             sourceDBConnector.Close();
         }
@@ -222,7 +228,7 @@ namespace Lync_Backend.Implementation
                 return "N/A";
         }
 
-        private void UpdateCallMarkerStatus(string phoneCallTable, string type, string timestamp,bool Update=true)
+        private void UpdateCallMarkerStatus(string phoneCallTable, string type, string timestamp, ref OleDbConnection conn,bool Update=true)
         {
             if (Update == true)
             {
@@ -243,7 +249,7 @@ namespace Lync_Backend.Implementation
                 else
                 {
                     //DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData, whereClause);
-                    DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData, Enums.GetDescription(Enums.CallMarkerStatus.MarkerId), existingMarkerStatus.MarkerId);
+                    DBRoutines.UPDATE(Enums.GetDescription(Enums.CallMarkerStatus.TableName), callMarkerStatusData, Enums.GetDescription(Enums.CallMarkerStatus.MarkerId), existingMarkerStatus.MarkerId, ref conn);
                 }
             }
         }
