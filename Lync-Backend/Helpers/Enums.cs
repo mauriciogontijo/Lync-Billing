@@ -39,6 +39,8 @@ namespace Lync_Backend.Helpers
 
         public enum PhoneCalls
         {
+            [Description("PhoneCallsTableName")]
+            PhoneCallsTableName,
             [Description("SessionIdTime")]
             SessionIdTime,
             [Description("SessionIdSeq")]
