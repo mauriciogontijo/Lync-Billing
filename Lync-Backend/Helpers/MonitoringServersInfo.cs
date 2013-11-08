@@ -70,7 +70,7 @@ namespace Lync_Backend.Helpers
                         monInfo.CreatedAt = (DateTime)row[column.ColumnName];
                  
                 }
-                monInfos.Add(monInfo.PhoneCallsTable ,monInfo);
+                monInfos.Add(monInfo.TelephonySolutionName ,monInfo);
             }
 
             return monInfos;

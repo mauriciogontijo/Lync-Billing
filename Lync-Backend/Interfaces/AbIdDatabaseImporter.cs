@@ -8,7 +8,7 @@ namespace Lync_Backend.Interfaces
 {
     public abstract class AbIdDatabaseImporter :IDatabaseImporter
     {
-        public abstract string PhoneCallsTableName { get; }
+        public abstract string PhoneCallsTableName { get; set; }
         public abstract string PoolsTableName { get; }
         public abstract string GatewaysTableName { get; }
 

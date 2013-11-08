@@ -31,10 +31,7 @@ namespace Lync_Backend.Implementation
             }
         }
 
-        public override string PhoneCallsTableName
-        {
-            get { return "PhoneCalls2013"; }
-        }
+        public override string PhoneCallsTableName { get; set; }
 
         public override string PoolsTableName
         {
@@ -50,6 +47,8 @@ namespace Lync_Backend.Implementation
         {
             monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
             var info = monInfo.Where(item => item.Key == this.GetType().Name).Select(item => (MonitoringServersInfo)item.Value).First() as MonitoringServersInfo;
+
+            PhoneCallsTableName = info.PhoneCallsTable;
 
             return MonitoringServersInfo.CreateConnectionString(info);
         }
