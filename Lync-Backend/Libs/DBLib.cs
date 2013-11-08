@@ -414,7 +414,7 @@ namespace Lync_Backend.Libs
         /// <param name="idFieldName">ID Field name </param>
         /// <param name="ID">ID Value</param>
         /// <returns>Row ID</returns>
-        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues,string idFieldName, Int64 ID) 
+        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues, string idFieldName, Int64 ID, ref OleDbConnection conn) 
         {
             StringBuilder fieldsValues = new StringBuilder();
 
@@ -435,12 +435,13 @@ namespace Lync_Backend.Libs
 
             string insertQuery = string.Format("UPDATE  [{0}] SET {1} WHERE [{2}]={3}", tableName, fieldsValues, idFieldName,ID);
 
-            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(insertQuery, conn);
 
             try
             {
-                conn.Open();
+                //if (conn.State == ConnectionState.Closed)
+                //    conn.Open();
+
                 comm.ExecuteNonQuery();
                 return true;
             }
@@ -449,8 +450,7 @@ namespace Lync_Backend.Libs
                 System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
                 throw argEx;
             }
-            finally { conn.Close(); }
-           
+          
         }
         
         /// <summary>
@@ -460,7 +460,7 @@ namespace Lync_Backend.Libs
         /// <param name="columnsValues">Dictionary Holds Fields and Values to be inserted</param>
         /// <param name="wherePart">Dictionary Holds Fields and Values to be able to construct Where Statemnet</param>
         /// <returns></returns>
-        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues, Dictionary<string,object> wherePart)
+        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues, Dictionary<string, object> wherePart, ref OleDbConnection conn)
         {
             string updateQuery = string.Empty;
             StringBuilder fieldsValues = new StringBuilder();
@@ -505,13 +505,12 @@ namespace Lync_Backend.Libs
             else
                 updateQuery = string.Format("UPDATE  [{0}] SET {1}", tableName, fieldsValues);
 
-            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
+           
             OleDbCommand comm = new OleDbCommand(updateQuery, conn);
 
             try
             {
-                conn.Open();
-                comm.ExecuteNonQuery();
+               comm.ExecuteNonQuery();
                 return true;
             }
             catch (Exception ex) 
@@ -519,8 +518,7 @@ namespace Lync_Backend.Libs
                 System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
                 throw argEx; 
             }
-            finally { conn.Close(); }
-
+           
         }
 
 
@@ -531,7 +529,7 @@ namespace Lync_Backend.Libs
         /// <param name="columnsValues">Dictionary Holds Fields and Values to be inserted</param>
         /// <param name="wherePart">Dictionary Holds Fields and Values to be able to construct Where Statemnet</param>
         /// <returns></returns>
-        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues)
+        public bool UPDATE(string tableName, Dictionary<string, object> columnsValues,ref OleDbConnection conn)
         {
             StringBuilder fieldsValues = new StringBuilder();
             StringBuilder whereStatement = new StringBuilder();
@@ -560,12 +558,10 @@ namespace Lync_Backend.Libs
 
             string insertQuery = string.Format("UPDATE  [{0}] SET {1} WHERE {2}", tableName, fieldsValues, whereStatement);
 
-            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(insertQuery, conn);
 
             try
             {
-                conn.Open();
                 comm.ExecuteNonQuery();
                 return true;
             }
@@ -574,9 +570,7 @@ namespace Lync_Backend.Libs
                 System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
                 throw argEx;
             }
-            finally { conn.Close(); }
-
-        }
+       }
 
 
 
@@ -722,7 +716,7 @@ namespace Lync_Backend.Libs
             OleDbCommand command;
         
             command = new OleDbCommand(sqlStatment, connection);
-            command.CommandTimeout = 10000;
+            command.CommandTimeout = 12000;
 
             return command.ExecuteReader();
         }
