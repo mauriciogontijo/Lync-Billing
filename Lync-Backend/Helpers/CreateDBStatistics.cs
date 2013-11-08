@@ -95,7 +95,7 @@ namespace Lync_Backend.Helpers
             {
                 sqlStatement.Append(
                     string.Format(
-                        "\t SELECT *,'" + ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable + "' AS PhoneCallsTableName \r\n" + 
+                        "\t SELECT *,'" + ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable + "' AS " + Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName) + "\r\n" + 
                         "\t FROM [{0}] \r\n"+
                         "\t {1} \r\n"+
                         "\t UNION \r\n ", 
