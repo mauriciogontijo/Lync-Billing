@@ -19,7 +19,7 @@ namespace Lync_Backend.Helpers
 
         //TODO: every Get_ChargeableCalls function should return a new column represents which table the phone call object is located 
        
-        //STEP 1
+      
         #region Chargeable Calls Functions
         
         private static void CreateOrAlterFunction(string functionName,string SQLStatement)
@@ -47,8 +47,16 @@ namespace Lync_Backend.Helpers
                         QueryType = "CREATE";
 
                     functionCreateUpdateQuery =
-                           string.Format("{0} FUNCTION [dbo].[{1}] (@SipAccount	nvarchar(450)) " +
-                                         "RETURNS TABLE AS RETURN ({2}) "
+                           string.Format("{0} FUNCTION [dbo].[{1}] \r\n"+ 
+                                         "( \r\n" +
+                                         "\t @SipAccount	nvarchar(450)\r\n" +
+                                         ") \r\n" +
+                                         "RETURNS TABLE \r\n" + 
+                                         "AS \r\n" + 
+                                         "RETURN \r\n" +
+                                         "(\r\n" + 
+                                         "{2} \r\n"+
+                                         ") "
                                          , QueryType, functionName, SQLStatement);
 
                     comm.CommandText = functionCreateUpdateQuery;
@@ -85,10 +93,16 @@ namespace Lync_Backend.Helpers
            
             foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monInfo)
             {
-                sqlStatement.Append(string.Format("SELECT * FROM [{0}] {1} UNION ", ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
+                sqlStatement.Append(
+                    string.Format(
+                        "\t SELECT *,'" + ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable + "' AS PhoneCallsTableName \r\n" + 
+                        "\t FROM [{0}] \r\n"+
+                        "\t {1} \r\n"+
+                        "\t UNION \r\n ", 
+                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
             }
-
-            sqlStatement.Remove(sqlStatement.Length - 6, 5);
+            
+            sqlStatement.Remove(sqlStatement.Length - 9, 9);
 
             CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
             
