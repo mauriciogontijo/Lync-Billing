@@ -13,10 +13,14 @@ namespace Lync_Backend.Helpers
         public int Id { get; set; }
         public string InstanceHostName { get; set; }
         public string InstanceName { get; set; }
+        public string DatabaseName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string TelephonySolutionName { get; set; }
         public string PhoneCallsTable { get; set; }
-        public string DatabaseName { get; set; }
+        public string Description { get; set; }
+        public DateTime CreatedAt { get; set; } 
+
 
         private static DBLib DBRoutines = new DBLib();
 
@@ -53,9 +57,17 @@ namespace Lync_Backend.Helpers
                     if (column.ColumnName == Enums.GetDescription(Enums.MonitoringServersInfo.Password) && row[column.ColumnName] != System.DBNull.Value)
                         monInfo.Password = (string)row[column.ColumnName];
 
+                    if (column.ColumnName == Enums.GetDescription(Enums.MonitoringServersInfo.TelephonySolutionName) && row[column.ColumnName] != System.DBNull.Value)
+                        monInfo.TelephonySolutionName = (string)row[column.ColumnName];
+
                     if (column.ColumnName == Enums.GetDescription(Enums.MonitoringServersInfo.PhoneCallsTable) && row[column.ColumnName] != System.DBNull.Value)
                         monInfo.PhoneCallsTable = (string)row[column.ColumnName];
+                    
+                    if (column.ColumnName == Enums.GetDescription(Enums.MonitoringServersInfo.Description) && row[column.ColumnName] != System.DBNull.Value)
+                        monInfo.Description = (string)row[column.ColumnName];
 
+                    if (column.ColumnName == Enums.GetDescription(Enums.MonitoringServersInfo.CreatedAt) && row[column.ColumnName] != System.DBNull.Value)
+                        monInfo.CreatedAt = (DateTime)row[column.ColumnName];
                  
                 }
                 monInfos.Add(monInfo.PhoneCallsTable ,monInfo);

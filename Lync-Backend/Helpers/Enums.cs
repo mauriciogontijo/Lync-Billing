@@ -26,8 +26,15 @@ namespace Lync_Backend.Helpers
             Userame,
             [Description("password")]
             Password,
+            [Description("TelephonySolutionName")]
+            TelephonySolutionName,
             [Description("phoneCallsTable")]
-            PhoneCallsTable
+            PhoneCallsTable,
+            [Description("description")]
+            Description,
+            [Description("created_at")]
+            CreatedAt
+            
         }
 
         public enum PhoneCalls
