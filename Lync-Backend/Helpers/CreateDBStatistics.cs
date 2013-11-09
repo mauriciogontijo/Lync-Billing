@@ -73,9 +73,6 @@ namespace Lync_Backend.Helpers
 
             StringBuilder sqlStatement = new StringBuilder();
 
-            Dictionary<string, object> whereFieldsValues = new Dictionary<string, object>();
-            Dictionary<string, object> orderByFiledsValues = new Dictionary<string, object>();
-
             Dictionary<string, MonitoringServersInfo> monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
 
             BillableCallTypesSection section = (BillableCallTypesSection)ConfigurationManager.GetSection("BillableCallTypesSection");
@@ -149,7 +146,7 @@ namespace Lync_Backend.Helpers
 
         #endregion
 
-        //6
+        //STEP 6
         #region Destinations Numbers Functions
 
         //Get Destinations with duration/cost/count Per User
@@ -169,7 +166,73 @@ namespace Lync_Backend.Helpers
         //High Priority
 
         //Get Calls Summary Per User
-        public static void Get_CallsSummary_ForUser() { }
+        public static void Get_CallsSummary_ForUser() 
+        {
+            StringBuilder sqlStatement = new StringBuilder();
+            StringBuilder subSelect = new StringBuilder();
+
+            Dictionary<string, MonitoringServersInfo> monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
+
+            BillableCallTypesSection section = (BillableCallTypesSection)ConfigurationManager.GetSection("BillableCallTypesSection");
+
+            //convert BillableCallTypesIds to strings 1,2,3,4,5 ...etc
+            string BillableCallTypesIdsList = string.Join(",", section.BillableTypesList);
+
+            //Get WhereStatemnet and append it to every Select 
+            string whereStatement =
+                string.Format(
+                    "\t\t WHERE " +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "]=@SipAccount COLLATE SQL_Latin1_General_CP1_CI_AS AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n" 
+                    , BillableCallTypesIdsList);
+
+            //Sub Select Construction
+            foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monInfo)
+            {
+                subSelect.Append(
+                   string.Format(
+                       "\t\t SELECT * FROM [{0}] \r\n" +
+                       "{1} \r\n" +
+                       "\t\t UNION \r\n\r\n",
+                       ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
+            }
+
+            subSelect.Remove(subSelect.Length - 11, 11);
+
+            
+            //Outer Select 
+            sqlStatement.Append(
+                string.Format(
+                    "\t SELECT TOP 100 PERCENT\r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "] COLLATE SQL_Latin1_General_CP1_CI_AS AS [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "], \r\n" +
+                    "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Month], \r\n" +
+                    "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Year], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "] END) AS [" + Enums.GetDescription(Enums.UsersCallsSummary.BusinessCallsDuration) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN 1 END) AS [" + Enums.GetDescription(Enums.UsersCallsSummary.BusinessCallsCount) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.UsersCallsSummary.BusinessCallsCost) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Personal' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "] END) AS [" + Enums.GetDescription(Enums.UsersCallsSummary.PersonalCallsDuration) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Personal' THEN 1 END) AS [" + Enums.GetDescription(Enums.UsersCallsSummary.PersonalCallsCount) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Personal' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.UsersCallsSummary.PersonalCallsCost) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] IS NULL THEN [" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "] END) AS [" + Enums.GetDescription(Enums.UsersCallsSummary.UnmarkedCallsDuartion) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] IS NULL THEN 1 END) AS [" + Enums.GetDescription(Enums.UsersCallsSummary.UnmarkedCallsCount) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] IS NULL THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.UsersCallsSummary.UnmarkedCallsCost) + "] \r\n" + 
+                    "\t FROM \r\n" +
+                    "\t (\r\n" +
+                    "{0} \r\n" +
+                    "\t) AS [" +  Enums.GetDescription(Enums.UsersCallsSummary.TableName) + "] \r\n" +
+                    "\t GROUP BY \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "] COLLATE SQL_Latin1_General_CP1_CI_AS, \r\n" +
+                    "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + "), \r\n"+
+                    "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") \r\n" +
+                    "\t ORDER BY YEAR( " + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC, MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC \r\n",subSelect.ToString()
+                ));
+
+          
+
+            CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
+        }
 
         //Get Calls Summary for Users Per Site
         public static void Get_CallsSummary_ForUsers_PerSite() { }

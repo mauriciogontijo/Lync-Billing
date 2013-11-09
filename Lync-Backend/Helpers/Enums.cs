@@ -87,7 +87,21 @@ namespace Lync_Backend.Helpers
             Marker_CallTypeID,
             [Description("marker_CallCost")]
             Marker_CallCost,
-            [Description("[Exclude]")]
+            [Description("ui_MarkedOn")]
+            UI_MarkedOn,
+            [Description("ui_UpdatedByUser")]
+            UI_UpdatedByUser,
+            [Description("ui_CallType")]
+            UI_CallType,
+            [Description("ac_DisputeStatus")]
+            AC_DisputeStatus,
+            [Description("ac_DisputeResolvedOn")]
+            AC_DisputeResolvedOn,
+            [Description("ac_IsInvoiced")]
+            AC_IsInvoiced,
+            [Description("ac_InvoiceDate")]
+            AC_InvoiceDate,
+            [Description("Exclude")]
             Exclude
 
         }
@@ -216,6 +230,31 @@ namespace Lync_Backend.Helpers
             Description
         }
 
+        public enum UsersCallsSummary
+        {
+            [Description("UserPhoneCallsStats")]
+            TableName,
+            [Description("BusinessCallsCount")]
+            BusinessCallsCount,
+            [Description("BusinessCallsCost")]
+            BusinessCallsCost,
+            [Description("BusinessCallsDuration")]
+            BusinessCallsDuration,
+            [Description("PersonalCallsCount")]
+            PersonalCallsCount,
+            [Description("PersonalCallsDuration")]
+            PersonalCallsDuration,
+            [Description("PersonalCallsCost")]
+            PersonalCallsCost,
+            [Description("UnmarkedCallsCount")]
+            UnmarkedCallsCount,
+            [Description("UnmarkedCallsDuartion")]
+            UnmarkedCallsDuartion,
+            [Description("UnmarkedCallsCost")]
+            UnmarkedCallsCost,
+            [Description("NumberOfDisputedCalls")]
+            NumberOfDisputedCalls,
+        }
 
         /// <summary>
         /// Gets the Name of DB table Field
