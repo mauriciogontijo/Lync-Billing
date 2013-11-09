@@ -120,8 +120,6 @@ namespace Lync_Backend.Helpers
         //Returns List of Chargeable Calls For users in Specific Site
         public static void Get_ChargeableCalls_ForSite() { }
 
-        //Returns List of chargeable Calls for  users specific deparment in a specific Site
-        public static void Get_ChargeableCalls_ForSiteDepartment() { }
         
         #endregion
 
@@ -321,9 +319,6 @@ namespace Lync_Backend.Helpers
             CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
         }
 
-        //Get Calls Summary for Users in a department in a site
-        public static void Get_CallsSummary_ForUsers_PerSiteDepartment() { }
-
         //Get Calls Summary for A Department in A Site
         public static void Get_CallsSummary_ForSiteDepartment() { }
 
@@ -343,9 +338,6 @@ namespace Lync_Backend.Helpers
 
         //Get Gateways Summary(Total Duration/Cost/Count) for department in a site
         public static void Get_GatewaySummary_PerSiteDepartment() { }
-
-        //Get Gateways Summary(Total Duration/Cost/Count) for users in a department per site
-        public static void Get_GatewaySummary_ForUsers_PerSiteDepartment() { }
         
         #endregion
     }
