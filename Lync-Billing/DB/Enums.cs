@@ -426,23 +426,23 @@ namespace Lync_Billing.DB
             TotalDuration,
             [Description("TotalCost")]
             TotalCost,
-            [Description("BusinessDuration")]
+            [Description("BusinessCallsDuration")]
             BusinessCallsDuration,
             [Description("BusinessCallsCount")]
             BusinessCallsCount,
-            [Description("BusinessCost")]
+            [Description("BusinessCallsCost")]
             BusinessCallsCost,
-            [Description("PersonalDuration")]
+            [Description("PersonalCallsDuration")]
             PersonalCallsDuration,
             [Description("PersonalCallsCount")]
             PersonalCallsCount,
-            [Description("PersonalCost")]
+            [Description("PersonalCallsCost")]
             PersonalCallsCost,
-            [Description("UnMarkedDuration")]
+            [Description("UnmarkedCallsDuration")]
             UnmarkedCallsDuration,
-            [Description("UnMarkedCallsCount")]
+            [Description("UnmarkedCallsCount")]
             UnmarkedCallsCount,
-            [Description("UnMarkedCost")]
+            [Description("UnmarkedCallsCost")]
             UnmarkedCallsCost,
             [Description("NumberOfDisputedCalls")]
             NumberOfDisputedCalls
