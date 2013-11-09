@@ -9,6 +9,7 @@ using System.Web.SessionState;
 using System.Globalization;
 using Ext.Net;
 using Lync_Billing.DB;
+using Lync_Billing.DB.Summaries;
 using Lync_Billing.Libs;
 
 namespace Lync_Billing.ui.user

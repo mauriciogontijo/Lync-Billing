@@ -9,10 +9,8 @@ using Lync_Billing.Libs;
 using Lync_Billing.ConfigurationSections;
 using System.Configuration;
 
-namespace Lync_Billing.DB
+namespace Lync_Billing.DB.Summaries
 {
-   
-   
     public class DepartmentCallsSummary
     {
         public string SiteName { get; set; }

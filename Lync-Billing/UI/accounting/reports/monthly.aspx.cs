@@ -8,8 +8,6 @@ using System.Collections.ObjectModel;
 using System.Collections;
 using Ext.Net;
 using System.Web.Script.Serialization;
-using Lync_Billing.DB;
-using Lync_Billing.Libs;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Xsl;
@@ -20,6 +18,10 @@ using System.Linq.Expressions;
 using Newtonsoft.Json;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+
+using Lync_Billing.DB;
+using Lync_Billing.Libs;
+using Lync_Billing.DB.Summaries;
 
 namespace Lync_Billing.ui.accounting.reports
 {

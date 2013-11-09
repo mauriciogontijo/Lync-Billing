@@ -11,6 +11,7 @@ using System.Xml.Xsl;
 using Ext.Net;
 using Lync_Billing.DB;
 using Lync_Billing.Libs;
+using Lync_Billing.DB.Summaries;
 
 namespace Lync_Billing.ui.admin.notifications
 {
