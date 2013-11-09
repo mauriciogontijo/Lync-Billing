@@ -396,7 +396,6 @@ namespace Lync_Backend.Helpers
 
         #endregion
 
-        //STEP 4
         #region Gateways Summaries Functions
 
         //Get Gateways Summary(Total Duration/Cost/Count) for a user
