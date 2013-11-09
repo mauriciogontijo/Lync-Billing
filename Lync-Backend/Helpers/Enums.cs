@@ -257,6 +257,25 @@ namespace Lync_Backend.Helpers
         }
 
         /// <summary>
+        /// Users Database table Fields Names
+        /// </summary>
+        public enum Users
+        {
+            [Description("ActiveDirectoryUsers")]
+            TableName,
+            [Description("AD_UserID")]
+            AD_UserID,
+            [Description("SipAccount")]
+            SipAccount,
+            [Description("AD_DisplayName")]
+            AD_DisplayName,
+            [Description("AD_PhysicalDeliveryOfficeName")]
+            AD_PhysicalDeliveryOfficeName,
+            [Description("AD_Department")]
+            AD_Department
+        }
+
+        /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>
         /// <param name="value">Enum Name</param>
