@@ -172,8 +172,6 @@ namespace Lync_Backend.Helpers
         //STEP 3
         #region Calls Summaries Functions
 
-        //High Priority
-
         //Get Calls Summary Per User
         public static void Get_CallsSummary_ForUser() 
         {
