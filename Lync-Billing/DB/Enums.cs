@@ -290,30 +290,6 @@ namespace Lync_Billing.DB
             PhoneCallsTableName
         }
 
-        public enum UsersCallsSummary
-        {
-            [Description("BusinessCallsCount")]
-            BusinessCallsCount,
-            [Description("BusinessCallsCost")]
-            BusinessCallsCost,
-            [Description("BusinessCallsDuration")]
-            BusinessCallsDuration,
-            [Description("PersonalCallsCount")]
-            PersonalCallsCount,
-            [Description("PersonalCallsDuration")]
-            PersonalCallsDuration,
-            [Description("PersonalCallsCost")]
-            PersonalCallsCost,
-            [Description("UnmarkedCallsCount")]
-            UnmarkedCallsCount,
-            [Description("UnmarkedCallsDuartion")]
-            UnmarkedCallsDuartion,
-            [Description("UnmarkedCallsCost")]
-            UnmarkedCallsCost,
-            [Description("NumberOfDisputedCalls")]
-            NumberOfDisputedCalls,
-        }
-
         public enum Delegates 
         {
             [Description("Delegates")]
