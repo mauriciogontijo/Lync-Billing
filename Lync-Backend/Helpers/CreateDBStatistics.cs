@@ -14,10 +14,8 @@ namespace Lync_Backend.Helpers
 {
     class CreateDBStatistics
     {
-        
-        #region Chargeable Calls Functions
-        
-        private static void CreateOrAlterFunction(string functionName,string SQLStatement)
+
+        private static void CreateOrAlterFunction(string functionName, string SQLStatement)
         {
             string functionCreateUpdateQuery = string.Empty;
             string QueryType = string.Empty;
@@ -29,7 +27,7 @@ namespace Lync_Backend.Helpers
             using (OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString))
             {
                 OleDbCommand comm = new OleDbCommand(sqlValidationQuery, sourceDBConnector);
-                
+
                 try
                 {
                     sourceDBConnector.Open();
@@ -42,11 +40,11 @@ namespace Lync_Backend.Helpers
                     else
                         QueryType = "CREATE";
 
-                    if (SQLStatement.Contains(@"@OfficeName")) 
+                    if (SQLStatement.Contains(@"@OfficeName"))
                     {
                         FunctionVariables = string.Format("\t @OfficeName	nvarchar(450)");
                     }
-                    else if (SQLStatement.Contains(@"@SipAccount")) 
+                    else if (SQLStatement.Contains(@"@SipAccount"))
                     {
                         FunctionVariables = string.Format("\t @SipAccount	nvarchar(450)");
                     }
@@ -56,22 +54,22 @@ namespace Lync_Backend.Helpers
                     }
 
                     functionCreateUpdateQuery =
-                           string.Format("{0} FUNCTION [dbo].[{1}] \r\n"+ 
+                           string.Format("{0} FUNCTION [dbo].[{1}] \r\n" +
                                          "( \r\n" +
                                          "{2}\r\n" +
                                          ") \r\n" +
-                                         "RETURNS TABLE \r\n" + 
-                                         "AS \r\n" + 
+                                         "RETURNS TABLE \r\n" +
+                                         "AS \r\n" +
                                          "RETURN \r\n" +
-                                         "(\r\n" + 
-                                         "{3} \r\n"+
+                                         "(\r\n" +
+                                         "{3} \r\n" +
                                          ") "
                                          , QueryType, functionName, FunctionVariables, SQLStatement);
 
                     comm.CommandText = functionCreateUpdateQuery;
                     comm.ExecuteNonQuery();
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     string x = string.Empty;
                 }
@@ -79,6 +77,8 @@ namespace Lync_Backend.Helpers
 
         }
 
+        #region Chargeable Calls Functions        
+       
         //Returns List of Chargeable Calls For A specific User
         public static void Get_ChargeableCalls_ForUser()
         {
@@ -287,6 +287,7 @@ namespace Lync_Backend.Helpers
                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "] AS [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
 			        "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "] COLLATE SQL_Latin1_General_CP1_CI_AS AS [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
 			        "\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "] COLLATE SQL_Latin1_General_CP1_CI_AS AS [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "] COLLATE SQL_Latin1_General_CP1_CI_AS AS [" + Enums.GetDescription(Enums.Users.AD_Department) + "], \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "] COLLATE SQL_Latin1_General_CP1_CI_AS AS [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "], \r\n" +
                     "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Month], \r\n" +
                     "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Year], \r\n" +
@@ -309,6 +310,7 @@ namespace Lync_Backend.Helpers
                      "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
                      "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "]COLLATE SQL_Latin1_General_CP1_CI_AS , \r\n" +
                      "\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "] COLLATE SQL_Latin1_General_CP1_CI_AS, \r\n" +
+                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "] COLLATE SQL_Latin1_General_CP1_CI_AS, \r\n" +
                      "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + "), \r\n"+
                      "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") \r\n" +
                      "\t ORDER BY YEAR( " + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC, MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC \r\n",subSelect.ToString()
