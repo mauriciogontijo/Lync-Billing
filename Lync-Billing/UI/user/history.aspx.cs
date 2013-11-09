@@ -95,7 +95,7 @@ namespace Lync_Billing.ui.user
                     };
 
                     Document doc = new Document();
-                    PhoneCall.ExportUserPhoneCalls(sipAccount, Response, out doc, headers);
+                    //PhoneCall.ExportUserPhoneCalls(sipAccount, Response, out doc, headers);
 
                     Response.Write(doc);
 
@@ -180,20 +180,9 @@ namespace Lync_Billing.ui.user
 
             if (userSession.PhoneCallsHistory == null || userSession.PhoneCallsHistory.Count == 0 || force == true)
             {
-                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount);
-                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID), PhoneCall.BillableCallTypesList);
                 wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
 
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.SessionEndTime));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.Duration));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced));
-
-                userSession.PhoneCallsHistory = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+                userSession.PhoneCallsHistory = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0);
             }
         }
 

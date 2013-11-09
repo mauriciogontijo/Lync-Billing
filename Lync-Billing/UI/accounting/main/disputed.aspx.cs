@@ -15,9 +15,13 @@ namespace Lync_Billing.ui.accounting.main
 {
     public partial class disputed : System.Web.UI.Page
     {
+        private UserSession session;
+        private string sipAccount = string.Empty;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
         private Dictionary<string, object> wherePart = new Dictionary<string, object>();
         private List<string> columns = new List<string>();
-        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
+        private List<string> accountantSitesNames = new List<string>();
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,11 +31,9 @@ namespace Lync_Billing.ui.accounting.main
                 string redirect_to = @"~/ui/accounting/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
-                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
-                UserSession session = new UserSession();
                 session = (UserSession)Session.Contents["UserData"];
 
                 if (session.ActiveRoleName != allowedRoleName)
@@ -39,36 +41,23 @@ namespace Lync_Billing.ui.accounting.main
                     Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
                 }
             }
+
+            sipAccount = session.EffectiveSipAccount;
         }
 
         protected void DisputedCallsStore_Load(object sender, EventArgs e)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
 
             List<PhoneCall> usersCalls = new List<PhoneCall>();
             List<PhoneCall> accountantView = new List<PhoneCall>();
-            List<string> sites = GetAccountantSiteName(userSession.PrimarySipAccount);
+            accountantSitesNames = GetAccountantSiteName(session.EffectiveSipAccount);
 
-            wherePart.Add("marker_CallTypeID", 1);
-            //wherePart.Add("ac_IsInvoiced", "NO");
-            wherePart.Add("ui_CallType", "Disputed");
-
-            columns.Add("SessionIdTime");
-            columns.Add("SessionIdSeq");
-            columns.Add("ResponseTime");
-            columns.Add("SourceUserUri");
-            columns.Add("marker_CallToCountry");
-            columns.Add("DestinationNumberUri");
-            columns.Add("Duration");
-            columns.Add("marker_CallCost");
-            columns.Add("ac_DisputeStatus");
-            columns.Add("ui_MarkedOn");
-
-            usersCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+            usersCalls = PhoneCall.GetDisputedPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
 
             foreach (PhoneCall phoneCall in usersCalls) 
             {
-                if (sites.Contains(GetSipAccountSite(phoneCall.SourceUserUri)))
+                if (accountantSitesNames.Contains(GetSipAccountSite(phoneCall.SourceUserUri)))
                     accountantView.Add(phoneCall);
             }
 
@@ -90,7 +79,17 @@ namespace Lync_Billing.ui.accounting.main
 
         protected void DisputedCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
-            this.DisputedCallsStore.DataSource = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
+            string siteNameKey = Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName);
+            string sipAccountKey = Enums.GetDescription(Enums.PhoneCalls.SourceUserUri);
+            accountantSitesNames = GetAccountantSiteName(session.EffectiveSipAccount);
+            List<string> usersInSites = new List<string>();
+
+            foreach (string siteName in accountantSitesNames)
+            {
+                usersInSites.AddRange(Users.GetUsers(siteName).Select(user => user.SipAccount));
+            }
+
+            this.DisputedCallsStore.DataSource = PhoneCall.GetDisputedPhoneCalls(usersInSites, wherePart, 0);
             this.ManageDisputedCallsGrid.DataBind();
         }
 

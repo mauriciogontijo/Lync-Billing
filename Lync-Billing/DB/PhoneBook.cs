@@ -69,39 +69,29 @@ namespace Lync_Billing.DB
             List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
             PhoneBookContactComparer linqDistinctComparer = new PhoneBookContactComparer();
 
-            int limits = 0;
-            
+            List<object> functionparameters = new List<object>() { sipAccount };
+
             Dictionary<string, object> wherePart = new Dictionary<string,object>
             {
-                { Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount },
                 { Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri), "!null" },
                 { Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID), PhoneCall.BillableCallTypesList }
             };
-            
-            List<string> columns = new List<string>()
-            { 
-                Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri),
-                Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry)
-            };
 
 
-            //For each phonecall table, get all the destinations for this user where the phonecall is of a billable CallTypeID
-            foreach (string tableName in PhoneCall.PhoneCallsTablesList)
+            //Get all the destinations for this user where the phonecall is of a billable CallTypeID
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_ChargeableCalls_ForUser", functionparameters, wherePart);
+
+            foreach (DataRow row in dt.Rows)
             {
-                dt = DBRoutines.SELECT(tableName, columns, wherePart, limits);
-
-                foreach (DataRow row in dt.Rows)
-                {
-                    phoneBookEntry = new PhoneBook();
+                phoneBookEntry = new PhoneBook();
                     
-                    columnName = Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri);
-                    phoneBookEntry.DestinationNumber = (string)row[columnName];
+                columnName = Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri);
+                phoneBookEntry.DestinationNumber = (string)row[columnName];
 
-                    columnName = Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry);
-                    phoneBookEntry.DestinationCountry = (string)row[columnName];
+                columnName = Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry);
+                phoneBookEntry.DestinationCountry = (string)row[columnName];
 
-                    phoneBookEntries.Add(phoneBookEntry);
-                }
+                phoneBookEntries.Add(phoneBookEntry);
             }
 
             //Filter only the distinct values.

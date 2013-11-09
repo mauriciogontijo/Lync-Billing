@@ -124,13 +124,10 @@ namespace Lync_Billing.ui.user
         
         protected int getUnmarkedCallsCount()
         {
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount);
             wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null);
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID), PhoneCall.BillableCallTypesList);
             wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Exclude), 0);
-            //wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "NO");
 
-            phoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+            phoneCalls = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
 
             return phoneCalls.Count;
         }

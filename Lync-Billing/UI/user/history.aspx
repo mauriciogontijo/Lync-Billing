@@ -186,7 +186,7 @@
                                 </SelectedItems>
                             </ext:ComboBox>
 
-                            <ext:Button
+                            <%--<ext:Button
                                 ID="ExportToPDFButton"
                                 runat="server"
                                 Text="To PDF"
@@ -204,7 +204,7 @@
                                 <Listeners>
                                     <Click Handler="submitValue(#{PhoneCallsHistoryGrid}, #{FormatType}, 'xls');" />
                                 </Listeners>
-                            </ext:Button>
+                            </ext:Button>--%>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>

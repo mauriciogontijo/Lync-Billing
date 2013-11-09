@@ -15,155 +15,159 @@ namespace Lync_Billing.DB
     {
         private static DBLib DBRoutines = new DBLib();
         private static Statistics StatsRoutines = new Statistics();
-        
 
         private static Dictionary<string, object> wherePart;
-        private static List<string> columns;
 
         public string Name { get;set;}
         public int TotalCalls { get; set; }
         public int TotalDuration { get; set; }
         public int TotalCost { get; set; }
-       
+        
+
         public static List<UsersCallsSummaryChartData> GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate) 
         {
-            wherePart = new Dictionary<string, object>();
-            columns = new List<string>();
             string columnName = string.Empty;
+            wherePart = new Dictionary<string, object>();
+            List<object> functionParams = new List<object>();
+            int summaryYear, summaryMonth;
 
             DataTable dt = new DataTable();
             UsersCallsSummaryChartData userSummary;
             List<UsersCallsSummaryChartData> chartList = new List<UsersCallsSummaryChartData>();
 
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), sipAccount);
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.StartingDate), startingDate);
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.EndingDate), endingDate);
+            //Specify the sipaccount for the database function
+            functionParams.Add(sipAccount);
 
-            foreach (var tableName in PhoneCall.PhoneCallsTablesList)
+            //dt = DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUser", functionParams, wherePart);
+
+            foreach (DataRow row in dt.Rows)
             {
-                //dt = DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
-                dt = StatsRoutines.SELECT_USER_STATISTICS(tableName, wherePart);
+                userSummary = new UsersCallsSummaryChartData();
 
-                foreach (DataRow row in dt.Rows)
+                summaryYear = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
+                summaryMonth = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]));
+
+                //Skip this summary-row if it's out of the range of the given date periods
+                if (summaryYear < startingDate.Year || summaryYear > endingDate.Year || summaryMonth < startingDate.Month || summaryMonth > endingDate.Month)
+                    continue;
+
+                //Start processing the summary
+                if (row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]] != System.DBNull.Value &&
+                    row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]].ToString() == "Business")
                 {
-                    userSummary = new UsersCallsSummaryChartData();
+                    userSummary.Name = "Business";
 
-                    if (row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]] != System.DBNull.Value &&
-                        row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]].ToString() == "Business")
-                    {
-                        userSummary.Name = "Business";
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.ui_CallType);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalCalls = 0;
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalDuration);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalDuration = 0;
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalCost);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalCost = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalCost = 0;
-                    }
-
-                    else if (row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]] != System.DBNull.Value &&
-                        row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]].ToString() == "Personal")
-                    {
-                        userSummary.Name = "Personal";
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.ui_CallType);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalCalls = 0;
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalDuration);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalDuration = 0;
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalCost);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalCost = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalCost = 0;
-
-                    }
-
-                    else if (row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]] != System.DBNull.Value &&
-                        row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]].ToString() == "Disputed")
-                    {
-                        userSummary.Name = "Disputed";
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.ui_CallType);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalCalls = 0;
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalDuration);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalDuration = 0;
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalCost);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalCost = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalCost = 0;
-                    }
-
-                    else if (row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]] == System.DBNull.Value)
-                    {
-                        userSummary.Name = "Unmarked";
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.ui_CallType);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalCalls = 0;
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalDuration);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalDuration = 0;
-
-                        columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalCost);
-                        if (row[dt.Columns[columnName]] != System.DBNull.Value)
-                            userSummary.TotalCost = Convert.ToInt32(row[dt.Columns[columnName]]);
-                        else
-                            userSummary.TotalCost = 0;
-                    }
-
-                    //If there is already a summary with the same name in the list, then just add it's values to this currently computed summary (userSummary)
-                    //This happens due to multiple phonecalls tables
-                    var existingSummary = chartList.SingleOrDefault(summary => summary.Name == userSummary.Name);
-                    if (existingSummary != null)
-                    {
-                        //Get the existing summary's index
-                        int summaryIndex = chartList.IndexOf(existingSummary);
-
-                        //Compute an updated summary
-                        userSummary.TotalCalls += existingSummary.TotalCalls;
-                        userSummary.TotalCost += existingSummary.TotalCost;
-                        userSummary.TotalDuration += existingSummary.TotalDuration;
-
-                        //Replace the old summary with the newly updated version of it.
-                        chartList[summaryIndex] = userSummary;
-                    }
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.ui_CallType);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns[columnName]]);
                     else
-                    {
-                        chartList.Add(userSummary);
-                    }
+                        userSummary.TotalCalls = 0;
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalDuration);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalDuration = 0;
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalCost);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalCost = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalCost = 0;
+                }
+
+                else if (row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]] != System.DBNull.Value &&
+                    row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]].ToString() == "Personal")
+                {
+                    userSummary.Name = "Personal";
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.ui_CallType);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalCalls = 0;
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalDuration);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalDuration = 0;
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalCost);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalCost = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalCost = 0;
+
+                }
+
+                else if (row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]] != System.DBNull.Value &&
+                    row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]].ToString() == "Disputed")
+                {
+                    userSummary.Name = "Disputed";
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.ui_CallType);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalCalls = 0;
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalDuration);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalDuration = 0;
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalCost);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalCost = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalCost = 0;
+                }
+
+                else if (row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PhoneCallType)]] == System.DBNull.Value)
+                {
+                    userSummary.Name = "Unmarked";
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.ui_CallType);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalCalls = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalCalls = 0;
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalDuration);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalDuration = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalDuration = 0;
+
+                    columnName = Enums.GetDescription(Enums.PhoneCallSummary.TotalCost);
+                    if (row[dt.Columns[columnName]] != System.DBNull.Value)
+                        userSummary.TotalCost = Convert.ToInt32(row[dt.Columns[columnName]]);
+                    else
+                        userSummary.TotalCost = 0;
+                }
+
+                //If there is already a summary with the same name in the list, then just add it's values to this currently computed summary (userSummary)
+                //This happens due to multiple phonecalls tables
+                var existingSummary = chartList.SingleOrDefault(summary => summary.Name == userSummary.Name);
+                if (existingSummary != null)
+                {
+                    //Get the existing summary's index
+                    int summaryIndex = chartList.IndexOf(existingSummary);
+
+                    //Compute an updated summary
+                    userSummary.TotalCalls += existingSummary.TotalCalls;
+                    userSummary.TotalCost += existingSummary.TotalCost;
+                    userSummary.TotalDuration += existingSummary.TotalDuration;
+
+                    //Replace the old summary with the newly updated version of it.
+                    chartList[summaryIndex] = userSummary;
+                }
+                else
+                {
+                    chartList.Add(userSummary);
                 }
             }
 
@@ -201,82 +205,105 @@ namespace Lync_Billing.DB
         public int Year { get; set; }
         public int Month { get; set; }
 
+
         public static UserCallsSummary GetUserCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
         {
-            columns = new List<string>();
-
+            List<object> functionParams = new List<object>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            
             DataTable dt = new DataTable();
             UserCallsSummary userSummary = new UserCallsSummary();
+            int summaryYear, summaryMonth;
+            
+            functionParams.Add(sipAccount);
+            
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUser", functionParams, wherePart);
 
-            foreach (var tableName in PhoneCall.PhoneCallsTablesList)
+            foreach (DataRow row in dt.Rows)
             {
-                //dt = StatRoutines.USER_STATS(sipAccount, Year, fromMonth, toMonth);
-                dt = StatRoutines.ChargeableCallsStatisticsForUser(tableName, sipAccount, Year, fromMonth, toMonth);
+                summaryYear = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
+                summaryMonth = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]));
 
-                foreach (DataRow row in dt.Rows)
-                {
-                    userSummary.Year = Convert.ToInt32(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]);
-                    userSummary.Month = Convert.ToInt32(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]);
-                    userSummary.MonthDate = new DateTime(userSummary.Year, userSummary.Month, DateTime.DaysInMonth(userSummary.Year, userSummary.Month));
+                //Skip this summary-row if it's out of the range of the given date periods
+                if (summaryYear != Year || summaryMonth < fromMonth || summaryMonth > toMonth)
+                    continue;
 
-                    userSummary.BusinessCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
-                    userSummary.BusinessCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
-                    userSummary.BusinessCallsCost += Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost)]]));
-                    userSummary.PersonalCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsDuration)]]));
-                    userSummary.PersonalCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCount)]]));
-                    userSummary.PersonalCallsCost += Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost)]]));
-                    userSummary.UnmarkedCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration)]]));
-                    userSummary.UnmarkedCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount)]]));
-                    userSummary.UnmarkedCallsCost += Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost)]]));
+                //Start processing the summary
+                userSummary = new UserCallsSummary();
 
-                    userSummary.Duration += (userSummary.PersonalCallsDuration / 60);
-                }
+                userSummary.Year = summaryYear;
+                userSummary.Month = summaryMonth;
+                userSummary.MonthDate = new DateTime(summaryYear, summaryMonth, DateTime.DaysInMonth(summaryYear, summaryMonth));
+
+                userSummary.BusinessCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
+                userSummary.BusinessCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
+                userSummary.BusinessCallsCost += Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost)]]));
+                userSummary.PersonalCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsDuration)]]));
+                userSummary.PersonalCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCount)]]));
+                userSummary.PersonalCallsCost += Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost)]]));
+                userSummary.UnmarkedCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration)]]));
+                userSummary.UnmarkedCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount)]]));
+                userSummary.UnmarkedCallsCost += Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost)]]));
+
+                userSummary.Duration += (userSummary.PersonalCallsDuration / 60);
             }
 
             return userSummary;
         }
 
+
         public static List<UserCallsSummary> GetUsersCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
         {
-            columns = new List<string>();
-
             DataTable dt = new DataTable();
             UserCallsSummary userSummary;
             List<UserCallsSummary> chartList = new List<UserCallsSummary>();
 
-            //foreach (var tableName in PhoneCall.PhoneCallsTablesList)
-            //{
-                dt = StatRoutines.USER_STATS(sipAccount, Year, fromMonth, toMonth);
-                //dt = StatRoutines.ChargeableCallsStatisticsForUser(tableName, sipAccount, Year, fromMonth, toMonth);
+            List<object> functionParams = new List<object>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            int summaryYear, summaryMonth;
 
-                foreach (DataRow row in dt.Rows)
-                {
-                    userSummary = new UserCallsSummary();
+            functionParams.Add(sipAccount);
 
-                    userSummary.Year = Convert.ToInt32(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]);
-                    userSummary.Month = Convert.ToInt32(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]);
-                    userSummary.MonthDate = new DateTime(userSummary.Year, userSummary.Month, DateTime.DaysInMonth(userSummary.Year, userSummary.Month));
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUser", functionParams, wherePart);
 
-                    userSummary.BusinessCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
-                    userSummary.BusinessCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
-                    userSummary.BusinessCallsCost += Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost)]]));
-                    userSummary.PersonalCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsDuration)]]));
-                    userSummary.PersonalCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCount)]]));
-                    userSummary.PersonalCallsCost += Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost)]]));
-                    userSummary.UnmarkedCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration)]]));
-                    userSummary.UnmarkedCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount)]]));
-                    userSummary.UnmarkedCallsCost += Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost)]]));
+            foreach (DataRow row in dt.Rows)
+            {
+                summaryYear = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
+                summaryMonth = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]));
 
-                    userSummary.Duration += (userSummary.PersonalCallsDuration / 60);
+                //Skip this summary-row if it's out of the range of the given date periods
+                if (summaryYear != Year || summaryMonth < fromMonth || summaryMonth > toMonth)
+                    continue;
+
+                //Start processing the summary
+                userSummary = new UserCallsSummary();
+
+                userSummary.Year = summaryYear;
+                userSummary.Month = summaryMonth;
+                userSummary.MonthDate = new DateTime(summaryYear, summaryMonth, DateTime.DaysInMonth(summaryYear, summaryMonth));
+
+                userSummary.BusinessCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
+                userSummary.BusinessCallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
+                userSummary.BusinessCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost)]]));
+                userSummary.PersonalCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsDuration)]]));
+                userSummary.PersonalCallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCount)]]));
+                userSummary.PersonalCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost)]]));
+                userSummary.UnmarkedCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration)]]));
+                userSummary.UnmarkedCallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount)]]));
+                userSummary.UnmarkedCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost)]]));
+
+                userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
 
 
-                    //Add it to the list.
-                    chartList.Add(userSummary);
-                }
-            //}
+                //Add it to the list.
+                chartList.Add(userSummary);
+            }
+
             return chartList;
         }
 
+
+        //TO DO: REFACTOR USING NEW DATABASE FUNCTIONS
         public static List<UserCallsSummary> GetUsersCallsSummary(DateTime startingDate, DateTime endingDate,string siteName) 
         {
             DataTable dt = new DataTable();
@@ -310,6 +337,8 @@ namespace Lync_Billing.DB
             return usersSummaryList;
         }
 
+
+        //TO DO: REFACTOR USING NEW DATABASE FUNCTIONS
         public static Dictionary<string, UserCallsSummary> GetUsersCallsSummary(List<string> sipAccounts, DateTime startingDate, DateTime endingDate, string siteName)
         {
             DataTable dt = new DataTable();
@@ -394,6 +423,8 @@ namespace Lync_Billing.DB
             return usersSummaryList;
         }
 
+
+        //TO DO: REFACTOR USING NEW DATABASE FUNCTIONS
         public static void ExportUsersCallsSummaryToPDF(DateTime startingDate, DateTime endingDate, string siteName, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             //THE PDF REPORT PROPERTIES
@@ -446,6 +477,7 @@ namespace Lync_Billing.DB
         }
 
 
+        //TO DO: REFACTOR USING NEW DATABASE FUNCTIONS
         public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, string siteName, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             //THE PDF REPORT PROPERTIES
@@ -512,6 +544,8 @@ namespace Lync_Billing.DB
 
         private static DBLib DBRoutines = new DBLib();
 
+
+        //TO DO: REFACTOR USING NEW DATABASE FUNCTIONS
         public static List<DepartmentCallsSummary> GetPhoneCallsStatisticsForDepartment(string departmentName, string siteName, int year)
         {
             DataTable dt = new DataTable();

@@ -98,7 +98,7 @@
                 ID="ManagePhoneCallsGrid"
                 runat="server"
                 Width="740"
-                Height="720"
+                Height="715"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="TableLayout">

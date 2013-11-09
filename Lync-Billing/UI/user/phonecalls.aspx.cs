@@ -67,23 +67,9 @@ namespace Lync_Billing.ui.user
 
             if (userSession.PhoneCalls == null || userSession.PhoneCalls.Count == 0 || force == true)
             {
-                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount);
-                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID), PhoneCall.BillableCallTypesList);
                 wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Exclude), 0);
-                //wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "NO");
 
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.SessionEndTime));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.Duration));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType));
-                columns.Add(Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn));
-
-                userSession.PhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+                userSession.PhoneCalls = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
                 xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);
 
             }
@@ -152,7 +138,7 @@ namespace Lync_Billing.ui.user
                     };
 
                     Document doc = new Document();
-                    PhoneCall.ExportUserPhoneCalls(sipAccount, Response, out doc, headers);
+                    //PhoneCall.ExportUserPhoneCalls(sipAccount, Response, out doc, headers);
                     
                     Response.Write(doc);
 

@@ -143,21 +143,10 @@ namespace Lync_Billing.ui.dephead.users
         {
             List<PhoneCall> ListOfPhoneCalls;
             wherePart = new Dictionary<string, object>();
-            columns = new List<string>();
 
-            wherePart.Add("SourceUserUri", userSipAccount);
-            wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
-            wherePart.Add("Exclude", false);
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Exclude), false);
 
-            columns.Add("SourceUserUri");
-            columns.Add("SessionIdTime");
-            columns.Add("marker_CallToCountry");
-            columns.Add("DestinationNumberUri");
-            columns.Add("Duration");
-            columns.Add("marker_CallCost");
-            columns.Add("ui_CallType");
-            
-            ListOfPhoneCalls = PhoneCall.GetPhoneCalls(columns, wherePart, 0)
+            ListOfPhoneCalls = PhoneCall.GetPhoneCalls(userSipAccount, wherePart, 0)
                                 .Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null)
                                 .ToList();
 

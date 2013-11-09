@@ -285,7 +285,9 @@ namespace Lync_Billing.DB
             [Description("ac_InvoiceDate")]
             AC_InvoiceDate,
             [Description("Exclude")]
-            Exclude
+            Exclude,
+            [Description("PhoneCallsTableName")]
+            PhoneCallsTableName
         }
 
         public enum UsersCallsSummary

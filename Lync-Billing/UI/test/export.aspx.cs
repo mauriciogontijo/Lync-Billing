@@ -47,23 +47,24 @@ namespace Lync_Billing.ui.test
             
             if (PhoneCallsList == null || PhoneCallsList.Count == 0 || force == true)
             {
-                wherePart.Add("SourceUserUri", sipAccount);
+                //wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
+                //wherePart.Add("SourceUserUri", sipAccount);
                 //wherePart.Add("ac_IsInvoiced", "NO");
-                wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
 
-                columns.Add("SessionIdTime");
-                columns.Add("SessionIdSeq");
-                columns.Add("ResponseTime");
-                columns.Add("SessionEndTime");
-                columns.Add("marker_CallToCountry");
-                columns.Add("DestinationNumberUri");
-                columns.Add("Duration");
-                columns.Add("marker_CallCost");
-                columns.Add("ui_CallType");
-                columns.Add("ui_MarkedOn");
+                //columns.Add("SessionIdTime");
+                //columns.Add("SessionIdSeq");
+                //columns.Add("ResponseTime");
+                //columns.Add("SessionEndTime");
+                //columns.Add("marker_CallToCountry");
+                //columns.Add("DestinationNumberUri");
+                //columns.Add("Duration");
+                //columns.Add("marker_CallCost");
+                //columns.Add("ui_CallType");
+                //columns.Add("ui_MarkedOn");
 
-                //PhoneCallsList = PhoneCall.GetPhoneCalls(columns, wherePart, 0);
-                PhoneCallsList = PhoneCall.GetPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+                wherePart = new Dictionary<string, object>();
+
+                PhoneCallsList = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
                 xmldoc = Misc.SerializeObject<List<PhoneCall>>(PhoneCallsList);
 
             }
@@ -131,7 +132,7 @@ namespace Lync_Billing.ui.test
                     };
 
                     Document doc = new Document();
-                    PhoneCall.ExportUserPhoneCalls(sipAccount, Response, out doc, headers);
+                    //PhoneCall.ExportUserPhoneCalls(sipAccount, Response, out doc, headers);
 
                     Response.Write(doc);
                     

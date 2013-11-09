@@ -235,7 +235,7 @@ namespace Lync_Billing.Libs
 
             return dt;
         }
-
+        
         public DataTable SELECT_FROM_FUNCTION(string tableName,List<object> functionParams, Dictionary<string,object> whereClause ) 
         {
             DataTable dt = new DataTable();
@@ -263,15 +263,63 @@ namespace Lync_Billing.Libs
 
             if ( whereClause != null && whereClause.Count != 0)
             {
-                whereStatement.Append("WHERE ");
                 foreach (KeyValuePair<string, object> pair in whereClause)
                 {
-                    Type valueType = pair.Value.GetType();
-            
-                    if (valueType == typeof(int) || valueType == typeof(Double))
-                        whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                    if (pair.Value == null)
+                    {
+                        whereStatement.Append("[" + pair.Key + "] IS NULL" + " AND ");
+                    }
+
+                    else if (pair.Value.ToString() == "!null")
+                    {
+                        whereStatement.Append("[" + pair.Key + "] IS NOT NULL" + " AND ");
+                    }
+
+                    else if (pair.Value.ToString() == "!=0")
+                    {
+                        whereStatement.Append("[" + pair.Key + "] <> 0" + " AND ");
+                    }
+
+                    else if (pair.Value is List<int>)
+                    {
+                        whereStatement.Append("[" + pair.Key + "] in ( ");
+
+                        foreach (var item in (List<int>)pair.Value)
+                        {
+                            whereStatement.Append(item.ToString() + ",");
+                        }
+                        //Remove last ','
+                        whereStatement.Remove(whereStatement.Length - 1, 1);
+
+                        whereStatement.Append(" ) AND ");
+                    }
+
+                    else if (pair.Value is List<string>)
+                    {
+                        whereStatement.Append("[" + pair.Key + "] in ( ");
+
+                        foreach (var item in (List<string>)pair.Value)
+                        {
+                            whereStatement.Append(item.ToString() + ",");
+                        }
+                        //Remove last ','
+                        whereStatement.Remove(whereStatement.Length - 1, 1);
+
+                        whereStatement.Append(" ) AND ");
+                    }
+
                     else
-                        whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
+                    {
+                        Type valueType = pair.Value.GetType();
+                        if (valueType == typeof(int) || valueType == typeof(Double))
+                        {
+                            whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                        }
+                        else
+                        {
+                            whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' COLLATE SQL_Latin1_General_CP1_CI_AS AND ");
+                        }
+                    }
                 }
                 whereStatement.Remove(whereStatement.Length - 5, 5);
             }
