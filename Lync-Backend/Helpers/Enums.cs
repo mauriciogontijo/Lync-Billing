@@ -230,7 +230,7 @@ namespace Lync_Backend.Helpers
             Description
         }
 
-        public enum UsersCallsSummary
+        public enum PhoneCallSummary
         {
             [Description("UserPhoneCallsStats")]
             TableName,
