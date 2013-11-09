@@ -248,7 +248,7 @@ namespace Lync_Backend.Helpers
             PersonalCallsCost,
             [Description("UnmarkedCallsCount")]
             UnmarkedCallsCount,
-            [Description("UnmarkedCallsDurtion")]
+            [Description("UnmarkedCallsDuration")]
             UnmarkedCallsDuration,
             [Description("UnmarkedCallsCost")]
             UnmarkedCallsCost,
