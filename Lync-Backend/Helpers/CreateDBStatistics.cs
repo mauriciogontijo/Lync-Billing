@@ -118,35 +118,23 @@ namespace Lync_Backend.Helpers
             
         }
 
+        //High  1
         //Returns List of Chargeable Calls For users in Specific Site
         public static void Get_ChargeableCalls_ForSite() { }
 
         
         #endregion
-
-        //STEP 2 Future use
-        #region Invoiced Calls Function
-
-        //Returns List of invoiced Calls For A specific User
-        public static void Get_ChargedCalls_ForUser() { }
-
-        //Returns List of invoiced Calls For users in Specific Site
-        public static void Get_ChargedCalls_ForSite() { }
-
-        //Returns List of invoiced Calls for  users specific deparment in a specific Site
-        public static void Get_ChargedCalls_ForSiteDepartment() { }
-
-        #endregion
-
-        //STEP 5
+  
         #region Destinations Countries Summaries Functions
 
+        // High 2
         //Get Destinations with duration/cost/count Per User
         public static void Get_DestinationsSummary_ForUser() { }
 
         //Get Destinations with duration/cost/count Per Site
         public static void Get_DestinationsSummary_ForSite() { }
-
+        
+        // High 3
         //Get Destinations with duration/cost/count Per Department Per Site
         public static void Get_DestinationsSummary_ForSiteDepartment() { }
 
@@ -155,9 +143,9 @@ namespace Lync_Backend.Helpers
 
         #endregion
 
-        //STEP 6
         #region Destinations Numbers Functions
 
+        //High 4
         //Get Destinations with duration/cost/count Per User
         public static void Get_DestinationsNumbers_ForUser() { }
 
@@ -169,7 +157,6 @@ namespace Lync_Backend.Helpers
 
         #endregion
 
-        //STEP 3
         #region Calls Summaries Functions
 
         //Get Calls Summary Per User
@@ -411,5 +398,19 @@ namespace Lync_Backend.Helpers
         public static void Get_GatewaySummary_PerSiteDepartment() { }
         
         #endregion
+
+        #region Invoiced Calls Function
+
+        //Returns List of invoiced Calls For A specific User
+        public static void Get_ChargedCalls_ForUser() { }
+
+        //Returns List of invoiced Calls For users in Specific Site
+        public static void Get_ChargedCalls_ForSite() { }
+
+        //Returns List of invoiced Calls for  users specific deparment in a specific Site
+        public static void Get_ChargedCalls_ForSiteDepartment() { }
+
+        #endregion
+
     }
 }
