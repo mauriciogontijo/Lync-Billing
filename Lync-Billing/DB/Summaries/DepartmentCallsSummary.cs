@@ -43,10 +43,13 @@ namespace Lync_Billing.DB.Summaries
             List<DepartmentCallsSummary> ListOfDepartmentCallsSummaries = new List<DepartmentCallsSummary>();
 
             List<object> functionParameters = new List<object>();
-            functionParameters.Add(departmentName);
-            functionParameters.Add(siteName);
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_Chargable_Calls_By_Site_Department", functionParameters, null);
+            //Add the function parameters in a specific order, conceptually: bigger to smaller.
+            functionParameters.Add(siteName);
+            functionParameters.Add(departmentName);
+            
+
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForSiteDepartment", functionParameters, null);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -91,7 +94,7 @@ namespace Lync_Billing.DB.Summaries
                     departmentSummary.UnmarkedCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
 
-                columnName = Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName);
+                columnName = Enums.GetDescription(Enums.Users.SiteName);
                 if (dt.Columns.Contains(columnName))
                     departmentSummary.SiteName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[columnName]]));
 

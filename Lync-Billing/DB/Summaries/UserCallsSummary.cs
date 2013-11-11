@@ -42,6 +42,14 @@ namespace Lync_Billing.DB.Summaries
         public int Month { get; set; }
 
 
+        /// <summary>
+        /// Given a SipAccount address, a year's number, a starting month's number, and an ending month's number return sum object of all the phone calls summaries between the months.
+        /// </summary>
+        /// <param name="siteName">The user's SipAccount address</param>
+        /// <param name="year">The year of the phone calls summary</param>
+        /// <param name="fromMonth">The starting month of the phone calls summary</param>
+        /// <param name="endMonth">The ending month of the phone calls summary</param>
+        /// <returns>A UserCallsSummary sum object of all summaries between the months</returns>
         public static UserCallsSummary GetUserCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
         {
             List<object> functionParams = new List<object>();
@@ -88,6 +96,14 @@ namespace Lync_Billing.DB.Summaries
         }
 
 
+        /// <summary>
+        /// Given a SipAccount address, a starting date, and an ending date return a UserCallsSummary sum object of all the phone calls summaries between the dates.
+        /// </summary>
+        /// <param name="siteName">The user's SipAccount address</param>
+        /// <param name="year">The year of the phone calls summary</param>
+        /// <param name="startingDate">The starting date of phone calls summary</param>
+        /// <param name="endingDate">The ending date of the phone calls summary</param>
+        /// <returns>A UserCallsSummary sum object of all summaries between the dates</returns>
         public static UserCallsSummary GetUserCallsSummary(string sipAccount, DateTime startDate, DateTime endDate)
         {
             List<object> functionParams = new List<object>();
@@ -135,7 +151,15 @@ namespace Lync_Billing.DB.Summaries
         }
 
 
-        public static List<UserCallsSummary> GetUsersCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
+        /// <summary>
+        /// Given a SipAccount address, a year's number, a starting month's number, and an ending month's number return the list of this user's summaries with respect to months.
+        /// </summary>
+        /// <param name="siteName">The user's SipAccount address</param>
+        /// <param name="year">The year of the phone calls summary</param>
+        /// <param name="fromMonth">The starting month of the phone calls summary</param>
+        /// <param name="endMonth">The ending month of the phone calls summary</param>
+        /// <returns>A list of UserCallsSummary for that user</returns>
+        public static List<UserCallsSummary> GetUsersCallsSummary(string sipAccount, int year, int fromMonth, int toMonth)
         {
             DataTable dt = new DataTable();
             UserCallsSummary userSummary;
@@ -155,7 +179,7 @@ namespace Lync_Billing.DB.Summaries
                 summaryMonth = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]));
 
                 //Skip this summary-row if it's out of the range of the given date periods
-                if (summaryYear != Year || summaryMonth < fromMonth || summaryMonth > toMonth)
+                if (summaryYear != year || summaryMonth < fromMonth || summaryMonth > toMonth)
                     continue;
 
                 //Start processing the summary
@@ -186,8 +210,14 @@ namespace Lync_Billing.DB.Summaries
         }
 
 
-        //IN PROGRESS: REFACTOR USING NEW DATABASE FUNCTIONS
-        public static List<UserCallsSummary> GetUsersCallsSummary(DateTime startingDate, DateTime endingDate, string siteName)
+        /// <summary>
+        /// Given a Site's name, a starting date, and an end date, return the list of all users' summaries who belong to that Site
+        /// </summary>
+        /// <param name="siteName">The Site's name</param>
+        /// <param name="startingDate">The starting date of phone calls summary</param>
+        /// <param name="endingDate">The ending date of the phone calls summary</param>
+        /// <returns>A list of UserCallsSummary</returns>
+        public static List<UserCallsSummary> GetUsersCallsSummary(string siteName, DateTime startingDate, DateTime endingDate)
         {
             DataTable dt = new DataTable();
             UserCallsSummary userSummary;
@@ -213,6 +243,13 @@ namespace Lync_Billing.DB.Summaries
 
                 userSummary = new UserCallsSummary();
 
+                userSummary.SipAccount = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.SipAccount)]]));
+                userSummary.FullName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.DisplayName)]]));
+                userSummary.EmployeeID = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.EmployeeID)]]));
+                userSummary.SiteName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.SiteName)]]));
+
+                userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
+
                 userSummary.BusinessCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
                 userSummary.BusinessCallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
                 userSummary.BusinessCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost)]]));
@@ -222,44 +259,48 @@ namespace Lync_Billing.DB.Summaries
                 userSummary.UnmarkedCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration)]]));
                 userSummary.UnmarkedCallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount)]]));
                 userSummary.UnmarkedCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost)]]));
-                userSummary.SipAccount = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.SipAccount)]]));
-                userSummary.FullName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_DisplayName)]]));
-                userSummary.EmployeeID = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_UserID)]]));
-                userSummary.SiteName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName)]]));
-
-                userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
 
                 usersSummaryList.Add(userSummary);
             }
+
             return usersSummaryList;
         }
 
 
-        //IN PROGRESS: REFACTOR USING NEW DATABASE FUNCTIONS
-        public static Dictionary<string, UserCallsSummary> GetUsersCallsSummary(List<string> sipAccountsList, DateTime startingDate, DateTime endingDate, string siteName)
+        /// <summary>
+        /// Given a Site's name, a list of specific users sipaccounts addresses, a starting date, and an end date, return the list of all of these users summaries - who belong to that same Site.
+        /// </summary>
+        /// <param name="siteName">The Site's name</param>
+        /// <param name="sipAccountsList">The list of users' SipAccount addresses</param>
+        /// <param name="startingDate">The starting date of phone calls summary</param>
+        /// <param name="endingDate">The ending date of the phone calls summary</param>
+        /// <returns>A list of UserCallsSummary</returns>
+        public static Dictionary<string, UserCallsSummary> GetUsersCallsSummary(string siteName, List<string> sipAccountsList, DateTime startingDate, DateTime endingDate)
         {
             DataTable dt = new DataTable();
             string columnName = string.Empty;
 
-            Users user;
-            UserCallsSummary userSummary;
+            List<UserCallsSummary> ListOfUsersSummaries = GetUsersCallsSummary(siteName, startingDate, endingDate);
 
-            Dictionary<string, UserCallsSummary> usersSummaryList = new Dictionary<string, UserCallsSummary>();
+            Dictionary<string, UserCallsSummary> usersSummaryList = ListOfUsersSummaries
+                .Where(summary => sipAccountsList.Contains(summary.SipAccount))
+                .ToDictionary(summary => summary.SipAccount);
 
-            foreach (string sipAccount in sipAccountsList)
-            {
-                user = Users.GetUser(sipAccount);
-                userSummary = GetUserCallsSummary(sipAccount, startingDate, endingDate);
-
-                userSummary.SipAccount = sipAccount;
-                userSummary.FullName = user.FullName;
-                userSummary.EmployeeID = user.EmployeeID.ToString();
-                userSummary.SiteName = user.SiteName;
-                userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
-
-                //Add it to the list
-                usersSummaryList.Add(userSummary.SipAccount, userSummary);
-            }
+            //Users user;
+            //UserCallsSummary userSummary;
+            //Dictionary<string, UserCallsSummary> usersSummaryList = new Dictionary<string, UserCallsSummary>();
+            //foreach (string sipAccount in sipAccountsList)
+            //{
+            //    user = Users.GetUser(sipAccount);
+            //    userSummary = GetUserCallsSummary(sipAccount, startingDate, endingDate);
+            //    userSummary.SipAccount = sipAccount;
+            //    userSummary.FullName = user.FullName;
+            //    userSummary.EmployeeID = user.EmployeeID.ToString();
+            //    userSummary.SiteName = user.SiteName;
+            //    userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
+            //    //Add it to the list
+            //    usersSummaryList.Add(userSummary.SipAccount, userSummary);
+            //}
 
             return usersSummaryList;
         }
@@ -354,7 +395,7 @@ namespace Lync_Billing.DB.Summaries
             dt = StatRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
 
             //Get the collection of users' summaries.
-            Dictionary<string, UserCallsSummary> UsersSummaires = UserCallsSummary.GetUsersCallsSummary(UsersCollection.Keys.ToList(), startingDate, endingDate, siteName);
+            Dictionary<string, UserCallsSummary> UsersSummaires = UserCallsSummary.GetUsersCallsSummary(siteName, UsersCollection.Keys.ToList(), startingDate, endingDate);
 
             //Get a closed instance of the document which contains all the formatted data
             document = PDFLib.CreateAccountingDetailedReport(response, dt, pdfColumnsWidths, pdfColumnsSchema, headers, "SourceUserUri", UsersCollection, UsersSummaires);
