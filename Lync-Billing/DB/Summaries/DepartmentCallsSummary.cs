@@ -34,7 +34,13 @@ namespace Lync_Billing.DB.Summaries
         private static DBLib DBRoutines = new DBLib();
 
 
-        //TO DO: REFACTOR USING NEW DATABASE FUNCTIONS
+        /// <summary>
+        /// Given a Site's name, a Department's name, and a year number, return the list of all of department summaries with respect to months.
+        /// </summary>
+        /// <param name="siteName">The Site's name</param>
+        /// <param name="departmentName">The Department's name</param>
+        /// <param name="year">The year number of the phone calls summaries</param>
+        /// <returns>A list of UserCallsSummary with respect to the months</returns>
         public static List<DepartmentCallsSummary> GetPhoneCallsStatisticsForDepartment(string siteName, string departmentName, int year)
         {
             DataTable dt = new DataTable();
@@ -94,7 +100,7 @@ namespace Lync_Billing.DB.Summaries
                     departmentSummary.UnmarkedCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
 
-                columnName = Enums.GetDescription(Enums.Users.SiteName);
+                columnName = Enums.GetDescription(Enums.PhoneCallSummary.SiteName);
                 if (dt.Columns.Contains(columnName))
                     departmentSummary.SiteName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[columnName]]));
 
