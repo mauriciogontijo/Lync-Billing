@@ -36,7 +36,6 @@ namespace Lync_Billing.DB.Summaries
             //Specify the sipaccount for the database function
             functionParams.Add(sipAccount);
 
-            //dt = DBRoutines.SELECT_USER_STATISTICS(Enums.GetDescription(Enums.PhoneCalls.TableName), wherePart);
             dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUser", functionParams, wherePart);
 
             foreach (DataRow row in dt.Rows)
@@ -62,6 +61,7 @@ namespace Lync_Billing.DB.Summaries
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost);
                 userSummary.TotalCost = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
+                //Add or Update this summary in the local chartList variable
                 chartList = AddOrUpdateListOfSummaries(chartList, userSummary);
 
 
@@ -78,6 +78,7 @@ namespace Lync_Billing.DB.Summaries
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost);
                 userSummary.TotalCost = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
+                //Add or Update this summary in the local chartList variable
                 chartList = AddOrUpdateListOfSummaries(chartList, userSummary);
 
 
@@ -94,6 +95,7 @@ namespace Lync_Billing.DB.Summaries
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost);
                 userSummary.TotalCost = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
+                //Add or Update this summary in the local chartList variable
                 chartList = AddOrUpdateListOfSummaries(chartList, userSummary);
             }
 
