@@ -131,7 +131,6 @@ namespace Lync_Backend.Helpers
             
         }
 
-        //High  1
         //Returns List of Chargeable Calls For users in Specific Site
         public static void Get_ChargeableCalls_ForSite()
         {
@@ -174,7 +173,6 @@ namespace Lync_Backend.Helpers
   
         #region Destinations Countries Functions
 
-        // High 2
         //Get Destinations with duration/cost/count Per User
         public static void Get_DestinationCountries_ForUser() 
         {
@@ -288,7 +286,6 @@ namespace Lync_Backend.Helpers
             CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
         }
         
-        // High 3
         //Get Destinations with duration/cost/count Per Department Per Site
         public static void Get_DestinationCountries_ForSiteDepartment() 
         {
