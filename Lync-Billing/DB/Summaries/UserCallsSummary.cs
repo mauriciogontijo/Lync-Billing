@@ -14,10 +14,7 @@ namespace Lync_Billing.DB.Summaries
     public class UserCallsSummary
     {
         private static DBLib DBRoutines = new DBLib();
-        private static Statistics StatRoutines = new Statistics();
-
-        //private static Dictionary<string, object> wherePart;
-        private static List<string> columns;
+        private static Statistics StatsRoutines = new Statistics();
 
         public string EmployeeID { get; set; }
         public string FullName { get; set; }
@@ -35,7 +32,7 @@ namespace Lync_Billing.DB.Summaries
         public decimal UnmarkedCallsCost { get; set; }
         public int NumberOfDisputedCalls { get; set; }
 
-        public DateTime MonthDate { set; get; }
+        public DateTime Date { set; get; }
         public decimal Duration { get; set; }
 
         public int Year { get; set; }
@@ -77,7 +74,7 @@ namespace Lync_Billing.DB.Summaries
 
                 userSummary.Year = summaryYear;
                 userSummary.Month = summaryMonth;
-                userSummary.MonthDate = new DateTime(summaryYear, summaryMonth, DateTime.DaysInMonth(summaryYear, summaryMonth));
+                userSummary.Date = new DateTime(summaryYear, summaryMonth, DateTime.DaysInMonth(summaryYear, summaryMonth));
 
                 userSummary.BusinessCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
                 userSummary.BusinessCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
@@ -91,6 +88,14 @@ namespace Lync_Billing.DB.Summaries
 
                 userSummary.Duration += (userSummary.PersonalCallsDuration / 60);
             }
+
+            //Get the remaining user information
+            Users userInfo = Users.GetUser(sipAccount);
+
+            userSummary.EmployeeID = userInfo.EmployeeID.ToString();
+            userSummary.SipAccount = userInfo.SipAccount;
+            userSummary.FullName = userInfo.FullName;
+            userSummary.SiteName = userInfo.SiteName;
 
             return userSummary;
         }
@@ -132,7 +137,7 @@ namespace Lync_Billing.DB.Summaries
 
                 userSummary.Year = summaryYear;
                 userSummary.Month = summaryMonth;
-                userSummary.MonthDate = new DateTime(summaryYear, summaryMonth, DateTime.DaysInMonth(summaryYear, summaryMonth));
+                userSummary.Date = new DateTime(summaryYear, summaryMonth, DateTime.DaysInMonth(summaryYear, summaryMonth));
 
                 userSummary.BusinessCallsDuration += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
                 userSummary.BusinessCallsCount += Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
@@ -146,6 +151,14 @@ namespace Lync_Billing.DB.Summaries
 
                 userSummary.Duration += (userSummary.PersonalCallsDuration / 60);
             }
+
+            //Get the remaining user information
+            Users userInfo = Users.GetUser(sipAccount);
+
+            userSummary.EmployeeID = userInfo.EmployeeID.ToString();
+            userSummary.SipAccount = userInfo.SipAccount;
+            userSummary.FullName = userInfo.FullName;
+            userSummary.SiteName = userInfo.SiteName;
 
             return userSummary;
         }
@@ -164,6 +177,9 @@ namespace Lync_Billing.DB.Summaries
             DataTable dt = new DataTable();
             UserCallsSummary userSummary;
             List<UserCallsSummary> chartList = new List<UserCallsSummary>();
+
+            //Get the remaining user information
+            Users userInfo = Users.GetUser(sipAccount);
 
             List<object> functionParams = new List<object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
@@ -187,7 +203,12 @@ namespace Lync_Billing.DB.Summaries
 
                 userSummary.Year = summaryYear;
                 userSummary.Month = summaryMonth;
-                userSummary.MonthDate = new DateTime(summaryYear, summaryMonth, DateTime.DaysInMonth(summaryYear, summaryMonth));
+                userSummary.Date = new DateTime(summaryYear, summaryMonth, DateTime.DaysInMonth(summaryYear, summaryMonth));
+
+                userSummary.EmployeeID = userInfo.EmployeeID.ToString();
+                userSummary.SipAccount = userInfo.SipAccount;
+                userSummary.FullName = userInfo.FullName;
+                userSummary.SiteName = userInfo.SiteName;
 
                 userSummary.BusinessCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
                 userSummary.BusinessCallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
@@ -244,9 +265,9 @@ namespace Lync_Billing.DB.Summaries
                 userSummary = new UserCallsSummary();
 
                 userSummary.SipAccount = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.SipAccount)]]));
-                userSummary.FullName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.DisplayName)]]));
-                userSummary.EmployeeID = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.EmployeeID)]]));
-                userSummary.SiteName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.Users.SiteName)]]));
+                userSummary.FullName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.DisplayName)]]));
+                userSummary.EmployeeID = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID)]]));
+                userSummary.SiteName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.SiteName)]]));
 
                 userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
 
@@ -286,22 +307,6 @@ namespace Lync_Billing.DB.Summaries
                 .Where(summary => sipAccountsList.Contains(summary.SipAccount))
                 .ToDictionary(summary => summary.SipAccount);
 
-            //Users user;
-            //UserCallsSummary userSummary;
-            //Dictionary<string, UserCallsSummary> usersSummaryList = new Dictionary<string, UserCallsSummary>();
-            //foreach (string sipAccount in sipAccountsList)
-            //{
-            //    user = Users.GetUser(sipAccount);
-            //    userSummary = GetUserCallsSummary(sipAccount, startingDate, endingDate);
-            //    userSummary.SipAccount = sipAccount;
-            //    userSummary.FullName = user.FullName;
-            //    userSummary.EmployeeID = user.EmployeeID.ToString();
-            //    userSummary.SiteName = user.SiteName;
-            //    userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
-            //    //Add it to the list
-            //    usersSummaryList.Add(userSummary.SipAccount, userSummary);
-            //}
-
             return usersSummaryList;
         }
 
@@ -316,6 +321,7 @@ namespace Lync_Billing.DB.Summaries
             //Database related
             DataTable dt = new DataTable();
             Dictionary<string, object> totals;
+            List<string> columnsList = new List<string>();
 
             //These two are passed to the PdfLib
             int[] pdfColumnsWidths = new int[] { };
@@ -331,7 +337,7 @@ namespace Lync_Billing.DB.Summaries
 
 
             //Get the report content from the database
-            dt = StatRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, UsersCollection.Keys.ToList(), columns);
+            dt = StatsRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, UsersCollection.Keys.ToList(), columnsList);
 
 
             //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
@@ -392,7 +398,7 @@ namespace Lync_Billing.DB.Summaries
             };
 
             //The PDF report body contents
-            dt = StatRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
+            dt = StatsRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
 
             //Get the collection of users' summaries.
             Dictionary<string, UserCallsSummary> UsersSummaires = UserCallsSummary.GetUsersCallsSummary(siteName, UsersCollection.Keys.ToList(), startingDate, endingDate);

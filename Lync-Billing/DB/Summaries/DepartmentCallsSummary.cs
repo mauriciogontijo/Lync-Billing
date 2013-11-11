@@ -106,7 +106,7 @@ namespace Lync_Billing.DB.Summaries
                 if (dt.Columns.Contains(columnName))
                     departmentSummary.Year = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
-                columnName = Enums.GetDescription(Enums.PhoneCallSummary.MonthDate);
+                columnName = Enums.GetDescription(Enums.PhoneCallSummary.Date);
                 if (dt.Columns.Contains(columnName))
                     departmentSummary.MonthDate = Convert.ToDateTime(row[dt.Columns[columnName]]);
 
