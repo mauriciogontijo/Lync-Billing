@@ -49,7 +49,7 @@ namespace Lync_Billing.DB
             return userMailStats;
         }
 
-        public static MailStatistics GetMailStatistics(string departmentName, string siteName, DateTime date)
+        public static MailStatistics GetMailStatistics(string siteName, string departmentName, DateTime date)
         {
             DataTable dt = new DataTable();
             string columnName = string.Empty;
