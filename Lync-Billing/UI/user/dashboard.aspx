@@ -134,7 +134,7 @@
                     Width="465"
                     Height="380"
                     Header="True"
-                    Title="Top Destination Countries"
+                    Title="Most Called Countries"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
@@ -191,7 +191,7 @@
                 <ext:GridPanel
                     ID="TOPDestinationNumbersGrid"
                     runat="server"
-                    Title="Top Destination Numbers"
+                    Title="Most Called Numbers"
                     Width="465"
                     Height="190"
                     AutoScroll="true"
@@ -228,7 +228,7 @@
                             <ext:Column
                                 ID="UserName"
                                 runat="server"
-                                Text="User"
+                                Text="Addressbook Contact Name"
                                 Width="180"
                                 DataIndex="UserName" />
 

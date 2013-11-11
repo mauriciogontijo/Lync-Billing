@@ -93,18 +93,21 @@ namespace Lync_Billing.ui.user
 
             foreach (TopDestinations destination in topDestinations)
             {
-                if (GetUserNameBySip(destination.PhoneNumber) != string.Empty)
-                {
-                    destination.UserName = GetUserNameBySip(destination.PhoneNumber);
-                    continue;
-                }
+                //if (GetUserNameBySip(destination.PhoneNumber) != string.Empty)
+                //{
+                //    destination.UserName = GetUserNameBySip(destination.PhoneNumber);
+                //    continue;
+                //}
 
-                if (GetUserNameByNumber(destination.PhoneNumber) != string.Empty)
+                if (phoneBookEntries.ContainsKey(destination.PhoneNumber))
                 {
-                    destination.UserName = GetUserNameByNumber(destination.PhoneNumber);
+                    destination.UserName = phoneBookEntries[destination.PhoneNumber].Name;
                     continue;
                 }
-                destination.UserName = "N/A";
+                else
+                {
+                    destination.UserName = "N/A";
+                }
             }
 
             TopDestinationNumbersStore.DataSource = topDestinations;
@@ -129,23 +132,6 @@ namespace Lync_Billing.ui.user
             return phoneCalls.Count;
         }
 
-        private string GetUserNameByNumber(string phoneNumber) 
-        {
-            if (phoneBookEntries.ContainsKey(phoneNumber))
-                return phoneBookEntries[phoneNumber].Name;
-            else 
-            {
-                AdLib adRoutines = new AdLib();
-                string DisplayName = adRoutines.getUsersAttributesFromPhone(phoneNumber).DisplayName;
-
-                if (DisplayName != null)
-                    return DisplayName;
-                else
-                    return string.Empty;
-            }
-                
-        }
-     
         private string GetUserNameBySip(string sipAccount) 
         {
             AdLib adRoutines = new AdLib();
