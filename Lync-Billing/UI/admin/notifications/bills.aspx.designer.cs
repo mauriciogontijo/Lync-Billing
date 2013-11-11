@@ -76,7 +76,7 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.ClearButton ClearFullNameFilterButton;
         
         /// <summary>
-        /// MonthDate control.
+        /// Date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

@@ -109,12 +109,12 @@ namespace Lync_Billing.ui.dephead.main
                     TopDestinationCountriesStore.DataBind();
 
                     // Get Department Phonecalls Summaries (for all year's month)
-                    DepartmentCallsPerMonthChart.GetStore().DataSource = DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(departmentName, site.SiteName, DateTime.Now.Year);
+                    DepartmentCallsPerMonthChart.GetStore().DataSource = DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(site.SiteName, departmentName, DateTime.Now.Year);
                     DepartmentCallsPerMonthChart.GetStore().DataBind();
 
                     // Get Department Mail Statistics
                     // Write the Department Mail Statistics to the publicly-available varialbe: departmentMailStatisticsData
-                    departmentMailStatisticsData = MailStatistics.GetMailStatistics(departmentName, site.SiteName, DateTime.Now);
+                    departmentMailStatisticsData = MailStatistics.GetMailStatistics(site.SiteName, departmentName, DateTime.Now);
 
                     Ext.Net.Panel htmlContainer = new Ext.Net.Panel
                     {

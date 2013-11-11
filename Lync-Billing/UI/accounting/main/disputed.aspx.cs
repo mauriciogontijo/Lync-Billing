@@ -79,7 +79,7 @@ namespace Lync_Billing.ui.accounting.main
 
         protected void DisputedCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
-            string siteNameKey = Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName);
+            string siteNameKey = Enums.GetDescription(Enums.Users.SiteName);
             string sipAccountKey = Enums.GetDescription(Enums.PhoneCalls.SourceUserUri);
             accountantSitesNames = GetAccountantSiteName(session.EffectiveSipAccount);
             List<string> usersInSites = new List<string>();
@@ -180,7 +180,7 @@ namespace Lync_Billing.ui.accounting.main
             // List<string> fields = new List<string>();
             List<Users> users = new List<Users>();
 
-            whereStatement.Add("SipAccount", sipAccount);
+            whereStatement.Add(Enums.GetDescription(Enums.Users.SipAccount), sipAccount);
             users = Users.GetUsers(null, whereStatement, 0);
                
             return users[0].SiteName;

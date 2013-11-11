@@ -18,8 +18,9 @@ namespace Lync_Billing.ui.admin.notifications
 {
     public partial class bills : System.Web.UI.Page
     {
-        private string sipAccount = string.Empty;
         private UserSession session;
+        private string sipAccount = string.Empty;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,13 +30,12 @@ namespace Lync_Billing.ui.admin.notifications
                 string redirect_to = @"~/ui/admin/main/dashboard.aspx";
                 string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
                 Response.Redirect(url);
-                //Response.Redirect("~/ui/session/login.aspx");
             }
             else
             {
                 session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "admin")
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
                 }
@@ -88,8 +88,8 @@ namespace Lync_Billing.ui.admin.notifications
             List<string> fields = new List<string>();
             List<Users> users = new List<Users>();
 
-            whereStatement.Add("UserID", employeeID);
-            fields.Add("SipAccount");
+            whereStatement.Add(Enums.GetDescription(Enums.Users.EmployeeID), employeeID);
+            fields.Add(Enums.GetDescription(Enums.Users.SipAccount));
 
             users = Users.GetUsers(fields, whereStatement, 0);
             return users[0].SipAccount;
@@ -98,10 +98,9 @@ namespace Lync_Billing.ui.admin.notifications
         public string GetSipAccountSite(string employeeID)
         {
             Dictionary<string, object> whereStatement = new Dictionary<string, object>();
-            // List<string> fields = new List<string>();
             List<Users> users = new List<Users>();
 
-            whereStatement.Add("UserID", employeeID);
+            whereStatement.Add(Enums.GetDescription(Enums.Users.EmployeeID), employeeID);
 
             users = Users.GetUsers(null, whereStatement, 0);
             return users[0].SiteName;
@@ -111,26 +110,26 @@ namespace Lync_Billing.ui.admin.notifications
         {
             if (BillDateField.SelectedValue != null && FilterUsersBySite.SelectedItem != null)
             {
-                string site = FilterUsersBySite.SelectedItem.Value;
+                string siteName = FilterUsersBySite.SelectedItem.Value;
 
-                DateTime month_start = new DateTime(BillDateField.SelectedDate.Year, BillDateField.SelectedDate.Month, 1);
-                DateTime month_end = month_start.AddMonths(1).AddDays(-1);
+                DateTime beginningOfTheMonth = new DateTime(BillDateField.SelectedDate.Year, BillDateField.SelectedDate.Month, 1);
+                DateTime endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
 
-                UsersBillsGrid.GetStore().DataSource = GetUsersBills(month_start, month_end, site);
+                UsersBillsGrid.GetStore().DataSource = GetUsersBills(siteName, beginningOfTheMonth, endOfTheMonth);
                 UsersBillsGrid.GetStore().DataBind();
             }
         }
 
-        private List<UserCallsSummary> GetUsersBills(DateTime startingDate, DateTime endingDate, string site)
+        private List<UserCallsSummary> GetUsersBills(string siteName, DateTime startingDate, DateTime endingDate)
         {
             List<UserCallsSummary> tmp = new List<UserCallsSummary>();
-            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UserCallsSummary>());
+            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(siteName, startingDate, endingDate).AsEnumerable<UserCallsSummary>());
 
             var UserBills =
             (
                 from data in tmp.AsEnumerable()
 
-                group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName, data.MonthDate } into res
+                group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName, MonthDate = data.Date } into res
 
                 select new UserCallsSummary
                 {
@@ -138,7 +137,7 @@ namespace Lync_Billing.ui.admin.notifications
                     FullName = res.Key.FullName,
                     SipAccount = res.Key.SipAccount,
                     SiteName = res.Key.SiteName,
-                    MonthDate = endingDate,
+                    Date = endingDate,
 
                     PersonalCallsCost = res.Sum(x => x.PersonalCallsCost),
                     PersonalCallsDuration = res.Sum(x => x.PersonalCallsDuration),
@@ -156,12 +155,12 @@ namespace Lync_Billing.ui.admin.notifications
                 BillDateField.Disabled = false;
                 if (BillDateField.SelectedValue != null)
                 {
-                    string site = FilterUsersBySite.SelectedItem.Value;
+                    string siteName = FilterUsersBySite.SelectedItem.Value;
 
-                    DateTime month_start = new DateTime(BillDateField.SelectedDate.Year, BillDateField.SelectedDate.Month, 1);
-                    DateTime month_end = month_start.AddMonths(1).AddDays(-1);
+                    DateTime beginningOfTheMonth = new DateTime(BillDateField.SelectedDate.Year, BillDateField.SelectedDate.Month, 1);
+                    DateTime endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
 
-                    UsersBillsGrid.GetStore().DataSource = GetUsersBills(month_start, month_end, site);
+                    UsersBillsGrid.GetStore().DataSource = GetUsersBills(siteName, beginningOfTheMonth, endOfTheMonth);
                     UsersBillsGrid.GetStore().DataBind();
                 }
             }
@@ -198,7 +197,7 @@ namespace Lync_Billing.ui.admin.notifications
                     string.Format(
                             Body,
                             userSummary.FullName,
-                            userSummary.MonthDate.ToString("MMM", CultureInfo.InvariantCulture) + " " + userSummary.MonthDate.Year,
+                            userSummary.Date.ToString("MMM", CultureInfo.InvariantCulture) + " " + userSummary.Date.Year,
                             userSummary.PersonalCallsCount,
                             DB.Misc.ConvertSecondsToReadable(userSummary.PersonalCallsDuration),
                             userSummary.PersonalCallsCost);

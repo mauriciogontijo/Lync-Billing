@@ -17,8 +17,10 @@ namespace Lync_Billing.ui.admin.notifications
 {
     public partial class calls : System.Web.UI.Page
     {
-        private string sipAccount = string.Empty;
         private UserSession session;
+        private string sipAccount = string.Empty;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,7 +36,7 @@ namespace Lync_Billing.ui.admin.notifications
             {
                 session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != "admin")
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
                 }
@@ -85,8 +87,8 @@ namespace Lync_Billing.ui.admin.notifications
             List<string> fields = new List<string>();
             List<Users> users = new List<Users>();
 
-            whereStatement.Add("UserID", employeeID);
-            fields.Add("SipAccount");
+            whereStatement.Add(Enums.GetDescription(Enums.Users.EmployeeID), employeeID);
+            fields.Add(Enums.GetDescription(Enums.Users.SipAccount));
 
             users = Users.GetUsers(fields, whereStatement, 0);
             return users[0].SipAccount;
@@ -98,7 +100,7 @@ namespace Lync_Billing.ui.admin.notifications
             // List<string> fields = new List<string>();
             List<Users> users = new List<Users>();
 
-            whereStatement.Add("UserID", employeeID);
+            whereStatement.Add(Enums.GetDescription(Enums.Users.EmployeeID), employeeID);
 
 
             users = Users.GetUsers(null, whereStatement, 0);
@@ -107,16 +109,16 @@ namespace Lync_Billing.ui.admin.notifications
 
         protected void GetUnmarkedCallsForSite(object sender, DirectEventArgs e)
         {
-            string site = FilterUsersBySite.SelectedItem.Value;
-            UnmarkedCallsGrid.GetStore().DataSource = PeriodicalReport(DateTime.Now.AddYears(-1), DateTime.Now, site);
+            string siteName = FilterUsersBySite.SelectedItem.Value;
+            UnmarkedCallsGrid.GetStore().DataSource = PeriodicalReport(siteName, DateTime.Now.AddYears(-1), DateTime.Now);
             UnmarkedCallsGrid.GetStore().DataBind();
         }
 
-        List<UserCallsSummary> PeriodicalReport(DateTime startingDate, DateTime endingDate, string site)
+        List<UserCallsSummary> PeriodicalReport(string siteName, DateTime startingDate, DateTime endingDate)
         {
             List<UserCallsSummary> tmp = new List<UserCallsSummary>();
 
-            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UserCallsSummary>());
+            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(siteName, startingDate, endingDate).AsEnumerable<UserCallsSummary>());
 
             var sipAccounts =
                 (

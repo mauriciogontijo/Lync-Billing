@@ -82,8 +82,8 @@ namespace Lync_Billing.ui.dephead.users
             List<string> columns = new List<string>();
             Dictionary<string, object> whereClause = new Dictionary<string, object>() 
             { 
-                { "AD_Department", departmentName },
-                { "AD_PhysicalDeliveryOfficeName", siteName }
+                { "Department", departmentName },
+                { "SiteName", siteName }
             };
 
             return Users.GetUsers(columns, whereClause, 0);

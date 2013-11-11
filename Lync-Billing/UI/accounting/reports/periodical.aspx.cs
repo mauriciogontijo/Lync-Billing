@@ -27,14 +27,14 @@ namespace Lync_Billing.ui.accounting.reports
 {
     public partial class periodical : System.Web.UI.Page
     {
-        private Dictionary<string, object> wherePart = new Dictionary<string, object>();
-        private List<string> columns = new List<string>();
-        private List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
-        private List<string> sites = new List<string>();
-        private string sipAccount = string.Empty;
         private UserSession session;
+        private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
 
+        private List<string> sites = new List<string>();
+        private List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
+        
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -61,12 +61,13 @@ namespace Lync_Billing.ui.accounting.reports
             FilterReportsBySite.GetStore().DataBind();
         }
 
-        List<UserCallsSummary> PeriodicalReport(string site, DateTime startingDate, DateTime endingDate) 
+
+        List<UserCallsSummary> PeriodicalReport(string siteName, DateTime startingDate, DateTime endingDate) 
         {
             List<UserCallsSummary> tmp = new List<UserCallsSummary>();
 
-            
-            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(startingDate, endingDate, site).AsEnumerable<UserCallsSummary>());
+
+            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(siteName, startingDate, endingDate).AsEnumerable<UserCallsSummary>());
             
             var sipAccounts = 
                 (
@@ -97,6 +98,7 @@ namespace Lync_Billing.ui.accounting.reports
 
             return sipAccounts;
         }
+
 
         protected void PeriodicalReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
@@ -209,6 +211,7 @@ namespace Lync_Billing.ui.accounting.reports
             this.Response.End();
         }
 
+
         protected void FilterReportsBySite_Selecting(object sender, DirectEventArgs e)
         {
             if (FilterReportsBySite.SelectedItem.Index != -1)
@@ -235,6 +238,7 @@ namespace Lync_Billing.ui.accounting.reports
             }
         }
 
+
         protected void StartingDate_Selection(object sender, DirectEventArgs e)
         {
             if (StartingDate.SelectedValue != null)
@@ -248,6 +252,7 @@ namespace Lync_Billing.ui.accounting.reports
                 ExportPDFReport.Disabled = true;
             }
         }
+
 
         protected void EndingDate_Selection(object sender, DirectEventArgs e)
         {

@@ -27,12 +27,11 @@ namespace Lync_Billing.ui.accounting.reports
 {
     public partial class monthly : System.Web.UI.Page
     {
-        private Dictionary<string, object> wherePart = new Dictionary<string, object>();
-        private List<string> columns = new List<string>();
-        private List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
-        private string sipAccount = string.Empty;
         private UserSession session;
+        private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
+        private List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -60,15 +59,15 @@ namespace Lync_Billing.ui.accounting.reports
             FilterReportsBySite.GetStore().DataBind();
         }
 
-        protected List<UserCallsSummary> MonthlyReports(string site, DateTime date)
+        protected List<UserCallsSummary> MonthlyReports(string siteName, DateTime date)
         {
             List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
 
-            DateTime month_start = new DateTime(date.Year, date.Month, 1);
-            DateTime month_end = month_start.AddMonths(1).AddDays(-1);
+            DateTime beginningOfTheMonth = new DateTime(date.Year, date.Month, 1);
+            DateTime endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
 
             listOfUsersCallsSummary.AddRange(
-                UserCallsSummary.GetUsersCallsSummary(month_start, month_end, site).Where
+                UserCallsSummary.GetUsersCallsSummary(siteName, beginningOfTheMonth, endOfTheMonth).Where
                             (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != 0).AsEnumerable<UserCallsSummary>());
             
             return listOfUsersCallsSummary;

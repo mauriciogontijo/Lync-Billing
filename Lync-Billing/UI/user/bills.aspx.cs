@@ -72,7 +72,7 @@ namespace Lync_Billing.ui.user
             foreach (UserCallsSummary summary in UserSummariesList)
             {
                 Bill = new Dictionary<string, object>();
-                Bill.Add("BillDate", summary.MonthDate);
+                Bill.Add("BillDate", summary.Date);
                 Bill.Add("Cost", summary.PersonalCallsCost);
                 Bill.Add("TotalCalls", summary.PersonalCallsCount);
                 Bill.Add("TotalDuration", summary.PersonalCallsDuration);
