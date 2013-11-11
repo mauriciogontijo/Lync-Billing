@@ -163,16 +163,16 @@ namespace Lync_Billing.DB
         {
             [Description("ActiveDirectoryUsers")]
             TableName,
-            [Description("EmployeeID")]
+            [Description("AD_UserID")]
             EmployeeID,
-            [Description("SipAccount")]
+            [Description("SourceUserUri")]
             SipAccount,
-            [Description("DisplayName")]
+            [Description("AD_DisplayName")]
             DisplayName,
-            [Description("SiteName")]
+            [Description("AD_PhysicalDeliveryOfficeName")]
             SiteName,
             [Description("AD_Department")]
-            AD_Department
+            Department
         }
 
         public enum TmpUsers 
