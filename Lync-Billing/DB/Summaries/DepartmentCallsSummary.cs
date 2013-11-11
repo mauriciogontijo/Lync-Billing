@@ -35,7 +35,7 @@ namespace Lync_Billing.DB.Summaries
 
 
         //TO DO: REFACTOR USING NEW DATABASE FUNCTIONS
-        public static List<DepartmentCallsSummary> GetPhoneCallsStatisticsForDepartment(string departmentName, string siteName, int year)
+        public static List<DepartmentCallsSummary> GetPhoneCallsStatisticsForDepartment(string siteName, string departmentName, int year)
         {
             DataTable dt = new DataTable();
             string columnName = string.Empty;
