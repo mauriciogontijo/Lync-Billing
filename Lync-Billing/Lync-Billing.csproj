@@ -105,6 +105,7 @@
     <Content Include="App_Readme\Transformer.NET\README.txt" />
     <Content Include="Global.asax" />
     <Content Include="index.aspx" />
+    <Content Include="Libs\BillingAPI.asmx" />
     <Content Include="Resources\Csv.xsl" />
     <Content Include="Resources\excel.xsl" />
     <Content Include="ui\accounting\main\dashboard.aspx" />
