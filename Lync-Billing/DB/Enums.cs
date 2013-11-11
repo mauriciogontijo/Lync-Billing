@@ -394,14 +394,6 @@ namespace Lync_Billing.DB
             StartingDate,
             [Description("endingDate")]
             EndingDate,
-            [Description("PhoneCallType")]
-            PhoneCallType,
-            [Description("ui_CallType")]
-            ui_CallType,
-            [Description("TotalDuration")]
-            TotalDuration,
-            [Description("TotalCost")]
-            TotalCost,
             [Description("BusinessCallsDuration")]
             BusinessCallsDuration,
             [Description("BusinessCallsCount")]
