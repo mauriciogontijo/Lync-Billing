@@ -133,12 +133,15 @@ namespace Lync_Backend.Helpers
 
         //High  1
         //Returns List of Chargeable Calls For users in Specific Site
-        public static void Get_ChargeableCalls_ForSite() { }
+        public static void Get_ChargeableCalls_ForSite()
+        {
+
+        }
 
         
         #endregion
   
-        #region Destinations Countries Summaries Functions
+        #region Destinations Countries Functions
 
         // High 2
         //Get Destinations with duration/cost/count Per User
