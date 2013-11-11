@@ -351,7 +351,6 @@ namespace Lync_Backend.Helpers
 
         #region Destinations Numbers Functions
 
-        //High 4
         //Get Destinations with duration/cost/count Per User
         public static void Get_DestinationsNumbers_ForUser() 
         {
@@ -748,7 +747,68 @@ namespace Lync_Backend.Helpers
         #region Gateways Summaries Functions
 
         //Get Gateways Summary(Total Duration/Cost/Count) for a user
-        public static void Get_GatewaySummary_PerUser() { }
+        public static void Get_GatewaySummary_PerUser() 
+        {
+            StringBuilder sqlStatement = new StringBuilder();
+            StringBuilder subSelect = new StringBuilder();
+
+            Dictionary<string, MonitoringServersInfo> monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
+
+            BillableCallTypesSection section = (BillableCallTypesSection)ConfigurationManager.GetSection("BillableCallTypesSection");
+
+            //convert BillableCallTypesIds to strings 1,2,3,4,5 ...etc
+            string BillableCallTypesIdsList = string.Join(",", section.BillableTypesList);
+
+            //Get WhereStatemnet and append it to every Select 
+            string whereStatement =
+                string.Format(
+                    "\t\t WHERE \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "]=@SipAccount COLLATE SQL_Latin1_General_CP1_CI_AS AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) \r\n"
+                    , BillableCallTypesIdsList);
+
+            //Sub Select Construction
+            foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monInfo)
+            {
+                subSelect.Append(
+                   string.Format(
+                       "\t\t SELECT * FROM [{0}] \r\n" +
+                       "{1} \r\n" +
+                       "\t\t UNION ALL \r\n\r\n",
+                       ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
+            }
+
+            subSelect.Remove(subSelect.Length - 14, 14);
+
+
+            //Outer Select 
+            sqlStatement.Append(
+                string.Format(
+                    "\t SELECT TOP 100 PERCENT\r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "] COLLATE SQL_Latin1_General_CP1_CI_AS AS [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + "] AS [" + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + "], \r\n" +
+                    "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Month], \r\n" +
+                    "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Year], \r\n" +
+                    "\t\t SUM([" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "]) AS [CallsDuration], \r\n" +
+                    "\t\t COUNT([" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "]) AS [CallsCount], \r\n" +
+                    "\t\t SUM([" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "]) AS [CallsCost] \r\n" +
+                    "\t FROM \r\n" +
+                    "\t (\r\n" +
+                    "{0} \r\n" +
+                    "\t) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
+                    "\t GROUP BY \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "] COLLATE SQL_Latin1_General_CP1_CI_AS, \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + "], \r\n" +
+                    "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + "), \r\n" +
+                    "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") \r\n" +
+                    "\t ORDER BY YEAR( " + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC, MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC \r\n", subSelect.ToString()
+                ));
+
+
+
+            CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
+
+        }
 
         //Get Gateways Summary(Total Duration/Cost/Count) for a site
         public static void Get_GatewaySummary_PerSite() { }
