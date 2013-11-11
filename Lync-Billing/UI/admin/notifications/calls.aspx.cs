@@ -81,32 +81,6 @@ namespace Lync_Billing.ui.admin.notifications
             return sites;
         }
 
-        public string GetSipAccount(string employeeID)
-        {
-            Dictionary<string, object> whereStatement = new Dictionary<string, object>();
-            List<string> fields = new List<string>();
-            List<Users> users = new List<Users>();
-
-            whereStatement.Add(Enums.GetDescription(Enums.Users.EmployeeID), employeeID);
-            fields.Add(Enums.GetDescription(Enums.Users.SipAccount));
-
-            users = Users.GetUsers(fields, whereStatement, 0);
-            return users[0].SipAccount;
-        }
-
-        public string GetSipAccountSite(string employeeID)
-        {
-            Dictionary<string, object> whereStatement = new Dictionary<string, object>();
-            // List<string> fields = new List<string>();
-            List<Users> users = new List<Users>();
-
-            whereStatement.Add(Enums.GetDescription(Enums.Users.EmployeeID), employeeID);
-
-
-            users = Users.GetUsers(null, whereStatement, 0);
-            return users[0].SiteName;
-        }
-
         protected void GetUnmarkedCallsForSite(object sender, DirectEventArgs e)
         {
             string siteName = FilterUsersBySite.SelectedItem.Value;

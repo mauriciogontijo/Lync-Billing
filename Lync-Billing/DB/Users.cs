@@ -142,6 +142,43 @@ namespace Lync_Billing.DB
             
         }
 
+        public static Users GetUser(int employeeID)
+        {
+            Users user = new Users();
+            DataTable dt = new DataTable();
+
+            dt = DBRoutines.SELECT(
+                Enums.GetDescription(Enums.Users.TableName),
+                Enums.GetDescription(Enums.Users.EmployeeID),
+                employeeID);
+
+            if (dt.Rows.Count > 0)
+            {
+                if (dt.Rows[0][Enums.GetDescription(Enums.Users.EmployeeID)] != null)
+                {
+                    user.EmployeeID = (int)dt.Rows[0][Enums.GetDescription(Enums.Users.EmployeeID)];
+                }
+
+                if ((user.FullName = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.DisplayName)]) != null) { }
+
+                if ((user.SipAccount = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.SipAccount)]) != null) { }
+
+                if ((user.SiteName = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.SiteName)]) != null) { }
+
+                if (dt.Rows[0][Enums.GetDescription(Enums.Users.Department)] != DBNull.Value)
+                    user.Department = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.Department)];
+                else
+                    user.Department = string.Empty;
+
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
         public static int InsertUser(Users user)
         {
             int rowID = 0;

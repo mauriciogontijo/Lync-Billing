@@ -176,14 +176,10 @@ namespace Lync_Billing.ui.accounting.main
 
         public string GetSipAccountSite(string sipAccount)
         {
-            Dictionary<string, object> whereStatement = new Dictionary<string, object>();
-            // List<string> fields = new List<string>();
-            List<Users> users = new List<Users>();
-
-            whereStatement.Add(Enums.GetDescription(Enums.Users.SipAccount), sipAccount);
-            users = Users.GetUsers(null, whereStatement, 0);
+            Users user = new Users();
+            user = Users.GetUser(sipAccount);
                
-            return users[0].SiteName;
+            return user.SiteName;
         }
       
     }

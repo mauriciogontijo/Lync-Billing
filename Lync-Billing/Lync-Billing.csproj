@@ -177,7 +177,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Libs\BillingAPI.asmx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationSections\BillableCallTypesSection.cs" />
