@@ -142,7 +142,7 @@ namespace Lync_Backend.Helpers
 
         // High 2
         //Get Destinations with duration/cost/count Per User
-        public static void Get_DestinationsSummary_ForUser() 
+        public static void Get_DestinationCountries_ForUser() 
         {
             StringBuilder sqlStatement = new StringBuilder();
             StringBuilder subSelect = new StringBuilder();
@@ -198,7 +198,7 @@ namespace Lync_Backend.Helpers
         }
 
         //Get Destinations with duration/cost/count Per Site
-        public static void Get_DestinationsSummary_ForSite() 
+        public static void Get_DestinationCountries_ForSite() 
         {
             StringBuilder sqlStatement = new StringBuilder();
             StringBuilder subSelect = new StringBuilder();
@@ -256,7 +256,7 @@ namespace Lync_Backend.Helpers
         
         // High 3
         //Get Destinations with duration/cost/count Per Department Per Site
-        public static void Get_DestinationsSummary_ForSiteDepartment() 
+        public static void Get_DestinationCountries_ForSiteDepartment() 
         {
             StringBuilder sqlStatement = new StringBuilder();
             StringBuilder subSelect = new StringBuilder();
@@ -314,7 +314,7 @@ namespace Lync_Backend.Helpers
         }
 
         //Get Destinations with duration/cost/count  per gateway by cost
-        public static void Get_DestinationsSummary_PerGateway() { }
+        public static void Get_DestinationCountries_PerGateway() { }
 
         #endregion
 
