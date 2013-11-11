@@ -101,8 +101,8 @@ namespace Lync_Billing.ui.user
 
                 if (phoneBookEntries.ContainsKey(destination.PhoneNumber))
                 {
-                    destination.UserName = phoneBookEntries[destination.PhoneNumber].Name;
-                    continue;
+                    string temporaryName = phoneBookEntries[destination.PhoneNumber].Name;
+                    destination.UserName = (!string.IsNullOrEmpty(temporaryName)) ? temporaryName : "N/A";
                 }
                 else
                 {

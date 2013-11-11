@@ -220,7 +220,7 @@
                             <ext:Column
                                 ID="PhoneNumber"
                                 runat="server"
-                                Text="Number / Sip"
+                                Text="Phone Number"
                                 Width="160"
                                 DataIndex="PhoneNumber">
                             </ext:Column>
