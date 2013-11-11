@@ -243,7 +243,7 @@
                             Text="Cost"
                             Width="100"
                             DataIndex="Marker_CallCost">
-                            <Renderer Fn="RoundCost" />
+                            <Renderer Fn="RoundCostsToTwoDecimalDigits" />
                         </ext:Column>
 
                         <ext:Column ID="UI_CallType"

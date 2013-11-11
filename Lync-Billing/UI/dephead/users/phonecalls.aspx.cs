@@ -11,12 +11,12 @@ namespace Lync_Billing.ui.dephead.users
 {
     public partial class phonecalls : System.Web.UI.Page
     {
-        private Dictionary<string, object> wherePart;
-        private List<string> columns;
-        private string sipAccount = string.Empty;
         private UserSession session;
-        private List<Department> UserDepartments;
+        private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.DepartmentHead);
+
+        private List<Department> UserDepartments;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -82,8 +82,8 @@ namespace Lync_Billing.ui.dephead.users
             List<string> columns = new List<string>();
             Dictionary<string, object> whereClause = new Dictionary<string, object>() 
             { 
-                { "Department", departmentName },
-                { "SiteName", siteName }
+                { Enums.GetDescription(Enums.Users.SiteName), siteName },
+                { Enums.GetDescription(Enums.Users.Department), departmentName }
             };
 
             return Users.GetUsers(columns, whereClause, 0);
@@ -142,9 +142,11 @@ namespace Lync_Billing.ui.dephead.users
         private List<PhoneCall> GetUserPhoneCalls(string userSipAccount)
         {
             List<PhoneCall> ListOfPhoneCalls;
-            wherePart = new Dictionary<string, object>();
 
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Exclude), false);
+            Dictionary<string, object> wherePart = new Dictionary<string, object>
+            {
+                { Enums.GetDescription(Enums.PhoneCalls.Exclude), false }
+            };
 
             ListOfPhoneCalls = PhoneCall.GetPhoneCalls(userSipAccount, wherePart, 0)
                                 .Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null)
