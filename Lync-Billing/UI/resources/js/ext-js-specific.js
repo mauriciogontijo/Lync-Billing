@@ -16,6 +16,17 @@ function RoundCost(value, meta, record, rowIndex, colIndex, store) {
 }
 
 
+//This function reads the cost value from stores and and returns a rounded decimal value to two decimal digits.
+//Handles the Accounting Monthly and Periodical Reporting grids.
+function RoundCostsToTwoDecimalDigits(value) {
+    if (typeof value != undefined && value != "0") {
+        costValue = parseFloat(value);
+        return costValue.toFixed(2).toString();
+    }
+    return value;
+}
+
+
 //This handles the PhoneCalls grid, History page, and Delegees PhoneCalls grid
 var DateRenderer = function (value) {
     if (typeof value != undefined && value != 0) {

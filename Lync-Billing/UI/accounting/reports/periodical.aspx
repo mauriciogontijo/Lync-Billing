@@ -316,7 +316,9 @@
                                     Text="Personal"
                                     Width="85"
                                     DataIndex="PersonalCallsCost"
-                                    MenuDisabled="true" />
+                                    MenuDisabled="true">
+                                    <Renderer Fn="RoundCostsToTwoDecimalDigits" />
+                                </ext:Column>
 
                                 <ext:Column
                                     ID="BusinessCallsCostCol"
@@ -324,7 +326,9 @@
                                     Text="Business"
                                     Width="85"
                                     DataIndex="BusinessCallsCost"
-                                    MenuDisabled="true" />
+                                    MenuDisabled="true">
+                                    <Renderer Fn="RoundCostsToTwoDecimalDigits" />
+                                </ext:Column>
 
                                 <ext:Column
                                     ID="UnmarkedCallsCostCol"
@@ -332,7 +336,9 @@
                                     Text="Unallocated"
                                     Width="85"
                                     DataIndex="UnmarkedCallsCost"
-                                    MenuDisabled="true" />
+                                    MenuDisabled="true">
+                                    <Renderer Fn="RoundCostsToTwoDecimalDigits" />
+                                </ext:Column>
                             </Columns>
                         </ext:Column>
                     </Columns>

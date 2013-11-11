@@ -34,7 +34,7 @@
                         <Model>
                             <ext:Model ID="Model1" runat="server" IDProperty="BillsModel">
                                 <Fields>
-                                    <ext:ModelField Name="MonthDate" Type="Date" />
+                                    <ext:ModelField Name="Date" Type="Date" />
                                     <ext:ModelField Name="PersonalCallsCost" Type="Float" />
                                     <ext:ModelField Name="PersonalCallsCount" Type="Int" />
                                     <ext:ModelField Name="PersonalCallsDuration" Type="Int" />
@@ -50,7 +50,7 @@
                             runat="server" 
                             Text="Accounting Date" 
                             Width="180" 
-                            DataIndex="MonthDate"
+                            DataIndex="Date"
                             Groupable="false"
                             Align="Left">
                             <Renderer Fn="SpecialDateRenderer" />

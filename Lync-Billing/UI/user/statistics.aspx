@@ -193,10 +193,6 @@
 	        }
 	    });
 
-	    var redirect_to_manage_phonecalls = function () {
-	        //to = "../user/phonecalls.aspx"
-	        //window.location = to;
-	    };
 	</script>
 </asp:Content>
 
@@ -223,7 +219,7 @@
                                     <Model>
                                         <ext:Model ID="DurationCostChartModel" runat="server">
                                             <Fields>
-                                                <ext:ModelField Name="MonthDate" />
+                                                <ext:ModelField Name="Date" />
                                                 <ext:ModelField Name="Duration" />
                                                 <ext:ModelField Name="PersonalCallsCost" />
                                             </Fields>
@@ -235,7 +231,7 @@
                             <Axes>
                                 <ext:CategoryAxis
                                     Position="Bottom"
-                                    Fields="MonthDate"
+                                    Fields="Date"
                                     Title="Current Year">
                                     <Label>
                                         <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
@@ -265,7 +261,7 @@
                             <Series>
                                 <ext:LineSeries
                                     Titles="Calls Duartion"
-                                    XField="MonthDate"
+                                    XField="Date"
                                     YField="Duration"
                                     Axis="Left"
                                     Smooth="3">
@@ -275,7 +271,7 @@
 
                                 <ext:LineSeries
                                     Titles="Calls Cost"
-                                    XField="MonthDate"
+                                    XField="Date"
                                     YField="PersonalCallsCost"
                                     Axis="Right"
                                     Smooth="3">
@@ -402,9 +398,9 @@
                                     <Tips ID="Tips2" runat="server" TrackMouse="true" Width="200" Height="75">
                                         <Renderer Fn="TotalCost_TipRenderer" />
                                     </Tips>
-                                    <Listeners>
+                                    <%--<Listeners>
                                         <ItemClick Fn="redirect_to_manage_phonecalls" />
-                                    </Listeners>
+                                    </Listeners>--%>
                                 </ext:PieSeries>
                             </Series>
                         </ext:Chart>

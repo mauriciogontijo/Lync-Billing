@@ -70,10 +70,6 @@ namespace Lync_Billing.ui.user
             //Initialize the Address Book data.
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
-            //Get the phone calls chart data.
-            DurationCostChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
-            DurationCostChartStore.DataBind();
-
             //Get this user's mail statistics
             userMailStatistics = MailStatistics.GetMailStatistics(sipAccount, DateTime.Now);
 

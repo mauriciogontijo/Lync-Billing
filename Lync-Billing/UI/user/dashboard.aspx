@@ -295,13 +295,14 @@
                         <ext:Chart
                             ID="DurationCostChart"
                             runat="server"
-                            Animate="true">
+                            Animate="true"
+                            OnLoad="DurationCostChartStore_Load">
                             <Store>
                                 <ext:Store ID="DurationCostChartStore" runat="server">
                                     <Model>
                                         <ext:Model ID="DurationCostChartModel" runat="server">
                                             <Fields>
-                                                <ext:ModelField Name="MonthDate" />
+                                                <ext:ModelField Name="Date" />
                                                 <ext:ModelField Name="Duration" />
                                                 <ext:ModelField Name="PersonalCallsCost" />
                                             </Fields>
@@ -313,23 +314,12 @@
                             <Axes>
                                 <ext:CategoryAxis
                                     Position="Bottom"
-                                    Fields="MonthDate"
+                                    Fields="Date"
                                     Title="Current Year">
                                     <Label>
                                         <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
                                     </Label>
                                 </ext:CategoryAxis>
-
-                                <%--<ext:NumericAxis
-                                    Title="Duration in Hours"
-                                    Fields="Duration"
-                                    Position="Left">
-                                    <LabelTitle Fill="#115fa6" />
-                                    <Label Fill="#115fa6" />
-                                    <Label>
-                                        <Renderer Fn="GetHoursFromMinutes" />
-                                    </Label>
-                                </ext:NumericAxis>--%>
 
                                 <ext:NumericAxis
                                     Title="Cost in Local Currency"
@@ -341,19 +331,9 @@
                             </Axes>
 
                             <Series>
-                               <%-- <ext:LineSeries
-                                    Titles="Calls Duartion"
-                                    XField="MonthDate"
-                                    YField="Duration"
-                                    Axis="Left"
-                                    Smooth="3">
-                                    <HighlightConfig Size="7" Radius="7" />
-                                    <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
-                                </ext:LineSeries>--%>
-
-                                <ext:LineSeries
+                               <ext:LineSeries
                                     Titles="Calls Cost"
-                                    XField="MonthDate"
+                                    XField="Date"
                                     YField="PersonalCallsCost"
                                     Axis="Left"
                                     Smooth="3">
