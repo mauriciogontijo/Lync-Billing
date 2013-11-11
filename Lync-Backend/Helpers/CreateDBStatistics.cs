@@ -135,7 +135,38 @@ namespace Lync_Backend.Helpers
         //Returns List of Chargeable Calls For users in Specific Site
         public static void Get_ChargeableCalls_ForSite()
         {
+            StringBuilder sqlStatement = new StringBuilder();
 
+            Dictionary<string, MonitoringServersInfo> monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
+
+            BillableCallTypesSection section = (BillableCallTypesSection)ConfigurationManager.GetSection("BillableCallTypesSection");
+
+            //convert BillableCallTypesIds to strings 1,2,3,4,5 ...etc
+            string BillableCallTypesIdsList = string.Join(",", section.BillableTypesList);
+
+            //Get WhereStatemnet and append it to every Select 
+            string whereStatement =
+                string.Format(
+                    "WHERE \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName COLLATE SQL_Latin1_General_CP1_CI_AS AND \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0})"
+                    , BillableCallTypesIdsList);
+
+            foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monInfo)
+            {
+                sqlStatement.Append(
+                    string.Format(
+                        "\t SELECT *,'" + ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable + "' AS " + Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName) +  " \r\n" +
+                        "\t FROM [{0}] \r\n" +
+                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] COLLATE SQL_Latin1_General_CP1_CI_AS \r\n" +
+                        "\t {1} \r\n" +
+                        "\t UNION ALL \r\n ",
+                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
+            }
+
+            sqlStatement.Remove(sqlStatement.Length - 13, 13);
+
+            CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
         }
 
         
