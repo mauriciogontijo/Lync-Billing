@@ -484,6 +484,22 @@ namespace Lync_Billing.DB
             SiteID
         }
 
+
+        public enum TopDestinations
+        {
+            [Description("Country_Name")]
+            CountryName,
+            [Description("PhoneNumber")]
+            PhoneNumber,
+            [Description("CallsDuration")]
+            CallsDuration,
+            [Description("CallsCost")]
+            CallsCost,
+            [Description("CallsCount")]
+            CallsCount
+        }
+
+
         /// <summary>
         /// Gets the Name of DB table Field
         /// </summary>

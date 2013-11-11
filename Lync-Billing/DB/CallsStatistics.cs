@@ -52,11 +52,11 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == "NumberOfOutgoingCalls" && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.NumberOfOutgoingCalls = Convert.ToInt64(row[column.ColumnName]);
 
-                    if (column.ColumnName == "TotalDuration" && row[column.ColumnName] != DBNull.Value)
+                    if (column.ColumnName == "CallsDuration" && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.TotalDuration = Convert.ToInt64((decimal)row[column.ColumnName]);
                    
 
-                    if (column.ColumnName == "TotalCost" && row[column.ColumnName] != DBNull.Value)
+                    if (column.ColumnName == "CallsCost" && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.TotalCost = (decimal)row[column.ColumnName];
                    
                 }
@@ -127,11 +127,11 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == "NumberOfOutgoingCalls" && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.NumberOfOutgoingCalls = Convert.ToInt64(row[column.ColumnName]);
 
-                    if (column.ColumnName == "TotalDuration" && row[column.ColumnName] != DBNull.Value)
+                    if (column.ColumnName == "CallsDuration" && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.TotalDuration = Convert.ToInt64((decimal)row[column.ColumnName]);
 
 
-                    if (column.ColumnName == "TotalCost" && row[column.ColumnName] != DBNull.Value)
+                    if (column.ColumnName == "CallsCost" && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.TotalCost = (decimal)row[column.ColumnName];
 
                 }
@@ -282,23 +282,24 @@ namespace Lync_Billing.DB
     public class TopCountries
     {
         public string CountryName { private set; get; }
-        public decimal TotalDuration { private set; get; }
-        public decimal TotalCost { private set; get; }
+        public int CallsCount { private set; get; }
+        public decimal CallsCost { private set; get; }
+        public decimal CallsDuration { private set; get; }
+        
 
-        public static List<TopCountries> GetTopDestinationsForUser(string sipAccount)
+        public static List<TopCountries> GetTopDestinationsForUser(string sipAccount, int limit)
         {
             DBLib DBRoutines = new DBLib();
             DataTable dt = new DataTable();
 
+            TopCountries topCountry;
             List<TopCountries> topCountries = new List<TopCountries>();
 
             List<object> parameters = new List<object>();
-
             parameters.Add(sipAccount);
+            parameters.Add(limit);
 
-            TopCountries topCountry;
-
-            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetTop5DestinationCountriesByCost", parameters, null);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_DestinationCountries_ForUser", parameters, null);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -306,18 +307,21 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == "Country_Name")
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CountryName))
                         topCountry.CountryName = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == "TotalDuration")
-                        topCountry.TotalDuration = (decimal)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCount))
+                        topCountry.CallsDuration = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == "TotalCost")
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsDuration))
+                        topCountry.CallsDuration = (decimal)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCost))
                     {
                         if (row[column.ColumnName] != System.DBNull.Value)
-                            topCountry.TotalCost = (decimal)row[column.ColumnName];
+                            topCountry.CallsCost = (decimal)row[column.ColumnName];
                         else
-                            topCountry.TotalCost = 0;
+                            topCountry.CallsCost = 0;
                     }
                 }
                 topCountries.Add(topCountry);
@@ -326,19 +330,21 @@ namespace Lync_Billing.DB
             return topCountries;
         }
 
-        public static List<TopCountries> GetTopDestinationsForDepartment(string departmentName, string siteName)
+        public static List<TopCountries> GetTopDestinationsForDepartment(string siteName, string departmentName, int limit)
         {
             DBLib DBRoutines = new DBLib();
             DataTable dt = new DataTable();
 
+            TopCountries topCountry;
             List<TopCountries> topCountries = new List<TopCountries>();
 
             List<object> parameters = new List<object>();
-            parameters.Add(departmentName);
             parameters.Add(siteName);
+            parameters.Add(departmentName);
+            parameters.Add(limit);
 
-            TopCountries topCountry;
-            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetTop5DestinationCountriesByCost_PerDepartment", parameters, null);
+
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_DestinationCountries_ForSiteDepartment", parameters, null);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -346,18 +352,21 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == "Country_Name")
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CountryName))
                         topCountry.CountryName = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == "TotalDuration")
-                        topCountry.TotalDuration = (decimal)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCount))
+                        topCountry.CallsDuration = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == "TotalCost")
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsDuration))
+                        topCountry.CallsDuration = (decimal)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCost))
                     {
                         if (row[column.ColumnName] != System.DBNull.Value)
-                            topCountry.TotalCost = (decimal)row[column.ColumnName];
+                            topCountry.CallsCost = (decimal)row[column.ColumnName];
                         else
-                            topCountry.TotalCost = 0;
+                            topCountry.CallsCost = 0;
                     }
                 }
                 topCountries.Add(topCountry);
@@ -365,32 +374,32 @@ namespace Lync_Billing.DB
 
             return topCountries;
         }
-
 
     }
-
 
 
     public class TopDestinations 
     {
         public string PhoneNumber { private set; get; }
         public string UserName { set; get; }
-        public long NumberOfPhoneCalls { private set; get; }
+        public long CallsCount { private set; get; }
+        public decimal CallsCost { private set; get; }
+        public decimal CallsDuration { private set; get; }
 
-        public static List<TopDestinations> GetTopDestinations(string sipAccount)
+
+        public static List<TopDestinations> GetTopDestinations(string sipAccount, int limit)
         {
             DBLib DBRoutines = new DBLib();
             DataTable dt = new DataTable();
 
+            TopDestinations topDestination;
             List<TopDestinations> topDestinations = new List<TopDestinations>();
             
             List<object> parameters = new List<object>();
-
             parameters.Add(sipAccount);
+            parameters.Add(limit);
 
-            TopDestinations topDestination;
-
-            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetTop5DestinationNumbersByCount", parameters, null);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_DestinationsNumbers_ForUser", parameters, null);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -398,7 +407,7 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == "PhoneNumber")
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.PhoneNumber))
                     {
                         if (row[column.ColumnName] == System.DBNull.Value )
                             topDestination.PhoneNumber = "UNKNOWN";
@@ -406,15 +415,23 @@ namespace Lync_Billing.DB
                             topDestination.PhoneNumber = (string)row[column.ColumnName];
                     }
 
-                    if (column.ColumnName == "NumberOfPhoneCalls")
-                        topDestination.NumberOfPhoneCalls = (int)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCount))
+                        topDestination.CallsCount = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsDuration))
+                        topDestination.CallsDuration = (decimal)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCost))
+                        topDestination.CallsCost = (decimal)row[column.ColumnName];
                 }
+
                 topDestinations.Add(topDestination);
             }
 
             return topDestinations;
         }
     }
+
 
     public class Years 
     {

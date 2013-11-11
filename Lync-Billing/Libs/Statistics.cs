@@ -662,7 +662,7 @@ namespace Lync_Billing.Libs
             }
 
             selectQuery = String.Format(
-                "SELECT COUNT(*) ui_CallType, ui_CallType as PhoneCallType, SUM([Duration]) as TotalDuration, SUM([marker_CallCost]) as TotalCost FROM {0} {1} group by ui_CallType",
+                "SELECT COUNT(*) ui_CallType, ui_CallType as PhoneCallType, SUM([Duration]) as CallsDuration, SUM([marker_CallCost]) as CallsCost FROM {0} {1} group by ui_CallType",
                 tableName, whereStatement.ToString()
             );
 

@@ -58,7 +58,7 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Column TotalCalls;
         
         /// <summary>
-        /// TotalDuration control.
+        /// CallsDuration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -67,7 +67,7 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Column TotalDuration;
         
         /// <summary>
-        /// TotalCost control.
+        /// CallsCost control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

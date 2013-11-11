@@ -9,11 +9,11 @@
                 component_name = "main_content_place_holder_" + "TopDestinationCountriesChart";
 
             App[component_name].getStore().each(function (rec) {
-                total += rec.get('TotalDuration');
+                total += rec.get('CallsDuration');
 
                 var country_name = rec.get('CountryName');
                 if (country_name != 0 && all_countries_data[country_name] == undefined) {
-                    all_countries_data[country_name] = rec.get('TotalDuration');
+                    all_countries_data[country_name] = rec.get('CallsDuration');
                 }
             });
 
@@ -30,14 +30,14 @@
                 component_name = "main_content_place_holder_" + "TopDestinationCountriesChart";
 
             App[component_name].getStore().each(function (rec) {
-                total += rec.get('TotalDuration');
+                total += rec.get('CallsDuration');
             });
 
             this.setTitle(
                 storeItem.get('CountryName') + ': ' +
-                ((storeItem.get('TotalDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
-                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('TotalDuration')) + ' hours.' +
-                '<br>' + 'Net Cost: ' + storeItem.get('TotalCost') + ' euros'
+                ((storeItem.get('CallsDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
+                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('CallsDuration')) + ' hours.' +
+                '<br>' + 'Net Cost: ' + RoundCostsToTwoDecimalDigits(storeItem.get('CallsCost')) + ' euros'
             );
         };
 
@@ -155,8 +155,8 @@
                                         <ext:Model ID="TopDestinationCountriesModel" runat="server">
                                             <Fields>
                                                 <ext:ModelField Name="CountryName" />
-                                                <ext:ModelField Name="TotalCost" />
-                                                <ext:ModelField Name="TotalDuration" />
+                                                <ext:ModelField Name="CallsCost" />
+                                                <ext:ModelField Name="CallsDuration" />
                                             </Fields>
                                         </ext:Model>
                                     </Model>
@@ -164,7 +164,7 @@
                             </Store>
                             <Series>
                                 <ext:PieSeries
-                                    AngleField="TotalDuration"
+                                    AngleField="CallsDuration"
                                     ShowInLegend="true"
                                     Donut="30"
                                     Highlight="true"
@@ -208,7 +208,7 @@
                                     <Fields>
                                         <ext:ModelField Name="PhoneNumber" Type="String" />
                                         <ext:ModelField Name="UserName" Type="String" />
-                                        <ext:ModelField Name="NumberOfPhoneCalls" Type="Int" />
+                                        <ext:ModelField Name="CallsCount" Type="Int" />
                                     </Fields>
                                 </ext:Model>
                             </Model>
@@ -233,11 +233,11 @@
                                 DataIndex="UserName" />
 
                             <ext:Column
-                                ID="NumberOfPhoneCalls"
+                                ID="CallsCount"
                                 runat="server"
                                 Text="Number of Calls"
                                 Width="120"
-                                DataIndex="NumberOfPhoneCalls" />
+                                DataIndex="CallsCount" />
                         </Columns>
                     </ColumnModel>
                 </ext:GridPanel>

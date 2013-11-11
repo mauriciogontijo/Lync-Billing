@@ -75,7 +75,7 @@ namespace Lync_Billing.ui.user
                 Bill.Add("BillDate", summary.Date);
                 Bill.Add("Cost", summary.PersonalCallsCost);
                 Bill.Add("TotalCalls", summary.PersonalCallsCount);
-                Bill.Add("TotalDuration", summary.PersonalCallsDuration);
+                Bill.Add("CallsDuration", summary.PersonalCallsDuration);
 
                 BillsList.Add(Bill);
             }

@@ -94,7 +94,7 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Column UserName;
         
         /// <summary>
-        /// NumberOfPhoneCalls control.
+        /// CallsCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

@@ -89,7 +89,7 @@ namespace Lync_Billing.ui.user
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
             
-            topDestinations = TopDestinations.GetTopDestinations(sipAccount);
+            topDestinations = TopDestinations.GetTopDestinations(sipAccount, 5);
 
             foreach (TopDestinations destination in topDestinations)
             {
@@ -113,7 +113,7 @@ namespace Lync_Billing.ui.user
 
         protected void TopDestinationCountriesStore_Load(object sender, EventArgs e)
         {
-            topCountries = TopCountries.GetTopDestinationsForUser(sipAccount);
+            topCountries = TopCountries.GetTopDestinationsForUser(sipAccount, 5);
             TopDestinationCountriesStore.DataSource = topCountries;
             
             TopDestinationCountriesStore.DataBind();
