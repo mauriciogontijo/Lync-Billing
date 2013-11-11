@@ -40,7 +40,20 @@ namespace Lync_Backend.Helpers
                     else
                         QueryType = "CREATE";
 
-                    if (SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@OfficeName"))
+
+                    if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@Limits"))
+                    {
+                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n " +"\t @Limits int ");
+                    }
+                    else if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@Limits"))
+                    {
+                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @Limits int ");
+                    }
+                    else if (SQLStatement.Contains(@"@SipAccount") && SQLStatement.Contains(@"@Limits"))
+                    {
+                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @Limits int ");
+                    }
+                    else if (SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@OfficeName"))
                     {
                         FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450) ");
                     }
@@ -129,14 +142,176 @@ namespace Lync_Backend.Helpers
 
         // High 2
         //Get Destinations with duration/cost/count Per User
-        public static void Get_DestinationsSummary_ForUser() { }
+        public static void Get_DestinationsSummary_ForUser() 
+        {
+            StringBuilder sqlStatement = new StringBuilder();
+            StringBuilder subSelect = new StringBuilder();
+
+            Dictionary<string, MonitoringServersInfo> monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
+
+            BillableCallTypesSection section = (BillableCallTypesSection)ConfigurationManager.GetSection("BillableCallTypesSection");
+
+            string BillableCallTypesIdsList = string.Join(",", section.BillableTypesList);
+
+            //Get WhereStatemnet and append it to every Select 
+            string whereStatement =
+                string.Format(
+                    "\t\t WHERE \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "]=@SipAccount COLLATE SQL_Latin1_General_CP1_CI_AS AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
+                    , BillableCallTypesIdsList);
+
+            //Sub Select Construction
+            foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monInfo)
+            {
+                subSelect.Append(
+                   string.Format(
+                       "\t\t SELECT * FROM [{0}] \r\n" +
+                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.NumberingPlan.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTo) + "] =   [" + Enums.GetDescription(Enums.NumberingPlan.TableName) + "].[" + Enums.GetDescription(Enums.NumberingPlan.DialingPrefix) + "] \r\n" +
+                       "{1} \r\n" +
+                       "\t\t UNION \r\n\r\n",
+                       ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
+            }
+
+            subSelect.Remove(subSelect.Length - 11, 11);
+
+            //Outer Select 
+            sqlStatement.Append(
+                string.Format(
+                    "\t SELECT TOP (@Limits) [" + Enums.GetDescription(Enums.NumberingPlan.CountryName) + "], \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "]) AS CallsDuration, \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "]) AS CallsCost, \r\n" +
+                    "\t\t COUNT ([" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "]) AS CallsCount \r\n" +
+                    "\t FROM \r\n" +
+                    "\t (\r\n" +
+                    "{0} \r\n" +
+                    "\t) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
+                    "\t GROUP BY \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.NumberingPlan.CountryName) + "] \r\n" +
+                    "\t ORDER BY CallsCost DESC", subSelect.ToString()
+                ));
+
+            CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
+        }
 
         //Get Destinations with duration/cost/count Per Site
-        public static void Get_DestinationsSummary_ForSite() { }
+        public static void Get_DestinationsSummary_ForSite() 
+        {
+            StringBuilder sqlStatement = new StringBuilder();
+            StringBuilder subSelect = new StringBuilder();
+
+            Dictionary<string, MonitoringServersInfo> monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
+
+            BillableCallTypesSection section = (BillableCallTypesSection)ConfigurationManager.GetSection("BillableCallTypesSection");
+
+            string BillableCallTypesIdsList = string.Join(",", section.BillableTypesList);
+
+            //Get WhereStatemnet and append it to every Select 
+            string whereStatement =
+                string.Format(
+                    "\t\t WHERE \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName COLLATE SQL_Latin1_General_CP1_CI_AS AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
+                    , BillableCallTypesIdsList);
+
+            //Sub Select Construction
+            foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monInfo)
+            {
+                subSelect.Append(
+                   string.Format(
+                       "\t\t SELECT * FROM [{0}] \r\n" +
+                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.NumberingPlan.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTo) + "] =   [" + Enums.GetDescription(Enums.NumberingPlan.TableName) + "].[" + Enums.GetDescription(Enums.NumberingPlan.DialingPrefix) + "] \r\n" +
+                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] COLLATE SQL_Latin1_General_CP1_CI_AS \r\n" +
+                       "{1} \r\n" +
+                       "\t\t UNION ALL\r\n\r\n",
+                       ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
+            }
+
+            subSelect.Remove(subSelect.Length - 13, 13);
+
+            //Outer Select 
+            sqlStatement.Append(
+                string.Format(
+                    "\t SELECT TOP (@Limits) [" + Enums.GetDescription(Enums.NumberingPlan.CountryName) + "], \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "]) AS CallsDuration, \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "]) AS CallsCost, \r\n" +
+                    "\t\t COUNT ([" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "]) AS CallsCount \r\n" +
+                    "\t FROM \r\n" +
+                    "\t (\r\n" +
+                    "{0} \r\n" +
+                    "\t) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
+                    "\t GROUP BY \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.NumberingPlan.CountryName) + "] \r\n" +
+                    "\t ORDER BY CallsCost DESC", subSelect.ToString()
+                ));
+
+            CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
+        }
         
         // High 3
         //Get Destinations with duration/cost/count Per Department Per Site
-        public static void Get_DestinationsSummary_ForSiteDepartment() { }
+        public static void Get_DestinationsSummary_ForSiteDepartment() 
+        {
+            StringBuilder sqlStatement = new StringBuilder();
+            StringBuilder subSelect = new StringBuilder();
+
+            Dictionary<string, MonitoringServersInfo> monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
+
+            BillableCallTypesSection section = (BillableCallTypesSection)ConfigurationManager.GetSection("BillableCallTypesSection");
+
+            string BillableCallTypesIdsList = string.Join(",", section.BillableTypesList);
+
+            //Get WhereStatemnet and append it to every Select 
+            string whereStatement =
+                string.Format(
+                    "\t\t WHERE \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName COLLATE SQL_Latin1_General_CP1_CI_AS AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "]=@DepartmentName COLLATE SQL_Latin1_General_CP1_CI_AS AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
+                    , BillableCallTypesIdsList);
+
+            //Sub Select Construction
+            foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monInfo)
+            {
+                subSelect.Append(
+                   string.Format(
+                       "\t\t SELECT * FROM [{0}] \r\n" +
+                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.NumberingPlan.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTo) + "] =   [" + Enums.GetDescription(Enums.NumberingPlan.TableName) + "].[" + Enums.GetDescription(Enums.NumberingPlan.DialingPrefix) + "] \r\n" +
+                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] COLLATE SQL_Latin1_General_CP1_CI_AS \r\n" +
+                       "{1} \r\n" +
+                       "\t\t UNION ALL\r\n\r\n",
+                       ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
+            }
+
+            subSelect.Remove(subSelect.Length - 13, 13);
+
+            //Outer Select 
+            sqlStatement.Append(
+                string.Format(
+                    "\t SELECT TOP (@Limits) [" + Enums.GetDescription(Enums.NumberingPlan.CountryName) + "], \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "]) AS CallsDuration, \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "]) AS CallsCost, \r\n" +
+                    "\t\t COUNT ([" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "]) AS CallsCount \r\n" +
+                    "\t FROM \r\n" +
+                    "\t (\r\n" +
+                    "{0} \r\n" +
+                    "\t) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
+                    "\t GROUP BY \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.NumberingPlan.CountryName) + "] \r\n" +
+                    "\t ORDER BY CallsCost DESC", subSelect.ToString()
+                ));
+
+            CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
+        }
 
         //Get Destinations with duration/cost/count  per gateway by cost
         public static void Get_DestinationsSummary_PerGateway() { }
