@@ -165,7 +165,7 @@ namespace Lync_Billing.DB
             TableName,
             [Description("AD_UserID")]
             EmployeeID,
-            [Description("SourceUserUri")]
+            [Description("SipAccount")]
             SipAccount,
             [Description("AD_DisplayName")]
             DisplayName,
@@ -387,13 +387,21 @@ namespace Lync_Billing.DB
             [Description("Month")]
             Month,
             [Description("Date")]
-            MonthDate,
-            [Description("SourceUserUri")]
-            SipAccount,
+            Date,
             [Description("startingDate")]
             StartingDate,
             [Description("endingDate")]
             EndingDate,
+            [Description("AD_UserID")]
+            EmployeeID,
+            [Description("SourceUserUri")]
+            SipAccount,
+            [Description("AD_DisplayName")]
+            DisplayName,
+            [Description("AD_Department")]
+            Department,
+            [Description("AD_PhysicalDeliveryOfficeName")]
+            SiteName,
             [Description("BusinessCallsDuration")]
             BusinessCallsDuration,
             [Description("BusinessCallsCount")]

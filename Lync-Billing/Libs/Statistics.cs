@@ -205,14 +205,14 @@ namespace Lync_Billing.Libs
             List<string> defaultSelectedFields = new List<string>()
             { 
                 "SourceUserUri", 
-                "AD_UserID", 
-                "AD_DisplayName", 
+                "EmployeeID", 
+                "DisplayName", 
                 "SUM(BusinessCost) AS BusinessCost", 
                 "SUM(PersonalCost) AS PersonalCost", 
                 "SUM(UnMarkedCost) AS UnMarkedCost" 
             };
             
-            string groupBy = "SourceUserUri, AD_UserID, AD_DisplayName";
+            string groupBy = "SourceUserUri, EmployeeID, DisplayName";
 
             //First, initialize the selectedFields with the defaultSelectedFields
             foreach(string column in defaultSelectedFields)
@@ -284,14 +284,14 @@ namespace Lync_Billing.Libs
             List<string> defaultSelectedFields = new List<string>()
             { 
                 "SourceUserUri", 
-                "AD_UserID", 
-                "AD_DisplayName", 
+                "EmployeeID", 
+                "DisplayName", 
                 "SUM(BusinessCost) AS BusinessCost", 
                 "SUM(PersonalCost) AS PersonalCost", 
                 "SUM(UnMarkedCost) AS UnMarkedCost" 
             };
 
-            string groupBy = "SourceUserUri, AD_UserID, AD_DisplayName";
+            string groupBy = "SourceUserUri, EmployeeID, DisplayName";
 
             //First, initialize the selectedFields with the defaultSelectedFields
             foreach (string column in defaultSelectedFields)
