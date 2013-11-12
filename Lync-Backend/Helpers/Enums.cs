@@ -153,20 +153,18 @@ namespace Lync_Backend.Helpers
             PoolFQDN
         }
 
-        public enum SitesGateways
+        public enum GatewaysDetails
         {
-            [Description("View_SitesGateways")]
+            [Description("GatewaysDetails")]
             TableName,
-            [Description("GatewayId")]
-            GatewayId,
+            [Description("GatewayID")]
+            GatewayID,
             [Description("SiteID")]
             SiteID,
-            [Description("Gateway")]
-            GatewayName,
-            [Description("SiteName")]
-            SiteName,
-            [Description("CountryCode")]
-            CountryCode
+            [Description("PoolID")]
+            PoolID,
+            [Description("Description")]
+            Description
         }
 
         public enum GatewaysRates
