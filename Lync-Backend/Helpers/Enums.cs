@@ -155,6 +155,8 @@ namespace Lync_Backend.Helpers
 
         public enum SitesGateways
         {
+            [Description("View_SitesGateways")]
+            TableName,
             [Description("GatewayId")]
             GatewayId,
             [Description("SiteID")]
