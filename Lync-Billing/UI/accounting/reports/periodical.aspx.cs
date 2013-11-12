@@ -67,7 +67,7 @@ namespace Lync_Billing.ui.accounting.reports
             List<UserCallsSummary> tmp = new List<UserCallsSummary>();
 
 
-            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(siteName, startingDate, endingDate).AsEnumerable<UserCallsSummary>());
+            tmp.AddRange(UserCallsSummary.GetUsersCallsSummaryInSite(siteName, startingDate, endingDate).AsEnumerable<UserCallsSummary>());
             
             var sipAccounts = 
                 (

@@ -67,7 +67,7 @@ namespace Lync_Billing.ui.accounting.reports
             DateTime endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
 
             listOfUsersCallsSummary.AddRange(
-                UserCallsSummary.GetUsersCallsSummary(siteName, beginningOfTheMonth, endOfTheMonth).Where
+                UserCallsSummary.GetUsersCallsSummaryInSite(siteName, beginningOfTheMonth, endOfTheMonth).Where
                             (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != 0).AsEnumerable<UserCallsSummary>());
             
             return listOfUsersCallsSummary;

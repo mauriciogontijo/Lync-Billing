@@ -98,7 +98,7 @@ namespace Lync_Billing.ui.admin.notifications
         private List<UserCallsSummary> GetUsersBills(string siteName, DateTime startingDate, DateTime endingDate)
         {
             List<UserCallsSummary> tmp = new List<UserCallsSummary>();
-            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(siteName, startingDate, endingDate).AsEnumerable<UserCallsSummary>());
+            tmp.AddRange(UserCallsSummary.GetUsersCallsSummaryInSite(siteName, startingDate, endingDate).AsEnumerable<UserCallsSummary>());
 
             var UserBills =
             (

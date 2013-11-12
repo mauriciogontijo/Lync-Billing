@@ -237,8 +237,9 @@ namespace Lync_Billing.DB.Summaries
         /// <param name="siteName">The Site's name</param>
         /// <param name="startingDate">The starting date of phone calls summary</param>
         /// <param name="endingDate">The ending date of the phone calls summary</param>
-        /// <returns>A list of UserCallsSummary</returns>
-        public static List<UserCallsSummary> GetUsersCallsSummary(string siteName, DateTime startingDate, DateTime endingDate)
+        /// <param name="asTotals">If this is specified as true the function will return a list of calls summaries (totals) for each employee in that site</param>
+        /// <returns>A list of UserCallsSummaries between the dates specified</returns>
+        public static List<UserCallsSummary> GetUsersCallsSummaryInSite(string siteName, DateTime startingDate, DateTime endingDate, bool asTotals = false)
         {
             DataTable dt = new DataTable();
             UserCallsSummary userSummary;
@@ -284,6 +285,35 @@ namespace Lync_Billing.DB.Summaries
                 usersSummaryList.Add(userSummary);
             }
 
+            if (asTotals == true)
+            {
+                usersSummaryList = (
+                    from summary in usersSummaryList.AsEnumerable<UserCallsSummary>()
+                    group summary by new { summary.SipAccount, summary.EmployeeID, summary.FullName, summary.SiteName } into result
+                    select new UserCallsSummary
+                    {
+                        EmployeeID = result.Key.EmployeeID,
+                        FullName = result.Key.FullName,
+                        SipAccount = result.Key.SipAccount,
+                        SiteName = result.Key.SiteName,
+
+                        BusinessCallsCost = result.Sum(x => x.BusinessCallsCost),
+                        BusinessCallsDuration = result.Sum(x => x.BusinessCallsDuration),
+                        BusinessCallsCount = result.Sum(x => x.BusinessCallsCount),
+
+                        PersonalCallsCost = result.Sum(x => x.PersonalCallsCost),
+                        PersonalCallsDuration = result.Sum(x => x.PersonalCallsDuration),
+                        PersonalCallsCount = result.Sum(x => x.PersonalCallsCount),
+
+                        UnmarkedCallsCost = result.Sum(x => x.UnmarkedCallsCost),
+                        UnmarkedCallsDuration = result.Sum(x => x.UnmarkedCallsDuration),
+                        UnmarkedCallsCount = result.Sum(x => x.UnmarkedCallsCount),
+                    }
+                )
+                .Where(summary => summary.UnmarkedCallsCount > 0)
+                .ToList<UserCallsSummary>();
+            }
+
             return usersSummaryList;
         }
 
@@ -296,12 +326,12 @@ namespace Lync_Billing.DB.Summaries
         /// <param name="startingDate">The starting date of phone calls summary</param>
         /// <param name="endingDate">The ending date of the phone calls summary</param>
         /// <returns>A list of UserCallsSummary</returns>
-        public static Dictionary<string, UserCallsSummary> GetUsersCallsSummary(string siteName, List<string> sipAccountsList, DateTime startingDate, DateTime endingDate)
+        public static Dictionary<string, UserCallsSummary> GetUsersCallsSummaryInSite(string siteName, List<string> sipAccountsList, DateTime startingDate, DateTime endingDate)
         {
             DataTable dt = new DataTable();
             string columnName = string.Empty;
 
-            List<UserCallsSummary> ListOfUsersSummaries = GetUsersCallsSummary(siteName, startingDate, endingDate);
+            List<UserCallsSummary> ListOfUsersSummaries = GetUsersCallsSummaryInSite(siteName, startingDate, endingDate);
 
             Dictionary<string, UserCallsSummary> usersSummaryList = ListOfUsersSummaries
                 .Where(summary => sipAccountsList.Contains(summary.SipAccount))
@@ -401,7 +431,7 @@ namespace Lync_Billing.DB.Summaries
             dt = StatsRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
 
             //Get the collection of users' summaries.
-            Dictionary<string, UserCallsSummary> UsersSummaires = UserCallsSummary.GetUsersCallsSummary(siteName, UsersCollection.Keys.ToList(), startingDate, endingDate);
+            Dictionary<string, UserCallsSummary> UsersSummaires = UserCallsSummary.GetUsersCallsSummaryInSite(siteName, UsersCollection.Keys.ToList(), startingDate, endingDate);
 
             //Get a closed instance of the document which contains all the formatted data
             document = PDFLib.CreateAccountingDetailedReport(response, dt, pdfColumnsWidths, pdfColumnsSchema, headers, "SourceUserUri", UsersCollection, UsersSummaires);
