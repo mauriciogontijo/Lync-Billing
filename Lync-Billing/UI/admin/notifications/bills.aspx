@@ -77,7 +77,7 @@
                                     <ext:ModelField Name="FullName" Type="String" SortType="AsText" />
                                     <ext:ModelField Name="EmployeeID" Type="String" SortType="AsText" />
                                     <ext:ModelField Name="SiteName" Type="String" SortType="AsText" />
-                                    <ext:ModelField Name="MonthDate" Type="Date" />
+                                    <ext:ModelField Name="Date" Type="Date" />
                                     <ext:ModelField Name="PersonalCallsCost" Type="Float" />
                                     <ext:ModelField Name="PersonalCallsCount" Type="Int" />
                                     <ext:ModelField Name="PersonalCallsDuration" Type="Int" />
@@ -114,7 +114,7 @@
                             runat="server" 
                             Text="Date" 
                             Width="140" 
-                            DataIndex="MonthDate"
+                            DataIndex="Date"
                             Groupable="false"
                             Align="Center"
                             Sortable="true">
@@ -153,7 +153,7 @@
                                     DataIndex="PersonalCallsCost"
                                     MenuDisabled="true"
                                     Sortable="false">
-                                    <Renderer Fn="RoundCost"/>
+                                    <Renderer Fn="RoundCostsToTwoDecimalDigits"/>
                                 </ext:Column>
                             </Columns>
                         </ext:Column>

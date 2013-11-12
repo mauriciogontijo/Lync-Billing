@@ -69,7 +69,7 @@
             <ext:GridPanel
                 ID="UnmarkedCallsGrid"
                 Header="true"
-                Title="Users With Unmarked Calls"
+                Title="Users With Unallocated Calls"
                 runat="server"
                 Width="740"
                 Height="765"
@@ -194,7 +194,9 @@
                                     Width="80"
                                     DataIndex="UnmarkedCallsCost"
                                     MenuDisabled="true"
-                                    Sortable="false" />
+                                    Sortable="false">
+                                    <Renderer Fn="RoundCostsToTwoDecimalDigits" />
+                                    </ext:Column>
                             </Columns>
                         </ext:Column>
                     </Columns>

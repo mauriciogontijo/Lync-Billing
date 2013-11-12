@@ -90,38 +90,7 @@ namespace Lync_Billing.ui.admin.notifications
 
         List<UserCallsSummary> PeriodicalReport(string siteName, DateTime startingDate, DateTime endingDate)
         {
-            List<UserCallsSummary> tmp = new List<UserCallsSummary>();
-
-            tmp.AddRange(UserCallsSummary.GetUsersCallsSummary(siteName, startingDate, endingDate).AsEnumerable<UserCallsSummary>());
-
-            var sipAccounts =
-                (
-                    from data in tmp.AsEnumerable()
-
-                    group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName } into res
-
-                    select new UserCallsSummary
-                    {
-                        EmployeeID = res.Key.EmployeeID,
-                        FullName = res.Key.FullName,
-                        SipAccount = res.Key.SipAccount,
-                        SiteName = res.Key.SiteName,
-
-                        BusinessCallsCost = res.Sum(x => x.BusinessCallsCost),
-                        BusinessCallsDuration = res.Sum(x => x.BusinessCallsDuration),
-                        BusinessCallsCount = res.Sum(x => x.BusinessCallsCount),
-
-                        PersonalCallsCost = res.Sum(x => x.PersonalCallsCost),
-                        PersonalCallsDuration = res.Sum(x => x.PersonalCallsDuration),
-                        PersonalCallsCount = res.Sum(x => x.PersonalCallsCount),
-
-                        UnmarkedCallsCost = res.Sum(x => x.UnmarkedCallsCost),
-                        UnmarkedCallsDuration = res.Sum(x => x.UnmarkedCallsDuration),
-                        UnmarkedCallsCount = res.Sum(x => x.UnmarkedCallsCount),
-                    }
-                ).Where(e => e.UnmarkedCallsCount > 0).ToList();
-
-            return sipAccounts;
+            return UserCallsSummary.GetUsersCallsSummary(siteName, startingDate, endingDate, asTotals: true);
         }
 
         protected void NotifyUsers(object sender, DirectEventArgs e)
