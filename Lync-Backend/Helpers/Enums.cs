@@ -130,6 +130,19 @@ namespace Lync_Backend.Helpers
             GatewayName
         }
 
+        public enum Sites
+        {
+            [Description("Sites")]
+            TableName,
+            [Description("SiteID")]
+            SiteID,
+            [Description("SiteName")]
+            SiteName,
+            [Description("CountryCode")]
+            CountryCode
+
+        }
+
         public enum Pools
         {
             [Description("Pools")]
@@ -138,6 +151,20 @@ namespace Lync_Backend.Helpers
             PoolId,
             [Description("PoolFQDN")]
             PoolFQDN
+        }
+
+        public enum SitesGateways
+        {
+            [Description("GatewayId")]
+            GatewayId,
+            [Description("SiteID")]
+            SiteID,
+            [Description("Gateway")]
+            GatewayName,
+            [Description("SiteName")]
+            SiteName,
+            [Description("CountryCode")]
+            CountryCode
         }
 
         public enum GatewaysRates
