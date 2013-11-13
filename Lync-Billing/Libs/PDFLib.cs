@@ -421,7 +421,7 @@ namespace Lync_Billing.Libs
             //--------------------------------------------------
             //INITIALIZE THE PDF DOCUMENT TABLE
             //--------------------------------------------------
-            pdfMainTable = new PdfPTable(dt.Columns.Count);
+            pdfMainTable = new PdfPTable(pdfColumnsSchema.Count);
             pdfMainTable.HorizontalAlignment = 0;
             pdfMainTable.SpacingBefore = 30;
             pdfMainTable.SpacingAfter = 30;
@@ -432,7 +432,7 @@ namespace Lync_Billing.Libs
             pdfMainTable.DefaultCell.PaddingLeft = 2;
             pdfMainTable.DefaultCell.PaddingRight = 2;
             pdfMainTable.WidthPercentage = 100;
-            if (pdfColumnsWidths.Length > 0 && pdfColumnsWidths.Length == dt.Columns.Count)
+            if (pdfColumnsWidths.Length > 0 && pdfColumnsWidths.Length == pdfColumnsSchema.Count)
             {
                 pdfMainTable.SetWidths(pdfColumnsWidths);
             }
@@ -599,6 +599,7 @@ namespace Lync_Billing.Libs
             //Exit the function in case the handles array is empty or the pdfColumnsSchema is either empty or it's size exceeds the DataTable's Columns number.
             //--------------------------------------------------------------------------------------------------------------------------------------------------------
             if (response == null ||
+                dt == null || dt.Rows.Count == 0 ||
                 UsersSummaries == null || UsersSummaries.Count == 0 ||
                 UsersCollection == null || UsersCollection.Count == 0 ||
                 pdfDocumentHeaders == null || pdfDocumentHeaders.Count == 0 ||

@@ -379,21 +379,12 @@ namespace Lync_Billing.DB.Summaries
 
             //Get the report content from the database with the following function parameters, where statement and group by fields.
             functionParams.Add(siteName);
-            
+            functionParams.Add(startingDate);
+            functionParams.Add(endingDate);
+
             wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), UsersCollection.Keys.ToList<string>());
 
-            columnsList.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount));
-            columnsList.Add(Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID));
-            columnsList.Add(Enums.GetDescription(Enums.PhoneCallSummary.DisplayName));
-            columnsList.Add("SUM(" + Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost) + ") AS PersonalCallsCost");
-            columnsList.Add("SUM(" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost) + ") AS BusinessCallsCost");
-            columnsList.Add("SUM(" + Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost) + ") AS UnmarkedCallsCost");
-
-            groupByFields.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount));
-            groupByFields.Add(Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID));
-            groupByFields.Add(Enums.GetDescription(Enums.PhoneCallSummary.DisplayName));
-
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUsers_PerSite", functionParams, wherePart, selectColumnsList: columnsList, groupByColumnsList: groupByFields);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUsers_PerSite_PDF", functionParams, wherePart);
 
 
             //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
@@ -411,22 +402,6 @@ namespace Lync_Billing.DB.Summaries
             }
 
             document = PDFLib.CreateAccountingSummaryReport(response, dt, callsCostsTotals, headers, pdfColumnsSchema, pdfColumnsWidths);
-
-            //Get the report content from the database
-            //dt = StatsRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, UsersCollection.Keys.ToList(), columnsList);
-            //List<UserCallsSummary> DistinctSiteUsersStatistics = UserCallsSummary.GetUsersCallsSummaryInSite(siteName, startingDate, endingDate, asTotals: true);
-
-            //decimal personalCallsCosts = Decimal.Round((from summary in DistinctSiteUsersStatistics select summary.PersonalCallsCost).ToList<decimal>().Sum(), 2);
-            //decimal businessCallsCosts = Decimal.Round((from summary in DistinctSiteUsersStatistics select summary.BusinessCallsCost).ToList<decimal>().Sum(), 2);
-            //decimal unmarkedCallsCosts = Decimal.Round((from summary in DistinctSiteUsersStatistics select summary.UnmarkedCallsCost).ToList<decimal>().Sum(), 2);
-
-            ////Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
-            //totals = new Dictionary<string, decimal>()
-            //{
-            //    { "PersonalCost", personalCallsCosts },
-            //    { "BusinessCost", businessCallsCosts },
-            //    { "UnmarkedCost", unmarkedCallsCosts }
-            //};
         }
 
 
