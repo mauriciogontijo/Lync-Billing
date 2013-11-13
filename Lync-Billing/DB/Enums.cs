@@ -336,6 +336,22 @@ namespace Lync_Billing.DB
             Name
         }
 
+        public enum DestinationNumbers
+        {
+            [Description("ID")]
+            ID,
+            [Description("PhoneNumber")]
+            PhoneNumber,
+            [Description("CallsDuration")]
+            CallsDuration,
+            [Description("CallsCost")]
+            CallsCost,
+            [Description("CallsCount")]
+            CallsCount,
+            [Description("Country")]
+            Country
+        }
+
         public enum Currencies
         {
             [Description("Currencies")]
@@ -382,7 +398,7 @@ namespace Lync_Billing.DB
         {
             [Description("")]
             TableName,
-            [Description("YearNumber")]
+            [Description("Year")]
             Year,
             [Description("Month")]
             Month,
@@ -430,7 +446,7 @@ namespace Lync_Billing.DB
         {
             [Description("ToGateway")]
             ToGateway,
-            [Description("YearNumber")]
+            [Description("Year")]
             Year,
             [Description("Month")]
             Month,
@@ -503,7 +519,7 @@ namespace Lync_Billing.DB
         }
 
 
-        public enum TopDestinations
+        public enum TopDestinationNumbers
         {
             [Description("Country_Name")]
             CountryName,

@@ -8,9 +8,11 @@ using System.Web.Script.Serialization;
 using System.Web.SessionState;
 using System.Globalization;
 using Ext.Net;
+
 using Lync_Billing.DB;
 using Lync_Billing.Libs;
 using Lync_Billing.DB.Summaries;
+using Lync_Billing.DB.Statistics;
 
 
 namespace Lync_Billing.ui.user
@@ -27,8 +29,8 @@ namespace Lync_Billing.ui.user
         List<UserCallsSummary> UserSummaryList = new List<UserCallsSummary>();
 
         public Dictionary<string, PhoneBook> phoneBookEntries;
-        public List<TopDestinations> topDestinations;
-        public List<TopCountries> topCountries;
+        public List<TopDestinationNumbers> TopDestinationNumbersList;
+        public List<TopDestinationCountries> TopDestinationCountriesList;
 
         public Dictionary<string, object> wherePart = new Dictionary<string, object>();
         public List<string> columns = new List<string>();
@@ -88,10 +90,10 @@ namespace Lync_Billing.ui.user
         protected void TopDestinationNumbersStore_Load(object sender, EventArgs e)
         {
             UserSession userSession = ((UserSession)Session.Contents["UserData"]);
-            
-            topDestinations = TopDestinations.GetTopDestinations(sipAccount, 5);
 
-            foreach (TopDestinations destination in topDestinations)
+            TopDestinationNumbersList = TopDestinationNumbers.GetTopDestinationNumbers(sipAccount, 5);
+
+            foreach (TopDestinationNumbers destination in TopDestinationNumbersList)
             {
                 //if (GetUserNameBySip(destination.PhoneNumber) != string.Empty)
                 //{
@@ -110,14 +112,14 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            TopDestinationNumbersStore.DataSource = topDestinations;
+            TopDestinationNumbersStore.DataSource = TopDestinationNumbersList;
             TopDestinationNumbersStore.DataBind();
         }
 
         protected void TopDestinationCountriesStore_Load(object sender, EventArgs e)
         {
-            topCountries = TopCountries.GetTopDestinationsForUser(sipAccount, 5);
-            TopDestinationCountriesStore.DataSource = topCountries;
+            TopDestinationCountriesList = TopDestinationCountries.GetTopDestinationNumbersForUser(sipAccount, 5);
+            TopDestinationCountriesStore.DataSource = TopDestinationCountriesList;
             
             TopDestinationCountriesStore.DataBind();
         }

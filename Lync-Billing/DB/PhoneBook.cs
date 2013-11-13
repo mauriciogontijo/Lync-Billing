@@ -69,19 +69,40 @@ namespace Lync_Billing.DB
             List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
             PhoneBookContactComparer linqDistinctComparer = new PhoneBookContactComparer();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            List<object> functionparameters = new List<object>();
-            int contactNumbersLimit = 200;
+            List<object> functionparameters;
+            
+            //int contactNumbersLimit = 200;
 
-            functionparameters.Add(sipAccount);
-            functionparameters.Add(contactNumbersLimit);
+            //functionparameters.Add(sipAccount);
+            //functionparameters.Add(contactNumbersLimit);
+
+            ////Get all the destinations for this user where the phonecall is of a billable CallTypeID
+            //dt = DBRoutines.SELECT_FROM_FUNCTION("Get_DestinationsNumbers_ForUser", functionparameters, wherePart);
+
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    phoneBookEntry = new PhoneBook();
+                    
+            //    columnName = Enums.GetDescription(Enums.DestinationNumbers.PhoneNumber);
+            //    phoneBookEntry.DestinationNumber = (string)row[columnName];
+
+            //    //columnName = Enums.GetDescription(Enums.DestinationNumbers.Country);
+            //    //if (row[columnName] != null)
+            //    //    phoneBookEntry.DestinationCountry = (string)row[columnName];
+            //    phoneBookEntry.DestinationCountry = string.Empty;
+
+            //    phoneBookEntries.Add(phoneBookEntry);
+            //}
+
+            functionparameters = new List<object>() { sipAccount };
 
             //Get all the destinations for this user where the phonecall is of a billable CallTypeID
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_ChargeableCalls_ForUser", functionparameters, wherePart);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_ChargeableCalls_ForUser", functionparameters, null);
 
             foreach (DataRow row in dt.Rows)
             {
                 phoneBookEntry = new PhoneBook();
-                    
+
                 columnName = Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri);
                 phoneBookEntry.DestinationNumber = (string)row[columnName];
 

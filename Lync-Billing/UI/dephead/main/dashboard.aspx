@@ -39,7 +39,7 @@
             }
         };
 
-        var TopCountries_LableRenderer = function (storeItem, item) {
+        var TopDestinationCountries_LableRenderer = function (storeItem, item) {
             var total = 0,
                 all_countries_data = {},
                 component_name = "main_content_place_holder_" + "TopDestinationCountriesChart";
@@ -65,7 +65,7 @@
 
 
         //Pie Chart Data-Lable Renderer for Countries Destinations Calls
-        var TopCountries_TipRenderer = function (storeItem, item) {
+        var TopDestinationCountries_TipRenderer = function (storeItem, item) {
             //calculate percentage.
             var total = 0,
                 component_name = "main_content_place_holder_" + "TopDestinationCountriesChart";
@@ -257,10 +257,10 @@
                                     Highlight="true"
                                     HighlightSegmentMargin="10">
                                     <Label Field="CountryName" Display="Rotate" Contrast="true" Font="16px Arial">
-                                        <Renderer Fn="TopCountries_LableRenderer" />
+                                        <Renderer Fn="TopDestinationCountries_LableRenderer" />
                                     </Label>
                                     <Tips ID="Tips2" runat="server" TrackMouse="true" Width="200" Height="75">
-                                        <Renderer Fn="TopCountries_TipRenderer" />
+                                        <Renderer Fn="TopDestinationCountries_TipRenderer" />
                                     </Tips>
                                 </ext:PieSeries>
                             </Series>

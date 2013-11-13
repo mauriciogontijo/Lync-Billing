@@ -8,8 +8,11 @@ using System.Web.Script.Serialization;
 using System.Web.SessionState;
 using System.Globalization;
 using Ext.Net;
+
 using Lync_Billing.DB;
 using Lync_Billing.Libs;
+using Lync_Billing.DB.Statistics;
+
 
 namespace Lync_Billing.ui.sysadmin.main
 {
@@ -40,17 +43,17 @@ namespace Lync_Billing.ui.sysadmin.main
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
-            List<GatewaysUsage> gatewaysUsage = new List<GatewaysUsage>();
-            YearSelectorComboBox.GetStore().DataSource = GatewaysUsage.GetYears();
+            List<GatewaysStatistics> gatewaysUsage = new List<GatewaysStatistics>();
+            YearSelectorComboBox.GetStore().DataSource = GatewaysStatistics.GetYears();
             YearSelectorComboBox.GetStore().DataBind();
 
             Bind();
         }
 
-        protected List<GatewaysUsage> GetGatewaysUsageChartData(int year, int fromMonth, int toMonth)
+        protected List<GatewaysStatistics> GetGatewaysUsageChartData(int year, int fromMonth, int toMonth)
         {
-            List<GatewaysUsage> tmpData = new List<GatewaysUsage>();
-            tmpData.AddRange(GatewaysUsage.SetGatewaysUsagePercentagesPerCallsCount(year, fromMonth, toMonth).AsEnumerable<GatewaysUsage>());
+            List<GatewaysStatistics> tmpData = new List<GatewaysStatistics>();
+            tmpData.AddRange(GatewaysStatistics.SetGatewaysUsagePercentagesPerCallsCount(year, fromMonth, toMonth).AsEnumerable<GatewaysStatistics>());
             
             return tmpData;
         }

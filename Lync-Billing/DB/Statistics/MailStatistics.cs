@@ -1,11 +1,13 @@
-﻿using Lync_Billing.Libs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
 
-namespace Lync_Billing.DB
+using Lync_Billing.Libs;
+
+
+namespace Lync_Billing.DB.Statistics
 {
     public class MailStatistics
     {

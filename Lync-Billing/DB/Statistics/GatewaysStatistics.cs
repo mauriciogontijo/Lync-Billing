@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Lync_Billing.Libs;
 using System.Data;
-using System.Data.OleDb;
 
-namespace Lync_Billing.DB
+using Lync_Billing.Libs;
+
+
+namespace Lync_Billing.DB.Statistics
 {
-    public class GatewaysUsage
+    public class GatewaysStatistics
     {
         private static DBLib DBRoutines = new DBLib();
 
@@ -16,7 +17,7 @@ namespace Lync_Billing.DB
         public int Year { get; set; }
         public int Month { get; set; }
         public DateTime Date { get; set; }
-        
+
         public decimal CallsCount { get; set; }
         public decimal CallsDuration { get; set; }
         public decimal CallsCost { set; get; }
@@ -25,14 +26,14 @@ namespace Lync_Billing.DB
         public decimal CallsCostPercentage;
         public decimal CallsDurationPercentage;
 
-        public static List<GatewaysUsage> GetGatewaysUsage (int year,int fromMonth, int toMonth)
+        public static List<GatewaysStatistics> GetGatewaysUsage(int year, int fromMonth, int toMonth)
         {
             DataTable dt = new DataTable();
             Dictionary<string, object> whereClause;
             List<object> functionParameters;
-            
-            GatewaysUsage gatewayUsage;
-            List<GatewaysUsage> gatewaysUsageList = new List<GatewaysUsage>();
+
+            GatewaysStatistics gatewayUsage;
+            List<GatewaysStatistics> gatewaysUsageList = new List<GatewaysStatistics>();
 
             //Ge the gateways summaries from the database.
             functionParameters = new List<object>();
@@ -43,11 +44,11 @@ namespace Lync_Billing.DB
             };
 
             dt = DBRoutines.SELECT_FROM_FUNCTION("Get_GatewaySummary_ForAll_Sites", functionParameters, whereClause);
-            
-            
+
+
             foreach (DataRow row in dt.Rows)
             {
-                gatewayUsage = new GatewaysUsage();
+                gatewayUsage = new GatewaysStatistics();
 
                 foreach (DataColumn column in dt.Columns)
                 {
@@ -63,24 +64,24 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.CallsCount) && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.CallsCount = Convert.ToInt64(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.CallsDuration)  && row[column.ColumnName] != DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.CallsDuration) && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.CallsDuration = Convert.ToInt64((decimal)row[column.ColumnName]);
 
                     if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.CallsCost) && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.CallsCost = (decimal)row[column.ColumnName];
                 }
 
-                gatewayUsage.Date = 
+                gatewayUsage.Date =
                     new DateTime(
-                        gatewayUsage.Year, 
-                        gatewayUsage.Month, 
-                        DateTime.DaysInMonth(gatewayUsage.Year,gatewayUsage.Month));
+                        gatewayUsage.Year,
+                        gatewayUsage.Month,
+                        DateTime.DaysInMonth(gatewayUsage.Year, gatewayUsage.Month));
                 gatewaysUsageList.Add(gatewayUsage);
             }
             return gatewaysUsageList;
-          }
+        }
 
-        public static List<GatewaysUsage> GetGatewaysStatisticsResults(List<GatewaysUsage> gatewaysUsage) 
+        public static List<GatewaysStatistics> GetGatewaysStatisticsResults(List<GatewaysStatistics> gatewaysUsage)
         {
             var gatewaysUsageData =
               (
@@ -88,7 +89,7 @@ namespace Lync_Billing.DB
 
                   group data by new { data.GatewayName, data.Year } into res
 
-                  select new GatewaysUsage
+                  select new GatewaysStatistics
                   {
                       GatewayName = res.Key.GatewayName,
                       Year = res.Key.Year,
@@ -101,14 +102,14 @@ namespace Lync_Billing.DB
             return gatewaysUsageData;
         }
 
-        public static List<GatewaysUsage> SetGatewaysUsagePercentagesPerCallsCount(int year, int fromMonth, int toMonth) 
+        public static List<GatewaysStatistics> SetGatewaysUsagePercentagesPerCallsCount(int year, int fromMonth, int toMonth)
         {
             DataTable dt = new DataTable();
             Dictionary<string, object> whereClause;
             List<object> functionParameters;
 
-            GatewaysUsage gatewayUsage;
-            List<GatewaysUsage> gatewaysUsageList = new List<GatewaysUsage>();
+            GatewaysStatistics gatewayUsage;
+            List<GatewaysStatistics> gatewaysUsageList = new List<GatewaysStatistics>();
 
             decimal totalOutGoingCallsCount = 0;
             decimal totalDurationCount = 0;
@@ -124,11 +125,11 @@ namespace Lync_Billing.DB
             };
 
             dt = DBRoutines.SELECT_FROM_FUNCTION("Get_GatewaySummary_ForAll_Sites", functionParameters, whereClause);
-            
-            
+
+
             foreach (DataRow row in dt.Rows)
             {
-                gatewayUsage = new GatewaysUsage();
+                gatewayUsage = new GatewaysStatistics();
 
                 foreach (DataColumn column in dt.Columns)
                 {
@@ -164,7 +165,8 @@ namespace Lync_Billing.DB
             var gatewaysUsageData = (
                 from data in gatewaysUsageList.AsEnumerable()
                 group data by new { data.GatewayName, data.Year } into res
-                select new GatewaysUsage {
+                select new GatewaysStatistics
+                {
                     GatewayName = res.Key.GatewayName,
                     Year = res.Key.Year,
                     CallsCount = res.Sum(x => x.CallsCount),
@@ -175,7 +177,7 @@ namespace Lync_Billing.DB
 
 
             //Calculate Totals
-            foreach (GatewaysUsage tmpgatewayUsage in gatewaysUsageData)
+            foreach (GatewaysStatistics tmpgatewayUsage in gatewaysUsageData)
             {
                 totalCostCount += tmpgatewayUsage.CallsCost;
                 totalOutGoingCallsCount += tmpgatewayUsage.CallsCount;
@@ -186,7 +188,7 @@ namespace Lync_Billing.DB
 
 
             //Calculate percentages
-            foreach (GatewaysUsage tmpgatewayUsage in gatewaysUsageData)
+            foreach (GatewaysStatistics tmpgatewayUsage in gatewaysUsageData)
             {
                 if (Misc.GetResolvedConnecionIPAddress(tmpgatewayUsage.GatewayName, out resolvedGatewayAddress) == true)
                     tmpgatewayUsage.GatewayName = resolvedGatewayAddress;
@@ -207,11 +209,11 @@ namespace Lync_Billing.DB
                     tmpgatewayUsage.CallsDurationPercentage = 0;
             }
 
-            return gatewaysUsageData; 
+            return gatewaysUsageData;
 
         }
-       
-        public static List<GatewaysUsage> SetGatewaysUsagePercentagesPerCallsCount(List<GatewaysUsage> gatewaysUsage) 
+
+        public static List<GatewaysStatistics> SetGatewaysUsagePercentagesPerCallsCount(List<GatewaysStatistics> gatewaysUsage)
         {
             decimal totalOutGoingCallsCount = 0;
             decimal totalDurationCount = 0;
@@ -219,8 +221,8 @@ namespace Lync_Billing.DB
 
             var gatewaysUsageData = (
                 from data in gatewaysUsage.AsEnumerable()
-                group data by new { data.GatewayName, data.Year} into res
-                select new GatewaysUsage
+                group data by new { data.GatewayName, data.Year } into res
+                select new GatewaysStatistics
                 {
                     GatewayName = res.Key.GatewayName,
                     Year = res.Key.Year,
@@ -228,11 +230,11 @@ namespace Lync_Billing.DB
                     CallsDuration = res.Sum(x => x.CallsDuration),
                     CallsCost = res.Sum(x => x.CallsCost)
                 }
-            ).Where(e => e.CallsCount > 200).ToList(); 
+            ).Where(e => e.CallsCount > 200).ToList();
 
 
             //Calculate totals
-            foreach (GatewaysUsage gatewayUsage in gatewaysUsageData) 
+            foreach (GatewaysStatistics gatewayUsage in gatewaysUsageData)
             {
                 totalCostCount += gatewayUsage.CallsCost;
                 totalOutGoingCallsCount += gatewayUsage.CallsCount;
@@ -240,50 +242,50 @@ namespace Lync_Billing.DB
             }
 
             string resolvedGatewayAddress = string.Empty;
-            
+
 
             //Calcualte percentages
-            foreach (GatewaysUsage gatewayUsage in gatewaysUsageData) 
+            foreach (GatewaysStatistics gatewayUsage in gatewaysUsageData)
             {
                 if (Misc.GetResolvedConnecionIPAddress(gatewayUsage.GatewayName, out resolvedGatewayAddress) == true)
                     gatewayUsage.GatewayName = resolvedGatewayAddress;
 
                 if (gatewayUsage.CallsCount.ToString() != null && gatewayUsage.CallsCount > 0)
-                    gatewayUsage.CallsCountPercentage =  Math.Round((gatewayUsage.CallsCount * 100 / totalOutGoingCallsCount),2);
+                    gatewayUsage.CallsCountPercentage = Math.Round((gatewayUsage.CallsCount * 100 / totalOutGoingCallsCount), 2);
                 else
                     gatewayUsage.CallsCountPercentage = 0;
 
                 if (gatewayUsage.CallsCost.ToString() != null && gatewayUsage.CallsCost > 0)
-                    gatewayUsage.CallsCostPercentage = Math.Round((gatewayUsage.CallsCost * 100 )/ totalCostCount,2);
+                    gatewayUsage.CallsCostPercentage = Math.Round((gatewayUsage.CallsCost * 100) / totalCostCount, 2);
                 else
                     gatewayUsage.CallsCostPercentage = 0;
 
                 if (gatewayUsage.CallsDuration.ToString() != null && gatewayUsage.CallsDuration > 0)
-                    gatewayUsage.CallsDurationPercentage = Math.Round((gatewayUsage.CallsDuration * 100 / totalDurationCount),2);
+                    gatewayUsage.CallsDurationPercentage = Math.Round((gatewayUsage.CallsDuration * 100 / totalDurationCount), 2);
                 else
                     gatewayUsage.CallsDurationPercentage = 0;
             }
 
-            return gatewaysUsageData; 
+            return gatewaysUsageData;
         }
 
-        public static List<Years> GetYears() 
+        public static List<Years> GetYears()
         {
             DataTable dt = new DataTable();
             List<object> functionParameters;
             List<string> columnsList;
             Dictionary<string, object> whereClause;
-            
-            Years Year; 
+
+            Years Year;
             List<Years> YearsList = new List<Years>();
 
             //Ge the gateways summaries from the database.
             functionParameters = new List<object>();
-            whereClause = new Dictionary<string,object>();
+            whereClause = new Dictionary<string, object>();
             columnsList = new List<string>() { String.Format("DISTINCT {0}", Enums.GetDescription(Enums.GatewaysSummary.Year)) };
 
             dt = DBRoutines.SELECT_FROM_FUNCTION("Get_GatewaySummary_ForAll_Sites", functionParameters, whereClause, selectColumnsList: columnsList);
-            
+
             foreach (DataRow row in dt.Rows)
             {
                 Year = new Years();
@@ -299,163 +301,8 @@ namespace Lync_Billing.DB
     }
 
 
-    public class TopCountries
-    {
-        public string CountryName { private set; get; }
-        public int CallsCount { private set; get; }
-        public decimal CallsCost { private set; get; }
-        public decimal CallsDuration { private set; get; }
-        
-
-        public static List<TopCountries> GetTopDestinationsForUser(string sipAccount, int limit)
-        {
-            DBLib DBRoutines = new DBLib();
-            DataTable dt = new DataTable();
-
-            TopCountries topCountry;
-            List<TopCountries> topCountries = new List<TopCountries>();
-
-            List<object> parameters = new List<object>();
-            parameters.Add(sipAccount);
-            parameters.Add(limit);
-
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_DestinationCountries_ForUser", parameters, null);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                topCountry = new TopCountries();
-
-                foreach (DataColumn column in dt.Columns)
-                {
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CountryName))
-                        topCountry.CountryName = (string)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCount))
-                        topCountry.CallsDuration = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsDuration))
-                        topCountry.CallsDuration = (decimal)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCost))
-                    {
-                        if (row[column.ColumnName] != System.DBNull.Value)
-                            topCountry.CallsCost = (decimal)row[column.ColumnName];
-                        else
-                            topCountry.CallsCost = 0;
-                    }
-                }
-                topCountries.Add(topCountry);
-            }
-
-            return topCountries;
-        }
-
-        public static List<TopCountries> GetTopDestinationsForDepartment(string siteName, string departmentName, int limit)
-        {
-            DBLib DBRoutines = new DBLib();
-            DataTable dt = new DataTable();
-
-            TopCountries topCountry;
-            List<TopCountries> topCountries = new List<TopCountries>();
-
-            List<object> parameters = new List<object>();
-            parameters.Add(siteName);
-            parameters.Add(departmentName);
-            parameters.Add(limit);
-
-
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_DestinationCountries_ForSiteDepartment", parameters, null);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                topCountry = new TopCountries();
-
-                foreach (DataColumn column in dt.Columns)
-                {
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CountryName))
-                        topCountry.CountryName = (string)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCount))
-                        topCountry.CallsDuration = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsDuration))
-                        topCountry.CallsDuration = (decimal)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCost))
-                    {
-                        if (row[column.ColumnName] != System.DBNull.Value)
-                            topCountry.CallsCost = (decimal)row[column.ColumnName];
-                        else
-                            topCountry.CallsCost = 0;
-                    }
-                }
-                topCountries.Add(topCountry);
-            }
-
-            return topCountries;
-        }
-
-    }
-
-
-    public class TopDestinations 
-    {
-        public string PhoneNumber { private set; get; }
-        public string UserName { set; get; }
-        public long CallsCount { private set; get; }
-        public decimal CallsCost { private set; get; }
-        public decimal CallsDuration { private set; get; }
-
-
-        public static List<TopDestinations> GetTopDestinations(string sipAccount, int limit)
-        {
-            DBLib DBRoutines = new DBLib();
-            DataTable dt = new DataTable();
-
-            TopDestinations topDestination;
-            List<TopDestinations> topDestinations = new List<TopDestinations>();
-            
-            List<object> parameters = new List<object>();
-            parameters.Add(sipAccount);
-            parameters.Add(limit);
-
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_DestinationsNumbers_ForUser", parameters, null);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                topDestination = new TopDestinations();
-
-                foreach (DataColumn column in dt.Columns)
-                {
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.PhoneNumber))
-                    {
-                        if (row[column.ColumnName] == System.DBNull.Value )
-                            topDestination.PhoneNumber = "UNKNOWN";
-                        else
-                            topDestination.PhoneNumber = (string)row[column.ColumnName];
-                    }
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCount))
-                        topDestination.CallsCount = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsDuration))
-                        topDestination.CallsDuration = (decimal)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.TopDestinations.CallsCost))
-                        topDestination.CallsCost = (decimal)row[column.ColumnName];
-                }
-
-                topDestinations.Add(topDestination);
-            }
-
-            return topDestinations;
-        }
-    }
-
-
-    public class Years 
+    public class Years
     {
         public int YearNumber { get; set; }
     }
-       
 }
