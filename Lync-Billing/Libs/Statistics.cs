@@ -549,7 +549,7 @@ namespace Lync_Billing.Libs
             OleDbDataReader dr;
             string selectQuery = string.Empty;
 
-            selectQuery = string.Format("SELECT * FROM [dbo].[vw_Getways_Statistics] WHERE Year={0} AND Month BETWEEN {1} AND {2}", year, fromMonth, toMonth);
+            selectQuery = string.Format("SELECT * FROM [dbo].[Get_GatewaySummary_ForAll_Sites]() WHERE Year={0} AND Month BETWEEN {1} AND {2}", year, fromMonth, toMonth);
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(selectQuery, conn);
@@ -576,7 +576,7 @@ namespace Lync_Billing.Libs
             OleDbDataReader dr;
             string selectQuery = string.Empty;
 
-            selectQuery = string.Format("SELECT DISTINCT Year FROM [dbo].[vw_Getways_Statistics]");
+            selectQuery = string.Format("SELECT DISTINCT Year FROM [dbo].[Get_GatewaySummary_ForAll_Sites]()");
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(selectQuery, conn);
