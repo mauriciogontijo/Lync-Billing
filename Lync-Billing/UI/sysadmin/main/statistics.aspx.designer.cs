@@ -76,22 +76,22 @@ namespace Lync_Billing.ui.sysadmin.main {
         protected global::Ext.Net.ComboBox YearSelectorComboBox;
         
         /// <summary>
-        /// YearsOfgatewayUsageStore control.
+        /// YearsOfGatewaysUsageStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store YearsOfgatewayUsageStore;
+        protected global::Ext.Net.Store YearsOfGatewaysUsageStore;
         
         /// <summary>
-        /// YearsOfgatewayUsageModel control.
+        /// YearsOfGatewaysUsageModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model YearsOfgatewayUsageModel;
+        protected global::Ext.Net.Model YearsOfGatewaysUsageModel;
         
         /// <summary>
         /// QuarterSelectorComboBox control.

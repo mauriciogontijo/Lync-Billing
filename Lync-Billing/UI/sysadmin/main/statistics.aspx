@@ -51,13 +51,13 @@
                 items,
                 json = [{
                     'Name': 'Calls %',
-                    'Data': rec.get('NumberOfOutgoingCallsPercentage')
+                    'Data': rec.get('CallsCountPercentage')
                 }, {
                     'Name': 'Duration %',
-                    'Data': rec.get('TotalDurationPercentage')
+                    'Data': rec.get('CallsDurationPercentage')
                 }, {
                     'Name': 'Cost %',
-                    'Data': rec.get('TotalCostPercentage')
+                    'Data': rec.get('CallsCostPercentage')
                 }];
             App.main_content_place_holder_RadarStore.loadData(json);
             selectItem(rec);
@@ -95,13 +95,13 @@
                                 <Fields>
                                     <ext:ModelField Name="GatewayName" Mapping="GatewayName" Type="String" />
 
-                                    <ext:ModelField Name="NumberOfOutgoingCalls" Mapping="NumberOfOutgoingCalls" Type="Int" />
-                                    <ext:ModelField Name="TotalDuration" Mapping="TotalDuration" Type="Int" />
-                                    <ext:ModelField Name="TotalCost" Mapping="TotalCost" Type="Float" />
+                                    <ext:ModelField Name="CallsCount" Mapping="CallsCount" Type="Int" />
+                                    <ext:ModelField Name="CallsDuration" Mapping="CallsDuration" Type="Int" />
+                                    <ext:ModelField Name="CallsCost" Mapping="CallsCost" Type="Float" />
 
-                                    <ext:ModelField Name="NumberOfOutgoingCallsPercentage" Mapping="NumberOfOutgoingCallsPercentage" Type="Float" />
-                                    <ext:ModelField Name="TotalDurationPercentage" Mapping="TotalDurationPercentage" Type="Float" />
-                                    <ext:ModelField Name="TotalCostPercentage" Mapping="TotalCostPercentage" Type="Float" />
+                                    <ext:ModelField Name="CallsCountPercentage" Mapping="CallsCountPercentage" Type="Float" />
+                                    <ext:ModelField Name="CallsDurationPercentage" Mapping="CallsDurationPercentage" Type="Float" />
+                                    <ext:ModelField Name="CallsCostPercentage" Mapping="CallsCostPercentage" Type="Float" />
                                 </Fields>
                             </ext:Model>
                         </Model>
@@ -128,7 +128,7 @@
                                 Animate="true" 
                                 StoreID="GatewaysDataStore">
                                 <Axes>
-                                    <ext:NumericAxis Position="Left" Fields="NumberOfOutgoingCalls" Minimum="0" Hidden="true" />
+                                    <ext:NumericAxis Position="Left" Fields="CallsCount" Minimum="0" Hidden="true" />
                                         
                                     <ext:CategoryAxis Position="Bottom" Fields="GatewayName">
                                         <Label Font="9px Arial">
@@ -143,13 +143,13 @@
                                         Axis="Left" 
                                         Highlight="true" 
                                         XField="GatewayName" 
-                                        YField="NumberOfOutgoingCalls">
+                                        YField="CallsCount">
                                         <Style Fill="#456d9f" />
                                         <HighlightConfig Fill="#a2b5ca" />
                                         <Label 
                                             Contrast="true" 
                                             Display="InsideEnd" 
-                                            Field="NumberOfOutgoingCalls" 
+                                            Field="CallsCount" 
                                             Color="#000" 
                                             Orientation="Vertical" />
 
@@ -168,26 +168,25 @@
                                         ID="YearSelectorComboBox" 
                                         FieldLabel="Year" 
                                         LabelSeparator=":" 
-                                        DisplayField="Year" 
-                                        ValueField="Year"
+                                        DisplayField="YearNumber" 
+                                        ValueField="YearNumber"
                                         TriggerAction="All" 
                                         QueryMode="Local" 
                                         LabelWidth="30"
                                         Margins="5 5 5 5">
                                         <Store>
                                             <ext:Store 
-                                                ID="YearsOfgatewayUsageStore" 
+                                                ID="YearsOfGatewaysUsageStore" 
                                                 runat="server">
                                                 <Model>
-                                                    <ext:Model ID="YearsOfgatewayUsageModel" runat="server">
+                                                    <ext:Model ID="YearsOfGatewaysUsageModel" runat="server">
                                                         <Fields>
-                                                            <ext:ModelField Name="Year" Type="int" />
+                                                            <ext:ModelField Name="YearNumber" Type="int" />
                                                         </Fields>
                                                     </ext:Model>
                                                 </Model>
                                             </ext:Store>
                                          </Store>
-                                       
                                     </ext:ComboBox>
 
                                     <ext:ComboBox 
@@ -247,22 +246,21 @@
                                         <ext:Column ID="NumberOfCallsCol" 
                                             runat="server" 
                                             Text="Total Calls"
-                                            DataIndex="NumberOfOutgoingCallsPercentage">
+                                            DataIndex="CallsCountPercentage">
                                             <Renderer Handler="return value + '%';" />
                                         </ext:Column>
                                         
                                         <ext:Column ID="DurationPercentageCol" 
                                             runat="server" 
                                             Text="Duration" 
-                                            
-                                            DataIndex="TotalDurationPercentage">
+                                            DataIndex="CallsDurationPercentage">
                                             <Renderer Handler="return value + '%';" />
                                         </ext:Column>
                                         
                                         <ext:Column ID="CostPercentageCol" 
                                             runat="server" 
                                             Text="Cost" 
-                                            DataIndex="TotalCostPercentage">
+                                            DataIndex="CallsCostPercentage">
                                             <Renderer Handler="return value + '%';" />
                                         </ext:Column>
                                     </Columns>

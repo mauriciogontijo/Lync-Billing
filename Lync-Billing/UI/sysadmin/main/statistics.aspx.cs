@@ -73,11 +73,11 @@ namespace Lync_Billing.ui.sysadmin.main
 
         protected void QuarterSelection(object sender, DirectEventArgs e)
         {
-            int qaurter = Convert.ToInt32(QuarterSelectorComboBox.SelectedItem.Value);
+            int quarter = Convert.ToInt32(QuarterSelectorComboBox.SelectedItem.Value);
 
             int year = Convert.ToInt32(YearSelectorComboBox.SelectedItem.Value);
 
-            switch (qaurter)
+            switch (quarter)
             {
                 case 1:
                     GatewaysDataStore.DataSource = GetGatewaysUsageChartData(year, 1, 3);

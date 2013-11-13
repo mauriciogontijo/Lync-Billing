@@ -22,9 +22,9 @@ namespace Lync_Billing.DB.Statistics
         public decimal CallsDuration { get; set; }
         public decimal CallsCost { set; get; }
 
-        public decimal CallsCountPercentage;
-        public decimal CallsCostPercentage;
-        public decimal CallsDurationPercentage;
+        public decimal CallsCountPercentage { get; set; }
+        public decimal CallsCostPercentage { get; set; }
+        public decimal CallsDurationPercentage { get; set; }
 
         public static List<GatewaysStatistics> GetGatewaysUsage(int year, int fromMonth, int toMonth)
         {
