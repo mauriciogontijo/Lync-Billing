@@ -194,7 +194,7 @@ namespace Lync_Billing.Libs
                        }
                        else
                        {
-                           whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' COLLATE SQL_Latin1_General_CP1_CI_AS AND ");
+                           whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
                        }
                    }
                }
@@ -236,19 +236,20 @@ namespace Lync_Billing.Libs
             return dt;
         }
         
-        public DataTable SELECT_FROM_FUNCTION(string tableName,List<object> functionParams, Dictionary<string,object> whereClause ) 
+        public DataTable SELECT_FROM_FUNCTION(string databaseFunctionName, List<object> functionParams, Dictionary<string,object> whereClause, List<string> selectColumnsList = null, List<string> groupByColumnsList = null) 
         {
             DataTable dt = new DataTable();
 
             OleDbDataReader dr;
-            string selectQuery = string.Empty;
+            string FinalSelectQuery = string.Empty;
 
             StringBuilder Parameters = new StringBuilder();
-            StringBuilder whereStatement = new StringBuilder();
+            StringBuilder WhereStatement = new StringBuilder();
+            StringBuilder SelectColumns = new StringBuilder();
+            StringBuilder GroupByFields = new StringBuilder();
 
             if (functionParams != null && functionParams.Count != 0)
             {
-
                 foreach (object obj in functionParams)
                 {
                     Type valueType = obj.GetType();
@@ -261,51 +262,78 @@ namespace Lync_Billing.Libs
                 Parameters.Remove(Parameters.Length - 1, 1);
             }
 
+            if (selectColumnsList != null && selectColumnsList.Count != 0)
+            {
+                foreach (string field in selectColumnsList)
+                {
+                    if (!string.IsNullOrEmpty(field))
+                    {
+                        if(field.Contains("COUNT") || field.Contains("SUM") || field.Contains("YEAR") || field.Contains("MONTH"))
+                            SelectColumns.Append(field + ",");
+                        else
+                            SelectColumns.Append("[" + field + "],");
+                    }
+                }
+                SelectColumns.Remove(SelectColumns.Length - 1, 1);
+            }
+
+            if (groupByColumnsList != null && groupByColumnsList.Count != 0)
+            {
+                foreach (string field in groupByColumnsList)
+                {
+                    if (!string.IsNullOrEmpty(field))
+                    {
+                        GroupByFields.Append("[" + field + "],");
+                    }
+                }
+                GroupByFields.Remove(GroupByFields.Length - 1, 1);
+            }
+
             if ( whereClause != null && whereClause.Count != 0)
             {
                 foreach (KeyValuePair<string, object> pair in whereClause)
                 {
                     if (pair.Value == null)
                     {
-                        whereStatement.Append("[" + pair.Key + "] IS NULL" + " AND ");
+                        WhereStatement.Append("[" + pair.Key + "] IS NULL" + " AND ");
                     }
 
                     else if (pair.Value.ToString() == "!null")
                     {
-                        whereStatement.Append("[" + pair.Key + "] IS NOT NULL" + " AND ");
+                        WhereStatement.Append("[" + pair.Key + "] IS NOT NULL" + " AND ");
                     }
 
                     else if (pair.Value.ToString() == "!=0")
                     {
-                        whereStatement.Append("[" + pair.Key + "] <> 0" + " AND ");
+                        WhereStatement.Append("[" + pair.Key + "] <> 0" + " AND ");
                     }
 
                     else if (pair.Value is List<int>)
                     {
-                        whereStatement.Append("[" + pair.Key + "] in ( ");
+                        WhereStatement.Append("[" + pair.Key + "] in ( ");
 
                         foreach (var item in (List<int>)pair.Value)
                         {
-                            whereStatement.Append(item.ToString() + ",");
+                            WhereStatement.Append(item.ToString() + ",");
                         }
                         //Remove last ','
-                        whereStatement.Remove(whereStatement.Length - 1, 1);
+                        WhereStatement.Remove(WhereStatement.Length - 1, 1);
 
-                        whereStatement.Append(" ) AND ");
+                        WhereStatement.Append(" ) AND ");
                     }
 
                     else if (pair.Value is List<string>)
                     {
-                        whereStatement.Append("[" + pair.Key + "] in ( ");
+                        WhereStatement.Append("[" + pair.Key + "] in ( ");
 
                         foreach (var item in (List<string>)pair.Value)
                         {
-                            whereStatement.Append(item.ToString() + ",");
+                            WhereStatement.Append("'" + item.ToString() + "',");
                         }
                         //Remove last ','
-                        whereStatement.Remove(whereStatement.Length - 1, 1);
+                        WhereStatement.Remove(WhereStatement.Length - 1, 1);
 
-                        whereStatement.Append(" ) AND ");
+                        WhereStatement.Append(" ) AND ");
                     }
 
                     else
@@ -313,25 +341,35 @@ namespace Lync_Billing.Libs
                         Type valueType = pair.Value.GetType();
                         if (valueType == typeof(int) || valueType == typeof(Double))
                         {
-                            whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                            WhereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
                         }
                         else
                         {
-                            whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' COLLATE SQL_Latin1_General_CP1_CI_AS AND ");
+                            WhereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
                         }
                     }
                 }
-                whereStatement.Remove(whereStatement.Length - 5, 5);
+                WhereStatement.Remove(WhereStatement.Length - 5, 5);
             }
 
-            if (whereClause != null  && whereClause.Count !=0)
-                selectQuery = string.Format("SELECT * FROM [{0}] ({1}) WHERE {2}", tableName, Parameters, whereStatement);
+            if (selectColumnsList != null && selectColumnsList.Count > 0)
+                FinalSelectQuery = String.Format("SELECT {0} ", SelectColumns.ToString());
             else
-                selectQuery = string.Format("SELECT * FROM [{0}] ({1})", tableName, Parameters);
+                FinalSelectQuery = String.Format("SELECT * ");
+
+            if (whereClause != null  && whereClause.Count > 0)
+                FinalSelectQuery = string.Format("{0} FROM [{1}] ({2}) WHERE {3}", FinalSelectQuery, databaseFunctionName, Parameters.ToString(), WhereStatement.ToString());
+            else
+                FinalSelectQuery = string.Format("{0} FROM [{1}] ({2})", FinalSelectQuery, databaseFunctionName, Parameters.ToString());
+
+            if(groupByColumnsList != null && groupByColumnsList.Count > 0)
+                FinalSelectQuery = string.Format("{0} GROUP BY {1} ", FinalSelectQuery, GroupByFields.ToString());
+            else
+                FinalSelectQuery = string.Format("{0}", FinalSelectQuery);
 
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
-            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+            OleDbCommand comm = new OleDbCommand(FinalSelectQuery, conn);
 
             try
             {
