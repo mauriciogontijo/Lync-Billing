@@ -24,7 +24,7 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             PhoneBook phoneBookEntry;
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneBook.TableName), "SipAccount", sipAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneBook.TableName), Enums.GetDescription(Enums.PhoneBook.SipAccount), sipAccount);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -69,17 +69,16 @@ namespace Lync_Billing.DB
             List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
             PhoneBookContactComparer linqDistinctComparer = new PhoneBookContactComparer();
 
-            List<object> functionparameters = new List<object>() { sipAccount };
+            int contactNumbersLimit = 200;
 
-            Dictionary<string, object> wherePart = new Dictionary<string,object>
-            {
-                { Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri), "!null" },
-                { Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID), PhoneCall.BillableCallTypesList }
+            List<object> functionparameters = new List<object>()
+            { 
+                sipAccount,
+                contactNumbersLimit
             };
 
-
             //Get all the destinations for this user where the phonecall is of a billable CallTypeID
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_ChargeableCalls_ForUser", functionparameters, wherePart);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_ChargeableCalls_ForUser", functionparameters, null);
 
             foreach (DataRow row in dt.Rows)
             {
