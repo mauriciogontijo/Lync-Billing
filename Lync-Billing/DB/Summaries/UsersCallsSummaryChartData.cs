@@ -12,7 +12,6 @@ namespace Lync_Billing.DB.Summaries
     public class UsersCallsSummaryChartData
     {
         private static DBLib DBRoutines = new DBLib();
-        private static Statistics StatsRoutines = new Statistics();
 
         private static Dictionary<string, object> wherePart;
 

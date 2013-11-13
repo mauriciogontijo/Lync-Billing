@@ -14,7 +14,6 @@ namespace Lync_Billing.DB.Summaries
     public class UserCallsSummary
     {
         private static DBLib DBRoutines = new DBLib();
-        private static Statistics StatsRoutines = new Statistics();
 
         public string EmployeeID { get; set; }
         public string FullName { get; set; }

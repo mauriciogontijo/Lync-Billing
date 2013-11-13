@@ -20,7 +20,6 @@ namespace Lync_Billing.DB
         public string TypeOfService { get; set; }
 
         private static DBLib DBRoutines = new DBLib();
-        private static Statistics statRoutines = new Statistics();
 
         public static List<DialingPrefixsRates> GetRates(string ratesTableName)
         {
@@ -28,7 +27,7 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             DialingPrefixsRates rate;
 
-            dt = statRoutines.RATESTABLE_VIEW_PER_GATEWAY(ratesTableName);
+            dt = DB.Rate.RATESTABLE_VIEW_PER_GATEWAY(ratesTableName);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -74,7 +73,7 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             DialingPrefixsRates rate;
 
-            dt = statRoutines.RATESTABLE_VIEW_PER_GATEWAY(ratesTableName,Enums.GetDescription(Enums.ActualRates.DialingPrefix),dialingPrefix);
+            dt = DB.Rate.RATESTABLE_VIEW_PER_GATEWAY(ratesTableName, Enums.GetDescription(Enums.ActualRates.DialingPrefix), dialingPrefix);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -129,7 +128,7 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             DialingPrefixsRates rate;
 
-            dt = statRoutines.RATESTABLE_VIEW_PER_GATEWAY(ratesTableName, Enums.GetDescription(Enums.ActualRates.ThreeDigitsCountryCode), countryCode);
+            dt = DB.Rate.RATESTABLE_VIEW_PER_GATEWAY(ratesTableName, Enums.GetDescription(Enums.ActualRates.ThreeDigitsCountryCode), countryCode);
 
             foreach (DataRow row in dt.Rows)
             {

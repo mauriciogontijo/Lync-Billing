@@ -5,6 +5,7 @@ using System.Web;
 using System.Text;
 using Lync_Billing.Libs;
 using System.Data;
+using System.Data.OleDb;
 
 namespace Lync_Billing.DB
 {
@@ -17,6 +18,13 @@ namespace Lync_Billing.DB
         public decimal MobileLineRate { get; set; }
 
         private static  DBLib DBRoutines = new DBLib();
+
+        //THIS FUNCTION IS USED BY "RATES_PER_GATEWAY" AND "RATESTABLE_VIEW_PER_GATEWAY" PROCEDURES
+        private static OleDbConnection DBInitializeConnection(string connectionString)
+        {
+            return new OleDbConnection(connectionString);
+        }
+
 
         public static string GetRatesTableName(string gatewayName,DateTime startingDate) 
         {
@@ -33,8 +41,7 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             Rate rate;
 
-            Statistics stats = new Statistics();
-            dt = stats.RATES_PER_GATEWAY(ratesTableName);
+            dt = DB.Rate.RATES_PER_GATEWAY(ratesTableName);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -64,7 +71,7 @@ namespace Lync_Billing.DB
             
         }
 
-        public  static int InsertRate(Rate rate,string tableName)
+        public static int InsertRate(Rate rate,string tableName)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -132,6 +139,118 @@ namespace Lync_Billing.DB
         public static bool CreateRatesTable(string tablename) 
         {
             return DBRoutines.CREATE_RATES_TABLE(tablename);
+        }
+
+        
+        /*********** DATABASE FUNCTIONS WITH STATIC SQL QUERIES *************/
+
+        public static DataTable RATES_PER_GATEWAY(string RatesTableName)
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+
+
+            selectQuery = string.Format(
+                 "select " +
+                    "Country_Name, " +
+                    "Two_Digits_country_code, " +
+                    "Three_Digits_Country_Code, " +
+                    "max(CASE WHEN Type_Of_Service <> 'gsm'  then rate END ) Fixedline, " +
+                    "max(CASE WHEN Type_Of_Service='gsm'then rate END) GSM " +
+
+                "from " +
+                "( " +
+                    "SELECT	DISTINCT " +
+                        "numberingplan.Country_Name, " +
+                        "numberingplan.Two_Digits_country_code, " +
+                        "numberingplan.Three_Digits_Country_Code, " +
+                        "numberingplan.Type_Of_Service, " +
+                        "fixedrate.rate as rate " +
+
+                    "FROM  " +
+                        "dbo.NumberingPlan as numberingplan " +
+
+                    "LEFT JOIN " +
+                        "dbo.[{0}]  as fixedrate ON " +
+                            "numberingplan.Dialing_prefix = fixedrate.country_code_dialing_prefix " +
+                //"-- WHERE " +
+                //    "-- numberingplan.Type_Of_Service='gsm' or " +
+                //    "-- numberingplan.Type_Of_Service='fixedline' " +
+                ") src " +
+
+                "GROUP BY Country_Name,Two_Digits_country_code,Three_Digits_Country_Code ", RatesTableName);
+
+
+            OleDbConnection conn = DBInitializeConnection(DBLib.ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                //throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
+
+        }
+
+        public static DataTable RATESTABLE_VIEW_PER_GATEWAY(string RatesTableName, string conditionField = "NA", object conditionValue = null)
+        {
+            DataTable dt = new DataTable();
+            OleDbDataReader dr;
+            string selectQuery = string.Empty;
+            string whereStatement = string.Empty;
+
+            if (conditionField != "NA" && conditionValue != null)
+            {
+                if (conditionField == "Dialing_prefix")
+                    whereStatement = string.Format("WHERE {0} = {1}", conditionField, conditionValue);
+                else
+                    whereStatement = string.Format("WHERE {0} = '{1}'", conditionField, conditionValue);
+            }
+
+            selectQuery = string.Format
+                       ("SELECT " +
+                           "Rate_ID, " +
+                           "Dialing_prefix, " +
+                           "Country_Name, " +
+                           "Two_Digits_country_code, " +
+                           "Three_Digits_Country_Code, " +
+                           "City, " +
+                           "Provider, " +
+                           "Type_Of_Service, " +
+                           "rate " +
+                        "FROM " +
+                           "NumberingPlan LEFT OUTER JOIN " +
+                               "[{0}] ON " +
+                                   "Dialing_prefix = country_code_dialing_prefix {1}"
+                       , RatesTableName, whereStatement);
+
+            OleDbConnection conn = DBInitializeConnection(DBLib.ConnectionString_Lync);
+            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
+
+            try
+            {
+                conn.Open();
+                dr = comm.ExecuteReader();
+                dt.Load(dr);
+            }
+            catch (Exception ex)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
+                //throw argEx;
+            }
+            finally { conn.Close(); }
+
+            return dt;
         }
     }
 }
