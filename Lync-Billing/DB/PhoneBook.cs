@@ -68,17 +68,15 @@ namespace Lync_Billing.DB
             PhoneBook phoneBookEntry;
             List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
             PhoneBookContactComparer linqDistinctComparer = new PhoneBookContactComparer();
-
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            List<object> functionparameters = new List<object>();
             int contactNumbersLimit = 200;
 
-            List<object> functionparameters = new List<object>()
-            { 
-                sipAccount,
-                contactNumbersLimit
-            };
+            functionparameters.Add(sipAccount);
+            functionparameters.Add(contactNumbersLimit);
 
             //Get all the destinations for this user where the phonecall is of a billable CallTypeID
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_ChargeableCalls_ForUser", functionparameters, null);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_ChargeableCalls_ForUser", functionparameters, wherePart);
 
             foreach (DataRow row in dt.Rows)
             {
