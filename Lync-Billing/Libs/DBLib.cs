@@ -289,7 +289,7 @@ namespace Lync_Billing.Libs
                 GroupByFields.Remove(GroupByFields.Length - 1, 1);
             }
 
-            if ( whereClause != null && whereClause.Count != 0)
+            if (whereClause != null && whereClause.Count != 0)
             {
                 foreach (KeyValuePair<string, object> pair in whereClause)
                 {

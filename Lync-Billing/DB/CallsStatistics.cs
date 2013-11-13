@@ -10,56 +10,64 @@ namespace Lync_Billing.DB
 {
     public class GatewaysUsage
     {
+        private static DBLib DBRoutines = new DBLib();
+
         public string GatewayName { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
         public DateTime Date { get; set; }
         
-        public decimal NumberOfOutgoingCalls { get; set; }
-        public decimal TotalDuration { get; set; }
-        public decimal TotalCost { set; get; }
+        public decimal CallsCount { get; set; }
+        public decimal CallsDuration { get; set; }
+        public decimal CallsCost { set; get; }
 
-        public decimal NumberOfOutgoingCallsPercentage { get; set; }
-        public decimal TotalDurationPercentage { get; set; }
-        public decimal TotalCostPercentage { get; set; }
+        public decimal CallsCountPercentage;
+        public decimal CallsCostPercentage;
+        public decimal CallsDurationPercentage;
 
         public static List<GatewaysUsage> GetGatewaysUsage (int year,int fromMonth, int toMonth)
         {
-            Statistics DBRoutines = new Statistics();
-
             DataTable dt = new DataTable();
-
-            List<GatewaysUsage> gatewaysUsage = new List<GatewaysUsage>();
-
+            Dictionary<string, object> whereClause;
+            List<object> functionParameters;
+            
             GatewaysUsage gatewayUsage;
+            List<GatewaysUsage> gatewaysUsageList = new List<GatewaysUsage>();
 
-            dt = DBRoutines.GET_GATEWAYS_USAGE(year, fromMonth, toMonth);
+            //Ge the gateways summaries from the database.
+            functionParameters = new List<object>();
+            whereClause = new Dictionary<string, object>
+            {
+                { Enums.GetDescription(Enums.GatewaysSummary.Year), year },
+                { Enums.GetDescription(Enums.GatewaysSummary.Month), String.Format("{0},{1}", fromMonth, toMonth) }
+            };
 
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_GatewaySummary_ForAll_Sites", functionParameters, whereClause);
+            
+            
             foreach (DataRow row in dt.Rows)
             {
                 gatewayUsage = new GatewaysUsage();
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == "ToGateway" && row[column.ColumnName] != DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.ToGateway) && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.GatewayName = (string)row[column.ColumnName];
 
-                     if (column.ColumnName == "Month" && row[column.ColumnName] != DBNull.Value)
-                        gatewayUsage.Month = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == "Year" && row[column.ColumnName] != DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.Year) && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.Year = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == "NumberOfOutgoingCalls" && row[column.ColumnName] != DBNull.Value)
-                        gatewayUsage.NumberOfOutgoingCalls = Convert.ToInt64(row[column.ColumnName]);
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.Month) && row[column.ColumnName] != DBNull.Value)
+                        gatewayUsage.Month = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == "CallsDuration" && row[column.ColumnName] != DBNull.Value)
-                        gatewayUsage.TotalDuration = Convert.ToInt64((decimal)row[column.ColumnName]);
-                   
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.CallsCount) && row[column.ColumnName] != DBNull.Value)
+                        gatewayUsage.CallsCount = Convert.ToInt64(row[column.ColumnName]);
 
-                    if (column.ColumnName == "CallsCost" && row[column.ColumnName] != DBNull.Value)
-                        gatewayUsage.TotalCost = (decimal)row[column.ColumnName];
-                   
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.CallsDuration)  && row[column.ColumnName] != DBNull.Value)
+                        gatewayUsage.CallsDuration = Convert.ToInt64((decimal)row[column.ColumnName]);
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.CallsCost) && row[column.ColumnName] != DBNull.Value)
+                        gatewayUsage.CallsCost = (decimal)row[column.ColumnName];
                 }
 
                 gatewayUsage.Date = 
@@ -67,11 +75,10 @@ namespace Lync_Billing.DB
                         gatewayUsage.Year, 
                         gatewayUsage.Month, 
                         DateTime.DaysInMonth(gatewayUsage.Year,gatewayUsage.Month));
-                gatewaysUsage.Add(gatewayUsage);
+                gatewaysUsageList.Add(gatewayUsage);
             }
-            return gatewaysUsage;
+            return gatewaysUsageList;
           }
-
 
         public static List<GatewaysUsage> GetGatewaysStatisticsResults(List<GatewaysUsage> gatewaysUsage) 
         {
@@ -85,56 +92,63 @@ namespace Lync_Billing.DB
                   {
                       GatewayName = res.Key.GatewayName,
                       Year = res.Key.Year,
-                      NumberOfOutgoingCalls = res.Sum(x => x.NumberOfOutgoingCalls),
-                      TotalDuration = res.Sum(x => x.TotalDuration),
-                      TotalCost = res.Sum(x => x.TotalCost),
+                      CallsCount = res.Sum(x => x.CallsCount),
+                      CallsDuration = res.Sum(x => x.CallsDuration),
+                      CallsCost = res.Sum(x => x.CallsCost),
                   }
-              ).Where(e => e.NumberOfOutgoingCalls > 200).ToList();
+              ).Where(e => e.CallsCount > 200).ToList();
 
             return gatewaysUsageData;
         }
 
         public static List<GatewaysUsage> SetGatewaysUsagePercentagesPerCallsCount(int year, int fromMonth, int toMonth) 
         {
-            Statistics DBRoutines = new Statistics();
-
             DataTable dt = new DataTable();
-
-            List<GatewaysUsage> gatewaysUsage = new List<GatewaysUsage>();
+            Dictionary<string, object> whereClause;
+            List<object> functionParameters;
 
             GatewaysUsage gatewayUsage;
+            List<GatewaysUsage> gatewaysUsageList = new List<GatewaysUsage>();
 
             decimal totalOutGoingCallsCount = 0;
             decimal totalDurationCount = 0;
             decimal totalCostCount = 0;
 
-            dt = DBRoutines.GET_GATEWAYS_USAGE(year, fromMonth, toMonth);
 
+            //Ge the gateways summaries from the database.
+            functionParameters = new List<object>();
+            whereClause = new Dictionary<string, object>
+            {
+                { Enums.GetDescription(Enums.GatewaysSummary.Year), year },
+                { Enums.GetDescription(Enums.GatewaysSummary.Month), String.Format("{0},{1}", fromMonth, toMonth) }
+            };
+
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_GatewaySummary_ForAll_Sites", functionParameters, whereClause);
+            
+            
             foreach (DataRow row in dt.Rows)
             {
                 gatewayUsage = new GatewaysUsage();
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == "ToGateway" && row[column.ColumnName] != DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.ToGateway) && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.GatewayName = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == "Month" && row[column.ColumnName] != DBNull.Value)
-                        gatewayUsage.Month = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == "Year" && row[column.ColumnName] != DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.Year) && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.Year = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == "CallsCount" && row[column.ColumnName] != DBNull.Value)
-                        gatewayUsage.NumberOfOutgoingCalls = Convert.ToInt64(row[column.ColumnName]);
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.Month) && row[column.ColumnName] != DBNull.Value)
+                        gatewayUsage.Month = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == "CallsDuration" && row[column.ColumnName] != DBNull.Value)
-                        gatewayUsage.TotalDuration = Convert.ToInt64((decimal)row[column.ColumnName]);
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.CallsCount) && row[column.ColumnName] != DBNull.Value)
+                        gatewayUsage.CallsCount = Convert.ToInt64(row[column.ColumnName]);
 
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.CallsDuration) && row[column.ColumnName] != DBNull.Value)
+                        gatewayUsage.CallsDuration = Convert.ToInt64((decimal)row[column.ColumnName]);
 
-                    if (column.ColumnName == "CallsCost" && row[column.ColumnName] != DBNull.Value)
-                        gatewayUsage.TotalCost = (decimal)row[column.ColumnName];
-
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysSummary.CallsCost) && row[column.ColumnName] != DBNull.Value)
+                        gatewayUsage.CallsCost = (decimal)row[column.ColumnName];
                 }
 
                 gatewayUsage.Date =
@@ -142,56 +156,55 @@ namespace Lync_Billing.DB
                         gatewayUsage.Year,
                         gatewayUsage.Month,
                         DateTime.DaysInMonth(gatewayUsage.Year, gatewayUsage.Month));
-                gatewaysUsage.Add(gatewayUsage);
+                gatewaysUsageList.Add(gatewayUsage);
             }
 
-            var gatewaysUsageData =
-            (
-               from data in gatewaysUsage.AsEnumerable()
 
-               group data by new { data.GatewayName, data.Year } into res
+            //Map all teh records for each gateway into a total-sum-one!
+            var gatewaysUsageData = (
+                from data in gatewaysUsageList.AsEnumerable()
+                group data by new { data.GatewayName, data.Year } into res
+                select new GatewaysUsage {
+                    GatewayName = res.Key.GatewayName,
+                    Year = res.Key.Year,
+                    CallsCount = res.Sum(x => x.CallsCount),
+                    CallsDuration = res.Sum(x => x.CallsDuration),
+                    CallsCost = res.Sum(x => x.CallsCost)
+                }
+            ).Where(e => e.CallsCount > 200).ToList();
 
-               select new GatewaysUsage
-               {
-                   GatewayName = res.Key.GatewayName,
-                   Year = res.Key.Year,
-
-                   NumberOfOutgoingCalls = res.Sum(x => x.NumberOfOutgoingCalls),
-                   TotalDuration = res.Sum(x => x.TotalDuration),
-                   TotalCost = res.Sum(x => x.TotalCost)
-               }
-           ).Where(e => e.NumberOfOutgoingCalls > 200).ToList();
 
             //Calculate Totals
-
             foreach (GatewaysUsage tmpgatewayUsage in gatewaysUsageData)
             {
-                totalCostCount += tmpgatewayUsage.TotalCost;
-                totalOutGoingCallsCount += tmpgatewayUsage.NumberOfOutgoingCalls;
-                totalDurationCount += tmpgatewayUsage.TotalDuration;
+                totalCostCount += tmpgatewayUsage.CallsCost;
+                totalOutGoingCallsCount += tmpgatewayUsage.CallsCount;
+                totalDurationCount += tmpgatewayUsage.CallsDuration;
             }
 
             string resolvedGatewayAddress = string.Empty;
 
+
+            //Calculate percentages
             foreach (GatewaysUsage tmpgatewayUsage in gatewaysUsageData)
             {
                 if (Misc.GetResolvedConnecionIPAddress(tmpgatewayUsage.GatewayName, out resolvedGatewayAddress) == true)
                     tmpgatewayUsage.GatewayName = resolvedGatewayAddress;
 
-                if (tmpgatewayUsage.NumberOfOutgoingCalls.ToString() != null && tmpgatewayUsage.NumberOfOutgoingCalls > 0)
-                    tmpgatewayUsage.NumberOfOutgoingCallsPercentage = Math.Round((tmpgatewayUsage.NumberOfOutgoingCalls * 100 / totalOutGoingCallsCount), 2);
+                if (tmpgatewayUsage.CallsCount.ToString() != null && tmpgatewayUsage.CallsCount > 0)
+                    tmpgatewayUsage.CallsCountPercentage = Math.Round((tmpgatewayUsage.CallsCount * 100 / totalOutGoingCallsCount), 2);
                 else
-                    tmpgatewayUsage.NumberOfOutgoingCallsPercentage = 0;
+                    tmpgatewayUsage.CallsCountPercentage = 0;
 
-                if (tmpgatewayUsage.TotalCost.ToString() != null && tmpgatewayUsage.TotalCost > 0)
-                    tmpgatewayUsage.TotalCostPercentage = Math.Round((tmpgatewayUsage.TotalCost * 100) / totalCostCount, 2);
+                if (tmpgatewayUsage.CallsCost.ToString() != null && tmpgatewayUsage.CallsCost > 0)
+                    tmpgatewayUsage.CallsCostPercentage = Math.Round((tmpgatewayUsage.CallsCost * 100) / totalCostCount, 2);
                 else
-                    tmpgatewayUsage.TotalCostPercentage = 0;
+                    tmpgatewayUsage.CallsCostPercentage = 0;
 
-                if (tmpgatewayUsage.TotalDuration.ToString() != null && tmpgatewayUsage.TotalDuration > 0)
-                    tmpgatewayUsage.TotalDurationPercentage = Math.Round((tmpgatewayUsage.TotalDuration * 100 / totalDurationCount), 2);
+                if (tmpgatewayUsage.CallsDuration.ToString() != null && tmpgatewayUsage.CallsDuration > 0)
+                    tmpgatewayUsage.CallsDurationPercentage = Math.Round((tmpgatewayUsage.CallsDuration * 100 / totalDurationCount), 2);
                 else
-                    tmpgatewayUsage.TotalDurationPercentage = 0;
+                    tmpgatewayUsage.CallsDurationPercentage = 0;
             }
 
             return gatewaysUsageData; 
@@ -204,51 +217,51 @@ namespace Lync_Billing.DB
             decimal totalDurationCount = 0;
             decimal totalCostCount = 0;
 
-            var gatewaysUsageData =
-            (
+            var gatewaysUsageData = (
                 from data in gatewaysUsage.AsEnumerable()
-
                 group data by new { data.GatewayName, data.Year} into res
-
                 select new GatewaysUsage
                 {
                     GatewayName = res.Key.GatewayName,
                     Year = res.Key.Year,
-
-                    NumberOfOutgoingCalls = res.Sum(x => x.NumberOfOutgoingCalls),
-                    TotalDuration = res.Sum(x => x.TotalDuration),
-                    TotalCost = res.Sum(x => x.TotalCost)
+                    CallsCount = res.Sum(x => x.CallsCount),
+                    CallsDuration = res.Sum(x => x.CallsDuration),
+                    CallsCost = res.Sum(x => x.CallsCost)
                 }
-            ).Where(e => e.NumberOfOutgoingCalls > 200).ToList(); 
+            ).Where(e => e.CallsCount > 200).ToList(); 
 
+
+            //Calculate totals
             foreach (GatewaysUsage gatewayUsage in gatewaysUsageData) 
             {
-                totalCostCount += gatewayUsage.TotalCost;
-                totalOutGoingCallsCount += gatewayUsage.NumberOfOutgoingCalls;
-                totalDurationCount += gatewayUsage.TotalDuration;
+                totalCostCount += gatewayUsage.CallsCost;
+                totalOutGoingCallsCount += gatewayUsage.CallsCount;
+                totalDurationCount += gatewayUsage.CallsDuration;
             }
 
             string resolvedGatewayAddress = string.Empty;
             
+
+            //Calcualte percentages
             foreach (GatewaysUsage gatewayUsage in gatewaysUsageData) 
             {
                 if (Misc.GetResolvedConnecionIPAddress(gatewayUsage.GatewayName, out resolvedGatewayAddress) == true)
                     gatewayUsage.GatewayName = resolvedGatewayAddress;
 
-                if (gatewayUsage.NumberOfOutgoingCalls.ToString() != null && gatewayUsage.NumberOfOutgoingCalls > 0)
-                    gatewayUsage.NumberOfOutgoingCallsPercentage =  Math.Round((gatewayUsage.NumberOfOutgoingCalls * 100 / totalOutGoingCallsCount),2);
+                if (gatewayUsage.CallsCount.ToString() != null && gatewayUsage.CallsCount > 0)
+                    gatewayUsage.CallsCountPercentage =  Math.Round((gatewayUsage.CallsCount * 100 / totalOutGoingCallsCount),2);
                 else
-                    gatewayUsage.NumberOfOutgoingCallsPercentage = 0;
+                    gatewayUsage.CallsCountPercentage = 0;
 
-                if (gatewayUsage.TotalCost.ToString() != null && gatewayUsage.TotalCost > 0)
-                    gatewayUsage.TotalCostPercentage = Math.Round((gatewayUsage.TotalCost * 100 )/ totalCostCount,2);
+                if (gatewayUsage.CallsCost.ToString() != null && gatewayUsage.CallsCost > 0)
+                    gatewayUsage.CallsCostPercentage = Math.Round((gatewayUsage.CallsCost * 100 )/ totalCostCount,2);
                 else
-                    gatewayUsage.TotalCostPercentage = 0;
+                    gatewayUsage.CallsCostPercentage = 0;
 
-                if (gatewayUsage.TotalDuration.ToString() != null && gatewayUsage.TotalDuration > 0)
-                    gatewayUsage.TotalDurationPercentage = Math.Round((gatewayUsage.TotalDuration * 100 / totalDurationCount),2);
+                if (gatewayUsage.CallsDuration.ToString() != null && gatewayUsage.CallsDuration > 0)
+                    gatewayUsage.CallsDurationPercentage = Math.Round((gatewayUsage.CallsDuration * 100 / totalDurationCount),2);
                 else
-                    gatewayUsage.TotalDurationPercentage = 0;
+                    gatewayUsage.CallsDurationPercentage = 0;
             }
 
             return gatewaysUsageData; 
@@ -256,26 +269,32 @@ namespace Lync_Billing.DB
 
         public static List<Years> GetYears() 
         {
-            Statistics DBRoutines = new Statistics();
-
             DataTable dt = new DataTable();
+            List<object> functionParameters;
+            List<string> columnsList;
+            Dictionary<string, object> whereClause;
+            
+            Years Year; 
+            List<Years> YearsList = new List<Years>();
 
-            List<Years> years = new List<Years>();
-            Years year; 
+            //Ge the gateways summaries from the database.
+            functionParameters = new List<object>();
+            whereClause = new Dictionary<string,object>();
+            columnsList = new List<string>() { String.Format("DISTINCT {0}", Enums.GetDescription(Enums.GatewaysSummary.Year)) };
 
-            dt = DBRoutines.GET_GATEWAYS_YEARS_OF_USAGE();
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_GatewaySummary_ForAll_Sites", functionParameters, whereClause, selectColumnsList: columnsList);
             
             foreach (DataRow row in dt.Rows)
             {
-                year = new Years();
+                Year = new Years();
 
-                if( row["Year"] != null )
+                if (row[Enums.GetDescription(Enums.GatewaysSummary.Year)] != DBNull.Value)
                 {
-                    year.Year = (int)row["Year"];
-                    years.Add(year);
+                    Year.YearNumber = (int)row[Enums.GetDescription(Enums.GatewaysSummary.Year)];
+                    YearsList.Add(Year);
                 }
             }
-            return years;
+            return YearsList;
         }
     }
 
@@ -436,7 +455,7 @@ namespace Lync_Billing.DB
 
     public class Years 
     {
-        public int Year { get; set; }
+        public int YearNumber { get; set; }
     }
        
 }

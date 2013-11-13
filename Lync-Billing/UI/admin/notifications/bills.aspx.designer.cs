@@ -94,7 +94,7 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Column CallsInformationColum;
         
         /// <summary>
-        /// TotalDuration control.
+        /// CallsDuration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -112,7 +112,7 @@ namespace Lync_Billing.ui.admin.notifications {
         protected global::Ext.Net.Column TotalCalls;
         
         /// <summary>
-        /// TotalCost control.
+        /// CallsCost control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

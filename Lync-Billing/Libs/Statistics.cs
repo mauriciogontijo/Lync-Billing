@@ -14,7 +14,7 @@ namespace Lync_Billing.Libs
     {
         //private static void ConvertDateToYearMonth(DateTime date, out int year, out int month)
         //{
-        //    year = date.Year;
+        //    year = date.YearNumber;
         //    month = date.Month;
         //}
 
@@ -25,15 +25,15 @@ namespace Lync_Billing.Libs
             return new OleDbConnection(connectionString);
         }
 
-        //public DataTable USER_STATS(string SipAccount, int Year, int startingMonth, int endingMonth)
+        //public DataTable USER_STATS(string SipAccount, int YearNumber, int startingMonth, int endingMonth)
         // {
         //     DataTable dt = new DataTable();
         //     OleDbDataReader dr;
         //     string selectQuery = string.Empty;
 
 
-        //     selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_User] ('{0}') WHERE Year={1} AND [Month] BETWEEN {2} AND {3}",
-        //         SipAccount,Year,startingMonth,endingMonth);
+        //     selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_User] ('{0}') WHERE YearNumber={1} AND [Month] BETWEEN {2} AND {3}",
+        //         SipAccount,YearNumber,startingMonth,endingMonth);
 
         //     OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
         //     OleDbCommand comm = new OleDbCommand(selectQuery, conn);
@@ -67,10 +67,10 @@ namespace Lync_Billing.Libs
         //        selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Date BETWEEN '{1}' AND '{2}'",
         //        siteName, startingDate, endingDate);
         //    }
-        //    else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+        //    else if (startingDate.YearNumber == endingDate.YearNumber && startingDate.Month == endingDate.Month)
         //    {
-        //        selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE Year={1} AND Month={2}",
-        //       siteName, startingDate.Year, startingDate.Month);
+        //        selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE YearNumber={1} AND Month={2}",
+        //       siteName, startingDate.YearNumber, startingDate.Month);
         //    }
 
         //    OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
@@ -123,10 +123,10 @@ namespace Lync_Billing.Libs
         //        selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Date BETWEEN '{2}' AND '{3}'",
         //            selectedfields.ToString(), siteName, startingDate, endingDate);
         //    }
-        //    else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+        //    else if (startingDate.YearNumber == endingDate.YearNumber && startingDate.Month == endingDate.Month)
         //    {
-        //        selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Year={1} AND Month={2}",
-        //            selectedfields.ToString(), siteName, startingDate.Year, startingDate.Month);
+        //        selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE YearNumber={1} AND Month={2}",
+        //            selectedfields.ToString(), siteName, startingDate.YearNumber, startingDate.Month);
         //    }
 
         //    OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
@@ -169,10 +169,10 @@ namespace Lync_Billing.Libs
         //        selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE SourceUserUri in ({1}) AND Date BETWEEN '{2}' AND '{3}'",
         //        siteName, subSelect, startingDate, endingDate);
         //    }
-        //    else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+        //    else if (startingDate.YearNumber == endingDate.YearNumber && startingDate.Month == endingDate.Month)
         //    {
-        //        selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE SourceUserUri in ({1}) AND Year={2} AND Month={3}",
-        //       siteName, subSelect, startingDate.Year, startingDate.Month);
+        //        selectQuery = string.Format("SELECT * FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{0}') WHERE SourceUserUri in ({1}) AND YearNumber={2} AND Month={3}",
+        //       siteName, subSelect, startingDate.YearNumber, startingDate.Month);
         //    }
 
         //    OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
@@ -248,10 +248,10 @@ namespace Lync_Billing.Libs
         //        selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Date BETWEEN '{2}' AND '{3}' Group by {4}",
         //            selectedFields.ToString(), siteName, startingDate, endingDate, groupBy);
         //    }
-        //    else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+        //    else if (startingDate.YearNumber == endingDate.YearNumber && startingDate.Month == endingDate.Month)
         //    {
-        //        selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE Year={1} AND Month={2} Group by {3}",
-        //            selectedFields.ToString(), siteName, startingDate.Year, startingDate.Month, groupBy);
+        //        selectQuery = string.Format("SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') WHERE YearNumber={1} AND Month={2} Group by {3}",
+        //            selectedFields.ToString(), siteName, startingDate.YearNumber, startingDate.Month, groupBy);
         //    }
 
         //    OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
@@ -339,13 +339,13 @@ namespace Lync_Billing.Libs
         //            "Group by {5}",
         //            selectedFields.ToString(), siteName, sipAccountsWhereStatement.ToString(), startingDate, endingDate, groupBy);
         //    }
-        //    else if (startingDate.Year == endingDate.Year && startingDate.Month == endingDate.Month)
+        //    else if (startingDate.YearNumber == endingDate.YearNumber && startingDate.Month == endingDate.Month)
         //    {
         //        selectQuery = string.Format(
         //            "SELECT {0} FROM [dbo].[fnc_Chargable_Calls_By_Site] ('{1}') " +
         //            "WHERE SourceUserUri in ({2}) " + 
-        //            "AND Year={3} AND Month={4} Group by {5}",
-        //            selectedFields.ToString(), siteName, sipAccountsWhereStatement.ToString(), startingDate.Year, startingDate.Month, groupBy);
+        //            "AND YearNumber={3} AND Month={4} Group by {5}",
+        //            selectedFields.ToString(), siteName, sipAccountsWhereStatement.ToString(), startingDate.YearNumber, startingDate.Month, groupBy);
         //    }
 
         //    OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
@@ -434,59 +434,7 @@ namespace Lync_Billing.Libs
         //    return dt;
         //}
 
-        public DataTable GET_GATEWAYS_USAGE(int year, int fromMonth, int toMonth) 
-        {
-            DataTable dt = new DataTable();
-            OleDbDataReader dr;
-            string selectQuery = string.Empty;
-
-            selectQuery = string.Format("SELECT * FROM [dbo].[Get_GatewaySummary_ForAll_Sites]() WHERE Year={0} AND Month BETWEEN {1} AND {2}", year, fromMonth, toMonth);
-
-            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
-            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
-
-            try
-            {
-                conn.Open();
-                dr = comm.ExecuteReader();
-                dt.Load(dr);
-            }
-            catch (Exception ex)
-            {
-                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
-                throw argEx;
-            }
-            finally { conn.Close(); }
-
-            return dt;
-        }
-
-        public DataTable GET_GATEWAYS_YEARS_OF_USAGE() 
-        {
-            DataTable dt = new DataTable();
-            OleDbDataReader dr;
-            string selectQuery = string.Empty;
-
-            selectQuery = string.Format("SELECT DISTINCT Year FROM [dbo].[Get_GatewaySummary_ForAll_Sites]()");
-
-            OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
-            OleDbCommand comm = new OleDbCommand(selectQuery, conn);
-
-            try
-            {
-                conn.Open();
-                dr = comm.ExecuteReader();
-                dt.Load(dr);
-            }
-            catch (Exception ex)
-            {
-                System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
-                throw argEx;
-            }
-            finally { conn.Close(); }
-
-            return dt;
-        }
+        
 
     }
 }

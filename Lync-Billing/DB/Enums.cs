@@ -382,7 +382,7 @@ namespace Lync_Billing.DB
         {
             [Description("")]
             TableName,
-            [Description("Year")]
+            [Description("YearNumber")]
             Year,
             [Description("Month")]
             Month,
@@ -424,6 +424,22 @@ namespace Lync_Billing.DB
             UnmarkedCallsCost,
             [Description("NumberOfDisputedCalls")]
             NumberOfDisputedCalls
+        }
+
+        public enum GatewaysSummary
+        {
+            [Description("ToGateway")]
+            ToGateway,
+            [Description("YearNumber")]
+            Year,
+            [Description("Month")]
+            Month,
+            [Description("CallsDuration")]
+            CallsDuration,
+            [Description("CallsCount")]
+            CallsCount,
+            [Description("CallsCost")]
+            CallsCost
         }
 
         public enum Persistence 

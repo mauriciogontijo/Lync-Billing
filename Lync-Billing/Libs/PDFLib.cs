@@ -316,7 +316,7 @@ namespace Lync_Billing.Libs
             int[] widths = new int[] { 8, 5, 8, 8, 8 };
             pdfTable.SetWidths(widths);
             
-            //int year = ((DateTime)extraParams["StartDate"]).Year;
+            //int year = ((DateTime)extraParams["StartDate"]).YearNumber;
             //int startMonth = ((DateTime)extraParams["StartDate"]).Month;
             //int endMonth = ((DateTime)extraParams["EndDate"]).Month;
 
