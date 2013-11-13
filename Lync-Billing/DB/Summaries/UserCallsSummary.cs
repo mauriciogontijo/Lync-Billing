@@ -242,6 +242,8 @@ namespace Lync_Billing.DB.Summaries
         public static List<UserCallsSummary> GetUsersCallsSummaryInSite(string siteName, DateTime startingDate, DateTime endingDate, bool asTotals = false)
         {
             DataTable dt = new DataTable();
+
+            Users userInfo;
             UserCallsSummary userSummary;
             List<UserCallsSummary> usersSummaryList = new List<UserCallsSummary>();
 
@@ -263,13 +265,20 @@ namespace Lync_Billing.DB.Summaries
                 if (summaryYear < startingDate.Year || summaryYear > endingDate.Year || summaryMonth < startingDate.Month || summaryMonth > endingDate.Month)
                     continue;
 
+                //Initialize the data objects.
+                userInfo = new Users();
                 userSummary = new UserCallsSummary();
 
+                //Start filling personal user information
+                userSummary.EmployeeID = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID)]]));
                 userSummary.SipAccount = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.SipAccount)]]));
                 userSummary.FullName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.DisplayName)]]));
-                userSummary.EmployeeID = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID)]]));
-                userSummary.SiteName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.SiteName)]]));
-
+                
+                //Ge the user original site
+                userInfo = Users.GetUser(userSummary.SipAccount);
+                userSummary.SiteName = userInfo.SiteName;
+                
+                //Fill the phonecalls summary for this user.
                 userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
 
                 userSummary.BusinessCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
@@ -310,7 +319,6 @@ namespace Lync_Billing.DB.Summaries
                         UnmarkedCallsCount = result.Sum(x => x.UnmarkedCallsCount),
                     }
                 )
-                .Where(summary => summary.UnmarkedCallsCount > 0)
                 .ToList<UserCallsSummary>();
             }
 
