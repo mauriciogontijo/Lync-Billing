@@ -270,13 +270,13 @@ namespace Lync_Billing.DB.Summaries
                 userSummary = new UserCallsSummary();
 
                 //Start filling personal user information
-                userSummary.EmployeeID = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID)]]));
+                userSummary.EmployeeID = Convert.ToString(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID)]]));
                 userSummary.SipAccount = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.SipAccount)]]));
                 userSummary.FullName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.DisplayName)]]));
                 
                 //Ge the user original site
                 userInfo = Users.GetUser(userSummary.SipAccount);
-                userSummary.SiteName = userInfo.SiteName;
+                userSummary.SiteName = (userInfo != null && !string.IsNullOrEmpty(userInfo.SiteName)) ? userInfo.SiteName : string.Empty;
                 
                 //Fill the phonecalls summary for this user.
                 userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
@@ -358,12 +358,15 @@ namespace Lync_Billing.DB.Summaries
 
             //Database related
             DataTable dt = new DataTable();
-            Dictionary<string, object> totals;
+            List<object> functionParams = new List<object>();
             List<string> columnsList = new List<string>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            List<string> groupByFields = new List<string>();
 
             //These two are passed to the PdfLib
             int[] pdfColumnsWidths = new int[] { };
             List<string> pdfColumnsSchema = new List<string>();
+            Dictionary<string, object> callsCostsTotals = new Dictionary<string, object>();
 
             if (pdfReportProperties != null)
             {
@@ -374,31 +377,56 @@ namespace Lync_Billing.DB.Summaries
             headers.Add("comments", "* Please note that the columns headers below - Business, Personal and Unallocated - refer to the Costs of the phonecalls based on their type.");
 
 
-            //Get the report content from the database
-            dt = StatsRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, UsersCollection.Keys.ToList(), columnsList);
+            //Get the report content from the database with the following function parameters, where statement and group by fields.
+            functionParams.Add(siteName);
+            
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), UsersCollection.Keys.ToList<string>());
+
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount));
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID));
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCallSummary.DisplayName));
+            columnsList.Add("SUM(" + Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost) + ") AS PersonalCallsCost");
+            columnsList.Add("SUM(" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost) + ") AS BusinessCallsCost");
+            columnsList.Add("SUM(" + Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost) + ") AS UnmarkedCallsCost");
+
+            groupByFields.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount));
+            groupByFields.Add(Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID));
+            groupByFields.Add(Enums.GetDescription(Enums.PhoneCallSummary.DisplayName));
+
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUsers_PerSite", functionParams, wherePart, selectColumnsList: columnsList, groupByColumnsList: groupByFields);
 
 
             //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
             try
             {
-                totals = new Dictionary<string, object>()
-                {
-                    {"PersonalCost", Decimal.Round(Convert.ToDecimal(Misc.ReturnZeroIfNull(dt.Compute("Sum(PersonalCost)", "PersonalCost > 0"))), 2)},
-                    {"BusinessCost", Decimal.Round(Convert.ToDecimal(Misc.ReturnZeroIfNull(dt.Compute("Sum(BusinessCost)", "BusinessCost > 0"))), 2)},
-                    {"UnMarkedCost", Decimal.Round(Convert.ToDecimal(Misc.ReturnZeroIfNull(dt.Compute("Sum(UnMarkedCost)", "UnMarkedCost > 0"))), 2)}
-                };
+                callsCostsTotals.Add("PersonalCallsCost", Decimal.Round(Convert.ToDecimal(Misc.ReturnZeroIfNull(dt.Compute("Sum(PersonalCallsCost)", "PersonalCallsCost > 0"))), 2));
+                callsCostsTotals.Add("BusinessCallsCost", Decimal.Round(Convert.ToDecimal(Misc.ReturnZeroIfNull(dt.Compute("Sum(BusinessCallsCost)", "BusinessCallsCost > 0"))), 2));
+                callsCostsTotals.Add("UnmarkedCallsCost", Decimal.Round(Convert.ToDecimal(Misc.ReturnZeroIfNull(dt.Compute("Sum(UnmarkedCallsCost)", "UnmarkedCallsCost > 0"))), 2));
             }
             catch (Exception e)
             {
-                totals = new Dictionary<string, object>()
-                {
-                    {"PersonalCost", 0.00},
-                    {"BusinessCost", 0.00},
-                    {"UnMarkedCost", 0.00}
-                };
+                callsCostsTotals.Add("PersonalCost", 0.00);
+                callsCostsTotals.Add("BusinessCost", 0.00);
+                callsCostsTotals.Add("UnmarkedCost", 0.00);
             }
 
-            document = PDFLib.CreateAccountingSummaryReport(response, dt, totals, headers, pdfColumnsSchema, pdfColumnsWidths);
+            document = PDFLib.CreateAccountingSummaryReport(response, dt, callsCostsTotals, headers, pdfColumnsSchema, pdfColumnsWidths);
+
+            //Get the report content from the database
+            //dt = StatsRoutines.DISTINCT_USERS_STATS(startingDate, endingDate, siteName, UsersCollection.Keys.ToList(), columnsList);
+            //List<UserCallsSummary> DistinctSiteUsersStatistics = UserCallsSummary.GetUsersCallsSummaryInSite(siteName, startingDate, endingDate, asTotals: true);
+
+            //decimal personalCallsCosts = Decimal.Round((from summary in DistinctSiteUsersStatistics select summary.PersonalCallsCost).ToList<decimal>().Sum(), 2);
+            //decimal businessCallsCosts = Decimal.Round((from summary in DistinctSiteUsersStatistics select summary.BusinessCallsCost).ToList<decimal>().Sum(), 2);
+            //decimal unmarkedCallsCosts = Decimal.Round((from summary in DistinctSiteUsersStatistics select summary.UnmarkedCallsCost).ToList<decimal>().Sum(), 2);
+
+            ////Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
+            //totals = new Dictionary<string, decimal>()
+            //{
+            //    { "PersonalCost", personalCallsCosts },
+            //    { "BusinessCost", businessCallsCosts },
+            //    { "UnmarkedCost", unmarkedCallsCosts }
+            //};
         }
 
 
