@@ -40,10 +40,17 @@ namespace Lync_Backend.Helpers
                     else
                         QueryType = "CREATE";
 
-
-                    if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@Limits"))
+                    if (SQLStatement.Contains(@"@OfficeName") &&   SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
                     {
-                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n " +"\t @Limits int ");
+                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
+                    }
+                    else  if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
+                    {
+                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
+                    }
+                    else if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@Limits"))
+                    {
+                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n " + "\t @Limits int ");
                     }
                     else if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@Limits"))
                     {
@@ -69,7 +76,10 @@ namespace Lync_Backend.Helpers
                     {
                         FunctionVariables = string.Format("\t @Gateway	nvarchar(450)");
                     }
-                 
+                    else if (SQLStatement.Contains(@"@RatesTableName"))
+                    {
+                        FunctionVariables = string.Format("\t @RatesTableName	nvarchar(450)");
+                    }
 
                     functionCreateUpdateQuery =
                            string.Format("{0} FUNCTION [dbo].[{1}] \r\n" +
@@ -405,6 +415,7 @@ namespace Lync_Backend.Helpers
             sqlStatement.Append(
                 string.Format(
                     "\t SELECT TOP (@Limits) ISNULL([" + Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) + "], [" + Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri) + "]) AS PhoneNumber, \r\n" +
+                    "\t\t  [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "] AS Country, \r\n" +
                     "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "]) AS CallsDuration, \r\n" +
                     "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "]) AS CallsCost, \r\n" +
                     "\t\t COUNT ([" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "]) AS CallsCount \r\n" +
@@ -413,7 +424,8 @@ namespace Lync_Backend.Helpers
                     "{0} \r\n" +
                     "\t) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
                     "\t GROUP BY \r\n" +
-                    "\t\t ISNULL([" + Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) + "], [" + Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri) + "]) \r\n" +
+                    "\t\t ISNULL([" + Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) + "], [" + Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri) + "]), \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "] \r\n" +
                     "\t ORDER BY CallsCount DESC", subSelect.ToString()
                 ));
 
@@ -460,6 +472,7 @@ namespace Lync_Backend.Helpers
             sqlStatement.Append(
                 string.Format(
                     "\t SELECT TOP (@Limits) ISNULL([" + Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) + "], [" + Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri) + "]) AS PhoneNumber, \r\n" +
+                    "\t\t  [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "] AS Country, \r\n" +
                     "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "]) AS CallsDuration, \r\n" +
                     "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "]) AS CallsCost, \r\n" +
                     "\t\t COUNT ([" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "]) AS CallsCount \r\n" +
@@ -468,7 +481,8 @@ namespace Lync_Backend.Helpers
                     "{0} \r\n" +
                     "\t) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
                     "\t GROUP BY \r\n" +
-                    "\t\t ISNULL([" + Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) + "], [" + Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri) + "]) \r\n" +
+                    "\t\t ISNULL([" + Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) + "], [" + Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri) + "]), \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "] \r\n" +
                     "\t ORDER BY CallsCount DESC", subSelect.ToString()
                 ));
 
@@ -516,6 +530,7 @@ namespace Lync_Backend.Helpers
             sqlStatement.Append(
                 string.Format(
                     "\t SELECT TOP (@Limits) ISNULL([" + Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) + "], [" + Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri) + "]) AS PhoneNumber, \r\n" +
+                    "\t\t  [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "] AS Country, \r\n" +
                     "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "]) AS CallsDuration, \r\n" +
                     "\t\t SUM ([" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "]) AS CallsCost, \r\n" +
                     "\t\t COUNT ([" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "]) AS CallsCount \r\n" +
@@ -524,7 +539,8 @@ namespace Lync_Backend.Helpers
                     "{0} \r\n" +
                     "\t) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
                     "\t GROUP BY \r\n" +
-                    "\t\t ISNULL([" + Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) + "], [" + Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri) + "]) \r\n" +
+                    "\t\t ISNULL([" + Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) + "], [" + Enums.GetDescription(Enums.PhoneCalls.DestinationUserUri) + "]), \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "] \r\n" +
                     "\t ORDER BY CallsCount DESC", subSelect.ToString()
                 ));
 
@@ -676,11 +692,85 @@ namespace Lync_Backend.Helpers
                     "\t GROUP BY \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "], \r\n" +
                      "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
-                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "]COLLATE SQL_Latin1_General_CP1_CI_AS , \r\n" +
+                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
                      "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "], \r\n" +
                      "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + "), \r\n" +
                      "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") \r\n" +
                      "\t ORDER BY YEAR( " + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC, MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC \r\n",subSelect.ToString()
+                ));
+
+          
+
+            CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
+        }
+
+        //Get Calls Summary For Users in Site for PDF
+        public static void Get_CallsSummary_ForUsers_PerSite_PDF() 
+        {
+             StringBuilder sqlStatement = new StringBuilder();
+            StringBuilder subSelect = new StringBuilder();
+
+            Dictionary<string, MonitoringServersInfo> monInfo = MonitoringServersInfo.GetMonitoringServersInfo();
+
+            BillableCallTypesSection section = (BillableCallTypesSection)ConfigurationManager.GetSection("BillableCallTypesSection");
+
+            //convert BillableCallTypesIds to strings 1,2,3,4,5 ...etc
+            string BillableCallTypesIdsList = string.Join(",", section.BillableTypesList);
+
+            //Get WhereStatemnet and append it to every Select 
+            string whereStatement =
+               string.Format(
+                   "WHERE \r\n" +
+                   "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
+                   "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
+                   "\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
+                   "\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN @FromDate AND @ToDate) AND \r\n" +
+                   "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + "] IN \r\n" +
+                   "\t\t ( \r\n" +
+                   "\t\t\t SELECT [" + Enums.GetDescription(Enums.Gateways.GatewayName) + "] \r\n" +
+                   "\t\t\t FROM [" + Enums.GetDescription(Enums.GatewaysDetails.TableName) + "] \r\n" +
+                   "\t\t\t\t LEFT JOIN [" + Enums.GetDescription(Enums.Gateways.TableName) + "] ON [" + Enums.GetDescription(Enums.Gateways.TableName) + "].[" + Enums.GetDescription(Enums.Gateways.GatewayId) + "] = [" + Enums.GetDescription(Enums.GatewaysDetails.TableName) + "].[" + Enums.GetDescription(Enums.GatewaysDetails.GatewayID) + "] \r\n" +
+                   "\t\t\t\t LEFT JOIN [" + Enums.GetDescription(Enums.Sites.TableName) + "] ON [" + Enums.GetDescription(Enums.Sites.TableName) + "].[" + Enums.GetDescription(Enums.Sites.SiteID) + "] = [" + Enums.GetDescription(Enums.GatewaysDetails.TableName) + "].[" + Enums.GetDescription(Enums.GatewaysDetails.SiteID) + "] \r\n" +
+                   "\t\t\t WHERE [" + Enums.GetDescription(Enums.Sites.SiteName) + "]=@OfficeName \r\n" +
+                   "\t\t )"
+                   , BillableCallTypesIdsList);
+
+            //Sub Select Construction
+            foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monInfo)
+            {
+                subSelect.Append(
+                   string.Format(
+                       "\t\t SELECT * FROM [{0}] \r\n" +
+                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                       "{1} \r\n" +
+                       "\t\t UNION ALL\r\n\r\n",
+                       ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
+            }
+
+            subSelect.Remove(subSelect.Length - 13, 13);
+
+            
+            //Outer Select 
+            sqlStatement.Append(
+                string.Format(
+                    "\t SELECT TOP 100 PERCENT\r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "] AS [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
+			        "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "] AS [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
+			        "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "] AS [" + Enums.GetDescription(Enums.Users.AD_Department) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "] AS [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Personal' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost) + "], \r\n" +
+                    "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] IS NULL THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost) + "] \r\n" + 
+                    "\t FROM \r\n" +
+                    "\t (\r\n" +
+                    "{0} \r\n" +
+                    "\t) AS [" +  Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
+                    "\t GROUP BY \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) + "], \r\n" +
+                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
+                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
+                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "] \r\n" +
+                    "\t ORDER BY " +Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) +  " ASC \r\n",subSelect.ToString()
                 ));
 
           
@@ -759,7 +849,7 @@ namespace Lync_Backend.Helpers
         }
 
         //Get Calls Summary for A users for a specific Gateway
-        public static void Get_CallSummary_ForUsers_PerGateway() 
+        public static void Get_CallsSummary_ForUsers_PerGateway() 
         {
             StringBuilder sqlStatement = new StringBuilder();
             StringBuilder subSelect = new StringBuilder();
@@ -1130,5 +1220,71 @@ namespace Lync_Backend.Helpers
 
         #endregion
 
+        #region MISC
+
+        //Get Mail Statistics Per Siet Department
+        public static void Get_MailStatistics_ForUsers_PerSiteDepartment() 
+        {
+            StringBuilder sqlStatement = new StringBuilder();
+            StringBuilder subSelect = new StringBuilder();
+
+            //Get WhereStatemnet and append it to every Select 
+            string whereStatement =
+                string.Format(
+                    "\t WHERE \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName AND \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "]=@DepartmentName AND \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.MailStatistics.TimeStamp) + "] BETWEEN @FromDate and @ToDate \r\n"
+                    );
+
+            //Outer Select 
+            sqlStatement.Append(
+                string.Format(
+                    "\t SELECT TOP 100 PERCENT \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "].[" + Enums.GetDescription(Enums.MailStatistics.EmailAddress) + "], \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.ReceivedCount) + "]) AS RecievedCount, \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.ReceivedSize) + "]) AS RecievedSize, \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.SentCount) + "]) AS SentCount, \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.SentSize) + "]) AS SentSize \r\n" +
+                    "\t FROM [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "] \r\n" +
+                    "\t\t LEFT OUTER JOIN  [" + Enums.GetDescription(Enums.Users.TableName) + "] ON [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "].[" + Enums.GetDescription(Enums.MailStatistics.EmailAddress) + "] = [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                    "{0} " +
+                    "\t GROUP BY [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "].[" + Enums.GetDescription(Enums.MailStatistics.EmailAddress) + "] \r\n"
+                ,whereStatement));
+
+            CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
+        }
+
+        public static void Get_MailStatistics_PerSiteDepartment()
+        {
+            StringBuilder sqlStatement = new StringBuilder();
+            StringBuilder subSelect = new StringBuilder();
+
+            //Get WhereStatemnet and append it to every Select 
+            string whereStatement =
+                string.Format(
+                    "\t WHERE \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName AND \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "]=@DepartmentName AND \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.MailStatistics.TimeStamp) + "] BETWEEN @FromDate and @ToDate \r\n"
+                    );
+
+            //Outer Select 
+            sqlStatement.Append(
+                string.Format(
+                    "\t SELECT TOP 100 PERCENT \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.ReceivedCount) + "]) AS RecievedCount, \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.ReceivedSize) + "]) AS RecievedSize, \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.SentCount) + "]) AS SentCount, \r\n" +
+                    "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.SentSize) + "]) AS SentSize \r\n" +
+                    "\t FROM [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "] \r\n" +
+                    "\t\t LEFT OUTER JOIN  [" + Enums.GetDescription(Enums.Users.TableName) + "] ON [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "].[" + Enums.GetDescription(Enums.MailStatistics.EmailAddress) + "] = [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                    "{0} "
+                   , whereStatement));
+
+            CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
+        }
+
+        #endregion 
     }
 }

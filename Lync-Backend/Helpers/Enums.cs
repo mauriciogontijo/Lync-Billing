@@ -283,6 +283,26 @@ namespace Lync_Backend.Helpers
             NumberOfDisputedCalls,
         }
 
+        public enum MailStatistics
+        {
+            [Description("MailStatistics")]
+            TableName,
+            [Description("id")]
+            ID,
+            [Description("EmailAddress")]
+            EmailAddress,
+            [Description("RecievedCount")]
+            ReceivedCount,
+            [Description("RecievedSize")]
+            ReceivedSize,
+            [Description("SentCount")]
+            SentCount,
+            [Description("SentSize")]
+            SentSize,
+            [Description("TimeStamp")]
+            TimeStamp
+        }
+
         /// <summary>
         /// Users Database table Fields Names
         /// </summary>
