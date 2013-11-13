@@ -268,7 +268,7 @@ namespace Lync_Billing.Libs
                 {
                     if (!string.IsNullOrEmpty(field))
                     {
-                        if(field.Contains("COUNT") || field.Contains("SUM") || field.Contains("YEAR") || field.Contains("MONTH"))
+                        if (field.Contains("COUNT") || field.Contains("SUM") || field.Contains("YEAR") || field.Contains("MONTH") || field.Contains("DISTINCT"))
                             SelectColumns.Append(field + ",");
                         else
                             SelectColumns.Append("[" + field + "],");
