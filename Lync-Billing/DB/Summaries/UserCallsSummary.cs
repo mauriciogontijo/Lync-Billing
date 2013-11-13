@@ -349,8 +349,17 @@ namespace Lync_Billing.DB.Summaries
         }
 
 
-        //TO DO: REFACTOR USING NEW DATABASE FUNCTIONS
-        public static void ExportUsersCallsSummaryToPDF(DateTime startingDate, DateTime endingDate, string siteName, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        /// <summary>
+        /// Exports the user phonecalls summries for a specific site to a PDF document
+        /// </summary>
+        /// <param name="siteName">The site's name</param>
+        /// <param name="startingDate">Starting date of the report</param>
+        /// <param name="endingDate">Ending date of the report</param
+        /// <param name="UsersCollection">A dictionary of each user's sipaccount with his/her user information</param>
+        /// <param name="response">The response stream on which to write the file</param>
+        /// <param name="document">The source pdf document object</param>
+        /// <param name="headers">The pdf document headers</param>
+        public static void ExportUsersCallsSummaryToPDF(string siteName, DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             //THE PDF REPORT PROPERTIES
             PDFReportsPropertiesSection section = ((PDFReportsPropertiesSection)ConfigurationManager.GetSection(PDFReportsPropertiesSection.ConfigurationSectionName));
@@ -361,7 +370,6 @@ namespace Lync_Billing.DB.Summaries
             List<object> functionParams = new List<object>();
             List<string> columnsList = new List<string>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            List<string> groupByFields = new List<string>();
 
             //These two are passed to the PdfLib
             int[] pdfColumnsWidths = new int[] { };
@@ -414,7 +422,9 @@ namespace Lync_Billing.DB.Summaries
 
             //Database query related
             DataTable dt;
-            List<string> columns;
+            List<object> functionParams = new List<object>();
+            List<string> columnsList = new List<string>();
+            Dictionary<string, object> wherePart = new Dictionary<string,object>();
 
             //This is passed to the PdfLib
             List<string> pdfColumnsSchema = new List<string>();
@@ -426,26 +436,38 @@ namespace Lync_Billing.DB.Summaries
                 pdfColumnsSchema = pdfReportProperties.ColumnsNames();
             }
 
+
             //Database query related
-            columns = new List<string>()
-            { 
-                "SourceUserUri", 
-                "ResponseTime", 
-                "marker_CallToCountry", 
-                "DestinationNumberUri", 
-                "Duration", 
-                "marker_CallCost", 
-                "ui_CallType"
-            };
+            functionParams.Add(siteName);
+            
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri));
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime));
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry));
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri));
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.Duration));
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost));
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType));
+
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), UsersCollection.Keys.ToList<string>());
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime), String.Format("{0},{1}", startingDate, endingDate));
 
             //The PDF report body contents
-            dt = StatsRoutines.DISTINCT_USERS_STATS_DETAILED(startingDate, endingDate, UsersCollection.Keys.ToList(), columns);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_ChargeableCalls_ForSite", functionParams, wherePart, selectColumnsList: columnsList);
 
             //Get the collection of users' summaries.
             Dictionary<string, UserCallsSummary> UsersSummaires = UserCallsSummary.GetUsersCallsSummaryInSite(siteName, UsersCollection.Keys.ToList(), startingDate, endingDate);
 
             //Get a closed instance of the document which contains all the formatted data
-            document = PDFLib.CreateAccountingDetailedReport(response, dt, pdfColumnsWidths, pdfColumnsSchema, headers, "SourceUserUri", UsersCollection, UsersSummaires);
+            document = PDFLib.CreateAccountingDetailedReport(
+                ResponseStream: response,
+                SourceDataTable: dt, 
+                PDFColumnsWidths: pdfColumnsWidths, 
+                PDFColumnsSchema: pdfColumnsSchema, 
+                PDFDocumentHeaders: headers, 
+                DataSeparatorName: Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), 
+                UsersInfoCollections: UsersCollection, 
+                UsersSummariesMap: UsersSummaires
+            );
         }
 
     }

@@ -491,7 +491,7 @@ namespace Lync_Billing.Libs
                     //Format the cell text if it's the case of Duration
                     if (dt.Columns.Contains(column))
                     {
-                        if (ReportColumnsDescriptionsSection.GetDescription(column) == "Duration")
+                        if (ReportColumnsDescriptionsSection.GetDescription(column) == Enums.GetDescription(Enums.PhoneCallSummary.Duration))
                         {
                             entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(r[column])), bodyFontSmall));
                         }
@@ -580,7 +580,7 @@ namespace Lync_Billing.Libs
          * 
          * @return @variable document of type Document.
          */
-        public static Document CreateAccountingDetailedReport(HttpResponse response, DataTable dt, int[] pdfColumnsWidths, List<string> pdfColumnsSchema, Dictionary<string, string> pdfDocumentHeaders, string handleName, Dictionary<string, Dictionary<string, object>> UsersCollection, Dictionary<string, UserCallsSummary> UsersSummaries)
+        public static Document CreateAccountingDetailedReport(HttpResponse ResponseStream, DataTable SourceDataTable, int[] PDFColumnsWidths, List<string> PDFColumnsSchema, Dictionary<string, string> PDFDocumentHeaders, string DataSeparatorName, Dictionary<string, Dictionary<string, object>> UsersInfoCollections, Dictionary<string, UserCallsSummary> UsersSummariesMap)
         {
             //----------------------------------
             //INITIALIZE THE REQUIRED VARIABLES
@@ -594,16 +594,20 @@ namespace Lync_Billing.Libs
             Paragraph pageSubTitleParagraph;
             ADUserInfo userInfo = new ADUserInfo();
 
+            string employeeIDKey = Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID);
+            string displayNameKey = Enums.GetDescription(Enums.PhoneCallSummary.DisplayName);
+            string sipAccountKey = Enums.GetDescription(Enums.PhoneCallSummary.SipAccount);
+
 
             //--------------------------------------------------------------------------------------------------------------------------------------------------------
             //Exit the function in case the handles array is empty or the pdfColumnsSchema is either empty or it's size exceeds the DataTable's Columns number.
             //--------------------------------------------------------------------------------------------------------------------------------------------------------
-            if (response == null ||
-                dt == null || dt.Rows.Count == 0 ||
-                UsersSummaries == null || UsersSummaries.Count == 0 ||
-                UsersCollection == null || UsersCollection.Count == 0 ||
-                pdfDocumentHeaders == null || pdfDocumentHeaders.Count == 0 ||
-                pdfColumnsSchema == null || pdfColumnsSchema.Count == 0 || pdfColumnsSchema.Count > dt.Columns.Count)
+            if (ResponseStream == null ||
+                SourceDataTable == null || SourceDataTable.Rows.Count == 0 ||
+                UsersSummariesMap == null || UsersSummariesMap.Count == 0 ||
+                UsersInfoCollections == null || UsersInfoCollections.Count == 0 ||
+                PDFDocumentHeaders == null || PDFDocumentHeaders.Count == 0 ||
+                PDFColumnsSchema == null || PDFColumnsSchema.Count == 0 || PDFColumnsSchema.Count > SourceDataTable.Columns.Count)
             {
                 return null;
             }
@@ -613,38 +617,38 @@ namespace Lync_Billing.Libs
             //INITIALIZE THE PDF DOCUMENT
             //----------------------------------
             Document document = new Document();
-            PdfWriter writer = PdfWriter.GetInstance(document, response.OutputStream);
+            PdfWriter writer = PdfWriter.GetInstance(document, ResponseStream.OutputStream);
             document.Open();
 
 
             //----------------------------------
             //INITIALIZE THE HEADERS
             //----------------------------------
-            if (pdfDocumentHeaders.Count > 0)
+            if (PDFDocumentHeaders.Count > 0)
             {
-                if (pdfDocumentHeaders.ContainsKey("title"))
+                if (PDFDocumentHeaders.ContainsKey("title"))
                 {
-                    Paragraph titleParagraph = new Paragraph("eBill | " + pdfDocumentHeaders["title"], titleFont);
+                    Paragraph titleParagraph = new Paragraph("eBill | " + PDFDocumentHeaders["title"], titleFont);
                     titleParagraph.SpacingAfter = 5;
                     document.Add(titleParagraph);
                 }
-                if (pdfDocumentHeaders.ContainsKey("subTitle"))
+                if (PDFDocumentHeaders.ContainsKey("subTitle"))
                 {
                     Paragraph subTitleParagraph;
-                    if (pdfDocumentHeaders.ContainsKey("siteName"))
+                    if (PDFDocumentHeaders.ContainsKey("siteName"))
                     {
-                        subTitleParagraph = new Paragraph(pdfDocumentHeaders["siteName"] + " | " + pdfDocumentHeaders["subTitle"], subTitleFont);
+                        subTitleParagraph = new Paragraph(PDFDocumentHeaders["siteName"] + " | " + PDFDocumentHeaders["subTitle"], subTitleFont);
                     }
                     else
                     {
-                        subTitleParagraph = new Paragraph(pdfDocumentHeaders["subTitle"], subTitleFont);
+                        subTitleParagraph = new Paragraph(PDFDocumentHeaders["subTitle"], subTitleFont);
                     }
                     subTitleParagraph.SpacingAfter = 5;
                     document.Add(subTitleParagraph);
                 }
-                if (pdfDocumentHeaders.ContainsKey("comments"))
+                if (PDFDocumentHeaders.ContainsKey("comments"))
                 {
-                    var commentsParagraph = new Paragraph(pdfDocumentHeaders["comments"], headerCommentsFont);
+                    var commentsParagraph = new Paragraph(PDFDocumentHeaders["comments"], headerCommentsFont);
                     commentsParagraph.SpacingBefore = 10;
                     commentsParagraph.SpacingAfter = 5;
                     document.Add(commentsParagraph);
@@ -656,24 +660,24 @@ namespace Lync_Billing.Libs
             //START CREATING THE REPORT DOCUMENT
             //--------------------------------------
             //start by sorting the handles array.
-            List<string> SipAccounts = UsersCollection.Keys.ToList();
+            List<string> SipAccounts = UsersInfoCollections.Keys.ToList();
             SipAccounts.Sort();
 
             //Begin the construction of the document.
             foreach (string sipAccount in SipAccounts)
             {
-                PdfPTable pdfTable = InitializePDFTable(pdfColumnsSchema.Count, pdfColumnsWidths);
+                PdfPTable pdfTable = InitializePDFTable(PDFColumnsSchema.Count, PDFColumnsWidths);
                 document.NewPage();
 
-                if (handleName == "SourceUserUri")
+                if (DataSeparatorName == sipAccountKey)
                 {
-                    string name = UsersCollection[sipAccount]["FullName"].ToString();
-                    string groupNo = UsersCollection[sipAccount]["EmployeeID"].ToString();
+                    string name = UsersInfoCollections[sipAccount][displayNameKey].ToString();
+                    string groupNo = UsersInfoCollections[sipAccount][employeeIDKey].ToString();
 
                     if (string.IsNullOrEmpty(name))
                         name = sipAccount.ToLower();
                     if (!string.IsNullOrEmpty(groupNo))
-                        groupNo = " [Group No. " + UsersCollection[sipAccount]["EmployeeID"].ToString() + "]";
+                        groupNo = " [Group No. " + UsersInfoCollections[sipAccount][employeeIDKey].ToString() + "]";
 
                     pageTitleText = name + groupNo;
                 }
@@ -686,20 +690,20 @@ namespace Lync_Billing.Libs
                 pageTitleParagraph.SpacingAfter = 10;
                 document.Add(pageTitleParagraph);
 
-                pageSubTitleParagraph = new Paragraph(pdfDocumentHeaders["subTitle"], subTitleFont);
+                pageSubTitleParagraph = new Paragraph(PDFDocumentHeaders["subTitle"], subTitleFont);
                 pageSubTitleParagraph.SpacingAfter = 20;
                 document.Add(pageSubTitleParagraph);
 
                 //Select the rows that are associated to the supplied handles
-                if (pdfColumnsSchema.Contains("ResponseTime"))
+                if (PDFColumnsSchema.Contains("ResponseTime"))
                     selectOrder = "ResponseTime ASC";
-                selectExpression = handleName + " = '" + sipAccount + "'";
-                selectedDataRows = dt.Select(selectExpression, selectOrder);
+                selectExpression = DataSeparatorName + " = '" + sipAccount + "'";
+                selectedDataRows = SourceDataTable.Select(selectExpression, selectOrder);
 
                 //Print the report table columns headers
-                foreach (string column in pdfColumnsSchema)
+                foreach (string column in PDFColumnsSchema)
                 {
-                    if (dt.Columns.Contains(column))
+                    if (SourceDataTable.Columns.Contains(column))
                     {
                         pdfTable.AddCell(new Phrase(ReportColumnsDescriptionsSection.GetDescription(column), boldTableFont));
                     }
@@ -708,9 +712,9 @@ namespace Lync_Billing.Libs
                 //Bind the data cells to the respective columns
                 foreach (DataRow r in selectedDataRows)
                 {
-                    foreach (string column in pdfColumnsSchema)
+                    foreach (string column in PDFColumnsSchema)
                     {
-                        if (dt.Columns.Contains(column))
+                        if (SourceDataTable.Columns.Contains(column))
                         {
                             //Declare the pdfTable cell and fill it.
                             PdfPCell entryCell;
@@ -721,7 +725,7 @@ namespace Lync_Billing.Libs
                                 cellText = "N/A";
 
                             //Format the cell text if it's the case of Duration
-                            if (ReportColumnsDescriptionsSection.GetDescription(column) == "Duration" && cellText != "N/A")
+                            if (ReportColumnsDescriptionsSection.GetDescription(column) == Enums.GetDescription(Enums.PhoneCallSummary.Duration) && cellText != "N/A")
                             {
                                 entryCell = new PdfPCell(new Phrase(Misc.ConvertSecondsToReadable(Convert.ToInt32(cellText)), bodyFontSmall));
                             }
@@ -744,8 +748,8 @@ namespace Lync_Billing.Libs
                 // Add the Paragraph object to the document
                 document.Add(pdfTable);
 
-                if (UsersSummaries[sipAccount] != null)
-                    AddAccountingDetailedReportTotalsRow(ref document, UsersSummaries[sipAccount]);
+                if (UsersSummariesMap[sipAccount] != null)
+                    AddAccountingDetailedReportTotalsRow(ref document, UsersSummariesMap[sipAccount]);
 
                 selectExpression = string.Empty;
                 selectOrder = string.Empty;
