@@ -203,7 +203,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     pdfDocument = new Document();
-                    UserCallsSummary.ExportUsersCallsDetailedToPDF(startDate, endDate, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
+                    UserCallsSummary.ExportUsersCallsDetailedToPDF(siteName, startDate, endDate, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
                     Response.Write(pdfDocument);
                     break;
             }

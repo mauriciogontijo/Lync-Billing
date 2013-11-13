@@ -379,7 +379,7 @@ namespace Lync_Billing.Libs
          * 
          * @return @variable document of type Document.
          */
-        public static Document CreateAccountingSummaryReport(HttpResponse response, DataTable dt, Dictionary<string, object> totals, Dictionary<string, string> pdfDocumentHeaders, List<string> pdfColumnsSchema, int[] pdfColumnsWidths)
+        public static Document CreateAccountingSummaryReport(HttpResponse ResponseStream, DataTable SourceDataTable, Dictionary<string, object> CallsCostsTotals, List<string> PDFColumnsSchema, int[] PDFColumnsWidths, Dictionary<string, string> PDFDocumentHeaders)
         {
             //----------------------------------
             //INITIALIZE THE REQUIRED VARIABLES
@@ -399,12 +399,12 @@ namespace Lync_Billing.Libs
             //--------------------------------------------------------------------------------------------------------------------------------------------------------
             //Exit the function in case the handles array is empty or the pdfColumnsSchema is either empty or it's size exceeds the DataTable's Columns number.
             //--------------------------------------------------------------------------------------------------------------------------------------------------------
-            if (response == null ||
-                dt == null || dt.Rows.Count == 0 ||
-                totals == null || totals.Count == 0 ||
-                pdfDocumentHeaders == null || pdfDocumentHeaders.Count == 0 ||
-                pdfColumnsSchema == null || pdfColumnsSchema.Count == 0 || pdfColumnsSchema.Count > dt.Columns.Count ||
-                pdfColumnsWidths == null || pdfColumnsWidths.Length == 0 || pdfColumnsWidths.Length > dt.Columns.Count)
+            if (ResponseStream == null ||
+                SourceDataTable == null || SourceDataTable.Rows.Count == 0 ||
+                CallsCostsTotals == null || CallsCostsTotals.Count == 0 ||
+                PDFDocumentHeaders == null || PDFDocumentHeaders.Count == 0 ||
+                PDFColumnsSchema == null || PDFColumnsSchema.Count == 0 || PDFColumnsSchema.Count > SourceDataTable.Columns.Count ||
+                PDFColumnsWidths == null || PDFColumnsWidths.Length == 0 || PDFColumnsWidths.Length > SourceDataTable.Columns.Count)
             {
                 return null;
             }
@@ -414,14 +414,14 @@ namespace Lync_Billing.Libs
             //INITIALIZE THE PDF DOCUMENT
             //--------------------------------------------------
             document = new Document();
-            writer = PdfWriter.GetInstance(document, response.OutputStream);
+            writer = PdfWriter.GetInstance(document, ResponseStream.OutputStream);
             document.Open();
 
 
             //--------------------------------------------------
             //INITIALIZE THE PDF DOCUMENT TABLE
             //--------------------------------------------------
-            pdfMainTable = new PdfPTable(pdfColumnsSchema.Count);
+            pdfMainTable = new PdfPTable(PDFColumnsSchema.Count);
             pdfMainTable.HorizontalAlignment = 0;
             pdfMainTable.SpacingBefore = 30;
             pdfMainTable.SpacingAfter = 30;
@@ -432,37 +432,37 @@ namespace Lync_Billing.Libs
             pdfMainTable.DefaultCell.PaddingLeft = 2;
             pdfMainTable.DefaultCell.PaddingRight = 2;
             pdfMainTable.WidthPercentage = 100;
-            if (pdfColumnsWidths.Length > 0 && pdfColumnsWidths.Length == pdfColumnsSchema.Count)
+            if (PDFColumnsWidths.Length > 0 && PDFColumnsWidths.Length == PDFColumnsSchema.Count)
             {
-                pdfMainTable.SetWidths(pdfColumnsWidths);
+                pdfMainTable.SetWidths(PDFColumnsWidths);
             }
 
 
             //--------------------------------------------------
             //INITIALIZE THE PDF DOCUMENT HEADER TEXTS
             //--------------------------------------------------
-            if (pdfDocumentHeaders.ContainsKey("title"))
+            if (PDFDocumentHeaders.ContainsKey("title"))
             {
-                titleParagraph = new Paragraph("eBill | " + pdfDocumentHeaders["title"], titleFont);
+                titleParagraph = new Paragraph("eBill | " + PDFDocumentHeaders["title"], titleFont);
                 titleParagraph.SpacingAfter = 5;
                 document.Add(titleParagraph);
             }
-            if (pdfDocumentHeaders.ContainsKey("subTitle"))
+            if (PDFDocumentHeaders.ContainsKey("subTitle"))
             {
-                if (pdfDocumentHeaders.ContainsKey("siteName"))
+                if (PDFDocumentHeaders.ContainsKey("siteName"))
                 {
-                    subTitleParagraph = new Paragraph(pdfDocumentHeaders["siteName"] + " | " + pdfDocumentHeaders["subTitle"], subTitleFont);
+                    subTitleParagraph = new Paragraph(PDFDocumentHeaders["siteName"] + " | " + PDFDocumentHeaders["subTitle"], subTitleFont);
                 }
                 else
                 {
-                    subTitleParagraph = new Paragraph(pdfDocumentHeaders["subTitle"], subTitleFont);
+                    subTitleParagraph = new Paragraph(PDFDocumentHeaders["subTitle"], subTitleFont);
                 }
                 subTitleParagraph.SpacingAfter = 5;
                 document.Add(subTitleParagraph);
             }
-            if (pdfDocumentHeaders.ContainsKey("comments"))
+            if (PDFDocumentHeaders.ContainsKey("comments"))
             {
-                commentsParagraph = new Paragraph(pdfDocumentHeaders["comments"], headerCommentsFont);
+                commentsParagraph = new Paragraph(PDFDocumentHeaders["comments"], headerCommentsFont);
                 commentsParagraph.SpacingBefore = 10;
                 commentsParagraph.SpacingAfter = 5;
                 document.Add(commentsParagraph);
@@ -472,24 +472,24 @@ namespace Lync_Billing.Libs
             //--------------------------------------------------
             //INITIALIZE THE MAIN CONTENT TABLE
             //--------------------------------------------------
-            foreach (string column in pdfColumnsSchema)
+            foreach (string column in PDFColumnsSchema)
             {
-                if (dt.Columns.Contains(column))
+                if (SourceDataTable.Columns.Contains(column))
                 {
                     pdfMainTable.AddCell(new Phrase(ReportColumnsDescriptionsSection.GetDescription(column), boldTableFont));
                 }
             }
 
-            foreach (DataRow r in dt.Rows)
+            foreach (DataRow r in SourceDataTable.Rows)
             {
                 //foreach (DataColumn column in dt.Columns)
-                foreach (string column in pdfColumnsSchema)
+                foreach (string column in PDFColumnsSchema)
                 {
                     //Declare the pdfMainTable cell and fill it.
                     PdfPCell entryCell;
 
                     //Format the cell text if it's the case of Duration
-                    if (dt.Columns.Contains(column))
+                    if (SourceDataTable.Columns.Contains(column))
                     {
                         if (ReportColumnsDescriptionsSection.GetDescription(column) == Enums.GetDescription(Enums.PhoneCallSummary.Duration))
                         {
@@ -522,7 +522,7 @@ namespace Lync_Billing.Libs
             //--------------------------------------------------
             //ADD THE TOTALS AND SUMMATIONS ROWS AT THE END
             //--------------------------------------------------
-            pdfTotalsTable = new PdfPTable(dt.Columns.Count);
+            pdfTotalsTable = new PdfPTable(SourceDataTable.Columns.Count);
             pdfTotalsTable.HorizontalAlignment = 0;
             pdfTotalsTable.DefaultCell.Border = 0;
             pdfTotalsTable.DefaultCell.PaddingBottom = 5;
@@ -530,20 +530,20 @@ namespace Lync_Billing.Libs
             pdfTotalsTable.DefaultCell.PaddingLeft = 2;
             pdfTotalsTable.DefaultCell.PaddingRight = 2;
             pdfTotalsTable.WidthPercentage = 100;
-            if (pdfColumnsWidths.Length > 0 && pdfColumnsWidths.Length == dt.Columns.Count)
+            if (PDFColumnsWidths.Length > 0 && PDFColumnsWidths.Length == SourceDataTable.Columns.Count)
             {
-                pdfTotalsTable.SetWidths(pdfColumnsWidths);
+                pdfTotalsTable.SetWidths(PDFColumnsWidths);
             }
 
-            foreach (DataColumn column in dt.Columns)
+            foreach (DataColumn column in SourceDataTable.Columns)
             {
-                if (dt.Columns[0].ColumnName == column.ColumnName)
+                if (SourceDataTable.Columns[0].ColumnName == column.ColumnName)
                 {
                     pdfTotalsTable.AddCell(new Phrase("Total", boldTableFont));
                 }
-                else if (totals.ContainsKey(column.ColumnName))
+                else if (CallsCostsTotals.ContainsKey(column.ColumnName))
                 {
-                    pdfTotalsTable.AddCell(new Phrase(totals[column.ColumnName].ToString(), boldTableFont));
+                    pdfTotalsTable.AddCell(new Phrase(CallsCostsTotals[column.ColumnName].ToString(), boldTableFont));
                 }
                 else
                 {
@@ -580,7 +580,7 @@ namespace Lync_Billing.Libs
          * 
          * @return @variable document of type Document.
          */
-        public static Document CreateAccountingDetailedReport(HttpResponse ResponseStream, DataTable SourceDataTable, int[] PDFColumnsWidths, List<string> PDFColumnsSchema, Dictionary<string, string> PDFDocumentHeaders, string DataSeparatorName, Dictionary<string, Dictionary<string, object>> UsersInfoCollections, Dictionary<string, UserCallsSummary> UsersSummariesMap)
+        public static Document CreateAccountingDetailedReport(HttpResponse ResponseStream, DataTable SourceDataTable, List<string> PDFColumnsSchema, int[] PDFColumnsWidths, Dictionary<string, string> PDFDocumentHeaders, string DataSeparatorName, Dictionary<string, Dictionary<string, object>> UsersInfoCollections, Dictionary<string, UserCallsSummary> UsersSummariesMap)
         {
             //----------------------------------
             //INITIALIZE THE REQUIRED VARIABLES

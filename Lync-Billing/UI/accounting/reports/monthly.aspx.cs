@@ -220,7 +220,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     pdfDocument = new Document();
-                    UserCallsSummary.ExportUsersCallsDetailedToPDF(beginningOfTheMonth, endOfTheMonth, siteName, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
+                    UserCallsSummary.ExportUsersCallsDetailedToPDF(siteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
                     Response.Write(pdfDocument);
                     break;
             }

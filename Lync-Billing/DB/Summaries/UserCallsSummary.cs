@@ -409,12 +409,28 @@ namespace Lync_Billing.DB.Summaries
                 callsCostsTotals.Add("UnmarkedCost", 0.00);
             }
 
-            document = PDFLib.CreateAccountingSummaryReport(response, dt, callsCostsTotals, headers, pdfColumnsSchema, pdfColumnsWidths);
+            document = PDFLib.CreateAccountingSummaryReport(
+                ResponseStream: response,
+                SourceDataTable: dt,
+                CallsCostsTotals: callsCostsTotals,
+                PDFColumnsSchema: pdfColumnsSchema,
+                PDFColumnsWidths: pdfColumnsWidths,
+                PDFDocumentHeaders: headers
+            );
         }
 
 
-        //TO DO: REFACTOR USING NEW DATABASE FUNCTIONS
-        public static void ExportUsersCallsDetailedToPDF(DateTime startingDate, DateTime endingDate, string siteName, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        /// <summary>
+        /// Export the phonecalls of all employees who have called from or through a site
+        /// </summary>
+        /// <param name="siteName">The site's name</param>
+        /// <param name="startingDate">Starting date if the report</param>
+        /// <param name="endingDate">Ending date of the report</param>
+        /// <param name="UsersCollection">The user information collection</param>
+        /// <param name="response">The response stream on which to write the document</param>
+        /// <param name="document">The source pdf document object</param>
+        /// <param name="headers">The pdf document header texts</param>
+        public static void ExportUsersCallsDetailedToPDF(string siteName, DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
         {
             //THE PDF REPORT PROPERTIES
             PDFReportsPropertiesSection section = ((PDFReportsPropertiesSection)ConfigurationManager.GetSection(PDFReportsPropertiesSection.ConfigurationSectionName));
