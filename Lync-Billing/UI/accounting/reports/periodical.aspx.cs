@@ -140,9 +140,9 @@ namespace Lync_Billing.ui.accounting.reports
                     {
                         //SipAccountsList.Add(user.SipAccount);
                         tempUserDataContainer = new Dictionary<string, object>();
-                        tempUserDataContainer.Add("FullName", user.FullName);
-                        tempUserDataContainer.Add("EmployeeID", user.EmployeeID);
-                        tempUserDataContainer.Add("SipAccount", user.SipAccount);
+                        tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.DisplayName), user.FullName);
+                        tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID), user.EmployeeID);
+                        tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), user.SipAccount);
 
                         UsersCollection.Add(user.SipAccount, tempUserDataContainer);
                     }
@@ -163,7 +163,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     Document doc = new Document();
-                    UserCallsSummary.ExportUsersCallsSummaryToPDF(StartingDate.SelectedDate, EndingDate.SelectedDate, siteName, UsersCollection, Response, out doc, headers);
+                    UserCallsSummary.ExportUsersCallsSummaryToPDF(siteName, StartingDate.SelectedDate, EndingDate.SelectedDate, UsersCollection, Response, out doc, headers);
                     Response.Write(doc);
                     break;
 
@@ -176,9 +176,9 @@ namespace Lync_Billing.ui.accounting.reports
                     {
                         //SipAccountsList.Add(user.SipAccount);
                         tempUserDataContainer = new Dictionary<string, object>();
-                        tempUserDataContainer.Add("FullName", user.FullName);
-                        tempUserDataContainer.Add("EmployeeID", user.EmployeeID);
-                        tempUserDataContainer.Add("SipAccount", user.SipAccount);
+                        tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.DisplayName), user.FullName);
+                        tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID), user.EmployeeID);
+                        tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), user.SipAccount);
 
                         UsersCollection.Add(user.SipAccount, tempUserDataContainer);
                     }
