@@ -644,7 +644,7 @@ namespace Lync_Billing.Libs
             if (whereClause.ContainsKey("startingDate") && whereClause.ContainsKey("endingDate"))
             {
                 whereStatement.Append(
-                    String.Format(" WHERE [SourceUserUri] = '{0}' COLLATE SQL_Latin1_General_CP1_CI_AS AND [SessionIdTime] >= '{1}' AND [SessionIdTime] < '{2}' and [marker_CallTypeID] in (1,2,3,4,5,21,22)",
+                    String.Format(" WHERE [SourceUserUri] = '{0}' AND [SessionIdTime] >= '{1}' AND [SessionIdTime] < '{2}' and [marker_CallTypeID] in (1,2,3,4,5,21,22)",
                         whereClause["SourceUserUri"].ToString(),
                         whereClause["startingDate"].ToString(),
                         whereClause["endingDate"].ToString()
@@ -725,7 +725,7 @@ namespace Lync_Billing.Libs
 
 
             whereStatement = String.Format(
-                "WHERE		([SourceUserUri] = '{0}' COLLATE SQL_Latin1_General_CP1_CI_AS AND " +
+                "WHERE		([SourceUserUri] = '{0}' AND " +
 				            "[Exclude] = 0 AND " + 
 				            "[marker_CallTypeID] in ({1}) AND " + 
 				            "([ac_DisputeStatus] = 'Rejected' OR [ac_DisputeStatus] IS NULL)) AND " +

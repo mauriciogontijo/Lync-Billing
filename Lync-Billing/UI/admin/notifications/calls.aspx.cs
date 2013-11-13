@@ -90,7 +90,9 @@ namespace Lync_Billing.ui.admin.notifications
 
         List<UserCallsSummary> PeriodicalReport(string siteName, DateTime startingDate, DateTime endingDate)
         {
-            return UserCallsSummary.GetUsersCallsSummaryInSite(siteName, startingDate, endingDate, asTotals: true);
+            return UserCallsSummary.GetUsersCallsSummaryInSite(siteName, startingDate, endingDate, asTotals: true)
+                    .Where(summary => summary.UnmarkedCallsCount > 0)
+                    .ToList();
         }
 
         protected void NotifyUsers(object sender, DirectEventArgs e)
