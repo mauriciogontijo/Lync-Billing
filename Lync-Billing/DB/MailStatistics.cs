@@ -20,30 +20,48 @@ namespace Lync_Billing.DB
 
         public static MailStatistics GetMailStatistics(string sipAccount, DateTime date)
         {
-            DataTable dt = new DataTable();
+            DataTable dt;
             string columnName = string.Empty;
-            //DateTime previousMonth = DateTime.Now.AddMonths(-1).AddDays(-(DateTime.Today.Day - 1));
+            List<string> columnsList = new List<string>();
+            Dictionary<string, object> whereClause = new Dictionary<string, object>();
+
+            DateTime startingDate, endingDate;
+
             MailStatistics userMailStats = new MailStatistics();
 
-            Statistics statsLib = new Statistics();
-            dt = statsLib.GET_MAIL_STATISTICS(sipAccount, date);
+            if (date == null || date == DateTime.MinValue)
+            {
+                //Both starting date and ending date respectively point to the beginning and ending of this current month.
+                startingDate = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
+                endingDate = startingDate.AddMonths(1).AddDays(-1);
+            }
+            else
+            {
+                //Assign the beginning of date.Month to the startingDate and the end of it to the endingDate 
+                DateTime specificDate = (DateTime)date;
+                startingDate = specificDate.AddDays(-(specificDate.Day - 1));
+                endingDate = startingDate.AddMonths(1).AddDays(-1);
+            }
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.MailStatistics.TableName), columnsList, whereClause, 0);
             
+
             foreach (DataRow row in dt.Rows)
             {
                 columnName = Enums.GetDescription(Enums.MailStatistics.EmailAddress);
                 userMailStats.EmailAddress = (row[dt.Columns[columnName]]).ToString();
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.ReceivedCount);
-                userMailStats.ReceivedCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userMailStats.ReceivedCount = Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.ReceivedSize);
-                userMailStats.ReceivedSize = (Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
+                userMailStats.ReceivedSize = (Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.SentCount);
-                userMailStats.SentCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userMailStats.SentCount = Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.SentSize);
-                userMailStats.SentSize = (Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
+                userMailStats.SentSize = (Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
             }
 
             return userMailStats;
@@ -54,17 +72,32 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             string columnName = string.Empty;
             MailStatistics departmentTotalMailStats = new MailStatistics();
-            DateTime startOfThisMonth = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
-            DateTime endOfThisMonth = startOfThisMonth.AddMonths(1).AddDays(-1);
-            
+            DateTime startingDate, endingDate;
+
+            if (date == null || date == DateTime.MinValue)
+            {
+                //Both starting date and ending date respectively point to the beginning and ending of this current month.
+                startingDate = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
+                endingDate = startingDate.AddMonths(1).AddDays(-1);
+            }
+            else
+            {
+                //Assign the beginning of date.Month to the startingDate and the end of it to the endingDate 
+                DateTime specificDate = (DateTime)date;
+                startingDate = specificDate.AddDays(-(specificDate.Day - 1));
+                endingDate = startingDate.AddMonths(1).AddDays(-1);
+            }
+
             //Initialize the select parameters for the database function
             List<object> selectParameters = new List<object>();
-            selectParameters.Add(startOfThisMonth);
-            selectParameters.Add(endOfThisMonth);
-            selectParameters.Add(departmentName);
+            
             selectParameters.Add(siteName);
+            selectParameters.Add(departmentName);
+            selectParameters.Add(startingDate);
+            selectParameters.Add(endingDate);
+            
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("fnc_GetMailStatistics_PerDepartment", selectParameters, null);
+            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_MailStatistics_PerSiteDepartment", selectParameters, null);
 
             foreach (DataRow row in dt.Rows)
             {

@@ -356,9 +356,9 @@ namespace Lync_Billing.DB
             ID,
             [Description("EmailAddress")]
             EmailAddress,
-            [Description("ReceivedCount")]
+            [Description("RecievedCount")]
             ReceivedCount,
-            [Description("ReceivedSize")]
+            [Description("RecievedSize")]
             ReceivedSize,
             [Description("SentCount")]
             SentCount,
