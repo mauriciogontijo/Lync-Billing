@@ -402,6 +402,8 @@ namespace Lync_Billing.DB
             Department,
             [Description("AD_PhysicalDeliveryOfficeName")]
             SiteName,
+            [Description("Duration")]
+            Duration,
             [Description("BusinessCallsDuration")]
             BusinessCallsDuration,
             [Description("BusinessCallsCount")]
