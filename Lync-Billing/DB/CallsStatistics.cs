@@ -124,7 +124,7 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == "Year" && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.Year = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == "NumberOfOutgoingCalls" && row[column.ColumnName] != DBNull.Value)
+                    if (column.ColumnName == "CallsCount" && row[column.ColumnName] != DBNull.Value)
                         gatewayUsage.NumberOfOutgoingCalls = Convert.ToInt64(row[column.ColumnName]);
 
                     if (column.ColumnName == "CallsDuration" && row[column.ColumnName] != DBNull.Value)
