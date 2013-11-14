@@ -187,6 +187,18 @@ namespace Lync_Backend.Implementation
                 else
                     phoneCall.Add("PoolFQDN", DBNull.Value);
 
+                column = Enums.GetDescription(Enums.PhoneCalls.OnBehalf);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("OnBehalf", dataReader[Enums.GetDescription(Enums.PhoneCalls.OnBehalf)].ToString());
+                else
+                    phoneCall.Add("OnBehalf", DBNull.Value);
+
+                column = Enums.GetDescription(Enums.PhoneCalls.ReferedBy);
+                if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                    phoneCall.Add("ReferedBy", dataReader[Enums.GetDescription(Enums.PhoneCalls.ReferedBy)].ToString());
+                else
+                    phoneCall.Add("ReferedBy", DBNull.Value);
+
 
                 column = Enums.GetDescription(Enums.PhoneCalls.Duration);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
