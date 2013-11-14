@@ -29,6 +29,8 @@ namespace Lync_Billing.DB.Statistics
         public static List<GatewaysStatistics> GetGatewaysUsage(int year, int fromMonth, int toMonth)
         {
             DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_GatewaySummary_ForAll_Sites);
+
             Dictionary<string, object> whereClause;
             List<object> functionParameters;
 
@@ -43,7 +45,7 @@ namespace Lync_Billing.DB.Statistics
                 { Enums.GetDescription(Enums.GatewaysSummary.Month), String.Format("{0},{1}", fromMonth, toMonth) }
             };
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_GatewaySummary_ForAll_Sites", functionParameters, whereClause);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParameters, whereClause);
 
 
             foreach (DataRow row in dt.Rows)
@@ -105,6 +107,8 @@ namespace Lync_Billing.DB.Statistics
         public static List<GatewaysStatistics> SetGatewaysUsagePercentagesPerCallsCount(int year, int fromMonth, int toMonth)
         {
             DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_GatewaySummary_ForAll_Sites);
+
             Dictionary<string, object> whereClause;
             List<object> functionParameters;
 
@@ -124,7 +128,7 @@ namespace Lync_Billing.DB.Statistics
                 { Enums.GetDescription(Enums.GatewaysSummary.Month), String.Format("{0},{1}", fromMonth, toMonth) }
             };
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_GatewaySummary_ForAll_Sites", functionParameters, whereClause);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParameters, whereClause);
 
 
             foreach (DataRow row in dt.Rows)
@@ -272,6 +276,8 @@ namespace Lync_Billing.DB.Statistics
         public static List<Years> GetYears()
         {
             DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_GatewaySummary_ForAll_Sites);
+
             List<object> functionParameters;
             List<string> columnsList;
             Dictionary<string, object> whereClause;
@@ -284,7 +290,7 @@ namespace Lync_Billing.DB.Statistics
             whereClause = new Dictionary<string, object>();
             columnsList = new List<string>() { String.Format("DISTINCT {0}", Enums.GetDescription(Enums.GatewaysSummary.Year)) };
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_GatewaySummary_ForAll_Sites", functionParameters, whereClause, selectColumnsList: columnsList);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParameters, whereClause, selectColumnsList: columnsList);
 
             foreach (DataRow row in dt.Rows)
             {

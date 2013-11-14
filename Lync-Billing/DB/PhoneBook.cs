@@ -62,8 +62,9 @@ namespace Lync_Billing.DB
 
         public static List<PhoneBook> GetDestinationNumbers(string sipAccount)
         {
-            string columnName = string.Empty;
             DataTable dt = new DataTable();
+            string columnName = string.Empty;
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_DestinationsNumbers_ForUser);
 
             PhoneBook phoneBookEntry;
             List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
@@ -73,20 +74,22 @@ namespace Lync_Billing.DB
 
             int contactNumbersLimit = 200;
 
+            //Initialize function parameters and then query the database
             functionparameters.Add(sipAccount);
             functionparameters.Add(contactNumbersLimit);
 
             //Get all the destinations for this user where the phonecall is of a billable CallTypeID
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_DestinationsNumbers_ForUser", functionparameters, wherePart);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionparameters, wherePart);
+
 
             foreach (DataRow row in dt.Rows)
             {
                 phoneBookEntry = new PhoneBook();
 
-                columnName = Enums.GetDescription(Enums.DestinationNumbers.PhoneNumber);
+                columnName = Enums.GetDescription(Enums.TopDestinationNumbers.PhoneNumber);
                 phoneBookEntry.DestinationNumber = (string)row[columnName];
 
-                columnName = Enums.GetDescription(Enums.DestinationNumbers.Country);
+                columnName = Enums.GetDescription(Enums.TopDestinationNumbers.Country);
                 phoneBookEntry.DestinationCountry = (string)row[columnName];
 
                 phoneBookEntries.Add(phoneBookEntry);

@@ -11,6 +11,8 @@ namespace Lync_Billing.DB.Statistics
 {
     public class TopDestinationNumbers
     {
+        private static DBLib DBRoutines = new DBLib();
+
         public string PhoneNumber { private set; get; }
         public string UserName { set; get; }
         public long CallsCount { private set; get; }
@@ -20,17 +22,19 @@ namespace Lync_Billing.DB.Statistics
 
         public static List<TopDestinationNumbers> GetTopDestinationNumbers(string sipAccount, int limit)
         {
-            DBLib DBRoutines = new DBLib();
             DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_DestinationsNumbers_ForUser);
 
             TopDestinationNumbers topDestination;
             List<TopDestinationNumbers> TopDestinationNumbers = new List<TopDestinationNumbers>();
             
+            //Initialize the function parameters and then query the database
             List<object> parameters = new List<object>();
             parameters.Add(sipAccount);
             parameters.Add(limit);
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_DestinationsNumbers_ForUser", parameters, null);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, parameters, null);
+
 
             foreach (DataRow row in dt.Rows)
             {

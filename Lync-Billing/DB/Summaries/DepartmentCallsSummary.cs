@@ -44,18 +44,20 @@ namespace Lync_Billing.DB.Summaries
         public static List<DepartmentCallsSummary> GetPhoneCallsStatisticsForDepartment(string siteName, string departmentName, int year)
         {
             DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForSiteDepartment);
+
             string columnName = string.Empty;
+            List<object> functionParameters = new List<object>();
+
             DepartmentCallsSummary departmentSummary;
             List<DepartmentCallsSummary> ListOfDepartmentCallsSummaries = new List<DepartmentCallsSummary>();
-
-            List<object> functionParameters = new List<object>();
 
             //Add the function parameters in a specific order, conceptually: bigger to smaller.
             functionParameters.Add(siteName);
             functionParameters.Add(departmentName);
-            
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForSiteDepartment", functionParameters, null);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParameters, null);
+
 
             foreach (DataRow row in dt.Rows)
             {

@@ -336,22 +336,6 @@ namespace Lync_Billing.DB
             Name
         }
 
-        public enum DestinationNumbers
-        {
-            [Description("ID")]
-            ID,
-            [Description("PhoneNumber")]
-            PhoneNumber,
-            [Description("CallsDuration")]
-            CallsDuration,
-            [Description("CallsCost")]
-            CallsCost,
-            [Description("CallsCount")]
-            CallsCount,
-            [Description("Country")]
-            Country
-        }
-
         public enum Currencies
         {
             [Description("Currencies")]
@@ -392,6 +376,66 @@ namespace Lync_Billing.DB
             TemplateSubject,
             [Description("TemplateBody")]
             TemplateBody
+        }
+
+        public enum Persistence 
+        {
+            [Description("Persistence")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("Module")]
+            Module,
+            [Description("Module_Key")]
+            ModuleKey,
+            [Description("Module_Value")]
+            ModuleValue
+        }
+
+        public enum ValidRoles
+        {
+            [Description("IsDeveloper")]
+            IsDeveloper,
+            [Description("IsSystemAdmin")]
+            IsSystemAdmin,
+            [Description("IsSiteAdmin")]
+            IsSiteAdmin,
+            [Description("IsSiteAccountant")]
+            IsSiteAccountant,
+            [Description("IsDepartmentHead")]
+            IsDepartmentHead
+        }
+
+        public enum ActiveRoleNames
+        {
+            [Description("developer")]
+            Developer,
+            [Description("sysadmin")]
+            SystemAdmin,
+            [Description("admin")]
+            SiteAdmin,
+            [Description("accounting")]
+            SiteAccountant,
+            [Description("dephead")]
+            DepartmentHead,
+            [Description("delegee")]
+            Delegee,
+            [Description("user")]
+            NormalUser
+        }
+
+        public enum DepartmentHeads
+        {
+            [Description("DepartmentHeads")]
+            TableName,
+            [Description("id")]
+            ID,
+            [Description("SipAccount")]
+            SipAccount,
+            [Description("Department")]
+            Department,
+            [Description("SiteID")]
+            SiteID
         }
 
         public enum PhoneCallSummary
@@ -458,79 +502,66 @@ namespace Lync_Billing.DB
             CallsCost
         }
 
-        public enum Persistence 
+        public enum TopDestinationCountries
         {
-            [Description("Persistence")]
-            TableName,
-            [Description("ID")]
-            ID,
-            [Description("Module")]
-            Module,
-            [Description("Module_Key")]
-            ModuleKey,
-            [Description("Module_Value")]
-            ModuleValue
+            [Description("Country_Name")]
+            Country,
+            [Description("CallsDuration")]
+            CallsDuration,
+            [Description("CallsCost")]
+            CallsCost,
+            [Description("CallsCount")]
+            CallsCount,
         }
-
-        public enum ValidRoles
-        {
-            [Description("IsDeveloper")]
-            IsDeveloper,
-            [Description("IsSystemAdmin")]
-            IsSystemAdmin,
-            [Description("IsSiteAdmin")]
-            IsSiteAdmin,
-            [Description("IsSiteAccountant")]
-            IsSiteAccountant,
-            [Description("IsDepartmentHead")]
-            IsDepartmentHead
-        }
-
-        public enum ActiveRoleNames
-        {
-            [Description("developer")]
-            Developer,
-            [Description("sysadmin")]
-            SystemAdmin,
-            [Description("admin")]
-            SiteAdmin,
-            [Description("accounting")]
-            SiteAccountant,
-            [Description("dephead")]
-            DepartmentHead,
-            [Description("delegee")]
-            Delegee,
-            [Description("user")]
-            NormalUser
-        }
-
-        public enum DepartmentHeads
-        {
-            [Description("DepartmentHeads")]
-            TableName,
-            [Description("id")]
-            ID,
-            [Description("SipAccount")]
-            SipAccount,
-            [Description("Department")]
-            Department,
-            [Description("SiteID")]
-            SiteID
-        }
-
 
         public enum TopDestinationNumbers
         {
-            [Description("Country_Name")]
-            CountryName,
             [Description("PhoneNumber")]
             PhoneNumber,
+            [Description("Country")]
+            Country,
             [Description("CallsDuration")]
             CallsDuration,
             [Description("CallsCost")]
             CallsCost,
             [Description("CallsCount")]
             CallsCount
+        }
+
+        public enum DatabaseFunctionsNames
+        {
+            [Description("Get_ChargeableCalls_ForUser")]
+            Get_ChargeableCalls_ForUser,
+
+            [Description("Get_ChargeableCalls_ForSite")]
+            Get_ChargeableCalls_ForSite,
+            
+            [Description("Get_CallsSummary_ForUser")]
+            Get_CallsSummary_ForUser,
+            
+            [Description("Get_CallsSummary_ForSiteDepartment")]
+            Get_CallsSummary_ForSiteDepartment,
+
+            [Description("Get_CallsSummary_ForUsers_PerSite")]
+            Get_CallsSummary_ForUsers_PerSite,
+
+            [Description("Get_CallsSummary_ForUsers_PerSite_PDF")]
+            Get_CallsSummary_ForUsers_PerSite_PDF,
+
+            [Description("Get_DestinationsNumbers_ForUser")]
+            Get_DestinationsNumbers_ForUser,
+            
+            [Description("Get_DestinationCountries_ForUser")]
+            Get_DestinationCountries_ForUser,
+            
+            [Description("Get_DestinationCountries_ForSiteDepartment")]
+            Get_DestinationCountries_ForSiteDepartment,
+
+            [Description("Get_GatewaySummary_ForAll_Sites")]
+            Get_GatewaySummary_ForAll_Sites,
+
+            [Description("Get_MailStatistics_PerSiteDepartment")]
+            Get_MailStatistics_PerSiteDepartment
         }
 
 

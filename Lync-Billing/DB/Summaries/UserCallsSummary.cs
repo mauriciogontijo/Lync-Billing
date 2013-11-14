@@ -48,16 +48,20 @@ namespace Lync_Billing.DB.Summaries
         /// <returns>A UserCallsSummary sum object of all summaries between the months</returns>
         public static UserCallsSummary GetUserCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
         {
+            DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUser);
+
             List<object> functionParams = new List<object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
-            DataTable dt = new DataTable();
             UserCallsSummary userSummary = new UserCallsSummary();
             int summaryYear, summaryMonth;
 
+            //Initialize the function parameters and query the database
             functionParams.Add(sipAccount);
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUser", functionParams, wherePart);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
+
 
             foreach (DataRow row in dt.Rows)
             {
@@ -110,16 +114,18 @@ namespace Lync_Billing.DB.Summaries
         /// <returns>A UserCallsSummary sum object of all summaries between the dates</returns>
         public static UserCallsSummary GetUserCallsSummary(string sipAccount, DateTime startDate, DateTime endDate)
         {
+            DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUser);
+
             List<object> functionParams = new List<object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
-
-            DataTable dt = new DataTable();
+            
             UserCallsSummary userSummary = new UserCallsSummary();
             int summaryYear, summaryMonth;
 
             functionParams.Add(sipAccount);
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUser", functionParams, wherePart);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -174,19 +180,23 @@ namespace Lync_Billing.DB.Summaries
         public static List<UserCallsSummary> GetUsersCallsSummary(string sipAccount, int year, int fromMonth, int toMonth)
         {
             DataTable dt = new DataTable();
-            UserCallsSummary userSummary;
-            List<UserCallsSummary> chartList = new List<UserCallsSummary>();
-
-            //Get the remaining user information
-            Users userInfo = Users.GetUser(sipAccount);
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUser);
 
             List<object> functionParams = new List<object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             int summaryYear, summaryMonth;
 
+            UserCallsSummary userSummary;
+            List<UserCallsSummary> chartList = new List<UserCallsSummary>();
+
+            //Get this user's information
+            Users userInfo = Users.GetUser(sipAccount);
+
+            //Initialize the function parameters and query the database
             functionParams.Add(sipAccount);
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUser", functionParams, wherePart);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
+
 
             foreach (DataRow row in dt.Rows)
             {
@@ -241,6 +251,7 @@ namespace Lync_Billing.DB.Summaries
         public static List<UserCallsSummary> GetUsersCallsSummaryInSite(string siteName, DateTime startingDate, DateTime endingDate, bool asTotals = false)
         {
             DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUsers_PerSite);
 
             Users userInfo;
             UserCallsSummary userSummary;
@@ -253,7 +264,7 @@ namespace Lync_Billing.DB.Summaries
             //Add the siteName to the functionParams
             functionParams.Add(siteName);
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUsers_PerSite", functionParams, wherePart);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -366,6 +377,8 @@ namespace Lync_Billing.DB.Summaries
 
             //Database related
             DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUsers_PerSite_PDF);
+
             List<object> functionParams = new List<object>();
             List<string> columnsList = new List<string>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
@@ -391,7 +404,7 @@ namespace Lync_Billing.DB.Summaries
 
             wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), UsersCollection.Keys.ToList<string>());
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUsers_PerSite_PDF", functionParams, wherePart);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
 
 
             //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros
@@ -437,6 +450,8 @@ namespace Lync_Billing.DB.Summaries
 
             //Database query related
             DataTable dt;
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_ChargeableCalls_ForSite);
+
             List<object> functionParams = new List<object>();
             List<string> columnsList = new List<string>();
             Dictionary<string, object> wherePart = new Dictionary<string,object>();
@@ -467,7 +482,7 @@ namespace Lync_Billing.DB.Summaries
             wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime), String.Format("{0},{1}", startingDate, endingDate));
 
             //The PDF report body contents
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_ChargeableCalls_ForSite", functionParams, wherePart, selectColumnsList: columnsList);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart, selectColumnsList: columnsList);
 
             //Get the collection of users' summaries.
             Dictionary<string, UserCallsSummary> UsersSummaires = UserCallsSummary.GetUsersCallsSummaryInSite(siteName, UsersCollection.Keys.ToList(), startingDate, endingDate);

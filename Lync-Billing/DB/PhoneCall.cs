@@ -79,19 +79,18 @@ namespace Lync_Billing.DB
          */
         public static List<PhoneCall> GetPhoneCalls(string sipAccount, Dictionary<string, object> wherePart, int limits)
         {
-            PhoneCall phoneCall;
             DataTable dt = new DataTable();
-            PhoneCallsComparer linqDistinctComparer = new PhoneCallsComparer();
-            List<object> functionaParams = new List<object>() { sipAccount };
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_ChargeableCalls_ForUser);
 
+            PhoneCall phoneCall;
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
+            PhoneCallsComparer linqDistinctComparer = new PhoneCallsComparer();
+
+            //Initialize function parameters and then query the database
+            List<object> functionaParams = new List<object>() { sipAccount };
             
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionaParams, wherePart);
 
-            //Normalize the SipAccount for the database before continuing:
-            //if (wherePart.Keys.Contains("SourceUserUri"))
-            //    wherePart["SourceUserUri"] = wherePart["SourceUserUri"].ToString().ToLower();
-
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_ChargeableCalls_ForUser", functionaParams, wherePart);
 
             foreach (DataRow row in dt.Rows)
             {

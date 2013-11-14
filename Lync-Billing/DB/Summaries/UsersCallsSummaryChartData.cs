@@ -13,8 +13,6 @@ namespace Lync_Billing.DB.Summaries
     {
         private static DBLib DBRoutines = new DBLib();
 
-        private static Dictionary<string, object> wherePart;
-
         public string Name { get; set; }
         public int TotalCalls { get; set; }
         public int TotalDuration { get; set; }
@@ -23,19 +21,23 @@ namespace Lync_Billing.DB.Summaries
 
         public static List<UsersCallsSummaryChartData> GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate)
         {
+            DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUser);
+
             string columnName = string.Empty;
-            wherePart = new Dictionary<string, object>();
             List<object> functionParams = new List<object>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+            
             int summaryYear, summaryMonth;
 
-            DataTable dt = new DataTable();
             UsersCallsSummaryChartData userSummary;
             List<UsersCallsSummaryChartData> chartList = new List<UsersCallsSummaryChartData>();
 
             //Specify the sipaccount for the database function
             functionParams.Add(sipAccount);
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_CallsSummary_ForUser", functionParams, wherePart);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
+
 
             foreach (DataRow row in dt.Rows)
             {

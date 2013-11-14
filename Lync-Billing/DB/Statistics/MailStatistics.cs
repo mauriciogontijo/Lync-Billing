@@ -72,9 +72,12 @@ namespace Lync_Billing.DB.Statistics
         public static MailStatistics GetMailStatistics(string siteName, string departmentName, DateTime date)
         {
             DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_MailStatistics_PerSiteDepartment);
             string columnName = string.Empty;
+
             MailStatistics departmentTotalMailStats = new MailStatistics();
             DateTime startingDate, endingDate;
+
 
             if (date == null || date == DateTime.MinValue)
             {
@@ -90,6 +93,7 @@ namespace Lync_Billing.DB.Statistics
                 endingDate = startingDate.AddMonths(1).AddDays(-1);
             }
 
+
             //Initialize the select parameters for the database function
             List<object> selectParameters = new List<object>();
             
@@ -97,9 +101,9 @@ namespace Lync_Billing.DB.Statistics
             selectParameters.Add(departmentName);
             selectParameters.Add(startingDate);
             selectParameters.Add(endingDate);
-            
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION("Get_MailStatistics_PerSiteDepartment", selectParameters, null);
+
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, selectParameters, null);
 
             foreach (DataRow row in dt.Rows)
             {
