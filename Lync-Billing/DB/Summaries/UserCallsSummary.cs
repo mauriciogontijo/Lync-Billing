@@ -349,7 +349,7 @@ namespace Lync_Billing.DB.Summaries
             DataTable dt = new DataTable();
             string columnName = string.Empty;
 
-            List<UserCallsSummary> ListOfUsersSummaries = GetUsersCallsSummaryInSite(siteName, startingDate, endingDate);
+            List<UserCallsSummary> ListOfUsersSummaries = GetUsersCallsSummaryInSite(siteName, startingDate, endingDate, asTotals: true);
 
             Dictionary<string, UserCallsSummary> usersSummaryList = ListOfUsersSummaries
                 .Where(summary => sipAccountsList.Contains(summary.SipAccount))
