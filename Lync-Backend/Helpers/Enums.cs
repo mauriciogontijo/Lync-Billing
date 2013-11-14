@@ -73,6 +73,10 @@ namespace Lync_Backend.Helpers
             ServerFQDN,
             [Description("PoolFQDN")]
             PoolFQDN,
+            [Description("OnBehalf")]
+            OnBehalf,
+            [Description("ReferedBy")]
+            ReferedBy,
             [Description("Duration")]
             Duration,
             [Description("marker_CallFrom")]
