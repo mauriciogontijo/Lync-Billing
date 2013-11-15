@@ -60,6 +60,35 @@ namespace Lync_Billing.ui.session
         }
 
 
+        /// <summary>
+        /// Session managemenet routine. This is called from the SignButton_Click procedure.
+        /// </summary>
+        /// <param name="session">The current user session, sent by reference.</param>
+        /// <param name="userInfo">The current user info</param>
+        private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo)
+        {
+            session.EmployeeID = userInfo.EmployeeID;
+            session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
+            session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
+            session.PrimaryDisplayName = formatDisplayName(userInfo.DisplayName);
+            session.EffectiveDisplayName = session.PrimaryDisplayName;
+
+            session.ActiveRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
+            session.SiteName = userInfo.physicalDeliveryOfficeName;
+            session.Department = userInfo.department;
+
+            session.IsUserDelegate = Delegates.IsUserDelegate(session.PrimarySipAccount);
+            session.IsSiteDelegate = Delegates.IsSiteDelegate(session.PrimarySipAccount);
+            session.IsDepartmentDelegate = Delegates.IsDepartmentDelegate(session.PrimarySipAccount);
+            session.ListOfUserDelegees = Delegates.GetDelegeesNames(session.PrimarySipAccount);
+
+            session.TelephoneNumber = userInfo.Telephone;
+            session.IpAddress = HttpContext.Current.Request.UserHostAddress;
+            session.UserAgent = HttpContext.Current.Request.UserAgent;
+            session.EmailAddress = userInfo.EmailAddress;
+        }
+
+
         protected void SigninButton_Click(object sender, EventArgs e)
         {
             bool status = false;
@@ -153,29 +182,8 @@ namespace Lync_Billing.ui.session
                         Users.InsertUser(user);
                     }
 
-                    
-                    /********* START Session Managemenet Block **********/
-                    session.EmployeeID = userInfo.EmployeeID;
-                    session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
-                    session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
-                    session.PrimaryDisplayName = formatDisplayName(userInfo.DisplayName);
-                    session.EffectiveDisplayName = session.PrimaryDisplayName;
-
-                    session.ActiveRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
-                    session.SiteName = userInfo.physicalDeliveryOfficeName;
-                    session.Department = userInfo.department;
-
-                    session.IsUserDelegate = Delegates.IsUserDelegate(session.PrimarySipAccount);
-                    session.IsSiteDelegate = Delegates.IsSiteDelegate(session.PrimarySipAccount);
-                    session.IsDepartmentDelegate = Delegates.IsDepartmentDelegate(session.PrimarySipAccount);
-                    session.ListOfUserDelegees = Delegates.GetDelegeesNames(session.PrimarySipAccount);
-
-                    session.TelephoneNumber = userInfo.Telephone;
-                    session.IpAddress = HttpContext.Current.Request.UserHostAddress;
-                    session.UserAgent = HttpContext.Current.Request.UserAgent;
-                    session.EmailAddress = userInfo.EmailAddress;
-                    /********* END Session Managemenet Block **********/
-
+                    //Assign the current userInfo to the UserSession fields.
+                    SetUserSessionFields(ref session, userInfo);
 
                     Session.Add("UserData", session);
 
