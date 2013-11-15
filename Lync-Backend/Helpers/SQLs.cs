@@ -78,7 +78,7 @@ namespace Lync_Backend.Helpers
                         "SessionDetails.ResponseTime, " +
                         "SessionDetails.SessionEndTime, " +
                         "OnBehalf.UserUri AS OnBehalf," +
-		                "ReferedBy.UserUri AS ReferedBy," +
+		                "ReferredBy.UserUri AS ReferredBy," +
                         "CONVERT(decimal(8, 0), " +
                         "DATEDIFF(second, SessionDetails.ResponseTime,  SessionDetails.SessionEndTime)) AS Duration " +
                "FROM     SessionDetails " +
@@ -90,7 +90,7 @@ namespace Lync_Backend.Helpers
                         "LEFT OUTER JOIN Users AS Users_2 ON SessionDetails.User2Id = Users_2.UserId " +
                         "LEFT OUTER JOIN Users AS Users_1 ON SessionDetails.User1Id = Users_1.UserId " +
                         "LEFT OUTER JOIN Users AS OnBehalf ON SessionDetails.OnBehalfOfId = OnBehalf.UserId " +
-                        "LEFT OUTER JOIN Users AS ReferedBy ON SessionDetails.ReferredById = ReferedBy.UserId " +
+                        "LEFT OUTER JOIN Users AS ReferredBy ON SessionDetails.ReferredById = ReferredBy.UserId " +
                         "RIGHT OUTER JOIN VoipDetails " +
                         "LEFT OUTER JOIN Gateways AS Gateways_1 ON VoipDetails.ToGatewayId = Gateways_1.GatewayId " +
                         "LEFT OUTER JOIN Gateways ON VoipDetails.FromGatewayId = Gateways.GatewayId " +
