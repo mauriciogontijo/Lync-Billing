@@ -125,7 +125,6 @@ namespace Lync_Backend.Implementation
 
             //MethodInfo method = type.GetMethod("SetCallType");
             //method.Invoke(null, new object[] { phoneCall });    
-
             //object instance = Activator.CreateInstance(type);
             //Call the correct set type
             //((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
