@@ -202,9 +202,9 @@ namespace Lync_Backend.Implementation
                     phoneCall = Misc.FillPhoneCallFromOleDataReader(ref dataReader);
 
                     //Call the correct set type
-                    //((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
-                    MethodInfo method = type.GetMethod("ApplyRate");
-                    method.Invoke(null, new object[] { phoneCall });   
+                    ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
+                    //MethodInfo method = type.GetMethod("ApplyRate");
+                    //method.Invoke(null, new object[] { phoneCall });   
 
                     //Set the updateStatementValues dictionary items with the phoneCall instance variables
                     updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);

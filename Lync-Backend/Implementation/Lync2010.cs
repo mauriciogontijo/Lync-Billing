@@ -95,7 +95,7 @@ namespace Lync_Backend.Implementation
 
                 //Call the SetType on the phoneCall Related table using class loader
                 callsMarker.MarkCalls(PhoneCallsTableName, ref phoneCallObj,ref type);
-                //callsMarker.ApplyRates(PhoneCallsTableName, ref phoneCallObj);
+                callsMarker.ApplyRates(PhoneCallsTableName, ref phoneCallObj,ref type);
 
                 lastMarkedPhoneCallDate = phoneCallObj.SessionIdTime;
 
@@ -108,8 +108,8 @@ namespace Lync_Backend.Implementation
                     //Update the CallMarkerStatus table fro this PhoneCall table.
                     if (dataRowCounter % 10000 == 0)
                     {
-                        callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "Marking", lastMarkedPhoneCallDate, ref sourceDBConnector);
-                        //callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, ref sourceDBConnector);
+                        callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "Marking", lastMarkedPhoneCallDate, ref DestinationDBConnector);
+                        callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, ref DestinationDBConnector);
                     }
 
                     dataRowCounter += 1;
@@ -120,12 +120,11 @@ namespace Lync_Backend.Implementation
                 }
             }
 
-            callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "Marking", lastMarkedPhoneCallDate, ref sourceDBConnector);
-            //callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, ref sourceDBConnector);
+            callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "Marking", lastMarkedPhoneCallDate, ref DestinationDBConnector);
+            callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, ref DestinationDBConnector);
 
             sourceDBConnector.Close();
         }
-
 
         public override void ImportGatewaysAndPools()
         {
