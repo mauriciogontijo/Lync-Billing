@@ -117,21 +117,6 @@ namespace Lync_Backend.Implementation
             }
         }
 
-        public override void MarkCalls(string tablename, ref PhoneCalls phoneCall, ref Type type)
-        {
-            //Call the SetType on the phoneCall Related table using class loader
-            ConstructorInfo cinfo = type.GetConstructor(new Type[] { });
-            object instance = cinfo.Invoke(new object[] { });
-
-            ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
-
-            //Assign the CharginParty field a value
-            if (!string.IsNullOrEmpty(phoneCall.ReferredBy))
-                phoneCall.ChargingParty = phoneCall.ReferredBy;
-            else
-                phoneCall.ChargingParty = phoneCall.SourceUserUri;
-        }
-
         public override void ApplyRates(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
         {
             DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
@@ -219,16 +204,6 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Close();
         }
 
-        public override void ApplyRates(string tablename, ref PhoneCalls phoneCall, ref Type type)
-        {
-            //Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
-            //object instance = Activator.CreateInstance(type);
-            ConstructorInfo cinfo = type.GetConstructor(new Type[] { });
-            object instance = cinfo.Invoke(new object[] { });
-
-           ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
-        }
-
         public override void MarkExclusion(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
         {
             DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
@@ -236,21 +211,11 @@ namespace Lync_Backend.Implementation
             //TODO: manipluate exclusions 
         }
 
-        public override void MarkExclusion(string tablename, ref  PhoneCalls phoneCall)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void ResetPhoneCallsAttributes(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
         {
             DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
             DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
             //TODO: Reset marking or rates 
-        }
-
-        public override void ResetPhoneCallsAttributes(string tablename, ref PhoneCalls phoneCall)
-        {
-            throw new NotImplementedException();
         }
 
         private string GetLastMarked(string phoneCallsTable) 
