@@ -271,7 +271,7 @@ namespace Lync_Backend.Implementation
                 return "N/A";
         }
 
-        private void UpdateCallMarkerStatus(string phoneCallTable, string type, string timestamp, ref OleDbConnection conn,bool Update=true)
+        public void UpdateCallMarkerStatus(string phoneCallTable, string type, string timestamp, ref OleDbConnection conn,bool Update=true)
         {
             if (Update == true)
             {
@@ -296,11 +296,5 @@ namespace Lync_Backend.Implementation
                 }
             }
         }
-
-
-       
-
-      
-      
     }
 }
