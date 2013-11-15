@@ -196,9 +196,9 @@ namespace Lync_Backend.Implementation
 
                 column = Enums.GetDescription(Enums.PhoneCalls.ReferredBy);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add("ReferedBy", dataReader[Enums.GetDescription(Enums.PhoneCalls.ReferredBy)].ToString());
+                    phoneCall.Add("ReferredBy", dataReader[Enums.GetDescription(Enums.PhoneCalls.ReferredBy)].ToString());
                 else
-                    phoneCall.Add("ReferedBy", DBNull.Value);
+                    phoneCall.Add("ReferredBy", DBNull.Value);
 
 
                 column = Enums.GetDescription(Enums.PhoneCalls.Duration);
