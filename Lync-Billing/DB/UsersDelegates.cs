@@ -12,6 +12,7 @@ namespace Lync_Billing.DB
         public int ID { set; get; }
         public string SipAccount { get; set; }
         public string DelegeeAccount { get; set; }
+        public int DelegeeType { get; set; }
         public string Description { get; set; }
 
         private static DBLib DBRoutines = new DBLib();
@@ -47,6 +48,9 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Delegee) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
 
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeType) && row[column.ColumnName] != System.DBNull.Value)
+                        delegatedAccount.DelegeeType = (int)row[column.ColumnName];
+
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.SipAccount = (string)row[column.ColumnName];
 
@@ -77,6 +81,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Delegee) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeType) && row[column.ColumnName] != System.DBNull.Value)
+                        delegatedAccount.DelegeeType = (int)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.SipAccount = (string)row[column.ColumnName];
@@ -165,6 +172,9 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
                         delegates.SipAccount = (string)row[column.ColumnName];
 
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeType) && row[column.ColumnName] != System.DBNull.Value)
+                        delegates.DelegeeType = (int)row[column.ColumnName];
+
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Description) && row[column.ColumnName] != System.DBNull.Value)
                         delegates.Description = (string)row[column.ColumnName];
                 }
@@ -185,6 +195,9 @@ namespace Lync_Billing.DB
 
             if (delegee.DelegeeAccount.ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.Delegates.Delegee), delegee.DelegeeAccount);
+
+            if (delegee.DelegeeType.ToString() != null)
+                setPart.Add(Enums.GetDescription(Enums.Delegates.DelegeeType), delegee.DelegeeType);
 
             if (delegee.Description.ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.Delegates.Description), delegee.Description);
@@ -232,6 +245,9 @@ namespace Lync_Billing.DB
 
             if (delegee.DelegeeAccount.ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Delegates.Delegee), delegee.DelegeeAccount);
+
+            if (delegee.DelegeeType.ToString() != null)
+                columnsValues.Add(Enums.GetDescription(Enums.Delegates.Delegee), delegee.DelegeeType);
 
             if (delegee.Description.ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Delegates.Description), delegee.Description);
