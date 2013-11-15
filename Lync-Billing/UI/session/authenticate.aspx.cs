@@ -106,7 +106,7 @@ namespace Lync_Billing.ui.session
                         ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
 
                         //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
-                        if ((session.IsDelegate && accessParam == "delegee" && session.ListOfDelegees.Keys.Contains(identityParam)) || session.IsDeveloper)
+                        if ((session.IsUserDelegate && accessParam == "delegee" && session.ListOfUserDelegees.Keys.Contains(identityParam)) || session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
                             this.access_level.Value = accessParam;
@@ -238,7 +238,7 @@ namespace Lync_Billing.ui.session
 
                         else if (this.access_level.Value == delegeeRoleName && this.delegee_identity != null)
                         {
-                            if (session.ListOfDelegees.Keys.Contains(this.delegee_identity.Value))
+                            if (session.ListOfUserDelegees.Keys.Contains(this.delegee_identity.Value))
                             {
                                 SwitchToDelegee(this.delegee_identity.Value);
                             }
@@ -299,7 +299,7 @@ namespace Lync_Billing.ui.session
 
             //Switch identity
             session.EffectiveSipAccount = delegeeSipAccount;
-            session.EffectiveDisplayName = formatDisplayName(session.ListOfDelegees[session.EffectiveSipAccount]);
+            session.EffectiveDisplayName = formatDisplayName(session.ListOfUserDelegees[session.EffectiveSipAccount]);
 
             //Initialize the PhoneBook in the session
             session.PhoneBook = new Dictionary<string, PhoneBook>();
