@@ -16,7 +16,7 @@ namespace Lync_Backend.Interfaces
         void MarkExclusion(string tablename, ref PhoneCalls phoneCall);
         
         void ApplyRates(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null);
-        void ApplyRates(string tablename, ref PhoneCalls phoneCall);
+        void ApplyRates(string tablename, ref PhoneCalls phoneCall, ref Type type);
 
         void ResetPhoneCallsAttributes(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null);
         void ResetPhoneCallsAttributes(string tablename, ref PhoneCalls phoneCall);
