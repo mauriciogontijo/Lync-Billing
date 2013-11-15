@@ -187,7 +187,7 @@ namespace Lync_Backend.Helpers
         /***
          * This is used in the CallMarker classes, to fill the PhoneCall objects from the database reader.
          */
-        public static PhoneCalls FillPhoneCallFromOleDataReader(OleDbDataReader dataReader)
+        public static PhoneCalls FillPhoneCallFromOleDataReader(ref OleDbDataReader dataReader)
         {
             string column = string.Empty;
             PhoneCalls phoneCall = new PhoneCalls();
@@ -262,7 +262,7 @@ namespace Lync_Backend.Helpers
                 phoneCall.ReferredBy = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.ChargingParty);
-            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+            if (ValidateColumnName(ref dataReader,ref column) == true && (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty))
                 phoneCall.ChargingParty = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.Duration);
@@ -270,32 +270,47 @@ namespace Lync_Backend.Helpers
                 phoneCall.Duration = Convert.ToDecimal(dataReader[column]);
 
             column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallFrom);
-            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+            if (ValidateColumnName(ref dataReader, ref column) == true && (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty))
                 phoneCall.Marker_CallFrom = Convert.ToInt64(dataReader[column]);
 
             column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallTo);
-            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+            if (ValidateColumnName(ref dataReader, ref column) == true && ( dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty))
                 phoneCall.Marker_CallTo = Convert.ToInt64(dataReader[column]);
 
             column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry);
-            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+            if (ValidateColumnName(ref dataReader, ref column) == true && ( dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty))
                 phoneCall.Marker_CallToCountry = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID);
-            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+            if (ValidateColumnName(ref dataReader, ref column) == true && ( dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty))
                 phoneCall.Marker_CallTypeID = Convert.ToInt32(dataReader[column]);
 
             column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost);
-            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+            if (ValidateColumnName(ref dataReader, ref column) == true && ( dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty))
                 phoneCall.Marker_CallCost = Convert.ToInt32(dataReader[column]);
 
             column = Enums.GetDescription(Enums.PhoneCalls.Marker_CallType);
-            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+            if (ValidateColumnName(ref dataReader, ref column) == true && ( dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty))
                 phoneCall.Marker_CallType = dataReader[column].ToString();
 
 
             //Return teh filled object
             return phoneCall;
+        }
+
+        private static bool ValidateColumnName(ref OleDbDataReader dataReader,ref string columnName) 
+        {
+            try
+            {
+                if (dataReader.GetOrdinal(columnName) >= 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch(Exception ex) 
+            {
+                return false;
+            }
         }
 
         public static bool IsValidEmail(string emailAddress)

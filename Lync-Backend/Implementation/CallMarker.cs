@@ -8,11 +8,16 @@ using Lync_Backend.Helpers;
 using System.Data.OleDb;
 using System.Configuration;
 using Lync_Backend.Libs;
+using System.Reflection.Emit;
+using System.Reflection;
+using System.Linq.Expressions;
+using Lync_Backend.Helpers;
 
 namespace Lync_Backend.Implementation
 {
     class CallMarker : AbDatabaseMarker
     {
+
         OleDbDataReader dataReader;
         OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
 
@@ -37,10 +42,9 @@ namespace Lync_Backend.Implementation
 
             bool saveState = false;
 
-
             //Call the SetType on the phoneCall Related table using class loader
             Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
-            string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
+           
             object instance = Activator.CreateInstance(type);
 
             statusTimestamp = GetLastMarked(tablename);
@@ -80,7 +84,7 @@ namespace Lync_Backend.Implementation
                     updateStatementValues = new Dictionary<string, object>();
 
                     //Fill the phoneCall Object
-                    phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
+                    phoneCall = Misc.FillPhoneCallFromOleDataReader(ref dataReader);
 
                     //Call the correct set type
                     ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
@@ -113,15 +117,22 @@ namespace Lync_Backend.Implementation
             }
         }
 
-        public override void MarkCalls(string tablename, ref PhoneCalls phoneCall)
+        [LoaderOptimization(LoaderOptimization.MultiDomain)]
+        public override void MarkCalls(string tablename, ref PhoneCalls phoneCall, ref Type type)
         {
-
             //Call the SetType on the phoneCall Related table using class loader
-            Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
-            string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
-            object instance = Activator.CreateInstance(type);
+            //object instance = Activator.CreateInstance(type);
 
+            //MethodInfo method = type.GetMethod("SetCallType");
+            //method.Invoke(null, new object[] { phoneCall });    
+
+            //object instance = Activator.CreateInstance(type);
             //Call the correct set type
+            //((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
+
+            ConstructorInfo cinfo = type.GetConstructor(new Type[] { });
+            object instance = cinfo.Invoke(new object[] { });
+
             ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
 
             //Assign the CharginParty field a value
@@ -151,7 +162,6 @@ namespace Lync_Backend.Implementation
 
             //Call the SetType on the phoneCall Related table using class loader
             Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
-            string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
             object instance = Activator.CreateInstance(type);
 
             statusTimestamp = GetLastAppliedRate(tablename);
@@ -190,10 +200,12 @@ namespace Lync_Backend.Implementation
                     updateStatementValues = new Dictionary<string, object>();
 
                     //Fill the phoneCall Object
-                    phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
+                    phoneCall = Misc.FillPhoneCallFromOleDataReader(ref dataReader);
 
                     //Call the correct set type
-                    ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
+                    //((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
+                    MethodInfo method = type.GetMethod("ApplyRate");
+                    method.Invoke(null, new object[] { phoneCall });   
 
                     //Set the updateStatementValues dictionary items with the phoneCall instance variables
                     updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
@@ -217,12 +229,13 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Close();
         }
 
-        public override void ApplyRates(string tablename, ref PhoneCalls phoneCall)
+        public override void ApplyRates(string tablename, ref PhoneCalls phoneCall,ref Type type)
         {
-           
-            Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
-            string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
-            object instance = Activator.CreateInstance(type);
+            //Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
+            //object instance = Activator.CreateInstance(type);
+
+            ConstructorInfo cinfo = type.GetConstructor(new Type[] { });
+            object instance = cinfo.Invoke(new object[] { });
 
            ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
         }

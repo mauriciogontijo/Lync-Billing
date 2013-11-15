@@ -11,7 +11,7 @@ namespace Lync_Backend.Implementation
 {
     class PhoneCalls2013 : PhoneCalls,IPhoneCalls
     {
-
+        public PhoneCalls2013() { }
         /***
             * List of Chargeable Phonecalls Types include:
             * 1 = LOCAL PHONECALL

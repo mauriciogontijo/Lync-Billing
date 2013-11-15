@@ -9,6 +9,9 @@ namespace Lync_Backend.Helpers
 {
     public class PhoneCalls
     {
+
+        public PhoneCalls() { }
+
         public string SessionIdTime { set; get; }
         public int SessionIdSeq { get; set; }
         public string ResponseTime { set; get; }

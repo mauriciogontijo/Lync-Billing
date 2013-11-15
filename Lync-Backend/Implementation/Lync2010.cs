@@ -68,6 +68,7 @@ namespace Lync_Backend.Implementation
             string column = string.Empty;
             string LAST_IMPORTED_PHONECALL_DATE = string.Empty;
 
+            Type type = Type.GetType("Lync_Backend.Implementation." + PhoneCallsTableName);
 
             //OPEN CONNECTIONS
             sourceDBConnector.Open();
@@ -90,11 +91,11 @@ namespace Lync_Backend.Implementation
             {
                 lastMarkedPhoneCallDate = string.Empty;
 
-                phoneCallObj = Misc.FillPhoneCallFromOleDataReader(dataReader);
+                phoneCallObj = Misc.FillPhoneCallFromOleDataReader(ref dataReader);
 
                 //Call the SetType on the phoneCall Related table using class loader
-                callsMarker.MarkCalls(PhoneCallsTableName, ref phoneCallObj);
-                callsMarker.ApplyRates(PhoneCallsTableName, ref phoneCallObj);
+                callsMarker.MarkCalls(PhoneCallsTableName, ref phoneCallObj,ref type);
+                //callsMarker.ApplyRates(PhoneCallsTableName, ref phoneCallObj);
 
                 lastMarkedPhoneCallDate = phoneCallObj.SessionIdTime;
 
@@ -108,7 +109,7 @@ namespace Lync_Backend.Implementation
                     if (dataRowCounter % 10000 == 0)
                     {
                         callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "Marking", lastMarkedPhoneCallDate, ref sourceDBConnector);
-                        callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, ref sourceDBConnector);
+                        //callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, ref sourceDBConnector);
                     }
 
                     dataRowCounter += 1;
@@ -120,7 +121,7 @@ namespace Lync_Backend.Implementation
             }
 
             callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "Marking", lastMarkedPhoneCallDate, ref sourceDBConnector);
-            callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, ref sourceDBConnector);
+            //callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, ref sourceDBConnector);
 
             sourceDBConnector.Close();
         }
