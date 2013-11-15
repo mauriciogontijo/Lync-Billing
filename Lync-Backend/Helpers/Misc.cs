@@ -26,61 +26,70 @@ namespace Lync_Backend.Helpers
             Dictionary<string, object> phoneCallDict = new Dictionary<string, object>();
 
             if (!string.IsNullOrEmpty(phoneCall.SessionIdTime))
-                phoneCallDict.Add("SessionIdTime", phoneCall.SessionIdTime);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), phoneCall.SessionIdTime);
 
             if (phoneCall.SessionIdSeq != null)
-                phoneCallDict.Add("SessionIdSeq", phoneCall.SessionIdSeq);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq), phoneCall.SessionIdSeq);
 
             if (!string.IsNullOrEmpty(phoneCall.ResponseTime))
-                phoneCallDict.Add("ResponseTime", phoneCall.ResponseTime);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime), phoneCall.ResponseTime);
 
             if (!string.IsNullOrEmpty(phoneCall.SessionEndTime))
-                phoneCallDict.Add("SessionEndTime", phoneCall.SessionEndTime);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.SessionEndTime), phoneCall.SessionEndTime);
 
             if (!string.IsNullOrEmpty(phoneCall.SourceUserUri))
-                phoneCallDict.Add("SourceUserUri", phoneCall.SourceUserUri);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), phoneCall.SourceUserUri);
 
             if (!string.IsNullOrEmpty(phoneCall.SourceNumberUri))
-                phoneCallDict.Add("SourceNumberUri", phoneCall.SourceNumberUri);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri), phoneCall.SourceNumberUri);
 
             if (!string.IsNullOrEmpty(phoneCall.DestinationNumberUri))
-                phoneCallDict.Add("DestinationNumberUri", phoneCall.DestinationNumberUri);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri), phoneCall.DestinationNumberUri);
 
             if (!string.IsNullOrEmpty(phoneCall.FromMediationServer))
-                phoneCallDict.Add("FromMediationServer", phoneCall.FromMediationServer);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.FromMediationServer), phoneCall.FromMediationServer);
 
             if (!string.IsNullOrEmpty(phoneCall.ToMediationServer))
-                phoneCallDict.Add("ToMediationServer", phoneCall.ToMediationServer);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.ToMediationServer), phoneCall.ToMediationServer);
 
             if (!string.IsNullOrEmpty(phoneCall.FromGateway))
-                phoneCallDict.Add("FromGateway", phoneCall.FromGateway);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.FromGateway), phoneCall.FromGateway);
 
             if (!string.IsNullOrEmpty(phoneCall.ToGateway))
-                phoneCallDict.Add("ToGateway", phoneCall.ToGateway);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.ToGateway), phoneCall.ToGateway);
 
             if (!string.IsNullOrEmpty(phoneCall.SourceUserEdgeServer))
-                phoneCallDict.Add("SourceUserEdgeServer", phoneCall.SourceUserEdgeServer);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer), phoneCall.SourceUserEdgeServer);
 
             if (!string.IsNullOrEmpty(phoneCall.DestinationUserEdgeServer))
-                phoneCallDict.Add("DestinationUserEdgeServer", phoneCall.DestinationUserEdgeServer);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer), phoneCall.DestinationUserEdgeServer);
 
             if (!string.IsNullOrEmpty(phoneCall.ServerFQDN))
-                phoneCallDict.Add("ServerFQDN", phoneCall.ServerFQDN);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.ServerFQDN), phoneCall.ServerFQDN);
 
             if (!string.IsNullOrEmpty(phoneCall.PoolFQDN))
-                phoneCallDict.Add("PoolFQDN", phoneCall.PoolFQDN);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.PoolFQDN), phoneCall.PoolFQDN);
+
+            if (!string.IsNullOrEmpty(phoneCall.OnBehalf))
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.OnBehalf), phoneCall.OnBehalf);
+
+            if (!string.IsNullOrEmpty(phoneCall.ReferredBy))
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.ReferredBy), phoneCall.ReferredBy);
+
+            if (!string.IsNullOrEmpty(phoneCall.ChargingParty))
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.ChargingParty), phoneCall.ChargingParty);
 
             if (!string.IsNullOrEmpty(phoneCall.Marker_CallToCountry))
-                phoneCallDict.Add("marker_CallToCountry", phoneCall.Marker_CallToCountry);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry), phoneCall.Marker_CallToCountry);
 
             if (!string.IsNullOrEmpty(phoneCall.Marker_CallType))
-                phoneCallDict.Add("marker_CallType", phoneCall.Marker_CallType);
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallType), phoneCall.Marker_CallType);
 
-            phoneCallDict.Add("marker_CallTypeID", phoneCall.Marker_CallTypeID);
-            phoneCallDict.Add("marker_CallCost", phoneCall.Marker_CallCost);
-            phoneCallDict.Add("marker_CallFrom", phoneCall.Marker_CallFrom);
-            phoneCallDict.Add("marker_CallTo", phoneCall.Marker_CallTo);
-            phoneCallDict.Add("Duration", phoneCall.Duration);
+            phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID), phoneCall.Marker_CallTypeID);
+            phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost), phoneCall.Marker_CallCost);
+            phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallFrom), phoneCall.Marker_CallFrom);
+            phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallTo), phoneCall.Marker_CallTo);
+            phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.Duration), phoneCall.Duration);
 
             return phoneCallDict;
         }
@@ -243,6 +252,18 @@ namespace Lync_Backend.Helpers
             column = Enums.GetDescription(Enums.PhoneCalls.PoolFQDN);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
                 phoneCall.PoolFQDN = dataReader[column].ToString();
+            
+            column = Enums.GetDescription(Enums.PhoneCalls.OnBehalf);
+            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                phoneCall.OnBehalf = dataReader[column].ToString();
+
+            column = Enums.GetDescription(Enums.PhoneCalls.ReferredBy);
+            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                phoneCall.ReferredBy = dataReader[column].ToString();
+
+            column = Enums.GetDescription(Enums.PhoneCalls.ChargingParty);
+            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                phoneCall.ChargingParty = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.Duration);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)

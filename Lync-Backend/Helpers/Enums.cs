@@ -76,7 +76,9 @@ namespace Lync_Backend.Helpers
             [Description("OnBehalf")]
             OnBehalf,
             [Description("ReferedBy")]
-            ReferedBy,
+            ReferredBy,
+            [Description("ChargingParty")]
+            ChargingParty,
             [Description("Duration")]
             Duration,
             [Description("marker_CallFrom")]

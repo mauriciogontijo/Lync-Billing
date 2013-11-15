@@ -194,9 +194,9 @@ namespace Lync_Backend.Implementation
                 else
                     phoneCall.Add("OnBehalf", DBNull.Value);
 
-                column = Enums.GetDescription(Enums.PhoneCalls.ReferedBy);
+                column = Enums.GetDescription(Enums.PhoneCalls.ReferredBy);
                 if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
-                    phoneCall.Add("ReferedBy", dataReader[Enums.GetDescription(Enums.PhoneCalls.ReferedBy)].ToString());
+                    phoneCall.Add("ReferedBy", dataReader[Enums.GetDescription(Enums.PhoneCalls.ReferredBy)].ToString());
                 else
                     phoneCall.Add("ReferedBy", DBNull.Value);
 

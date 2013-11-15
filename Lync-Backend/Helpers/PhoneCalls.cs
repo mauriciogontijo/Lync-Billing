@@ -35,6 +35,10 @@ namespace Lync_Backend.Helpers
         public decimal Duration { set; get; }
         public decimal Marker_CallCost { set; get; }
 
+        public string OnBehalf { set; get; }
+        public string ReferredBy { set; get; }
+        public string ChargingParty { set; get; }
+
         //User UI update Fields
         public string UI_UpdatedByUser { set; get; }
         public DateTime UI_MarkedOn { set; get; }

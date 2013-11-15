@@ -85,6 +85,11 @@ namespace Lync_Backend.Implementation
                     //Call the correct set type
                     ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
 
+                    //Assign the CharginParty field a value
+                    if (!string.IsNullOrEmpty(phoneCall.ReferredBy))
+                        phoneCall.ChargingParty = phoneCall.ReferredBy;
+                    else
+                        phoneCall.ChargingParty = phoneCall.SourceUserUri;
 
                     //Set the updateStatementValues dictionary items with the phoneCall instance variables
                     updateStatementValues = Misc.ConvertPhoneCallToDictionary(phoneCall);
