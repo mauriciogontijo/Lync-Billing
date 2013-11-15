@@ -187,7 +187,7 @@ namespace Lync_Backend.Helpers
         /***
          * This is used in the CallMarker classes, to fill the PhoneCall objects from the database reader.
          */
-        public static PhoneCalls FillPhoneCallFromOleDataReader(ref OleDbDataReader dataReader)
+        public static PhoneCalls FillPhoneCallFromOleDataReader(OleDbDataReader dataReader)
         {
             string column = string.Empty;
             PhoneCalls phoneCall = new PhoneCalls();

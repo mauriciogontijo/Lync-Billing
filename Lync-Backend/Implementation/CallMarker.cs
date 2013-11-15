@@ -84,7 +84,7 @@ namespace Lync_Backend.Implementation
                     updateStatementValues = new Dictionary<string, object>();
 
                     //Fill the phoneCall Object
-                    phoneCall = Misc.FillPhoneCallFromOleDataReader(ref dataReader);
+                    phoneCall = Misc.FillPhoneCallFromOleDataReader(dataReader);
 
                     //Call the correct set type
                     ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
@@ -105,12 +105,12 @@ namespace Lync_Backend.Implementation
 
                     //Update the CallMarkerStatus table fro this PhoneCall table.
                     if (dataRowCounter % 10000 == 0)
-                        UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate, ref sourceDBConnector, saveState);
+                        UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate, sourceDBConnector, saveState);
 
                     dataRowCounter += 1;
                 }
 
-                UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate, ref sourceDBConnector, saveState);
+                UpdateCallMarkerStatus(tablename, "Marking", lastMarkedPhoneCallDate, sourceDBConnector, saveState);
 
                 //Close the database connection
                 sourceDBConnector.Close();
@@ -175,7 +175,7 @@ namespace Lync_Backend.Implementation
                     updateStatementValues = new Dictionary<string, object>();
 
                     //Fill the phoneCall Object
-                    phoneCall = Misc.FillPhoneCallFromOleDataReader(ref dataReader);
+                    phoneCall = Misc.FillPhoneCallFromOleDataReader( dataReader);
 
                     //Call the correct set type
                     ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
@@ -192,13 +192,13 @@ namespace Lync_Backend.Implementation
 
                     //Update the CallMarkerStatus table fro this PhoneCall table.
                     if (dataRowCounter % 10000 == 0)
-                        UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall, ref sourceDBConnector, saveState);
+                        UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall, sourceDBConnector, saveState);
 
                     dataRowCounter += 1;
 
                 }//END-WHILE
 
-                UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall, ref sourceDBConnector, saveState);
+                UpdateCallMarkerStatus(tablename, "ApplyingRates", lastRateAppliedOnPhoneCall, sourceDBConnector, saveState);
             }
             //Close the database connection
             sourceDBConnector.Close();
@@ -238,7 +238,7 @@ namespace Lync_Backend.Implementation
                 return "N/A";
         }
 
-        public void UpdateCallMarkerStatus(string phoneCallTable, string type, string timestamp, ref OleDbConnection conn,bool Update=true)
+        public void UpdateCallMarkerStatus(string phoneCallTable, string type, string timestamp,OleDbConnection conn,bool Update=true)
         {
             if (Update == true)
             {

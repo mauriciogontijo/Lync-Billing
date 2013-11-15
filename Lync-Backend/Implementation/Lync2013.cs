@@ -96,7 +96,7 @@ namespace Lync_Backend.Implementation
             {
                 lastMarkedPhoneCallDate = string.Empty;
 
-                phoneCallObj = Misc.FillPhoneCallFromOleDataReader(ref dataReader);
+                phoneCallObj = Misc.FillPhoneCallFromOleDataReader( dataReader);
 
                 ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCallObj);
                 ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCallObj);
@@ -121,8 +121,8 @@ namespace Lync_Backend.Implementation
                     //Update the CallMarkerStatus table fro this PhoneCall table.
                     if (dataRowCounter % 10000 == 0)
                     {
-                        callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "Marking", lastMarkedPhoneCallDate, ref DestinationDBConnector);
-                        callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, ref DestinationDBConnector);
+                        callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "Marking", lastMarkedPhoneCallDate, DestinationDBConnector);
+                        callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, DestinationDBConnector);
                     }
 
                     dataRowCounter += 1;
@@ -133,8 +133,8 @@ namespace Lync_Backend.Implementation
                 }
             }
 
-            callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "Marking", lastMarkedPhoneCallDate, ref DestinationDBConnector);
-            callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, ref DestinationDBConnector);
+            callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "Marking", lastMarkedPhoneCallDate, DestinationDBConnector);
+            callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, DestinationDBConnector);
 
             sourceDBConnector.Close();
         }
