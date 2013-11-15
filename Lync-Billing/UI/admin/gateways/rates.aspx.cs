@@ -53,7 +53,7 @@ namespace Lync_Billing.ui.admin.gateways
             sipAccount = userSession.EffectiveSipAccount;
             string json = e.ExtraParams["Values"];
 
-            List<UsersDelegates> recordsToUpate = new List<UsersDelegates>();
+            List<Delegates> recordsToUpate = new List<Delegates>();
 
             ChangeRecords<Rate> toBeUpdated = new StoreDataHandler(e.ExtraParams["Values"]).BatchObjectData<Rate>();
 

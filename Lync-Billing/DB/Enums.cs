@@ -312,7 +312,7 @@ namespace Lync_Billing.DB
             SipAccount,
             [Description("DelegeeType")]
             DelegeeType,
-            [Description("UserDelegee")]
+            [Description("Delegee")]
             Delegee,
             [Description("Description")]
             Description

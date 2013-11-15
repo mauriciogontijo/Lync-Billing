@@ -28,7 +28,9 @@ namespace Lync_Billing.ui.session
         private string siteAdminRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
         private string siteAccountantRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
         private string departmentHeadRoleName = Enums.GetDescription(Enums.ActiveRoleNames.DepartmentHead);
-        private string delegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.Delegee);
+        private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee);
+        private string departmentDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.DepartmentDelegee);
+        private string siteDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee);
         private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
 
         protected void Page_Load(object sender, EventArgs e)
@@ -97,7 +99,7 @@ namespace Lync_Billing.ui.session
                         }
                     }
 
-                    //Case 2: The user asks for Delegee access
+                    //Case 2: The user asks for UserDelegee access
                     if (!string.IsNullOrEmpty(Request.QueryString["access"]) && !string.IsNullOrEmpty(Request.QueryString["identity"]))
                     {
                         accessParam = Request.QueryString["access"].ToLower();
@@ -143,7 +145,7 @@ namespace Lync_Billing.ui.session
                         else
                         {
                             //The user was already authenticated, redirect him/het to the respective elevated access dashboard
-                            if (session.ActiveRoleName != normalUserRoleName && session.ActiveRoleName != delegeeRoleName)
+                            if (session.ActiveRoleName != normalUserRoleName && session.ActiveRoleName != userDelegeeRoleName)
                             {
                                 Response.Redirect(getHomepageLink(session.ActiveRoleName));
                             }
@@ -152,14 +154,14 @@ namespace Lync_Billing.ui.session
                     }
                 }
 
-                //Mode 2: The Delegee Mode
+                //Mode 2: The UserDelegee Mode
                 else if (session.PrimarySipAccount != session.EffectiveSipAccount)
                 {
                     if (!string.IsNullOrEmpty(Request.QueryString["drop"]))
                     {
                         dropParam = Request.QueryString["drop"].ToLower();
 
-                        if (dropParam == delegeeRoleName && session.ActiveRoleName == delegeeRoleName)
+                        if (dropParam == userDelegeeRoleName && session.ActiveRoleName == userDelegeeRoleName)
                         {
                             DropAccess(dropParam);
 
@@ -236,7 +238,7 @@ namespace Lync_Billing.ui.session
                             Response.Redirect(getHomepageLink(departmentHeadRoleName));
                         }
 
-                        else if (this.access_level.Value == delegeeRoleName && this.delegee_identity != null)
+                        else if (this.access_level.Value == userDelegeeRoleName && this.delegee_identity != null)
                         {
                             if (session.ListOfUserDelegees.Keys.Contains(this.delegee_identity.Value))
                             {
@@ -287,7 +289,7 @@ namespace Lync_Billing.ui.session
             //role_id=50; department-head
             AccessLevels.Add(departmentHeadRoleName);
 
-            AccessLevels.Add(delegeeRoleName);
+            AccessLevels.Add(userDelegeeRoleName);
         }
 
 
@@ -310,10 +312,10 @@ namespace Lync_Billing.ui.session
             session.PhoneCallsPerPage = string.Empty;
 
             //Set the ActiveRoleName to "delegee"
-            session.ActiveRoleName = delegeeRoleName;
+            session.ActiveRoleName = userDelegeeRoleName;
 
             //Redirect to Uer Dashboard
-            Response.Redirect(getHomepageLink(delegeeRoleName));
+            Response.Redirect(getHomepageLink(userDelegeeRoleName));
         }
 
 
@@ -323,7 +325,7 @@ namespace Lync_Billing.ui.session
             //Initialize a temp copy of the User Session
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            if (access == delegeeRoleName)
+            if (access == userDelegeeRoleName)
             {
                 //Switch back to original identity
                 session.EffectiveSipAccount = session.PrimarySipAccount;
@@ -372,7 +374,7 @@ namespace Lync_Billing.ui.session
             else if (roleName == siteAdminRoleName) return "~/ui/admin/main/dashboard.aspx";
             else if (roleName == siteAccountantRoleName) return "~/ui/accounting/main/dashboard.aspx";
             else if (roleName == departmentHeadRoleName) return "~/ui/dephead/main/dashboard.aspx";
-            else if (roleName == normalUserRoleName || roleName == delegeeRoleName) return "~/ui/user/dashboard.aspx";
+            else if (roleName == normalUserRoleName || roleName == userDelegeeRoleName) return "~/ui/user/dashboard.aspx";
             
             //default case
             else return "~/ui/session/login.aspx";

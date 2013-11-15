@@ -98,14 +98,19 @@ namespace Lync_Billing.DB
             return DelegatedAccounts;
         }
 
-
         public static List<Delegates> GetDelegees(string degateAccount, int delegeeType) 
         {
             Delegates delegatedAccount;
             List<Delegates> DelegatedAccounts = new List<Delegates>();
             DataTable dt = new DataTable();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.DelegeeType), delegeeType);
+            Dictionary<string, object> wherePart = new Dictionary<string, object>
+            {
+                {Enums.GetDescription(Enums.Delegates.DelegeeType),delegeeType},
+                {Enums.GetDescription(Enums.Delegates.Delegee) ,degateAccount}
+            };
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName),null,wherePart,0);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -167,6 +172,7 @@ namespace Lync_Billing.DB
 
             return DelegatedAccounts;
         }
+        
         /*
          * This function returns a dictionary of the delegees sip-accounts and names {sip => name}, if they exist!
          **/
@@ -197,63 +203,7 @@ namespace Lync_Billing.DB
 
             return DelegatedAccounts;
         }
-
-
-        /*
-         * This function returns a list of delegees sip accounts only, if they exist.
-         **/
-        public static List<string> GetListOfDelegeesSipAccounts(string delegateAccount)
-        {
-            List<string> DelegatedAccounts = new List<string>();
-            string columnName = Enums.GetDescription(Enums.Delegates.SipAccount);
-
-            DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.Delegee), delegateAccount);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                if (row[Enums.GetDescription(Enums.Delegates.SipAccount)] != System.DBNull.Value)
-                {
-                    DelegatedAccounts.Add(
-                        (string)row[columnName]
-                    );
-                }
-            }
-
-            return DelegatedAccounts;
-        }
-
-        public static Delegates GetDelegateAccount(string sipAccount) 
-        {
-            Delegates delegates = new Delegates();
-
-            DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.SipAccount), sipAccount);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                foreach (DataColumn column in dt.Columns)
-                {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
-                        delegates.ID = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Delegee) && row[column.ColumnName] != System.DBNull.Value)
-                        delegates.DelegeeAccount = (string)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
-                        delegates.SipAccount = (string)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeType) && row[column.ColumnName] != System.DBNull.Value)
-                        delegates.DelegeeType = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Description) && row[column.ColumnName] != System.DBNull.Value)
-                        delegates.Description = (string)row[column.ColumnName];
-                }
-            }
-
-            return delegates;
-        }
-
+    
         public static bool UpadeDelegate(Delegates delegee) 
         {
             bool status = false;

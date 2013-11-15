@@ -22,7 +22,7 @@ namespace Lync_Billing.ui.user
         UserSession session;
         private string sipAccount = string.Empty;
         private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
-        private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.Delegee);
+        private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee);
         
         public int unmarkedCallsCount = 0;
         UserCallsSummary UserSummary = new UserCallsSummary();

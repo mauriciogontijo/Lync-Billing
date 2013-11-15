@@ -19,7 +19,7 @@ namespace Lync_Billing.ui.user
         UserSession session;
         private string sipAccount = string.Empty;
         private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
-        private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.Delegee);
+        private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee);
 
         private List<Gateway> gateways = new List<Gateway>();
         private List<Gateway> filteredGateways = new List<Gateway>();
