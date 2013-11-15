@@ -22,7 +22,7 @@ namespace Lync_Billing.DB
         public string EffectiveDisplayName { set; get; }
         public string PrimarySipAccount { set; get; }
         public string EffectiveSipAccount { set; get; }
-        public Dictionary<string, string> ListOfDelegees { get; set; }
+        public Dictionary<string, string> ListOfUserDelegees { get; set; }
         
         //Roles Related
         public List<UserRole> Roles { set; get; }
@@ -41,7 +41,9 @@ namespace Lync_Billing.DB
         public bool IsDepartmentHead { get; set; }
         
         //Delegate-capability check
-        public bool IsDelegate { set; get; }
+        public bool IsUserDelegate { set; get; }
+        public bool IsDepartmentDelegate { set; get; }
+        public bool IsSiteDelegate { set; get; }
 
         //Redirection Related
         public string CurrentURL { set; get; }
@@ -67,13 +69,15 @@ namespace Lync_Billing.DB
             IsSystemAdmin = false;
             IsSiteAdmin = false;
             IsSiteAccountant = false;
-            IsDelegate = false;
+            IsUserDelegate = false;
+            IsDepartmentDelegate = false;
+            IsSiteDelegate = false;
             IsDepartmentHead = false;
 
             //Empty all of the sip accounts
             PrimarySipAccount = string.Empty;
             EffectiveSipAccount = string.Empty;
-            ListOfDelegees = new Dictionary<string, string>();
+            ListOfUserDelegees = new Dictionary<string, string>();
         }
 
         
