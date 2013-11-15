@@ -33,7 +33,7 @@ namespace Lync_Billing.DB
             UsersDelegates delegatedAccount;
             List<UsersDelegates> DelegatedAccounts = new List<UsersDelegates>();
             DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegateAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.Delegee), delegateAccount);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -44,7 +44,7 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.ID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeAccount) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Delegee) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
@@ -75,7 +75,7 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.ID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeAccount) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Delegee) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
@@ -101,7 +101,7 @@ namespace Lync_Billing.DB
             string sipAccount = string.Empty;
 
             DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegateAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.Delegee), delegateAccount);
 
 
             foreach (DataRow row in dt.Rows)
@@ -130,7 +130,7 @@ namespace Lync_Billing.DB
             string columnName = Enums.GetDescription(Enums.Delegates.SipAccount);
 
             DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegateAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.Delegee), delegateAccount);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -159,7 +159,7 @@ namespace Lync_Billing.DB
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
                         delegates.ID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeAccount) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Delegee) && row[column.ColumnName] != System.DBNull.Value)
                         delegates.DelegeeAccount = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
@@ -184,7 +184,7 @@ namespace Lync_Billing.DB
                 setPart.Add(Enums.GetDescription(Enums.Delegates.SipAccount), delegee.SipAccount);
 
             if (delegee.DelegeeAccount.ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegee.DelegeeAccount);
+                setPart.Add(Enums.GetDescription(Enums.Delegates.Delegee), delegee.DelegeeAccount);
 
             if (delegee.Description.ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.Delegates.Description), delegee.Description);
@@ -210,7 +210,7 @@ namespace Lync_Billing.DB
 
             Dictionary<string,object> wherePart = new Dictionary<string,object>();
             wherePart.Add(Enums.GetDescription(Enums.Delegates.SipAccount),delegee.SipAccount);
-            wherePart.Add(Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegee.DelegeeAccount);
+            wherePart.Add(Enums.GetDescription(Enums.Delegates.Delegee), delegee.DelegeeAccount);
 
             status = DBRoutines.DELETE(Enums.GetDescription(Enums.Delegates.TableName), wherePart);
 
@@ -231,7 +231,7 @@ namespace Lync_Billing.DB
                 columnsValues.Add(Enums.GetDescription(Enums.Delegates.SipAccount), delegee.SipAccount);
 
             if (delegee.DelegeeAccount.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Delegates.DelegeeAccount), delegee.DelegeeAccount);
+                columnsValues.Add(Enums.GetDescription(Enums.Delegates.Delegee), delegee.DelegeeAccount);
 
             if (delegee.Description.ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.Delegates.Description), delegee.Description);

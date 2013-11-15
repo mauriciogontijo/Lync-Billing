@@ -290,6 +290,18 @@ namespace Lync_Billing.DB
             PhoneCallsTableName
         }
 
+        public enum DelegateTypes
+        {
+            [Description("DelegateTypes")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("DelegateType")]
+            DelegateType,
+            [Description("Description")]
+            Description
+        }
+
         public enum Delegates 
         {
             [Description("Delegates")]
@@ -298,8 +310,10 @@ namespace Lync_Billing.DB
             ID,
             [Description("SipAccount")]
             SipAccount,
-            [Description("DelegeeAccount")]
-            DelegeeAccount,
+            [Description("DelegateType")]
+            DelegateType,
+            [Description("Delegee")]
+            Delegee,
             [Description("Description")]
             Description
         }
