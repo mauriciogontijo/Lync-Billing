@@ -113,11 +113,22 @@ namespace Lync_Backend.Implementation
             }
         }
 
-        public override void MarkExclusion(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
+        public override void MarkCalls(string tablename, ref PhoneCalls phoneCall)
         {
-            DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
-            DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
-            //TODO: manipluate exclusions 
+
+            //Call the SetType on the phoneCall Related table using class loader
+            Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
+            string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
+            object instance = Activator.CreateInstance(type);
+
+            //Call the correct set type
+            ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
+
+            //Assign the CharginParty field a value
+            if (!string.IsNullOrEmpty(phoneCall.ReferredBy))
+                phoneCall.ChargingParty = phoneCall.ReferredBy;
+            else
+                phoneCall.ChargingParty = phoneCall.SourceUserUri;
         }
 
         public override void ApplyRates(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
@@ -206,11 +217,38 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Close();
         }
 
+        public override void ApplyRates(string tablename, ref PhoneCalls phoneCall)
+        {
+           
+            Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
+            string fqdn = typeof(Interfaces.IPhoneCalls).AssemblyQualifiedName;
+            object instance = Activator.CreateInstance(type);
+
+           ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCall);
+        }
+
+        public override void MarkExclusion(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
+        {
+            DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
+            DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
+            //TODO: manipluate exclusions 
+        }
+
+        public override void MarkExclusion(string tablename, ref  PhoneCalls phoneCall)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void ResetPhoneCallsAttributes(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null)
         {
             DateTime from = optionalFrom != null ? optionalFrom.Value : DateTime.MinValue;
             DateTime to = optionalTo != null ? optionalTo.Value : DateTime.MaxValue;
             //TODO: Reset marking or rates 
+        }
+
+        public override void ResetPhoneCallsAttributes(string tablename, ref PhoneCalls phoneCall)
+        {
+            throw new NotImplementedException();
         }
 
         private string GetLastMarked(string phoneCallsTable) 
@@ -258,5 +296,11 @@ namespace Lync_Backend.Implementation
                 }
             }
         }
+
+
+       
+
+      
+      
     }
 }
