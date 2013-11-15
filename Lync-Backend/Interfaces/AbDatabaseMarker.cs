@@ -11,15 +11,15 @@ namespace Lync_Backend.Interfaces
     {
 
         public abstract void MarkCalls(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null);
-        public abstract void MarkCalls(string tablename, ref PhoneCalls phoneCall);
+        public abstract void MarkCalls(string tableName, ref PhoneCalls phoneCall);
 
         public abstract void MarkExclusion(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null);
-        public abstract void MarkExclusion(string tablename,ref  PhoneCalls phoneCall);
+        public abstract void MarkExclusion(string tableName, ref  PhoneCalls phoneCall);
 
         public abstract void ApplyRates(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null);
-        public abstract void ApplyRates(string tablename,ref PhoneCalls phoneCall);
+        public abstract void ApplyRates(string tableName, ref PhoneCalls phoneCall);
 
         public abstract void ResetPhoneCallsAttributes(string tablename, DateTime? optionalFrom = null, DateTime? optionalTo = null, string gateway = null);
-        public abstract void ResetPhoneCallsAttributes(string tablename,ref  PhoneCalls phoneCall);
+        public abstract void ResetPhoneCallsAttributes(string tableName, ref  PhoneCalls phoneCall);
     }
 }
