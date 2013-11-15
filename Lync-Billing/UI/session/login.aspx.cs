@@ -90,36 +90,22 @@ namespace Lync_Billing.ui.session
                 // User Information was found in active directory
                 if (!userInfo.Equals(null))
                 {
-                    session.EmailAddress = userInfo.EmailAddress;
-
-                    //Get the first part of the User's Display Name if s/he has a name like this: "User Name (text)"
-                    session.PrimaryDisplayName = formatDisplayName(userInfo.DisplayName);
-                    session.EffectiveDisplayName = session.PrimaryDisplayName;
-
-                    session.TelephoneNumber = userInfo.Telephone;
-                    session.IpAddress = HttpContext.Current.Request.UserHostAddress;
-                    session.UserAgent = HttpContext.Current.Request.UserAgent;
-
-                    List<string> columns = new List<string>();
-                    Dictionary<string, object> whereStatement = new Dictionary<string, object>();
-
-                    whereStatement.Add("SipAccount", userInfo.SipAccount.Replace("sip:", ""));
-
-                    List<Users> ListOfUsers = Users.GetUsers(columns, whereStatement, 1);
                     List<UserRole> userRoles;
-
-                    //User Exists in Users Table
-                    if (ListOfUsers.Count > 0)
+                    
+                    //Try to get user from the database
+                    Users DatabaseUserRecord = Users.GetUser(userInfo.SipAccount.Replace("sip:", ""));
+                    
+                    //Update the user, if exists and if his/her info has changed... Insert the User if s/he doesn't exist
+                    if (DatabaseUserRecord != null)
                     {
                         userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
                         session.Roles = userRoles;
                         session.InitializeRoles(userRoles);
 
                         //If user information from Active directory doesnt match the one in Users Table : update user table 
-                        if ((ListOfUsers[0]).SipAccount != userInfo.SipAccount.Replace("sip:", "") ||
-                            (ListOfUsers[0]).EmployeeID.ToString() != userInfo.EmployeeID ||
-                            (ListOfUsers[0]).SiteName != userInfo.physicalDeliveryOfficeName ||
-                            (ListOfUsers[0]).Department != userInfo.department)
+                        if (DatabaseUserRecord.EmployeeID.ToString() != userInfo.EmployeeID ||
+                            DatabaseUserRecord.SiteName != userInfo.physicalDeliveryOfficeName ||
+                            DatabaseUserRecord.Department != userInfo.department)
                         {
                             Users user = new Users();
                             user.SiteName = userInfo.physicalDeliveryOfficeName;
@@ -140,29 +126,9 @@ namespace Lync_Billing.ui.session
 
                             Users.UpdateUser(user);
                         }
-
-                        session.ActiveRoleName = "user";
-                        session.SiteName = userInfo.physicalDeliveryOfficeName;
-                        session.Department = userInfo.department;
-
-                        session.EmployeeID = userInfo.EmployeeID;
-                        session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
-                        session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
-                        session.IsDelegate = UsersDelegates.IsDelegate(session.PrimarySipAccount);
-                        session.ListOfDelegees = UsersDelegates.GetDelegeesNames(session.PrimarySipAccount);
                     }
                     else
                     {
-                        session.ActiveRoleName = "user";
-                        session.EmployeeID = userInfo.EmployeeID;
-                        session.SiteName = userInfo.physicalDeliveryOfficeName;
-                        session.Department = userInfo.department;
-
-                        session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
-                        session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
-                        session.IsDelegate = UsersDelegates.IsDelegate(session.PrimarySipAccount);
-                        session.ListOfDelegees = UsersDelegates.GetDelegeesNames(session.PrimarySipAccount);
-                        
                         userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
                         session.Roles = userRoles;
                         session.InitializeRoles(userRoles);
@@ -181,12 +147,35 @@ namespace Lync_Billing.ui.session
                         else
                             user.EmployeeID = 0;
 
-                        //user.EmployeeID = Convert.ToInt32(userInfo.EmployeeID);
                         user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                         user.FullName = userInfo.FirstName + " " + userInfo.LastName;
                      
                         Users.InsertUser(user);
                     }
+
+                    
+                    /********* START Session Managemenet Block **********/
+                    session.EmployeeID = userInfo.EmployeeID;
+                    session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
+                    session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
+                    session.PrimaryDisplayName = formatDisplayName(userInfo.DisplayName);
+                    session.EffectiveDisplayName = session.PrimaryDisplayName;
+
+                    session.ActiveRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
+                    session.SiteName = userInfo.physicalDeliveryOfficeName;
+                    session.Department = userInfo.department;
+
+                    session.IsUserDelegate = Delegates.IsUserDelegate(session.PrimarySipAccount);
+                    session.IsSiteDelegate = Delegates.IsSiteDelegate(session.PrimarySipAccount);
+                    session.IsDepartmentDelegate = Delegates.IsDepartmentDelegate(session.PrimarySipAccount);
+                    session.ListOfUserDelegees = Delegates.GetDelegeesNames(session.PrimarySipAccount);
+
+                    session.TelephoneNumber = userInfo.Telephone;
+                    session.IpAddress = HttpContext.Current.Request.UserHostAddress;
+                    session.UserAgent = HttpContext.Current.Request.UserAgent;
+                    session.EmailAddress = userInfo.EmailAddress;
+                    /********* END Session Managemenet Block **********/
+
 
                     Session.Add("UserData", session);
 
