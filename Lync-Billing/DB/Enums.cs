@@ -292,12 +292,12 @@ namespace Lync_Billing.DB
 
         public enum DelegateTypes
         {
-            [Description("DelegateTypes")]
+            [Description("DelegeeType")]
             TableName,
             [Description("ID")]
             ID,
-            [Description("DelegateType")]
-            DelegateType,
+            [Description("DelegeeType")]
+            DelegeeType,
             [Description("Description")]
             Description
         }
@@ -310,8 +310,8 @@ namespace Lync_Billing.DB
             ID,
             [Description("SipAccount")]
             SipAccount,
-            [Description("DelegateType")]
-            DelegateType,
+            [Description("DelegeeType")]
+            DelegeeType,
             [Description("Delegee")]
             Delegee,
             [Description("Description")]
@@ -577,6 +577,8 @@ namespace Lync_Billing.DB
             [Description("Get_MailStatistics_PerSiteDepartment")]
             Get_MailStatistics_PerSiteDepartment
         }
+
+         
 
 
         /// <summary>
