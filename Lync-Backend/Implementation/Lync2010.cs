@@ -9,6 +9,7 @@ using Lync_Backend.Helpers;
 using System.Configuration;
 using Lync_Backend.Libs;
 using System.Data;
+using System.Reflection;
 
 namespace Lync_Backend.Implementation
 {
@@ -70,6 +71,10 @@ namespace Lync_Backend.Implementation
 
             Type type = Type.GetType("Lync_Backend.Implementation." + PhoneCallsTableName);
 
+            //Class Loader
+            ConstructorInfo cinfo = type.GetConstructor(new Type[] { });
+            object instance = cinfo.Invoke(new object[] { });
+
             //OPEN CONNECTIONS
             sourceDBConnector.Open();
             DestinationDBConnector.Open();
@@ -92,10 +97,18 @@ namespace Lync_Backend.Implementation
                 lastMarkedPhoneCallDate = string.Empty;
 
                 phoneCallObj = Misc.FillPhoneCallFromOleDataReader(ref dataReader);
+                
+                ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCallObj);
+                ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCallObj);
 
+                if (!string.IsNullOrEmpty(phoneCallObj.ReferredBy))
+                    phoneCallObj.ChargingParty = phoneCallObj.ReferredBy;
+                else
+                    phoneCallObj.ChargingParty = phoneCallObj.SourceUserUri;
+                
                 //Call the SetType on the phoneCall Related table using class loader
-                callsMarker.MarkCalls(PhoneCallsTableName, ref phoneCallObj,ref type);
-                callsMarker.ApplyRates(PhoneCallsTableName, ref phoneCallObj,ref type);
+                //callsMarker.MarkCalls(PhoneCallsTableName, ref phoneCallObj, ref object instance);
+                //callsMarker.ApplyRates(PhoneCallsTableName, ref phoneCallObj, ref object instance);
 
                 lastMarkedPhoneCallDate = phoneCallObj.SessionIdTime;
 

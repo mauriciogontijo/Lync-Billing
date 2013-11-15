@@ -117,18 +117,9 @@ namespace Lync_Backend.Implementation
             }
         }
 
-        [LoaderOptimization(LoaderOptimization.MultiDomain)]
         public override void MarkCalls(string tablename, ref PhoneCalls phoneCall, ref Type type)
         {
             //Call the SetType on the phoneCall Related table using class loader
-            //object instance = Activator.CreateInstance(type);
-
-            //MethodInfo method = type.GetMethod("SetCallType");
-            //method.Invoke(null, new object[] { phoneCall });    
-            //object instance = Activator.CreateInstance(type);
-            //Call the correct set type
-            //((Interfaces.IPhoneCalls)instance).SetCallType(phoneCall);
-
             ConstructorInfo cinfo = type.GetConstructor(new Type[] { });
             object instance = cinfo.Invoke(new object[] { });
 
@@ -228,11 +219,10 @@ namespace Lync_Backend.Implementation
             sourceDBConnector.Close();
         }
 
-        public override void ApplyRates(string tablename, ref PhoneCalls phoneCall,ref Type type)
+        public override void ApplyRates(string tablename, ref PhoneCalls phoneCall, ref Type type)
         {
             //Type type = Type.GetType("Lync_Backend.Implementation." + tablename);
             //object instance = Activator.CreateInstance(type);
-
             ConstructorInfo cinfo = type.GetConstructor(new Type[] { });
             object instance = cinfo.Invoke(new object[] { });
 
