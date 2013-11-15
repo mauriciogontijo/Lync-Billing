@@ -56,9 +56,9 @@ namespace Lync_Backend.Helpers
                     {
                         FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @Limits int ");
                     }
-                    else if (SQLStatement.Contains(@"@SipAccount") && SQLStatement.Contains(@"@Limits"))
+                    else if (SQLStatement.Contains(@"@ChargingParty") && SQLStatement.Contains(@"@Limits"))
                     {
-                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @Limits int ");
+                        FunctionVariables = string.Format("\t @ChargingParty  nvarchar(450), \r\n" + "\t @Limits int ");
                     }
                     else if (SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@OfficeName"))
                     {
@@ -68,9 +68,9 @@ namespace Lync_Backend.Helpers
                     {
                         FunctionVariables = string.Format("\t @OfficeName	nvarchar(450)");
                     }
-                    else if (SQLStatement.Contains(@"@SipAccount"))
+                    else if (SQLStatement.Contains(@"@ChargingParty"))
                     {
-                        FunctionVariables = string.Format("\t @SipAccount	nvarchar(450)");
+                        FunctionVariables = string.Format("\t @ChargingParty	nvarchar(450)");
                     }
                     else if (SQLStatement.Contains(@"@Gateway"))
                     {
@@ -124,7 +124,7 @@ namespace Lync_Backend.Helpers
             string whereStatement = 
                 string.Format(
                     "WHERE " + 
-                    "[" +Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND " + 
+                    "[" +Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@ChargingParty AND " + 
                     "[" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n" 
@@ -182,7 +182,7 @@ namespace Lync_Backend.Helpers
                     string.Format(
                         "\t SELECT *,'" + ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable + "' AS " + Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName) +  " \r\n" +
                         "\t FROM [{0}] \r\n" +
-                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                         "\t {1} \r\n" +
                         "\t UNION ALL \r\n ",
                         ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -213,7 +213,7 @@ namespace Lync_Backend.Helpers
             string whereStatement =
                 string.Format(
                     "\t\t WHERE \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@ChargingParty AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
@@ -282,7 +282,7 @@ namespace Lync_Backend.Helpers
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
                         "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.NumberingPlan.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTo) + "] =   [" + Enums.GetDescription(Enums.NumberingPlan.TableName) + "].[" + Enums.GetDescription(Enums.NumberingPlan.DialingPrefix) + "] \r\n" +
-                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL\r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -341,7 +341,7 @@ namespace Lync_Backend.Helpers
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
                         "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.NumberingPlan.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTo) + "] =   [" + Enums.GetDescription(Enums.NumberingPlan.TableName) + "].[" + Enums.GetDescription(Enums.NumberingPlan.DialingPrefix) + "] \r\n" +
-                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                        "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL\r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -392,7 +392,7 @@ namespace Lync_Backend.Helpers
             string whereStatement =
                 string.Format(
                     "\t\t WHERE \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@ChargingParty AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
@@ -460,7 +460,7 @@ namespace Lync_Backend.Helpers
                 subSelect.Append(
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
-                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL\r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -518,7 +518,7 @@ namespace Lync_Backend.Helpers
                 subSelect.Append(
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
-                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL\r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -568,7 +568,7 @@ namespace Lync_Backend.Helpers
             string whereStatement =
                 string.Format(
                     "\t\t WHERE " +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@ChargingParty AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n" 
@@ -656,7 +656,7 @@ namespace Lync_Backend.Helpers
                 subSelect.Append(
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
-                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL\r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -741,7 +741,7 @@ namespace Lync_Backend.Helpers
                 subSelect.Append(
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
-                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL\r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -808,7 +808,7 @@ namespace Lync_Backend.Helpers
                 subSelect.Append(
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
-                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL\r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -877,7 +877,7 @@ namespace Lync_Backend.Helpers
                 subSelect.Append(
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
-                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL\r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -947,7 +947,7 @@ namespace Lync_Backend.Helpers
             string whereStatement =
                 string.Format(
                     "\t\t WHERE \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@ChargingParty AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + "] IS NOT NULL"
                     , BillableCallTypesIdsList);
@@ -1031,7 +1031,7 @@ namespace Lync_Backend.Helpers
                 subSelect.Append(
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
-                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "]  \r\n" +
+                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "]  \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL \r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -1170,7 +1170,7 @@ namespace Lync_Backend.Helpers
                 subSelect.Append(
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
-                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "]  \r\n" +
+                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "]  \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL \r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -1247,7 +1247,7 @@ namespace Lync_Backend.Helpers
                     "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.SentCount) + "]) AS SentCount, \r\n" +
                     "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.SentSize) + "]) AS SentSize \r\n" +
                     "\t FROM [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "] \r\n" +
-                    "\t\t LEFT OUTER JOIN  [" + Enums.GetDescription(Enums.Users.TableName) + "] ON [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "].[" + Enums.GetDescription(Enums.MailStatistics.EmailAddress) + "] = [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                    "\t\t LEFT OUTER JOIN  [" + Enums.GetDescription(Enums.Users.TableName) + "] ON [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "].[" + Enums.GetDescription(Enums.MailStatistics.EmailAddress) + "] = [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                     "{0} " +
                     "\t GROUP BY [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "].[" + Enums.GetDescription(Enums.MailStatistics.EmailAddress) + "] \r\n"
                 ,whereStatement));
@@ -1278,7 +1278,7 @@ namespace Lync_Backend.Helpers
                     "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.SentCount) + "]) AS SentCount, \r\n" +
                     "\t\t SUM ([" + Enums.GetDescription(Enums.MailStatistics.SentSize) + "]) AS SentSize \r\n" +
                     "\t FROM [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "] \r\n" +
-                    "\t\t LEFT OUTER JOIN  [" + Enums.GetDescription(Enums.Users.TableName) + "] ON [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "].[" + Enums.GetDescription(Enums.MailStatistics.EmailAddress) + "] = [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                    "\t\t LEFT OUTER JOIN  [" + Enums.GetDescription(Enums.Users.TableName) + "] ON [" + Enums.GetDescription(Enums.MailStatistics.TableName) + "].[" + Enums.GetDescription(Enums.MailStatistics.EmailAddress) + "] = [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.ChargingParty) + "] \r\n" +
                     "{0} "
                    , whereStatement));
 
