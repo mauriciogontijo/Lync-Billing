@@ -220,29 +220,32 @@ namespace Lync_Billing.DB
         /*
          * This function returns a dictionary of the delegees sip-accounts and names {sip => name}, if they exist!
          **/
-        public static Dictionary<string, string> GetDelegeesNames(string delegateAccount)
+        public static Dictionary<string, string> GetDelegeesNames(string delegeeSipAccount, int delegateType)
         {
-            Dictionary<string, string> DelegatedAccounts = new Dictionary<string, string>();
-            string columnName = Enums.GetDescription(Enums.Delegates.SipAccount);
-
             ADUserInfo userInfo;
-            string sipAccount = string.Empty;
+            string delegateName;
+            List<Delegates> delegatesList;
+            Dictionary<string, string> DelegatedAccounts = new Dictionary<string, string>();
 
-            DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.Delegee), delegateAccount);
+            delegatesList = GetDelegees(delegeeSipAccount, delegateType);
 
-
-            foreach (DataRow row in dt.Rows)
+            foreach (var delegateAccount in delegatesList)
             {
-                userInfo = new ADUserInfo();
+                delegateName = string.Empty;
 
-                if (row[Enums.GetDescription(Enums.Delegates.SipAccount)] != System.DBNull.Value)
+                //If the delegate account is not a user's account
+                if (delegateType == Delegates.DepartmentDelegeeTypeID || delegateType == Delegates.SiteDelegeeTypeID)
                 {
-                    sipAccount = (string)row[columnName];
-                    userInfo = Users.GetUserInfo(sipAccount);
-
-                    DelegatedAccounts.Add(sipAccount, userInfo.FirstName.ToString() + " " + userInfo.LastName.ToString());
+                    delegateName = delegateAccount.SipAccount;
                 }
+                else
+                {
+                    //Try to get the user from the system by the associated delegateAccount.SipAccount
+                    userInfo = Users.GetUserInfo(delegateAccount.SipAccount);
+                    delegateName = (userInfo == null) ? delegateAccount.SipAccount : Misc.ReturnEmptyIfNull(userInfo.FirstName) + " " + Misc.ReturnEmptyIfNull(userInfo.LastName);
+                }
+                
+                DelegatedAccounts.Add(delegateAccount.SipAccount, delegateName);
             }
 
             return DelegatedAccounts;

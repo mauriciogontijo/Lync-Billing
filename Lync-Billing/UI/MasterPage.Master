@@ -90,17 +90,33 @@
 
                                         <%
                                             //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
-                                            bool is_delegate = (current_session.IsUserDelegate || current_session.IsDeveloper) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount) && current_session.ListOfUserDelegees.Count > 0;
+                                            bool is_delegate = (current_session.IsDelegee || current_session.IsDeveloper) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
                                             if (is_delegate)
                                             {
                                         %>
                                             <li id="switch-to-delegee" class="">
                                                 <a href="#">Switch to User<span class="drop"></span></a>
                                                 <ul id="delegees-dropdown">
-                                                    <% foreach(KeyValuePair<string, string> delegeeRecord in current_session.ListOfUserDelegees) { %>
+                                                    <% foreach (KeyValuePair<string, string> userDelegeeRecord in current_session.ListOfUserDelegates) { %>
                                                         <li class="last-child">
-                                                            <a href="../session/authenticate.aspx?access=userdelegee&identity=<%= delegeeRecord.Key %>">
-                                                                <%= delegeeRecord.Value %>
+                                                            <a href="../session/authenticate.aspx?access=userdelegee&identity=<%= userDelegeeRecord.Key %>">
+                                                                <%= userDelegeeRecord.Value %>
+                                                            </a>
+                                                        </li>
+                                                    <% } %>
+
+                                                    <% foreach (KeyValuePair<string, string> departmentDelegeeRecord in current_session.ListOfDepartmentDelegates) { %>
+                                                        <li class="last-child">
+                                                            <a href="../session/authenticate.aspx?access=depdelegee&identity=<%= departmentDelegeeRecord.Key %>">
+                                                                <%= departmentDelegeeRecord.Value %>
+                                                            </a>
+                                                        </li>
+                                                    <% } %>
+
+                                                    <% foreach (KeyValuePair<string, string> siteDelegeeRecord in current_session.ListOfSiteDelegates) { %>
+                                                        <li class="last-child">
+                                                            <a href="../session/authenticate.aspx?access=sitedelegee&identity=<%= siteDelegeeRecord.Key %>">
+                                                                <%= siteDelegeeRecord.Value %>
                                                             </a>
                                                         </li>
                                                     <% } %>

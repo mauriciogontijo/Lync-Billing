@@ -65,23 +65,25 @@ namespace Lync_Billing.ui.session
         /// </summary>
         /// <param name="session">The current user session, sent by reference.</param>
         /// <param name="userInfo">The current user info</param>
-        private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo)
+        private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo, List<UserRole> userRoles)
         {
+            //First and foremost initialize the user's most basic and mandatory fields
             session.EmployeeID = userInfo.EmployeeID;
             session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
             session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
             session.PrimaryDisplayName = formatDisplayName(userInfo.DisplayName);
             session.EffectiveDisplayName = session.PrimaryDisplayName;
 
+            //Initialize his/her ROLES AND THEN DELEGEES information
+            session.InitializeRolesFlags(userRoles);
+            session.InitializeDelegeesInformation(session.PrimarySipAccount);
+
+            //Initialize his/her geographical information, and starting role-name - "user"
             session.ActiveRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
             session.SiteName = userInfo.physicalDeliveryOfficeName;
             session.Department = userInfo.department;
 
-            session.IsUserDelegate = Delegates.IsUserDelegate(session.PrimarySipAccount);
-            session.IsSiteDelegate = Delegates.IsSiteDelegate(session.PrimarySipAccount);
-            session.IsDepartmentDelegate = Delegates.IsDepartmentDelegate(session.PrimarySipAccount);
-            session.ListOfUserDelegees = Delegates.GetDelegeesNames(session.PrimarySipAccount);
-
+            //Lastly, get some additional information about the user.
             session.TelephoneNumber = userInfo.Telephone;
             session.IpAddress = HttpContext.Current.Request.UserHostAddress;
             session.UserAgent = HttpContext.Current.Request.UserAgent;
@@ -91,20 +93,26 @@ namespace Lync_Billing.ui.session
 
         protected void SigninButton_Click(object sender, EventArgs e)
         {
-            bool status = false;
-            ADUserInfo userInfo = new ADUserInfo();
             UserSession session = new UserSession();
+            ADUserInfo userInfo = new ADUserInfo();
+            List<UserRole> userRoles = new List<UserRole>();
+
+            //START
+            bool status = false;
             string msg = string.Empty;
 
             status = athenticator.AuthenticateUser(email.Text, password.Text, out msg);
             AuthenticationMessage = msg;
             
+
             // TMP BLOCK TO IMPORT ALL USERS FROM AD
             //TmpUsers.InsertUsers();
             //END TMP BLOCK
 
+
             //email.Text = "AAlhour@ccc.gr";
             //status = true;
+
 
             if (status == true)
             {
@@ -119,18 +127,12 @@ namespace Lync_Billing.ui.session
                 // User Information was found in active directory
                 if (!userInfo.Equals(null))
                 {
-                    List<UserRole> userRoles;
-                    
                     //Try to get user from the database
                     Users DatabaseUserRecord = Users.GetUser(userInfo.SipAccount.Replace("sip:", ""));
                     
                     //Update the user, if exists and if his/her info has changed... Insert the User if s/he doesn't exist
                     if (DatabaseUserRecord != null)
                     {
-                        userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
-                        session.Roles = userRoles;
-                        session.InitializeRoles(userRoles);
-
                         //If user information from Active directory doesnt match the one in Users Table : update user table 
                         if (DatabaseUserRecord.EmployeeID.ToString() != userInfo.EmployeeID ||
                             DatabaseUserRecord.SiteName != userInfo.physicalDeliveryOfficeName ||
@@ -158,10 +160,6 @@ namespace Lync_Billing.ui.session
                     }
                     else
                     {
-                        userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
-                        session.Roles = userRoles;
-                        session.InitializeRoles(userRoles);
-
                         // If user not found in Users tables that means this is his first login : insert his information into Users table
                         Users user = new Users();
                         user.SiteName = userInfo.physicalDeliveryOfficeName;
@@ -183,7 +181,8 @@ namespace Lync_Billing.ui.session
                     }
 
                     //Assign the current userInfo to the UserSession fields.
-                    SetUserSessionFields(ref session, userInfo);
+                    userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
+                    SetUserSessionFields(ref session, userInfo, userRoles);
 
                     Session.Add("UserData", session);
 
