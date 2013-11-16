@@ -9,6 +9,7 @@ using Lync_Backend.Libs;
 using Lync_Backend.Implementation;
 using Lync_Backend.Interfaces;
 using System.Configuration;
+using System.Data.OleDb;
 
 using System.Runtime.InteropServices;namespace Lync_Backend
 {
@@ -34,6 +35,31 @@ using System.Runtime.InteropServices;namespace Lync_Backend
             foreach (KeyValuePair<string, MonitoringServersInfo> keyValue in monServersInfo)
             {
                 Type type = Type.GetType("Lync_Backend.Implementation." + keyValue.Key);
+
+                //Check if there is an existing phonecalls table 
+                using (OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString)) 
+                {
+                    OleDbCommand comm = new OleDbCommand(SQLs.CREATE_VALIDATE_DB_OBJECT_QUERY(keyValue.Value.PhoneCallsTable), sourceDBConnector);
+
+                    try
+                    {
+                        sourceDBConnector.Open();
+
+                        string result = comm.ExecuteScalar().ToString();
+
+                        //Define the query Type
+                        if (string.IsNullOrEmpty(result))
+                        {
+                            //PhoneCalls Table does not Exists, so we need to create it 
+                            comm.CommandText = SQLs.CREATE_PHONECALLS_TABLE_QUERY(keyValue.Value.PhoneCallsTable);
+                            comm.ExecuteNonQuery();
+                        }
+                            
+                    } 
+                    catch (Exception ex)
+                    {
+                        string x = string.Empty;
+                    }
 
                 string fqdn = typeof(AbIdDatabaseImporter).AssemblyQualifiedName;
 
