@@ -30,16 +30,21 @@ namespace Lync_Backend
                 //FQN  for Lync2010: Lync_Backend.Implementation.Lync2010, Lync-Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
                 object instance = Activator.CreateInstance(type);
 
-                ((AbIdDatabaseImporter)instance).ImportGatewaysAndPools();
+                //((AbIdDatabaseImporter)instance).ImportGatewaysAndPools();
                 ((AbIdDatabaseImporter)instance).ImportPhoneCalls();
 
-                string tableName = ((Interfaces.AbIdDatabaseImporter)instance).PhoneCallsTableName;
+                //string tableName = ((Interfaces.AbIdDatabaseImporter)instance).PhoneCallsTableName;
 
                 //Interfaces.ICallMarker callsMarker = new CallMarker();
                 //callsMarker.MarkCalls(tableName);
                 //callsMarker.ApplyRates(tableName);
 
             }
+
+
+            //Interfaces.ICallMarker callsMarker = new CallMarker();
+            //callsMarker.MarkCalls("PhoneCalls2010");
+            //callsMarker.ApplyRates("PhoneCalls2010");
 
 
             //CreateDBStatistics.Get_ChargeableCalls_ForUser();
@@ -63,7 +68,6 @@ namespace Lync_Backend
             //CreateDBStatistics.Get_GatewaySummary_PerSite();
             //CreateDBStatistics.Get_GatewaySummary_PerSiteDepartment();
             //CreateDBStatistics.Get_GatewaySummary_ForAll_Sites();
-            //CreateDBStatistics.Get_CallSummary_ForUsers_PerGateway();
 
             //CreateDBStatistics.Get_MailStatistics_ForUsers_PerSiteDepartment();
             //CreateDBStatistics.Get_MailStatistics_PerSiteDepartment();
