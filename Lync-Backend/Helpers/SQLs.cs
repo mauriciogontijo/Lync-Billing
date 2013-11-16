@@ -176,5 +176,10 @@ namespace Lync_Backend.Helpers
                "GROUP BY Country_Name,Two_Digits_country_code,Three_Digits_Country_Code ", RatesTableName);
         }
 
+        public static string CREATE_VALIDATE_DB_OBJECT_QUERY(string tableName) 
+        {
+            return string.Format("select OBJECT_ID('{0}')", tableName);
+        }
+
     }
 }
