@@ -9,6 +9,57 @@ namespace Lync_Backend.Helpers
 {
     class SQLs
     {
+
+        public static string CREATE_PHONECALLS_TABLE_QUERY(string tableName) 
+        {
+            return string.Format
+                (
+                   "CREATE TABLE [dbo].[{0}](" +
+	                    "[SessionIdTime] [datetime] NOT NULL," +
+	                    "[SessionIdSeq] [int] NOT NULL," +
+	                    "[SourceUserUri] [nvarchar](450) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[DestinationUserUri] [nvarchar](450) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[SourceNumberUri] [nvarchar](450) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[DestinationNumberUri] [nvarchar](450) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[FromMediationServer] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[ToMediationServer] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[FromGateway] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[ToGateway] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[SourceUserEdgeServer] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[DestinationUserEdgeServer] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[ResponseTime] [datetime] NULL," +
+	                    "[SessionEndTime] [datetime] NULL," +
+	                    "[ServerFQDN] [nvarchar](257) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[PoolFQDN] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[OnBehalf] [nvarchar](450) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[ReferredBy] [nvarchar](450) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[ChargingParty] [nvarchar](450) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[Duration] [numeric](8, 0) NULL," +
+	                    "[marker_CallFrom] [bigint] NULL," +
+	                    "[marker_CallTo] [bigint] NULL," +
+	                    "[marker_CallToCountry] [varchar](3) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[marker_CallCost] [money] NULL," +
+	                    "[marker_CallTypeID] [bigint] NULL," +
+	                    "[marker_CallType] [nvarchar](450) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[marker_TimeStamp] [datetime] NULL," +
+	                    "[ui_MarkedOn] [datetime] NULL," +
+	                    "[ui_UpdatedByUser] [nvarchar](450) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[ui_AssignedByUser] [nvarchar](450) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[ui_AssignedOn] [datetime] NULL," +
+	                    "[ui_CallType] [nvarchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[ac_DisputeStatus] [nvarchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[ac_DisputeResolvedOn] [datetime] NULL," +
+	                    "[ac_IsInvoiced] [nvarchar](3) COLLATE SQL_Latin1_General_CP1_CI_AS NULL," +
+	                    "[ac_InvoiceDate] [datetime] NULL," +
+	                    "[Exclude] [bit] NULL," +
+                    "CONSTRAINT [PK_{0}] PRIMARY KEY CLUSTERED " +
+                    "(" +
+	                    "[SessionIdTime] ASC," +
+	                    "[SessionIdSeq] ASC" +
+                    ")WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]" +
+                    ") ON [PRIMARY]",tableName );
+        }
+
         public static string CREATE_READ_PHONE_CALLS_QUERY(string TABLE_NAME, string SessionIdTime = null)
         {
             string SQL = string.Empty;
