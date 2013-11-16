@@ -22,7 +22,6 @@ namespace Lync_Billing.DB
         public static int DepartmentDelegeeTypeID { get { return 2; } }
         public static int SiteDelegeeTypeID { get { return 3; } }
 
-
         public static bool IsUserDelegate(string delegateAccount) 
         {
             List<string> columns;
@@ -49,7 +48,6 @@ namespace Lync_Billing.DB
 
             return false;
         }
-
 
         public static bool IsDepartmentDelegate(string delegateAccount)
         {
@@ -78,7 +76,6 @@ namespace Lync_Billing.DB
             return false;
         }
 
-
         public static bool IsSiteDelegate(string delegateAccount)
         {
             List<string> columns;
@@ -105,7 +102,6 @@ namespace Lync_Billing.DB
 
             return false;
         }
-
 
         public static List<Delegates> GetDelegees(string delegateAccount) 
         {
@@ -140,7 +136,6 @@ namespace Lync_Billing.DB
 
             return DelegatedAccounts;
         }
-
 
         public static List<Delegates> GetDelegees(string degateAccount, int delegeeType) 
         {
