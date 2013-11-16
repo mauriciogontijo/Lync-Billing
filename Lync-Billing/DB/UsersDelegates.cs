@@ -9,60 +9,103 @@ namespace Lync_Billing.DB
 {
     public class Delegates
     {
+        private static DBLib DBRoutines = new DBLib();
+        
         public int ID { set; get; }
         public string SipAccount { get; set; }
         public string DelegeeAccount { get; set; }
         public int DelegeeType { get; set; }
         public string Description { get; set; }
 
-        private static DBLib DBRoutines = new DBLib();
-
+        //These are for lookup use only in the application
+        public static int UserDelegeeTypeID { get { return 1; } }
+        public static int DepartmentDelegeeTypeID { get { return 2; } }
+        public static int SiteDelegeeTypeID { get { return 3; } }
 
 
         public static bool IsUserDelegate(string delegateAccount) 
         {
+            List<string> columns;
+            Dictionary<string, object> wherePart;
+            List<UserRole> delegeeRoles;
             List<Delegates> delegatedAccounts = new List<Delegates>();
 
-            delegatedAccounts = GetDelegees(delegateAccount,1);
-
-            if (delegatedAccounts.Count != 0)
-                return true;
-            else 
+            columns = new List<string>();
+            wherePart = new Dictionary<string,object>
             {
-                return false;
+                { Enums.GetDescription(Enums.UsersRoles.EmailAddress), delegateAccount },
+                { Enums.GetDescription(Enums.UsersRoles.RoleID), UserRole.DelegeeRoleID }
+            };
+
+            delegeeRoles = UserRole.GetUsersRoles(columns, wherePart, 0);
+
+            if (delegeeRoles.Count > 0)
+            {
+                delegatedAccounts = GetDelegees(delegateAccount, Delegates.UserDelegeeTypeID);
+
+                if (delegatedAccounts.Count > 0)
+                    return true;
             }
-                
+
+            return false;
         }
+
 
         public static bool IsDepartmentDelegate(string delegateAccount)
         {
+            List<string> columns;
+            Dictionary<string, object> wherePart;
+            List<UserRole> delegeeRoles;
             List<Delegates> delegatedAccounts = new List<Delegates>();
 
-            delegatedAccounts = GetDelegees(delegateAccount, 2);
-
-            if (delegatedAccounts.Count != 0)
-                return true;
-            else
+            columns = new List<string>();
+            wherePart = new Dictionary<string, object>
             {
-                return false;
+                { Enums.GetDescription(Enums.UsersRoles.EmailAddress), delegateAccount },
+                { Enums.GetDescription(Enums.UsersRoles.RoleID), UserRole.DelegeeRoleID }
+            };
+
+            delegeeRoles = UserRole.GetUsersRoles(columns, wherePart, 0);
+
+            if (delegeeRoles.Count > 0)
+            {
+                delegatedAccounts = GetDelegees(delegateAccount, Delegates.DepartmentDelegeeTypeID);
+
+                if (delegatedAccounts.Count > 0)
+                    return true;
             }
 
+            return false;
         }
+
 
         public static bool IsSiteDelegate(string delegateAccount)
         {
+            List<string> columns;
+            Dictionary<string, object> wherePart;
+            List<UserRole> delegeeRoles;
             List<Delegates> delegatedAccounts = new List<Delegates>();
 
-            delegatedAccounts = GetDelegees(delegateAccount, 3);
-
-            if (delegatedAccounts.Count != 0)
-                return true;
-            else
+            columns = new List<string>();
+            wherePart = new Dictionary<string, object>
             {
-                return false;
+                { Enums.GetDescription(Enums.UsersRoles.EmailAddress), delegateAccount },
+                { Enums.GetDescription(Enums.UsersRoles.RoleID), UserRole.DelegeeRoleID }
+            };
+
+            delegeeRoles = UserRole.GetUsersRoles(columns, wherePart, 0);
+
+            if (delegeeRoles.Count > 0)
+            {
+                delegatedAccounts = GetDelegees(delegateAccount, Delegates.SiteDelegeeTypeID);
+
+                if (delegatedAccounts.Count > 0)
+                    return true;
             }
 
+            return false;
         }
+
 
         public static List<Delegates> GetDelegees(string delegateAccount) 
         {
@@ -97,6 +140,7 @@ namespace Lync_Billing.DB
 
             return DelegatedAccounts;
         }
+
 
         public static List<Delegates> GetDelegees(string degateAccount, int delegeeType) 
         {

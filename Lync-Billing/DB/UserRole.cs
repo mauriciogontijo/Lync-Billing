@@ -19,6 +19,15 @@ namespace Lync_Billing.DB
         public int GatewayID { get; set; }
         public string Notes { get; set; }
 
+        //To be used from outside the class as lookup values
+        public static int DeveloperRoleID { get { return 10; } }
+        public static int SystemAdminRoleID { get { return 20; } }
+        public static int SiteAdminRoleID { get { return 30; } }
+        public static int SiteAccountantRoleID { get { return 40; } }
+        public static int DepartmentHeadRoleID { get { return 50; } }
+        public static int DelegeeRoleID { get { return 60; } }
+
+
         //Generic User Roles
         public bool IsDeveloper()
         {
@@ -43,6 +52,11 @@ namespace Lync_Billing.DB
         public bool IsDepartmentHead()
         {
             return this.RoleID == 50 ? true : false; 
+        }
+
+        public bool IsDelegee()
+        {
+            return this.RoleID == 60 ? true : false;
         }
 
 
