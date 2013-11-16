@@ -47,26 +47,8 @@ namespace Lync_Billing.ui.test
             
             if (PhoneCallsList == null || PhoneCallsList.Count == 0 || force == true)
             {
-                //wherePart.Add("marker_CallTypeID", PhoneCall.BillableCallTypesList);
-                //wherePart.Add("SourceUserUri", sipAccount);
-                //wherePart.Add("ac_IsInvoiced", "NO");
-
-                //columns.Add("SessionIdTime");
-                //columns.Add("SessionIdSeq");
-                //columns.Add("ResponseTime");
-                //columns.Add("SessionEndTime");
-                //columns.Add("marker_CallToCountry");
-                //columns.Add("DestinationNumberUri");
-                //columns.Add("Duration");
-                //columns.Add("marker_CallCost");
-                //columns.Add("ui_CallType");
-                //columns.Add("ui_MarkedOn");
-
-                wherePart = new Dictionary<string, object>();
-
-                PhoneCallsList = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+                PhoneCallsList = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
                 xmldoc = Misc.SerializeObject<List<PhoneCall>>(PhoneCallsList);
-
             }
         }
 

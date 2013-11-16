@@ -142,15 +142,15 @@ namespace Lync_Billing.ui.user
 
         public List<PhoneCall> GetCallsHistoryFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             getPhoneCalls();
 
             IQueryable<PhoneCall> result;
 
             if (filter == null)
-                result = userSession.PhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
+                result = session.PhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
             else
-                result = userSession.PhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
+                result = session.PhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
 
             if (sort != null)
             {
@@ -175,14 +175,15 @@ namespace Lync_Billing.ui.user
 
         protected void getPhoneCalls(bool force = false)
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.EffectiveSipAccount;
+            wherePart = new Dictionary<string, object>();
 
-            if (userSession.PhoneCallsHistory == null || userSession.PhoneCallsHistory.Count == 0 || force == true)
+            if (session.PhoneCallsHistory == null || session.PhoneCallsHistory.Count == 0 || force == true)
             {
                 wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
 
-                userSession.PhoneCallsHistory = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0);
+                session.PhoneCallsHistory = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0);
             }
         }
 

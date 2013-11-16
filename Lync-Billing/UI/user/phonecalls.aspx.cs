@@ -29,8 +29,6 @@ namespace Lync_Billing.ui.user
         private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
         private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee);
 
-        private Dictionary<string, object> wherePart = new Dictionary<string, object>();
-        private List<string> columns = new List<string>();
         private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
         private string pageData = string.Empty;
         private StoreReadDataEventArgs e;
@@ -67,11 +65,8 @@ namespace Lync_Billing.ui.user
 
             if (userSession.PhoneCalls == null || userSession.PhoneCalls.Count == 0 || force == true)
             {
-                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Exclude), 0);
-
-                userSession.PhoneCalls = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+                userSession.PhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
                 xmldoc = Misc.SerializeObject<List<PhoneCall>>(userSession.PhoneCalls);
-
             }
         }
 

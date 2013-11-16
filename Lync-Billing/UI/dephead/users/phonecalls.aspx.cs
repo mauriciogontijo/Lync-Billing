@@ -141,14 +141,7 @@ namespace Lync_Billing.ui.dephead.users
 
         private List<PhoneCall> GetUserPhoneCalls(string userSipAccount)
         {
-            List<PhoneCall> ListOfPhoneCalls;
-
-            Dictionary<string, object> wherePart = new Dictionary<string, object>
-            {
-                { Enums.GetDescription(Enums.PhoneCalls.Exclude), false }
-            };
-
-            ListOfPhoneCalls = PhoneCall.GetPhoneCalls(userSipAccount, wherePart, 0)
+            List<PhoneCall> ListOfPhoneCalls = PhoneCall.GetPhoneCalls(userSipAccount)
                                 .Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null)
                                 .ToList();
 
