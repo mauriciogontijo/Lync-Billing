@@ -37,7 +37,7 @@ using System.Runtime.InteropServices;namespace Lync_Backend
                 Type type = Type.GetType("Lync_Backend.Implementation." + keyValue.Key);
 
                 //Check if there is an existing phonecalls table 
-                using (OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString)) 
+                using (OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString))
                 {
                     OleDbCommand comm = new OleDbCommand(SQLs.CREATE_VALIDATE_DB_OBJECT_QUERY(keyValue.Value.PhoneCallsTable), sourceDBConnector);
 
@@ -54,13 +54,13 @@ using System.Runtime.InteropServices;namespace Lync_Backend
                             comm.CommandText = SQLs.CREATE_PHONECALLS_TABLE_QUERY(keyValue.Value.PhoneCallsTable);
                             comm.ExecuteNonQuery();
                         }
-                            
-                    } 
+
+                    }
                     catch (Exception ex)
                     {
                         string x = string.Empty;
                     }
-
+                }
                 string fqdn = typeof(AbIdDatabaseImporter).AssemblyQualifiedName;
 
                 //FQN  for Lync2010: Lync_Backend.Implementation.Lync2010, Lync-Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
