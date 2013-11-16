@@ -106,10 +106,6 @@ namespace Lync_Backend.Implementation
                 else
                     phoneCallObj.ChargingParty = phoneCallObj.SourceUserUri;
 
-                //Call the SetType on the phoneCall Related table using class loader
-                //callsMarker.MarkCalls(PhoneCallsTableName, ref phoneCallObj, ref object instance);
-                //callsMarker.ApplyRates(PhoneCallsTableName, ref phoneCallObj, ref object instance);
-
                 lastMarkedPhoneCallDate = phoneCallObj.SessionIdTime;
 
                 phoneCallDic = Misc.ConvertPhoneCallToDictionary(phoneCallObj);
