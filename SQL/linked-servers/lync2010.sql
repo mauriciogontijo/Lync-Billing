@@ -1,47 +1,47 @@
-/****** Object:  LinkedServer [10.1.0.131]    Script Date: 11/14/2013 13:26:49 ******/
-EXEC master.dbo.sp_addlinkedserver @server = N'10.1.0.131', @srvproduct=N'SQL Server'
+/****** Object:  LinkedServer [X.X.X.X]    Script Date: 11/14/2013 13:26:49 ******/
+EXEC master.dbo.sp_addlinkedserver @server = N'X.X.X.X', @srvproduct=N'SQL Server'
  /* For security reasons the linked server remote logins password is changed with ######## */
-EXEC master.dbo.sp_addlinkedsrvlogin @rmtsrvname=N'10.1.0.131',@useself=N'False',@locallogin=NULL,@rmtuser=N'ebill',@rmtpassword='########'
+EXEC master.dbo.sp_addlinkedsrvlogin @rmtsrvname=N'X.X.X.X',@useself=N'False',@locallogin=NULL,@rmtuser=N'ebill',@rmtpassword='########'
 
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'collation compatible', @optvalue=N'false'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'collation compatible', @optvalue=N'false'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'data access', @optvalue=N'true'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'data access', @optvalue=N'true'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'dist', @optvalue=N'false'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'dist', @optvalue=N'false'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'pub', @optvalue=N'false'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'pub', @optvalue=N'false'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'rpc', @optvalue=N'false'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'rpc', @optvalue=N'false'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'rpc out', @optvalue=N'false'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'rpc out', @optvalue=N'false'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'sub', @optvalue=N'false'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'sub', @optvalue=N'false'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'connect timeout', @optvalue=N'0'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'connect timeout', @optvalue=N'0'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'collation name', @optvalue=null
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'collation name', @optvalue=null
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'lazy schema validation', @optvalue=N'false'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'lazy schema validation', @optvalue=N'false'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'query timeout', @optvalue=N'0'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'query timeout', @optvalue=N'0'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'use remote collation', @optvalue=N'true'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'use remote collation', @optvalue=N'true'
 GO
 
-EXEC master.dbo.sp_serveroption @server=N'10.1.0.131', @optname=N'remote proc transaction promotion', @optvalue=N'true'
+EXEC master.dbo.sp_serveroption @server=N'X.X.X.X', @optname=N'remote proc transaction promotion', @optvalue=N'true'
 GO
 
 
