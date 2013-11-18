@@ -23,7 +23,6 @@ using System.Runtime.InteropServices;namespace Lync_Backend
 
         static void Main(string[] args)
         {
-            
 
             IntPtr winHandle = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
             ShowWindow(winHandle, SW_HIDE);
@@ -68,20 +67,20 @@ using System.Runtime.InteropServices;namespace Lync_Backend
 
                 ((AbIdDatabaseImporter)instance).ImportGatewaysAndPools();
                 ((AbIdDatabaseImporter)instance).ImportPhoneCalls();
-
-                //string tableName = ((Interfaces.AbIdDatabaseImporter)instance).PhoneCallsTableName;
-
-                //Interfaces.ICallMarker callsMarker = new CallMarker();
-                //callsMarker.MarkCalls(tableName);
-                //callsMarker.ApplyRates(tableName);
-
             }
+
+            //string tableName = ((Interfaces.AbIdDatabaseImporter)instance).PhoneCallsTableName;
+
+            //Interfaces.ICallMarker callsMarker = new CallMarker();
+            //callsMarker.MarkCalls(tableName);
+            //callsMarker.ApplyRates(tableName);
 
 
             //Interfaces.ICallMarker callsMarker = new CallMarker();
             //callsMarker.MarkCalls("PhoneCalls2010");
             //callsMarker.ApplyRates("PhoneCalls2010");
 
+            Console.WriteLine("Creating DB Functions");
 
             CreateDBStatistics.Get_ChargeableCalls_ForUser();
             CreateDBStatistics.Get_ChargeableCalls_ForSite();
@@ -107,7 +106,6 @@ using System.Runtime.InteropServices;namespace Lync_Backend
 
             CreateDBStatistics.Get_MailStatistics_ForUsers_PerSiteDepartment();
             CreateDBStatistics.Get_MailStatistics_PerSiteDepartment();
-
         }
     }
 }
