@@ -92,6 +92,11 @@ namespace Lync_Backend.Implementation
             
             dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
+            if (!string.IsNullOrEmpty(LAST_IMPORTED_PHONECALL_DATE))
+                Console.WriteLine("Importing PhoneCalls from " + PhoneCallsTableName + "since " + LAST_IMPORTED_PHONECALL_DATE);
+            else
+                Console.WriteLine("Importing PhoneCalls from " + PhoneCallsTableName + "since the begining");
+
             while (dataReader.Read())
             {
                 lastMarkedPhoneCallDate = string.Empty;
@@ -133,6 +138,8 @@ namespace Lync_Backend.Implementation
             callsMarker.UpdateCallMarkerStatus(PhoneCallsTableName, "ApplyingRates", lastMarkedPhoneCallDate, DestinationDBConnector);
 
             sourceDBConnector.Close();
+
+            Console.WriteLine("Finish importing Calls from " + PhoneCallsTableName);
         }
 
         public override void ImportGatewaysAndPools()
