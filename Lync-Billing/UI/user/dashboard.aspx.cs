@@ -131,7 +131,7 @@ namespace Lync_Billing.ui.user
                 { Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null }
             };
 
-            phoneCalls = PhoneCall.GetPhoneCalls(sipAccount,null).ToList();
+            phoneCalls = PhoneCall.GetPhoneCalls(sipAccount, wherePart).Where(item => item.UI_CallType == null).ToList();
 
             return phoneCalls.Count;
         }
