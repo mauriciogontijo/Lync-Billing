@@ -264,7 +264,7 @@
                                     
                                     <ext:Button
                                         ID="AllocateAsDisputeButton"
-                                        Text="Personal"
+                                        Text="Dispute"
                                         runat="server">
                                         <DirectEvents>
                                             <Click OnEvent="AssignDispute">

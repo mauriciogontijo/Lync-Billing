@@ -528,7 +528,11 @@ namespace Lync_Billing.ui.user
                     phoneBookEntry.Type = "Business";
 
                     //Add Phonebook entry to Session and to the list which will be written to database 
-                    session.PhoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+                    if (session.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                        session.PhoneBook[phoneCall.DestinationNumberUri] = phoneBookEntry;
+                    else
+                        session.PhoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+
                     phoneBookEntries.Add(phoneBookEntry);
                 }
 
@@ -542,6 +546,7 @@ namespace Lync_Billing.ui.user
                     matchedDestinationCall.UI_CallType = "Business";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
                     matchedDestinationCall.UI_UpdatedByUser = sipAccount;
+                    matchedDestinationCall.PhoneBookName = phoneCall.PhoneBookName ?? string.Empty;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
                 }
