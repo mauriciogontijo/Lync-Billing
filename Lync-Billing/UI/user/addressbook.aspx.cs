@@ -124,6 +124,8 @@ namespace Lync_Billing.ui.user
                 AddressBookGrid.GetStore().Reload();
                 ImportContactsGrid.GetStore().Reload();
             }
+
+            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(sipAccount);
         }
         
 
@@ -145,8 +147,8 @@ namespace Lync_Billing.ui.user
 
         protected void UpdateAddressBook_DirectEvent(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.EffectiveSipAccount;
             string json = e.ExtraParams["Values"];
 
             List<PhoneBook> recordsToUpate = new List<PhoneBook>();
@@ -190,6 +192,8 @@ namespace Lync_Billing.ui.user
                 AddressBookGrid.GetStore().Reload();
                 ImportContactsGrid.GetStore().Reload();
             }
+
+            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(sipAccount);
         }
 
         protected void RejectAddressBookChanges_DirectEvent(object sender, DirectEventArgs e)
