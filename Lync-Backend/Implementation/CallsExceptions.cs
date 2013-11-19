@@ -14,14 +14,18 @@ namespace Lync_Backend.Implementation
     {
         private DBLib DBRoutines = new DBLib();
 
-        public static void ApplyMOAExceptions(ref PhoneCalls phoneCall,string siteName) 
+        public static void ApplyMOAExceptions(ref PhoneCalls phoneCall,string siteName,out bool status) 
         {
+            status = false;
 
             if (siteName == "MOA")
             {
                 //Check if call has been made from moa to greek land line
                 if(phoneCall.DestinationNumberUri.StartsWith("+302"))
+                {
                     phoneCall.Marker_CallCost = Convert.ToDecimal(0);
+                    status = true;
+                }
 
                 OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString
                 
@@ -38,6 +42,7 @@ namespace Lync_Backend.Implementation
                     if (result == phoneCall.DestinationNumberUri) 
                     {
                         phoneCall.Marker_CallCost = Convert.ToDecimal(0);
+                        status = true;
                     }
 
                 }
