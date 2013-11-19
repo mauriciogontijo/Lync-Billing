@@ -119,6 +119,7 @@
     <Content Include="ui\admin\notifications\calls.aspx" />
     <Content Include="ui\dephead\main\dashboard.aspx" />
     <Content Include="ui\dephead\users\phonecalls.aspx" />
+    <Content Include="ui\resources\js\feedback.js" />
     <Content Include="ui\sysadmin\configuration\announcements.aspx" />
     <Content Include="ui\sysadmin\configuration\exceptions.aspx" />
     <Content Include="ui\sysadmin\configuration\mail.aspx" />

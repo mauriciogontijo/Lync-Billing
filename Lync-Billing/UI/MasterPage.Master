@@ -19,8 +19,10 @@
         <link rel="stylesheet" type="text/css" media="all" href="resources/css/dropdown-menu-white.css" />
 
         <script type="text/javascript" src="../resources/js/jquery-1.9.1.min.js"></script>
+        <%--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>--%>
         <script type="text/javascript" src="../resources/js/browserdetector.js"></script>
         <script type="text/javascript" src="../resources/js/ext-js-specific.js"></script>
+        <script type="text/javascript" src="../resources/js/feedback.js"></script>
 
 		<!--[if lte IE 9]>
 		    <link rel="stylesheet" type="text/css" media="all" href="resources/css/green-layout-ie-hacks.css" />
@@ -250,6 +252,17 @@
                     <p>CCC eBill, powered by MOA R&D.</p>
                     <p>For any inquiries please contact the MOA HELPDESK (<a class="bold" href="mailto:helpdesk@ccc.gr">helpdesk@ccc.gr</a>).</p>
 		        </div>
+
+                <%--<div class="feedback">
+	                <a id="feedback_button">Feedback</a>
+	
+	                <div class="form">
+	                    <h2>Please Send Us Your Feedback</h2>
+		                <span class="status"></span>
+		                <textarea id="feedback_text"></textarea>
+		                <input type="button" value="Send" id="submit_form" />
+	                </div>
+                </div>--%>
             <% } %>
         </form>
     </body>
