@@ -181,6 +181,7 @@
                                     ID="PhoneBookNameEditorTextbox"
                                     runat="server"
                                     DataIndex="PhoneBookName"
+                                    EmptyText="Add a contact name"
                                     ReadOnly="false" />
                             </Editor>
                         </ext:Column>
