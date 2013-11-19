@@ -18,7 +18,8 @@
             });
 
             if (all_countries_data[storeItem] != undefined) {
-                return ((all_countries_data[storeItem] * 1.0 / total).toFixed(4) * 100.0).toFixed(2) + '%';
+                var percentage = ((all_countries_data[storeItem] * 1.0 / total).toFixed(4) * 100.0).toFixed(2);
+                return ((percentage < 3.5) ? '' : (percentage + '%'));
             }
         };
 
