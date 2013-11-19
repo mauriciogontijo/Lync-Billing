@@ -24,11 +24,10 @@ namespace Lync_Billing.DB.Statistics
         {
             DataTable dt;
             string columnName = string.Empty;
-            List<string> columnsList = new List<string>();
-            Dictionary<string, object> whereClause = new Dictionary<string, object>();
+            List<string> columnsList;
+            Dictionary<string, object> whereClause;
 
             DateTime startingDate, endingDate;
-
             MailStatistics userMailStats = new MailStatistics();
 
             if (date == null || date == DateTime.MinValue)
@@ -40,12 +39,22 @@ namespace Lync_Billing.DB.Statistics
             else
             {
                 //Assign the beginning of date.Month to the startingDate and the end of it to the endingDate 
-                DateTime specificDate = (DateTime)date;
+                //DateTime specificDate = (DateTime)date;
+                DateTime specificDate = new DateTime(2013, 10, 4);
                 startingDate = specificDate.AddDays(-(specificDate.Day - 1));
                 endingDate = startingDate.AddMonths(1).AddDays(-1);
             }
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.MailStatistics.TableName), columnsList, whereClause, 0);
+            //Initialize the database query parameters
+            columnsList = new List<string>();
+            whereClause = new Dictionary<string, object>
+            {
+                { Enums.GetDescription(Enums.MailStatistics.EmailAddress), sipAccount },
+                { Enums.GetDescription(Enums.MailStatistics.Timestamp), String.Format("{0},{1}", startingDate, endingDate) }
+            };
+
+            //Get the data from the database
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.MailStatistics.TableName), columnsList, whereClause, 1);
             
 
             foreach (DataRow row in dt.Rows)

@@ -377,7 +377,9 @@ namespace Lync_Billing.DB
             [Description("SentCount")]
             SentCount,
             [Description("SentSize")]
-            SentSize
+            SentSize,
+            [Description("TimeStamp")]
+            Timestamp
         }
 
         public enum MailTemplates
