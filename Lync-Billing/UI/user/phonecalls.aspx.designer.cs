@@ -85,6 +85,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Model Model2;
         
         /// <summary>
+        /// CellEditingPlugin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CellEditing CellEditingPlugin;
+        
+        /// <summary>
         /// RowNumbererColumn2 control.
         /// </summary>
         /// <remarks>
@@ -128,6 +137,15 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column PhoneCallTableCol;
+        
+        /// <summary>
+        /// PhoneBookNameTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField PhoneBookNameTextbox;
         
         /// <summary>
         /// Duration control.
@@ -202,76 +220,13 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Button Personal;
         
         /// <summary>
-        /// AdvancedActions control.
+        /// AllocateAsDisputeButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button AdvancedActions;
-        
-        /// <summary>
-        /// AdvancedActionsMenu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Menu AdvancedActionsMenu;
-        
-        /// <summary>
-        /// AllocateAsAlwaysBusiness control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocateAsAlwaysBusiness;
-        
-        /// <summary>
-        /// AlwaysBusinessTooltips control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ToolTip AlwaysBusinessTooltips;
-        
-        /// <summary>
-        /// AllocateAsAlwaysPersonal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocateAsAlwaysPersonal;
-        
-        /// <summary>
-        /// ToolTip1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ToolTip ToolTip1;
-        
-        /// <summary>
-        /// AllocateAsDispute control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocateAsDispute;
-        
-        /// <summary>
-        /// ToolTip2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ToolTip ToolTip2;
+        protected global::Ext.Net.Button AllocateAsDisputeButton;
         
         /// <summary>
         /// PagingToolbar1 control.

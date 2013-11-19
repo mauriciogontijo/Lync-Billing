@@ -136,6 +136,11 @@
                         </Sorters>
                     </ext:Store>
                 </Store>
+
+                <Plugins>
+                    <ext:CellEditing ID="CellEditingPlugin" runat="server" ClicksToEdit="2" />
+                </Plugins>
+
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn
@@ -170,7 +175,14 @@
                             runat="server"
                             Text="Contact Name"
                             Width="170"
-                            DataIndex="PhoneBookName" />
+                            DataIndex="PhoneBookName">
+                            <Editor>
+                                <ext:TextField
+                                    ID="PhoneBookNameTextbox"
+                                    runat="server"
+                                    DataIndex="PhoneBookName" />
+                            </Editor>
+                        </ext:Column>
 
                         <ext:Column
                             ID="Duration"
@@ -222,6 +234,50 @@
                                 ButtonAlign="Left"
                                 Margins="0 260 0 0">
                                 <Buttons>
+                                    <ext:Button
+                                        ID="Business"
+                                        Text="Business"
+                                        runat="server">
+                                        <DirectEvents>
+                                            <Click OnEvent="AssignAlwaysBusiness">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
+                                    </ext:Button>
+
+                                    <ext:Button
+                                        ID="Personal"
+                                        Text="Personal"
+                                        runat="server">
+                                        <DirectEvents>
+                                            <Click OnEvent="AssignAlwaysPersonal">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
+                                    </ext:Button>
+                                    
+                                    <ext:Button
+                                        ID="AllocateAsDisputeButton"
+                                        Text="Personal"
+                                        runat="server">
+                                        <DirectEvents>
+                                            <Click OnEvent="AssignDispute">
+                                                <EventMask ShowMask="true" />
+                                                <ExtraParams>
+                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                                </ExtraParams>
+                                            </Click>
+                                        </DirectEvents>
+                                    </ext:Button>
+                                </Buttons>
+
+                                <%--<Buttons>
                                     <ext:Button
                                         ID="Business"
                                         Text="Business"
@@ -317,7 +373,7 @@
                                             </ext:Menu>
                                         </Menu>
                                     </ext:Button>
-                                </Buttons>
+                                </Buttons>--%>
                             </ext:ButtonGroup>
 
                             <%--<ext:Button

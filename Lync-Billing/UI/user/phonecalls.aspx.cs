@@ -453,7 +453,11 @@ namespace Lync_Billing.ui.user
                     phoneBookEntry.Type = "Personal";
 
                     //Add Phonebook entry to Session and to the list which will be written to database 
-                    session.PhoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+                    if (session.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                        session.PhoneBook[phoneCall.DestinationNumberUri] = phoneBookEntry;
+                    else
+                        session.PhoneBook.Add(phoneCall.DestinationNumberUri, phoneBookEntry);
+
                     phoneBookEntries.Add(phoneBookEntry);
                 }
 
@@ -467,6 +471,7 @@ namespace Lync_Billing.ui.user
                     matchedDestinationCall.UI_CallType = "Personal";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
                     matchedDestinationCall.UI_UpdatedByUser = sipAccount;
+                    matchedDestinationCall.PhoneBookName = phoneCall.PhoneBookName ?? string.Empty;
 
                     PhoneCall.UpdatePhoneCall(matchedDestinationCall);
                 }
@@ -476,7 +481,7 @@ namespace Lync_Billing.ui.user
             PhoneCallsStore.LoadPage(1);
 
             //Add To User PhoneBook Store
-            PhoneBook.AddPhoneBookEntries(phoneBookEntries);
+            PhoneBook.AddOrUpdatePhoneBookEntries(sipAccount, phoneBookEntries);
         }
 
         protected void AssignAlwaysBusiness(object sender, DirectEventArgs e)
@@ -510,8 +515,11 @@ namespace Lync_Billing.ui.user
                 //Ceare Phonebook Entry
                 phoneBookEntry = new PhoneBook();
 
-                //Check if this entry Already exists 
-                if (!session.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                //Check if this entry Already exists by either destination number and destination name (in case it's edited)
+                bool found = session.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri) &&
+                                (session.PhoneBook.Values.SingleOrDefault(phoneBookContact => phoneBookContact.Name == phoneCall.PhoneBookName) == null ? false : true);
+
+                if (!found)
                 {
                     phoneBookEntry.Name = phoneCall.PhoneBookName ?? string.Empty;
                     phoneBookEntry.DestinationCountry = phoneCall.Marker_CallToCountry;
@@ -543,7 +551,7 @@ namespace Lync_Billing.ui.user
             PhoneCallsStore.LoadPage(1);
 
             //Add To User PhoneBook Store
-            PhoneBook.AddPhoneBookEntries(phoneBookEntries);
+            PhoneBook.AddOrUpdatePhoneBookEntries(sipAccount, phoneBookEntries);
         }
 
         [DirectMethod]
