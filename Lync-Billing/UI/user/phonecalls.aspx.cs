@@ -168,7 +168,6 @@ namespace Lync_Billing.ui.user
             getPhoneCalls();
 
             IEnumerable<PhoneCall> result;
-
  
             if(filter == null)
                 result = session.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();

@@ -148,15 +148,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Column Marker_CallCost;
         
         /// <summary>
-        /// UI_MarkedOn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column UI_MarkedOn;
-        
-        /// <summary>
         /// CheckboxSelectionModel1 control.
         /// </summary>
         /// <remarks>
