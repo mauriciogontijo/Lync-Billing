@@ -171,7 +171,7 @@
                             Width="130"
                             DataIndex="DestinationNumberUri" />
 
-                        <ext:Column ID="PhoneCallTableCol"
+                        <ext:Column ID="PhoneBookNameCol"
                             runat="server"
                             Text="Contact Name"
                             Width="170"
