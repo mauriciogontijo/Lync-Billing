@@ -158,6 +158,17 @@ namespace Lync_Billing.Libs
                        whereStatement.Append("[" + pair.Key + "] <> 0" + " AND ");
                    }
 
+                   else if (pair.Value is string && (pair.Value.ToString()).Contains(","))
+                   {
+                       var betweenStatementParts = (pair.Value.ToString()).Split(',');
+
+                       whereStatement.Append("[" + pair.Key + "] BETWEEN ");
+                       whereStatement.Append("'" + betweenStatementParts[0] + "' AND ");
+                       whereStatement.Append("'" + betweenStatementParts[1] + "' ");
+
+                       whereStatement.Append(" AND ");
+                   }
+
                    else if (pair.Value is List<int>)
                    {
                        whereStatement.Append("[" + pair.Key + "] in ( ");
