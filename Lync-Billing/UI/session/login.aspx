@@ -52,7 +52,7 @@
                     <asp:Button 
                         ID="signin_submit" 
                         runat="server" 
-                        Text="Signin" 
+                        Text="Sign In" 
                         OnClick="SigninButton_Click"/>
 				</div>
                 
