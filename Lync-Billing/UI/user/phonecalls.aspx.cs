@@ -442,7 +442,7 @@ namespace Lync_Billing.ui.user
 
                 //Check if this entry Already exists by either destination number and destination name (in case it's edited)
                 bool found =    session.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri) &&
-                                (session.PhoneBook.Values.SingleOrDefault(phoneBookContact => phoneBookContact.Name == phoneCall.PhoneBookName) == null ? false : true);
+                                (session.PhoneBook.Values.Select(phoneBookContact => phoneBookContact.Name == phoneCall.PhoneBookName) == null ? false : true);
 
                 if (!found)
                 {
@@ -517,7 +517,7 @@ namespace Lync_Billing.ui.user
 
                 //Check if this entry Already exists by either destination number and destination name (in case it's edited)
                 bool found = session.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri) &&
-                                (session.PhoneBook.Values.SingleOrDefault(phoneBookContact => phoneBookContact.Name == phoneCall.PhoneBookName) == null ? false : true);
+                                (session.PhoneBook.Values.Select(phoneBookContact => phoneBookContact.Name == phoneCall.PhoneBookName) == null ? false : true);
 
                 if (!found)
                 {
