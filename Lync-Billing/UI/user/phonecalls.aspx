@@ -49,7 +49,7 @@
                                     <ext:ListItem Text="Unallocated" Value="Unmarked" />
                                 </SelectedItems>
                                 <DirectEvents>
-                                    <Select OnEvent="PhoneCallsHistoryFilter" />
+                                    <Select OnEvent="PhoneCallsTypeFilter" />
                                 </DirectEvents>
                             </ext:ComboBox>
 
@@ -178,9 +178,10 @@
                             DataIndex="PhoneBookName">
                             <Editor>
                                 <ext:TextField
-                                    ID="PhoneBookNameTextbox"
+                                    ID="PhoneBookNameEditorTextbox"
                                     runat="server"
-                                    DataIndex="PhoneBookName" />
+                                    DataIndex="PhoneBookName"
+                                    ReadOnly="false" />
                             </Editor>
                         </ext:Column>
 

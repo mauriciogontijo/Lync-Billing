@@ -560,12 +560,15 @@ namespace Lync_Billing.ui.user
         }
 
         [DirectMethod]
-        protected void PhoneCallsHistoryFilter(object sender, DirectEventArgs e)
+        protected void PhoneCallsTypeFilter(object sender, DirectEventArgs e)
         {
             PhoneCallsStore.ClearFilter();
 
             if (FilterTypeComboBox.SelectedItem.Value != "Unmarked")
+            {
                 PhoneCallsStore.Filter("UI_CallType", FilterTypeComboBox.SelectedItem.Value);
+                PhoneBookNameEditorTextbox.ReadOnly = true;
+            }
             
             PhoneCallsStore.LoadPage(1);
         }
