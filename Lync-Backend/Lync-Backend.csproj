@@ -93,6 +93,7 @@
     <Compile Include="Helpers\ObjectActivator.cs" />
     <Compile Include="Helpers\PhoneCalls.cs" />
     <Compile Include="Helpers\SQLs.cs" />
+    <Compile Include="Implementation\CallsExceptions.cs" />
     <Compile Include="Implementation\PhoneCalls2010.cs" />
     <Compile Include="Implementation\PhoneCalls2013.cs" />
     <Compile Include="Helpers\Pools.cs" />
