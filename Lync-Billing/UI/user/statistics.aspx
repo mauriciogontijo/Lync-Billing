@@ -207,7 +207,7 @@
                     Height="420"
                     Width="740"
                     Header="True"
-                    Title="Personal Duration/Cost Reports"
+                    Title="Business/Personal Calls Reports"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
@@ -220,8 +220,11 @@
                                         <ext:Model ID="DurationCostChartModel" runat="server">
                                             <Fields>
                                                 <ext:ModelField Name="Date" />
-                                                <ext:ModelField Name="Duration" />
+                                                <ext:ModelField Name="PersonalCallsDuration" />
                                                 <ext:ModelField Name="PersonalCallsCost" />
+                                                <ext:ModelField Name="BusinessCallsDuration" />
+                                                <ext:ModelField Name="BusinessCallsCost" />
+                                                
                                             </Fields>
                                         </ext:Model>
                                     </Model>
@@ -240,7 +243,7 @@
 
                                 <ext:NumericAxis
                                     Title="Duration in Hours"
-                                    Fields="Duration"
+                                    Fields="PersonalCallsDuration"
                                     Position="Left">
                                     <LabelTitle Fill="#115fa6" />
                                     <Label Fill="#115fa6" />
@@ -260,9 +263,9 @@
 
                             <Series>
                                 <ext:LineSeries
-                                    Titles="Calls Duartion"
+                                    Titles="Personal Duartion"
                                     XField="Date"
-                                    YField="Duration"
+                                    YField="PersonalCallsDuration"
                                     Axis="Left"
                                     Smooth="3">
                                     <HighlightConfig Size="7" Radius="7" />
@@ -270,7 +273,7 @@
                                 </ext:LineSeries>
 
                                 <ext:LineSeries
-                                    Titles="Calls Cost"
+                                    Titles="Personal Cost"
                                     XField="Date"
                                     YField="PersonalCallsCost"
                                     Axis="Right"
@@ -278,6 +281,27 @@
                                     <HighlightConfig Size="7" Radius="7" />
                                     <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
                                 </ext:LineSeries>
+
+                                 <ext:LineSeries
+                                    Titles="Business Duartion"
+                                    XField="Date"
+                                    YField="BusinessCallsDuration"
+                                    Axis="Left"
+                                    Smooth="3">
+                                    <HighlightConfig Size="7" Radius="7" />
+                                    <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+                                </ext:LineSeries>
+
+                                <ext:LineSeries
+                                    Titles="Business Cost"
+                                    XField="Date"
+                                    YField="BusinessCallsCost"
+                                    Axis="Right"
+                                    Smooth="3">
+                                    <HighlightConfig Size="7" Radius="7" />
+                                    <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+                                </ext:LineSeries>
+
                             </Series>
 
                             <Plugins>
