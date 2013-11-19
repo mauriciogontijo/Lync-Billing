@@ -202,22 +202,22 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ButtonGroup MarkingBottonsGroup;
         
         /// <summary>
-        /// Business control.
+        /// AllocateAsBusinessButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button Business;
+        protected global::Ext.Net.Button AllocateAsBusinessButton;
         
         /// <summary>
-        /// Personal control.
+        /// AllocateAsPersonalButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button Personal;
+        protected global::Ext.Net.Button AllocateAsPersonalButton;
         
         /// <summary>
         /// AllocateAsDisputeButton control.

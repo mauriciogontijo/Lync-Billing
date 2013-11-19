@@ -235,7 +235,7 @@
                                 Margins="0 260 0 0">
                                 <Buttons>
                                     <ext:Button
-                                        ID="Business"
+                                        ID="AllocateAsBusinessButton"
                                         Text="Business"
                                         runat="server">
                                         <DirectEvents>
@@ -249,7 +249,7 @@
                                     </ext:Button>
 
                                     <ext:Button
-                                        ID="Personal"
+                                        ID="AllocateAsPersonalButton"
                                         Text="Personal"
                                         runat="server">
                                         <DirectEvents>
