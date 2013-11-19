@@ -27,7 +27,7 @@ namespace Lync_Backend.Implementation
                     status = true;
                 }
 
-                OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString
+                OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString;
                 
                 string sqlValidationQuery = string.Format("SELECT Number FROM PhoneCallsExceptions WHERE Number='{0}'", phoneCall.DestinationNumberUri);
 
