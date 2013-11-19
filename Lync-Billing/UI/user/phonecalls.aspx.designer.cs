@@ -172,7 +172,7 @@ namespace Lync_Billing.ui.user {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.CheckboxSelectionModel CheckboxSelectionModel1;
+        protected global::Ext.Net.RowSelectionModel CheckboxSelectionModel1;
         
         /// <summary>
         /// Toolbar1 control.

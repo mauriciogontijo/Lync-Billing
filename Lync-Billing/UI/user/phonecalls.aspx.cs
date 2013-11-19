@@ -567,7 +567,7 @@ namespace Lync_Billing.ui.user
             if (FilterTypeComboBox.SelectedItem.Value != "Unmarked")
             {
                 PhoneCallsStore.Filter("UI_CallType", FilterTypeComboBox.SelectedItem.Value);
-                PhoneBookNameEditorTextbox.ReadOnly = true;
+                PhoneBookNameEditorTextbox.ReadOnly =true;
             }
             
             PhoneCallsStore.LoadPage(1);

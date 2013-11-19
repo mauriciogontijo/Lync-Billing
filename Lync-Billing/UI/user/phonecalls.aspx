@@ -174,7 +174,7 @@
                         <ext:Column ID="PhoneBookNameCol"
                             runat="server"
                             Text="Contact Name"
-                            Width="170"
+                            Width="190"
                             DataIndex="PhoneBookName">
                             <Editor>
                                 <ext:TextField
@@ -206,13 +206,13 @@
                 </ColumnModel>
                 
                 <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="CheckboxSelectionModel1"
+                    <ext:RowSelectionModel ID="CheckboxSelectionModel1"
                         runat="server"
                         Mode="Multi"
                         AllowDeselect="true"
                         IgnoreRightMouseSelection="true"
                         CheckOnly="true">
-                    </ext:CheckboxSelectionModel>
+                    </ext:RowSelectionModel>
                 </SelectionModel>
 
                 <TopBar>
