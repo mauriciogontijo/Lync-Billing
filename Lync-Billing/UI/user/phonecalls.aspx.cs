@@ -156,7 +156,8 @@ namespace Lync_Billing.ui.user
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             getPhoneCalls();
 
-            IQueryable<PhoneCall> result;
+            IEnumerable<PhoneCall> result;
+
  
             if(filter == null)
                 result = userSession.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
@@ -167,7 +168,11 @@ namespace Lync_Billing.ui.user
             {
                 ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
 
-                Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
+                //Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
+
+               var p = Expression.Parameter(typeof(PhoneCall));
+               var sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.TypeAs(Expression.Property(p, sort.Property), typeof(object)), p).Compile();
+
                 if (sort.Direction == Ext.Net.SortDirection.DESC)
                     result = result.OrderByDescending(sortExpression);
                 else
