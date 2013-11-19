@@ -21,13 +21,13 @@ namespace Lync_Backend.Implementation
             if (siteName == "MOA")
             {
                 //Check if call has been made from moa to greek land line
-                if(phoneCall.DestinationNumberUri.StartsWith("+302"))
+                if( phoneCall.DestinationNumberUri.StartsWith("+302") == true)
                 {
                     phoneCall.Marker_CallCost = Convert.ToDecimal(0);
                     status = true;
                 }
 
-                OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString;
+                OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
                 
                 string sqlValidationQuery = string.Format("SELECT Number FROM PhoneCallsExceptions WHERE Number='{0}'", phoneCall.DestinationNumberUri);
 
