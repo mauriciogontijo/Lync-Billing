@@ -141,13 +141,13 @@
                         <ext:RowNumbererColumn
                             ID="RowNumbererColumn2"
                             runat="server"
-                            Width="45" />
+                            Width="25" />
 
                         <ext:Column
                             ID="SessionIdTime"
                             runat="server"
                             Text="Date"
-                            Width="150"
+                            Width="135"
                             DataIndex="SessionIdTime">
                             <Renderer Fn="DateRenderer" />
                         </ext:Column>
@@ -156,7 +156,7 @@
                             ID="Marker_CallToCountry"
                             runat="server"
                             Text="Country"
-                            Width="80"
+                            Width="90"
                             DataIndex="Marker_CallToCountry" />
 
                         <ext:Column
@@ -169,16 +169,14 @@
                         <ext:Column ID="PhoneCallTableCol"
                             runat="server"
                             Text="Contact Name"
-                            Width="150"
-                            DataIndex="PhoneBookName">
-                            <Renderer Fn="getCssColorForPhoneCallRow" />
-                        </ext:Column>
+                            Width="170"
+                            DataIndex="PhoneBookName" />
 
                         <ext:Column
                             ID="Duration"
                             runat="server"
                             Text="Duration"
-                            Width="85"
+                            Width="90"
                             DataIndex="Duration">
                             <Renderer Fn="GetMinutes" />
                         </ext:Column>
@@ -187,27 +185,10 @@
                             ID="Marker_CallCost"
                             runat="server"
                             Text="Cost"
-                            Width="65"
+                            Width="70"
                             DataIndex="Marker_CallCost">
                             <Renderer Fn="RoundCost" />
                         </ext:Column>
-
-                        <%--<ext:Column ID="UI_CallType"
-                            runat="server"
-                            Text="Type"
-                            Width="80"
-                            DataIndex="UI_CallType">
-                            <Renderer Fn="getCssColorForPhoneCallRow" />
-                        </ext:Column>--%>
-
-                        <%--<ext:Column
-                            ID="UI_MarkedOn"
-                            runat="server"
-                            Text="Updated On"
-                            Width="90"
-                            DataIndex="UI_MarkedOn">
-                            <Renderer Handler="return Ext.util.Format.date(value, 'd M Y');" />
-                        </ext:Column>--%>
                     </Columns>
                 </ColumnModel>
                 
