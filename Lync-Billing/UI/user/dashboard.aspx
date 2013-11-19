@@ -289,7 +289,7 @@
                     Width="465"
                     Height="390"
                     Header="True"
-                    Title="Personal Monthly Cost"
+                    Title="Calls Cost Chart"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
@@ -305,6 +305,8 @@
                                                 <ext:ModelField Name="Date" />
                                                 <ext:ModelField Name="Duration" />
                                                 <ext:ModelField Name="PersonalCallsCost" />
+                                                <ext:ModelField Name="BusinessCallsCost" />
+                                                <ext:ModelField Name="UnmarkedCallsCost" />
                                             </Fields>
                                         </ext:Model>
                                     </Model>
@@ -332,9 +334,29 @@
 
                             <Series>
                                <ext:LineSeries
-                                    Titles="Calls Cost"
+                                    Titles="Personal"
                                     XField="Date"
                                     YField="PersonalCallsCost"
+                                    Axis="Left"
+                                    Smooth="3">
+                                    <HighlightConfig Size="7" Radius="7" />
+                                    <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+                                </ext:LineSeries>
+                                 
+                                <ext:LineSeries
+                                    Titles="Business"
+                                    XField="Date"
+                                    YField="BusinessCallsCost"
+                                    Axis="Left"
+                                    Smooth="3">
+                                    <HighlightConfig Size="7" Radius="7" />
+                                    <MarkerConfig Size="4" Radius="4" StrokeWidth="0" />
+                                </ext:LineSeries>
+                                
+                                <ext:LineSeries
+                                    Titles="Unmarked"
+                                    XField="Date"
+                                    YField="UnmarkedCallsCost"
                                     Axis="Left"
                                     Smooth="3">
                                     <HighlightConfig Size="7" Radius="7" />
