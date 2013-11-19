@@ -165,7 +165,7 @@ namespace Lync_Billing.ui.user
         public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            getPhoneCalls(true);
+            getPhoneCalls();
 
             IEnumerable<PhoneCall> result;
 
