@@ -121,6 +121,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Column DestinationNumberUri;
         
         /// <summary>
+        /// PhoneCallTableCol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column PhoneCallTableCol;
+        
+        /// <summary>
         /// Duration control.
         /// </summary>
         /// <remarks>
@@ -137,15 +146,6 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column Marker_CallCost;
-        
-        /// <summary>
-        /// UI_CallType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Column UI_CallType;
         
         /// <summary>
         /// UI_MarkedOn control.
