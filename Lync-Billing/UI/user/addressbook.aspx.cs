@@ -48,6 +48,24 @@ namespace Lync_Billing.ui.user
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
         }
 
+
+        private void UpdateSessionRelatedInformation()
+        {
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.EffectiveSipAccount;
+
+            session.PhoneBook = PhoneBook.GetAddressBook(sipAccount);
+
+            foreach (var phoneCall in session.PhoneCalls)
+            {
+                if (session.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                {
+                    phoneCall.PhoneBookName = ((PhoneBook)session.PhoneBook[phoneCall.DestinationNumberUri]).Name;
+                }
+            }
+        }
+
+
         protected void GridsDataManager(bool GetFreshData = false, bool BindData = true)
         {
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
@@ -94,6 +112,7 @@ namespace Lync_Billing.ui.user
             }
         }
 
+
         protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
@@ -125,7 +144,8 @@ namespace Lync_Billing.ui.user
                 ImportContactsGrid.GetStore().Reload();
             }
 
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(sipAccount);
+            //Update the session's phonebook dictionary and phonecalls list.
+            UpdateSessionRelatedInformation();
         }
         
 
@@ -193,7 +213,8 @@ namespace Lync_Billing.ui.user
                 ImportContactsGrid.GetStore().Reload();
             }
 
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(sipAccount);
+            //Update the session's phonebook dictionary and phonecalls list.
+            UpdateSessionRelatedInformation();
         }
 
         protected void RejectAddressBookChanges_DirectEvent(object sender, DirectEventArgs e)
