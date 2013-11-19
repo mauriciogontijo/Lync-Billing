@@ -150,6 +150,51 @@ namespace Lync_Billing.DB
         }
 
 
+        public static void AddOrUpdatePhoneBookEntries(string sipAccount, List<PhoneBook> phoneBookEntries)
+        {
+            Dictionary<string, PhoneBook> existingContacts = PhoneBook.GetAddressBook(sipAccount);
+            
+            Dictionary<string, object> ColumnValues;
+            Dictionary<string, object> WherePart;
+
+            foreach (PhoneBook phoneBookEntry in phoneBookEntries)
+            {
+                //Initialize the WherePart which is used for the update statement
+                WherePart = new Dictionary<string,object>
+                {
+                    { Enums.GetDescription(Enums.PhoneBook.Name), phoneBookEntry.Name },
+                    { Enums.GetDescription(Enums.PhoneBook.Type), phoneBookEntry.Type },
+                };
+
+
+                //Initialize the ColumnValues which is used in both the Insert and Update
+                ColumnValues = new Dictionary<string, object>();
+
+                if (phoneBookEntry.SipAccount != null)
+                    ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.SipAccount), phoneBookEntry.SipAccount);
+
+                if (phoneBookEntry.DestinationNumber != null)
+                    ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.DestinationNumber), phoneBookEntry.DestinationNumber);
+
+                if (phoneBookEntry.Type != null)
+                    ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.Type), phoneBookEntry.Type);
+
+                if (phoneBookEntry.Name != null)
+                    ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.Name), phoneBookEntry.Name);
+
+                if (phoneBookEntry.DestinationCountry != null)
+                    ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.DestinationCountry), phoneBookEntry.DestinationCountry);
+
+
+                //Either update or insert to the database
+                if(existingContacts.ContainsKey(phoneBookEntry.DestinationNumber))
+                    DBRoutines.UPDATE(Enums.GetDescription(Enums.PhoneBook.TableName), ColumnValues, WherePart);
+                else
+                    DBRoutines.INSERT(Enums.GetDescription(Enums.PhoneBook.TableName), ColumnValues, Enums.GetDescription(Enums.PhoneBook.ID));
+            }
+        }
+
+
         public static void DeleteFromPhoneBook(List<PhoneBook> phoneBookEntries) 
         {
             foreach (PhoneBook phoneBookEntry in phoneBookEntries) 
