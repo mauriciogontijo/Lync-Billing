@@ -14,46 +14,50 @@ namespace Lync_Backend.Implementation
     {
         private DBLib DBRoutines = new DBLib();
 
-        public static void ApplyMOAExceptions(ref PhoneCalls phoneCall,string siteName,out bool status) 
+        public static bool ApplyMOAExceptions(ref PhoneCalls phoneCall,string siteName) 
         {
-            status = false;
-
-            if (siteName == "MOA")
+            
+            if (siteName == "MOA" && !string.IsNullOrEmpty(phoneCall.DestinationNumberUri) && phoneCall.DestinationNumberUri.StartsWith("+30"))
             {
                 //Check if call has been made from moa to greek land line
                 if( phoneCall.DestinationNumberUri.StartsWith("+302") == true)
                 {
                     phoneCall.Marker_CallCost = Convert.ToDecimal(0);
-                    status = true;
+                    return true;
                 }
 
-                OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
-                
-                string sqlValidationQuery = string.Format("SELECT Number FROM PhoneCallsExceptions WHERE Number='{0}'", phoneCall.DestinationNumberUri);
-
-                OleDbCommand comm = new OleDbCommand(sqlValidationQuery, sourceDBConnector);
-
-                try
+                //Check if mobile from vodafone subscribers
+                if (phoneCall.DestinationNumberUri.StartsWith("+306")) 
                 {
-                    sourceDBConnector.Open();
+                    OleDbConnection sourceDBConnector = new OleDbConnection(ConfigurationManager.ConnectionStrings["LyncConnectionString"].ConnectionString);
 
-                    string result = comm.ExecuteScalar().ToString();
+                    string sqlValidationQuery = string.Format("SELECT Number FROM PhoneCallsExceptions WHERE Number='{0}'", phoneCall.DestinationNumberUri);
 
-                    if (result == phoneCall.DestinationNumberUri) 
+                    OleDbCommand comm = new OleDbCommand(sqlValidationQuery, sourceDBConnector);
+
+                    try
                     {
-                        phoneCall.Marker_CallCost = Convert.ToDecimal(0);
-                        status = true;
+                        sourceDBConnector.Open();
+
+                        object result = comm.ExecuteScalar();
+
+                        if (result != null)
+                        {
+                            return true;
+                        }
+                        
+                    }
+                    catch (Exception ex) { }
+
+                    finally
+                    {
+                        sourceDBConnector.Close();
                     }
 
                 }
-                catch (Exception ex){ }
-                
-                finally
-                {
-                    sourceDBConnector.Close();
-                }
 
             }
+            return false;
         }
 
     }

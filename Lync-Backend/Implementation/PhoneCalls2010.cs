@@ -250,6 +250,16 @@ namespace Lync_Backend.Implementation
             //    string x = string.Empty;
             //}
 
+            string srcDIDdsc = string.Empty;
+            bool status = false;
+
+            MatchDID(thisCall.SourceNumberUri, out srcDIDdsc);
+
+            status = CallsExceptions.ApplyMOAExceptions(ref thisCall, srcDIDdsc);
+
+            if(status == true)
+                return thisCall;
+
             if (!string.IsNullOrEmpty(thisCall.ToGateway))
             {
                 // Check if we can apply the rates for this phone-call

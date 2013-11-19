@@ -264,8 +264,18 @@ namespace Lync_Backend.Implementation
             return thisCall;
         }
 
-        public PhoneCalls ApplyRate(PhoneCalls thisCall) 
+        public PhoneCalls ApplyRate(PhoneCalls thisCall)
         {
+
+            string srcDIDdsc = string.Empty;
+            bool status = false;
+
+            MatchDID(thisCall.SourceNumberUri, out srcDIDdsc);
+
+            status = CallsExceptions.ApplyMOAExceptions(ref thisCall, srcDIDdsc);
+
+            if (status == true)
+                return thisCall;
 
             if (!string.IsNullOrEmpty(thisCall.ToGateway))
             {
