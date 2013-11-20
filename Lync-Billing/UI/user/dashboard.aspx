@@ -4,16 +4,17 @@
     <script type="text/javascript">
         //Pie Chart Data-Lable Renderer for Countries Destinations Calls
         var TopDestinationCountries_LableRenderer = function (storeItem, item) {
+            debugger;
             var total = 0,
                 all_countries_data = {},
                 component_name = "main_content_place_holder_" + "TopDestinationCountriesChart";
 
             App[component_name].getStore().each(function (rec) {
-                total += rec.get('CallsDuration');
+                total += rec.get('CallsCount');
 
                 var country_name = rec.get('CountryName');
                 if (country_name != 0 && all_countries_data[country_name] == undefined) {
-                    all_countries_data[country_name] = rec.get('CallsDuration');
+                    all_countries_data[country_name] = rec.get('CallsCount');
                 }
             });
 
