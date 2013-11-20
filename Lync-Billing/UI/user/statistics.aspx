@@ -243,7 +243,7 @@
 
                                 <ext:NumericAxis
                                     Title="Duration in Hours"
-                                    Fields="PersonalCallsDuration"
+                                    Fields="PersonalCallsDuration,BusinessCallsDuration"
                                     Position="Left">
                                     <LabelTitle Fill="#115fa6" />
                                     <Label Fill="#115fa6" />
@@ -254,7 +254,7 @@
 
                                 <ext:NumericAxis
                                     Title="Cost in Local Currency"
-                                    Fields="PersonalCallsCost"
+                                    Fields="PersonalCallsCost,BusinessCallsCost"
                                     Position="Right">
                                     <LabelTitle Fill="#94ae0a" />
                                     <Label Fill="#94ae0a" />
