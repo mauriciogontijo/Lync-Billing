@@ -34,6 +34,11 @@ namespace Lync_Billing.DB.Summaries
         public DateTime Date { set; get; }
         public decimal Duration { get; set; }
 
+        //This is a total of the costs of phonecalls, used in designing cartesian charts
+        public decimal TotalCallsCosts { get; set; }
+        public decimal TotalCallsDurations { get; set; }
+        public decimal TotalCallsCount { get; set; }
+
         public int Year { get; set; }
         public int Month { get; set; }
 
@@ -91,6 +96,10 @@ namespace Lync_Billing.DB.Summaries
 
                 userSummary.Duration += (userSummary.PersonalCallsDuration / 60);
             }
+
+            userSummary.TotalCallsCosts = userSummary.BusinessCallsCost + userSummary.PersonalCallsCost + userSummary.UnmarkedCallsCost;
+            userSummary.TotalCallsDurations = userSummary.BusinessCallsDuration + userSummary.PersonalCallsDuration + userSummary.UnmarkedCallsDuration;
+            userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
 
             //Get the remaining user information
             Users userInfo = Users.GetUser(sipAccount);
@@ -156,6 +165,10 @@ namespace Lync_Billing.DB.Summaries
 
                 userSummary.Duration += (userSummary.PersonalCallsDuration / 60);
             }
+
+            userSummary.TotalCallsCosts = userSummary.BusinessCallsCost + userSummary.PersonalCallsCost + userSummary.UnmarkedCallsCost;
+            userSummary.TotalCallsDurations = userSummary.BusinessCallsDuration + userSummary.PersonalCallsDuration + userSummary.UnmarkedCallsDuration;
+            userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
 
             //Get the remaining user information
             Users userInfo = Users.GetUser(sipAccount);
@@ -231,6 +244,9 @@ namespace Lync_Billing.DB.Summaries
 
                 userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
 
+                userSummary.TotalCallsCosts = userSummary.BusinessCallsCost + userSummary.PersonalCallsCost + userSummary.UnmarkedCallsCost;
+                userSummary.TotalCallsDurations = userSummary.BusinessCallsDuration + userSummary.PersonalCallsDuration + userSummary.UnmarkedCallsDuration;
+                userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
 
                 //Add it to the list.
                 chartList.Add(userSummary);
@@ -300,6 +316,10 @@ namespace Lync_Billing.DB.Summaries
                 userSummary.UnmarkedCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration)]]));
                 userSummary.UnmarkedCallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount)]]));
                 userSummary.UnmarkedCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost)]]));
+
+                userSummary.TotalCallsCosts = userSummary.BusinessCallsCost + userSummary.PersonalCallsCost + userSummary.UnmarkedCallsCost;
+                userSummary.TotalCallsDurations = userSummary.BusinessCallsDuration + userSummary.PersonalCallsDuration + userSummary.UnmarkedCallsDuration;
+                userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
 
                 usersSummaryList.Add(userSummary);
             }
