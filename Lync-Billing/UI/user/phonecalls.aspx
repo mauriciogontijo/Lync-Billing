@@ -114,71 +114,6 @@
                 </Items>
             </ext:Menu>
 
-            <ext:Panel
-                ID="FilterPhoneCallsPanel"
-                runat="server"
-                Header="true"
-                Title="Manage Phone Calls"
-                Width="740"
-                Height="61"
-                Layout="AnchorLayout">
-                <TopBar>
-                    <ext:Toolbar
-                        ID="FilterToolbar1"
-                        runat="server">
-                        <Items>
-                            <ext:ComboBox
-                                ID="FilterTypeComboBox"
-                                runat="server"
-                                Icon="Find"
-                                TriggerAction="All"
-                                QueryMode="Local"
-                                DisplayField="TypeName"
-                                ValueField="TypeValue"
-                                FieldLabel="View Calls:"
-                                LabelWidth="60"
-                                Width="200"
-                                Margins="5 390 5 5">
-                                <Items>
-                                    <ext:ListItem Text="Unallocated" Value="Unmarked" />
-                                    <ext:ListItem Text="Business" Value="Business" />
-                                    <ext:ListItem Text="Personal" Value="Personal" />
-                                    <ext:ListItem Text="Disputed" Value="Disputed" />
-                                </Items>
-                                <SelectedItems>
-                                    <ext:ListItem Text="Unallocated" Value="Unmarked" />
-                                </SelectedItems>
-                                <DirectEvents>
-                                    <Select OnEvent="PhoneCallsTypeFilter" />
-                                </DirectEvents>
-                            </ext:ComboBox>
-
-                            <%--<ext:Button
-                                ID="ExportToPDFButton"
-                                runat="server"
-                                Text="To PDF"
-                                Icon="PageSave">
-                                <Listeners>
-                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, #{FormatType}, 'pdf');" />
-                                </Listeners>
-                            </ext:Button>
-
-                            <ext:Button
-                                ID="ExportToExcelButton"
-                                runat="server"
-                                Text="To Excel"
-                                Icon="PageExcel">
-                                <Listeners>
-                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, #{FormatType}, 'xls');" />
-                                </Listeners>
-                            </ext:Button>--%>
-                        </Items>
-                    </ext:Toolbar>
-                </TopBar>
-            </ext:Panel>
-
-            <div class="h5 clear"></div>
-
             <asp:ObjectDataSource
                 ID="PhoneCallsDataSource"
                 runat="server"
@@ -197,8 +132,10 @@
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"
                 runat="server"
+                Header="true"
+                Title="Manage Phone Calls"
                 Width="740"
-                Height="715"
+                Height="745"
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="TableLayout"
@@ -318,178 +255,54 @@
                 </SelectionModel>
 
                 <TopBar>
-                    <ext:Toolbar ID="Toolbar1" runat="server">
+                    <ext:Toolbar
+                        ID="FilterToolbar1"
+                        runat="server">
                         <Items>
-                            <ext:Label
+                            <ext:ComboBox
+                                ID="FilterTypeComboBox"
                                 runat="server"
-                                ID="button_group_lable"
-                                Margins="5 0 0 5"
-                                Width="110">
-                                <Content>Allocate Selected As:</Content>
-                            </ext:Label>
-
-                            <ext:ButtonGroup
-                                ID="MarkingBottonsGroup"
-                                runat="server"
-                                Layout="TableLayout"
-                                Width="255"
-                                Frame="false"
-                                ButtonAlign="Left"
-                                Margins="0 260 0 0">
-                                <Buttons>
-                                    <ext:Button
-                                        ID="AllocateAsBusinessButton"
-                                        Text="Business"
-                                        runat="server">
-                                        <DirectEvents>
-                                            <Click OnEvent="AssignAlwaysBusiness">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
-                                    </ext:Button>
-
-                                    <ext:Button
-                                        ID="AllocateAsPersonalButton"
-                                        Text="Personal"
-                                        runat="server">
-                                        <DirectEvents>
-                                            <Click OnEvent="AssignAlwaysPersonal">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
-                                    </ext:Button>
-                                    
-                                    <ext:Button
-                                        ID="AllocateAsDisputeButton"
-                                        Text="Dispute"
-                                        runat="server">
-                                        <DirectEvents>
-                                            <Click OnEvent="AssignDispute">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
-                                    </ext:Button>
-                                </Buttons>
-
-                                <%--<Buttons>
-                                    <ext:Button
-                                        ID="Business"
-                                        Text="Business"
-                                        runat="server">
-                                        <DirectEvents>
-                                            <Click OnEvent="AssignAllBusiness">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
-                                    </ext:Button>
-
-                                    <ext:Button
-                                        ID="Personal"
-                                        Text="Personal"
-                                        runat="server">
-                                        <DirectEvents>
-                                            <Click OnEvent="AssignAllPersonal">
-                                                <EventMask ShowMask="true" />
-                                                <ExtraParams>
-                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                </ExtraParams>
-                                            </Click>
-                                        </DirectEvents>
-                                    </ext:Button>
-
-                                    <ext:Button
-                                        ID="AdvancedActions"
-                                        runat="server"
-                                        Text="Advanced">
-                                        <Menu>
-                                            <ext:Menu ID="AdvancedActionsMenu" runat="server">
-                                                <Items>                    
-                                                    <ext:MenuItem ID="AllocateAsAlwaysBusiness" runat="server" Text="Allocate as Always Business" Icon="GroupEdit">
-                                                        <DirectEvents>
-                                                            <Click OnEvent="AssignAlwaysBusiness">
-                                                                <EventMask ShowMask="true" />
-                                                                <ExtraParams>
-                                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                                </ExtraParams>
-                                                            </Click>
-                                                        </DirectEvents>
-                                                        <ToolTips>
-                                                            <ext:ToolTip ID="AlwaysBusinessTooltips" 
-                                                                runat="server" 
-                                                                Height="80"
-                                                                Width="500"
-                                                                Html="This will mark the selected phonecalls(s) as BUSINESS, then it will add the destination number(s) to your addressbook as BUSINESS CONTACTS, which will tell the system to automatically mark all future phonecall(s) - with respect to these destinations - as BUSINESS."
-                                                             />
-                                                        </ToolTips>
-                                                    </ext:MenuItem>
-
-                                                    <ext:MenuItem ID="AllocateAsAlwaysPersonal" runat="server" Text="Allocate as Always Personal" Icon="GroupEdit">
-                                                        <DirectEvents>
-                                                            <Click OnEvent="AssignAlwaysPersonal">
-                                                                <EventMask ShowMask="true" />
-                                                                <ExtraParams>
-                                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                                </ExtraParams>
-                                                            </Click>
-                                                        </DirectEvents>
-                                                        <ToolTips>
-                                                            <ext:ToolTip ID="ToolTip1" 
-                                                                runat="server" 
-                                                                Height="80"
-                                                                Width="500"
-                                                                Html="This will mark the selected phonecalls(s) as PERSONAL, then it will add the destination number(s) to your addressbook as PERSONAL CONTACTS, which will tell the system to automatically mark all future phonecall(s) - with respect to these destinations - as PERSONAL."
-                                                             />
-                                                        </ToolTips>
-                                                    </ext:MenuItem>
-
-                                                    <ext:MenuItem ID="AllocateAsDispute" runat="server" Text="Allocate as Disputed" Icon="GroupError">
-                                                        <DirectEvents>
-                                                            <Click OnEvent="AssignDispute">
-                                                                <EventMask ShowMask="true" />
-                                                                <ExtraParams>
-                                                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                                                </ExtraParams>
-                                                            </Click>
-                                                        </DirectEvents>
-                                                        <ToolTips>
-                                                            <ext:ToolTip ID="ToolTip2" 
-                                                                runat="server" 
-                                                                Height="70"
-                                                                Width="500"
-                                                                Html="This will mark the selected phonecalls(s) as DISPUTE. Please note that this will not affect any future phonecalls. Only the selected phonecalls at the moment will be marked as Disputed."
-                                                             />
-                                                        </ToolTips>
-                                                    </ext:MenuItem>
-                                                </Items>
-                                            </ext:Menu>
-                                        </Menu>
-                                    </ext:Button>
-                                </Buttons>--%>
-                            </ext:ButtonGroup>
+                                Icon="Find"
+                                TriggerAction="All"
+                                QueryMode="Local"
+                                DisplayField="TypeName"
+                                ValueField="TypeValue"
+                                FieldLabel="View Calls:"
+                                LabelWidth="60"
+                                Width="200"
+                                Margins="5 390 5 5">
+                                <Items>
+                                    <ext:ListItem Text="Unallocated" Value="Unmarked" />
+                                    <ext:ListItem Text="Business" Value="Business" />
+                                    <ext:ListItem Text="Personal" Value="Personal" />
+                                    <ext:ListItem Text="Disputed" Value="Disputed" />
+                                </Items>
+                                <SelectedItems>
+                                    <ext:ListItem Text="Unallocated" Value="Unmarked" />
+                                </SelectedItems>
+                                <DirectEvents>
+                                    <Select OnEvent="PhoneCallsTypeFilter" />
+                                </DirectEvents>
+                            </ext:ComboBox>
 
                             <%--<ext:Button
-                                ID="CancelChangesButton"
-                                Text="Cancel Changes"
-                                Icon="Cancel"
+                                ID="ExportToPDFButton"
                                 runat="server"
-                                Margins="5 5 0 0">
-                                <DirectEvents>
-                                    <Click OnEvent="RejectChanges_DirectEvent">
-                                        <EventMask ShowMask="true" />
-                                    </Click>
-                                </DirectEvents>
+                                Text="To PDF"
+                                Icon="PageSave">
+                                <Listeners>
+                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, #{FormatType}, 'pdf');" />
+                                </Listeners>
+                            </ext:Button>
+
+                            <ext:Button
+                                ID="ExportToExcelButton"
+                                runat="server"
+                                Text="To Excel"
+                                Icon="PageExcel">
+                                <Listeners>
+                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, #{FormatType}, 'xls');" />
+                                </Listeners>
                             </ext:Button>--%>
                         </Items>
                     </ext:Toolbar>
