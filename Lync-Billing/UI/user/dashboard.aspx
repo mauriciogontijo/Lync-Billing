@@ -307,6 +307,7 @@
                                                 <ext:ModelField Name="PersonalCallsCost" />
                                                 <ext:ModelField Name="BusinessCallsCost" />
                                                 <ext:ModelField Name="UnmarkedCallsCost" />
+                                                <ext:ModelField Name="TotalCallsCosts" />
                                             </Fields>
                                         </ext:Model>
                                     </Model>
@@ -325,7 +326,7 @@
 
                                 <ext:NumericAxis
                                     Title="Cost in Local Currency"
-                                    Fields="PersonalCallsCost"
+                                    Fields="TotalCallsCosts"
                                     Position="Left">
                                     <LabelTitle Fill="#115fa6" />
                                     <Label Fill="#115fa6" />
