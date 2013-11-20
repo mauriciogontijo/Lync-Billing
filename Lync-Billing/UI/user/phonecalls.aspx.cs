@@ -74,7 +74,7 @@ namespace Lync_Billing.ui.user
                     "<br />" +
                     "<p>3. If you [Right Click] on the grid, you can either mark some selected phonecall(s), or you can mark the destinations of these phonecalls, which will result in adding these destintions to your phonebook and from that moment on, any phonecall to these destinations will be marked automatically.</p>" + 
                     "<br />" +
-                    "<p>4. You can add Contact Name to a phonecall destination by [Double Clicking] on the \"Contact Name\" field and then filling the text box, please note that this works for the Unallocated phonecalls</p>" + 
+                    "<p>4. You can add Contact Name to a phonecall destination by [Double Clicking] on the \"Contact Name\" field and then filling the text box, please note that this works for the Unallocated phonecalls.</p>" + 
                 "</div>"
             );
 
