@@ -64,10 +64,26 @@ namespace Lync_Billing.ui.user
 
         private void ShowInfoMessages()
         {
+            string title = "Did You Know?";
+            string type = "help";
+            string message = String.Format(
+                "<div class='text-left'>" + 
+                    "<p>1. You can select multiple phonecalls by pressing the [Ctrl] button.</p>" + 
+                    "<br />" + 
+                    "<p>2. You can allocate your phonecalls by [Right Clicking] on the grid and choosing your preferred action.</p>" + 
+                    "<br />" + 
+                    "<p>3. You can add Contact Name to a phonecall destination by [Double Clicking] on the \"Contact Name\" field and then filling the text box.</p>" + 
+                    "<br />" +
+                    "<p>4. If you [Double Click] on the grid, you can either mark some selected phonecall(s), or you can mark the destinations of these phonecalls, which will result in adding these destintion to your phonebook as makred (Business/Personal Contacts).</p>" + 
+                "</div>"
+            );
+
             if (!Ext.Net.X.IsAjaxRequest)
             {
-                Misc.Message("User Help", "To allocate your phonecalls please [Right Click] on the grid and choose your preferred action.", "help", isPinned: true, width: 220, height: 120);
-                Misc.Message("User Help", "You can select multiple phonecalls by pressing the [Ctrl] button.", "help", isPinned: true, width: 220, height: 120);
+                //Misc.Message("User Help", "To allocate your phonecalls please [Right Click] on the grid and choose your preferred action.", "help", isPinned: true, width: 220, height: 120);
+                //Misc.Message("User Help", "You can select multiple phonecalls by pressing the [Ctrl] button.", "help", isPinned: true, width: 220, height: 120);
+                
+                Misc.Message(title, message, type, isPinned: true, width: 270, height: 310);
             }
         }
 
