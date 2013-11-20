@@ -24,7 +24,7 @@ namespace Lync_Billing.ui.user
 {
     public partial class phonecalls : System.Web.UI.Page
     {
-        UserSession session;
+        private UserSession session;
         private string sipAccount = string.Empty;
         private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
         private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee);
@@ -32,6 +32,8 @@ namespace Lync_Billing.ui.user
         private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
         private string pageData = string.Empty;
         private StoreReadDataEventArgs e;
+
+        private static bool messagingStatus = false;
 
         string xmldoc = string.Empty;
 
@@ -56,6 +58,17 @@ namespace Lync_Billing.ui.user
 
             sipAccount = session.EffectiveSipAccount;
             ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(sipAccount);
+
+            ShowInfoMessages();
+        }
+
+        private void ShowInfoMessages()
+        {
+            if (!Ext.Net.X.IsAjaxRequest)
+            {
+                Misc.Message("User Help", "To allocate your phonecalls please [Right Click] on the grid and choose your preferred action.", "help", isPinned: true, width: 220, height: 120);
+                Misc.Message("User Help", "You can select multiple phonecalls by pressing the [Ctrl] button.", "help", isPinned: true, width: 220, height: 120);
+            }
         }
 
         protected void getPhoneCalls(bool force = false)

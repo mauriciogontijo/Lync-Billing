@@ -13,14 +13,21 @@ namespace Lync_Billing.DB
 {
     public class Misc
     {
-        public static void Message(string title, string msg, string type)
+        public static void Message(string title, string msg, string type, int hideDelay = 15000, bool isPinned = false, int width = 250, int height = 150)
         {
             NotificationConfig notificationConfig = new NotificationConfig();
 
             notificationConfig.Title = title;
             notificationConfig.Html = msg;
-            notificationConfig.HideDelay = 5000;
+            
+            //Hiding Delay in mlseconds
+            notificationConfig.HideDelay = hideDelay;
+            
+            //Height and Width
+            notificationConfig.Width = width;
+            notificationConfig.Height = height;
 
+            //Type
             if (type == "success")
                 notificationConfig.Icon = Icon.Accept;
             else if (type == "info")
@@ -29,6 +36,16 @@ namespace Lync_Billing.DB
                 notificationConfig.Icon = Icon.AsteriskYellow;
             else if (type == "error")
                 notificationConfig.Icon = Icon.Error;
+            else if (type == "help")
+                notificationConfig.Icon = Icon.Help;
+
+            //Pinning
+            if (isPinned)
+            {
+                notificationConfig.ShowPin = true;
+                notificationConfig.Pinned = true;
+                notificationConfig.PinEvent = "click";
+            }
 
             Notification.Show(notificationConfig);
         }
