@@ -135,7 +135,7 @@
                     Width="465"
                     Height="380"
                     Header="True"
-                    Title="Most Called Countries"
+                    Title="Most Called Countries / Cost"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
@@ -192,7 +192,7 @@
                 <ext:GridPanel
                     ID="TOPDestinationNumbersGrid"
                     runat="server"
-                    Title="Most Called Numbers"
+                    Title="Most Called Numbers / Count"
                     Width="465"
                     Height="190"
                     AutoScroll="true"
@@ -304,7 +304,6 @@
                                         <ext:Model ID="DurationCostChartModel" runat="server">
                                             <Fields>
                                                 <ext:ModelField Name="Date" />
-                                                <ext:ModelField Name="Duration" />
                                                 <ext:ModelField Name="PersonalCallsCost" />
                                                 <ext:ModelField Name="BusinessCallsCost" />
                                                 <ext:ModelField Name="UnmarkedCallsCost" />
