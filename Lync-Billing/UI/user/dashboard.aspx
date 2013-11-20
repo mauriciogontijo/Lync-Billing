@@ -31,12 +31,12 @@
                 component_name = "main_content_place_holder_" + "TopDestinationCountriesChart";
 
             App[component_name].getStore().each(function (rec) {
-                total += rec.get('CallsDuration');
+                total += rec.get('CallsCount');
             });
 
             this.setTitle(
                 storeItem.get('CountryName') + ': ' +
-                ((storeItem.get('CallsDuration') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
+                ((storeItem.get('CallsCount') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
                 '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('CallsDuration')) + ' hours.' +
                 '<br>' + 'Net Cost: ' + RoundCostsToTwoDecimalDigits(storeItem.get('CallsCost')) + ' euros'
             );
@@ -158,6 +158,7 @@
                                                 <ext:ModelField Name="CountryName" />
                                                 <ext:ModelField Name="CallsCost" />
                                                 <ext:ModelField Name="CallsDuration" />
+                                                 <ext:ModelField Name="CallsCount" />
                                             </Fields>
                                         </ext:Model>
                                     </Model>
@@ -165,7 +166,7 @@
                             </Store>
                             <Series>
                                 <ext:PieSeries
-                                    AngleField="CallsDuration"
+                                    AngleField="CallsCount"
                                     ShowInLegend="true"
                                     Donut="30"
                                     Highlight="true"
