@@ -19,7 +19,7 @@ namespace Lync_Billing.DB.Statistics
         public decimal CallsDuration { private set; get; }
 
 
-        public static List<TopDestinationCountries> GetTopDestinationNumbersForUser(string sipAccount, int limit)
+        public static List<TopDestinationCountries> GetTopDestinationCountriesForUser(string sipAccount, int limit)
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_DestinationCountries_ForUser);
@@ -45,7 +45,7 @@ namespace Lync_Billing.DB.Statistics
                         topCountry.CountryName = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.CallsCount))
-                        topCountry.CallsDuration = (int)row[column.ColumnName];
+                        topCountry.CallsCount = (int)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.CallsDuration))
                         topCountry.CallsDuration = (decimal)row[column.ColumnName];
