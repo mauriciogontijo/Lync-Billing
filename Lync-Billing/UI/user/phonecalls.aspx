@@ -57,6 +57,20 @@
                         </DirectEvents>
                     </ext:MenuItem>
 
+                    <ext:MenuItem
+                        ID="AllocatePhonecallsAsDispute"
+                        Text="As Dispute"
+                        runat="server">
+                        <DirectEvents>
+                            <Click OnEvent="AssignDispute">
+                                <EventMask ShowMask="true" />
+                                <ExtraParams>
+                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                </ExtraParams>
+                            </Click>
+                        </DirectEvents>
+                    </ext:MenuItem>
+
                     <ext:MenuSeparator ID="MenuSeparator" runat="server" />
 
                     <ext:MenuItem

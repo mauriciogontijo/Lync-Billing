@@ -58,6 +58,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.MenuItem AllocatePhonecallsAsPersonal;
         
         /// <summary>
+        /// AllocatePhonecallsAsDispute control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem AllocatePhonecallsAsDispute;
+        
+        /// <summary>
         /// MenuSeparator control.
         /// </summary>
         /// <remarks>
