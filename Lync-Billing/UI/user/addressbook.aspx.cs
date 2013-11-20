@@ -63,8 +63,10 @@ namespace Lync_Billing.ui.user
                 {
                     phoneCall.PhoneBookName = ((PhoneBook)phoneBook[phoneCall.DestinationNumberUri]).Name;
                 }
-
-                phoneCall.PhoneBookName = string.Empty;
+                else
+                {
+                    phoneCall.PhoneBookName = string.Empty;
+                }
             }
 
             session.PhoneCalls = phoneCalls;
