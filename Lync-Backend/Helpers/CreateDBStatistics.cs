@@ -247,7 +247,7 @@ namespace Lync_Backend.Helpers
                     "\t GROUP BY \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "], \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.NumberingPlan.CountryName) + "] \r\n" +
-                    "\t ORDER BY CallsCost DESC", subSelect.ToString()
+                    "\t ORDER BY CallsCount DESC", subSelect.ToString()
                 ));
 
             CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
@@ -304,7 +304,7 @@ namespace Lync_Backend.Helpers
                     "\t GROUP BY \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "], \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.NumberingPlan.CountryName) + "] \r\n" +
-                    "\t ORDER BY CallsCost DESC", subSelect.ToString()
+                    "\t ORDER BY CallsCount DESC", subSelect.ToString()
                 ));
 
             CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());
@@ -363,7 +363,7 @@ namespace Lync_Backend.Helpers
                     "\t GROUP BY \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) + "], \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.NumberingPlan.CountryName) + "] \r\n" +
-                    "\t ORDER BY CallsCost DESC", subSelect.ToString()
+                    "\t ORDER BY CallsCount DESC", subSelect.ToString()
                 ));
 
             CreateOrAlterFunction(MethodBase.GetCurrentMethod().Name, sqlStatement.ToString());

@@ -135,7 +135,7 @@
                     Width="465"
                     Height="380"
                     Header="True"
-                    Title="Most Called Countries / Cost"
+                    Title="Most Called Countries"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
@@ -192,7 +192,7 @@
                 <ext:GridPanel
                     ID="TOPDestinationNumbersGrid"
                     runat="server"
-                    Title="Most Called Numbers / Count"
+                    Title="Most Called Numbers"
                     Width="465"
                     Height="190"
                     AutoScroll="true"
