@@ -33,8 +33,6 @@ namespace Lync_Billing.ui.user
         private string pageData = string.Empty;
         private StoreReadDataEventArgs e;
 
-        private static bool messagingStatus = false;
-
         string xmldoc = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
