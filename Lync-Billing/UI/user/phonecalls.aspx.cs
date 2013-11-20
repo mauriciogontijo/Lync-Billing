@@ -404,7 +404,8 @@ namespace Lync_Billing.ui.user
                 model.Commit();
 
             }
-            
+
+            PhoneCallsAllocationToolsMenu.Hide();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
             PhoneCallsStore.LoadPage(1);
         }
@@ -477,6 +478,7 @@ namespace Lync_Billing.ui.user
                 }
             }
 
+            PhoneCallsAllocationToolsMenu.Hide();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
             PhoneCallsStore.LoadPage(1);
 
@@ -552,6 +554,7 @@ namespace Lync_Billing.ui.user
                 }
             }
 
+            PhoneCallsAllocationToolsMenu.Hide();
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
             PhoneCallsStore.LoadPage(1);
 

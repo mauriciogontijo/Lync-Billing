@@ -14,6 +14,79 @@
         <div class="block-body pt5">
             <ext:Hidden ID="FormatType" runat="server" />
 
+            <ext:Menu
+                ID="PhoneCallsAllocationToolsMenu"
+                runat="server"
+                Header="true"
+                Title="Allocate Selected As:"
+                Width="160">
+                <Items>
+                    <ext:Button
+                        ID="ConextMenuAllocateAsBusinessButton"
+                        Text="Business"
+                        runat="server"
+                        Width="100">
+                        <DirectEvents>
+                            <Click OnEvent="AssignAlwaysBusiness">
+                                <EventMask ShowMask="true" />
+                                <ExtraParams>
+                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                </ExtraParams>
+                            </Click>
+                        </DirectEvents>
+                    </ext:Button>
+
+                    <ext:Button
+                        ID="ConextMenuAllocateAsPersonalButton"
+                        Text="Personal"
+                        runat="server"
+                        Width="100">
+                        <DirectEvents>
+                            <Click OnEvent="AssignAlwaysPersonal">
+                                <EventMask ShowMask="true" />
+                                <ExtraParams>
+                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                </ExtraParams>
+                            </Click>
+                        </DirectEvents>
+                    </ext:Button>
+                                    
+                    <ext:Button
+                        ID="ConextMenuAllocateAsDisputeButton"
+                        Text="Dispute"
+                        runat="server"
+                        Width="100">
+                        <DirectEvents>
+                            <Click OnEvent="AssignDispute">
+                                <EventMask ShowMask="true" />
+                                <ExtraParams>
+                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                </ExtraParams>
+                            </Click>
+                        </DirectEvents>
+                    </ext:Button>
+                </Items>
+                <%--<Items>
+                    <ext:Panel
+                        ID="ContextMenuPanel"
+                        runat="server"
+                        Frame="false">
+                        <Content>
+                            <div class='sidebar-section'>
+                                <div class="sidebar-section-header">
+                                    <p>Allocate Selected Phonecalls</p>
+                                </div>
+                                <div class="sidebar-section-body">
+                                    <p><a href='#' id="A0">As Business</a></p>
+                                    <p><a href='#' id="A1">As Personal</a></p>
+                                    <p><a href='#' id="A2">As Dispute</a></p>
+                                </div>
+                            </div>
+                        </Content>
+                    </ext:Panel>
+                </Items>--%>
+            </ext:Menu>
+
             <ext:Panel
                 ID="FilterPhoneCallsPanel"
                 runat="server"
@@ -101,7 +174,8 @@
                 Height="715"
                 AutoScroll="true"
                 Scroll="Both"
-                Layout="TableLayout">
+                Layout="TableLayout"
+                ContextMenuID="PhoneCallsAllocationToolsMenu">
                 <Store>
                     <ext:Store
                         ID="PhoneCallsStore"
