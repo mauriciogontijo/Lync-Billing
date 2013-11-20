@@ -108,6 +108,25 @@ body {
 .x-panel-header-default { font-size: 11px; border: 1px solid #d0d0d0; }
 .x-accordion-hd .x-panel-header-text-container { color: black; font-weight: normal; font-family: tahoma,arial,verdana,sans-serif; text-transform: none; }
 .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
+.popup-menu-field-label-background { 
+    background-image:none;
+    background-image:url("/extjs/resources/ext_theme_gray/images/menu/menu-item-active-bg-gif/ext.axd");
+    background-image:-webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#eee),color-stop(100%,#dcdcdc));
+    background-image:-webkit-linear-gradient(top,#eee,#dcdcdc);
+    background-image:-moz-linear-gradient(top,#eee,#dcdcdc);
+    background-image:-o-linear-gradient(top,#eee,#dcdcdc);
+    background-image:linear-gradient(top,#eee,#dcdcdc);
+    border-color:#9d9d9d;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    -ms-border-radius:3px;
+    -o-border-radius:3px;
+    border-radius:3px;
+    border-width:1px;
+    border-style:solid;
+    padding:0;
+    background:#f9f9f9;
+}
 
 /* start phone-calls grids styling */
 .row-green { background-color: rgb(46, 143, 42); }
