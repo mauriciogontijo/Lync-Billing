@@ -17,13 +17,15 @@
             <ext:Menu
                 ID="PhoneCallsAllocationToolsMenu"
                 runat="server"
-                Width="240"
-                Padding="5">
+                Width="220"
+                Header="true"
+                Title="Allocate Phonecalls & Destinations"
+                Frame="false">
                 <Items>
                     <ext:MenuItem
                         runat="server"
                         ID="AllocPhonecallsFieldLabel"
-                        Text="Allocate Selected Phonecalls:"
+                        Text="Selected Phonecalls:"
                         Margins="5 0 5 0"
                         Disabled="true"
                         DisabledCls=""
@@ -62,7 +64,7 @@
                     <ext:MenuItem
                         runat="server"
                         ID="AllocDestinationsFieldLabel"
-                        Text="Allocate Selected Destinations:"
+                        Text="Selected Destinations:"
                         Margins="5 0 5 0"
                         Disabled="true"
                         DisabledCls=""
@@ -87,7 +89,7 @@
                         ID="AllocateDestinationsAsAlwaysPersonal"
                         Text="As Always Personal"
                         runat="server"
-                        Margins="0 0 0 0">
+                        Margins="0 0 5 0">
                         <DirectEvents>
                             <Click OnEvent="AssignAlwaysPersonal">
                                 <EventMask ShowMask="true" />
