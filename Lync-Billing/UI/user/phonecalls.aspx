@@ -18,8 +18,6 @@
                 ID="PhoneCallsAllocationToolsMenu"
                 runat="server"
                 Width="170"
-                Header="true"
-                Title="Allocate Phonecalls"
                 Frame="false">
                 <Items>
                     <ext:MenuItem
