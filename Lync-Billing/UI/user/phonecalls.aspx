@@ -19,13 +19,14 @@
                 runat="server"
                 Header="true"
                 Title="Allocate Selected As:"
-                Width="160">
+                Width="160"
+                Layout="AutoLayout">
                 <Items>
                     <ext:Button
                         ID="ConextMenuAllocateAsBusinessButton"
                         Text="Business"
                         runat="server"
-                        Width="100">
+                        Width="90">
                         <DirectEvents>
                             <Click OnEvent="AssignAlwaysBusiness">
                                 <EventMask ShowMask="true" />
@@ -40,7 +41,7 @@
                         ID="ConextMenuAllocateAsPersonalButton"
                         Text="Personal"
                         runat="server"
-                        Width="100">
+                        Width="90">
                         <DirectEvents>
                             <Click OnEvent="AssignAlwaysPersonal">
                                 <EventMask ShowMask="true" />
@@ -55,7 +56,7 @@
                         ID="ConextMenuAllocateAsDisputeButton"
                         Text="Dispute"
                         runat="server"
-                        Width="100">
+                        Width="90">
                         <DirectEvents>
                             <Click OnEvent="AssignDispute">
                                 <EventMask ShowMask="true" />
@@ -66,25 +67,6 @@
                         </DirectEvents>
                     </ext:Button>
                 </Items>
-                <%--<Items>
-                    <ext:Panel
-                        ID="ContextMenuPanel"
-                        runat="server"
-                        Frame="false">
-                        <Content>
-                            <div class='sidebar-section'>
-                                <div class="sidebar-section-header">
-                                    <p>Allocate Selected Phonecalls</p>
-                                </div>
-                                <div class="sidebar-section-body">
-                                    <p><a href='#' id="A0">As Business</a></p>
-                                    <p><a href='#' id="A1">As Personal</a></p>
-                                    <p><a href='#' id="A2">As Dispute</a></p>
-                                </div>
-                            </div>
-                        </Content>
-                    </ext:Panel>
-                </Items>--%>
             </ext:Menu>
 
             <ext:Panel
