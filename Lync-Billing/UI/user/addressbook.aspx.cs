@@ -54,15 +54,21 @@ namespace Lync_Billing.ui.user
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = session.EffectiveSipAccount;
 
-            session.PhoneBook = PhoneBook.GetAddressBook(sipAccount);
+            var phoneCalls = session.PhoneCalls ?? (new List<PhoneCall>());
+            var phoneBook = PhoneBook.GetAddressBook(sipAccount);
 
-            foreach (var phoneCall in session.PhoneCalls)
+            foreach (var phoneCall in phoneCalls)
             {
-                if (session.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                if (phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
                 {
-                    phoneCall.PhoneBookName = ((PhoneBook)session.PhoneBook[phoneCall.DestinationNumberUri]).Name;
+                    phoneCall.PhoneBookName = ((PhoneBook)phoneBook[phoneCall.DestinationNumberUri]).Name;
                 }
+
+                phoneCall.PhoneBookName = string.Empty;
             }
+
+            session.PhoneCalls = phoneCalls;
+            session.PhoneBook = phoneBook;
         }
 
 
@@ -113,6 +119,32 @@ namespace Lync_Billing.ui.user
         }
 
 
+        /*
+         * AddressBook Data Binding
+         */
+        protected void AddressBookStore_Load(object sender, EventArgs e)
+        {
+            GridsDataManager(false);
+        }
+
+        /*
+         * ImportContacts Data Binding
+         */
+        protected void ImportContactsStore_Load(object sender, EventArgs e)
+        {
+            GridsDataManager(false);
+        }
+
+        protected void RejectAddressBookChanges_DirectEvent(object sender, DirectEventArgs e)
+        {
+            AddressBookGrid.GetStore().RejectChanges();
+        }
+
+        protected void RejectImportChanges_DirectEvent(object sender, DirectEventArgs e)
+        {
+            ImportContactsGrid.GetStore().RejectChanges();
+        }
+
         protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
         {
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
@@ -142,27 +174,10 @@ namespace Lync_Billing.ui.user
 
                 AddressBookGrid.GetStore().Reload();
                 ImportContactsGrid.GetStore().Reload();
+
+                //Update the session's phonebook dictionary and phonecalls list.
+                UpdateSessionRelatedInformation();
             }
-
-            //Update the session's phonebook dictionary and phonecalls list.
-            UpdateSessionRelatedInformation();
-        }
-        
-
-        /*
-         * AddressBook Data Binding
-         */
-        protected void AddressBookStore_Load(object sender, EventArgs e)
-        {
-            GridsDataManager(false);
-        }
-
-        /*
-         * ImportContacts Data Binding
-         */
-        protected void ImportContactsStore_Load(object sender, EventArgs e)
-        {
-            GridsDataManager(false);
         }
 
         protected void UpdateAddressBook_DirectEvent(object sender, DirectEventArgs e)
@@ -217,14 +232,5 @@ namespace Lync_Billing.ui.user
             UpdateSessionRelatedInformation();
         }
 
-        protected void RejectAddressBookChanges_DirectEvent(object sender, DirectEventArgs e)
-        {
-            AddressBookGrid.GetStore().RejectChanges();
-        }
-
-        protected void RejectImportChanges_DirectEvent(object sender, DirectEventArgs e)
-        {
-            ImportContactsGrid.GetStore().RejectChanges();
-        }
     }
 }

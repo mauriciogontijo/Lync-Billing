@@ -26,7 +26,8 @@
                         ID="ConextMenuAllocateAsBusinessButton"
                         Text="Business"
                         runat="server"
-                        Width="90">
+                        Width="90"
+                        Margins="0 0 5 0">
                         <DirectEvents>
                             <Click OnEvent="AssignAlwaysBusiness">
                                 <EventMask ShowMask="true" />
@@ -41,7 +42,8 @@
                         ID="ConextMenuAllocateAsPersonalButton"
                         Text="Personal"
                         runat="server"
-                        Width="90">
+                        Width="90"
+                        Margins="0 0 0 0">
                         <DirectEvents>
                             <Click OnEvent="AssignAlwaysPersonal">
                                 <EventMask ShowMask="true" />
@@ -52,7 +54,7 @@
                         </DirectEvents>
                     </ext:Button>
                                     
-                    <ext:Button
+                    <%--<ext:Button
                         ID="ConextMenuAllocateAsDisputeButton"
                         Text="Dispute"
                         runat="server"
@@ -65,7 +67,7 @@
                                 </ExtraParams>
                             </Click>
                         </DirectEvents>
-                    </ext:Button>
+                    </ext:Button>--%>
                 </Items>
             </ext:Menu>
 

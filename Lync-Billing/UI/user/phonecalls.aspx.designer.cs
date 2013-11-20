@@ -49,15 +49,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Button ConextMenuAllocateAsPersonalButton;
         
         /// <summary>
-        /// ConextMenuAllocateAsDisputeButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button ConextMenuAllocateAsDisputeButton;
-        
-        /// <summary>
         /// FilterPhoneCallsPanel control.
         /// </summary>
         /// <remarks>
