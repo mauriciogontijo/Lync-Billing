@@ -118,7 +118,7 @@ namespace Lync_Billing.ui.user
 
         protected void TopDestinationCountriesStore_Load(object sender, EventArgs e)
         {
-            TopDestinationCountriesList = TopDestinationCountries.GetTopDestinationNumbersForUser(sipAccount, 5);
+            TopDestinationCountriesList = TopDestinationCountries.GetTopDestinationCountriesForUser(sipAccount, 5);
             TopDestinationCountriesStore.DataSource = TopDestinationCountriesList;
             
             TopDestinationCountriesStore.DataBind();
