@@ -128,6 +128,8 @@ body {
     background:#f9f9f9;
 }
 
+.popup-menu-field-label-background a:hover { cursor: default; }
+
 /* start phone-calls grids styling */
 .row-green { background-color: rgb(46, 143, 42); }
 .row-red { background-color: rgb(201, 20, 20); }

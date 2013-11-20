@@ -25,7 +25,7 @@
                     <ext:MenuItem
                         runat="server"
                         ID="AllocPhonecallsFieldLabel"
-                        Text="Selected Phonecalls:"
+                        Text="Selected Phonecall(s):"
                         Margins="5 0 5 0"
                         Disabled="true"
                         DisabledCls=""
@@ -36,7 +36,7 @@
                         Text="As Business"
                         runat="server">
                         <DirectEvents>
-                            <Click OnEvent="AssignAllBusiness">
+                            <Click OnEvent="AssignBusiness">
                                 <EventMask ShowMask="true" />
                                 <ExtraParams>
                                     <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
@@ -50,7 +50,7 @@
                         Text="As Personal"
                         runat="server">
                         <DirectEvents>
-                            <Click OnEvent="AssignAllPersonal">
+                            <Click OnEvent="AssignPersonal">
                                 <EventMask ShowMask="true" />
                                 <ExtraParams>
                                     <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
@@ -64,7 +64,7 @@
                     <ext:MenuItem
                         runat="server"
                         ID="AllocDestinationsFieldLabel"
-                        Text="Selected Destinations:"
+                        Text="Selected Destination(s):"
                         Margins="5 0 5 0"
                         Disabled="true"
                         DisabledCls=""
