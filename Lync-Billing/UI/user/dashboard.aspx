@@ -326,7 +326,7 @@
 
                                 <ext:NumericAxis
                                     Title="Cost in Local Currency"
-                                    Fields="TotalCallsCosts"
+                                    Fields="PersonalCallsCost,BusinessCallsCost,UnmarkedCallsCost"
                                     Position="Left">
                                     <LabelTitle Fill="#115fa6" />
                                     <Label Fill="#115fa6" />
