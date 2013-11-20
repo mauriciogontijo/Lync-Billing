@@ -24,27 +24,34 @@ namespace Lync_Billing.DB
 
         public static bool IsUserDelegate(string delegateAccount) 
         {
-            List<string> columns;
-            Dictionary<string, object> wherePart;
-            List<UserRole> delegeeRoles;
+            //List<string> columns;
+            //Dictionary<string, object> wherePart;
+            //List<UserRole> delegeeRoles;
+            //List<Delegates> delegatedAccounts = new List<Delegates>();
+
+            //columns = new List<string>();
+            //wherePart = new Dictionary<string,object>
+            //{
+            //    { Enums.GetDescription(Enums.UsersRoles.EmailAddress), delegateAccount },
+            //    { Enums.GetDescription(Enums.UsersRoles.RoleID), UserRole.DelegeeRoleID }
+            //};
+
+            //delegeeRoles = UserRole.GetUsersRoles(columns, wherePart, 0);
+
+            //if (delegeeRoles.Count > 0)
+            //{
+            //    delegatedAccounts = GetDelegees(delegateAccount, Delegates.UserDelegeeTypeID);
+
+            //    if (delegatedAccounts.Count > 0)
+            //        return true;
+            //}
+
             List<Delegates> delegatedAccounts = new List<Delegates>();
 
-            columns = new List<string>();
-            wherePart = new Dictionary<string,object>
-            {
-                { Enums.GetDescription(Enums.UsersRoles.EmailAddress), delegateAccount },
-                { Enums.GetDescription(Enums.UsersRoles.RoleID), UserRole.DelegeeRoleID }
-            };
+            delegatedAccounts = GetDelegees(delegateAccount, Delegates.UserDelegeeTypeID);
 
-            delegeeRoles = UserRole.GetUsersRoles(columns, wherePart, 0);
-
-            if (delegeeRoles.Count > 0)
-            {
-                delegatedAccounts = GetDelegees(delegateAccount, Delegates.UserDelegeeTypeID);
-
-                if (delegatedAccounts.Count > 0)
-                    return true;
-            }
+            if (delegatedAccounts.Count > 0)
+                return true;
 
             return false;
         }
