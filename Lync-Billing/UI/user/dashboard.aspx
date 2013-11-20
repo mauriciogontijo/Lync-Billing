@@ -38,8 +38,9 @@
             this.setTitle(
                 storeItem.get('CountryName') + ': ' +
                 ((storeItem.get('CallsCount') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
-                '<br>' + 'Net Duration: ' + chartsDurationFormat(storeItem.get('CallsDuration')) + ' hours.' +
-                '<br>' + 'Net Cost: ' + RoundCostsToTwoDecimalDigits(storeItem.get('CallsCost')) + ' euros'
+                '<br>' + 'Total Calls: ' + storeItem.get('CallsCount') +
+                '<br>' + 'Total Duration: ' + chartsDurationFormat(storeItem.get('CallsDuration')) + ' hours.' +
+                '<br>' + 'Total Cost: ' + RoundCostsToTwoDecimalDigits(storeItem.get('CallsCost')) + ' euros'
             );
         };
 
