@@ -298,40 +298,30 @@ namespace Lync_Billing.ui.user
 
         protected void AssignPersonal(object sender, DirectEventArgs e) 
         {
+            //Get the session and sip account of the current user
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = session.EffectiveSipAccount;
 
-            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
-
-            string json = e.ExtraParams["Values"];
-
+            //Initialize data cotnainers
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
-            List<PhoneCall> perPagePhoneCalls = new List<PhoneCall>();
-
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
+            string json = e.ExtraParams["Values"];
             phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
-
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-            settings.NullValueHandling = NullValueHandling.Ignore;
-
-            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(session.PhoneCallsPerPage, settings);
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                PhoneCall matchedDestinationCalls = session.PhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
+                PhoneCall sessionPhoneCallRecord = session.PhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
 
+                sessionPhoneCallRecord.UI_CallType = "Personal";
+                sessionPhoneCallRecord.UI_MarkedOn = DateTime.Now;
+                sessionPhoneCallRecord.UI_UpdatedByUser = sipAccount;
 
-                matchedDestinationCalls.UI_CallType = "Personal";
-                matchedDestinationCalls.UI_MarkedOn = DateTime.Now;
-                matchedDestinationCalls.UI_UpdatedByUser = sipAccount;
+                PhoneCall.UpdatePhoneCall(sessionPhoneCallRecord);
 
-                PhoneCall.UpdatePhoneCall(matchedDestinationCalls);
-
-                ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCalls.SessionIdTime.ToString());
-                model.Set(matchedDestinationCalls);
+                ModelProxy model = PhoneCallsStore.Find("SessionIdTime", sessionPhoneCallRecord.SessionIdTime.ToString());
+                model.Set(sessionPhoneCallRecord);
                 model.Commit();
-
             }
 
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
@@ -340,40 +330,30 @@ namespace Lync_Billing.ui.user
 
         protected void AssignBusiness(object sender, DirectEventArgs e) 
         {
+            //Get the session and sip account of the current user
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = session.EffectiveSipAccount;
 
-            RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
-
-            string json = e.ExtraParams["Values"];
-
+            //Initialize data cotnainers
             List<PhoneCall> phoneCalls = new List<PhoneCall>();
-            List<PhoneCall> perPagePhoneCalls = new List<PhoneCall>();
-
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-
+            
+            string json = e.ExtraParams["Values"];
             phoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
-
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-            settings.NullValueHandling = NullValueHandling.Ignore;
-
-            perPagePhoneCalls = JsonConvert.DeserializeObject<List<PhoneCall>>(session.PhoneCallsPerPage, settings);
 
             foreach (PhoneCall phoneCall in phoneCalls)
             {
-                PhoneCall matchedDestinationCalls = session.PhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
+                PhoneCall sessionPhoneCallRecord = session.PhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
 
+                sessionPhoneCallRecord.UI_CallType = "Business";
+                sessionPhoneCallRecord.UI_MarkedOn = DateTime.Now;
+                sessionPhoneCallRecord.UI_UpdatedByUser = sipAccount;
 
-                matchedDestinationCalls.UI_CallType = "Business";
-                matchedDestinationCalls.UI_MarkedOn = DateTime.Now;
-                matchedDestinationCalls.UI_UpdatedByUser = sipAccount;
+                PhoneCall.UpdatePhoneCall(sessionPhoneCallRecord);
 
-                PhoneCall.UpdatePhoneCall(matchedDestinationCalls);
-
-                ModelProxy model = PhoneCallsStore.Find("SessionIdTime", matchedDestinationCalls.SessionIdTime.ToString());
-                model.Set(matchedDestinationCalls);
+                ModelProxy model = PhoneCallsStore.Find("SessionIdTime", sessionPhoneCallRecord.SessionIdTime.ToString());
+                model.Set(sessionPhoneCallRecord);
                 model.Commit();
-
             }
 
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
