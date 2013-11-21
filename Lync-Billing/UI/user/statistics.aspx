@@ -242,7 +242,7 @@
                                 </ext:CategoryAxis>
 
                                 <ext:NumericAxis
-                                    Title="Duration in Hours"
+                                    Title="Duration in Seconds"
                                     Fields="PersonalCallsDuration,BusinessCallsDuration"
                                     Position="Left">
                                     <LabelTitle Fill="#115fa6" />
