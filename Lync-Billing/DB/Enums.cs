@@ -474,7 +474,7 @@ namespace Lync_Billing.DB
             EndingDate,
             [Description("AD_UserID")]
             EmployeeID,
-            [Description("SourceUserUri")]
+            [Description("ChargingParty")]
             SipAccount,
             [Description("AD_DisplayName")]
             DisplayName,
