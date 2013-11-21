@@ -270,7 +270,7 @@
                                 FieldLabel="View Calls:"
                                 LabelWidth="60"
                                 Width="200"
-                                Margins="5 390 5 5">
+                                Margins="5 470 5 5">
                                 <Items>
                                     <ext:ListItem Text="Unallocated" Value="Unmarked" />
                                     <ext:ListItem Text="Business" Value="Business" />
@@ -285,25 +285,62 @@
                                 </DirectEvents>
                             </ext:ComboBox>
 
-                            <%--<ext:Button
-                                ID="ExportToPDFButton"
+                            <ext:Button
+                                ID="HelpDialogButton"
                                 runat="server"
-                                Text="To PDF"
-                                Icon="PageSave">
-                                <Listeners>
-                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, #{FormatType}, 'pdf');" />
-                                </Listeners>
+                                Text="Help"
+                                Icon="Help">
+                                <DirectEvents>
+                                    <Click OnEvent="ShowUserHelpPanel" />
+                                </DirectEvents>
                             </ext:Button>
 
-                            <ext:Button
-                                ID="ExportToExcelButton"
-                                runat="server"
-                                Text="To Excel"
-                                Icon="PageExcel">
-                                <Listeners>
-                                    <Click Handler="submitValue(#{ManagePhoneCallsGrid}, #{FormatType}, 'xls');" />
-                                </Listeners>
-                            </ext:Button>--%>
+                            <ext:Window 
+                                ID="UserHelpPanel" 
+                                runat="server" 
+                                Layout="Accordion" 
+                                Icon="Help" 
+                                Title="User Help" 
+                                Hidden="true" 
+                                Width="320" 
+                                Height="350" 
+                                Frame="true" 
+                                X="150" 
+                                Y="100">
+                                <Items>
+                                    <ext:Panel ID="MultipleSelectPanel" runat="server" Icon="Anchor" Title="How do I select multiple Phonecalls?">
+                                        <Content>
+                                            <div class="text-left p10">
+                                                <p class='font-14 line-height-1-4'>You can select multiple phonecalls by pressing the <span class="bold red-color">&nbsp;[Ctrl]&nbsp;</span> button.</p>
+                                            </div>
+                                        </Content>
+                                    </ext:Panel>
+
+                                    <ext:Panel ID="AllocatePhonecalls" runat="server" Icon="ApplicationEdit" Title="How do I allocate my Phonecalls?">
+                                        <Content>
+                                            <div class="text-left p10">
+                                                <p class='font-14 line-height-1-4'>You can allocate your phonecalls by <span class="bold red-color">&nbsp;[Right Clicking]&nbsp;</span> on the selected phonecalls and choosing your preferred action.</p>
+                                            </div>
+                                        </Content>
+                                    </ext:Panel>
+
+                                    <ext:Panel ID="MarkPhoneCallsAndDestinations" runat="server" Icon="ApplicationSideList" Title="How do I allocate Destinations?">
+                                        <Content>
+                                            <div class="text-left p10">
+                                                <p class="font-14 line-height-1-4">If you <span class="bold red-color">&nbsp;[Right Click]&nbsp;</span> on the grid, you can either mark some selected phonecall(s), or you can mark the destinations of these phonecalls, which will result in adding these destintions to your phonebook and from that moment on, any phonecall to these destinations will be marked automatically.</p>
+                                            </div>
+                                        </Content>
+                                    </ext:Panel>
+
+                                    <ext:Panel ID="AssignContactNamesToDestinations" runat="server" Icon="User" Title="How do I assign &quot;Contact Names&quot; to Destinations?">
+                                        <Content>
+                                            <div class="text-left p10">
+                                                <p class="font-14 line-height-1-4">You can add Contact Name to a phonecall destination by <span class="bold red-color">&nbsp;[Double Clicking]&nbsp;</span> on the <span class="italic blue-color">&nbsp;&quot;Contact Name&quot;&nbsp;</span> field and then filling the text box, please note that this works for the Unallocated phonecalls.</p>
+                                            </div>
+                                        </Content>
+                                    </ext:Panel>
+                                </Items>
+                            </ext:Window>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -317,8 +354,8 @@
                         Weight="25"
                         DisplayMsg="Phone Calls {0} - {1} of {2}" />
                 </BottomBar>
-
             </ext:GridPanel>
+
         </div>
     </div>
     <!-- *** END OF MANAGE PHONE CALLS GRID *** -->

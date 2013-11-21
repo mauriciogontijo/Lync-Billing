@@ -64,7 +64,8 @@ namespace Lync_Billing.ui.user
         {
             string title = "Did You Know?";
             string type = "help";
-            string message = String.Format(
+            string notificationMessage = "You can click on the [HELP] button at the Top-Right corner of the grid whenever you want any help.";
+            string fullMessage = String.Format(
                 "<div class='text-left'>" + 
                     "<p>1. You can select multiple phonecalls by pressing the [Ctrl] button.</p>" + 
                     "<br />" + 
@@ -80,8 +81,8 @@ namespace Lync_Billing.ui.user
             {
                 //Misc.Message("User Help", "To allocate your phonecalls please [Right Click] on the grid and choose your preferred action.", "help", isPinned: true, width: 220, height: 120);
                 //Misc.Message("User Help", "You can select multiple phonecalls by pressing the [Ctrl] button.", "help", isPinned: true, width: 220, height: 120);
-                
-                Misc.Message(title, message, type, isPinned: true, width: 270, height: 340);
+
+                Misc.Message(title, notificationMessage, type, hideDelay: 10000, width: 250, height: 100);
             }
         }
 
@@ -569,6 +570,11 @@ namespace Lync_Billing.ui.user
             PhoneBook.AddOrUpdatePhoneBookEntries(sipAccount, phoneBookEntries);
         }
 
+        protected void RejectChanges_DirectEvent(object sender, DirectEventArgs e)
+        {
+            ManagePhoneCallsGrid.GetStore().RejectChanges();
+        }
+
         [DirectMethod]
         protected void PhoneCallsTypeFilter(object sender, DirectEventArgs e)
         {
@@ -577,15 +583,44 @@ namespace Lync_Billing.ui.user
             if (FilterTypeComboBox.SelectedItem.Value != "Unmarked")
             {
                 PhoneCallsStore.Filter("UI_CallType", FilterTypeComboBox.SelectedItem.Value);
-                PhoneBookNameEditorTextbox.ReadOnly =true;
+                PhoneBookNameEditorTextbox.ReadOnly = true;
             }
-            
+
             PhoneCallsStore.LoadPage(1);
         }
 
-        protected void RejectChanges_DirectEvent(object sender, DirectEventArgs e)
+        [DirectMethod]
+        protected void ShowUserHelpPanel(object sender, DirectEventArgs e)
         {
-            ManagePhoneCallsGrid.GetStore().RejectChanges();
+            this.UserHelpPanel.Show();
+
+            //Ext.Net.Panel multipleSelection = new Ext.Net.Panel("How do I select multiple Phonecalls?");
+            //multipleSelection.Html = String.Format("<p class='font-12 p5'>You can select multiple phonecalls by pressing the [Ctrl] button.</p>");
+
+            //Ext.Net.Panel callsAllocation = new Ext.Net.Panel("How do I allocate my Phonecalls?");
+            //callsAllocation.Html = String.Format("<p class='font-12 p5'>You can allocate your phonecalls by [Right Clicking] on the selected phonecalls and choosing your preferred action.</p>");
+
+            //******* APPROACH 1 ********/
+            //UserHelpPanel.Items.Add(multipleSelection);
+            //UserHelpPanel.Items.Add(callsAllocation);
+            //this.UserHelpPanel.Show();
+
+            /****** APPROACH 2 *******/
+            //Window UserHelpWindow = new Window();
+
+            //UserHelpWindow.Items.Add(multipleSelection);
+            //UserHelpWindow.Items.Add(callsAllocation);
+
+            //UserHelpWindow.ID = "UserHelpWindowID";
+            //UserHelpWindow.Title = "Accordion Window";
+            //UserHelpWindow.Width = Unit.Pixel(350);
+            //UserHelpWindow.Height = Unit.Pixel(450);
+            //UserHelpWindow.Maximizable = false;
+            //UserHelpWindow.Icon = Icon.Help;
+            //UserHelpWindow.BodyBorder = 0;
+            //UserHelpWindow.Layout = "Accordion";
+            //UserHelpWindow.Visible = true;
+            //this.UserHelpPanelPlaceholder.Controls.Add(UserHelpWindow);
         }
 
     }
