@@ -58,13 +58,13 @@ namespace Lync_Billing.ui {
         protected global::System.Web.UI.WebControls.HiddenField ThisPageReferrer;
         
         /// <summary>
-        /// AccountingToolsSidebar control.
+        /// Panel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel AccountingToolsSidebar;
+        protected global::Ext.Net.Panel Panel1;
         
         /// <summary>
         /// AdminToolsSidebar control.
@@ -76,13 +76,13 @@ namespace Lync_Billing.ui {
         protected global::Ext.Net.Panel AdminToolsSidebar;
         
         /// <summary>
-        /// Panel1 control.
+        /// AccountingToolsSidebar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel Panel1;
+        protected global::Ext.Net.Panel AccountingToolsSidebar;
         
         /// <summary>
         /// DepartmentHeadSideBar control.
@@ -101,6 +101,15 @@ namespace Lync_Billing.ui {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Panel DelegeeSideBar;
+        
+        /// <summary>
+        /// Panel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel Panel2;
         
         /// <summary>
         /// main_content_place_holder control.

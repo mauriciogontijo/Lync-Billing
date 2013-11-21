@@ -430,8 +430,8 @@ namespace Lync_Billing.ui.session
             else if (roleName == siteAccountantRoleName) return "~/ui/accounting/main/dashboard.aspx";
             else if (roleName == departmentHeadRoleName) return "~/ui/dephead/main/dashboard.aspx";
 
-            else if (roleName == departmentDelegeeRoleName) return "~/ui/delegee/department.aspx";
-            else if (roleName == siteDelegeeRoleName) return "~/ui/delegee/site.aspx";
+            else if (roleName == departmentDelegeeRoleName) return "~/ui/delegee/department/phonecalls.aspx";
+            else if (roleName == siteDelegeeRoleName) return "~/ui/delegee/site/phonecalls.aspx";
             else if (roleName == userDelegeeRoleName) return "~/ui/user/dashboard.aspx";
 
             else if (roleName == normalUserRoleName) return "~/ui/user/dashboard.aspx";

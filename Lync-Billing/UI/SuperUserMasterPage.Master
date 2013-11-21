@@ -57,7 +57,7 @@
                             <div class="ie7flot-fix" ><!--ie7 fix-->
                                 <ul id="navigation-tabs" class="vertical-navigation " >
                                     <li id="access-tab">
-                                        <a title="Drop accounting access" href="../../session/authenticate.aspx?drop=<%= current_session.ActiveRoleName %>">
+                                        <a title="" href="../../session/authenticate.aspx?drop=<%= current_session.ActiveRoleName %>">
                                             <%= DROP_ACCESS_BUTTON_TEXT %><span class="shutdown"></span>
                                         </a>
                                     </li>
@@ -90,89 +90,7 @@
             <div id='main' class='main-container bottom-rounded'>
                 <asp:HiddenField ID="ThisPageReferrer" runat="server" Value="" />
 
-                <% if (PAGE_NAME.Contains("ui_accounting")) { %>
-                    <!-- *** START OF SIDEBAR *** -->
-                    <div id='accounting-tools-sidebar' class='sidebar block float-left w20p'>
-                        <div class="block-body">
-                            <ext:Panel ID="AccountingToolsSidebar"
-                                runat="server"
-                                Height="230"
-                                Width="180"
-                                Title="Accounting Tools"
-                                Collapsed="false"
-                                Collapsible="true">
-                                <Content>
-                                    <div class='sidebar-section'>
-                                        <div class="sidebar-section-header">
-                                            <p>Disputed Calls</p>
-                                        </div>
-                                        <div class="sidebar-section-body">
-                                            <p><a href='../main/disputed.aspx' id="ui_accounting_main_disputed">Manage Disputed Calls</a></p>
-                                        </div>
-                                    </div>
-
-                                    <div class='sidebar-section'>
-                                        <div class="sidebar-section-header">
-                                            <p>Generate Reports</p>
-                                        </div>
-                                        <div class="sidebar-section-body">
-                                            <p><a href='../reports/monthly.aspx' id="ui_accounting_reports_monthly">Monthly Reports</a></p>
-                                            <p><a href='../reports/periodical.aspx' id="ui_accounting_reports_periodical">Periodical Reports</a></p>
-                                        </div>
-                                    </div>
-                                </Content>
-                            </ext:Panel>
-                        </div>
-                    </div>
-                    <!-- *** END OF SIDEBAR *** -->
-                    
-                <% } else if (PAGE_NAME.Contains("ui_admin")) { %>
-                    <!-- *** START OF ADMIN SIDEBAR *** -->
-                    <div id='admin-tools-sidebar' class='sidebar block float-left w20p'>
-                        <div class="block-body">
-                            <ext:Panel ID="AdminToolsSidebar"
-                                runat="server"
-                                Height="340"
-                                Width="180"
-                                Title="Admin Tools"
-                                Collapsed="false"
-                                Collapsible="true">
-                                <Content>
-                                    <div class='sidebar-section'>
-                                        <div class="sidebar-section-header">
-                                            <p>Gateways</p>
-                                        </div>
-                                        <div class="sidebar-section-body">
-                                            <p><a href='../gateways/manage.aspx' id="ui_admin_gateways_manage">Manage Gateways</a></p>
-                                            <p><a href='../gateways/rates.aspx' id="ui_admin_gateways_rates">Manage Rates</a></p>
-                                        </div>
-                                    </div>
-
-                                    <div class='sidebar-section'>
-                                        <div class="sidebar-section-header">
-                                            <p>Email Notifications</p>
-                                        </div>
-                                        <div class="sidebar-section-body">
-                                            <p><a href='../notifications/calls.aspx' id="ui_admin_notifications_calls">Unallocated Calls</a></p>
-                                            <p><a href='../notifications/bills.aspx' id="ui_admin_notifications_bills">Users Bills</a></p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class='sidebar-section'>
-                                        <div class="sidebar-section-header">
-                                            <p>Statistics</p>
-                                        </div>
-                                        <div class="sidebar-section-body">
-                                            <p><a href='#' id="ui_admin_main_statistics">View Statistics</a></p>
-                                        </div>
-                                    </div>
-                                </Content>
-                            </ext:Panel>
-                        </div>
-                    </div>
-                    <!-- *** END OF ADMIN SIDEBAR *** -->
-
-                <% } else if (PAGE_NAME.Contains("ui_sysadmin")) { %>
+                <% if (PAGE_NAME.Contains("ui_sysadmin")) { %>
                     <!-- *** START OF SYSADMIN SIDEBAR *** -->
                     <div id='Div1' class='sidebar block float-left w20p'>
                         <div class="block-body">
@@ -233,6 +151,88 @@
                     </div>
                     <!-- *** END OF SYSADMIN SIDEBAR *** -->
 
+                <% } else if (PAGE_NAME.Contains("ui_admin")) { %>
+                    <!-- *** START OF SITE ADMIN SIDEBAR *** -->
+                    <div id='admin-tools-sidebar' class='sidebar block float-left w20p'>
+                        <div class="block-body">
+                            <ext:Panel ID="AdminToolsSidebar"
+                                runat="server"
+                                Height="340"
+                                Width="180"
+                                Title="Admin Tools"
+                                Collapsed="false"
+                                Collapsible="true">
+                                <Content>
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Gateways</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../gateways/manage.aspx' id="ui_admin_gateways_manage">Manage Gateways</a></p>
+                                            <p><a href='../gateways/rates.aspx' id="ui_admin_gateways_rates">Manage Rates</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Email Notifications</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../notifications/calls.aspx' id="ui_admin_notifications_calls">Unallocated Calls</a></p>
+                                            <p><a href='../notifications/bills.aspx' id="ui_admin_notifications_bills">Users Bills</a></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Statistics</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='#' id="ui_admin_main_statistics">View Statistics</a></p>
+                                        </div>
+                                    </div>
+                                </Content>
+                            </ext:Panel>
+                        </div>
+                    </div>
+                    <!-- *** END OF SIE ADMIN SIDEBAR *** -->
+
+                <% } else if (PAGE_NAME.Contains("ui_accounting")) { %>
+                    <!-- *** START OF SITE SIDEBAR *** -->
+                    <div id='accounting-tools-sidebar' class='sidebar block float-left w20p'>
+                        <div class="block-body">
+                            <ext:Panel ID="AccountingToolsSidebar"
+                                runat="server"
+                                Height="230"
+                                Width="180"
+                                Title="Accounting Tools"
+                                Collapsed="false"
+                                Collapsible="true">
+                                <Content>
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Disputed Calls</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../main/disputed.aspx' id="ui_accounting_main_disputed">Manage Disputed Calls</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Generate Reports</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../reports/monthly.aspx' id="ui_accounting_reports_monthly">Monthly Reports</a></p>
+                                            <p><a href='../reports/periodical.aspx' id="ui_accounting_reports_periodical">Periodical Reports</a></p>
+                                        </div>
+                                    </div>
+                                </Content>
+                            </ext:Panel>
+                        </div>
+                    </div>
+                    <!-- *** END OF SITE SIDEBAR *** -->
+
                 <% } else if (PAGE_NAME.Contains("ui_dephead")) { %>
                     <!-- *** START OF DEPARTMENT HEAD SIDEBAR *** -->
                     <div id='Div2' class='sidebar block float-left w20p'>
@@ -258,10 +258,10 @@
                             </ext:Panel>
                         </div>
                     </div>
-                    <!-- *** END OF SYSADMIN SIDEBAR *** -->
+                    <!-- *** END OF DEPARTMENT HEAD SIDEBAR *** -->
 
-                <% } else if (PAGE_NAME.Contains("ui_delegee")) { %>
-                    <!-- *** START OF DELEGEE SIDEBAR *** -->
+                <% } else if (PAGE_NAME.Contains("ui_delegee_department")) { %>
+                    <!-- *** START OF DEPARTMENT DELEGEE SIDEBAR *** -->
                     <div id='Div3' class='sidebar block float-left w20p'>
                         <div class="block-body">
                             <ext:Panel ID="DelegeeSideBar"
@@ -276,21 +276,41 @@
                                         <div class="sidebar-section-header">
                                             <p>Manage Phonecalls</p>
                                         </div>
-                                        <% if(current_session.ActiveRoleName == Lync_Billing.DB.Enums.GetDescription(Lync_Billing.DB.Enums.ActiveRoleNames.DepartmentDelegee)) { %>
-                                            <div class="sidebar-section-body">
-                                                <p><a href='../delegee/department.aspx' id="ui_delegee_department">For Department</a></p>
-                                            </div>
-                                        <% } else if(current_session.ActiveRoleName == Lync_Billing.DB.Enums.GetDescription(Lync_Billing.DB.Enums.ActiveRoleNames.SiteDelegee)) { %>
-                                            <div class="sidebar-section-body">
-                                                <p><a href='../delegee/site.aspx' id="ui_delegee_site">For Site</a></p>
-                                            </div>
-                                        <% } %>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../delegee/department/phonecalls.aspx' id="ui_delegee_department">For Department</a></p>
+                                        </div>
                                     </div>
                                 </Content>
                             </ext:Panel>
                         </div>
                     </div>
-                    <!-- *** END OF SYSADMIN SIDEBAR *** -->
+                    <!-- *** END OF DEPARTMENT DELEGEE SIDEBAR *** -->
+
+                <% } else if (PAGE_NAME.Contains("ui_delegee_site")) { %>
+                    <!-- *** START OF SITE DELEGEE SIDEBAR *** -->
+                    <div id='Div4' class='sidebar block float-left w20p'>
+                        <div class="block-body">
+                            <ext:Panel ID="Panel2"
+                                runat="server"
+                                Height="150"
+                                Width="180"
+                                Title="Delegee Tools"
+                                Collapsed="false"
+                                Collapsible="true">
+                                <Content>
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Manage Phonecalls</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../delegee/site/phonecalls.aspx' id="ui_delegee_site">For Site</a></p>
+                                        </div>
+                                    </div>
+                                </Content>
+                            </ext:Panel>
+                        </div>
+                    </div>
+                    <!-- *** END OF DEPARTMENT DELEGEE SIDEBAR *** -->
                 <% } %>
 
 
