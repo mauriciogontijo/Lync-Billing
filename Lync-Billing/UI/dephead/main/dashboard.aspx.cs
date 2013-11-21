@@ -42,6 +42,10 @@ namespace Lync_Billing.ui.dephead.main
 
             sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
 
+            //Set the year number in the charts header's title
+            string currentYear = DateTime.Now.Year.ToString();
+            TopDestinationCountriesPanel.Title = "Most Called Countries in " + currentYear;
+            DepartmentCallsPerMonthChartPanel.Title = "Phonecalls Distribution for " + currentYear;
 
             /***
              * Thie following solves the issue of infinitely looping like: Page_Load--->BindDepartmentsForThisUser--->DrawStatisticsForDepartment

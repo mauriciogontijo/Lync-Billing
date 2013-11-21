@@ -583,6 +583,10 @@ namespace Lync_Billing.ui.user
                 PhoneCallsStore.Filter("UI_CallType", FilterTypeComboBox.SelectedItem.Value);
                 PhoneBookNameEditorTextbox.ReadOnly = true;
             }
+            else
+            {
+                PhoneBookNameEditorTextbox.ReadOnly = false;
+            }
 
             PhoneCallsStore.LoadPage(1);
         }

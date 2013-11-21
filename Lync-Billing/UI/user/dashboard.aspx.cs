@@ -76,10 +76,10 @@ namespace Lync_Billing.ui.user
             userMailStatistics = MailStatistics.GetMailStatistics(sipAccount, DateTime.Now);
 
             //Set the year number in the charts header's title
-            string currenYear = DateTime.Now.Year.ToString();
-            CallsCostsChartPanel.Title = "Calls Cost Chart for " + currenYear;
-            TopDestinationNumbersGrid.Title = "Most Called Numbers in " + currenYear;
-            TopDestinationCountriesPanel.Title = "Most Called Countries in " + currenYear;
+            string currentYear = DateTime.Now.Year.ToString();
+            CallsCostsChartPanel.Title = "Calls Cost Chart for " + currentYear;
+            TopDestinationNumbersGrid.Title = "Most Called Numbers in " + currentYear;
+            TopDestinationCountriesPanel.Title = "Most Called Countries in " + currentYear;
         }
 
 

@@ -121,6 +121,7 @@ namespace Lync_Billing.DB.Summaries
                 ListOfDepartmentCallsSummaries.Add(departmentSummary);
             }
 
+            //Return only the summaries for specified Year.
             return ListOfDepartmentCallsSummaries.Where(summary => summary.Year == year).ToList<DepartmentCallsSummary>();
         }
     }

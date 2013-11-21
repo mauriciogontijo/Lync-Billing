@@ -219,7 +219,7 @@
                     Width="510"
                     Height="300"
                     Header="True"
-                    Title="Top Destinations By Cost"
+                    Title="Most Called Countries"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
@@ -276,7 +276,7 @@
                     ID="DepartmentMailStatistics" 
                     runat="server"
                     Header="true"
-                    Title="Mail Statistics"
+                    Title="Mail Statistics for this Month"
                     PaddingSummary="10px 10px 10px 10px"
                     Width="220"
                     Height="300"
@@ -300,7 +300,7 @@
                     runat="server"
                     Width="740"
                     Height="520"
-                    Title="Phonecalls Distribution for 2013"
+                    Title="Phonecalls Distribution"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart 
