@@ -25,8 +25,10 @@ namespace Lync_Billing.ui
             //Initialize the local cope of the current user's session
             current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
+
             //Initialize the sidebar-selected css class string
             HTML_SELECTED = "class='selected'";
+
 
             //Filter the page name text
             PAGE_NAME = this.Page.Request.FilePath.ToString().Replace("/", "_").Replace(".aspx", ""); //this converts the string from "/ui/example.aspx" to "_ui_example"
@@ -34,8 +36,10 @@ namespace Lync_Billing.ui
                 PAGE_NAME = PAGE_NAME.Remove(0, 1); //this removes the first underscore (_), the final string will look like: "ui_example"
             }
 
+
             //Initialize the hidden element's value
             this.ThisPageReferrer.Value = PAGE_NAME;
+
 
             //Initialize the DropAccess button's text
             if (PAGE_NAME.Contains("ui_accounting"))
@@ -53,6 +57,14 @@ namespace Lync_Billing.ui
             else if (PAGE_NAME.Contains("ui_dephead"))
             {
                 DROP_ACCESS_BUTTON_TEXT = "Drop Department Head Access";
+            }
+            else if (PAGE_NAME.Contains("ui_delegee_department"))
+            {
+                DROP_ACCESS_BUTTON_TEXT = "Drop Department Delegee Access";
+            }
+            else if (PAGE_NAME.Contains("ui_delegee_site"))
+            {
+                DROP_ACCESS_BUTTON_TEXT = "Drop Site Delegee Access";
             }
         }
     }

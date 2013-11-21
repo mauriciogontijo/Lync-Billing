@@ -117,6 +117,8 @@
     <Content Include="ui\admin\main\dashboard.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
+    <Content Include="ui\delegee\department.aspx" />
+    <Content Include="ui\delegee\site.aspx" />
     <Content Include="ui\dephead\main\dashboard.aspx" />
     <Content Include="ui\dephead\users\phonecalls.aspx" />
     <Content Include="ui\resources\js\feedback.js" />
@@ -202,7 +204,7 @@
     <Compile Include="DB\Summaries\UserCallsSummary.cs" />
     <Compile Include="DB\TmpUsers.cs" />
     <Compile Include="DB\Summaries\UsersCallsSummaryChartData.cs" />
-    <Compile Include="DB\UsersDelegates.cs" />
+    <Compile Include="DB\Delegates.cs" />
     <Compile Include="DB\GatewayDetail.cs" />
     <Compile Include="DB\PhoneCall.cs" />
     <Compile Include="DB\Pool.cs" />
@@ -274,6 +276,20 @@
     </Compile>
     <Compile Include="ui\admin\notifications\calls.aspx.designer.cs">
       <DependentUpon>calls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\delegee\department.aspx.cs">
+      <DependentUpon>department.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\delegee\department.aspx.designer.cs">
+      <DependentUpon>department.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\delegee\site.aspx.cs">
+      <DependentUpon>site.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\delegee\site.aspx.designer.cs">
+      <DependentUpon>site.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\dephead\main\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>

@@ -29,7 +29,12 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 var referrer = $("#ThisPageReferrer").val();
-                if (referrer.search("ui_admin") != -1 || referrer.search("ui_accounting") != -1 || referrer.search("ui_sysadmin") != -1 || referrer.search("ui_dephead") != -1) {
+                if (referrer.search("ui_admin") != -1 ||
+                    referrer.search("ui_accounting") != -1 ||
+                    referrer.search("ui_sysadmin") != -1 ||
+                    referrer.search("ui_dephead") != -1 ||
+                    referrer.search("ui_delegee") != -1)
+                {
                     var starting_index = referrer.search("ui");
                     var button_id = referrer.substr(starting_index, referrer.length);
                     $("#" + button_id).addClass("selected");
@@ -229,10 +234,10 @@
                     <!-- *** END OF SYSADMIN SIDEBAR *** -->
 
                 <% } else if (PAGE_NAME.Contains("ui_dephead")) { %>
-                    <!-- *** START OF SYSADMIN SIDEBAR *** -->
+                    <!-- *** START OF DEPARTMENT HEAD SIDEBAR *** -->
                     <div id='Div2' class='sidebar block float-left w20p'>
                         <div class="block-body">
-                            <ext:Panel ID="Panel2"
+                            <ext:Panel ID="DepartmentHeadSideBar"
                                 runat="server"
                                 Height="150"
                                 Width="180"
@@ -248,6 +253,38 @@
                                             <p><a href='../main/dashboard.aspx' id="ui_dephead_main_dashboard">Dashboard</a></p>
                                             <p><a href='../users/phonecalls.aspx' id="ui_dephead_users_phonecalls">Users Phonecalls</a></p>
                                         </div>
+                                    </div>
+                                </Content>
+                            </ext:Panel>
+                        </div>
+                    </div>
+                    <!-- *** END OF SYSADMIN SIDEBAR *** -->
+
+                <% } else if (PAGE_NAME.Contains("ui_delegee")) { %>
+                    <!-- *** START OF DELEGEE SIDEBAR *** -->
+                    <div id='Div3' class='sidebar block float-left w20p'>
+                        <div class="block-body">
+                            <ext:Panel ID="DelegeeSideBar"
+                                runat="server"
+                                Height="150"
+                                Width="180"
+                                Title="Delegee Tools"
+                                Collapsed="false"
+                                Collapsible="true">
+                                <Content>
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Manage Phonecalls</p>
+                                        </div>
+                                        <% if(current_session.ActiveRoleName == Lync_Billing.DB.Enums.GetDescription(Lync_Billing.DB.Enums.ActiveRoleNames.DepartmentDelegee)) { %>
+                                            <div class="sidebar-section-body">
+                                                <p><a href='../delegee/department.aspx' id="ui_delegee_department">For Department</a></p>
+                                            </div>
+                                        <% } else if(current_session.ActiveRoleName == Lync_Billing.DB.Enums.GetDescription(Lync_Billing.DB.Enums.ActiveRoleNames.SiteDelegee)) { %>
+                                            <div class="sidebar-section-body">
+                                                <p><a href='../delegee/site.aspx' id="ui_delegee_site">For Site</a></p>
+                                            </div>
+                                        <% } %>
                                     </div>
                                 </Content>
                             </ext:Panel>
