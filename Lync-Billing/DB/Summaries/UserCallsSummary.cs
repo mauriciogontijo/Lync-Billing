@@ -490,7 +490,7 @@ namespace Lync_Billing.DB.Summaries
             //Database query related
             functionParams.Add(siteName);
             
-            columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri));
+            columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.ChargingParty));
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime));
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry));
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri));
@@ -514,7 +514,7 @@ namespace Lync_Billing.DB.Summaries
                 PDFColumnsWidths: pdfColumnsWidths, 
                 PDFColumnsSchema: pdfColumnsSchema, 
                 PDFDocumentHeaders: headers, 
-                DataSeparatorName: Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), 
+                DataSeparatorName: Enums.GetDescription(Enums.PhoneCalls.ChargingParty), 
                 UsersInfoCollections: UsersCollection, 
                 UsersSummariesMap: UsersSummaires
             );

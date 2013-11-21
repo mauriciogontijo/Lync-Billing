@@ -240,6 +240,8 @@ namespace Lync_Billing.DB
             SessionEndTime,
             [Description("SourceUserUri")]
             SourceUserUri,
+            [Description("ChargingParty")]
+            ChargingParty,
             [Description("SourceNumberUri")]
             SourceNumberUri,
             [Description("DestinationNumberUri")]
