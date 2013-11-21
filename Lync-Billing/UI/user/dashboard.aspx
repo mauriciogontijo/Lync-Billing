@@ -36,11 +36,11 @@
             });
 
             this.setTitle(
-                storeItem.get('CountryName') + ': ' +
-                ((storeItem.get('CallsCount') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
-                '<br>' + 'Total Calls: ' + storeItem.get('CallsCount') +
-                '<br>' + 'Total Duration: ' + chartsDurationFormat(storeItem.get('CallsDuration')) + ' hours.' +
-                '<br>' + 'Total Cost: ' + RoundCostsToTwoDecimalDigits(storeItem.get('CallsCost')) + ' euros'
+                storeItem.get('CountryName') + ': ' + ((storeItem.get('CallsCount') / total).toFixed(4) * 100.0).toFixed(2) + '%' +
+                '<br />' +
+                '<br />' + 'Total Calls: ' + storeItem.get('CallsCount') +
+                '<br />' + 'Total Duration: ' + chartsDurationFormat(storeItem.get('CallsDuration')) + ' hours.' +
+                '<br />' + 'Total Cost: ' + RoundCostsToTwoDecimalDigits(storeItem.get('CallsCost')) + ' euros'
             );
         };
 
@@ -176,7 +176,7 @@
                                     <Label Field="CountryName" Display="Rotate" Contrast="true" Font="16px Arial">
                                         <Renderer Fn="TopDestinationCountries_LableRenderer" />
                                     </Label>
-                                    <Tips ID="Tips2" runat="server" TrackMouse="true" Width="200" Height="75">
+                                    <Tips ID="Tips2" runat="server" TrackMouse="true" Width="230" Height="80">
                                         <Renderer Fn="TopDestinationCountries_TipRenderer" />
                                     </Tips>
                                 </ext:PieSeries>

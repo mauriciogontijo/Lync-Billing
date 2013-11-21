@@ -311,7 +311,7 @@
                                     <ext:Panel ID="MultipleSelectPanel" runat="server" Icon="Anchor" Title="How do I select multiple Phonecalls?">
                                         <Content>
                                             <div class="text-left p10">
-                                                <p class='font-14 line-height-1-5'>You can select multiple phonecalls by pressing the <span class="bold red-color">&nbsp;[Ctrl]&nbsp;</span> button.</p>
+                                                <p class='font-14 line-height-1-5'>You can select multiple phonecalls by pressing either of the <span class="bold red-color">&nbsp;[Ctrl]&nbsp;</span> or the <span class="bold red-color">&nbsp;[Shift]&nbsp;</span> buttons.</p>
                                             </div>
                                         </Content>
                                     </ext:Panel>
