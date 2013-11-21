@@ -20,17 +20,34 @@ namespace Lync_Billing.DB.Statistics
         public decimal CallsDuration { private set; get; }
 
 
-        public static List<TopDestinationNumbers> GetTopDestinationNumbers(string sipAccount, int limit)
+        public static List<TopDestinationNumbers> GetTopDestinationNumbers(string sipAccount, int limit, DateTime? startingDate = null, DateTime? endingDate = null)
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_DestinationsNumbers_ForUser);
 
             TopDestinationNumbers topDestination;
             List<TopDestinationNumbers> TopDestinationNumbers = new List<TopDestinationNumbers>();
+            DateTime fromDate, toDate;
+
+            if (startingDate == null || endingDate == null)
+            {
+                //Both starting date and ending date respectively point to the beginning and ending of this current month.
+                //FromDate = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
+                fromDate = new DateTime(DateTime.Now.Year, 1, 1);
+                toDate = fromDate.AddYears(1).AddDays(-1);
+            }
+            else
+            {
+                //Assign the beginning of date.Month to the startingDate and the end of it to the endingDate 
+                fromDate = (DateTime)startingDate;
+                toDate = (DateTime)endingDate;
+            }
             
             //Initialize the function parameters and then query the database
             List<object> parameters = new List<object>();
             parameters.Add(sipAccount);
+            parameters.Add(fromDate);
+            parameters.Add(toDate);
             parameters.Add(limit);
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, parameters, null);
@@ -51,13 +68,13 @@ namespace Lync_Billing.DB.Statistics
                     }
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationNumbers.CallsCount))
-                        topDestination.CallsCount = (int)row[column.ColumnName];
+                        topDestination.CallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationNumbers.CallsDuration))
-                        topDestination.CallsDuration = (decimal)row[column.ColumnName];
+                        topDestination.CallsDuration = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationNumbers.CallsCost))
-                        topDestination.CallsCost = (decimal)row[column.ColumnName];
+                        topDestination.CallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[column.ColumnName]));
                 }
 
                 TopDestinationNumbers.Add(topDestination);
