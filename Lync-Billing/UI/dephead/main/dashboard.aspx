@@ -300,7 +300,7 @@
                     runat="server"
                     Width="740"
                     Height="520"
-                    Title="Total Phonecalls Distribution"
+                    Title="Phonecalls Distribution for 2013"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart 
