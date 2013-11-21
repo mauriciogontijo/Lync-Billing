@@ -303,7 +303,7 @@
                                 Title="User Help" 
                                 Hidden="true" 
                                 Width="320" 
-                                Height="350" 
+                                Height="420" 
                                 Frame="true" 
                                 X="150" 
                                 Y="100">
@@ -311,23 +311,30 @@
                                     <ext:Panel ID="MultipleSelectPanel" runat="server" Icon="Anchor" Title="How do I select multiple Phonecalls?">
                                         <Content>
                                             <div class="text-left p10">
-                                                <p class='font-14 line-height-1-4'>You can select multiple phonecalls by pressing the <span class="bold red-color">&nbsp;[Ctrl]&nbsp;</span> button.</p>
+                                                <p class='font-14 line-height-1-5'>You can select multiple phonecalls by pressing the <span class="bold red-color">&nbsp;[Ctrl]&nbsp;</span> button.</p>
                                             </div>
                                         </Content>
                                     </ext:Panel>
 
                                     <ext:Panel ID="AllocatePhonecalls" runat="server" Icon="ApplicationEdit" Title="How do I allocate my Phonecalls?">
                                         <Content>
-                                            <div class="text-left p10">
-                                                <p class='font-14 line-height-1-4'>You can allocate your phonecalls by <span class="bold red-color">&nbsp;[Right Clicking]&nbsp;</span> on the selected phonecalls and choosing your preferred action.</p>
+                                            <div class="p10 text-left font-14 line-height-1-5 over-h">
+                                                <p class="mb10">You can allocate your phonecalls by <span class="bold red-color">&nbsp;[Right Clicking]&nbsp;</span> on the selected phonecalls and choosing your preferred action from the first section of the menu - <span class="blue-color">Selected Phonecalls</span> section.</p>
+                                                <p>The list of actions is:</p>
+                                                <ol class="ml35" style="list-style-type: decimal">
+                                                    <li>As Business</li>
+                                                    <li>As Personal</li>
+                                                    <li>As Dispute</li>
+                                                </ol>
                                             </div>
                                         </Content>
                                     </ext:Panel>
 
                                     <ext:Panel ID="MarkPhoneCallsAndDestinations" runat="server" Icon="ApplicationSideList" Title="How do I allocate Destinations?">
                                         <Content>
-                                            <div class="text-left p10">
-                                                <p class="font-14 line-height-1-4">If you <span class="bold red-color">&nbsp;[Right Click]&nbsp;</span> on the grid, you can either mark some selected phonecall(s), or you can mark the destinations of these phonecalls, which will result in adding these destintions to your phonebook and from that moment on, any phonecall to these destinations will be marked automatically.</p>
+                                            <div class="p10 text-left font-14 line-height-1-5">
+                                                <p class="mb10">If you <span class="bold red-color">&nbsp;[Right Click]&nbsp;</span> on the grid, you can mark the destination(s) of your selected phonecall(s) as either <span class="bold">Always Business</span> or <span class="bold">Always Personal</span> from the second section of menu - <span class="blue-color">Selected Destinations</span> section.</p>
+                                                <p>Please note that marking a destination results in adding it to your phonebook, and from that moment on any phonecall to that destination will be marked automatically as the type of this phonebook contact (Business/Personal).</p>
                                             </div>
                                         </Content>
                                     </ext:Panel>
@@ -335,7 +342,7 @@
                                     <ext:Panel ID="AssignContactNamesToDestinations" runat="server" Icon="User" Title="How do I assign &quot;Contact Names&quot; to Destinations?">
                                         <Content>
                                             <div class="text-left p10">
-                                                <p class="font-14 line-height-1-4">You can add Contact Name to a phonecall destination by <span class="bold red-color">&nbsp;[Double Clicking]&nbsp;</span> on the <span class="italic blue-color">&nbsp;&quot;Contact Name&quot;&nbsp;</span> field and then filling the text box, please note that this works for the Unallocated phonecalls.</p>
+                                                <p class="font-14 line-height-1-5">You can add Contact Name to a phonecall destination by <span class="bold red-color">&nbsp;[Double Clicking]&nbsp;</span> on the <span class="blue-color">&nbsp;&quot;Contact Name&quot;&nbsp;</span> field and then filling the text box, please note that this works for the Unallocated phonecalls.</p>
                                             </div>
                                         </Content>
                                     </ext:Panel>

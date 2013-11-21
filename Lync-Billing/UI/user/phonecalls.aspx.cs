@@ -56,8 +56,6 @@ namespace Lync_Billing.ui.user
 
             sipAccount = session.EffectiveSipAccount;
             ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(sipAccount);
-
-            ShowInfoMessages();
         }
 
         private void ShowInfoMessages()
