@@ -139,11 +139,6 @@ namespace Lync_Billing.DB
                     {
                         IsDepartmentHead = true;
                     }
-
-                    //else if (role.IsDelegee())
-                    //{
-                    //    IsDelegee = true;
-                    //}
                 }
             }
         }

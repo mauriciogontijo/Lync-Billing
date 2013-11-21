@@ -24,90 +24,23 @@ namespace Lync_Billing.DB
 
         public static bool IsUserDelegate(string delegateAccount) 
         {
-            //List<string> columns;
-            //Dictionary<string, object> wherePart;
-            //List<UserRole> delegeeRoles;
-            //List<Delegates> delegatedAccounts = new List<Delegates>();
-
-            //columns = new List<string>();
-            //wherePart = new Dictionary<string,object>
-            //{
-            //    { Enums.GetDescription(Enums.UsersRoles.EmailAddress), delegateAccount },
-            //    { Enums.GetDescription(Enums.UsersRoles.RoleID), UserRole.DelegeeRoleID }
-            //};
-
-            //delegeeRoles = UserRole.GetUsersRoles(columns, wherePart, 0);
-
-            //if (delegeeRoles.Count > 0)
-            //{
-            //    delegatedAccounts = GetDelegees(delegateAccount, Delegates.UserDelegeeTypeID);
-
-            //    if (delegatedAccounts.Count > 0)
-            //        return true;
-            //}
-
-            List<Delegates> delegatedAccounts = new List<Delegates>();
-
-            delegatedAccounts = GetDelegees(delegateAccount, Delegates.UserDelegeeTypeID);
-
-            if (delegatedAccounts.Count > 0)
-                return true;
-
-            return false;
+            List<Delegates> delegatedAccounts = GetDelegees(delegateAccount, Delegates.UserDelegeeTypeID);
+            
+            return (delegatedAccounts.Count > 0 ? true : false);
         }
 
         public static bool IsDepartmentDelegate(string delegateAccount)
         {
-            List<string> columns;
-            Dictionary<string, object> wherePart;
-            List<UserRole> delegeeRoles;
-            List<Delegates> delegatedAccounts = new List<Delegates>();
+            List<Delegates> delegatedAccounts = GetDelegees(delegateAccount, Delegates.DepartmentDelegeeTypeID);
 
-            columns = new List<string>();
-            wherePart = new Dictionary<string, object>
-            {
-                { Enums.GetDescription(Enums.UsersRoles.EmailAddress), delegateAccount },
-                { Enums.GetDescription(Enums.UsersRoles.RoleID), UserRole.DelegeeRoleID }
-            };
-
-            delegeeRoles = UserRole.GetUsersRoles(columns, wherePart, 0);
-
-            if (delegeeRoles.Count > 0)
-            {
-                delegatedAccounts = GetDelegees(delegateAccount, Delegates.DepartmentDelegeeTypeID);
-
-                if (delegatedAccounts.Count > 0)
-                    return true;
-            }
-
-            return false;
+            return (delegatedAccounts.Count > 0 ? true : false);
         }
 
         public static bool IsSiteDelegate(string delegateAccount)
         {
-            List<string> columns;
-            Dictionary<string, object> wherePart;
-            List<UserRole> delegeeRoles;
-            List<Delegates> delegatedAccounts = new List<Delegates>();
+            List<Delegates> delegatedAccounts = GetDelegees(delegateAccount, Delegates.SiteDelegeeTypeID);
 
-            columns = new List<string>();
-            wherePart = new Dictionary<string, object>
-            {
-                { Enums.GetDescription(Enums.UsersRoles.EmailAddress), delegateAccount },
-                { Enums.GetDescription(Enums.UsersRoles.RoleID), UserRole.DelegeeRoleID }
-            };
-
-            delegeeRoles = UserRole.GetUsersRoles(columns, wherePart, 0);
-
-            if (delegeeRoles.Count > 0)
-            {
-                delegatedAccounts = GetDelegees(delegateAccount, Delegates.SiteDelegeeTypeID);
-
-                if (delegatedAccounts.Count > 0)
-                    return true;
-            }
-
-            return false;
+            return (delegatedAccounts.Count > 0 ? true : false);
         }
 
         public static List<Delegates> GetDelegees(string delegateAccount) 
