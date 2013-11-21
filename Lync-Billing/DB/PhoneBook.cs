@@ -66,16 +66,23 @@ namespace Lync_Billing.DB
             string columnName = string.Empty;
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_DestinationsNumbers_ForUser);
 
-            PhoneBook phoneBookEntry;
-            List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
-            PhoneBookContactComparer linqDistinctComparer = new PhoneBookContactComparer();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             List<object> functionparameters = new List<object>();
 
+            PhoneBook phoneBookEntry;
+            List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
+            PhoneBookContactComparer linqDistinctComparer = new PhoneBookContactComparer();
+            DateTime fromDate, toDate;
+
+            //Get the top 200 Destination in the last 6 years
             int contactNumbersLimit = 200;
+            fromDate = new DateTime(DateTime.Now.Year - 5, 1, 1);
+            toDate = fromDate.AddYears(6).AddDays(-1);
 
             //Initialize function parameters and then query the database
             functionparameters.Add(sipAccount);
+            functionparameters.Add(fromDate);
+            functionparameters.Add(toDate);
             functionparameters.Add(contactNumbersLimit);
 
             //Get all the destinations for this user where the phonecall is of a billable CallTypeID
