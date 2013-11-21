@@ -40,29 +40,30 @@ namespace Lync_Backend.Helpers
                     else
                         QueryType = "CREATE";
 
-                    if (SQLStatement.Contains(@"@OfficeName") &&   SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
+
+                    if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate") && SQLStatement.Contains(@"@Limits"))
+                    {
+                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime, \r\n " + "\t @Limits int ");
+                    }
+                    else if (SQLStatement.Contains(@"@OfficeName") &&   SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
                     {
                         FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
-                    }
-                    else if (SQLStatement.Contains(@"@sipAccount") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
-                    {
-                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
-                    }
-                    else  if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
-                    {
-                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
                     }
                     else if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@Limits"))
                     {
                         FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n " + "\t @Limits int ");
                     }
+                    else if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate") && SQLStatement.Contains(@"@Limits"))
+                    {
+                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime, \r\n " + "\t @Limits int ");
+                    }
+                    else  if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
+                    {
+                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
+                    }
                     else if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@Limits"))
                     {
                         FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @Limits int ");
-                    }
-                    else if (SQLStatement.Contains(@"@SipAccount") && SQLStatement.Contains(@"@Limits"))
-                    {
-                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @Limits int ");
                     }
                     else if (SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@OfficeName"))
                     {
@@ -71,6 +72,18 @@ namespace Lync_Backend.Helpers
                     else if (SQLStatement.Contains(@"@OfficeName"))
                     {
                         FunctionVariables = string.Format("\t @OfficeName	nvarchar(450)");
+                    }
+                    else if (SQLStatement.Contains(@"@sipAccount") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate") && SQLStatement.Contains(@"@Limits"))
+                    {
+                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime, \r\n " + "\t @Limits int ");
+                    }
+                    else if (SQLStatement.Contains(@"@sipAccount") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
+                    {
+                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
+                    }
+                    else if (SQLStatement.Contains(@"@SipAccount") && SQLStatement.Contains(@"@Limits"))
+                    {
+                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @Limits int ");
                     }
                     else if (SQLStatement.Contains(@"@SipAccount"))
                     {
