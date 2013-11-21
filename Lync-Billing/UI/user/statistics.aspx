@@ -207,7 +207,7 @@
                     Height="420"
                     Width="740"
                     Header="True"
-                    Title="Business/Personal Calls Reports"
+                    Title="Business/Personal Calls Report for 2013"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
