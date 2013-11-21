@@ -44,6 +44,10 @@ namespace Lync_Backend.Helpers
                     {
                         FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
                     }
+                    else if (SQLStatement.Contains(@"@sipAccount") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
+                    {
+                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
+                    }
                     else  if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
                     {
                         FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
@@ -216,7 +220,8 @@ namespace Lync_Backend.Helpers
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
-                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -272,7 +277,8 @@ namespace Lync_Backend.Helpers
                     "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
-                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -331,7 +337,8 @@ namespace Lync_Backend.Helpers
                     "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "]=@DepartmentName AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
-                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -395,7 +402,8 @@ namespace Lync_Backend.Helpers
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
-                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -451,7 +459,8 @@ namespace Lync_Backend.Helpers
                     "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
-                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -509,7 +518,8 @@ namespace Lync_Backend.Helpers
                     "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "]=@DepartmentName AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
-                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n"
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
