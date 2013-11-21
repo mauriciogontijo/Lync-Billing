@@ -277,7 +277,7 @@
                                             <p>Manage Phonecalls</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../delegee/department/phonecalls.aspx' id="ui_delegee_department">For Department</a></p>
+                                            <p><a href='../department/phonecalls.aspx' id="ui_delegee_department">For Department</a></p>
                                         </div>
                                     </div>
                                 </Content>
@@ -303,7 +303,7 @@
                                             <p>Manage Phonecalls</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../delegee/site/phonecalls.aspx' id="ui_delegee_site">For Site</a></p>
+                                            <p><a href='../site/phonecalls.aspx' id="ui_delegee_site">For Site</a></p>
                                         </div>
                                     </div>
                                 </Content>
