@@ -77,7 +77,7 @@ namespace Lync_Billing.DB.Statistics
             return TopDestinationCountries;
         }
 
-        public static List<TopDestinationCountries> GetTopDestinationNumbersForDepartment(string siteName, string departmentName, int limit, DateTime? startingDate = null, DateTime? endingDate = null)
+        public static List<TopDestinationCountries> GetTopDestinationCountriesForDepartment(string siteName, string departmentName, int limit, DateTime? startingDate = null, DateTime? endingDate = null)
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_DestinationCountries_ForSiteDepartment);
