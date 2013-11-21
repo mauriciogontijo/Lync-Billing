@@ -40,63 +40,7 @@ namespace Lync_Backend.Helpers
                     else
                         QueryType = "CREATE";
 
-
-                    if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate") && SQLStatement.Contains(@"@Limits"))
-                    {
-                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime, \r\n " + "\t @Limits int ");
-                    }
-                    else if (SQLStatement.Contains(@"@OfficeName") &&   SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
-                    {
-                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
-                    }
-                    else if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@Limits"))
-                    {
-                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n " + "\t @Limits int ");
-                    }
-                    else if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate") && SQLStatement.Contains(@"@Limits"))
-                    {
-                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime, \r\n " + "\t @Limits int ");
-                    }
-                    else  if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
-                    {
-                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
-                    }
-                    else if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@Limits"))
-                    {
-                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @Limits int ");
-                    }
-                    else if (SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@OfficeName"))
-                    {
-                        FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450) ");
-                    }
-                    else if (SQLStatement.Contains(@"@OfficeName"))
-                    {
-                        FunctionVariables = string.Format("\t @OfficeName	nvarchar(450)");
-                    }
-                    else if (SQLStatement.Contains(@"@sipAccount") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate") && SQLStatement.Contains(@"@Limits"))
-                    {
-                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime, \r\n " + "\t @Limits int ");
-                    }
-                    else if (SQLStatement.Contains(@"@sipAccount") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
-                    {
-                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
-                    }
-                    else if (SQLStatement.Contains(@"@SipAccount") && SQLStatement.Contains(@"@Limits"))
-                    {
-                        FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @Limits int ");
-                    }
-                    else if (SQLStatement.Contains(@"@SipAccount"))
-                    {
-                        FunctionVariables = string.Format("\t @SipAccount	nvarchar(450)");
-                    }
-                    else if (SQLStatement.Contains(@"@Gateway"))
-                    {
-                        FunctionVariables = string.Format("\t @Gateway	nvarchar(450)");
-                    }
-                    else if (SQLStatement.Contains(@"@RatesTableName"))
-                    {
-                        FunctionVariables = string.Format("\t @RatesTableName	nvarchar(450)");
-                    }
+                    FunctionVariables = GenerateParam(SQLStatement);
 
                     functionCreateUpdateQuery =
                            string.Format("{0} FUNCTION [dbo].[{1}] \r\n" +
@@ -120,6 +64,107 @@ namespace Lync_Backend.Helpers
                 }
             }
 
+        }
+
+        private static string GenerateParam(string SQLStatement) 
+        {
+            string FunctionVariables = string.Empty;
+            
+            //Five Params
+
+            if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate") && SQLStatement.Contains(@"@Limits"))
+            {
+                FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime, \r\n " + "\t @Limits int ");
+                return FunctionVariables;
+            }
+            
+            //Four Params
+
+            if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
+            {
+                FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
+                return FunctionVariables;
+            }
+
+            if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate") && SQLStatement.Contains(@"@Limits"))
+            {
+                FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime, \r\n " + "\t @Limits int ");
+                return FunctionVariables;
+            }
+
+            if (SQLStatement.Contains(@"@SipAccount") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate") && SQLStatement.Contains(@"@Limits"))
+            {
+                FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime, \r\n " + "\t @Limits int ");
+                return FunctionVariables;
+            }
+            
+          
+            // Three Params 
+            if (SQLStatement.Contains(@"@sipAccount") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
+            {
+                FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
+                return FunctionVariables;
+            }
+
+            if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@Limits"))
+            {
+                FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450), \r\n " + "\t @Limits int ");
+                return FunctionVariables;
+            }
+
+            if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
+            {
+                FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
+                return FunctionVariables;
+            }
+
+            //Two Params 
+
+            if (SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@OfficeName"))
+            {
+                FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @DepartmentName nvarchar(450) ");
+                return FunctionVariables;
+            }
+
+            if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@Limits"))
+            {
+                FunctionVariables = string.Format("\t @OfficeName  nvarchar(450), \r\n" + "\t @Limits int ");
+                return FunctionVariables;
+            }
+
+            if (SQLStatement.Contains(@"@SipAccount") && SQLStatement.Contains(@"@Limits"))
+            {
+                FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @Limits int ");
+                return FunctionVariables;
+            }
+
+            //Single Param
+
+            if (SQLStatement.Contains(@"@OfficeName"))
+            {
+                FunctionVariables = string.Format("\t @OfficeName	nvarchar(450)");
+                return FunctionVariables;
+            }
+
+            if (SQLStatement.Contains(@"@SipAccount"))
+            {
+                FunctionVariables = string.Format("\t @SipAccount	nvarchar(450)");
+                return FunctionVariables;
+            }
+            
+            if (SQLStatement.Contains(@"@Gateway"))
+            {
+                FunctionVariables = string.Format("\t @Gateway	nvarchar(450)");
+                return FunctionVariables;
+            }
+            
+            if (SQLStatement.Contains(@"@RatesTableName"))
+            {
+                FunctionVariables = string.Format("\t @RatesTableName	nvarchar(450)");
+                return FunctionVariables;
+            }
+
+            return FunctionVariables;
         }
 
         #region Chargeable Calls Functions        
@@ -232,9 +277,8 @@ namespace Lync_Backend.Helpers
                     "\t\t WHERE \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN @FromDate AND @ToDate  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -289,9 +333,8 @@ namespace Lync_Backend.Helpers
                     "\t\t WHERE \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN @FromDate AND @ToDate  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -349,9 +392,8 @@ namespace Lync_Backend.Helpers
                     "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "]=@DepartmentName AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN @FromDate AND @ToDate  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -414,9 +456,8 @@ namespace Lync_Backend.Helpers
                     "\t\t WHERE \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN @FromDate AND @ToDate  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -471,9 +512,8 @@ namespace Lync_Backend.Helpers
                     "\t\t WHERE \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN @FromDate AND @ToDate  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -530,9 +570,8 @@ namespace Lync_Backend.Helpers
                     "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_PhysicalDeliveryOfficeName) + "]=@OfficeName AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "]=@DepartmentName AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
-                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN {1} AND {2}  \r\n"
+                    "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN @FromDate AND @ToDate  \r\n"
                     , BillableCallTypesIdsList);
 
             //Sub Select Construction
