@@ -69,7 +69,7 @@ namespace Lync_Billing.ui.session
                  **/
 
                 //Mode 1: The Normal User Mode
-                if (session.PrimarySipAccount == session.EffectiveSipAccount && session.ActiveRoleName == normalUserRoleName)
+                if (session.PrimarySipAccount == session.EffectiveSipAccount)
                 {
                     //Case 1: The user asks for Admin or Accounting access
                     //Should pass "access" and "access" should be coherent within our own system
@@ -103,7 +103,7 @@ namespace Lync_Billing.ui.session
                         }
                     }
 
-                    //Case 2: The user asks for UserDelegee access
+                    //Case 2: The user asks for Delegee access
                     if (!string.IsNullOrEmpty(Request.QueryString["access"]) && !string.IsNullOrEmpty(Request.QueryString["identity"]))
                     {
                         accessParam = Request.QueryString["access"].ToLower();
@@ -347,7 +347,7 @@ namespace Lync_Billing.ui.session
 
             else if(delegeeType == Delegates.DepartmentDelegeeTypeID)
             {
-                session.EffectiveDepartmentDelegeeName = delegeeAddress;
+                session.EffectiveDelegatedDepartmentName = delegeeAddress;
                 session.ActiveRoleName = departmentDelegeeRoleName;
 
                 Response.Redirect(getHomepageLink(departmentDelegeeRoleName));
@@ -355,7 +355,7 @@ namespace Lync_Billing.ui.session
 
             else if (delegeeType == Delegates.SiteDelegeeTypeID)
             {
-                session.EffectiveSiteDelegeeName = delegeeAddress;
+                session.EffectiveDelegatedSiteName = delegeeAddress;
                 session.ActiveRoleName = siteDelegeeRoleName;
 
                 Response.Redirect(getHomepageLink(siteDelegeeRoleName));
@@ -386,12 +386,12 @@ namespace Lync_Billing.ui.session
 
             else if (accessParameter == departmentDelegeeRoleName)
             {
-                session.EffectiveDepartmentDelegeeName = string.Empty;
+                session.EffectiveDelegatedDepartmentName = string.Empty;
             }
 
             else if (accessParameter == siteDelegeeRoleName)
             {
-                session.EffectiveSiteDelegeeName = string.Empty;
+                session.EffectiveDelegatedSiteName = string.Empty;
             }
 
             //Always set the ActiveRoleName to "user"

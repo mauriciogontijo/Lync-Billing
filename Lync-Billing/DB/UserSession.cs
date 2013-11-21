@@ -25,8 +25,8 @@ namespace Lync_Billing.DB
         public string EffectiveDisplayName { set; get; }
         public string PrimarySipAccount { set; get; }
         public string EffectiveSipAccount { set; get; }
-        public string EffectiveDepartmentDelegeeName { get; set; }
-        public string EffectiveSiteDelegeeName { get; set; }
+        public string EffectiveDelegatedDepartmentName { get; set; }
+        public string EffectiveDelegatedSiteName { get; set; }
         public Dictionary<string, string> ListOfUserDelegates { get; set; }
         public Dictionary<string, string> ListOfDepartmentDelegates { get; set; }
         public Dictionary<string, string> ListOfSiteDelegates { get; set; }
