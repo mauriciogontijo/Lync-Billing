@@ -75,15 +75,18 @@ namespace Lync_Billing.ui.user
             //Get this user's mail statistics
             userMailStatistics = MailStatistics.GetMailStatistics(sipAccount, DateTime.Now);
 
-            //Configure the welcome ext-js toggled welcome-message.
-            //Misc.Message("Welcome","Welcome " + current_session.PrimaryDisplayName,"info");
+            //Set the year number in the charts header's title
+            string currenYear = DateTime.Now.Year.ToString();
+            CallsCostsChartPanel.Title = "Calls Cost Chart for " + currenYear;
+            TopDestinationNumbersGrid.Title = "Most Called Numbers in " + currenYear;
+            TopDestinationCountriesPanel.Title = "Most Called Countries in " + currenYear;
         }
 
 
-        protected void DurationCostChartStore_Load(object sender, EventArgs e)
+        protected void CallsCostsChartStore_Load(object sender, EventArgs e)
         {
-            DurationCostChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
-            DurationCostChartStore.DataBind();
+            CallsCostsChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
+            CallsCostsChartStore.DataBind();
         }
 
 

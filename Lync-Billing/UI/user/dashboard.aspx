@@ -193,7 +193,7 @@
         <div id='top-destination-numbers-block' class='block wauto'>
             <div class='content wauto float-left mb10'>
                 <ext:GridPanel
-                    ID="TOPDestinationNumbersGrid"
+                    ID="TopDestinationNumbersGrid"
                     runat="server"
                     Title="Most Called Numbers"
                     Width="465"
@@ -259,7 +259,7 @@
                     ID="UserMailStatistics" 
                     runat="server"
                     Header="true"
-                    Title="Mail Statistics"
+                    Title="Mail Statistics for this Month"
                     PaddingSummary="10px 10px 10px 10px"
                     Width="465"
                     Height="180"
@@ -288,7 +288,7 @@
         <div id='duration-cost-chart-block' class='block wauto'>
             <div class="content wauto float-left mb10">
                 <ext:Panel
-                    ID="DurationCostChartPanel"
+                    ID="CallsCostsChartPanel"
                     runat="server"
                     Width="465"
                     Height="390"
@@ -297,14 +297,14 @@
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
-                            ID="DurationCostChart"
+                            ID="CallsCostsChart"
                             runat="server"
                             Animate="true"
-                            OnLoad="DurationCostChartStore_Load">
+                            OnLoad="CallsCostsChartStore_Load">
                             <Store>
-                                <ext:Store ID="DurationCostChartStore" runat="server">
+                                <ext:Store ID="CallsCostsChartStore" runat="server">
                                     <Model>
-                                        <ext:Model ID="DurationCostChartModel" runat="server">
+                                        <ext:Model ID="CallsCostsChartModel" runat="server">
                                             <Fields>
                                                 <ext:ModelField Name="Date" />
                                                 <ext:ModelField Name="PersonalCallsCost" />

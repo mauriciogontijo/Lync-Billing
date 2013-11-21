@@ -55,7 +55,7 @@ namespace Lync_Billing.ui.user {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridPanel TOPDestinationNumbersGrid;
+        protected global::Ext.Net.GridPanel TopDestinationNumbersGrid;
         
         /// <summary>
         /// TopDestinationNumbersStore control.
@@ -109,7 +109,7 @@ namespace Lync_Billing.ui.user {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel DurationCostChartPanel;
+        protected global::Ext.Net.Panel CallsCostsChartPanel;
         
         /// <summary>
         /// DurationCostChart control.
@@ -118,7 +118,7 @@ namespace Lync_Billing.ui.user {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Chart DurationCostChart;
+        protected global::Ext.Net.Chart CallsCostsChart;
         
         /// <summary>
         /// DurationCostChartStore control.
@@ -127,7 +127,7 @@ namespace Lync_Billing.ui.user {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store DurationCostChartStore;
+        protected global::Ext.Net.Store CallsCostsChartStore;
         
         /// <summary>
         /// DurationCostChartModel control.
@@ -136,7 +136,7 @@ namespace Lync_Billing.ui.user {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model DurationCostChartModel;
+        protected global::Ext.Net.Model CallsCostsChartModel;
         
         /// <summary>
         /// VerticalMarker1 control.
