@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.admin.main {
     public partial class configuration {
         
         /// <summary>
+        /// resourceManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ResourceManager resourceManager;
+        
+        /// <summary>
         /// AppConfigGrid control.
         /// </summary>
         /// <remarks>

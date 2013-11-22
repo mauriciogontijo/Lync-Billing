@@ -63,10 +63,10 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
+    <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
+
     <div id='generate-report-block' class='block float-right wauto h100p'>
-
         <div class="block-body pt5">
-
             <ext:GridPanel
                 ID="ManageDelegatesGrid"
                 runat="server"

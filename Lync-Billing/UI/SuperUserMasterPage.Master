@@ -33,7 +33,8 @@
                     referrer.search("ui_accounting") != -1 ||
                     referrer.search("ui_sysadmin") != -1 ||
                     referrer.search("ui_dephead") != -1 ||
-                    referrer.search("ui_delegee") != -1)
+                    referrer.search("ui_delegee_department") != -1 ||
+                    referrer.search("ui_delegee_site") != -1)
                 {
                     var starting_index = referrer.search("ui");
                     var button_id = referrer.substr(starting_index, referrer.length);
@@ -48,8 +49,6 @@
 
     <body>
         <form id="form1" runat="server">
-            <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
-
             <% if(current_session != null) { %>
                 <div  class="smart-block tool-dark-bg liquid toolbar " >
                     <div class="hwrapper rtl  ">
@@ -92,9 +91,9 @@
 
                 <% if (PAGE_NAME.Contains("ui_sysadmin")) { %>
                     <!-- *** START OF SYSADMIN SIDEBAR *** -->
-                    <div id='Div1' class='sidebar block float-left w20p'>
+                    <div id='SystemAdminSidebarContainer' class='sidebar block float-left w20p'>
                         <div class="block-body">
-                            <ext:Panel ID="Panel1"
+                            <ext:Panel ID="SystemAdminSidebar"
                                 runat="server"
                                 Height="550"
                                 Width="180"
@@ -153,9 +152,9 @@
 
                 <% } else if (PAGE_NAME.Contains("ui_admin")) { %>
                     <!-- *** START OF SITE ADMIN SIDEBAR *** -->
-                    <div id='admin-tools-sidebar' class='sidebar block float-left w20p'>
+                    <div id='SiteAdminSidebarContainer' class='sidebar block float-left w20p'>
                         <div class="block-body">
-                            <ext:Panel ID="AdminToolsSidebar"
+                            <ext:Panel ID="SiteAdminSidebar"
                                 runat="server"
                                 Height="340"
                                 Width="180"
@@ -199,9 +198,9 @@
 
                 <% } else if (PAGE_NAME.Contains("ui_accounting")) { %>
                     <!-- *** START OF SITE SIDEBAR *** -->
-                    <div id='accounting-tools-sidebar' class='sidebar block float-left w20p'>
+                    <div id='SiteAccountingSidebarContainer' class='sidebar block float-left w20p'>
                         <div class="block-body">
-                            <ext:Panel ID="AccountingToolsSidebar"
+                            <ext:Panel ID="SiteAccountingSidebar"
                                 runat="server"
                                 Height="230"
                                 Width="180"
@@ -235,7 +234,7 @@
 
                 <% } else if (PAGE_NAME.Contains("ui_dephead")) { %>
                     <!-- *** START OF DEPARTMENT HEAD SIDEBAR *** -->
-                    <div id='Div2' class='sidebar block float-left w20p'>
+                    <div id='DepartmentHeadSideBarContainer' class='sidebar block float-left w20p'>
                         <div class="block-body">
                             <ext:Panel ID="DepartmentHeadSideBar"
                                 runat="server"
@@ -262,9 +261,9 @@
 
                 <% } else if (PAGE_NAME.Contains("ui_delegee_department")) { %>
                     <!-- *** START OF DEPARTMENT DELEGEE SIDEBAR *** -->
-                    <div id='Div3' class='sidebar block float-left w20p'>
+                    <div id='DepartmentDelegeeSideBarContainer' class='sidebar block float-left w20p'>
                         <div class="block-body">
-                            <ext:Panel ID="DelegeeSideBar"
+                            <ext:Panel ID="DepartmentDelegeeSideBar"
                                 runat="server"
                                 Height="150"
                                 Width="180"
@@ -287,10 +286,10 @@
                     <!-- *** END OF DEPARTMENT DELEGEE SIDEBAR *** -->
 
                 <% } else if (PAGE_NAME.Contains("ui_delegee_site")) { %>
-                    <!-- *** START OF SITE DELEGEE SIDEBAR *** -->
-                    <div id='Div4' class='sidebar block float-left w20p'>
+                    <!-- *** START OF DEPARTMENT DELEGEE SIDEBAR *** -->
+                    <div id='SiteDelegeeSidebarContainer' class='sidebar block float-left w20p'>
                         <div class="block-body">
-                            <ext:Panel ID="Panel2"
+                            <ext:Panel ID="SiteDelegeeSidebar"
                                 runat="server"
                                 Height="150"
                                 Width="180"

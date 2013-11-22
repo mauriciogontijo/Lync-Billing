@@ -63,6 +63,8 @@
 </asp:Content>
 
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
+    <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
+
     <!-- *** START OF ADMIN MAIN BODY *** -->
     <div id='email-unmarked-calls-alert' class='block float-right wauto h100p'>
         <div class="block-body pt5">

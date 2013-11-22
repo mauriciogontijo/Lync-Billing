@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lync_Billing.ui.sysadmin.manage {
+namespace Lync_Billing.ui.delegee.department {
     
     
-    public partial class sites {
+    public partial class phonecalls {
         
         /// <summary>
         /// resourceManager control.

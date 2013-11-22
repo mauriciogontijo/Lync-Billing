@@ -4,4 +4,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main_content_place_holder" runat="server">
+    <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
+
 </asp:Content>

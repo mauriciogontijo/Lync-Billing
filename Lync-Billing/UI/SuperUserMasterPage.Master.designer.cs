@@ -40,15 +40,6 @@ namespace Lync_Billing.ui {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// resourceManager control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ResourceManager resourceManager;
-        
-        /// <summary>
         /// ThisPageReferrer control.
         /// </summary>
         /// <remarks>
@@ -58,31 +49,31 @@ namespace Lync_Billing.ui {
         protected global::System.Web.UI.WebControls.HiddenField ThisPageReferrer;
         
         /// <summary>
-        /// Panel1 control.
+        /// SystemAdminSidebar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel Panel1;
+        protected global::Ext.Net.Panel SystemAdminSidebar;
         
         /// <summary>
-        /// AdminToolsSidebar control.
+        /// SiteAdminSidebar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel AdminToolsSidebar;
+        protected global::Ext.Net.Panel SiteAdminSidebar;
         
         /// <summary>
-        /// AccountingToolsSidebar control.
+        /// SiteAccountingSidebar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel AccountingToolsSidebar;
+        protected global::Ext.Net.Panel SiteAccountingSidebar;
         
         /// <summary>
         /// DepartmentHeadSideBar control.
@@ -94,22 +85,22 @@ namespace Lync_Billing.ui {
         protected global::Ext.Net.Panel DepartmentHeadSideBar;
         
         /// <summary>
-        /// DelegeeSideBar control.
+        /// DepartmentDelegeeSideBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel DelegeeSideBar;
+        protected global::Ext.Net.Panel DepartmentDelegeeSideBar;
         
         /// <summary>
-        /// Panel2 control.
+        /// SiteDelegeeSidebar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel Panel2;
+        protected global::Ext.Net.Panel SiteDelegeeSidebar;
         
         /// <summary>
         /// main_content_place_holder control.

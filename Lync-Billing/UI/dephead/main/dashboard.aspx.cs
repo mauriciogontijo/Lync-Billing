@@ -121,7 +121,7 @@ namespace Lync_Billing.ui.dephead.main
                 if (department != null && !string.IsNullOrEmpty(department.SiteName))
                 {
                     // Get Top Countries
-                    TopDestinationCountriesStore.DataSource = TopDestinationCountries.GetTopDestinationCountriesForDepartment(department.SiteName, department.DepartmentName, 7);
+                    TopDestinationCountriesStore.DataSource = TopDestinationCountries.GetTopDestinationCountriesForDepartment(department.SiteName, department.DepartmentName, 5);
                     TopDestinationCountriesStore.DataBind();
 
                     // Get Department Phonecalls Summaries (for all year's month)

@@ -139,6 +139,8 @@
 </asp:Content>
 
 <asp:Content ID="MainBodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
+    <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
+
     <!-- *** START OF ADMIN MAIN BODY *** -->
     <div class="block float-right w80p h100p">
         <div id='personal-duration-cost-chart' class='block float-right w100p'>

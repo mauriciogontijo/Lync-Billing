@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.dephead.users {
     public partial class phonecalls {
         
         /// <summary>
+        /// resourceManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ResourceManager resourceManager;
+        
+        /// <summary>
         /// FilterPhoneCallsPanel control.
         /// </summary>
         /// <remarks>

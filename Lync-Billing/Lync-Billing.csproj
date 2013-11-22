@@ -117,6 +117,7 @@
     <Content Include="ui\admin\main\dashboard.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
+    <Content Include="ui\delegee\department\phonecalls.aspx" />
     <Content Include="ui\delegee\site\phonecalls.aspx" />
     <Content Include="ui\dephead\main\dashboard.aspx" />
     <Content Include="ui\dephead\users\phonecalls.aspx" />
@@ -276,6 +277,20 @@
     <Compile Include="ui\admin\notifications\calls.aspx.designer.cs">
       <DependentUpon>calls.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ui\SuperUserMasterPage.Master.cs">
+      <DependentUpon>SuperUserMasterPage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\SuperUserMasterPage.Master.designer.cs">
+      <DependentUpon>SuperUserMasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ui\delegee\department\phonecalls.aspx.cs">
+      <DependentUpon>phonecalls.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\delegee\department\phonecalls.aspx.designer.cs">
+      <DependentUpon>phonecalls.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ui\delegee\site\phonecalls.aspx.cs">
       <DependentUpon>phonecalls.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -387,13 +402,6 @@
     </Compile>
     <Compile Include="ui\session\authenticate.aspx.designer.cs">
       <DependentUpon>authenticate.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ui\SuperUserMasterPage.Master.cs">
-      <DependentUpon>SuperUserMasterPage.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ui\SuperUserMasterPage.Master.designer.cs">
-      <DependentUpon>SuperUserMasterPage.Master</DependentUpon>
     </Compile>
     <Compile Include="ui\accounting\main\disputed.aspx.cs">
       <DependentUpon>disputed.aspx</DependentUpon>
@@ -518,11 +526,11 @@
   <ItemGroup>
     <Content Include="ui\MasterPage.Master" />
     <Content Include="packages.config" />
-    <Content Include="ui\SuperUserMasterPage.Master" />
     <None Include="Properties\PublishProfiles\TBILL.pubxml" />
     <Content Include="ui\resources\fonts\fontello.eot" />
     <Content Include="ui\resources\fonts\fontello.ttf" />
     <Content Include="ui\resources\fonts\fontello.woff" />
+    <Content Include="ui\SuperUserMasterPage.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,10 +1,12 @@
 ﻿<%@ Page Title="eBill Accounting | Manage Disputed Calls" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="disputed.aspx.cs" Inherits="Lync_Billing.ui.accounting.main.disputed" %>
 
-<asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="HeaderContentPlaceHolder" ContentPlaceHolderID="head" runat="server">
     
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="main_content_place_holder" runat="server">
+<asp:Content ID="MainBodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
+    <ext:ResourceManager id="resourceManager" runat="server" Theme="Gray" />
+
     <!-- *** START OF ACCOUNTING MAIN BODY *** -->
     <div id='Div2' class='block float-right wauto h100p'>
         <div class="block-body pt5">
