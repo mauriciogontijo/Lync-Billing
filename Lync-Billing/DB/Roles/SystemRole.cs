@@ -29,7 +29,7 @@ namespace Lync_Billing.DB.Roles
         public static int DelegeeRoleID { get { return 60; } }
 
 
-        //Generic User Roles
+        //Generic User SystemRoles
         public bool IsDeveloper()
         {
             return this.RoleID == 10 ? true : false; 
@@ -56,7 +56,7 @@ namespace Lync_Billing.DB.Roles
         }
 
 
-        //Get Users Roles
+        //Get Users SystemRoles
         public static List<SystemRole> GetUsersRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             SystemRole userRole;

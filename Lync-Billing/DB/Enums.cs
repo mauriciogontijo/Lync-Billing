@@ -275,7 +275,7 @@ namespace Lync_Billing.DB
             ID,
             [Description("Announcement")]
             Announcement,
-            [Description("Roles")]
+            [Description("SystemRoles")]
             Role,
             [Description("AnnouncementDate")]
             AnnouncementDate
@@ -359,11 +359,11 @@ namespace Lync_Billing.DB
 
 
         /// <summary>
-        /// Roles Database table fields Names
+        /// SystemRoles Database table fields Names
         /// </summary>
         public enum Roles
         {
-            [Description("Roles")]
+            [Description("SystemRoles")]
             TableName,
             [Description("RoleID")]
             RoleID,

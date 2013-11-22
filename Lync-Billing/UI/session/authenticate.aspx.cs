@@ -26,7 +26,7 @@ namespace Lync_Billing.ui.session
         private bool redirectionFlag = true;
         private List<string> AccessLevels = new List<string>();
 
-        //Roles lookup variables
+        //SystemRoles lookup variables
         private string systemAdminRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
         private string siteAdminRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
         private string siteAccountantRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);

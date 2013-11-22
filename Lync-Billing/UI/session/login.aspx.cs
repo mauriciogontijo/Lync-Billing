@@ -77,11 +77,9 @@ namespace Lync_Billing.ui.session
             session.EffectiveDisplayName = session.PrimaryDisplayName;
 
             //Initialize his/her ROLES AND THEN DELEGEES information
-            session.InitializeRolesFlags(userRoles);
-            session.InitializeDelegeesInformation(session.PrimarySipAccount);
+            session.InitializeAllRolesInformation(session.PrimarySipAccount, userRoles);
 
             //Initialize his/her geographical information, and starting role-name - "user"
-            session.ActiveRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
             session.SiteName = userInfo.physicalDeliveryOfficeName;
             session.Department = userInfo.department;
 

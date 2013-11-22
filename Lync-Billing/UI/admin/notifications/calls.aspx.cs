@@ -46,7 +46,7 @@ namespace Lync_Billing.ui.admin.notifications
 
             sipAccount = session.EffectiveSipAccount;
 
-            FilterUsersBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.Roles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
+            FilterUsersBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
             FilterUsersBySite.GetStore().DataBind();
         }
 
@@ -55,7 +55,7 @@ namespace Lync_Billing.ui.admin.notifications
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             List<Site> sites = new List<Site>();
-            List<SystemRole> userRoles = session.Roles;
+            List<SystemRole> userRoles = session.SystemRoles;
 
             foreach (SystemRole role in userRoles)
             {

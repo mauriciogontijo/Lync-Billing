@@ -25,6 +25,13 @@ namespace Lync_Billing.DB.Roles
         public int DepartmentID { get; set; }
 
 
+        public static bool IsDepartmentHead(string userSipAccount)
+        {
+            var departments = GetDepartmentsForHead(userSipAccount);
+            return (departments.Count > 0);
+        }
+
+
         public static List<DepartmentHeadRole> GetDepartmentHeads(int departmentID)
         {
             DataTable dt = new DataTable();

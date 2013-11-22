@@ -38,7 +38,7 @@ namespace Lync_Billing.ui.sysadmin.users
             }
 
             sipAccount = session.EffectiveSipAccount;
-            FilterUsersRolesBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.Roles, Enums.GetDescription(Enums.ValidRoles.IsSystemAdmin));
+            FilterUsersRolesBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSystemAdmin));
             FilterUsersRolesBySite.GetStore().DataBind();
         }
 

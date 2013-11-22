@@ -163,7 +163,7 @@ namespace Lync_Billing.ui.accounting.main
 
             UserSession session = (UserSession)Session.Contents["UserData"];
 
-            List<SystemRole> userRoles = session.Roles;
+            List<SystemRole> userRoles = session.SystemRoles;
 
             foreach (SystemRole role in userRoles)
             {

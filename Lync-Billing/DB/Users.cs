@@ -267,10 +267,10 @@ namespace Lync_Billing.DB
         }
 
         /// <summary>
-        /// Get User Roles
+        /// Get User SystemRoles
         /// </summary>
         /// <param name="sipAccount">User Sip Account</param>
-        /// <returns>List of all User Roles</returns>
+        /// <returns>List of all User SystemRoles</returns>
         public static List<SystemRole> GetUserRoles(string sipAccount)
         {
             SystemRole userRole;

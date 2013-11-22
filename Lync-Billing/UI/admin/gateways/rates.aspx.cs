@@ -44,7 +44,7 @@ namespace Lync_Billing.ui.admin.gateways
 
             sipAccount = session.EffectiveSipAccount;
 
-            SitesStore.DataSource = DB.Site.GetUserRoleSites(session.Roles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
+            SitesStore.DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
             SitesStore.DataBind();
         }
         
@@ -183,7 +183,7 @@ namespace Lync_Billing.ui.admin.gateways
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             List<Site> sites = new List<Site>();
-            List<SystemRole> userRoles = session.Roles;
+            List<SystemRole> userRoles = session.SystemRoles;
 
             foreach (SystemRole role in userRoles)
             {
