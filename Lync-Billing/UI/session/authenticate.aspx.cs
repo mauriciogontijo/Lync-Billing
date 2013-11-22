@@ -213,7 +213,7 @@ namespace Lync_Billing.ui.session
                 session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
                 user_email = session.EffectiveSipAccount.ToLower();
 
-                if (this.access_level != null) //!string.IsNullOrEmpty(this.access_level.Value)
+                if (this.access_level != null)
                 {
                     status = athenticator.AuthenticateUser(user_email, this.password.Text, out msg);
                     AuthenticationMessage = msg;
@@ -227,24 +227,35 @@ namespace Lync_Billing.ui.session
 
                     if (status == true)
                     {
+                        //System Admin
                         if (this.access_level.Value == systemAdminRoleName)
                         {
                             session.ActiveRoleName = systemAdminRoleName;
                             Response.Redirect(getHomepageLink(systemAdminRoleName));
                         }
 
+                        //Site Admin
                         else if (this.access_level.Value == siteAdminRoleName)
                         {
                             session.ActiveRoleName = siteAdminRoleName;
                             Response.Redirect(getHomepageLink(siteAdminRoleName));
                         }
 
+                        //Site Accountant
                         else if (this.access_level.Value == siteAccountantRoleName)
                         {
                             session.ActiveRoleName = siteAccountantRoleName;
                             Response.Redirect(getHomepageLink(siteAdminRoleName));
                         }
 
+                        //Department Head
+                        else if(this.access_level.Value == departmentHeadRoleName)
+                        {
+                            session.ActiveRoleName = departmentHeadRoleName;
+                            Response.Redirect(getHomepageLink(departmentHeadRoleName));
+                        }
+
+                        //Site Delegee
                         else if (this.access_level.Value == siteDelegeeRoleName)
                         {
                             if (session.ListOfSiteDelegates.Keys.Contains(this.delegee_identity.Value))
@@ -253,7 +264,8 @@ namespace Lync_Billing.ui.session
                             }
                         }
 
-                        else if (this.access_level.Value == departmentHeadRoleName)
+                        //Department Delegee
+                        else if (this.access_level.Value == departmentDelegeeRoleName)
                         {
                             if (session.ListOfDepartmentDelegates.Keys.Contains(this.delegee_identity.Value))
                             {
@@ -261,6 +273,7 @@ namespace Lync_Billing.ui.session
                             }
                         }
 
+                        //User Delegee
                         else if (this.access_level.Value == userDelegeeRoleName && this.delegee_identity != null)
                         {
                             if (session.ListOfUserDelegates.Keys.Contains(this.delegee_identity.Value))
