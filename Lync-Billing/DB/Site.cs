@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Lync_Billing.Libs;
 using System.Data;
+
+using Lync_Billing.Libs;
 
 namespace Lync_Billing.DB
 {
@@ -15,34 +16,72 @@ namespace Lync_Billing.DB
         public string SiteName { get; set; }
         public string CountryCode { get; set; }
 
-        public static Site getSite(int ID)
+
+        public static string GetSiteName(int ID)
         {
-            Site site = new Site() ;
-            DataTable dt = new DataTable();
-            List<Site> sites = new List<Site>();
-            
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            wherePart.Add(Enums.GetDescription(Enums.Sites.SiteID), ID);
+            DataTable dt;
+            string siteName = string.Empty;
 
-            dt = DBRoutines.SELECT( Enums.GetDescription(Enums.Sites.TableName), null, wherePart, 0);
-            
-            DataRow row = dt.Rows[0];
+            string columnName = string.Empty;
+            List<string> columns;
+            Dictionary<string, object> wherePart;
 
-            foreach (DataColumn column in dt.Columns)
+            columns = new List<string>()
+            { 
+                Enums.GetDescription(Enums.Sites.SiteName)
+            };
+
+            wherePart = new Dictionary<string, object>
             {
-                if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID))
-                    site.SiteID = (int)row[column.ColumnName];
+                { Enums.GetDescription(Enums.Sites.SiteID), ID }
+            };
 
-                if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
-                    site.SiteName = (string)row[column.ColumnName];
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Sites.TableName), columns, wherePart, 1);
 
-                if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
-                    site.CountryCode = (string)row[column.ColumnName];
+            foreach (DataRow row in dt.Rows)
+            {
+                columnName = Enums.GetDescription(Enums.Sites.SiteName);
+                if (dt.Columns.Contains(columnName))
+                    siteName = Convert.ToString(row[columnName]);
             }
+
+            return siteName;
+        }
+
+        public static Site GetSite(int ID)
+        {
+            Site site = new Site();
+            DataTable dt = new DataTable();
+
+            List<string> columns = new List<string>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>
+            {
+                { Enums.GetDescription(Enums.Sites.SiteID), ID }
+            };
+
+            dt = DBRoutines.SELECT( Enums.GetDescription(Enums.Sites.TableName), columns, wherePart, 1);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                site = new Site();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID))
+                        site.SiteID = Convert.ToInt32(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
+                        site.SiteName = Convert.ToString(Misc.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
+                        site.CountryCode = Convert.ToString(Misc.ReturnEmptyIfNull(row[column.ColumnName]));
+                }
+            }
+
             return site;
         }
 
-        public static List<Site> GetSites() 
+        public static List<Site> GetAllSites() 
         {
             Site site;
             DataTable dt = new DataTable();
@@ -71,7 +110,7 @@ namespace Lync_Billing.DB
             return sites;
         }
 
-        public static List<Site> GetSites(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        public static List<Site> GetAllSites(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             Site site;
             DataTable dt = new DataTable();
@@ -172,7 +211,7 @@ namespace Lync_Billing.DB
             UserRole DeveloperRole = userRoles.Find(role => role.IsDeveloper() == true);
             if (DeveloperRole != null && DeveloperRole.IsDeveloper())
             {
-                return DB.Site.GetSites();
+                return DB.Site.GetAllSites();
             }
 
             else if (Enums.GetDescription(Enums.ValidRoles.IsSystemAdmin) == enumValidRole)
@@ -181,7 +220,7 @@ namespace Lync_Billing.DB
 
                 foreach (int site in tmpUserSites)
                 {
-                    sites.Add(DB.Site.getSite(site));
+                    sites.Add(DB.Site.GetSite(site));
                 }
 
                 return sites;
@@ -193,7 +232,7 @@ namespace Lync_Billing.DB
 
                 foreach (int site in tmpUserSites)
                 {
-                    sites.Add(DB.Site.getSite(site));
+                    sites.Add(DB.Site.GetSite(site));
                 }
 
                 return sites;
@@ -205,7 +244,7 @@ namespace Lync_Billing.DB
 
                 foreach (int site in tmpUserSites)
                 {
-                    sites.Add(DB.Site.getSite(site));
+                    sites.Add(DB.Site.GetSite(site));
                 }
 
                 return sites;

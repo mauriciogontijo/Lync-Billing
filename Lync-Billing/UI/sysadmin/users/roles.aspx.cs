@@ -50,7 +50,7 @@ namespace Lync_Billing.ui.sysadmin.users
                 {"SiteName", siteName},
             };
             
-            List<DB.Site> sitesResults = DB.Site.GetSites(DbSiteColumns, DbSiteWherePart, 0);
+            List<DB.Site> sitesResults = DB.Site.GetAllSites(DbSiteColumns, DbSiteWherePart, 0);
             DB.Site site = sitesResults.First();
 
 

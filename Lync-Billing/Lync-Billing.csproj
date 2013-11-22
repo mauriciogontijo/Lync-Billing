@@ -188,6 +188,7 @@
     <Compile Include="ConfigurationSections\PhoneCallsTablesSection.cs" />
     <Compile Include="DB\Announcements.cs" />
     <Compile Include="DB\Currencies.cs" />
+    <Compile Include="DB\Department.cs" />
     <Compile Include="DB\DepartmentHead.cs" />
     <Compile Include="DB\DialingPrefixsRates.cs" />
     <Compile Include="DB\Gateway.cs" />

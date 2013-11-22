@@ -58,7 +58,7 @@ namespace Lync_Billing.ui.user
         public List<Site> getSites() 
         {
             List<Site> sites = new List<DB.Site>();
-            return sites = DB.Site.GetSites();
+            return sites = DB.Site.GetAllSites();
         }
 
         public List<Gateway> GetGateways()

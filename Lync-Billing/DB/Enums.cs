@@ -38,7 +38,36 @@ namespace Lync_Billing.DB
             SiteName,
             [Description("CountryCode")]
             CountryCode
-           
+        }
+
+        /// <summary>
+        /// Departments lookup table fields Names
+        /// </summary>
+        public enum Departments
+        {
+            [Description("Departments")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("SiteID")]
+            SiteID,
+            [Description("DepartmentName")]
+            DepartmentName
+        }
+
+        /// <summary>
+        /// Departments Heads roles table fields Names
+        /// </summary>
+        public enum DepartmentHeads
+        {
+            [Description("DepartmentsHeads")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("DepartmentID")]
+            DepartmentID,
+            [Description("SipAccount")]
+            SipAccount
         }
 
         /// <summary>
@@ -444,20 +473,6 @@ namespace Lync_Billing.DB
             SiteDelegee,
             [Description("user")]
             NormalUser
-        }
-
-        public enum DepartmentHeads
-        {
-            [Description("DepartmentHeads")]
-            TableName,
-            [Description("id")]
-            ID,
-            [Description("SipAccount")]
-            SipAccount,
-            [Description("Department")]
-            Department,
-            [Description("SiteID")]
-            SiteID
         }
 
         public enum PhoneCallSummary

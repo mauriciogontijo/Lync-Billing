@@ -106,7 +106,7 @@ namespace Lync_Billing.ui.dephead.main
             {
                 departmentName = FilterDepartments.SelectedItem.Value.ToString();
                 siteID = Convert.ToInt32((from dep in UserDepartments where dep.DepartmentName == departmentName select dep.SiteID).First());
-                site = DB.Site.getSite(siteID);
+                site = DB.Site.GetSite(siteID);
 
                 if (site != null && !string.IsNullOrEmpty(site.SiteName))
                 {

@@ -49,7 +49,7 @@ namespace Lync_Billing.ui.admin.gateways
             PoolComboBox.GetStore().DataSource = pools;
             PoolComboBox.GetStore().DataBind();
 
-            sites = DB.Site.GetSites().OrderBy(item => item.SiteName).ToList();
+            sites = DB.Site.GetAllSites().OrderBy(item => item.SiteName).ToList();
             SitesComboBox.GetStore().DataSource = sites;
             SitesComboBox.GetStore().DataBind();
 

@@ -66,7 +66,7 @@ namespace Lync_Billing.ui.admin.notifications
                 }
             }
 
-            List<Site> tmpSites = DB.Site.GetSites();
+            List<Site> tmpSites = DB.Site.GetAllSites();
 
             foreach (DB.Site site in sites)
             {
