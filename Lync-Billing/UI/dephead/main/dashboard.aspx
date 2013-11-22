@@ -254,7 +254,7 @@
 
                             <Series>
                                 <ext:PieSeries
-                                    AngleField="CallsDuration"
+                                    AngleField="CallsCount"
                                     ShowInLegend="true"
                                     Donut="30"
                                     Highlight="true"
