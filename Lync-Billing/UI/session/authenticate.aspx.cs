@@ -117,9 +117,9 @@ namespace Lync_Billing.ui.session
 
                         if (accessParameterExists)
                         {
-                            bool userDelegeeCaseMatch = (session.IsUserDelegate && accessParam == userDelegeeRoleName && session.ListOfUserDelegates.Keys.Contains(identityParam));
-                            bool departmentDelegeeCaseMatch = (session.IsDepartmentDelegate && accessParam == departmentDelegeeRoleName && session.ListOfDepartmentDelegates.Keys.Contains(identityParam));
-                            bool siteDelegeeCaseMatch = (session.IsSiteDelegate && accessParam == siteDelegeeRoleName && session.ListOfSiteDelegates.Keys.Contains(identityParam));
+                            bool userDelegeeCaseMatch = (session.IsUserDelegate && accessParam == userDelegeeRoleName && session.InfoOfUserDelegates.Keys.Contains(identityParam));
+                            bool departmentDelegeeCaseMatch = (session.IsDepartmentDelegate && accessParam == departmentDelegeeRoleName && session.InfoOfDepartmentDelegates.Keys.Contains(identityParam));
+                            bool siteDelegeeCaseMatch = (session.IsSiteDelegate && accessParam == siteDelegeeRoleName && session.InfoOfSiteDelegates.Keys.Contains(identityParam));
 
                             //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
                             if (userDelegeeCaseMatch || departmentDelegeeCaseMatch || siteDelegeeCaseMatch || session.IsDeveloper)
@@ -260,7 +260,7 @@ namespace Lync_Billing.ui.session
                         //Site Delegee
                         else if (this.access_level.Value == siteDelegeeRoleName)
                         {
-                            if (session.ListOfSiteDelegates.Keys.Contains(this.delegee_identity.Value))
+                            if (session.InfoOfSiteDelegates.Keys.Contains(this.delegee_identity.Value))
                             {
                                 SwitchToDelegeeAndRedirect(this.delegee_identity.Value, DelegateRole.SiteDelegeeTypeID);
                             }
@@ -269,7 +269,7 @@ namespace Lync_Billing.ui.session
                         //Department Delegee
                         else if (this.access_level.Value == departmentDelegeeRoleName)
                         {
-                            if (session.ListOfDepartmentDelegates.Keys.Contains(this.delegee_identity.Value))
+                            if (session.InfoOfDepartmentDelegates.Keys.Contains(this.delegee_identity.Value))
                             {
                                 SwitchToDelegeeAndRedirect(this.delegee_identity.Value, DelegateRole.DepartmentDelegeeTypeID);
                             }
@@ -278,7 +278,7 @@ namespace Lync_Billing.ui.session
                         //User Delegee
                         else if (this.access_level.Value == userDelegeeRoleName && this.delegee_identity != null)
                         {
-                            if (session.ListOfUserDelegates.Keys.Contains(this.delegee_identity.Value))
+                            if (session.InfoOfUserDelegates.Keys.Contains(this.delegee_identity.Value))
                             {
                                 SwitchToDelegeeAndRedirect(this.delegee_identity.Value, DelegateRole.UserDelegeeTypeID);
                             }
@@ -343,7 +343,7 @@ namespace Lync_Billing.ui.session
             {
                 //Switch identity
                 session.EffectiveSipAccount = delegeeAddress;
-                session.EffectiveDisplayName = formatDisplayName(session.ListOfUserDelegates[session.EffectiveSipAccount]);
+                session.EffectiveDisplayName = formatDisplayName(session.InfoOfUserDelegates[session.EffectiveSipAccount]);
 
                 //Initialize the PhoneBook in the session
                 session.PhoneBook = new Dictionary<string, PhoneBook>();

@@ -391,6 +391,10 @@ namespace Lync_Billing.DB
             TableName,
             [Description("ID")]
             ID,
+            [Description("SiteID")]
+            SiteID,
+            [Description("DepartmentID")]
+            DepartmentID,
             [Description("SipAccount")]
             SipAccount,
             [Description("DelegeeType")]

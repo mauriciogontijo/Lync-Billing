@@ -99,7 +99,7 @@
                                             <li id="switch-to-delegee" class="">
                                                 <a href="#">Switch to User<span class="drop"></span></a>
                                                 <ul id="delegees-dropdown">
-                                                    <% foreach (KeyValuePair<string, string> userDelegeeRecord in current_session.ListOfUserDelegates) { %>
+                                                    <% foreach (KeyValuePair<string, string> userDelegeeRecord in current_session.InfoOfUserDelegates) { %>
                                                         <li class="last-child">
                                                             <a href="../session/authenticate.aspx?access=userdelegee&identity=<%= userDelegeeRecord.Key %>">
                                                                 <%= userDelegeeRecord.Value %>
@@ -107,7 +107,8 @@
                                                         </li>
                                                     <% } %>
 
-                                                    <% foreach (KeyValuePair<string, string> departmentDelegeeRecord in current_session.ListOfDepartmentDelegates) { %>
+                                                    <% foreach (KeyValuePair<string, string> departmentDelegeeRecord in current_session.InfoOfDepartmentDelegates)
+                                                       { %>
                                                         <li class="last-child">
                                                             <a href="../session/authenticate.aspx?access=depdelegee&identity=<%= departmentDelegeeRecord.Key %>">
                                                                 <%= departmentDelegeeRecord.Value %>
@@ -115,7 +116,8 @@
                                                         </li>
                                                     <% } %>
 
-                                                    <% foreach (KeyValuePair<string, string> siteDelegeeRecord in current_session.ListOfSiteDelegates) { %>
+                                                    <% foreach (KeyValuePair<string, string> siteDelegeeRecord in current_session.InfoOfSiteDelegates)
+                                                       { %>
                                                         <li class="last-child">
                                                             <a href="../session/authenticate.aspx?access=sitedelegee&identity=<%= siteDelegeeRecord.Key %>">
                                                                 <%= siteDelegeeRecord.Value %>

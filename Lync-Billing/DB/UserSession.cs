@@ -29,9 +29,9 @@ namespace Lync_Billing.DB
         public string EffectiveSipAccount { set; get; }
         public string EffectiveDelegatedDepartmentName { get; set; }
         public string EffectiveDelegatedSiteName { get; set; }
-        public Dictionary<string, string> ListOfUserDelegates { get; set; }
-        public Dictionary<string, string> ListOfDepartmentDelegates { get; set; }
-        public Dictionary<string, string> ListOfSiteDelegates { get; set; }
+        public Dictionary<string, string> InfoOfUserDelegates { get; set; }
+        public Dictionary<string, string> InfoOfDepartmentDelegates { get; set; }
+        public Dictionary<string, string> InfoOfSiteDelegates { get; set; }
         
         //SystemRoles Related
         public List<SystemRole> SystemRoles { set; get; }
@@ -87,9 +87,9 @@ namespace Lync_Billing.DB
             //Empty all of the sip accounts
             PrimarySipAccount = string.Empty;
             EffectiveSipAccount = string.Empty;
-            ListOfUserDelegates = new Dictionary<string, string>();
-            ListOfDepartmentDelegates = new Dictionary<string, string>();
-            ListOfSiteDelegates = new Dictionary<string, string>();
+            InfoOfUserDelegates = new Dictionary<string, string>();
+            InfoOfDepartmentDelegates = new Dictionary<string, string>();
+            InfoOfSiteDelegates = new Dictionary<string, string>();
         }
 
         
@@ -152,13 +152,13 @@ namespace Lync_Billing.DB
 
             //Initialize the Delegees Information Lists
             if (IsUserDelegate)
-                this.ListOfUserDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.UserDelegeeTypeID);
+                this.InfoOfUserDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.UserDelegeeTypeID);
 
             if (IsDepartmentDelegate)
-                this.ListOfDepartmentDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.DepartmentDelegeeTypeID);
+                this.InfoOfDepartmentDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.DepartmentDelegeeTypeID);
 
             if (IsSiteDelegate)
-                this.ListOfSiteDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.SiteDelegeeTypeID);
+                this.InfoOfSiteDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.SiteDelegeeTypeID);
 
         }
 
