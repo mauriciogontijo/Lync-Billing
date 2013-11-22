@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Lync_Billing.DB;
 using Ext.Net;
 using Newtonsoft.Json;
+
+using Lync_Billing.DB;
+using Lync_Billing.DB.Roles;
 
 namespace Lync_Billing.ui.sysadmin.users
 {
@@ -47,13 +49,13 @@ namespace Lync_Billing.ui.sysadmin.users
             {
                 string site = FilterDelegatesBySite.SelectedItem.Value;
 
-                List<Delegates> usersDelgates = new List<Delegates>();
-                List<Delegates> tmpUsersDelegates = new List<Delegates>();
+                List<DelegateRole> usersDelgates = new List<DelegateRole>();
+                List<DelegateRole> tmpUsersDelegates = new List<DelegateRole>();
                 List<string> usersPersite = new List<string>();
 
                 usersPersite = GetUsersPerSite(site);
 
-                usersDelgates = Delegates.GetDelegees();
+                usersDelgates = DelegateRole.GetDelegees();
 
                 tmpUsersDelegates = usersDelgates.Where(item => usersPersite.Contains(item.SipAccount)).ToList();
 
@@ -86,25 +88,25 @@ namespace Lync_Billing.ui.sysadmin.users
             sipAccount = userSession.EffectiveSipAccount;
             string json = e.ExtraParams["Values"];
 
-            List<Delegates> recordsToUpate = new List<Delegates>();
+            List<DelegateRole> recordsToUpate = new List<DelegateRole>();
 
-            ChangeRecords<Delegates> toBeUpdated = new StoreDataHandler(e.ExtraParams["Values"]).BatchObjectData<Delegates>();
+            ChangeRecords<DelegateRole> toBeUpdated = new StoreDataHandler(e.ExtraParams["Values"]).BatchObjectData<DelegateRole>();
 
             if (toBeUpdated.Updated.Count > 0)
             {
 
-                foreach (Delegates userDelgate in toBeUpdated.Updated)
+                foreach (DelegateRole userDelgate in toBeUpdated.Updated)
                 {
-                    Delegates.UpadeDelegate(userDelgate);
+                    DelegateRole.UpadeDelegate(userDelgate);
                     ManageDelegatesStore.GetById(userDelgate.ID).Commit();
                 }
             }
 
             if (toBeUpdated.Deleted.Count > 0)
             {
-                foreach (Delegates userDelgate in toBeUpdated.Deleted)
+                foreach (DelegateRole userDelgate in toBeUpdated.Deleted)
                 {
-                    Delegates.DeleteDelegate(userDelgate);
+                    DelegateRole.DeleteDelegate(userDelgate);
                     ManageDelegatesStore.GetById(userDelgate.ID).Commit();
                 }
             }

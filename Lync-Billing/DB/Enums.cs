@@ -56,21 +56,6 @@ namespace Lync_Billing.DB
         }
 
         /// <summary>
-        /// Departments Heads roles table fields Names
-        /// </summary>
-        public enum DepartmentHeads
-        {
-            [Description("DepartmentsHeads")]
-            TableName,
-            [Description("ID")]
-            ID,
-            [Description("DepartmentID")]
-            DepartmentID,
-            [Description("SipAccount")]
-            SipAccount
-        }
-
-        /// <summary>
         /// Pools Database table fields Names
         /// </summary>
         public enum Pools
@@ -161,7 +146,6 @@ namespace Lync_Billing.DB
             TypeOfService 
         }
 
-
         /// <summary>
         /// GatewaysRates Database table fields Names
         /// </summary>
@@ -212,44 +196,6 @@ namespace Lync_Billing.DB
             ID,
             [Description("SipAccount")]
             SipAccount
-        }
-
-        /// <summary>
-        /// Roles Database table fields Names
-        /// </summary>
-        public enum Roles 
-        {
-            [Description("Roles")]
-            TableName,
-            [Description("RoleID")]
-            RoleID,
-            [Description("RoleName")]
-            RoleName,
-            [Description("RoleDescription")]
-            RoleDescription
-        }
-
-        /// <summary>
-        /// UsersRoles Database table fields Names
-        /// </summary>
-        public enum UsersRoles 
-        {
-            [Description("UsersRoles")]
-            TableName,
-            [Description("UsersRolesID")]
-            UsersRolesID,
-            [Description("SipAccount")]
-            EmailAddress,
-            [Description("RoleID")]
-            RoleID,
-            [Description("SiteID")]
-            SiteID,
-            [Description("PoolID")]
-            PoolID,
-            [Description("GatewayID")]
-            GatewayID,
-            [Description("Notes")]
-            Notes
         }
 
         /// <summary>
@@ -321,34 +267,6 @@ namespace Lync_Billing.DB
             PhoneCallsTableName
         }
 
-        public enum DelegateTypes
-        {
-            [Description("DelegeeType")]
-            TableName,
-            [Description("ID")]
-            ID,
-            [Description("DelegeeType")]
-            DelegeeType,
-            [Description("Description")]
-            Description
-        }
-
-        public enum Delegates 
-        {
-            [Description("Delegates")]
-            TableName,
-            [Description("ID")]
-            ID,
-            [Description("SipAccount")]
-            SipAccount,
-            [Description("DelegeeType")]
-            DelegeeType,
-            [Description("Delegee")]
-            Delegee,
-            [Description("Description")]
-            Description
-        }
-
         public enum Announcements 
         {
             [Description("Announcements")]
@@ -357,7 +275,7 @@ namespace Lync_Billing.DB
             ID,
             [Description("Announcement")]
             Announcement,
-            [Description("Role")]
+            [Description("Roles")]
             Role,
             [Description("AnnouncementDate")]
             AnnouncementDate
@@ -437,6 +355,88 @@ namespace Lync_Billing.DB
             ModuleKey,
             [Description("Module_Value")]
             ModuleValue
+        }
+
+
+        /// <summary>
+        /// Roles Database table fields Names
+        /// </summary>
+        public enum Roles
+        {
+            [Description("Roles")]
+            TableName,
+            [Description("RoleID")]
+            RoleID,
+            [Description("RoleName")]
+            RoleName,
+            [Description("RoleDescription")]
+            RoleDescription
+        }
+
+        public enum DelegateTypes
+        {
+            [Description("DelegeeType")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("DelegeeType")]
+            DelegeeType,
+            [Description("Description")]
+            Description
+        }
+
+        public enum DelegateRoles
+        {
+            [Description("Roles_Delegates")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("SipAccount")]
+            SipAccount,
+            [Description("DelegeeType")]
+            DelegeeType,
+            [Description("Delegee")]
+            Delegee,
+            [Description("Description")]
+            Description
+        }
+
+        /// <summary>
+        /// SystemRoles Database table fields Names
+        /// </summary>
+        public enum SystemRoles
+        {
+            [Description("Roles_System")]
+            TableName,
+            [Description("UsersRolesID")]
+            UsersRolesID,
+            [Description("SipAccount")]
+            EmailAddress,
+            [Description("RoleID")]
+            RoleID,
+            [Description("SiteID")]
+            SiteID,
+            [Description("PoolID")]
+            PoolID,
+            [Description("GatewayID")]
+            GatewayID,
+            [Description("Notes")]
+            Notes
+        }
+
+        /// <summary>
+        /// Departments Heads roles table fields Names
+        /// </summary>
+        public enum DepartmentHeadRoles
+        {
+            [Description("Roles_DepartmentsHeads")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("DepartmentID")]
+            DepartmentID,
+            [Description("SipAccount")]
+            SipAccount
         }
 
         public enum ValidRoles

@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 
 using Lync_Billing.Libs;
+using Lync_Billing.DB.Roles;
 
 namespace Lync_Billing.DB
 {
@@ -203,12 +204,12 @@ namespace Lync_Billing.DB
         /// <param name="sipAccount">This is the user's SipAccount, taken from the session.</param>
         /// <param name="enumValidRole">This is parameter of the type DB.Enum.ValidRoles.</param>
         /// <returns>The list of sites on which the user was granted an elevated-access, such as: SiteAdmin, SiteAccountant. Developer is a universal access-role.</returns>
-        public static List<Site> GetUserRoleSites(List<UserRole> userRoles, string enumValidRole)
+        public static List<Site> GetUserRoleSites(List<SystemRole> userRoles, string enumValidRole)
         {
             List<Site> sites = new List<Site>();
             List<int> tmpUserSites = new List<int>();
 
-            UserRole DeveloperRole = userRoles.Find(role => role.IsDeveloper() == true);
+            SystemRole DeveloperRole = userRoles.Find(role => role.IsDeveloper() == true);
             if (DeveloperRole != null && DeveloperRole.IsDeveloper())
             {
                 return DB.Site.GetAllSites();

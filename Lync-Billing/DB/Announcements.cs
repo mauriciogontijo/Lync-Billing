@@ -21,7 +21,7 @@ namespace Lync_Billing.DB
             Announcements announcement = new Announcements();
             DataTable dt = new DataTable();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Announcements.TableName),"Role",role);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Announcements.TableName),"Roles",role);
 
             foreach (DataRow row in dt.Rows)
             {

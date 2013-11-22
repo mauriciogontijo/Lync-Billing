@@ -1,11 +1,13 @@
-﻿using Ext.Net;
-using Lync_Billing.DB;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Ext.Net;
+
+using Lync_Billing.DB;
+using Lync_Billing.DB.Roles;
 
 namespace Lync_Billing.ui.dephead.users
 {
@@ -45,7 +47,15 @@ namespace Lync_Billing.ui.dephead.users
 
         private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
         {
-            UserDepartments = DepartmentHead.GetDepartmentsForHead(sipAccount);
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+            sipAccount = session.EffectiveSipAccount;
+
+            //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
+            if (session.IsDeveloper)
+                UserDepartments = Department.GetAllDepartments();
+            else
+                UserDepartments = DepartmentHeadRole.GetDepartmentsForHead(sipAccount);
+
 
             //By default the filter combobox is not read only
             FilterDepartments.ReadOnly = false;

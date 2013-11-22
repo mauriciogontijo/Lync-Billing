@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 using Lync_Billing.DB;
 using Lync_Billing.Libs;
+using Lync_Billing.DB.Roles;
 using Lync_Billing.DB.Summaries;
 using Lync_Billing.DB.Statistics;
 
@@ -16,8 +17,8 @@ namespace Lync_Billing.ui.dephead.main
 {
     public partial class dashboard : System.Web.UI.Page
     {
-        private string sipAccount = string.Empty;
         private UserSession session;
+        private string sipAccount = string.Empty;
         private List<Department> UserDepartments;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.DepartmentHead);
 
@@ -40,7 +41,7 @@ namespace Lync_Billing.ui.dephead.main
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = session.EffectiveSipAccount;
 
             //Set the year number in the charts header's title
             string currentYear = DateTime.Now.Year.ToString();
@@ -64,7 +65,15 @@ namespace Lync_Billing.ui.dephead.main
 
         private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
         {
-            UserDepartments = DepartmentHead.GetDepartmentsForHead(sipAccount);
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+            sipAccount = session.EffectiveSipAccount;
+
+            //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
+            if (session.IsDeveloper)
+                UserDepartments = Department.GetAllDepartments();
+            else
+                UserDepartments = DepartmentHeadRole.GetDepartmentsForHead(sipAccount);
+
 
             //By default the filter combobox is not read only
             FilterDepartments.ReadOnly = false;

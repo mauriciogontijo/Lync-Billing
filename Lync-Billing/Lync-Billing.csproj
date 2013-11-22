@@ -189,7 +189,7 @@
     <Compile Include="DB\Announcements.cs" />
     <Compile Include="DB\Currencies.cs" />
     <Compile Include="DB\Department.cs" />
-    <Compile Include="DB\DepartmentHead.cs" />
+    <Compile Include="DB\Roles\DepartmentHeadRole.cs" />
     <Compile Include="DB\DialingPrefixsRates.cs" />
     <Compile Include="DB\Gateway.cs" />
     <Compile Include="DB\Statistics\MailStatistics.cs" />
@@ -205,14 +205,14 @@
     <Compile Include="DB\Summaries\UserCallsSummary.cs" />
     <Compile Include="DB\TmpUsers.cs" />
     <Compile Include="DB\Summaries\UsersCallsSummaryChartData.cs" />
-    <Compile Include="DB\Delegates.cs" />
+    <Compile Include="DB\Roles\DelegateRole.cs" />
     <Compile Include="DB\GatewayDetail.cs" />
     <Compile Include="DB\PhoneCall.cs" />
     <Compile Include="DB\Pool.cs" />
     <Compile Include="DB\Rate.cs" />
     <Compile Include="DB\GatewayRate.cs" />
-    <Compile Include="DB\Role.cs" />
-    <Compile Include="DB\UserRole.cs" />
+    <Compile Include="DB\Roles\Roles.cs" />
+    <Compile Include="DB\Roles\SystemRole.cs" />
     <Compile Include="DB\Site.cs" />
     <Compile Include="DB\Users.cs" />
     <Compile Include="DB\UserSession.cs" />

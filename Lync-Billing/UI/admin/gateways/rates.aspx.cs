@@ -9,7 +9,9 @@ using System.Web.Script.Serialization;
 using System.Xml;
 using System.Xml.Xsl;
 using Ext.Net;
+
 using Lync_Billing.DB;
+using Lync_Billing.DB.Roles;
 
 namespace Lync_Billing.ui.admin.gateways
 {
@@ -53,7 +55,7 @@ namespace Lync_Billing.ui.admin.gateways
             sipAccount = userSession.EffectiveSipAccount;
             string json = e.ExtraParams["Values"];
 
-            List<Delegates> recordsToUpate = new List<Delegates>();
+            List<DelegateRole> recordsToUpate = new List<DelegateRole>();
 
             ChangeRecords<Rate> toBeUpdated = new StoreDataHandler(e.ExtraParams["Values"]).BatchObjectData<Rate>();
 
@@ -181,9 +183,9 @@ namespace Lync_Billing.ui.admin.gateways
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             List<Site> sites = new List<Site>();
-            List<UserRole> userRoles = session.Roles;
+            List<SystemRole> userRoles = session.Roles;
 
-            foreach (UserRole role in userRoles)
+            foreach (SystemRole role in userRoles)
             {
                 DB.Site tmpSite = new DB.Site();
 

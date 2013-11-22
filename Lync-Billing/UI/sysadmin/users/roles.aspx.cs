@@ -8,6 +8,8 @@ using Ext.Net;
 using Newtonsoft.Json;
 using Lync_Billing.DB;
 
+using Lync_Billing.DB.Roles;
+
 namespace Lync_Billing.ui.sysadmin.users
 {
     public partial class roles : System.Web.UI.Page
@@ -42,7 +44,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
 
         //PRIVATE METHOD USED INSIDE THE CLASS
-        private List<UserRole> getUsersRolesPerSite(string siteName)
+        private List<SystemRole> getUsersRolesPerSite(string siteName)
         {
             List<string> DbSiteColumns = new List<string>();
             Dictionary<string, object> DbSiteWherePart = new Dictionary<string, object>()
@@ -60,7 +62,7 @@ namespace Lync_Billing.ui.sysadmin.users
                 {"SiteID", site.SiteID},
             };
             
-            List<UserRole> userRolesPerSite = UserRole.GetUsersRoles(columns, wherePart, 0);
+            List<SystemRole> userRolesPerSite = SystemRole.GetUsersRoles(columns, wherePart, 0);
 
             return userRolesPerSite;
         }

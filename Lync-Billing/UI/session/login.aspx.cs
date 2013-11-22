@@ -8,6 +8,8 @@ using System.Net;
 using Lync_Billing.Libs;
 using Lync_Billing.DB;
 
+using Lync_Billing.DB.Roles;
+
 namespace Lync_Billing.ui.session
 {
     public partial class login : System.Web.UI.Page
@@ -65,7 +67,7 @@ namespace Lync_Billing.ui.session
         /// </summary>
         /// <param name="session">The current user session, sent by reference.</param>
         /// <param name="userInfo">The current user info</param>
-        private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo, List<UserRole> userRoles)
+        private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo, List<SystemRole> userRoles)
         {
             //First and foremost initialize the user's most basic and mandatory fields
             session.EmployeeID = userInfo.EmployeeID;
@@ -95,7 +97,7 @@ namespace Lync_Billing.ui.session
         {
             UserSession session = new UserSession();
             ADUserInfo userInfo = new ADUserInfo();
-            List<UserRole> userRoles = new List<UserRole>();
+            List<SystemRole> userRoles = new List<SystemRole>();
 
             //START
             bool status = false;

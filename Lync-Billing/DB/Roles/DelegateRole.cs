@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+
 using Lync_Billing.Libs;
 
-namespace Lync_Billing.DB
+namespace Lync_Billing.DB.Roles
 {
-    public class Delegates
+    public class DelegateRole
     {
         private static DBLib DBRoutines = new DBLib();
         
@@ -24,51 +25,51 @@ namespace Lync_Billing.DB
 
         public static bool IsUserDelegate(string delegateAccount) 
         {
-            List<Delegates> delegatedAccounts = GetDelegees(delegateAccount, Delegates.UserDelegeeTypeID);
+            List<DelegateRole> delegatedAccounts = GetDelegees(delegateAccount, DelegateRole.UserDelegeeTypeID);
             
             return (delegatedAccounts.Count > 0 ? true : false);
         }
 
         public static bool IsDepartmentDelegate(string delegateAccount)
         {
-            List<Delegates> delegatedAccounts = GetDelegees(delegateAccount, Delegates.DepartmentDelegeeTypeID);
+            List<DelegateRole> delegatedAccounts = GetDelegees(delegateAccount, DelegateRole.DepartmentDelegeeTypeID);
 
             return (delegatedAccounts.Count > 0 ? true : false);
         }
 
         public static bool IsSiteDelegate(string delegateAccount)
         {
-            List<Delegates> delegatedAccounts = GetDelegees(delegateAccount, Delegates.SiteDelegeeTypeID);
+            List<DelegateRole> delegatedAccounts = GetDelegees(delegateAccount, DelegateRole.SiteDelegeeTypeID);
 
             return (delegatedAccounts.Count > 0 ? true : false);
         }
 
-        public static List<Delegates> GetDelegees(string delegateAccount) 
+        public static List<DelegateRole> GetDelegees(string delegateAccount) 
         {
-            Delegates delegatedAccount;
-            List<Delegates> DelegatedAccounts = new List<Delegates>();
+            DelegateRole delegatedAccount;
+            List<DelegateRole> DelegatedAccounts = new List<DelegateRole>();
             DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName), Enums.GetDescription(Enums.Delegates.Delegee), delegateAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DelegateRoles.TableName), Enums.GetDescription(Enums.DelegateRoles.Delegee), delegateAccount);
 
             foreach (DataRow row in dt.Rows)
             {
-                delegatedAccount = new Delegates();
+                delegatedAccount = new DelegateRole();
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.ID) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.ID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Delegee) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.Delegee) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeType) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.DelegeeType) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.DelegeeType = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.SipAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Description) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.Description) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.Description = (string)row[column.ColumnName];
                 }
                 DelegatedAccounts.Add(delegatedAccount);
@@ -77,39 +78,39 @@ namespace Lync_Billing.DB
             return DelegatedAccounts;
         }
 
-        public static List<Delegates> GetDelegees(string degateAccount, int delegeeType) 
+        public static List<DelegateRole> GetDelegees(string degateAccount, int delegeeType) 
         {
-            Delegates delegatedAccount;
-            List<Delegates> DelegatedAccounts = new List<Delegates>();
+            DelegateRole delegatedAccount;
+            List<DelegateRole> DelegatedAccounts = new List<DelegateRole>();
             DataTable dt = new DataTable();
 
             Dictionary<string, object> wherePart = new Dictionary<string, object>
             {
-                {Enums.GetDescription(Enums.Delegates.DelegeeType),delegeeType},
-                {Enums.GetDescription(Enums.Delegates.Delegee) ,degateAccount}
+                {Enums.GetDescription(Enums.DelegateRoles.DelegeeType),delegeeType},
+                {Enums.GetDescription(Enums.DelegateRoles.Delegee) ,degateAccount}
             };
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName),null,wherePart,0);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DelegateRoles.TableName),null,wherePart,0);
 
             foreach (DataRow row in dt.Rows)
             {
-                delegatedAccount = new Delegates();
+                delegatedAccount = new DelegateRole();
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.ID) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.ID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Delegee) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.Delegee) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeType) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.DelegeeType) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.DelegeeType = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.SipAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Description) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.Description) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.Description = (string)row[column.ColumnName];
                 }
                 DelegatedAccounts.Add(delegatedAccount);
@@ -118,32 +119,32 @@ namespace Lync_Billing.DB
             return DelegatedAccounts;
         }
 
-        public static List<Delegates> GetDelegees() 
+        public static List<DelegateRole> GetDelegees() 
         {
-            Delegates delegatedAccount;
-            List<Delegates> DelegatedAccounts = new List<Delegates>();
+            DelegateRole delegatedAccount;
+            List<DelegateRole> DelegatedAccounts = new List<DelegateRole>();
             DataTable dt = new DataTable();
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Delegates.TableName));
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DelegateRoles.TableName));
 
             foreach (DataRow row in dt.Rows)
             {
-                delegatedAccount = new Delegates();
+                delegatedAccount = new DelegateRole();
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.ID) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.ID) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.ID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Delegee) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.Delegee) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.DelegeeAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.DelegeeType) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.DelegeeType) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.DelegeeType = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.SipAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Delegates.Description) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.Description) && row[column.ColumnName] != System.DBNull.Value)
                         delegatedAccount.Description = (string)row[column.ColumnName];
                 }
                 DelegatedAccounts.Add(delegatedAccount);
@@ -159,7 +160,7 @@ namespace Lync_Billing.DB
         {
             ADUserInfo userInfo;
             string delegateName;
-            List<Delegates> delegatesList;
+            List<DelegateRole> delegatesList;
             Dictionary<string, string> DelegatedAccounts = new Dictionary<string, string>();
 
             delegatesList = GetDelegees(delegeeSipAccount, delegateType);
@@ -169,7 +170,7 @@ namespace Lync_Billing.DB
                 delegateName = string.Empty;
 
                 //If the delegate account is not a user's account
-                if (delegateType == Delegates.DepartmentDelegeeTypeID || delegateType == Delegates.SiteDelegeeTypeID)
+                if (delegateType == DelegateRole.DepartmentDelegeeTypeID || delegateType == DelegateRole.SiteDelegeeTypeID)
                 {
                     delegateName = delegateAccount.SipAccount;
                 }
@@ -186,7 +187,7 @@ namespace Lync_Billing.DB
             return DelegatedAccounts;
         }
     
-        public static bool UpadeDelegate(Delegates delegee) 
+        public static bool UpadeDelegate(DelegateRole delegee) 
         {
             bool status = false;
 
@@ -194,22 +195,22 @@ namespace Lync_Billing.DB
 
             //Set Part
             if (delegee.SipAccount.ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.Delegates.SipAccount), delegee.SipAccount);
+                setPart.Add(Enums.GetDescription(Enums.DelegateRoles.SipAccount), delegee.SipAccount);
 
             if (delegee.DelegeeAccount.ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.Delegates.Delegee), delegee.DelegeeAccount);
+                setPart.Add(Enums.GetDescription(Enums.DelegateRoles.Delegee), delegee.DelegeeAccount);
 
             if (delegee.DelegeeType.ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.Delegates.DelegeeType), delegee.DelegeeType);
+                setPart.Add(Enums.GetDescription(Enums.DelegateRoles.DelegeeType), delegee.DelegeeType);
 
             if (delegee.Description.ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.Delegates.Description), delegee.Description);
+                setPart.Add(Enums.GetDescription(Enums.DelegateRoles.Description), delegee.Description);
 
             //Execute Update
             status = DBRoutines.UPDATE(
-                Enums.GetDescription(Enums.Delegates.TableName),
+                Enums.GetDescription(Enums.DelegateRoles.TableName),
                 setPart,
-                Enums.GetDescription(Enums.Delegates.ID),
+                Enums.GetDescription(Enums.DelegateRoles.ID),
                 delegee.ID);
 
             if (status == false)
@@ -220,15 +221,15 @@ namespace Lync_Billing.DB
             return true;
         }
 
-        public static bool DeleteDelegate(Delegates delegee) 
+        public static bool DeleteDelegate(DelegateRole delegee) 
         {
             bool status = false;
 
             Dictionary<string,object> wherePart = new Dictionary<string,object>();
-            wherePart.Add(Enums.GetDescription(Enums.Delegates.SipAccount),delegee.SipAccount);
-            wherePart.Add(Enums.GetDescription(Enums.Delegates.Delegee), delegee.DelegeeAccount);
+            wherePart.Add(Enums.GetDescription(Enums.DelegateRoles.SipAccount),delegee.SipAccount);
+            wherePart.Add(Enums.GetDescription(Enums.DelegateRoles.Delegee), delegee.DelegeeAccount);
 
-            status = DBRoutines.DELETE(Enums.GetDescription(Enums.Delegates.TableName), wherePart);
+            status = DBRoutines.DELETE(Enums.GetDescription(Enums.DelegateRoles.TableName), wherePart);
 
             if (status == false)
             {
@@ -237,26 +238,26 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public static int AddDelegate(Delegates delegee) 
+        public static int AddDelegate(DelegateRole delegee) 
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
 
             //Set Part
             if (delegee.SipAccount.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Delegates.SipAccount), delegee.SipAccount);
+                columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.SipAccount), delegee.SipAccount);
 
             if (delegee.DelegeeAccount.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Delegates.Delegee), delegee.DelegeeAccount);
+                columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.Delegee), delegee.DelegeeAccount);
 
             if (delegee.DelegeeType.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Delegates.Delegee), delegee.DelegeeType);
+                columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.Delegee), delegee.DelegeeType);
 
             if (delegee.Description.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Delegates.Description), delegee.Description);
+                columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.Description), delegee.Description);
 
             //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Delegates.TableName), columnsValues, Enums.GetDescription(Enums.Delegates.ID));
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.DelegateRoles.TableName), columnsValues, Enums.GetDescription(Enums.DelegateRoles.ID));
 
             return rowID;
         }

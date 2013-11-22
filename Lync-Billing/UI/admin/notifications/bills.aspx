@@ -231,7 +231,7 @@
                                 runat="server" 
                                 Text="Email Alert" 
                                 Icon="EmailAdd" 
-                                Margins="5 5 5 5">
+                                Margins="5 5 0 5">
                                 <DirectEvents>
                                     <Click OnEvent="NotifyUsers">
                                         <EventMask ShowMask="true" />

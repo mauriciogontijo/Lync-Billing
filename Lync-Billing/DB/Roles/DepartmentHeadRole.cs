@@ -6,9 +6,9 @@ using System.Web;
 
 using Lync_Billing.Libs;
 
-namespace Lync_Billing.DB
+namespace Lync_Billing.DB.Roles
 {
-    public class DepartmentHead
+    public class DepartmentHeadRole
     {
         private static DBLib DBRoutines = new DBLib();
 
@@ -25,41 +25,41 @@ namespace Lync_Billing.DB
         public int DepartmentID { get; set; }
 
 
-        public static List<DepartmentHead> GetDepartmentHeads(int departmentID)
+        public static List<DepartmentHeadRole> GetDepartmentHeads(int departmentID)
         {
             DataTable dt = new DataTable();
             List<string> columns;
             Dictionary<string, object> wherePart;
 
             Department department;
-            DepartmentHead departmentHead;
-            List<DepartmentHead> ListOfDepartmentHeads = new List<DepartmentHead>();
+            DepartmentHeadRole departmentHead;
+            List<DepartmentHeadRole> ListOfDepartmentHeads = new List<DepartmentHeadRole>();
 
             //Get the data from the database
             columns = new List<string>();
 
             wherePart = new Dictionary<string, object>
             {
-                { Enums.GetDescription(Enums.DepartmentHeads.DepartmentID), departmentID }
+                { Enums.GetDescription(Enums.DepartmentHeadRoles.DepartmentID), departmentID }
             };
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DepartmentHeads.TableName), columns, wherePart, 0);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DepartmentHeadRoles.TableName), columns, wherePart, 0);
 
 
             foreach (DataRow row in dt.Rows)
             {
                 department = new Department();
-                departmentHead = new DepartmentHead();
+                departmentHead = new DepartmentHeadRole();
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeads.ID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeadRoles.ID))
                         departmentHead.ID = Convert.ToInt32(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeads.SipAccount))
+                    if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeadRoles.SipAccount))
                         departmentHead.SipAccount = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeads.DepartmentID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeadRoles.DepartmentID))
                     {
                         departmentHead.DepartmentID = Convert.ToInt32(row[column.ColumnName]);
 
@@ -92,10 +92,10 @@ namespace Lync_Billing.DB
             columns = new List<string>();
             wherePart = new Dictionary<string, object> 
             { 
-                {Enums.GetDescription(Enums.DepartmentHeads.SipAccount), sipAccount } 
+                {Enums.GetDescription(Enums.DepartmentHeadRoles.SipAccount), sipAccount } 
             };
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DepartmentHeads.TableName), columns, wherePart, 0);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DepartmentHeadRoles.TableName), columns, wherePart, 0);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -103,7 +103,7 @@ namespace Lync_Billing.DB
 
                 foreach(DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeads.DepartmentID))
+                    if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeadRoles.DepartmentID))
                     {
                         departmentId = Convert.ToInt32(row[column.ColumnName]);
                         department = Department.GetDepartment(departmentId);

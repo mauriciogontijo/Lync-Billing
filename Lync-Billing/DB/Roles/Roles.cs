@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Lync_Billing.Libs;
 using System.Data;
 
+using Lync_Billing.Libs;
 
-namespace Lync_Billing.DB
+namespace Lync_Billing.DB.Roles
 {
-    public class Role
+    public class Roles
     {
         private static DBLib DBRoutines = new DBLib();
 
@@ -16,11 +16,11 @@ namespace Lync_Billing.DB
         public string RoleName { get; set; }
         public string RoleDescription { get; set; }
 
-        public static List<Role> GetRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        public static List<Roles> GetRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
-            Role role;
+            Roles role;
             DataTable dt = new DataTable();
-            List<Role> Roles = new List<Role>();
+            List<Roles> Roles = new List<Roles>();
 
             dt = DBRoutines.SELECT(
                 Enums.GetDescription(Enums.GatewaysDetails.TableName), 
@@ -30,7 +30,7 @@ namespace Lync_Billing.DB
 
             foreach (DataRow row in dt.Rows)
             {
-                role = new Role();
+                role = new Roles();
 
                 foreach (DataColumn column in dt.Columns)
                 {
@@ -50,7 +50,7 @@ namespace Lync_Billing.DB
 
         }
 
-        public static int InsertRole(Role role)
+        public static int InsertRole(Roles role)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -68,7 +68,7 @@ namespace Lync_Billing.DB
             return rowID;
         }
 
-        public static bool UpdateRole(Role role)
+        public static bool UpdateRole(Roles role)
         {
             bool status = false;
 
@@ -96,7 +96,7 @@ namespace Lync_Billing.DB
             return status;
         }
 
-        public static bool DeleteRole(Role role)
+        public static bool DeleteRole(Roles role)
         {
             bool status = false;
 

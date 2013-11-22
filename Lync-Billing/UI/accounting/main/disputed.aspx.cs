@@ -9,7 +9,9 @@ using System.Web.Script.Serialization;
 using System.Xml;
 using System.Xml.Xsl;
 using Ext.Net;
+
 using Lync_Billing.DB;
+using Lync_Billing.DB.Roles;
 
 namespace Lync_Billing.ui.accounting.main
 {
@@ -161,9 +163,9 @@ namespace Lync_Billing.ui.accounting.main
 
             UserSession session = (UserSession)Session.Contents["UserData"];
 
-            List<UserRole> userRoles = session.Roles;
+            List<SystemRole> userRoles = session.Roles;
 
-            foreach (UserRole role in userRoles)
+            foreach (SystemRole role in userRoles)
             {
                 if ((role.IsSiteAccountant() || role.IsDeveloper())) 
                 {

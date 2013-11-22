@@ -10,9 +10,11 @@ using System.Xml;
 using System.Xml.Xsl;
 using Ext.Net;
 using System.Globalization;
+
 using Lync_Billing.DB;
 using Lync_Billing.Libs;
 using Lync_Billing.DB.Summaries;
+using Lync_Billing.DB.Roles;
 
 namespace Lync_Billing.ui.admin.notifications
 {
@@ -53,9 +55,9 @@ namespace Lync_Billing.ui.admin.notifications
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             List<Site> sites = new List<Site>();
-            List<UserRole> userRoles = session.Roles;
+            List<SystemRole> userRoles = session.Roles;
 
-            foreach (UserRole role in userRoles)
+            foreach (SystemRole role in userRoles)
             {
                 DB.Site tmpSite = new DB.Site();
 

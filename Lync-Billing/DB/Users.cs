@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Lync_Billing.Libs;
 using System.Data;
+
+using Lync_Billing.Libs;
+using Lync_Billing.DB.Roles;
 
 namespace Lync_Billing.DB
 {
@@ -265,46 +267,46 @@ namespace Lync_Billing.DB
         }
 
         /// <summary>
-        /// Get User Role
+        /// Get User Roles
         /// </summary>
         /// <param name="sipAccount">User Sip Account</param>
         /// <returns>List of all User Roles</returns>
-        public static List<UserRole> GetUserRoles(string sipAccount)
+        public static List<SystemRole> GetUserRoles(string sipAccount)
         {
-            UserRole userRole;
+            SystemRole userRole;
             DataTable dt = new DataTable();
-            List<UserRole> roles = new List<UserRole>();
+            List<SystemRole> roles = new List<SystemRole>();
 
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             wherePart.Add("SipAccount", sipAccount);
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.UsersRoles.TableName), null , wherePart, 0);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.SystemRoles.TableName), null , wherePart, 0);
 
             foreach (DataRow row in dt.Rows)
             {
-                userRole = new UserRole();
+                userRole = new SystemRole();
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.RoleID) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.RoleID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.RoleID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.SipAccount = (string)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.SiteID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.PoolID) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.PoolID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.PoolID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.GatewayID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.UsersRolesID) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.UsersRolesID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.UsersRolesID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.UsersRoles.Notes) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.Notes) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.Notes = (string)row[column.ColumnName];
 
                 }

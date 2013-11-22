@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Net;
+
 using Lync_Billing.Libs;
 using Lync_Billing.DB;
+using Lync_Billing.DB.Roles;
 
 namespace Lync_Billing.ui.session
 {
@@ -260,7 +262,7 @@ namespace Lync_Billing.ui.session
                         {
                             if (session.ListOfSiteDelegates.Keys.Contains(this.delegee_identity.Value))
                             {
-                                SwitchToDelegeeAndRedirect(this.delegee_identity.Value, Delegates.SiteDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(this.delegee_identity.Value, DelegateRole.SiteDelegeeTypeID);
                             }
                         }
 
@@ -269,7 +271,7 @@ namespace Lync_Billing.ui.session
                         {
                             if (session.ListOfDepartmentDelegates.Keys.Contains(this.delegee_identity.Value))
                             {
-                                SwitchToDelegeeAndRedirect(this.delegee_identity.Value, Delegates.DepartmentDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(this.delegee_identity.Value, DelegateRole.DepartmentDelegeeTypeID);
                             }
                         }
 
@@ -278,7 +280,7 @@ namespace Lync_Billing.ui.session
                         {
                             if (session.ListOfUserDelegates.Keys.Contains(this.delegee_identity.Value))
                             {
-                                SwitchToDelegeeAndRedirect(this.delegee_identity.Value, Delegates.UserDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(this.delegee_identity.Value, DelegateRole.UserDelegeeTypeID);
                             }
                         }
 
@@ -337,7 +339,7 @@ namespace Lync_Billing.ui.session
             //Initialize a temp copy of the User Session
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            if (delegeeType == Delegates.UserDelegeeTypeID)
+            if (delegeeType == DelegateRole.UserDelegeeTypeID)
             {
                 //Switch identity
                 session.EffectiveSipAccount = delegeeAddress;
@@ -358,7 +360,7 @@ namespace Lync_Billing.ui.session
                 Response.Redirect(getHomepageLink(userDelegeeRoleName));
             }
 
-            else if(delegeeType == Delegates.DepartmentDelegeeTypeID)
+            else if(delegeeType == DelegateRole.DepartmentDelegeeTypeID)
             {
                 session.EffectiveDelegatedDepartmentName = delegeeAddress;
                 session.ActiveRoleName = departmentDelegeeRoleName;
@@ -366,7 +368,7 @@ namespace Lync_Billing.ui.session
                 Response.Redirect(getHomepageLink(departmentDelegeeRoleName));
             }
 
-            else if (delegeeType == Delegates.SiteDelegeeTypeID)
+            else if (delegeeType == DelegateRole.SiteDelegeeTypeID)
             {
                 session.EffectiveDelegatedSiteName = delegeeAddress;
                 session.ActiveRoleName = siteDelegeeRoleName;

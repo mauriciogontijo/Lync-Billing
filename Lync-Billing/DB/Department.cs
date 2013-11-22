@@ -123,5 +123,45 @@ namespace Lync_Billing.DB
 
             return departmentsList;
         }
+
+        public static List<Department> GetAllDepartments()
+        {
+            DataTable dt;
+            List<string> columns;
+            Dictionary<string, object> wherePart;
+
+            Department department;
+            List<Department> departmentsList = new List<Department>();
+
+            columns = new List<string>();
+            wherePart = new Dictionary<string, object>();
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Departments.TableName), columns, wherePart, 0);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                department = new Department();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Departments.ID))
+                        department.DepartmentID = Convert.ToInt32(row[column.ColumnName]);
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.DepartmentName))
+                        department.DepartmentName = Convert.ToString(row[column.ColumnName]);
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.SiteID))
+                    {
+                        department.SiteID = Convert.ToInt32(row[column.ColumnName]);
+                        department.SiteName = Site.GetSiteName(department.SiteID);
+                    }
+                }
+
+                departmentsList.Add(department);
+            }
+
+            return departmentsList;
+        }
+
     }
 }

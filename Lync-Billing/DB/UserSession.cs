@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Xml.Serialization;
 
+using Lync_Billing.DB.Roles;
+
 namespace Lync_Billing.DB
 {
     public class UserSession
     {
         private static List<UserSession> usersSessions = new List<UserSession>();
-        private List<DB.Delegates> userDelegees = new List<DB.Delegates>();
+        private List<DelegateRole> userDelegees = new List<DelegateRole>();
 
         //User Related Data
         public string EmailAddress { set; get; }
@@ -32,7 +34,7 @@ namespace Lync_Billing.DB
         public Dictionary<string, string> ListOfSiteDelegates { get; set; }
         
         //Roles Related
-        public List<UserRole> Roles { set; get; }
+        public List<SystemRole> Roles { set; get; }
         public string ActiveRoleName { set; get; }
         public Dictionary<string, string> ClientData { set; get; }
                
@@ -107,15 +109,15 @@ namespace Lync_Billing.DB
         }
 
 
-        public void InitializeRolesFlags(List<UserRole> UserRoles = null)
+        public void InitializeRolesFlags(List<SystemRole> UserRoles = null)
         {
-            this.Roles = new List<UserRole>();
+            this.Roles = new List<SystemRole>();
 
             if (UserRoles != null && UserRoles.Count > 0) 
             {
                 this.Roles = UserRoles;
 
-                foreach (UserRole role in UserRoles)
+                foreach (SystemRole role in UserRoles)
                 {
                     if (role.IsDeveloper())
                     {
@@ -164,25 +166,25 @@ namespace Lync_Billing.DB
                 userSipAccount = this.PrimarySipAccount;
             }
 
-            //userDelegees = Delegates.GetDelegees(userSipAccount);
+            //userDelegees = DelegateRole.GetDelegees(userSipAccount);
 
             //Initialize the Delegees Roles Flags
-            this.IsUserDelegate = Delegates.IsUserDelegate(userSipAccount);
-            this.IsSiteDelegate = Delegates.IsSiteDelegate(userSipAccount);
-            this.IsDepartmentDelegate = Delegates.IsDepartmentDelegate(userSipAccount);
+            this.IsUserDelegate = DelegateRole.IsUserDelegate(userSipAccount);
+            this.IsSiteDelegate = DelegateRole.IsSiteDelegate(userSipAccount);
+            this.IsDepartmentDelegate = DelegateRole.IsDepartmentDelegate(userSipAccount);
 
             this.IsDelegee = this.IsUserDelegate || this.IsDepartmentDelegate || this.IsSiteDelegate;
 
 
             //Initialize the Delegees Information Lists
             if (IsUserDelegate)
-                this.ListOfUserDelegates = Delegates.GetDelegeesNames(userSipAccount, Delegates.UserDelegeeTypeID);
+                this.ListOfUserDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.UserDelegeeTypeID);
 
             if (IsDepartmentDelegate)
-                this.ListOfDepartmentDelegates = Delegates.GetDelegeesNames(userSipAccount, Delegates.DepartmentDelegeeTypeID);
+                this.ListOfDepartmentDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.DepartmentDelegeeTypeID);
 
             if (IsSiteDelegate)
-                this.ListOfSiteDelegates = Delegates.GetDelegeesNames(userSipAccount, Delegates.SiteDelegeeTypeID);
+                this.ListOfSiteDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.SiteDelegeeTypeID);
 
         }//END PF FUNCTION
 
