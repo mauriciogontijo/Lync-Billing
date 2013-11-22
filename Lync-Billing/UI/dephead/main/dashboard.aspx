@@ -160,15 +160,16 @@
                                     ID="FilterDepartments"
                                     runat="server"
                                     Icon="Find"
-                                    TriggerAction="All"
+                                    TriggerAction="Query"
                                     QueryMode="Local"
                                     DisplayField="DepartmentName"
-                                    ValueField="DepartmentName"
+                                    ValueField="DepartmentID"
                                     FieldLabel="Department:"
                                     LabelWidth="60"
                                     Width="300"
                                     Margins="5 15 5 5"
-                                    Editable="false">
+                                    Editable="true"
+                                    List>
                                     <Store>
                                         <ext:Store 
                                             ID="DepartmentsFilterStore"
@@ -193,7 +194,7 @@
                                         EmptyText="Please select a department...">
                                         <ItemTpl ID="ItemTpl2" runat="server">
                                             <Html>
-                                                <div>{DepartmentName}&nbsp;({SiteName})</div>
+                                                <div>{SiteName}&nbsp;({DepartmentName})</div>
                                             </Html>
                                         </ItemTpl>
                                     </ListConfig>

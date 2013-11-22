@@ -83,7 +83,7 @@ namespace Lync_Billing.ui.dephead.main
                 //Handle the FireSelect event
                 if (alwaysFireSelect == true)
                 {
-                    FilterDepartments.SetValueAndFireSelect(UserDepartments.First().DepartmentName);
+                    FilterDepartments.SetValueAndFireSelect(UserDepartments.First().DepartmentID);
                     
                     //Handle the ReadOnly Property
                     if (UserDepartments.Count == 1)
@@ -105,31 +105,32 @@ namespace Lync_Billing.ui.dephead.main
 
         protected void DrawStatisticsForDepartment(object sender, DirectEventArgs e)
         {
-            string departmentName = string.Empty;
-            DB.Site site;
-            int siteID;
-
+            int departmentID;
+            Department department;
+            
             MailStatistics departmentMailStatisticsData;
 
             if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
             {
-                departmentName = FilterDepartments.SelectedItem.Value.ToString();
-                siteID = Convert.ToInt32((from dep in UserDepartments where dep.DepartmentName == departmentName select dep.SiteID).First());
-                site = DB.Site.GetSite(siteID);
+                departmentID = Convert.ToInt32(FilterDepartments.SelectedItem.Value);
+                department = Department.GetDepartment(departmentID);
 
-                if (site != null && !string.IsNullOrEmpty(site.SiteName))
+                //siteID = Convert.ToInt32((from dep in UserDepartments where dep.DepartmentName == departmentName select dep.SiteID).First());
+                //site = DB.Site.GetSite(siteID);
+
+                if (department != null && !string.IsNullOrEmpty(department.SiteName))
                 {
                     // Get Top Countries
-                    TopDestinationCountriesStore.DataSource = TopDestinationCountries.GetTopDestinationCountriesForDepartment(site.SiteName, departmentName, 5);
+                    TopDestinationCountriesStore.DataSource = TopDestinationCountries.GetTopDestinationCountriesForDepartment(department.SiteName, department.DepartmentName, 7);
                     TopDestinationCountriesStore.DataBind();
 
                     // Get Department Phonecalls Summaries (for all year's month)
-                    DepartmentCallsPerMonthChart.GetStore().DataSource = DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(site.SiteName, departmentName, DateTime.Now.Year);
+                    DepartmentCallsPerMonthChart.GetStore().DataSource = DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(department.SiteName, department.DepartmentName, DateTime.Now.Year);
                     DepartmentCallsPerMonthChart.GetStore().DataBind();
 
                     // Get Department Mail Statistics
                     // Write the Department Mail Statistics to the publicly-available varialbe: departmentMailStatisticsData
-                    departmentMailStatisticsData = MailStatistics.GetMailStatistics(site.SiteName, departmentName, DateTime.Now);
+                    departmentMailStatisticsData = MailStatistics.GetMailStatistics(department.SiteName, department.DepartmentName, DateTime.Now);
 
                     Ext.Net.Panel htmlContainer = new Ext.Net.Panel
                     {
