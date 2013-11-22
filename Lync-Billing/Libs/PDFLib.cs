@@ -71,7 +71,7 @@ namespace Lync_Billing.Libs
             {
                 if (headers.ContainsKey("title"))
                 {
-                    Paragraph titleParagraph = new Paragraph("eBill | " + headers["title"], titleFont);
+                    Paragraph titleParagraph = new Paragraph("tBill | " + headers["title"], titleFont);
                     titleParagraph.SpacingAfter = 5;
                     document.Add(titleParagraph);
                 }
@@ -443,7 +443,7 @@ namespace Lync_Billing.Libs
             //--------------------------------------------------
             if (PDFDocumentHeaders.ContainsKey("title"))
             {
-                titleParagraph = new Paragraph("eBill | " + PDFDocumentHeaders["title"], titleFont);
+                titleParagraph = new Paragraph("tBill | " + PDFDocumentHeaders["title"], titleFont);
                 titleParagraph.SpacingAfter = 5;
                 document.Add(titleParagraph);
             }
@@ -628,7 +628,7 @@ namespace Lync_Billing.Libs
             {
                 if (PDFDocumentHeaders.ContainsKey("title"))
                 {
-                    Paragraph titleParagraph = new Paragraph("eBill | " + PDFDocumentHeaders["title"], titleFont);
+                    Paragraph titleParagraph = new Paragraph("tBill | " + PDFDocumentHeaders["title"], titleFont);
                     titleParagraph.SpacingAfter = 5;
                     document.Add(titleParagraph);
                 }

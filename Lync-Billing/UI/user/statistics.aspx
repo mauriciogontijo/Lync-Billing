@@ -1,4 +1,4 @@
-﻿<%@ Page Title="eBill User | Calls Statistics" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="statistics.aspx.cs" Inherits="Lync_Billing.ui.user.statistics" %>
+﻿<%@ Page Title="tBill User | Calls Statistics" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="statistics.aspx.cs" Inherits="Lync_Billing.ui.user.statistics" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">

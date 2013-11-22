@@ -160,7 +160,7 @@
                         </div>
                         <!--end toolbar right nav-->
                         <div class="col size1of3 lastcol">
-                            <a class="logo fl" href='../user/dashboard.aspx'>eBill</a>
+                            <a class="logo fl" href='../user/dashboard.aspx'>tBill</a>
                         </div>
                     </div>
                     <!--end toolbar wrapper--> 
@@ -172,7 +172,7 @@
                         <div class="col size1of2 "></div>
                         <!--end toolbar right nav-->
                         <div class="col size1of2 lastcol">
-                            <a class="logo fl" href='../session/login.aspx'>eBill</a>
+                            <a class="logo fl" href='../session/login.aspx'>tBill</a>
                         </div>
                     </div>
                     <!--end toolbar wrapper--> 
@@ -251,7 +251,7 @@
                 <div class='clear'></div>
                 
 		        <div id='footer' class='footer-container bottom-rounded top-rounded'>
-                    <p>CCC eBill, powered by MOA R&D.</p>
+                    <p>CCC Telephony Billing, powered by MOA R&D.</p>
                     <p>For any inquiries please contact the MOA HELPDESK (<a class="bold" href="mailto:helpdesk@ccc.gr">helpdesk@ccc.gr</a>).</p>
 		        </div>
 

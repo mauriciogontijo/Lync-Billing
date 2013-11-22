@@ -1,4 +1,4 @@
-﻿<%@ Page Title="eBill Admin | Dashboard" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.main.dashboard" %>
+﻿<%@ Page Title="tBill Admin | Dashboard" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.main.dashboard" %>
 
 <%-- ADMIN DASHBOARD --%>
 

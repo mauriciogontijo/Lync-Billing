@@ -1,4 +1,4 @@
-﻿<%@ Page Title="eBill | Login" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="Lync_Billing.ui.session.login" %>
+﻿<%@ Page Title="tBill | Login" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="Lync_Billing.ui.session.login" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
@@ -12,7 +12,7 @@
     <div class="front-card">
         <div class="front-welcome float-left p10">
 			<div class="front-welcome-text">
-			    <h1 class="welcome">Welcome to eBill</h1>
+			    <h1 class="welcome">Welcome to Telephony Billing</h1>
 			    <p>Manage your phone calls, bills, your phone calls statistics and history from one place, now!</p>
 			</div>
 		</div>

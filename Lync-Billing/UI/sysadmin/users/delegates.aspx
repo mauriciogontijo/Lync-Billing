@@ -1,4 +1,4 @@
-﻿<%@ Page Title="eBill Admin | Manage Delegates" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="delegates.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.users.delegates" %>
+﻿<%@ Page Title="tBill Admin | Manage Delegates" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="delegates.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.users.delegates" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <ext:XScript ID="XScript1" runat="server">

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="eBill | Authenticate" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="authenticate.aspx.cs" Inherits="Lync_Billing.ui.session.authenticate" %>
+﻿<%@ Page Title="tBill | Authenticate" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="authenticate.aspx.cs" Inherits="Lync_Billing.ui.session.authenticate" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">

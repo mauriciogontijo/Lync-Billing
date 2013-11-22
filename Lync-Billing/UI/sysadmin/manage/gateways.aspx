@@ -1,4 +1,4 @@
-﻿<%@ Page Title="eBill Admin | Manage Gateways" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="gateways.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.manage.gateways" %>
+﻿<%@ Page Title="tBill Admin | Manage Gateways" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="gateways.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.manage.gateways" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     

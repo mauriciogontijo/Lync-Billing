@@ -57,7 +57,7 @@ namespace Lync_Billing.ui.session
             }
             else
             {
-                return "eBill User";
+                return "tBill User";
             }
         }
 

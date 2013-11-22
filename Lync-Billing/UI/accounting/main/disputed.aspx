@@ -1,4 +1,4 @@
-﻿<%@ Page Title="eBill Accounting | Manage Disputed Calls" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="disputed.aspx.cs" Inherits="Lync_Billing.ui.accounting.main.disputed" %>
+﻿<%@ Page Title="tBill Accounting | Manage Disputed Calls" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="disputed.aspx.cs" Inherits="Lync_Billing.ui.accounting.main.disputed" %>
 
 <asp:Content ID="HeaderContentPlaceHolder" ContentPlaceHolderID="head" runat="server">
     
