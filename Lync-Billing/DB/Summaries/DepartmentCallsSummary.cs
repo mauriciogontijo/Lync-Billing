@@ -65,54 +65,54 @@ namespace Lync_Billing.DB.Summaries
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.BusinessCallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.BusinessCallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.BusinessCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.BusinessCallsDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.BusinessCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.BusinessCallsCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCount);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.PersonalCallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.PersonalCallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsDuration);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.PersonalCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.PersonalCallsDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.PersonalCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.PersonalCallsCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.UnmarkedCallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.UnmarkedCallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.UnmarkedCallsDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.UnmarkedCallsDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.UnmarkedCallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.UnmarkedCallsCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.SiteName);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.SiteName = Convert.ToString(Misc.ReturnEmptyIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.Month);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.Month = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.Month = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.Year);
                 if (dt.Columns.Contains(columnName))
-                    departmentSummary.Year = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                    departmentSummary.Year = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.Date);
                 if (dt.Columns.Contains(columnName))

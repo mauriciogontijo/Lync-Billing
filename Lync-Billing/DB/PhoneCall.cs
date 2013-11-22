@@ -412,7 +412,7 @@ namespace Lync_Billing.DB
 
         //        totals = new Dictionary<string, object>()
         //        {
-        //            {"Duration", Misc.ConvertSecondsToReadable(Convert.ToInt32(dt.Compute("Sum(Duration)", "Duration > 0 and ui_CallType='Personal'")))},
+        //            {"Duration", HelperFunctions.ConvertSecondsToReadable(Convert.ToInt32(dt.Compute("Sum(Duration)", "Duration > 0 and ui_CallType='Personal'")))},
         //            {"_Marker_CallCost", Decimal.Round(Convert.ToDecimal(dt.Compute("Sum(_Marker_CallCost)", "_Marker_CallCost > 0 and ui_CallType='Personal'")), 2)},
         //        };
         //    }

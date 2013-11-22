@@ -68,13 +68,13 @@ namespace Lync_Billing.DB.Statistics
                     }
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationNumbers.CallsCount))
-                        topDestination.CallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+                        topDestination.CallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationNumbers.CallsDuration))
-                        topDestination.CallsDuration = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+                        topDestination.CallsDuration = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationNumbers.CallsCost))
-                        topDestination.CallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+                        topDestination.CallsCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
                 }
 
                 TopDestinationNumbers.Add(topDestination);

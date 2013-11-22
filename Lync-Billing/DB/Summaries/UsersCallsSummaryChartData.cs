@@ -41,8 +41,8 @@ namespace Lync_Billing.DB.Summaries
 
             foreach (DataRow row in dt.Rows)
             {
-                summaryYear = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
-                summaryMonth = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]));
+                summaryYear = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
+                summaryMonth = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]));
 
                 //Skip this summary-row if it's out of the range of the given date periods
                 if ((summaryYear < startingDate.Year && summaryMonth < startingDate.Month) ||
@@ -54,13 +54,13 @@ namespace Lync_Billing.DB.Summaries
                 userSummary.Name = "Business";
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount);
-                userSummary.TotalCalls = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userSummary.TotalCalls = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration);
-                userSummary.TotalDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userSummary.TotalDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost);
-                userSummary.TotalCost = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userSummary.TotalCost = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 //Add or Update this summary in the local chartList variable
                 chartList = AddOrUpdateListOfSummaries(chartList, userSummary);
@@ -71,13 +71,13 @@ namespace Lync_Billing.DB.Summaries
                 userSummary.Name = "Personal";
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCount);
-                userSummary.TotalCalls = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userSummary.TotalCalls = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsDuration);
-                userSummary.TotalDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userSummary.TotalDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost);
-                userSummary.TotalCost = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userSummary.TotalCost = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 //Add or Update this summary in the local chartList variable
                 chartList = AddOrUpdateListOfSummaries(chartList, userSummary);
@@ -88,13 +88,13 @@ namespace Lync_Billing.DB.Summaries
                 userSummary.Name = "Unmarked";
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount);
-                userSummary.TotalCalls = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userSummary.TotalCalls = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration);
-                userSummary.TotalDuration = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userSummary.TotalDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost);
-                userSummary.TotalCost = Convert.ToInt32(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userSummary.TotalCost = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 //Add or Update this summary in the local chartList variable
                 chartList = AddOrUpdateListOfSummaries(chartList, userSummary);

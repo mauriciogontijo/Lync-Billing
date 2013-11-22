@@ -48,7 +48,7 @@ namespace Lync_Billing.ui.test
             if (PhoneCallsList == null || PhoneCallsList.Count == 0 || force == true)
             {
                 PhoneCallsList = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
-                xmldoc = Misc.SerializeObject<List<PhoneCall>>(PhoneCallsList);
+                xmldoc = HelperFunctions.SerializeObject<List<PhoneCall>>(PhoneCallsList);
             }
         }
 

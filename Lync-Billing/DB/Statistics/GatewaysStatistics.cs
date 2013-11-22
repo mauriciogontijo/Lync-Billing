@@ -194,7 +194,7 @@ namespace Lync_Billing.DB.Statistics
             //Calculate percentages
             foreach (GatewaysStatistics tmpgatewayUsage in gatewaysUsageData)
             {
-                if (Misc.GetResolvedConnecionIPAddress(tmpgatewayUsage.GatewayName, out resolvedGatewayAddress) == true)
+                if (HelperFunctions.GetResolvedConnecionIPAddress(tmpgatewayUsage.GatewayName, out resolvedGatewayAddress) == true)
                     tmpgatewayUsage.GatewayName = resolvedGatewayAddress;
 
                 if (tmpgatewayUsage.CallsCount.ToString() != null && tmpgatewayUsage.CallsCount > 0)
@@ -251,7 +251,7 @@ namespace Lync_Billing.DB.Statistics
             //Calcualte percentages
             foreach (GatewaysStatistics gatewayUsage in gatewaysUsageData)
             {
-                if (Misc.GetResolvedConnecionIPAddress(gatewayUsage.GatewayName, out resolvedGatewayAddress) == true)
+                if (HelperFunctions.GetResolvedConnecionIPAddress(gatewayUsage.GatewayName, out resolvedGatewayAddress) == true)
                     gatewayUsage.GatewayName = resolvedGatewayAddress;
 
                 if (gatewayUsage.CallsCount.ToString() != null && gatewayUsage.CallsCount > 0)

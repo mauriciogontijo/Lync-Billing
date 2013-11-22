@@ -178,7 +178,7 @@ namespace Lync_Billing.DB.Roles
                 {
                     //Try to get the user from the system by the associated delegateAccount.SipAccount
                     userInfo = Users.GetUserInfo(delegateAccount.SipAccount);
-                    delegateName = (userInfo == null) ? delegateAccount.SipAccount : Misc.ReturnEmptyIfNull(userInfo.FirstName) + " " + Misc.ReturnEmptyIfNull(userInfo.LastName);
+                    delegateName = (userInfo == null) ? delegateAccount.SipAccount : HelperFunctions.ReturnEmptyIfNull(userInfo.FirstName) + " " + HelperFunctions.ReturnEmptyIfNull(userInfo.LastName);
                 }
                 
                 DelegatedAccounts.Add(delegateAccount.SipAccount, delegateName);

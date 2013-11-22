@@ -194,7 +194,7 @@
     <Compile Include="DB\Gateway.cs" />
     <Compile Include="DB\Statistics\MailStatistics.cs" />
     <Compile Include="DB\MailTemplates.cs" />
-    <Compile Include="DB\Misc.cs" />
+    <Compile Include="Libs\Misc.cs" />
     <Compile Include="DB\NumberingPlan.cs" />
     <Compile Include="DB\Persistence.cs" />
     <Compile Include="DB\PhoneBook.cs" />
@@ -234,7 +234,6 @@
     <Compile Include="Libs\ntlm\ImpersonateUser.cs" />
     <Compile Include="Libs\ntlm\NetWorkstationUserEnum.cs" />
     <Compile Include="Libs\PDFLib.cs" />
-    <Compile Include="Libs\Statistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ui\accounting\main\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>

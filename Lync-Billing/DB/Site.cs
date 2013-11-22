@@ -69,13 +69,13 @@ namespace Lync_Billing.DB
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID))
-                        site.SiteID = Convert.ToInt32(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+                        site.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
-                        site.SiteName = Convert.ToString(Misc.ReturnEmptyIfNull(row[column.ColumnName]));
+                        site.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
-                        site.CountryCode = Convert.ToString(Misc.ReturnEmptyIfNull(row[column.ColumnName]));
+                        site.CountryCode = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                 }
             }
 

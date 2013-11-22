@@ -63,16 +63,16 @@ namespace Lync_Billing.DB.Statistics
                 userMailStats.EmailAddress = (row[dt.Columns[columnName]]).ToString();
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.ReceivedCount);
-                userMailStats.ReceivedCount = Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userMailStats.ReceivedCount = Convert.ToInt64(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.ReceivedSize);
-                userMailStats.ReceivedSize = (Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
+                userMailStats.ReceivedSize = (Convert.ToInt64(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.SentCount);
-                userMailStats.SentCount = Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                userMailStats.SentCount = Convert.ToInt64(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.SentSize);
-                userMailStats.SentSize = (Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
+                userMailStats.SentSize = (Convert.ToInt64(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
             }
 
             return userMailStats;
@@ -117,16 +117,16 @@ namespace Lync_Billing.DB.Statistics
             foreach (DataRow row in dt.Rows)
             {
                 columnName = Enums.GetDescription(Enums.MailStatistics.ReceivedCount);
-                departmentTotalMailStats.ReceivedCount = Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                departmentTotalMailStats.ReceivedCount = Convert.ToInt64(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.ReceivedSize);
-                departmentTotalMailStats.ReceivedSize = (Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
+                departmentTotalMailStats.ReceivedSize = (Convert.ToInt64(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.SentCount);
-                departmentTotalMailStats.SentCount = Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]]));
+                departmentTotalMailStats.SentCount = Convert.ToInt64(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]]));
 
                 columnName = Enums.GetDescription(Enums.MailStatistics.SentSize);
-                departmentTotalMailStats.SentSize = (Convert.ToInt64(Misc.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
+                departmentTotalMailStats.SentSize = (Convert.ToInt64(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[columnName]])) / 1024) / 1024; //convert Bytes to MB
             }
 
             return departmentTotalMailStats;

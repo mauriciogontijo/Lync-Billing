@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Ext.Net;
 using System.Net;
 using System.Net.Sockets;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using Ext.Net;
 
-namespace Lync_Billing.DB
+namespace Lync_Billing.Libs
 {
-    public class Misc
+    public class HelperFunctions
     {
         public static void Message(string title, string msg, string type, int hideDelay = 15000, bool isPinned = false, int width = 250, int height = 150)
         {

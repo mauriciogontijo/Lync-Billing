@@ -59,16 +59,16 @@ namespace Lync_Billing.DB.Statistics
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.Country))
-                        topCountry.CountryName = Convert.ToString(Misc.ReturnEmptyIfNull(row[column.ColumnName]));
+                        topCountry.CountryName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.CallsCount))
-                        topCountry.CallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+                        topCountry.CallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.CallsDuration))
-                        topCountry.CallsDuration = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+                        topCountry.CallsDuration = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.CallsCost))
-                            topCountry.CallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+                            topCountry.CallsCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
                 }
 
                 TopDestinationCountries.Add(topCountry);
@@ -118,16 +118,16 @@ namespace Lync_Billing.DB.Statistics
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.Country))
-                        topCountry.CountryName = Convert.ToString(Misc.ReturnEmptyIfNull(row[column.ColumnName]));
+                        topCountry.CountryName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.CallsCount))
-                        topCountry.CallsCount = Convert.ToInt32(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+                        topCountry.CallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.CallsDuration))
-                        topCountry.CallsDuration = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+                        topCountry.CallsDuration = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.CallsCost))
-                        topCountry.CallsCost = Convert.ToDecimal(Misc.ReturnZeroIfNull(row[column.ColumnName]));
+                        topCountry.CallsCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
                 }
 
                 TopDestinationCountries.Add(topCountry);

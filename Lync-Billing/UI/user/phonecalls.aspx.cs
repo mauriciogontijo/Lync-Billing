@@ -77,10 +77,10 @@ namespace Lync_Billing.ui.user
 
             if (!Ext.Net.X.IsAjaxRequest)
             {
-                //Misc.Message("User Help", "To allocate your phonecalls please [Right Click] on the grid and choose your preferred action.", "help", isPinned: true, width: 220, height: 120);
-                //Misc.Message("User Help", "You can select multiple phonecalls by pressing the [Ctrl] button.", "help", isPinned: true, width: 220, height: 120);
+                //HelperFunctions.Message("User Help", "To allocate your phonecalls please [Right Click] on the grid and choose your preferred action.", "help", isPinned: true, width: 220, height: 120);
+                //HelperFunctions.Message("User Help", "You can select multiple phonecalls by pressing the [Ctrl] button.", "help", isPinned: true, width: 220, height: 120);
 
-                Misc.Message(title, notificationMessage, type, hideDelay: 10000, width: 250, height: 100);
+                HelperFunctions.Message(title, notificationMessage, type, hideDelay: 10000, width: 250, height: 100);
             }
         }
 
@@ -103,7 +103,7 @@ namespace Lync_Billing.ui.user
 
                 session.PhoneCalls = userPhoneCalls.ToList();
 
-                xmldoc = Misc.SerializeObject<List<PhoneCall>>(session.PhoneCalls);
+                xmldoc = HelperFunctions.SerializeObject<List<PhoneCall>>(session.PhoneCalls);
             }
         }
 
