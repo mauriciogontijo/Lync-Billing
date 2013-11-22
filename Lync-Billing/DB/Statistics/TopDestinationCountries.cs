@@ -22,6 +22,7 @@ namespace Lync_Billing.DB.Statistics
         public static List<TopDestinationCountries> GetTopDestinationCountriesForUser(string sipAccount, int limit, DateTime? startingDate = null, DateTime? endingDate = null)
         {
             DataTable dt = new DataTable();
+            string columnName = string.Empty;
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_DestinationCountries_ForUser);
 
             TopDestinationCountries topCountry;
@@ -56,6 +57,12 @@ namespace Lync_Billing.DB.Statistics
             {
                 topCountry = new TopDestinationCountries();
 
+                //Exclude countries with no names!
+                columnName = Enums.GetDescription(Enums.TopDestinationCountries.Country);
+                if (row[columnName] == DBNull.Value)
+                    continue;
+
+                //Process countries!
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.Country))
@@ -80,6 +87,7 @@ namespace Lync_Billing.DB.Statistics
         public static List<TopDestinationCountries> GetTopDestinationCountriesForDepartment(string siteName, string departmentName, int limit, DateTime? startingDate = null, DateTime? endingDate = null)
         {
             DataTable dt = new DataTable();
+            string columnName = string.Empty;
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_DestinationCountries_ForSiteDepartment);
 
             TopDestinationCountries topCountry;
@@ -115,6 +123,12 @@ namespace Lync_Billing.DB.Statistics
             {
                 topCountry = new TopDestinationCountries();
 
+                //Exclude countries with no names!
+                columnName = Enums.GetDescription(Enums.TopDestinationCountries.Country);
+                if (row[columnName] == DBNull.Value)
+                    continue;
+
+                //Process countries!
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.TopDestinationCountries.Country))
