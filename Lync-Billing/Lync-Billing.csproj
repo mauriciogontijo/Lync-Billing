@@ -194,7 +194,7 @@
     <Compile Include="DB\Gateway.cs" />
     <Compile Include="DB\Statistics\MailStatistics.cs" />
     <Compile Include="DB\MailTemplates.cs" />
-    <Compile Include="Libs\Misc.cs" />
+    <Compile Include="Libs\HelperFunctions.cs" />
     <Compile Include="DB\NumberingPlan.cs" />
     <Compile Include="DB\Persistence.cs" />
     <Compile Include="DB\PhoneBook.cs" />
