@@ -168,8 +168,7 @@
                                     LabelWidth="60"
                                     Width="300"
                                     Margins="5 15 5 5"
-                                    Editable="true"
-                                    List>
+                                    Editable="true">
                                     <Store>
                                         <ext:Store 
                                             ID="DepartmentsFilterStore"
