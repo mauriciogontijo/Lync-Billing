@@ -8,17 +8,16 @@ using System.Collections.ObjectModel;
 using System.Web.Script.Serialization;
 using System.Xml;
 using System.Xml.Xsl;
-using Ext.Net;
-using Lync_Billing.DB;
-using Lync_Billing.Libs;
 using System.Linq.Expressions;
-using Newtonsoft.Json;
 using System.Xml.Serialization;
+using Ext.Net;
+using Newtonsoft.Json;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
-
+using Lync_Billing.DB;
+using Lync_Billing.Libs;
 
 namespace Lync_Billing.ui.user
 {
@@ -55,7 +54,7 @@ namespace Lync_Billing.ui.user
             }
 
             sipAccount = session.EffectiveSipAccount;
-            ((UserSession)HttpContext.Current.Session.Contents["UserData"]).PhoneBook = PhoneBook.GetAddressBook(sipAccount);
+            session.PhoneBook = PhoneBook.GetAddressBook(sipAccount);
         }
 
         private void ShowInfoMessages()
