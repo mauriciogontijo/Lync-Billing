@@ -229,19 +229,11 @@ namespace Lync_Billing.DB
             return gateways;
         }
 
-        public static List<Site> GetSitesForGateway(string gatewayName) 
+        public static List<Site> GetSitesForGateway(int gatewayID) 
         {
             List<GatewayDetail> gatewaysDetails = new List<GatewayDetail>();
             List<Site> sites = new List<Site>();
-            int gatewayID = 0;
-
-            var gateway = Gateway.GetGateways().First(item => item.GatewayName == gatewayName);
-
-            if (gateway != null)
-                gatewayID = gateway.GatewayId;
-            else
-                return null;
-
+            
             //Get GatewayDetails Where GatewayID = gatewayID
             gatewaysDetails = GatewayDetail.GetGatewaysDetails(gatewayID);
 
@@ -251,8 +243,27 @@ namespace Lync_Billing.DB
                 if(site != null)
                     sites.Add(site);
             }
-            return sites;
 
-        } 
+            return sites;
+        }
+
+
+        public static List<string> GetSitesForGateway(int gatewayID)
+        {
+            List<GatewayDetail> gatewaysDetails = new List<GatewayDetail>();
+            List<string> sites = new List<string>();
+
+            //Get GatewayDetails Where GatewayID = gatewayID
+            gatewaysDetails = GatewayDetail.GetGatewaysDetails(gatewayID);
+
+            foreach (GatewayDetail item in gatewaysDetails)
+            {
+                Site site = Site.GetSite(item.SiteID);
+                if (site != null)
+                    sites.Add(site.SiteName);
+            }
+
+            return sites;
+        }
     }
 }
