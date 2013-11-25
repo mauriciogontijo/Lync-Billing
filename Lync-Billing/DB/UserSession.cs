@@ -26,7 +26,12 @@ namespace Lync_Billing.DB
         public List<DelegateRole> UserDelegateRoles { get; set; }
         public List<DelegateRole> SiteDelegateRoles { get; set; }
         public List<DelegateRole> DepartmentDelegateRoles { get; set; }
-        
+
+        //Phone Calls and Phone Book Related
+        public string PhonecallsPerPage { set; get; }
+        public List<PhoneCall> Phonecalls { set; get; }
+        public List<PhoneCall> PhonecallsHistory { set; get; }
+        public Dictionary<string, PhoneBook> Addressbook { set; get; }
                
         //Generic User SystemRoles
         public bool IsDeveloper { set; get; }
@@ -45,15 +50,24 @@ namespace Lync_Billing.DB
         public bool IsDepartmentDelegate { set; get; }
         public bool IsSiteDelegate { set; get; }
 
-        //Phone Calls and Phone Book Related
-        public string PhonecallsPerPage { set; get; }
-        public List<PhoneCall> Phonecalls { set; get; }
-        public List<PhoneCall> PhonecallsHistory { set; get; }
-        public Dictionary<string, PhoneBook> Addressbook { set; get; }
-
 
         public UserSession()
         {
+            NormalUserInfo = new Users();
+            TelephoneNumber = string.Empty;
+            IPAddress = string.Empty;
+            UserAgent = string.Empty;
+
+            ActiveRoleName = string.Empty;
+            SystemRoles = new List<SystemRole>();
+            DelegeeAccount = null;
+
+            //Initialized other containers
+            PhonecallsPerPage = string.Empty;
+            Phonecalls = new List<PhoneCall>();
+            PhonecallsHistory = new List<PhoneCall>();
+            Addressbook = new Dictionary<string, PhoneBook>();
+
             //By default the roles are set to false unless initialized as otherwise!
             IsDeveloper = false;
             IsSystemAdmin = false;
