@@ -45,9 +45,6 @@ namespace Lync_Billing.ui.session
             ParagraphAuthBoxMessage = string.Empty;
             AuthenticationMessage = string.Empty;
 
-            string requestedAccessLevel = this.access_level.Value;
-            string requestedDelegeeIdentity = this.delegee_identity.Value;
-
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
@@ -101,7 +98,7 @@ namespace Lync_Billing.ui.session
                             session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
-                            requestedAccessLevel = accessParam;
+                            this.ACCESS_LEVEL_FIELD.Value = accessParam;
 
                             //The user WOULD HAvE BEEN redirected if s/he weren't granted the elevated-access-permission s/he is asking for. But in this case, they passed the redirection.
                             redirectionFlag = false;
@@ -128,8 +125,8 @@ namespace Lync_Billing.ui.session
                             if (userDelegeeCaseMatch || departmentDelegeeCaseMatch || siteDelegeeCaseMatch || session.IsDeveloper)
                             {
                                 //set the value of hidden field in this page to the value of passed access variable.
-                                requestedAccessLevel = accessParam;
-                                requestedDelegeeIdentity = identityParam;
+                                this.ACCESS_LEVEL_FIELD.Value = accessParam;
+                                this.DELEGEE_IDENTITY.Value = identityParam;
                                 //SwitchToDelegeeAndRedirect(identityParam);
 
                                 //The user WOULD HAVE BEEN redirected if s/he weren't granted the elevated-access-permission s/he is asking for. But in this case, they passed the redirection.
@@ -215,15 +212,15 @@ namespace Lync_Billing.ui.session
             string user_email = string.Empty;
 
             //Get the requests from the view.
-            string requestedAccessLevel = this.access_level.Value ?? string.Empty;
-            string requestedDelegeeIdentity = this.delegee_identity.Value ?? string.Empty;
+            string requestedAccessLevel = this.ACCESS_LEVEL_FIELD.Value ?? string.Empty;
+            string requestedDelegeeIdentity = this.DELEGEE_IDENTITY.Value ?? string.Empty;
 
             if (HttpContext.Current.Session != null && HttpContext.Current.Session.Contents["UserData"] != null)
             {
                 session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
                 user_email = session.NormalUserInfo.SipAccount.ToLower();
 
-                if (this.access_level != null)
+                if (this.ACCESS_LEVEL_FIELD != null)
                 {
                     status = athenticator.AuthenticateUser(user_email, this.password.Text, out msg);
                     AuthenticationMessage = msg;
@@ -292,7 +289,7 @@ namespace Lync_Billing.ui.session
                         }
 
                         //User Delegee
-                        else if (requestedAccessLevel == userDelegeeRoleName && this.delegee_identity != null)
+                        else if (requestedAccessLevel == userDelegeeRoleName && this.DELEGEE_IDENTITY != null)
                         {
                             Users user = (Users)(from userDelegeeRole in session.UserDelegateRoles
                                                  where userDelegeeRole.DelegeeUser != null && userDelegeeRole.SipAccount == requestedDelegeeIdentity

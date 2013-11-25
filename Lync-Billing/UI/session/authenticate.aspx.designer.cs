@@ -58,21 +58,21 @@ namespace Lync_Billing.ui.session {
         protected global::System.Web.UI.WebControls.HiddenField redirect_to_url;
         
         /// <summary>
-        /// delegee_identity control.
+        /// DELEGEE_IDENTITY control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField delegee_identity;
+        protected global::System.Web.UI.WebControls.HiddenField DELEGEE_IDENTITY;
         
         /// <summary>
-        /// access_level control.
+        /// ACCESS_LEVEL_FIELD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField access_level;
+        protected global::System.Web.UI.WebControls.HiddenField ACCESS_LEVEL_FIELD;
     }
 }

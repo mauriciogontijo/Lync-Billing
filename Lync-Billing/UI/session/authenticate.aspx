@@ -61,7 +61,7 @@
 		</div>
 
         <asp:HiddenField ID="redirect_to_url" runat="server" />
-        <asp:HiddenField ID="delegee_identity" runat="server" />
-        <asp:HiddenField ID="access_level" runat="server" />
+        <asp:HiddenField ID="DELEGEE_IDENTITY" runat="server" />
+        <asp:HiddenField ID="ACCESS_LEVEL_FIELD" runat="server" />
 	</div>
 </asp:Content>

@@ -70,7 +70,7 @@
                                 DisplayField="DepartmentName"
                                 ValueField="DepartmentName"
                                 FieldLabel="Department:"
-                                LabelWidth="60"
+                                LabelWidth="60"  
                                 Width="250"
                                 Margins="5 15 5 5">
                                 <Store>
