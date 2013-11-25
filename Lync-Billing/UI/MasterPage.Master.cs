@@ -14,6 +14,12 @@ namespace Lync_Billing.ui
         public string HTML_SELECTED = string.Empty;
         public string PAGE_NAME = string.Empty;
 
+        public string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
+        public string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee);
+
+        //public variable made available for the view
+        public string DisplayName = string.Empty;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
@@ -27,6 +33,26 @@ namespace Lync_Billing.ui
             }
 
             this.ThisPageReferrer.Value = PAGE_NAME;
+        }
+
+        //Get the user displayname.
+        private string GetEffectiveDisplayName()
+        {
+            string userDisplayName = string.Empty;
+            UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            //If the user is a normal one, just return the normal user sipaccount.
+            if (session.ActiveRoleName == normalUserRoleName)
+            {
+                userDisplayName = session.NormalUserInfo.DisplayName;
+            }
+            //if the user is a user-delegee return the delegate sipaccount.
+            else if (session.ActiveRoleName == userDelegeeRoleName)
+            {
+                userDisplayName = session.DelegeeAccount.DelegeeUserAccount.DisplayName;
+            }
+
+            return userDisplayName;
         }
     }
 }

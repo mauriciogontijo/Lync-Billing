@@ -24,7 +24,9 @@ namespace Lync_Billing.ui.user
         private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
         private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee);
         
+        //public variables made available for the view
         public int unmarkedCallsCount = 0;
+        public string DisplayName = string.Empty;
 
         public Dictionary<string, PhoneBook> phoneBookEntries;
         public List<PhoneCall> phoneCalls;
@@ -67,6 +69,9 @@ namespace Lync_Billing.ui.user
             //Initialize the unmarked calls counter - this is being used in the frontend.
             unmarkedCallsCount = getUnmarkedCallsCount();
 
+            //Get the display name for this user
+            DisplayName = GetEffectiveDisplayName();
+
             //Initialize the Address Book data.
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
@@ -99,6 +104,27 @@ namespace Lync_Billing.ui.user
             }
 
             return userSipAccount;
+        }
+
+
+        //Get the user displayname.
+        private string GetEffectiveDisplayName()
+        {
+            string userDisplayName = string.Empty;
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            //If the user is a normal one, just return the normal user sipaccount.
+            if (session.ActiveRoleName == normalUserRoleName)
+            {
+                userDisplayName = session.NormalUserInfo.DisplayName;
+            }
+            //if the user is a user-delegee return the delegate sipaccount.
+            else if (session.ActiveRoleName == userDelegeeRoleName)
+            {
+                userDisplayName = session.DelegeeAccount.DelegeeUserAccount.DisplayName;
+            }
+
+            return userDisplayName;
         }
 
 

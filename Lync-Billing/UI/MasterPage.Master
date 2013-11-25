@@ -74,14 +74,14 @@
                                         if( ! PAGE_NAME.Contains("ui_session") ) { 
                                     %>
                                         <li id="user-tab" class="">
-                                            <a href="#"><%= current_session.EffectiveDisplayName %><span class="drop"></span></a>
+                                            <a href="#"><%= DisplayName %><span class="drop"></span></a>
                                             <ul id="user-dropdown">
                                                 <li class="first-child"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
                                                 <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
                                                 <li class=""><a title="Bills History" href="../user/bills.aspx">Bills History</a></li>
                                                 <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
                                                 <li class="separator-bottom"><a title="Calls Statistics" href="../user/statistics.aspx">Calls Statistics</a></li>
-                                                <% if(current_session.PrimarySipAccount == current_session.EffectiveSipAccount) { %>
+                                                <% if(current_session.ActiveRoleName == normalUserRoleName) { %>
                                                     <li class="separator-bottom"><a title="Telephony Rates" href="../user/rates.aspx">Telephony Rates</a></li>
                                                     <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                                 <% } else { %>
@@ -92,35 +92,35 @@
 
                                         <%
                                             //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
-                                            bool is_delegate = (current_session.IsDelegee || current_session.IsDeveloper) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
+                                            bool is_delegate = (current_session.IsDelegee || current_session.IsDeveloper) && (current_session.ActiveRoleName == normalUserRoleName);
                                             if (is_delegate)
                                             {
                                         %>
                                             <li id="switch-to-delegee" class="">
                                                 <a href="#">Switch to User<span class="drop"></span></a>
                                                 <ul id="delegees-dropdown">
-                                                    <% foreach (KeyValuePair<string, string> userDelegeeRecord in current_session.InfoOfUserDelegates) { %>
+                                                    <% foreach (var userDelegeeRecord in current_session.UserDelegateRoles) { %>
                                                         <li class="last-child">
-                                                            <a href="../session/authenticate.aspx?access=userdelegee&identity=<%= userDelegeeRecord.Key %>">
-                                                                <%= userDelegeeRecord.Value %>
+                                                            <a href="../session/authenticate.aspx?access=userdelegee&identity=<%= userDelegeeRecord.DelegeeUser.SipAccount %>">
+                                                                <%= userDelegeeRecord.DelegeeUser.DisplayName %>
                                                             </a>
                                                         </li>
                                                     <% } %>
 
-                                                    <% foreach (KeyValuePair<string, string> departmentDelegeeRecord in current_session.InfoOfDepartmentDelegates)
+                                                    <% foreach (var departmentDelegeeRecord in current_session.DepartmentDelegateRoles)
                                                        { %>
                                                         <li class="last-child">
-                                                            <a href="../session/authenticate.aspx?access=depdelegee&identity=<%= departmentDelegeeRecord.Key %>">
-                                                                <%= departmentDelegeeRecord.Value %>
+                                                            <a href="../session/authenticate.aspx?access=depdelegee&identity=<%= departmentDelegeeRecord.DelegeeDepartment.SiteName + "_" + departmentDelegeeRecord.DelegeeDepartment.DepartmentName %>">
+                                                                <%= departmentDelegeeRecord.DelegeeDepartment.DepartmentName %>
                                                             </a>
                                                         </li>
                                                     <% } %>
 
-                                                    <% foreach (KeyValuePair<string, string> siteDelegeeRecord in current_session.InfoOfSiteDelegates)
+                                                    <% foreach (var siteDelegeeRecord in current_session.SiteDelegateRoles)
                                                        { %>
                                                         <li class="last-child">
-                                                            <a href="../session/authenticate.aspx?access=sitedelegee&identity=<%= siteDelegeeRecord.Key %>">
-                                                                <%= siteDelegeeRecord.Value %>
+                                                            <a href="../session/authenticate.aspx?access=sitedelegee&identity=<%= siteDelegeeRecord.DelegeeSite.SiteName %>">
+                                                                <%= siteDelegeeRecord.DelegeeSite.SiteName %>
                                                             </a>
                                                         </li>
                                                     <% } %>
@@ -130,7 +130,7 @@
 
                                         <%
                                             //The first part of the condition checks if the user has an actual permission of access-elevation; the second part is to ensure that delegated user don't abuse the current user's permissions of access elevation
-                                            bool higher_access = (current_session.IsDeveloper || current_session.IsSystemAdmin || current_session.IsSiteAdmin || current_session.IsSiteAccountant || current_session.IsDepartmentHead) && (current_session.PrimarySipAccount == current_session.EffectiveSipAccount);
+                                            bool higher_access = (current_session.IsDeveloper || current_session.IsSystemAdmin || current_session.IsSiteAdmin || current_session.IsSiteAccountant || current_session.IsDepartmentHead) && (current_session.ActiveRoleName == normalUserRoleName);
                                             if (higher_access) {
                                         %>
                                             <li id="switch-roles" class="">
@@ -149,7 +149,7 @@
                                             </li>
                                         <% } %>
                                     
-                                        <% if(current_session.PrimarySipAccount != current_session.EffectiveSipAccount) { %>
+                                        <% if(current_session.ActiveRoleName == userDelegeeRoleName) { %>
                                             <li id="access-tab">
                                                 <a title="Drop delegee access" href="../session/authenticate.aspx?drop=userdelegee">Drop Delegee Access<span class="shutdown"></span></a>
                                             </li>

@@ -124,14 +124,14 @@ namespace Lync_Billing.DB
             this.IsDelegee = this.IsUserDelegate || this.IsDepartmentDelegate || this.IsSiteDelegate;
 
             //Initialize the Delegees Information Lists
-            //if (IsUserDelegate)
-            //    this.InfoOfUserDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.UserDelegeeTypeID);
+            if (IsUserDelegate)
+                this.UserDelegateRoles = DelegateRole.GetDelegees(userSipAccount, DelegateRole.UserDelegeeTypeID);
 
-            //if (IsDepartmentDelegate)
-            //    this.InfoOfDepartmentDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.DepartmentDelegeeTypeID);
+            if (IsDepartmentDelegate)
+                this.DepartmentDelegateRoles = DelegateRole.GetDelegees(userSipAccount, DelegateRole.DepartmentDelegeeTypeID);
 
-            //if (IsSiteDelegate)
-            //    this.InfoOfSiteDelegates = DelegateRole.GetDelegeesNames(userSipAccount, DelegateRole.SiteDelegeeTypeID);
+            if (IsSiteDelegate)
+                this.SiteDelegateRoles = DelegateRole.GetDelegees(userSipAccount, DelegateRole.SiteDelegeeTypeID);
 
         }
 
