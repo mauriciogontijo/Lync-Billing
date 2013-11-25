@@ -193,5 +193,66 @@ namespace Lync_Billing.DB
             }
             return status;
         }
+
+        public static List<GatewayDetail> GetGatewaysDetails(string siteName)
+        {
+            GatewayDetail gateway;
+            DataTable dt = new DataTable();
+            List<GatewayDetail> gateways = new List<GatewayDetail>();
+
+            var siteId = DB.Site.GetSite(siteName);
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysDetails.TableName), Enums.GetDescription(Enums.GatewaysDetails.GatewayID),siteID);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                gateway = new GatewayDetail();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.GatewayID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.SiteID) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.SiteID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.PoolID) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.PoolID = (int)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.GatewaysDetails.Description) && row[column.ColumnName] != System.DBNull.Value)
+                        gateway.Description = (string)row[column.ColumnName];
+
+                }
+                gateways.Add(gateway);
+            }
+
+            return gateways;
+        }
+
+        public static List<Site> GetSitesForGateway(string gatewayName) 
+        {
+            List<GatewayDetail> gatewaysDetails = new List<GatewayDetail>();
+            List<Site> sites = new List<Site>();
+            int gatewayID = 0;
+
+            var gateway = Gateway.GetGateways().First(item => item.GatewayName == gatewayName);
+
+            if (gateway != null)
+                gatewayID = gateway.GatewayId;
+            else
+                return null;
+
+            //Get GatewayDetails Where GatewayID = gatewayID
+            gatewaysDetails = GatewayDetail.GetGatewaysDetails(gatewayID);
+
+            foreach (GatewayDetail item in gatewaysDetails) 
+            {
+                Site site = Site.GetSite(item.SiteID);
+                if(site != null)
+                    sites.Add(site);
+            }
+            return sites;
+
+        } 
     }
 }
