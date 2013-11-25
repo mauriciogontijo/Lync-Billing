@@ -168,8 +168,6 @@
     <Content Include="ui\resources\js\jquery-1.9.1.min.js" />
     <Content Include="ui\resources\js\stacktrace.js" />
     <Content Include="ui\sysadmin\users\roles.aspx" />
-    <Content Include="ui\test\export.aspx" />
-    <Content Include="ui\test\redbtn.aspx" />
     <Content Include="ui\user\bills.aspx" />
     <Content Include="ui\user\dashboard.aspx" />
     <Content Include="ui\user\addressbook.aspx" />
@@ -188,6 +186,7 @@
     <Compile Include="ConfigurationSections\PhoneCallsTablesSection.cs" />
     <Compile Include="DB\Announcements.cs" />
     <Compile Include="DB\Currencies.cs" />
+    <Compile Include="DB\DelegeeAccountInfo.cs" />
     <Compile Include="DB\Department.cs" />
     <Compile Include="DB\Roles\DepartmentHeadRole.cs" />
     <Compile Include="DB\DialingPrefixsRates.cs" />
@@ -459,20 +458,6 @@
     <Compile Include="ui\sysadmin\users\roles.aspx.designer.cs">
       <DependentUpon>roles.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\test\export.aspx.cs">
-      <DependentUpon>export.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ui\test\export.aspx.designer.cs">
-      <DependentUpon>export.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ui\test\redbtn.aspx.cs">
-      <DependentUpon>redbtn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ui\test\redbtn.aspx.designer.cs">
-      <DependentUpon>redbtn.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ui\user\bills.aspx.cs">
       <DependentUpon>bills.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -537,6 +522,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ui\test\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
