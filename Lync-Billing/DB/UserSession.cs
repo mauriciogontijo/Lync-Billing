@@ -65,6 +65,11 @@ namespace Lync_Billing.DB
             IsUserDelegate = false;
             IsDepartmentDelegate = false;
             IsSiteDelegate = false;
+
+            //Initialize the lists
+            UserDelegateRoles = new List<DelegateRole>();
+            DepartmentDelegateRoles = new List<DelegateRole>();
+            SiteDelegateRoles = new List<DelegateRole>();
         }
 
         
