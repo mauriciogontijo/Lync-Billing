@@ -44,17 +44,41 @@ namespace Lync_Billing.ui.user
                 }
             }
 
+            //Get the sip account of this user
+            sipAccount = GetEffectiveSipAccount();
+
+            //Get the data
             GridsDataManager(true);
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+        }
+
+
+        private string GetEffectiveSipAccount()
+        {
+            string userSipAccount = string.Empty;
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+            
+            //If the user is a normal one, just return the normal user sipaccount.
+            if (session.ActiveRoleName == normalUserRoleName)
+            {
+                userSipAccount = session.NormalUserInfo.SipAccount;
+            }
+            //if the user is a user-delegee return the delegate sipaccount.
+            else if (session.ActiveRoleName == userDelegeeRoleName)
+            {
+                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
+            }
+
+            return userSipAccount;
         }
 
 
         private void UpdateSessionRelatedInformation()
         {
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = session.EffectiveSipAccount;
 
-            var phoneCalls = session.PhoneCalls ?? (new List<PhoneCall>());
+            sipAccount = GetEffectiveSipAccount();
+
+            var phoneCalls = session.Phonecalls ?? (new List<PhoneCall>());
             var phoneBook = PhoneBook.GetAddressBook(sipAccount);
 
             foreach (var phoneCall in phoneCalls)
@@ -69,15 +93,14 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            session.PhoneCalls = phoneCalls;
-            session.PhoneBook = phoneBook;
+            session.Phonecalls = phoneCalls;
+            session.Addressbook = phoneBook;
         }
 
 
         protected void GridsDataManager(bool GetFreshData = false, bool BindData = true)
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
 
             if (GetFreshData == true)
             {
@@ -149,8 +172,7 @@ namespace Lync_Billing.ui.user
 
         protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
 
             string json = e.ExtraParams["Values"];
             
@@ -184,8 +206,8 @@ namespace Lync_Billing.ui.user
 
         protected void UpdateAddressBook_DirectEvent(object sender, DirectEventArgs e)
         {
-            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = session.EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
+
             string json = e.ExtraParams["Values"];
 
             List<PhoneBook> recordsToUpate = new List<PhoneBook>();

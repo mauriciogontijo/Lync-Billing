@@ -25,60 +25,67 @@
                     <ext:MenuItem
                         runat="server"
                         ID="AllocPhonecallsFieldLabel"
-                        Text="Selected Phonecall(s):"
+                        Text="Assign to Department:"
                         Margins="5 0 5 0"
                         Disabled="true"
                         DisabledCls=""
                         Cls="font-12 popup-menu-field-label-background" />
 
-                    <ext:MenuItem
-                        ID="AllocatePhonecallsAsBusiness"
-                        Text="As Business"
-                        runat="server">
-                        <%--<DirectEvents>
-                            <Click OnEvent="AssignBusiness">
-                                <EventMask ShowMask="true" />
-                                <ExtraParams>
-                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                </ExtraParams>
-                            </Click>
-                        </DirectEvents>--%>
-                    </ext:MenuItem>
+                    <ext:ComboBox
+                        ID="DepartmentsListComboBox"
+                        runat="server"
+                        Icon="Find"
+                        TriggerAction="Query"
+                        QueryMode="Local"
+                        DisplayField="DepartmentName"
+                        ValueField="DepartmentID"
+                        FieldLabel="Select:"
+                        LabelWidth="60"
+                        Width="300"
+                        Margins="5 15 5 5"
+                        Editable="true">
+                        <Store>
+                            <ext:Store 
+                                ID="DepartmentsFilterStore"
+                                runat="server">
+                                <Model>
+                                    <ext:Model 
+                                        ID="DepartmentHeadsStoreModel"
+                                        runat="server">
+                                        <Fields>
+                                            <ext:ModelField Name="SiteID" />
+                                            <ext:ModelField Name="SiteName" />
+                                            <ext:ModelField Name="DepartmentID" />
+                                            <ext:ModelField Name="DepartmentName" />
+                                        </Fields>
+                                    </ext:Model>
+                                </Model>
+                            </ext:Store>
+                        </Store>
 
-                    <ext:MenuItem
-                        ID="AllocatePhonecallsAsPersonal"
-                        Text="As Personal"
-                        runat="server">
-                        <%--<DirectEvents>
-                            <Click OnEvent="AssignPersonal">
-                                <EventMask ShowMask="true" />
-                                <ExtraParams>
-                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                </ExtraParams>
-                            </Click>
-                        </DirectEvents>--%>
-                    </ext:MenuItem>
+                        <ListConfig
+                            Border="true"
+                            EmptyText="Please select a department...">
+                            <ItemTpl ID="ItemTpl2" runat="server">
+                                <Html>
+                                    <div>{SiteName}&nbsp;({DepartmentName})</div>
+                                </Html>
+                            </ItemTpl>
+                        </ListConfig>
 
-                    <ext:MenuItem
-                        ID="AllocatePhonecallsAsDispute"
-                        Text="As Dispute"
-                        runat="server">
-                        <%--<DirectEvents>
-                            <Click OnEvent="AssignDispute">
+                        <DirectEvents>
+                            <Select OnEvent="DrawStatisticsForDepartment">
                                 <EventMask ShowMask="true" />
-                                <ExtraParams>
-                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                </ExtraParams>
-                            </Click>
-                        </DirectEvents>--%>
-                    </ext:MenuItem>
-
+                            </Select>
+                        </DirectEvents>
+                    </ext:ComboBox>
+                    
                     <ext:MenuSeparator ID="MenuSeparator" runat="server" />
 
                     <ext:MenuItem
                         runat="server"
                         ID="AllocDestinationsFieldLabel"
-                        Text="Selected Destination(s):"
+                        Text="Assign to User:"
                         Margins="5 0 5 0"
                         Disabled="true"
                         DisabledCls=""

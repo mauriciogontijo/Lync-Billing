@@ -16,6 +16,7 @@ namespace Lync_Billing.ui.admin.main
     public partial class dashboard : System.Web.UI.Page
     {
         private UserSession session;
+        private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
@@ -36,6 +37,8 @@ namespace Lync_Billing.ui.admin.main
                     Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
                 }
             }
+            sipAccount = session.NormalUserInfo.SipAccount;
         }
+
     }
 }

@@ -117,7 +117,7 @@ namespace Lync_Billing.Libs
             StringBuilder whereStatement = new StringBuilder();
             StringBuilder orderBy = new StringBuilder();
 
-            if (tableName.Contains("PhoneCalls"))
+            if (tableName.Contains("Phonecalls"))
                 orderBy.Append("ORDER BY [SessionIdTime] DESC");
             else
                 orderBy.Append("");

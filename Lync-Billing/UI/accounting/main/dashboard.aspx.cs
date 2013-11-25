@@ -15,7 +15,8 @@ namespace Lync_Billing.ui.accounting.main
 {
     public partial class dashboard : System.Web.UI.Page
     {
-        public UserSession currentSession { get; set; }
+        private UserSession session { get; set; }
+        private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
 
         protected void Page_Load(object sender, EventArgs e)
@@ -31,13 +32,16 @@ namespace Lync_Billing.ui.accounting.main
             else
             {
                 //Initialize the local cope of the current user's session
-                currentSession = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+                session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (currentSession.ActiveRoleName != allowedRoleName)
+                if (session.ActiveRoleName != allowedRoleName)
                 {
                     Response.Redirect("~/ui/session/authenticate.aspx?access=accounting");
                 }
             }
+
+            sipAccount = session.NormalUserInfo.SipAccount;
         }
+
     }
 }

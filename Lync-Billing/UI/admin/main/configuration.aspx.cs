@@ -15,8 +15,8 @@ namespace Lync_Billing.ui.admin.main
 {
     public partial class configuration : System.Web.UI.Page
     {
-        string sipAccount = string.Empty;
         private UserSession session;
+        string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
@@ -38,7 +38,7 @@ namespace Lync_Billing.ui.admin.main
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
         }
 
         protected void GetConfigurationRecords(object sender, DirectEventArgs e)
@@ -61,9 +61,9 @@ namespace Lync_Billing.ui.admin.main
 
         protected void UpdateEdited_DirectEvent(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.NormalUserInfo.SipAccount;
 
-            sipAccount = userSession.EffectiveSipAccount;
             string json = e.ExtraParams["Values"];
 
             List<Persistence> recordsToUpate = new List<Persistence>();

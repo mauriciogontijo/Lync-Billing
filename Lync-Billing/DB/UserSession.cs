@@ -16,14 +16,17 @@ namespace Lync_Billing.DB
         //Normal user data
         public Users NormalUserInfo { get; set; }
         public string TelephoneNumber { set; get; }
-        public string IpAddress { set; get; }
+        public string IPAddress { set; get; }
         public string UserAgent { set; get; }
 
         //Roles Related
         public string ActiveRoleName { set; get; }
         public List<SystemRole> SystemRoles { set; get; }
-        public List<DelegateRole> DelegateRoles { get; set; }
         public DelegeeAccountInfo DelegeeAccount { get; set; }
+        public List<DelegateRole> UserDelegateRoles { get; set; }
+        public List<DelegateRole> SiteDelegateRoles { get; set; }
+        public List<DelegateRole> DepartmentDelegateRoles { get; set; }
+        
                
         //Generic User SystemRoles
         public bool IsDeveloper { set; get; }

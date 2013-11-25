@@ -13,12 +13,17 @@ namespace Lync_Billing.DB.Roles
         private static DBLib DBRoutines = new DBLib();
         
         public int ID { set; get; }
+        public int DelegeeType { get; set; }
         public int SiteID { get; set; }
         public int DepartmentID { get; set; }
         public string SipAccount { get; set; }
         public string DelegeeAccount { get; set; }
-        public int DelegeeType { get; set; }
         public string Description { get; set; }
+
+        //These are logical representation of data, they don't belong to the table
+        public Users DelegeeUser { get; set; }
+        public Site DelegeeSite { get; set; }
+        public Department DelegeeDepartment { get; set; }
 
         //These are for lookup use only in the application
         public static int UserDelegeeTypeID { get { return 1; } }
@@ -130,6 +135,16 @@ namespace Lync_Billing.DB.Roles
                     else if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.Description))
                         delegatedAccount.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                 }
+
+                if (delegatedAccount.DelegeeType == DelegateRole.UserDelegeeTypeID)
+                    delegatedAccount.DelegeeUser = Users.GetUser(delegatedAccount.SipAccount);
+
+                else if (delegatedAccount.DelegeeType == DelegateRole.DepartmentDelegeeTypeID)
+                    delegatedAccount.DelegeeDepartment = Department.GetDepartment(delegatedAccount.DepartmentID);
+
+                else if (delegatedAccount.DelegeeType == DelegateRole.SiteDelegeeTypeID)
+                    delegatedAccount.DelegeeSite = Site.GetSite(delegatedAccount.SiteID);
+
                 DelegatedAccounts.Add(delegatedAccount);
             }
 

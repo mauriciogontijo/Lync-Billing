@@ -48,13 +48,32 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
+        }
+
+        //Get the user sipaccount.
+        private string GetEffectiveSipAccount()
+        {
+            string userSipAccount = string.Empty;
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            //If the user is a normal one, just return the normal user sipaccount.
+            if (session.ActiveRoleName == normalUserRoleName)
+            {
+                userSipAccount = session.NormalUserInfo.SipAccount;
+            }
+            //if the user is a user-delegee return the delegate sipaccount.
+            else if (session.ActiveRoleName == userDelegeeRoleName)
+            {
+                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
+            }
+
+            return userSipAccount;
         }
 
         protected void BillsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
 
             List<UserCallsSummary> UserSummariesList = new List<UserCallsSummary>();
             CultureInfo provider = CultureInfo.InvariantCulture;
@@ -86,8 +105,7 @@ namespace Lync_Billing.ui.user
 
         protected void BillsStore_Load(object sender, EventArgs e)
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
 
             List<UserCallsSummary> UserSummariesList = new List<UserCallsSummary>();
             List<UserCallsSummary> BillsList = new List<UserCallsSummary>();

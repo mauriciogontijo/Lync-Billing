@@ -15,13 +15,15 @@ namespace Lync_Billing.ui.admin.gateways
 {
     public partial class manage : System.Web.UI.Page
     {
+        private UserSession session;
+        private string sipAccount = string.Empty;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
+
         private List<GatewayRate> gatewayRates = new List<GatewayRate>();
         private List<GatewayDetail> gatewayDetails = new List<GatewayDetail>();
         private List<Site> sites = new List<Site>();
         private List<Pool> pools = new List<Pool>();
         private List<Currencies> currencies = new List<Currencies>();
-        private UserSession session;
-        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,6 +43,8 @@ namespace Lync_Billing.ui.admin.gateways
                     Response.Redirect("~/ui/session/authenticate.aspx?access=admin");
                 }
             }
+
+            sipAccount = session.NormalUserInfo.SipAccount;
 
             GatewaysComboBox.GetStore().DataSource = Gateway.GetGateways().OrderBy(item => item.GatewayName);
             GatewaysComboBox.GetStore().DataBind();
@@ -219,6 +223,8 @@ namespace Lync_Billing.ui.admin.gateways
                     }
                 }
             }
-        }
+
+        }//End Funtion
+
     }
 }

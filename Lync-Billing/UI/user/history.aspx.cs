@@ -52,59 +52,31 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
         }
 
-        protected void PhoneCallStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
+
+        //Get the user sipaccount.
+        private string GetEffectiveSipAccount()
         {
-            string format = this.FormatType.Value.ToString();
+            string userSipAccount = string.Empty;
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            XmlNode xml = e.Xml;
-
-            this.Response.Clear();
-
-            switch (format)
+            //If the user is a normal one, just return the normal user sipaccount.
+            if (session.ActiveRoleName == normalUserRoleName)
             {
-                case "xls":
-                    this.Response.Clear();
-                    this.Response.ContentType = "application/vnd.ms-excel";
-                    this.Response.AddHeader("Content-Disposition", "attachment; filename=submittedData.xls");
-                    XslCompiledTransform xtExcel = new XslCompiledTransform();
-                    xtExcel.Load(Server.MapPath("~/Resources/Excel.xsl"));
-                    xtExcel.Transform(xml, null, Response.OutputStream);
-
-                    break;
-
-                case "pdf":
-                    UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-                    sipAccount = userSession.EffectiveSipAccount;
-
-                    //wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SourceUserUri), sipAccount);
-                    //wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID), PhoneCall.BillableCallTypesList);
-                    ////wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "NO");
-                    ////wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.Exclude), false);
-
-                    Response.ContentType = "application/pdf";
-                    Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
-                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
-
-                    Dictionary<string, string> headers = new Dictionary<string,string>()
-                    {
-                        {"title", userSession.EffectiveDisplayName + "(#" + userSession.EmployeeID + ")" },
-                        {"subTitle", "History of Phone Calls"}
-                    };
-
-                    Document doc = new Document();
-                    //PhoneCall.ExportUserPhoneCalls(sipAccount, Response, out doc, headers);
-
-                    Response.Write(doc);
-
-                    break;
+                userSipAccount = session.NormalUserInfo.SipAccount;
+            }
+            //if the user is a user-delegee return the delegate sipaccount.
+            else if (session.ActiveRoleName == userDelegeeRoleName)
+            {
+                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
             }
 
-            this.Response.End();
+            return userSipAccount;
         }
-
+        
+        
         protected void PhoneCallStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
             this.e = e;
@@ -148,9 +120,9 @@ namespace Lync_Billing.ui.user
             IQueryable<PhoneCall> result;
 
             if (filter == null)
-                result = session.PhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
+                result = session.PhonecallsHistory.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
             else
-                result = session.PhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
+                result = session.PhonecallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
 
             if (sort != null)
             {
@@ -176,14 +148,15 @@ namespace Lync_Billing.ui.user
         protected void getPhoneCalls(bool force = false)
         {
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = session.EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
+
             wherePart = new Dictionary<string, object>();
 
-            if (session.PhoneCallsHistory == null || session.PhoneCallsHistory.Count == 0 || force == true)
+            if (session.PhonecallsHistory == null || session.PhonecallsHistory.Count == 0 || force == true)
             {
                 wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
 
-                session.PhoneCallsHistory = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0);
+                session.PhonecallsHistory = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0);
             }
         }
 

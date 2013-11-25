@@ -40,7 +40,7 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
 
             PhoneCallsDuartionChartStore.DataSource = getChartData();
             PhoneCallsDuartionChartStore.DataBind();
@@ -58,10 +58,32 @@ namespace Lync_Billing.ui.user
             PhoneCallsDuartionChartPanel.Title = "Calls Duration Report for " + currentYear;
         }
 
+
+        //Get the user sipaccount.
+        private string GetEffectiveSipAccount()
+        {
+            string userSipAccount = string.Empty;
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            //If the user is a normal one, just return the normal user sipaccount.
+            if (session.ActiveRoleName == normalUserRoleName)
+            {
+                userSipAccount = session.NormalUserInfo.SipAccount;
+            }
+            //if the user is a user-delegee return the delegate sipaccount.
+            else if (session.ActiveRoleName == userDelegeeRoleName)
+            {
+                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
+            }
+
+            return userSipAccount;
+        }
+
+
         public List<UsersCallsSummaryChartData> getChartData()
         {
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = userSession.EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
 
             CultureInfo provider = CultureInfo.InvariantCulture;
             DateTime toDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);

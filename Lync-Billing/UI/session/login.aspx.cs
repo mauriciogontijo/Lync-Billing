@@ -67,27 +67,21 @@ namespace Lync_Billing.ui.session
         /// </summary>
         /// <param name="session">The current user session, sent by reference.</param>
         /// <param name="userInfo">The current user info</param>
-        private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo, List<SystemRole> userRoles)
+        private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo)
         {
             //First and foremost initialize the user's most basic and mandatory fields
-            session.EmployeeID = userInfo.EmployeeID;
-            session.PrimarySipAccount = userInfo.SipAccount.Replace("sip:", "");
-            session.EffectiveSipAccount = session.PrimarySipAccount.ToString();
-            session.PrimaryDisplayName = formatDisplayName(userInfo.DisplayName);
-            session.EffectiveDisplayName = session.PrimaryDisplayName;
+            session.NormalUserInfo = Users.GetUser(userInfo.EmployeeID);
+            session.NormalUserInfo.DisplayName = formatDisplayName(userInfo.DisplayName);
+            
+            session.DelegeeAccount = null;
 
             //Initialize his/her ROLES AND THEN DELEGEES information
-            session.InitializeAllRolesInformation(session.PrimarySipAccount, userRoles);
-
-            //Initialize his/her geographical information, and starting role-name - "user"
-            session.SiteName = userInfo.physicalDeliveryOfficeName;
-            session.Department = userInfo.department;
-
+            session.InitializeAllRolesInformation(session.NormalUserInfo.SipAccount);
+            
             //Lastly, get some additional information about the user.
             session.TelephoneNumber = userInfo.Telephone;
-            session.IpAddress = HttpContext.Current.Request.UserHostAddress;
+            session.IPAddress = HttpContext.Current.Request.UserHostAddress;
             session.UserAgent = HttpContext.Current.Request.UserAgent;
-            session.EmailAddress = userInfo.EmailAddress;
         }
 
 
@@ -95,7 +89,7 @@ namespace Lync_Billing.ui.session
         {
             UserSession session = new UserSession();
             ADUserInfo userInfo = new ADUserInfo();
-            List<SystemRole> userRoles = new List<SystemRole>();
+            List<SystemRole> userSystemRoles = new List<SystemRole>();
 
             //START
             bool status = false;
@@ -181,8 +175,7 @@ namespace Lync_Billing.ui.session
                     }
 
                     //Assign the current userInfo to the UserSession fields.
-                    userRoles = Users.GetUserRoles(userInfo.SipAccount.Replace("sip:", ""));
-                    SetUserSessionFields(ref session, userInfo, userRoles);
+                    SetUserSessionFields(ref session, userInfo);
 
                     Session.Add("UserData", session);
 

@@ -39,7 +39,7 @@ namespace Lync_Billing.ui.dephead.users
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
 
             BindDepartmentsForThisUser();
         }
@@ -48,7 +48,7 @@ namespace Lync_Billing.ui.dephead.users
         private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
         {
             session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-            sipAccount = session.EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
 
             //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
             if (session.IsDeveloper)

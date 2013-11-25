@@ -43,7 +43,7 @@ namespace Lync_Billing.ui.admin.notifications
                 }
             }
 
-            sipAccount = session.EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
 
             FilterUsersBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
             FilterUsersBySite.GetStore().DataBind();

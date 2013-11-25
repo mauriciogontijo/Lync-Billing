@@ -12,8 +12,10 @@ using System.Linq.Expressions;
 using System.Xml.Serialization;
 using Ext.Net;
 using Newtonsoft.Json;
+
 using Lync_Billing.DB;
 using Lync_Billing.Libs;
+using Lync_Billing.DB.Roles;
 
 namespace Lync_Billing.ui.delegee.site
 {
@@ -21,8 +23,9 @@ namespace Lync_Billing.ui.delegee.site
     {
         private UserSession session;
         private string sipAccount = string.Empty;
-        private string delegatedSiteName = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee);
+
+        private List<Department> SiteDelegeeDepartments = new List<Department>();
 
         private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
         private string pageData = string.Empty;
@@ -52,31 +55,74 @@ namespace Lync_Billing.ui.delegee.site
                 }
             }
 
-            sipAccount = session.EffectiveSipAccount;
-            delegatedSiteName = session.EffectiveDelegatedSiteName;
-            session.PhoneBook = PhoneBook.GetAddressBook(sipAccount);
+            //sipAccount = session.EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
+
+            /***
+             * Thie following solves the issue of infinitely looping like: Page_Load--->BindDepartmentsForThisUser--->DrawStatisticsForDepartment
+             * This would happen due to a chain-reaction of triggering two DirectEvents from the aspx page
+             * The chain consist of two DirectEvents: OnDepartmentSelect X---FIRE---> DrawStatisticsForDepartment which fires Page_Load and then it goes again for ever.
+             * */
+            if (!Ext.Net.X.IsAjaxRequest)
+            {
+                BindDepartmentsForThisUser(true);
+            }
+            else
+            {
+                BindDepartmentsForThisUser(false);
+            }
+        }
+
+        private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
+        {
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+            sipAccount = session.NormalUserInfo.SipAccount;
+
+            //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
+            if (session.IsDeveloper)
+                SiteDelegeeDepartments = Department.GetAllDepartments();
+            else
+                SiteDelegeeDepartments = Department.GetDepartmentsInSite(session.DelegeeAccount.DelegeeSiteAccount.SiteID);
+
+
+            //By default the filter combobox is not read only
+            DepartmentsListComboBox.ReadOnly = false;
+
+            if (SiteDelegeeDepartments.Count > 0)
+            {
+                //Handle the FireSelect event
+                if (alwaysFireSelect == true)
+                {
+                    DepartmentsListComboBox.SetValueAndFireSelect(SiteDelegeeDepartments.First().DepartmentID);
+
+                    //Handle the ReadOnly Property
+                    if (SiteDelegeeDepartments.Count == 1)
+                    {
+                        DepartmentsListComboBox.ReadOnly = true;
+                    }
+                }
+
+                //Bind all the Data and return to the view
+                DepartmentsListComboBox.GetStore().DataSource = SiteDelegeeDepartments;
+                DepartmentsListComboBox.GetStore().DataBind();
+            }
+            //in case there are no longer any departments for this user to monitor.
+            else
+            {
+                DepartmentsListComboBox.Disabled = true;
+            }
         }
 
         protected void getPhoneCalls(bool force = false)
         {
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = session.EffectiveSipAccount;
+            //sipAccount = session.EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
 
-            if (session.PhoneCalls == null || session.PhoneCalls.Count == 0 || force == true)
+            if (session.Phonecalls == null || session.Phonecalls.Count == 0 || force == true)
             {
-                var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
-
-                foreach (var phoneCall in userPhoneCalls)
-                {
-                    if (session.PhoneBook.ContainsKey(phoneCall.DestinationNumberUri))
-                    {
-                        phoneCall.PhoneBookName = ((PhoneBook)session.PhoneBook[phoneCall.DestinationNumberUri]).Name;
-                    }
-                }
-
-                session.PhoneCalls = userPhoneCalls.ToList();
-
-                xmldoc = HelperFunctions.SerializeObject<List<PhoneCall>>(session.PhoneCalls);
+                session.Phonecalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
+                xmldoc = HelperFunctions.SerializeObject<List<PhoneCall>>(session.Phonecalls);
             }
         }
 
@@ -88,9 +134,9 @@ namespace Lync_Billing.ui.delegee.site
             IEnumerable<PhoneCall> result;
 
             if (filter == null)
-                result = session.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
+                result = session.Phonecalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
             else
-                result = session.PhoneCalls.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
+                result = session.Phonecalls.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
 
             if (sort != null)
             {
@@ -168,7 +214,7 @@ namespace Lync_Billing.ui.delegee.site
             this.e = e;
             PhoneCallsStore.DataBind();
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            session.PhoneCallsPerPage = PhoneCallsStore.JsonData;
+            session.PhonecallsPerPage = PhoneCallsStore.JsonData;
         }
 
         [DirectMethod]

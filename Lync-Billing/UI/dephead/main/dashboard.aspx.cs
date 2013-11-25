@@ -41,7 +41,7 @@ namespace Lync_Billing.ui.dephead.main
                 }
             }
 
-            sipAccount = session.EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
 
             //Set the year number in the charts header's title
             string currentYear = DateTime.Now.Year.ToString();
@@ -65,8 +65,8 @@ namespace Lync_Billing.ui.dephead.main
 
         private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
         {
-            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-            sipAccount = session.EffectiveSipAccount;
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.NormalUserInfo.SipAccount;
 
             //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
             if (session.IsDeveloper)

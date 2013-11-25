@@ -20,6 +20,7 @@ namespace Lync_Billing.ui.accounting.main
         private UserSession session;
         private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant);
+
         private Dictionary<string, object> wherePart = new Dictionary<string, object>();
         private List<string> columns = new List<string>();
         private List<string> accountantSitesNames = new List<string>();
@@ -44,16 +45,17 @@ namespace Lync_Billing.ui.accounting.main
                 }
             }
 
-            sipAccount = session.EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
         }
 
         protected void DisputedCallsStore_Load(object sender, EventArgs e)
         {
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.NormalUserInfo.SipAccount;
 
             List<PhoneCall> usersCalls = new List<PhoneCall>();
             List<PhoneCall> accountantView = new List<PhoneCall>();
-            accountantSitesNames = GetAccountantSiteName(session.EffectiveSipAccount);
+            accountantSitesNames = GetAccountantSiteName(sipAccount);
 
             usersCalls = PhoneCall.GetDisputedPhoneCalls(columns, wherePart, 0).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
 
@@ -81,9 +83,12 @@ namespace Lync_Billing.ui.accounting.main
 
         protected void DisputedCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.NormalUserInfo.SipAccount;
+
             string siteNameKey = Enums.GetDescription(Enums.Users.SiteName);
             string sipAccountKey = Enums.GetDescription(Enums.PhoneCalls.SourceUserUri);
-            accountantSitesNames = GetAccountantSiteName(session.EffectiveSipAccount);
+            accountantSitesNames = GetAccountantSiteName(sipAccount);
             List<string> usersInSites = new List<string>();
 
             foreach (string siteName in accountantSitesNames)
@@ -97,6 +102,9 @@ namespace Lync_Billing.ui.accounting.main
 
         protected void AcceptDispute(object sender, DirectEventArgs e) 
         {
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.NormalUserInfo.SipAccount;
+
             RowSelectionModel sm = this.ManageDisputedCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
@@ -110,7 +118,7 @@ namespace Lync_Billing.ui.accounting.main
             {
                 phoneCall.AC_DisputeStatus = "Accepted";
                 phoneCall.AC_DisputeResolvedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+                phoneCall.UI_UpdatedByUser = sipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManageDisputedCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
@@ -123,6 +131,9 @@ namespace Lync_Billing.ui.accounting.main
 
         protected void RejectDispute(object sender, DirectEventArgs e) 
         {
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.NormalUserInfo.SipAccount;
+
             RowSelectionModel sm = this.ManageDisputedCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             string json = e.ExtraParams["Values"];
@@ -136,7 +147,7 @@ namespace Lync_Billing.ui.accounting.main
             {
                 phoneCall.AC_DisputeStatus = "Rejected";
                 phoneCall.AC_DisputeResolvedOn = DateTime.Now;
-                phoneCall.UI_UpdatedByUser = ((UserSession)Session.Contents["UserData"]).PrimarySipAccount;
+                phoneCall.UI_UpdatedByUser = sipAccount;
                 PhoneCall.UpdatePhoneCall(phoneCall);
 
                 ManageDisputedCallsGrid.GetStore().Find("SessionIdTime", phoneCall.SessionIdTime.ToString()).Set(phoneCall);
@@ -183,6 +194,6 @@ namespace Lync_Billing.ui.accounting.main
                
             return user.SiteName;
         }
-      
+
     }
 }

@@ -43,8 +43,8 @@ namespace Lync_Billing.ui.delegee.department
                 }
             }
 
-            sipAccount = session.EffectiveSipAccount;
-            delegatedDepartmentName = session.EffectiveDelegatedDepartmentName;
+            sipAccount = session.NormalUserInfo.SipAccount;
+            //delegatedDepartmentName = session.EffectiveDelegatedDepartmentName;
         }
     }
 }

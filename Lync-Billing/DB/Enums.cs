@@ -199,11 +199,11 @@ namespace Lync_Billing.DB
         }
 
         /// <summary>
-        /// PhoneCalls Database table fields Names
+        /// Phonecalls Database table fields Names
         /// </summary>
         public enum PhoneCalls
         {
-            [Description("PhoneCalls")]
+            [Description("Phonecalls")]
             TableName,
             [Description("SessionIdTime")]
             SessionIdTime,
@@ -283,7 +283,7 @@ namespace Lync_Billing.DB
 
         public enum PhoneBook
         {
-            [Description("PhoneBook")]
+            [Description("Addressbook")]
             TableName,
             [Description("ID")]
             ID,
@@ -415,7 +415,7 @@ namespace Lync_Billing.DB
             [Description("UsersRolesID")]
             UsersRolesID,
             [Description("SipAccount")]
-            EmailAddress,
+            SipAccount,
             [Description("RoleID")]
             RoleID,
             [Description("SiteID")]

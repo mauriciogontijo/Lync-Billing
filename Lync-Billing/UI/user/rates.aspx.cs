@@ -43,12 +43,42 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            List<Gateway> gateways = GetGateways();
+            sipAccount = GetEffectiveSipAccount();
+
+            BindGatewaysData();
+        }
+
+
+        //Get the user sipaccount.
+        private string GetEffectiveSipAccount()
+        {
+            string userSipAccount = string.Empty;
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            //If the user is a normal one, just return the normal user sipaccount.
+            if (session.ActiveRoleName == normalUserRoleName)
+            {
+                userSipAccount = session.NormalUserInfo.SipAccount;
+            }
+            //if the user is a user-delegee return the delegate sipaccount.
+            else if (session.ActiveRoleName == userDelegeeRoleName)
+            {
+                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
+            }
+
+            return userSipAccount;
+        }
+
+
+        private void BindGatewaysData()
+        {
+            if(gateways.Count == 0)
+                gateways = GetGateways();
 
             FilterRatesByGateway.GetStore().DataSource = gateways;
             FilterRatesByGateway.GetStore().DataBind();
 
-            if (gateways.Count == 1) 
+            if (gateways.Count == 1)
             {
                 FilterRatesByGateway.SetValueAndFireSelect(gateways[0].GatewayId);
                 FilterRatesByGateway.ReadOnly = true;
@@ -63,15 +93,15 @@ namespace Lync_Billing.ui.user
 
         public List<Gateway> GetGateways()
         {
-            UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            string siteName = (session.ActiveRoleName == normalUserRoleName) ? session.NormalUserInfo.SiteName : session.DelegeeAccount.DelegeeUserAccount.SiteName;
 
             gateways = Gateway.GetGateways();
 
             //GetSite ID
-            DB.Site site = getSites().First(item => item.SiteName == session.SiteName);
-            
-            int siteID = site.SiteID;
-            string siteName = site.SiteName;
+            DB.Site userSite = getSites().First(item => item.SiteName == siteName);
+
+            int siteID = userSite.SiteID;
             
             //Get Related Gateways for that specific site
             List<GatewayDetail> gatewaysDetails = GatewayDetail.GetGatewaysDetails().Where(item => item.SiteID == siteID).ToList();
@@ -100,6 +130,7 @@ namespace Lync_Billing.ui.user
 
             return GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).ProviderName;
         }
+
 
         public string GetRatesTableName(int gatewayID) 
         {

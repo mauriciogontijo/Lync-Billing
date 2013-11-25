@@ -14,8 +14,8 @@ namespace Lync_Billing.ui.sysadmin.users
 {
     public partial class delegates : System.Web.UI.Page
     {
-        private string sipAccount = string.Empty;
         private UserSession session;
+        private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
@@ -37,7 +37,8 @@ namespace Lync_Billing.ui.sysadmin.users
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
+
             FilterDelegatesBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSystemAdmin));
             FilterDelegatesBySite.GetStore().DataBind();
 
@@ -83,9 +84,9 @@ namespace Lync_Billing.ui.sysadmin.users
 
         protected void UpdateEdited_DirectEvent(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.NormalUserInfo.SipAccount;
 
-            sipAccount = userSession.EffectiveSipAccount;
             string json = e.ExtraParams["Values"];
 
             List<DelegateRole> recordsToUpate = new List<DelegateRole>();

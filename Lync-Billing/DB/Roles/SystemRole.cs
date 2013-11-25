@@ -57,7 +57,7 @@ namespace Lync_Billing.DB.Roles
 
 
         //Get Users SystemRoles
-        public static List<SystemRole> GetUsersRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        public static List<SystemRole> GetSystemRoles(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
             SystemRole userRole;
             DataTable dt = new DataTable();
@@ -74,7 +74,7 @@ namespace Lync_Billing.DB.Roles
                     if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.RoleID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.RoleID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.SipAccount = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
@@ -98,13 +98,13 @@ namespace Lync_Billing.DB.Roles
             return roles;
         }
 
-        public static List<SystemRole> GetRolesPerSipAccount(string sipAccount) 
+        public static List<SystemRole> GetSystemRolesPerSipAccount(string sipAccount) 
         {
             SystemRole userRole;
             DataTable dt = new DataTable();
             List<SystemRole> roles = new List<SystemRole>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.SystemRoles.TableName),"SipAccount",sipAccount);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.SystemRoles.TableName), Enums.GetDescription(Enums.SystemRoles.SipAccount), sipAccount);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -115,7 +115,7 @@ namespace Lync_Billing.DB.Roles
                     if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.RoleID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.RoleID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.EmailAddress) && row[column.ColumnName] != System.DBNull.Value)
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.SipAccount) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.SipAccount = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
@@ -157,7 +157,7 @@ namespace Lync_Billing.DB.Roles
                 columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.GatewayID), userRole.GatewayID);
 
             if (userRole.SipAccount != null)
-                columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.EmailAddress), userRole.SipAccount);
+                columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.SipAccount), userRole.SipAccount);
 
             if ((userRole.RoleID).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.RoleID), userRole.RoleID);
@@ -188,7 +188,7 @@ namespace Lync_Billing.DB.Roles
                 setPart.Add(Enums.GetDescription(Enums.SystemRoles.GatewayID), userRole.GatewayID);
 
             if (userRole.SipAccount != null)
-                setPart.Add(Enums.GetDescription(Enums.SystemRoles.EmailAddress), userRole.SipAccount);
+                setPart.Add(Enums.GetDescription(Enums.SystemRoles.SipAccount), userRole.SipAccount);
 
             if ((userRole.RoleID).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.SystemRoles.RoleID), userRole.RoleID);
@@ -231,7 +231,7 @@ namespace Lync_Billing.DB.Roles
            
             columns.Add(Enums.GetDescription(Enums.SystemRoles.RoleID));
 
-            wherePart.Add(Enums.GetDescription(Enums.SystemRoles.EmailAddress), EmailAddress);
+            wherePart.Add(Enums.GetDescription(Enums.SystemRoles.SipAccount), EmailAddress);
             wherePart.Add(Enums.GetDescription(Enums.SystemRoles.RoleID), RoleID);
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.SystemRoles.TableName), columns, wherePart, 0);

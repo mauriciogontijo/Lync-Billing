@@ -16,6 +16,7 @@ namespace Lync_Billing.ui.sysadmin.configuration
     public partial class mail : System.Web.UI.Page
     {
         private UserSession session;
+        private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
@@ -36,6 +37,8 @@ namespace Lync_Billing.ui.sysadmin.configuration
                     Response.Redirect("~/ui/session/authenticate.aspx?access=sysadmin");
                 }
             }
+
+            sipAccount = session.NormalUserInfo.SipAccount;
         }
     }
 }

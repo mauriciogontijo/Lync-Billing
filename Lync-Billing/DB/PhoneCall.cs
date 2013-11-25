@@ -403,7 +403,7 @@ namespace Lync_Billing.DB
 
 
         //    //Get the user phonecalls from the database
-        //    dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneCalls.TableName), columns, wherePart, 0);
+        //    dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Phonecalls.TableName), columns, wherePart, 0);
 
 
         //    //Try to compute totals, if an error occurs which is the case of an empty "dt", set the totals dictionary to zeros

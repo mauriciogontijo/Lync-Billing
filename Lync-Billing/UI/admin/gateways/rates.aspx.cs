@@ -17,11 +17,13 @@ namespace Lync_Billing.ui.admin.gateways
 {
     public partial class rates : System.Web.UI.Page
     {
+        private UserSession session;
         private string sipAccount = string.Empty;
+        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
+        
         private List<Gateway> gateways = new List<Gateway>();
         private List<Gateway> filteredGateways = new List<Gateway>();
-        private UserSession session;
-        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,7 +44,7 @@ namespace Lync_Billing.ui.admin.gateways
                 }
             }
 
-            sipAccount = session.EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
 
             SitesStore.DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
             SitesStore.DataBind();
@@ -50,9 +52,9 @@ namespace Lync_Billing.ui.admin.gateways
         
         protected void UpdateEdited_DirectEvent(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.NormalUserInfo.SipAccount;
 
-            sipAccount = userSession.EffectiveSipAccount;
             string json = e.ExtraParams["Values"];
 
             List<DelegateRole> recordsToUpate = new List<DelegateRole>();
@@ -238,7 +240,7 @@ namespace Lync_Billing.ui.admin.gateways
 
         public List<Gateway> GetGateways(int siteID)
         {
-            UserSession session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
 
             gateways = Gateway.GetGateways();
 
@@ -289,7 +291,6 @@ namespace Lync_Billing.ui.admin.gateways
 
 
             //Fill Store
-
             if (!string.IsNullOrEmpty(ratesTableName))
             {
                 ManageRatesGrid.GetStore().DataSource = Rate.GetRates(ratesTableName);

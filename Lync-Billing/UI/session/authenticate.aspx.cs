@@ -45,6 +45,9 @@ namespace Lync_Billing.ui.session
             ParagraphAuthBoxMessage = string.Empty;
             AuthenticationMessage = string.Empty;
 
+            string requestedAccessLevel = this.access_level.Value;
+            string requestedDelegeeIdentity = this.delegee_identity.Value;
+
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
@@ -71,7 +74,7 @@ namespace Lync_Billing.ui.session
                  **/
 
                 //Mode 1: The Normal User Mode
-                if (session.PrimarySipAccount == session.EffectiveSipAccount)
+                if (!string.IsNullOrEmpty(session.NormalUserInfo.SipAccount) && (session.DelegeeAccount == null || session.DelegeeAccount.DelegeeUserAccount == null))
                 {
                     //Case 1: The user asks for Admin or Accounting access
                     //Should pass "access" and "access" should be coherent within our own system
@@ -98,7 +101,7 @@ namespace Lync_Billing.ui.session
                             session.IsDeveloper)
                         {
                             //set the value of hidden field in this page to the value of passed access variable.
-                            this.access_level.Value = accessParam;
+                            requestedAccessLevel = accessParam;
 
                             //The user WOULD HAvE BEEN redirected if s/he weren't granted the elevated-access-permission s/he is asking for. But in this case, they passed the redirection.
                             redirectionFlag = false;
@@ -117,16 +120,16 @@ namespace Lync_Billing.ui.session
 
                         if (accessParameterExists)
                         {
-                            bool userDelegeeCaseMatch = (session.IsUserDelegate && accessParam == userDelegeeRoleName && session.InfoOfUserDelegates.Keys.Contains(identityParam));
-                            bool departmentDelegeeCaseMatch = (session.IsDepartmentDelegate && accessParam == departmentDelegeeRoleName && session.InfoOfDepartmentDelegates.Keys.Contains(identityParam));
-                            bool siteDelegeeCaseMatch = (session.IsSiteDelegate && accessParam == siteDelegeeRoleName && session.InfoOfSiteDelegates.Keys.Contains(identityParam));
+                            bool userDelegeeCaseMatch = (session.IsUserDelegate && accessParam == userDelegeeRoleName && session.UserDelegateRoles.Find(user => user.SipAccount == identityParam) != null);
+                            bool departmentDelegeeCaseMatch = (session.IsDepartmentDelegate && accessParam == departmentDelegeeRoleName && session.DepartmentDelegateRoles.Find(department => department.DelegeeDepartment.DepartmentName == identityParam) != null);
+                            bool siteDelegeeCaseMatch = (session.IsSiteDelegate && accessParam == siteDelegeeRoleName && session.SiteDelegateRoles.Find(site => site.DelegeeSite.SiteName == identityParam) != null);
 
                             //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
                             if (userDelegeeCaseMatch || departmentDelegeeCaseMatch || siteDelegeeCaseMatch || session.IsDeveloper)
                             {
                                 //set the value of hidden field in this page to the value of passed access variable.
-                                this.access_level.Value = accessParam;
-                                this.delegee_identity.Value = identityParam;
+                                requestedAccessLevel = accessParam;
+                                requestedDelegeeIdentity = identityParam;
                                 //SwitchToDelegeeAndRedirect(identityParam);
 
                                 //The user WOULD HAVE BEEN redirected if s/he weren't granted the elevated-access-permission s/he is asking for. But in this case, they passed the redirection.
@@ -170,7 +173,7 @@ namespace Lync_Billing.ui.session
                 }
 
                 //Mode 2: The UserDelegee Mode
-                else if (session.PrimarySipAccount != session.EffectiveSipAccount)
+                else if (session.DelegeeAccount != null && session.DelegeeAccount.DelegeeTypeID == DelegateRole.UserDelegeeTypeID && session.DelegeeAccount.DelegeeUserAccount != null)
                 {
                     if (!string.IsNullOrEmpty(Request.QueryString["drop"]))
                     {
@@ -196,7 +199,7 @@ namespace Lync_Billing.ui.session
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).NormalUserInfo.SipAccount;
         }//END OF PAGE_LOAD
 
 
@@ -207,13 +210,18 @@ namespace Lync_Billing.ui.session
             bool status = false;
             ADUserInfo userInfo = new ADUserInfo();
             UserSession session = new UserSession();
+
             string msg = string.Empty;
             string user_email = string.Empty;
+
+            //Get the requests from the view.
+            string requestedAccessLevel = this.access_level.Value ?? string.Empty;
+            string requestedDelegeeIdentity = this.delegee_identity.Value ?? string.Empty;
 
             if (HttpContext.Current.Session != null && HttpContext.Current.Session.Contents["UserData"] != null)
             {
                 session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-                user_email = session.EffectiveSipAccount.ToLower();
+                user_email = session.NormalUserInfo.SipAccount.ToLower();
 
                 if (this.access_level != null)
                 {
@@ -230,57 +238,69 @@ namespace Lync_Billing.ui.session
                     if (status == true)
                     {
                         //System Admin
-                        if (this.access_level.Value == systemAdminRoleName)
+                        if (requestedAccessLevel == systemAdminRoleName)
                         {
                             session.ActiveRoleName = systemAdminRoleName;
                             Response.Redirect(getHomepageLink(systemAdminRoleName));
                         }
 
                         //Site Admin
-                        else if (this.access_level.Value == siteAdminRoleName)
+                        else if (requestedAccessLevel == siteAdminRoleName)
                         {
                             session.ActiveRoleName = siteAdminRoleName;
                             Response.Redirect(getHomepageLink(siteAdminRoleName));
                         }
 
                         //Site Accountant
-                        else if (this.access_level.Value == siteAccountantRoleName)
+                        else if (requestedAccessLevel == siteAccountantRoleName)
                         {
                             session.ActiveRoleName = siteAccountantRoleName;
                             Response.Redirect(getHomepageLink(siteAdminRoleName));
                         }
 
                         //Department Head
-                        else if(this.access_level.Value == departmentHeadRoleName)
+                        else if(requestedAccessLevel == departmentHeadRoleName)
                         {
                             session.ActiveRoleName = departmentHeadRoleName;
                             Response.Redirect(getHomepageLink(departmentHeadRoleName));
                         }
 
                         //Site Delegee
-                        else if (this.access_level.Value == siteDelegeeRoleName)
+                        else if (requestedAccessLevel == siteDelegeeRoleName)
                         {
-                            if (session.InfoOfSiteDelegates.Keys.Contains(this.delegee_identity.Value))
+                            Site site = (Site)(from siteDelegeeRole in session.SiteDelegateRoles
+                                               where siteDelegeeRole.DelegeeSite != null && siteDelegeeRole.DelegeeSite.SiteName == requestedDelegeeIdentity
+                                               select siteDelegeeRole.DelegeeSite);
+
+                            if (site != null && !string.IsNullOrEmpty(site.SiteName))
                             {
-                                SwitchToDelegeeAndRedirect(this.delegee_identity.Value, DelegateRole.SiteDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(site, DelegateRole.SiteDelegeeTypeID);
                             }
                         }
 
                         //Department Delegee
-                        else if (this.access_level.Value == departmentDelegeeRoleName)
+                        else if (requestedAccessLevel == departmentDelegeeRoleName)
                         {
-                            if (session.InfoOfDepartmentDelegates.Keys.Contains(this.delegee_identity.Value))
+                            Department department = (Department)(from dep in session.DepartmentDelegateRoles
+                                                     where dep.DelegeeDepartment != null && dep.DelegeeDepartment.DepartmentName == requestedDelegeeIdentity
+                                                     select dep.DelegeeDepartment);
+
+                            if (department != null && !string.IsNullOrEmpty(department.DepartmentName))
                             {
-                                SwitchToDelegeeAndRedirect(this.delegee_identity.Value, DelegateRole.DepartmentDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(department, DelegateRole.DepartmentDelegeeTypeID);
                             }
                         }
 
                         //User Delegee
-                        else if (this.access_level.Value == userDelegeeRoleName && this.delegee_identity != null)
+                        else if (requestedAccessLevel == userDelegeeRoleName && this.delegee_identity != null)
                         {
-                            if (session.InfoOfUserDelegates.Keys.Contains(this.delegee_identity.Value))
+                            Users user = (Users)(from userDelegeeRole in session.UserDelegateRoles
+                                                 where userDelegeeRole.DelegeeUser != null && userDelegeeRole.SipAccount == requestedDelegeeIdentity
+                                                 select userDelegeeRole.DelegeeUser);
+
+                            if (user != null && !string.IsNullOrEmpty(user.SipAccount))
                             {
-                                SwitchToDelegeeAndRedirect(this.delegee_identity.Value, DelegateRole.UserDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(user, DelegateRole.UserDelegeeTypeID);
                             }
                         }
 
@@ -334,25 +354,28 @@ namespace Lync_Billing.ui.session
 
         //This function handles the switching to delegees
         //@param delegeeAddress could be a user sipAccount, a department name or a site name
-        private void SwitchToDelegeeAndRedirect(string delegeeAddress, int delegeeType)
+        private void SwitchToDelegeeAndRedirect(object delegee, int delegeeType)
         {
             //Initialize a temp copy of the User Session
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            if (delegeeType == DelegateRole.UserDelegeeTypeID)
+            if (delegee is Users && delegeeType == DelegateRole.UserDelegeeTypeID)
             {
                 //Switch identity
-                session.EffectiveSipAccount = delegeeAddress;
-                session.EffectiveDisplayName = formatDisplayName(session.InfoOfUserDelegates[session.EffectiveSipAccount]);
+                session.DelegeeAccount = new DelegeeAccountInfo();
+                session.DelegeeAccount.DelegeeTypeID = DelegateRole.UserDelegeeTypeID;
 
-                //Initialize the PhoneBook in the session
-                session.PhoneBook = new Dictionary<string, PhoneBook>();
-                session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
+                //Get the delegate user account
+                session.DelegeeAccount.DelegeeUserAccount = (Users)delegee;
+                session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount);
 
-                //Clear the PhoneCalls containers in the session
-                session.PhoneCalls = new List<PhoneCall>();
-                session.PhoneCallsPerPage = string.Empty;
+                //Get the Delegee Addressbook
+                session.DelegeeAccount.DelegeeUserAddressbook = PhoneBook.GetAddressBook(session.DelegeeAccount.DelegeeUserAccount.SipAccount);
 
+                //Get the Delegee Phonecalls
+                session.DelegeeAccount.DelegeeUserPhonecalls = new List<PhoneCall>();
+                session.DelegeeAccount.DelegeeUserPhonecallsPerPage = string.Empty;
+                
                 //Set the ActiveRoleName to "userdelegee"
                 session.ActiveRoleName = userDelegeeRoleName;
 
@@ -360,17 +383,23 @@ namespace Lync_Billing.ui.session
                 Response.Redirect(getHomepageLink(userDelegeeRoleName));
             }
 
-            else if(delegeeType == DelegateRole.DepartmentDelegeeTypeID)
+            else if(delegee is Department && delegeeType == DelegateRole.DepartmentDelegeeTypeID)
             {
-                session.EffectiveDelegatedDepartmentName = delegeeAddress;
+                session.DelegeeAccount.DelegeeTypeID = DelegateRole.DepartmentDelegeeTypeID;
+                session.DelegeeAccount.DelegeeDepartmentAccount = (Department)delegee;
+
+                //Switch ActiveRoleName to Department Delegee
                 session.ActiveRoleName = departmentDelegeeRoleName;
 
                 Response.Redirect(getHomepageLink(departmentDelegeeRoleName));
             }
 
-            else if (delegeeType == DelegateRole.SiteDelegeeTypeID)
+            else if (delegee is Site && delegeeType == DelegateRole.SiteDelegeeTypeID)
             {
-                session.EffectiveDelegatedSiteName = delegeeAddress;
+                session.DelegeeAccount.DelegeeTypeID = DelegateRole.SiteDelegeeTypeID;
+                session.DelegeeAccount.DelegeeSiteAccount = (Site)delegee;
+                
+                //Switch ActiveRoleName to Site Delegee
                 session.ActiveRoleName = siteDelegeeRoleName;
 
                 Response.Redirect(getHomepageLink(siteDelegeeRoleName));
@@ -384,55 +413,14 @@ namespace Lync_Billing.ui.session
             //Initialize a temp copy of the User Session
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            if (accessParameter == userDelegeeRoleName)
-            {
-                //Switch back to original identity
-                session.EffectiveSipAccount = session.PrimarySipAccount;
-                session.EffectiveDisplayName = formatDisplayName(session.PrimaryDisplayName);
-
-                //Initialize the PhoneBook in the session
-                session.PhoneBook = new Dictionary<string, PhoneBook>();
-                session.PhoneBook = PhoneBook.GetAddressBook(session.EffectiveSipAccount);
-
-                //Clear the PhoneCalls containers in the session
-                session.PhoneCalls = new List<PhoneCall>();
-                session.PhoneCallsPerPage = string.Empty;
-            }
-
-            else if (accessParameter == departmentDelegeeRoleName)
-            {
-                session.EffectiveDelegatedDepartmentName = string.Empty;
-            }
-
-            else if (accessParameter == siteDelegeeRoleName)
-            {
-                session.EffectiveDelegatedSiteName = string.Empty;
-            }
+            //Nullify the DelegeeAccount object.
+            session.DelegeeAccount = null;
 
             //Always set the ActiveRoleName to "user"
             session.ActiveRoleName = normalUserRoleName;
 
             //Redirect to the User Dashboard
             Response.Redirect(getHomepageLink(normalUserRoleName));
-        }
-
-
-        //This function formats the display-name of a user,
-        //and removes unnecessary extra information.
-        private string formatDisplayName(string displayName)
-        {
-            //Get the first part of the User's Display Name if s/he has a name like this: "firstname lastname (extra text)"
-            //removes the "(extra text)" part
-            if (!string.IsNullOrEmpty(displayName))
-            {
-                string name = displayName;
-                name = (name.Split(' '))[0];
-                return name;
-            }
-            else
-            {
-                return "tBill User";
-            }
         }
 
 

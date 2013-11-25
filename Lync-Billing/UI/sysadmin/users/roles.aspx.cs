@@ -14,8 +14,8 @@ namespace Lync_Billing.ui.sysadmin.users
 {
     public partial class roles : System.Web.UI.Page
     {
-        private string sipAccount = string.Empty;
         private UserSession session;
+        private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
         protected void Page_Load(object sender, EventArgs e)
@@ -37,7 +37,8 @@ namespace Lync_Billing.ui.sysadmin.users
                 }
             }
 
-            sipAccount = session.EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
+
             FilterUsersRolesBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSystemAdmin));
             FilterUsersRolesBySite.GetStore().DataBind();
         }
@@ -62,7 +63,7 @@ namespace Lync_Billing.ui.sysadmin.users
                 {"SiteID", site.SiteID},
             };
             
-            List<SystemRole> userRolesPerSite = SystemRole.GetUsersRoles(columns, wherePart, 0);
+            List<SystemRole> userRolesPerSite = SystemRole.GetSystemRoles(columns, wherePart, 0);
 
             return userRolesPerSite;
         }

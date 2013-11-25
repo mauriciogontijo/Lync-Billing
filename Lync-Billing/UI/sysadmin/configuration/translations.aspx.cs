@@ -38,7 +38,7 @@ namespace Lync_Billing.ui.sysadmin.configuration
                 }
             }
 
-            sipAccount = session.EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
         }
 
         protected void GetConfigurationRecords(object sender, DirectEventArgs e)
@@ -61,9 +61,9 @@ namespace Lync_Billing.ui.sysadmin.configuration
 
         protected void UpdateEdited_DirectEvent(object sender, DirectEventArgs e)
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.NormalUserInfo.SipAccount;
 
-            sipAccount = userSession.EffectiveSipAccount;
             string json = e.ExtraParams["Values"];
 
             List<Persistence> recordsToUpate = new List<Persistence>();

@@ -19,23 +19,21 @@ namespace Lync_Billing.ui.user
 {
     public partial class dashboard : System.Web.UI.Page
     {
-        UserSession session;
+        private UserSession session;
         private string sipAccount = string.Empty;
         private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
         private string userDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee);
         
         public int unmarkedCallsCount = 0;
-        UserCallsSummary UserSummary = new UserCallsSummary();
-        List<UserCallsSummary> UserSummaryList = new List<UserCallsSummary>();
 
         public Dictionary<string, PhoneBook> phoneBookEntries;
+        public List<PhoneCall> phoneCalls;
+        public MailStatistics userMailStatistics;
         public List<TopDestinationNumbers> TopDestinationNumbersList;
         public List<TopDestinationCountries> TopDestinationCountriesList;
 
         public Dictionary<string, object> wherePart = new Dictionary<string, object>();
         public List<string> columns = new List<string>();
-        public List<PhoneCall> phoneCalls;
-        public MailStatistics userMailStatistics;
 
         //This actually takes a copy of the current session for some uses on the frontend.
         public UserSession current_session { get; set; }
@@ -64,7 +62,7 @@ namespace Lync_Billing.ui.user
             current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             //initialize the local copy of the current user's PrimarySipAccount
-            sipAccount = current_session.EffectiveSipAccount;
+            sipAccount = GetEffectiveSipAccount();
 
             //Initialize the unmarked calls counter - this is being used in the frontend.
             unmarkedCallsCount = getUnmarkedCallsCount();
@@ -83,6 +81,27 @@ namespace Lync_Billing.ui.user
         }
 
 
+        //Get the user sipaccount.
+        private string GetEffectiveSipAccount()
+        {
+            string userSipAccount = string.Empty;
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            //If the user is a normal one, just return the normal user sipaccount.
+            if (session.ActiveRoleName == normalUserRoleName)
+            {
+                userSipAccount = session.NormalUserInfo.SipAccount;
+            }
+            //if the user is a user-delegee return the delegate sipaccount.
+            else if (session.ActiveRoleName == userDelegeeRoleName)
+            {
+                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
+            }
+
+            return userSipAccount;
+        }
+
+
         protected void CallsCostsChartStore_Load(object sender, EventArgs e)
         {
             CallsCostsChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
@@ -92,7 +111,7 @@ namespace Lync_Billing.ui.user
 
         protected void TopDestinationNumbersStore_Load(object sender, EventArgs e)
         {
-            UserSession userSession = ((UserSession)Session.Contents["UserData"]);
+            sipAccount = GetEffectiveSipAccount();
 
             TopDestinationNumbersList = TopDestinationNumbers.GetTopDestinationNumbers(sipAccount, 5);
 
@@ -134,9 +153,7 @@ namespace Lync_Billing.ui.user
                 { Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null }
             };
 
-            phoneCalls = PhoneCall.GetPhoneCalls(sipAccount, wherePart).Where(item => item.UI_CallType == null).ToList();
-
-            return phoneCalls.Count;
+            return PhoneCall.GetPhoneCalls(sipAccount, wherePart).ToList().Count;
         }
 
         private string GetUserNameBySip(string sipAccount) 

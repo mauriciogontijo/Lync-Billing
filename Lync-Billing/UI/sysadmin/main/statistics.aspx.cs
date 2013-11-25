@@ -41,7 +41,7 @@ namespace Lync_Billing.ui.sysadmin.main
                 }
             }
 
-            sipAccount = ((UserSession)HttpContext.Current.Session.Contents["UserData"]).EffectiveSipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
 
             List<GatewaysStatistics> gatewaysUsage = new List<GatewaysStatistics>();
             YearSelectorComboBox.GetStore().DataSource = GatewaysStatistics.GetYears();
