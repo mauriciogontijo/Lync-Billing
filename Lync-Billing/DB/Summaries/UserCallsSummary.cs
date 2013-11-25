@@ -273,9 +273,23 @@ namespace Lync_Billing.DB.Summaries
             UserCallsSummary userSummary;
             List<UserCallsSummary> usersSummaryList = new List<UserCallsSummary>();
 
+            List<string> sharedSitesPerGateway = new List<string>();
+
             List<object> functionParams = new List<object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             int summaryYear, summaryMonth;
+
+
+            //Get the sites which share this site's gateway
+            List<GatewayDetail> gatewayDetails = GatewayDetail.GetGatewaysDetails(siteName);
+
+            foreach (GatewayDetail detail in gatewayDetails)
+            {
+                sharedSitesPerGateway.AddRange(GatewayDetail.GetSitesNamesForGateway(detail.GatewayID));
+            }
+
+            sharedSitesPerGateway.Remove(siteName);
+
 
             //Add the siteName to the functionParams
             functionParams.Add(siteName);
@@ -321,7 +335,8 @@ namespace Lync_Billing.DB.Summaries
                 userSummary.TotalCallsDurations = userSummary.BusinessCallsDuration + userSummary.PersonalCallsDuration + userSummary.UnmarkedCallsDuration;
                 userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
 
-                usersSummaryList.Add(userSummary);
+                if(!sharedSitesPerGateway.Contains(userSummary.SiteName))
+                    usersSummaryList.Add(userSummary);
             }
 
             if (asTotals == true)
