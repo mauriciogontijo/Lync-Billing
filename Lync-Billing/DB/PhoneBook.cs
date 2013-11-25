@@ -94,10 +94,10 @@ namespace Lync_Billing.DB
                 phoneBookEntry = new PhoneBook();
 
                 columnName = Enums.GetDescription(Enums.TopDestinationNumbers.PhoneNumber);
-                phoneBookEntry.DestinationNumber = (string)row[columnName];
+                phoneBookEntry.DestinationNumber = (string)HelperFunctions.ReturnEmptyIfNull(row[columnName]);
 
                 columnName = Enums.GetDescription(Enums.TopDestinationNumbers.Country);
-                phoneBookEntry.DestinationCountry = (string)row[columnName];
+                phoneBookEntry.DestinationCountry = (string)HelperFunctions.ReturnEmptyIfNull(row[columnName]);
 
                 phoneBookEntries.Add(phoneBookEntry);
             }
