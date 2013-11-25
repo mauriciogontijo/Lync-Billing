@@ -43,25 +43,6 @@ namespace Lync_Billing.ui.session
         }
 
 
-        //This function formats teh display-name of a user,
-        //and removes unnecessary extra information.
-        private string formatDisplayName(string displayName)
-        {
-            //Get the first part of the User's Display Name if s/he has a name like this: "firstname lastname (extra text)"
-            //removes the "(extra text)" part
-            if (!string.IsNullOrEmpty(displayName))
-            {
-                string name = displayName;
-                name = (name.Split(' '))[0];
-                return name;
-            }
-            else
-            {
-                return "tBill User";
-            }
-        }
-
-
         /// <summary>
         /// Session managemenet routine. This is called from the SignButton_Click procedure.
         /// </summary>
@@ -70,8 +51,8 @@ namespace Lync_Billing.ui.session
         private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo)
         {
             //First and foremost initialize the user's most basic and mandatory fields
-            session.NormalUserInfo = Users.GetUser(userInfo.EmployeeID);
-            session.NormalUserInfo.DisplayName = formatDisplayName(userInfo.DisplayName);
+            session.NormalUserInfo = Users.GetUser(userInfo.SipAccount);
+            session.NormalUserInfo.DisplayName = HelperFunctions.FormatUserDisplayName(userInfo.DisplayName, userInfo.SipAccount);
             
             session.DelegeeAccount = null;
 
