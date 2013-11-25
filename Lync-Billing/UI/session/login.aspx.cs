@@ -51,7 +51,7 @@ namespace Lync_Billing.ui.session
         private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo)
         {
             //First and foremost initialize the user's most basic and mandatory fields
-            session.NormalUserInfo = Users.GetUser(userInfo.SipAccount);
+            session.NormalUserInfo = Users.GetUser(userInfo.SipAccount.Replace("sip:", ""));
             session.NormalUserInfo.DisplayName = HelperFunctions.FormatUserDisplayName(userInfo.DisplayName, userInfo.SipAccount);
             
             session.DelegeeAccount = null;

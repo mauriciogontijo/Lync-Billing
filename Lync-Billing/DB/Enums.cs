@@ -283,7 +283,7 @@ namespace Lync_Billing.DB
 
         public enum PhoneBook
         {
-            [Description("Addressbook")]
+            [Description("PhoneBook")]
             TableName,
             [Description("ID")]
             ID,
