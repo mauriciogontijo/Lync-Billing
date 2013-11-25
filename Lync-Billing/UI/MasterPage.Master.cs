@@ -33,6 +33,8 @@ namespace Lync_Billing.ui
             }
 
             this.ThisPageReferrer.Value = PAGE_NAME;
+
+            DisplayName = GetEffectiveDisplayName();
         }
 
         //Get the user displayname.
@@ -41,15 +43,18 @@ namespace Lync_Billing.ui
             string userDisplayName = string.Empty;
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            //If the user is a normal one, just return the normal user sipaccount.
-            if (session.ActiveRoleName == normalUserRoleName)
+            if (session != null)
             {
-                userDisplayName = session.NormalUserInfo.DisplayName;
-            }
-            //if the user is a user-delegee return the delegate sipaccount.
-            else if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                userDisplayName = session.DelegeeAccount.DelegeeUserAccount.DisplayName;
+                //If the user is a normal one, just return the normal user sipaccount.
+                if (session.ActiveRoleName == normalUserRoleName)
+                {
+                    userDisplayName = session.NormalUserInfo.DisplayName;
+                }
+                //if the user is a user-delegee return the delegate sipaccount.
+                else if (session.ActiveRoleName == userDelegeeRoleName)
+                {
+                    userDisplayName = session.DelegeeAccount.DelegeeUserAccount.DisplayName;
+                }
             }
 
             return userDisplayName;

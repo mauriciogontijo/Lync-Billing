@@ -111,7 +111,7 @@
                                                        { %>
                                                         <li class="last-child">
                                                             <a href="../session/authenticate.aspx?access=depdelegee&identity=<%= departmentDelegeeRecord.DelegeeDepartment.SiteName + "_" + departmentDelegeeRecord.DelegeeDepartment.DepartmentName %>">
-                                                                <%= departmentDelegeeRecord.DelegeeDepartment.DepartmentName %>
+                                                                <%= departmentDelegeeRecord.DelegeeDepartment.SiteName + " - " + departmentDelegeeRecord.DelegeeDepartment.DepartmentName %>
                                                             </a>
                                                         </li>
                                                     <% } %>
