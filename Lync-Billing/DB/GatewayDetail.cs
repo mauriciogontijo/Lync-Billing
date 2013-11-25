@@ -200,9 +200,9 @@ namespace Lync_Billing.DB
             DataTable dt = new DataTable();
             List<GatewayDetail> gateways = new List<GatewayDetail>();
 
-            var siteId = DB.Site.GetSite(siteName);
+            var site = DB.Site.GetSite(siteName);
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysDetails.TableName), Enums.GetDescription(Enums.GatewaysDetails.GatewayID),siteID);
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysDetails.TableName), Enums.GetDescription(Enums.GatewaysDetails.SiteID), site.SiteID);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -248,7 +248,7 @@ namespace Lync_Billing.DB
         }
 
 
-        public static List<string> GetSitesForGateway(int gatewayID)
+        public static List<string> GetSitesNamesForGateway(int gatewayID)
         {
             List<GatewayDetail> gatewaysDetails = new List<GatewayDetail>();
             List<string> sites = new List<string>();
