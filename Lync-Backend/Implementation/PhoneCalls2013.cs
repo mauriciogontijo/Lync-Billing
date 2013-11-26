@@ -194,7 +194,11 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                if (thisCall.CalleeURI.StartsWith("+"))
+                                    thisCall.ChargingParty = Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "");
+                                else
+                                    thisCall.ChargingParty = thisCall.CalleeURI;
+                                
                                 return thisCall;
                             }
                         }
@@ -217,7 +221,11 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                if (thisCall.CalleeURI.StartsWith("+"))
+                                    thisCall.ChargingParty = Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "");
+                                else
+                                    thisCall.ChargingParty = thisCall.CalleeURI;
+
                                 return thisCall;
                             }
                         }
@@ -240,7 +248,11 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                if (thisCall.CalleeURI.StartsWith("+"))
+                                    thisCall.ChargingParty = Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "");
+                                else
+                                    thisCall.ChargingParty = thisCall.CalleeURI;
+
                                 return thisCall;
                             }
                         }
@@ -302,7 +314,11 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                if (thisCall.CalleeURI.StartsWith("+"))
+                                    thisCall.ChargingParty = Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "");
+                                else
+                                    thisCall.ChargingParty = thisCall.CalleeURI;
+
                                 return thisCall;
                             }
                         }
@@ -325,7 +341,11 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                if (thisCall.CalleeURI.StartsWith("+"))
+                                    thisCall.ChargingParty = Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "");
+                                else
+                                    thisCall.ChargingParty = thisCall.CalleeURI;
+
                                 return thisCall;
                             }
                         }
