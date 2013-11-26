@@ -24,8 +24,8 @@ using System.Runtime.InteropServices;namespace Lync_Backend
         static void Main(string[] args)
         {
 
-            IntPtr winHandle = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
-            ShowWindow(winHandle, SW_HIDE);
+            //IntPtr winHandle = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
+            //ShowWindow(winHandle, SW_HIDE);
 
             Dictionary<string, MonitoringServersInfo> monServersInfo = new Dictionary<string, MonitoringServersInfo>();
 
