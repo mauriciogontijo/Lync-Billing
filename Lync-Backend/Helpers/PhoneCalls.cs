@@ -41,6 +41,7 @@ namespace Lync_Backend.Helpers
         public string OnBehalf { set; get; }
         public string ReferredBy { set; get; }
         public string ChargingParty { set; get; }
+        public string CalleeURI { get; set; }
 
         //User UI update Fields
         public string UI_UpdatedByUser { set; get; }
@@ -50,6 +51,7 @@ namespace Lync_Backend.Helpers
         public DateTime AC_DisputeResolvedOn { set; get; }
         public string AC_IsInvoiced { set; get; }
         public DateTime AC_InvoiceDate { set; get; }
+
 
         protected static List<NumberingPlan> numberingPlan = NumberingPlan.GetNumberingPlan();
 
@@ -135,5 +137,7 @@ namespace Lync_Backend.Helpers
 
             return number;
         }
+
+       
     }
 }
