@@ -76,6 +76,9 @@ namespace Lync_Backend.Helpers
             if (!string.IsNullOrEmpty(phoneCall.ReferredBy))
                 phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.ReferredBy), phoneCall.ReferredBy);
 
+            if(!string.IsNullOrEmpty(phoneCall.CalleeURI))
+                phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.CalleeURI), phoneCall.CalleeURI);
+
             if (!string.IsNullOrEmpty(phoneCall.ChargingParty))
                 phoneCallDict.Add(Enums.GetDescription(Enums.PhoneCalls.ChargingParty), phoneCall.ChargingParty);
 
@@ -260,6 +263,10 @@ namespace Lync_Backend.Helpers
             column = Enums.GetDescription(Enums.PhoneCalls.ReferredBy);
             if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
                 phoneCall.ReferredBy = dataReader[column].ToString();
+
+            column = Enums.GetDescription(Enums.PhoneCalls.CalleeURI);
+            if (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty)
+                phoneCall.CalleeURI = dataReader[column].ToString();
 
             column = Enums.GetDescription(Enums.PhoneCalls.ChargingParty);
             if (ValidateColumnName(ref dataReader,ref column) == true && (dataReader[column] != DBNull.Value || dataReader[column].ToString() != string.Empty))
