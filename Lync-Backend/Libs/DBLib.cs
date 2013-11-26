@@ -401,7 +401,7 @@ namespace Lync_Backend.Libs
                 System.ArgumentException argEx = new System.ArgumentException("Exception", "ex", ex);
                 throw argEx; 
             }
-            finally { conn.Close(); }
+            finally { conn.Close(); conn.Dispose(); }
 
             return recordID;
         }
