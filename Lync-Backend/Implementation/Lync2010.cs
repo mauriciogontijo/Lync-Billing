@@ -87,8 +87,8 @@ namespace Lync_Backend.Implementation
                 LAST_IMPORTED_PHONECALL_DATE = null;
 
 
-            //Construct CREATE_IMPORT_PHONE_CALLS_QUERY
-            string SQL = SQLs.CREATE_IMPORT_PHONE_CALLS_QUERY(LAST_IMPORTED_PHONECALL_DATE);
+            //Construct CREATE_IMPORT_PHONE_CALLS_QUERY_LYNC_2010
+            string SQL = SQLs.CREATE_IMPORT_PHONE_CALLS_QUERY_LYNC_2010(LAST_IMPORTED_PHONECALL_DATE);
             
             dataReader = DBRoutines.EXECUTEREADER(SQL, sourceDBConnector);
 
