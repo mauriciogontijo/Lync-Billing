@@ -265,12 +265,11 @@ namespace Lync_Billing.ui.session
                         //Site Delegee
                         else if (requestedAccessLevel == siteDelegeeRoleName)
                         {
-                            Site site = (Site)(from siteDelegeeRole in session.SiteDelegateRoles
-                                               where siteDelegeeRole.DelegeeSite != null && siteDelegeeRole.DelegeeSite.SiteName == requestedDelegeeIdentity
-                                               select siteDelegeeRole.DelegeeSite);
+                            DelegateRole role = session.SiteDelegateRoles.Find(someRole => someRole.DelegeeSite != null && someRole.DelegeeSite.SiteName == requestedDelegeeIdentity);
 
-                            if (site != null && !string.IsNullOrEmpty(site.SiteName))
+                            if (role != null)
                             {
+                                Site site = role.DelegeeSite;
                                 SwitchToDelegeeAndRedirect(site, DelegateRole.SiteDelegeeTypeID);
                             }
                         }
@@ -278,12 +277,11 @@ namespace Lync_Billing.ui.session
                         //Department Delegee
                         else if (requestedAccessLevel == departmentDelegeeRoleName)
                         {
-                            Department department = (Department)(from dep in session.DepartmentDelegateRoles
-                                                     where dep.DelegeeDepartment != null && dep.DelegeeDepartment.DepartmentName == requestedDelegeeIdentity
-                                                     select dep.DelegeeDepartment);
+                            DelegateRole role = session.DepartmentDelegateRoles.Find(someRole => someRole.DelegeeDepartment != null && someRole.DelegeeDepartment.DepartmentName == requestedDelegeeIdentity);
 
-                            if (department != null && !string.IsNullOrEmpty(department.DepartmentName))
+                            if(role != null)
                             {
+                                Department department = role.DelegeeDepartment;
                                 SwitchToDelegeeAndRedirect(department, DelegateRole.DepartmentDelegeeTypeID);
                             }
                         }
@@ -291,12 +289,11 @@ namespace Lync_Billing.ui.session
                         //User Delegee
                         else if (requestedAccessLevel == userDelegeeRoleName && this.DELEGEE_IDENTITY != null)
                         {
-                            Users user = (Users)(from userDelegeeRole in session.UserDelegateRoles
-                                                 where userDelegeeRole.DelegeeUser != null && userDelegeeRole.SipAccount == requestedDelegeeIdentity
-                                                 select userDelegeeRole.DelegeeUser);
+                            DelegateRole role = session.UserDelegateRoles.Find(someRole => someRole.DelegeeUser != null && someRole.SipAccount == requestedDelegeeIdentity);
 
-                            if (user != null && !string.IsNullOrEmpty(user.SipAccount))
+                            if(role != null)
                             {
+                                Users user = role.DelegeeUser;
                                 SwitchToDelegeeAndRedirect(user, DelegateRole.UserDelegeeTypeID);
                             }
                         }
@@ -370,7 +367,7 @@ namespace Lync_Billing.ui.session
                 session.DelegeeAccount.DelegeeUserAddressbook = PhoneBook.GetAddressBook(session.DelegeeAccount.DelegeeUserAccount.SipAccount);
 
                 //Get the Delegee Phonecalls
-                session.DelegeeAccount.DelegeeUserPhonecalls = new List<PhoneCall>();
+                session.DelegeeAccount.DelegeeUserPhonecalls = PhoneCall.GetPhoneCalls(session.DelegeeAccount.DelegeeUserAccount.SipAccount);
                 session.DelegeeAccount.DelegeeUserPhonecallsPerPage = string.Empty;
                 
                 //Set the ActiveRoleName to "userdelegee"
@@ -382,8 +379,10 @@ namespace Lync_Billing.ui.session
 
             else if(delegee is Department && delegeeType == DelegateRole.DepartmentDelegeeTypeID)
             {
-                session.DelegeeAccount.DelegeeTypeID = DelegateRole.DepartmentDelegeeTypeID;
+                //Get delegated department
+                session.DelegeeAccount = new DelegeeAccountInfo();
                 session.DelegeeAccount.DelegeeDepartmentAccount = (Department)delegee;
+                session.DelegeeAccount.DelegeeTypeID = DelegateRole.DepartmentDelegeeTypeID;
 
                 //Switch ActiveRoleName to Department Delegee
                 session.ActiveRoleName = departmentDelegeeRoleName;
@@ -393,8 +392,10 @@ namespace Lync_Billing.ui.session
 
             else if (delegee is Site && delegeeType == DelegateRole.SiteDelegeeTypeID)
             {
-                session.DelegeeAccount.DelegeeTypeID = DelegateRole.SiteDelegeeTypeID;
+                //Get delegated site
+                session.DelegeeAccount = new DelegeeAccountInfo();
                 session.DelegeeAccount.DelegeeSiteAccount = (Site)delegee;
+                session.DelegeeAccount.DelegeeTypeID = DelegateRole.SiteDelegeeTypeID;
                 
                 //Switch ActiveRoleName to Site Delegee
                 session.ActiveRoleName = siteDelegeeRoleName;
