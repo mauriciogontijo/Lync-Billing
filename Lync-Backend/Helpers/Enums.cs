@@ -112,7 +112,9 @@ namespace Lync_Backend.Helpers
             [Description("ac_InvoiceDate")]
             AC_InvoiceDate,
             [Description("Exclude")]
-            Exclude
+            Exclude,
+            [Description("CalleeURI")]
+            CalleeURI
 
         }
 
