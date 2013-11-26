@@ -394,7 +394,7 @@ namespace Lync_Backend.Libs
             try
             {
                 conn.Open();
-                recordID = Convert.ToInt32(comm.ExecuteScalar());
+                recordID = Convert.ToInt32(comm.ExecuteNonQuery());
             }
             catch (Exception ex) 
             {
