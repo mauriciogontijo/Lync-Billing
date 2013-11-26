@@ -361,15 +361,17 @@ namespace Lync_Billing.ui.session
 
                 //Get the delegate user account
                 session.DelegeeAccount.DelegeeUserAccount = (Users)delegee;
-                session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount);
-
-                //Get the Delegee Addressbook
-                session.DelegeeAccount.DelegeeUserAddressbook = PhoneBook.GetAddressBook(session.DelegeeAccount.DelegeeUserAccount.SipAccount);
+                session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnNameIfExists: true);
 
                 //Get the Delegee Phonecalls
-                session.DelegeeAccount.DelegeeUserPhonecalls = PhoneCall.GetPhoneCalls(session.DelegeeAccount.DelegeeUserAccount.SipAccount);
                 session.DelegeeAccount.DelegeeUserPhonecallsPerPage = string.Empty;
+                session.DelegeeAccount.DelegeeUserPhonecalls = new List<PhoneCall>();
+                //session.DelegeeAccount.DelegeeUserPhonecalls = PhoneCall.GetPhoneCalls(session.DelegeeAccount.DelegeeUserAccount.SipAccount);
                 
+                //Get the Delegee Addressbook
+                session.DelegeeAccount.DelegeeUserAddressbook = new Dictionary<string,PhoneBook>();
+                //session.DelegeeAccount.DelegeeUserAddressbook = PhoneBook.GetAddressBook(session.DelegeeAccount.DelegeeUserAccount.SipAccount);
+
                 //Set the ActiveRoleName to "userdelegee"
                 session.ActiveRoleName = userDelegeeRoleName;
 

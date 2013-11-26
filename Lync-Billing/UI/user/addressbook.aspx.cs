@@ -85,9 +85,9 @@ namespace Lync_Billing.ui.user
 
             //Get userphonecalls
             if (session.ActiveRoleName == userDelegeeRoleName)
-                phoneCalls = session.DelegeeAccount.DelegeeUserPhonecalls ?? (new List<PhoneCall>());
+                phoneCalls = session.DelegeeAccount.DelegeeUserPhonecalls ?? PhoneCall.GetPhoneCalls(sipAccount);
             else
-                phoneCalls = session.Phonecalls ?? (new List<PhoneCall>());
+                phoneCalls = session.Phonecalls ?? PhoneCall.GetPhoneCalls(sipAccount);
             
             //Update user phonecalls
             foreach (var phoneCall in phoneCalls)
@@ -103,9 +103,14 @@ namespace Lync_Billing.ui.user
             }
 
             //Allocate the addressbook to the session
-            session.Addressbook = phoneBook;
+            //Handle normal user mode, and user delegee mode
+            if (session.ActiveRoleName == userDelegeeRoleName)
+                session.DelegeeAccount.DelegeeUserAddressbook = phoneBook;
+            else
+                session.Addressbook = phoneBook;
 
             //Allocate the phonecalls to the session
+            //Handle normal user mode, and user delegee mode
             if (session.ActiveRoleName == userDelegeeRoleName)
                 session.DelegeeAccount.DelegeeUserPhonecalls = phoneCalls;
             else
