@@ -5,11 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Lync_Backend.Libs;
 
 namespace Lync_Backend.Helpers
 {
     public class Misc
     {
+
+        private static AdLib adRoutines = new AdLib();
+
         public static string ConvertDate(DateTime datetTime)
         {
             if (datetTime != DateTime.MinValue || datetTime != null)
@@ -338,5 +342,25 @@ namespace Lync_Backend.Helpers
             }
             else { return false; }
         }
+
+        public static string NormalizePhoneNumber(string phoneNumber) 
+        {
+            string number = string.Empty;
+            
+            if (phoneNumber.StartsWith("+"))
+            {
+                number = Regex.Replace(phoneNumber, @"@\w{1,}.*", "");
+                
+                var userInfo = adRoutines.getUsersAttributesFromPhone(number);
+               
+                number = (userInfo != null) ? userInfo.SipAccount.Replace("sip:","") : number;
+
+            }
+            else
+                number = phoneNumber;
+
+            return number;
+        }
     }
+
 }
