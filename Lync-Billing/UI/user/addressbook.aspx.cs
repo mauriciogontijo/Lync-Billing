@@ -74,13 +74,22 @@ namespace Lync_Billing.ui.user
 
         private void UpdateSessionRelatedInformation()
         {
-            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            List<PhoneCall> phoneCalls;
+            Dictionary<string, PhoneBook> phoneBook;
 
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = GetEffectiveSipAccount();
 
-            var phoneCalls = session.Phonecalls ?? (new List<PhoneCall>());
-            var phoneBook = PhoneBook.GetAddressBook(sipAccount);
+            //Get user addressbook
+            phoneBook = PhoneBook.GetAddressBook(sipAccount);
 
+            //Get userphonecalls
+            if (session.ActiveRoleName == userDelegeeRoleName)
+                phoneCalls = session.DelegeeAccount.DelegeeUserPhonecalls ?? (new List<PhoneCall>());
+            else
+                phoneCalls = session.Phonecalls ?? (new List<PhoneCall>());
+            
+            //Update user phonecalls
             foreach (var phoneCall in phoneCalls)
             {
                 if (phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
@@ -93,8 +102,15 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            session.Phonecalls = phoneCalls;
+            //Allocate the addressbook to the session
             session.Addressbook = phoneBook;
+
+            //Allocate the phonecalls to the session
+            if (session.ActiveRoleName == userDelegeeRoleName)
+                session.DelegeeAccount.DelegeeUserPhonecalls = phoneCalls;
+            else
+                session.Phonecalls = phoneCalls;
+            
         }
 
 
