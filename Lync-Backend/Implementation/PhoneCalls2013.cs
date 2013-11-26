@@ -7,6 +7,7 @@ using Lync_Backend.Interfaces;
 using Lync_Backend.Helpers;
 using System.Configuration;
 using System.Text.RegularExpressions;
+using Lync_Backend.Libs;
 
 namespace Lync_Backend.Implementation
 {
@@ -38,6 +39,8 @@ namespace Lync_Backend.Implementation
 
         //Get Rates for those Gateways for that marker
         private Dictionary<int, List<Rates>> ratesPerGatway = Rates.GetAllGatewaysRatesList();
+
+        private static AdLib adRoutines = new AdLib();
 
         public PhoneCalls SetCallType(PhoneCalls thisCall)
         {
@@ -194,11 +197,7 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                if (thisCall.CalleeURI.StartsWith("+"))
-                                    thisCall.ChargingParty = Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "");
-                                else
-                                    thisCall.ChargingParty = thisCall.CalleeURI;
-                                
+                                thisCall.ChargingParty = Misc.NormalizePhoneNumber(thisCall.CalleeURI);
                                 return thisCall;
                             }
                         }
@@ -221,11 +220,7 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                if (thisCall.CalleeURI.StartsWith("+"))
-                                    thisCall.ChargingParty = Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "");
-                                else
-                                    thisCall.ChargingParty = thisCall.CalleeURI;
-
+                                thisCall.ChargingParty = Misc.NormalizePhoneNumber(thisCall.CalleeURI);
                                 return thisCall;
                             }
                         }
@@ -248,11 +243,7 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                if (thisCall.CalleeURI.StartsWith("+"))
-                                    thisCall.ChargingParty = Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "");
-                                else
-                                    thisCall.ChargingParty = thisCall.CalleeURI;
-
+                                thisCall.ChargingParty = Misc.NormalizePhoneNumber(thisCall.CalleeURI);
                                 return thisCall;
                             }
                         }
@@ -291,7 +282,7 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                thisCall.ChargingParty = Misc.NormalizePhoneNumber(thisCall.CalleeURI);
                                 return thisCall;
                             }
                         }
@@ -314,11 +305,7 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                if (thisCall.CalleeURI.StartsWith("+"))
-                                    thisCall.ChargingParty = Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "");
-                                else
-                                    thisCall.ChargingParty = thisCall.CalleeURI;
-
+                                thisCall.ChargingParty = Misc.NormalizePhoneNumber(thisCall.CalleeURI);
                                 return thisCall;
                             }
                         }
@@ -341,11 +328,7 @@ namespace Lync_Backend.Implementation
                             }
                             else
                             {
-                                if (thisCall.CalleeURI.StartsWith("+"))
-                                    thisCall.ChargingParty = Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "");
-                                else
-                                    thisCall.ChargingParty = thisCall.CalleeURI;
-
+                                thisCall.ChargingParty = Misc.NormalizePhoneNumber(thisCall.CalleeURI);
                                 return thisCall;
                             }
                         }

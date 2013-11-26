@@ -277,6 +277,8 @@ namespace Lync_Backend.Libs
                     userInfo.LastName = (string)resourceForestResult.Properties["sn"][0];
                     userInfo.DisplayName = (string)resourceForestResult.Properties["cn"][0];
                     userInfo.Telephone = (string)resourceForestResult.Properties["msrtcsip-line"][0];
+                    userInfo.EmailAddress = (string)resourceForestResult.Properties["mail"][0];
+                    userInfo.SipAccount = (string)resourceForestResult.Properties["msrtcsip-primaryuseraddress"][0];
                 }
                 return userInfo;
             }
