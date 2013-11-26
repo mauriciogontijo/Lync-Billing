@@ -106,10 +106,17 @@ namespace Lync_Backend.Implementation
                 ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCallObj);
                 ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCallObj);
 
-                if (!string.IsNullOrEmpty(phoneCallObj.ReferredBy))
-                    phoneCallObj.ChargingParty = phoneCallObj.ReferredBy;
-                else
-                    phoneCallObj.ChargingParty = phoneCallObj.SourceUserUri;
+                if (string.IsNullOrEmpty(phoneCallObj.CalleeURI))
+                {
+                    if (!string.IsNullOrEmpty(phoneCallObj.ReferredBy))
+                        phoneCallObj.ChargingParty = phoneCallObj.ReferredBy;
+                    else
+                        phoneCallObj.ChargingParty = phoneCallObj.SourceUserUri;
+                }
+                else 
+                {
+                    phoneCallObj.ChargingParty = phoneCallObj.CalleeURI;
+                }
 
                 lastMarkedPhoneCallDate = phoneCallObj.SessionIdTime;
 
