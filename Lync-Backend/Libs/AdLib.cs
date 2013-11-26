@@ -273,17 +273,17 @@ namespace Lync_Backend.Libs
                 if (resourceForestResult != null)
                 {
 
-                    if (resourceForestResult.Properties.Contains("title"))
-                        userInfo.Title = (string)resourceForestResult.Properties["title"][0];
+                    //if (resourceForestResult.Properties.Contains("title"))
+                    //    userInfo.Title = (string)resourceForestResult.Properties["title"][0];
 
-                    if (resourceForestResult.Properties.Contains("givenName"))
-                        userInfo.FirstName = (string)resourceForestResult.Properties["givenName"][0];
+                    //if (resourceForestResult.Properties.Contains("givenName"))
+                    //    userInfo.FirstName = (string)resourceForestResult.Properties["givenName"][0];
 
-                    if (resourceForestResult.Properties.Contains("sn"))
-                        userInfo.LastName = (string)resourceForestResult.Properties["sn"][0];
+                    //if (resourceForestResult.Properties.Contains("sn"))
+                    //    userInfo.LastName = (string)resourceForestResult.Properties["sn"][0];
 
-                    if (resourceForestResult.Properties.Contains("cn"))
-                        userInfo.DisplayName = (string)resourceForestResult.Properties["cn"][0];
+                    //if (resourceForestResult.Properties.Contains("cn"))
+                    //    userInfo.DisplayName = (string)resourceForestResult.Properties["cn"][0];
 
                     if (resourceForestResult.Properties.Contains("msrtcsip-line"))
                         userInfo.Telephone = (string)resourceForestResult.Properties["msrtcsip-line"][0];
