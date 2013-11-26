@@ -185,7 +185,9 @@ namespace Lync_Billing.DB
             [Description("AD_PhysicalDeliveryOfficeName")]
             SiteName,
             [Description("AD_Department")]
-            Department
+            Department,
+            [Description("AD_TelephoneNumber")]
+            TelephoneNumber
         }
 
         public enum TmpUsers 
@@ -496,7 +498,7 @@ namespace Lync_Billing.DB
             [Description("AD_UserID")]
             EmployeeID,
             [Description("ChargingParty")]
-            SipAccount,
+            ChargingParty,
             [Description("AD_DisplayName")]
             DisplayName,
             [Description("AD_Department")]

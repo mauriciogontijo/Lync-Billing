@@ -596,7 +596,7 @@ namespace Lync_Billing.Libs
 
             string employeeIDKey = Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID);
             string displayNameKey = Enums.GetDescription(Enums.PhoneCallSummary.DisplayName);
-            string sipAccountKey = Enums.GetDescription(Enums.PhoneCallSummary.SipAccount);
+            string sipAccountKey = Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty);
 
 
             //--------------------------------------------------------------------------------------------------------------------------------------------------------

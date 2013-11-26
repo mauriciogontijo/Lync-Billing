@@ -311,7 +311,7 @@ namespace Lync_Billing.DB.Summaries
 
                 //Start filling personal user information
                 userSummary.EmployeeID = Convert.ToString(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID)]]));
-                userSummary.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.SipAccount)]]));
+                userSummary.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty)]]));
                 userSummary.FullName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.DisplayName)]]));
                 
                 //Ge the user original site
@@ -438,7 +438,7 @@ namespace Lync_Billing.DB.Summaries
             functionParams.Add(startingDate);
             functionParams.Add(endingDate);
 
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), UsersCollection.Keys.ToList<string>());
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty), UsersCollection.Keys.ToList<string>());
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
 
@@ -514,7 +514,7 @@ namespace Lync_Billing.DB.Summaries
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost));
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType));
 
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), UsersCollection.Keys.ToList<string>());
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty), UsersCollection.Keys.ToList<string>());
             wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime), String.Format("{0},{1}", startingDate, endingDate));
 
             //The PDF report body contents

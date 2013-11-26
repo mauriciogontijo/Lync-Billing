@@ -154,7 +154,7 @@ namespace Lync_Billing.ui.accounting.reports
                         tempUserDataContainer = new Dictionary<string, object>();
                         tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.DisplayName), user.FullName);
                         tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID), user.EmployeeID);
-                        tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), user.SipAccount);
+                        tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty), user.SipAccount);
 
                         UsersCollection.Add(user.SipAccount, tempUserDataContainer);
                     }
@@ -195,7 +195,7 @@ namespace Lync_Billing.ui.accounting.reports
                         tempUserDataContainer = new Dictionary<string, object>();
                         tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.DisplayName), user.FullName);
                         tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID), user.EmployeeID);
-                        tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.SipAccount), user.SipAccount);
+                        tempUserDataContainer.Add(Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty), user.SipAccount);
 
                         UsersCollection.Add(user.SipAccount, tempUserDataContainer);
                     }
