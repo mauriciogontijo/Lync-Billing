@@ -174,6 +174,8 @@ namespace Lync_Billing.ui.user
         
         protected int getUnmarkedCallsCount()
         {
+            sipAccount = GetEffectiveSipAccount();
+            
             wherePart = new Dictionary<string, object>
             {
                 { Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null }
