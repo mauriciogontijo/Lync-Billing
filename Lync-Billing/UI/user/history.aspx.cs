@@ -33,6 +33,7 @@ namespace Lync_Billing.ui.user
         private StoreReadDataEventArgs e = new StoreReadDataEventArgs();
         private string pageData = string.Empty;
 
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
@@ -75,8 +76,41 @@ namespace Lync_Billing.ui.user
 
             return userSipAccount;
         }
-        
-        
+
+        //Get user phonecalls and assign to the respective session variable
+        //Handle both the normal user mode and the delegee user mode.
+        protected List<PhoneCall> getPhoneCalls(bool force = false)
+        {
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = GetEffectiveSipAccount();
+
+            wherePart = new Dictionary<string, object>();
+
+            //User delegee mode
+            if (session.ActiveRoleName == userDelegeeRoleName)
+            {
+                if (session.DelegeeAccount.DelegeeUserPhonecallsHistory == null || session.DelegeeAccount.DelegeeUserPhonecallsHistory.Count == 0 || force == true)
+                {
+                    wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
+                    session.DelegeeAccount.DelegeeUserPhonecallsHistory = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0);
+                }
+
+                return session.DelegeeAccount.DelegeeUserPhonecallsHistory;
+            }
+            //Normal user delegee mode
+            else
+            {
+                if (session.PhonecallsHistory == null || session.PhonecallsHistory.Count == 0 || force == true)
+                {
+                    wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
+                    session.PhonecallsHistory = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0);
+                }
+
+                return session.PhonecallsHistory;
+            }
+        }
+
+
         protected void PhoneCallStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
             this.e = e;
@@ -114,51 +148,44 @@ namespace Lync_Billing.ui.user
 
         public List<PhoneCall> GetCallsHistoryFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
+            IQueryable<PhoneCall> filteredPhoneCalls;
+            List<PhoneCall> userSessionPhoneCallsHistory;
+            int filteredPhoneCallsCount;
+
+            //Get user session data
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            getPhoneCalls();
 
-            IQueryable<PhoneCall> result;
+            //Get user session phonecalls history; handle normal user mode and delegee mode
+            userSessionPhoneCallsHistory = getPhoneCalls();
 
+            //Start filtering process
             if (filter == null)
-                result = session.PhonecallsHistory.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
+                filteredPhoneCalls = userSessionPhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
             else
-                result = session.PhonecallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
+                filteredPhoneCalls = userSessionPhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
 
+            //Start sorting process
             if (sort != null)
             {
                 ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
 
                 Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
                 if (sort.Direction == Ext.Net.SortDirection.DESC)
-                    result = result.OrderByDescending(sortExpression);
+                    filteredPhoneCalls = filteredPhoneCalls.OrderByDescending(sortExpression);
                 else
-                    result = result.OrderBy(sortExpression);
+                    filteredPhoneCalls = filteredPhoneCalls.OrderBy(sortExpression);
             }
 
-            int resultCount = result.Count(); 
+            filteredPhoneCallsCount = filteredPhoneCalls.Count(); 
 
             if (start >= 0 && limit > 0)
-                result = result.Skip(start).Take(limit);
+                filteredPhoneCalls = filteredPhoneCalls.Skip(start).Take(limit);
 
-            count = resultCount;
+            count = filteredPhoneCallsCount;
 
-            return result.ToList();
+            return filteredPhoneCalls.ToList();
         }
 
-        protected void getPhoneCalls(bool force = false)
-        {
-            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = GetEffectiveSipAccount();
-
-            wherePart = new Dictionary<string, object>();
-
-            if (session.PhonecallsHistory == null || session.PhonecallsHistory.Count == 0 || force == true)
-            {
-                wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
-
-                session.PhonecallsHistory = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0);
-            }
-        }
 
         [DirectMethod]
         protected void PhoneCallsHistoryFilter(object sender, DirectEventArgs e) 
