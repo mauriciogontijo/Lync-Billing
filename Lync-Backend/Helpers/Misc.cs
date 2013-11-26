@@ -353,7 +353,7 @@ namespace Lync_Backend.Helpers
                 
                 var userInfo = adRoutines.getUsersAttributesFromPhone(number);
                
-                number = (userInfo != null) ? userInfo.SipAccount.Replace("sip:","") : number;
+                number = (userInfo != null && userInfo.SipAccount != null) ? userInfo.SipAccount.Replace("sip:","") : number;
 
             }
             else
