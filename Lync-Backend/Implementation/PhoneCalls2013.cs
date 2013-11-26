@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Lync_Backend.Interfaces;
 using Lync_Backend.Helpers;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace Lync_Backend.Implementation
 {
@@ -66,7 +67,7 @@ namespace Lync_Backend.Implementation
 
 
             //Test Case
-            if (thisCall.SessionIdTime == "2013-04-06 06:02:13.400" || thisCall.SessionIdTime == "2013-04-06 18:51:34.860" || thisCall.SessionIdTime == "2013-04-30 11:47:07.827")
+            if (thisCall.SessionIdTime == "2013-10-03 10:17:57.240" || thisCall.SessionIdTime == "2013-10-03 11:18:58.650" || thisCall.SessionIdTime == "2013-10-22 06:51:25.777" || thisCall.SessionIdTime == "2013-10-23 12:52:04.993") 
             {
                 string x= string.Empty;
             }
@@ -181,6 +182,22 @@ namespace Lync_Backend.Implementation
                         thisCall.Marker_CallType = "NATIONAL-FIXEDLINE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
 
+                        if (thisCall.CalleeURI == thisCall.DestinationNumberUri || thisCall.CalleeURI == null)
+                        {
+                            return thisCall;
+                        }
+                        else if (Regex.IsMatch(thisCall.CalleeURI, @"\d{1,}@\w{1,}.*"))
+                        {
+                            if (Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "") == thisCall.DestinationNumberUri)
+                            {
+                                return thisCall;
+                            }
+                            else
+                            {
+                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                return thisCall;
+                            }
+                        }
                         return thisCall;
                     }
                     else if (dstCallType == "gsm")
@@ -188,6 +205,22 @@ namespace Lync_Backend.Implementation
                         thisCall.Marker_CallType = "NATIONAL-MOBILE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
 
+                        if (thisCall.CalleeURI == thisCall.DestinationNumberUri || thisCall.CalleeURI == null)
+                        {
+                            return thisCall;
+                        }
+                        else if (Regex.IsMatch(thisCall.CalleeURI, @"\d{1,}@\w{1,}.*"))
+                        {
+                            if (Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "") == thisCall.DestinationNumberUri)
+                            {
+                                return thisCall;
+                            }
+                            else
+                            {
+                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                return thisCall;
+                            }
+                        }
                         return thisCall;
                     }
                     else
@@ -195,6 +228,22 @@ namespace Lync_Backend.Implementation
                         thisCall.Marker_CallType = "NATIONAL-FIXEDLINE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
 
+                        if (thisCall.CalleeURI == thisCall.DestinationNumberUri || thisCall.CalleeURI == null)
+                        {
+                            return thisCall;
+                        }
+                        else if (Regex.IsMatch(thisCall.CalleeURI, @"\d{1,}@\w{1,}.*"))
+                        {
+                            if (Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "") == thisCall.DestinationNumberUri)
+                            {
+                                return thisCall;
+                            }
+                            else
+                            {
+                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                return thisCall;
+                            }
+                        }
                         return thisCall;
                     }
                 }
@@ -218,6 +267,22 @@ namespace Lync_Backend.Implementation
                         thisCall.Marker_CallType = "INTERNATIONAL-FIXEDLINE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
 
+                        if (thisCall.CalleeURI == thisCall.DestinationNumberUri || thisCall.CalleeURI == null)
+                        {
+                            return thisCall;
+                        }
+                        else if (Regex.IsMatch(thisCall.CalleeURI, @"\d{1,}@\w{1,}.*"))
+                        {
+                            if (Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "") == thisCall.DestinationNumberUri)
+                            {
+                                return thisCall;
+                            }
+                            else
+                            {
+                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                return thisCall;
+                            }
+                        }
                         return thisCall;
                     }
                     else if (dstCallType == "gsm")
@@ -225,6 +290,22 @@ namespace Lync_Backend.Implementation
                         thisCall.Marker_CallType = "INTERNATIONAL-MOBILE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
 
+                        if (thisCall.CalleeURI == thisCall.DestinationNumberUri || thisCall.CalleeURI == null)
+                        {
+                            return thisCall;
+                        }
+                        else if (Regex.IsMatch(thisCall.CalleeURI, @"\d{1,}@\w{1,}.*"))
+                        {
+                            if (Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "") == thisCall.DestinationNumberUri)
+                            {
+                                return thisCall;
+                            }
+                            else
+                            {
+                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                return thisCall;
+                            }
+                        }
                         return thisCall;
                     }
                     else
@@ -232,6 +313,22 @@ namespace Lync_Backend.Implementation
                         thisCall.Marker_CallType = "INTERNATIONAL-FIXEDLINE";
                         thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
 
+                        if (thisCall.CalleeURI == thisCall.DestinationNumberUri || thisCall.CalleeURI == null)
+                        {
+                            return thisCall;
+                        }
+                        else if (Regex.IsMatch(thisCall.CalleeURI, @"\d{1,}@\w{1,}.*"))
+                        {
+                            if (Regex.Replace(thisCall.CalleeURI, @"@\w{1,}.*", "") == thisCall.DestinationNumberUri)
+                            {
+                                return thisCall;
+                            }
+                            else
+                            {
+                                thisCall.ChargingParty = thisCall.CalleeURI;
+                                return thisCall;
+                            }
+                        }
                         return thisCall;
                     }
                 }
