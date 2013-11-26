@@ -19,6 +19,7 @@ namespace Lync_Billing.DB
         public string SipAccount { get; set; }
         public string SiteName { get; set; }
         public string Department { get; set; }
+        public string TelephoneNumber { get; set; }
         
         //This is a logical representation, it doesn't exist in the database.
         //This is a copy from the ADUserInfo record for this user.
@@ -42,21 +43,28 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.EmployeeID) && row[column.ColumnName] != null)
-                        user.EmployeeID = (int)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.EmployeeID))
+                        user.EmployeeID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
-                        user.SipAccount = (string)row[column.ColumnName];
+                        user.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SiteName) && row[column.ColumnName] != DBNull.Value)
-                        user.SiteName = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SiteName))
+                        user.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.DisplayName) && row[column.ColumnName] != DBNull.Value)
-                        user.FullName = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.DisplayName))
+                    {
+                        user.FullName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.DisplayName = HelperFunctions.FormatUserDisplayName(user.FullName, user.SipAccount);
+                    }
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.Department) && row[column.ColumnName] != DBNull.Value)
-                        user.Department = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.Department))
+                        user.Department = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.TelephoneNumber))
+                        user.TelephoneNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                 }
+
                 users.Add(user);
             }
 
@@ -81,29 +89,28 @@ namespace Lync_Billing.DB
 
                 foreach (DataColumn column in dt.Columns)
                 {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.EmployeeID) && row[column.ColumnName] != null)
-                        user.EmployeeID = (int)row[column.ColumnName];
-                    else
-                        user.EmployeeID = 0;
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.EmployeeID))
+                        user.EmployeeID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
-                        user.SipAccount = (string)row[column.ColumnName];
+                        user.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SiteName) && row[column.ColumnName] != DBNull.Value)
-                        user.SiteName = (string)row[column.ColumnName];
-                    else
-                        user.SiteName = string.Empty;
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SiteName))
+                        user.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.DisplayName) && row[column.ColumnName] != DBNull.Value)
-                        user.FullName = (string)row[column.ColumnName];
-                    else
-                        user.FullName = string.Empty;
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.DisplayName))
+                    {
+                        user.FullName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.DisplayName = HelperFunctions.FormatUserDisplayName(user.FullName, user.SipAccount);
+                    }
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Users.Department) && row[column.ColumnName] != DBNull.Value)
-                        user.Department = (string)row[column.ColumnName];
-                    else
-                        user.Department = string.Empty;
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.Department))
+                        user.Department = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.TelephoneNumber))
+                        user.TelephoneNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                 }
+
                 users.Add(user);
             }
 
@@ -122,22 +129,31 @@ namespace Lync_Billing.DB
 
             if (dt.Rows.Count > 0)
             {
+                var row = dt.Rows[0];
 
-                if (dt.Rows[0][Enums.GetDescription(Enums.Users.EmployeeID)] != null)
+                foreach(DataColumn column in dt.Columns)
                 {
-                    user.EmployeeID = (int)dt.Rows[0][Enums.GetDescription(Enums.Users.EmployeeID)];
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.EmployeeID))
+                        user.EmployeeID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
+                        user.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SiteName))
+                        user.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.DisplayName))
+                    {
+                        user.FullName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.DisplayName = HelperFunctions.FormatUserDisplayName(user.FullName, user.SipAccount);
+                    }
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.Department))
+                        user.Department = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.TelephoneNumber))
+                        user.TelephoneNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                 }
-
-                if ((user.FullName = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.DisplayName)]) != null) { }
-
-                if ((user.SipAccount = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.SipAccount)]) != null) { }
-
-                if ((user.SiteName = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.SiteName)]) != null) { }
-
-                if (dt.Rows[0][Enums.GetDescription(Enums.Users.Department)] != DBNull.Value)
-                    user.Department = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.Department)];
-                else
-                    user.Department = string.Empty;
 
                 return user;
             }
@@ -160,21 +176,31 @@ namespace Lync_Billing.DB
 
             if (dt.Rows.Count > 0)
             {
-                if (dt.Rows[0][Enums.GetDescription(Enums.Users.EmployeeID)] != null)
+                var row = dt.Rows[0];
+
+                foreach (DataColumn column in dt.Columns)
                 {
-                    user.EmployeeID = (int)dt.Rows[0][Enums.GetDescription(Enums.Users.EmployeeID)];
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.EmployeeID))
+                        user.EmployeeID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
+                        user.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SiteName))
+                        user.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.DisplayName))
+                    {
+                        user.FullName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.DisplayName = HelperFunctions.FormatUserDisplayName(user.FullName, user.SipAccount);
+                    }
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.Department))
+                        user.Department = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.TelephoneNumber))
+                        user.TelephoneNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                 }
-
-                if ((user.FullName = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.DisplayName)]) != null) { }
-
-                if ((user.SipAccount = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.SipAccount)]) != null) { }
-
-                if ((user.SiteName = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.SiteName)]) != null) { }
-
-                if (dt.Rows[0][Enums.GetDescription(Enums.Users.Department)] != DBNull.Value)
-                    user.Department = (string)dt.Rows[0][Enums.GetDescription(Enums.Users.Department)];
-                else
-                    user.Department = string.Empty;
 
                 return user;
             }
@@ -191,24 +217,26 @@ namespace Lync_Billing.DB
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
 
             //Set Part
-            if ((user.EmployeeID).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Users.EmployeeID), user.EmployeeID);
+            columnsValues.Add(Enums.GetDescription(Enums.Users.EmployeeID), user.EmployeeID);
 
-            if ((user.SipAccount).ToString() != null)
+            if (!string.IsNullOrEmpty(user.SipAccount))
                 columnsValues.Add(Enums.GetDescription(Enums.Users.SipAccount), user.SipAccount);
 
-            if (user.SiteName != null)
+            if (!string.IsNullOrEmpty(user.SiteName))
                 columnsValues.Add(Enums.GetDescription(Enums.Users.SiteName), user.SiteName.ToString());
             else
                 columnsValues.Add(Enums.GetDescription(Enums.Users.SiteName), "UNIDENTIFIED");
 
-            if (user.FullName != null)
+            if (!string.IsNullOrEmpty(user.FullName))
                 columnsValues.Add(Enums.GetDescription(Enums.Users.DisplayName), user.FullName);
 
-            if (user.Department != null)
+            if (!string.IsNullOrEmpty(user.Department))
                 columnsValues.Add(Enums.GetDescription(Enums.Users.Department), user.Department.ToString());
             else
                 columnsValues.Add(Enums.GetDescription(Enums.Users.Department), "UNIDENTIFIED");
+
+            if (!string.IsNullOrEmpty(user.TelephoneNumber))
+                columnsValues.Add(Enums.GetDescription(Enums.Users.TelephoneNumber), user.TelephoneNumber);
 
             //Execute Insert
             rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Users.TableName), columnsValues,Enums.GetDescription(Enums.Users.EmployeeID));
@@ -219,26 +247,34 @@ namespace Lync_Billing.DB
         public static bool UpdateUser(Users user)
         {
             bool status = false;
-            Dictionary<string,object> wherePart = new Dictionary<string,object>();
             
-            wherePart.Add(Enums.GetDescription(Enums.Users.SipAccount),user.SipAccount);
+            Dictionary<string,object> wherePart = new Dictionary<string,object>
+            {
+                { Enums.GetDescription(Enums.Users.SipAccount), user.SipAccount }
+            };
             
             Dictionary<string, object> setPart = new Dictionary<string, object>();
-            //Set Part
-             if ((user.EmployeeID).ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.Users.EmployeeID), user.EmployeeID);
-            
-            if ((user.SipAccount).ToString() != null)
+
+            setPart.Add(Enums.GetDescription(Enums.Users.EmployeeID), user.EmployeeID);
+
+            if (!string.IsNullOrEmpty(user.SipAccount))
                 setPart.Add(Enums.GetDescription(Enums.Users.SipAccount), user.SipAccount);
 
-            if (user.SiteName != null)
-                setPart.Add(Enums.GetDescription(Enums.Users.SiteName), user.SiteName);
+            if (!string.IsNullOrEmpty(user.SiteName))
+                setPart.Add(Enums.GetDescription(Enums.Users.SiteName), user.SiteName.ToString());
+            else
+                setPart.Add(Enums.GetDescription(Enums.Users.SiteName), "UNIDENTIFIED");
 
-            if (user.FullName != null)
+            if (!string.IsNullOrEmpty(user.FullName))
                 setPart.Add(Enums.GetDescription(Enums.Users.DisplayName), user.FullName);
 
-            if (user.Department != null)
-                setPart.Add(Enums.GetDescription(Enums.Users.Department), user.Department);
+            if (!string.IsNullOrEmpty(user.Department))
+                setPart.Add(Enums.GetDescription(Enums.Users.Department), user.Department.ToString());
+            else
+                setPart.Add(Enums.GetDescription(Enums.Users.Department), "UNIDENTIFIED");
+
+            if (!string.IsNullOrEmpty(user.TelephoneNumber))
+                setPart.Add(Enums.GetDescription(Enums.Users.TelephoneNumber), user.TelephoneNumber);
 
             status = DBRoutines.UPDATE(
                 Enums.GetDescription(Enums.Users.TableName),

@@ -185,6 +185,19 @@ namespace Lync_Billing.Libs
                 return defaultValue;
             }
         }
+
+
+        public static string FormatUserTelephoneNumber(string telephoneNumber)
+        {
+            string result = string.Empty;
+
+            if (!string.IsNullOrEmpty(telephoneNumber))
+            {
+                result = telephoneNumber.Replace("tel:", "");
+            }
+
+            return result;
+        }
     }           
 
 }

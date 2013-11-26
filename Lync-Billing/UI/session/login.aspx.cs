@@ -110,12 +110,12 @@ namespace Lync_Billing.ui.session
                     {
                         //If user information from Active directory doesnt match the one in Users Table : update user table 
                         if (DatabaseUserRecord.EmployeeID.ToString() != userInfo.EmployeeID ||
+                            DatabaseUserRecord.FullName != userInfo.FirstName + " " + userInfo.LastName || 
                             DatabaseUserRecord.SiteName != userInfo.physicalDeliveryOfficeName ||
-                            DatabaseUserRecord.Department != userInfo.department)
+                            DatabaseUserRecord.Department != userInfo.department || 
+                            DatabaseUserRecord.TelephoneNumber != userInfo.Telephone)
                         {
                             Users user = new Users();
-                            user.SiteName = userInfo.physicalDeliveryOfficeName;
-
                             int employeeID = 0;
                             
                             // Validate employeeID if it could be parsed as integer or not
@@ -128,7 +128,9 @@ namespace Lync_Billing.ui.session
                             
                             user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                             user.FullName = userInfo.FirstName + " " + userInfo.LastName;
+                            user.TelephoneNumber = HelperFunctions.FormatUserTelephoneNumber(userInfo.Telephone);
                             user.Department = userInfo.department;
+                            user.SiteName = userInfo.physicalDeliveryOfficeName;
 
                             Users.UpdateUser(user);
                         }
@@ -137,9 +139,7 @@ namespace Lync_Billing.ui.session
                     {
                         // If user not found in Users tables that means this is his first login : insert his information into Users table
                         Users user = new Users();
-                        user.SiteName = userInfo.physicalDeliveryOfficeName;
-                        user.Department = userInfo.department;
-
+                        
                         int employeeID = 0;
 
                         bool result = Int32.TryParse(userInfo.EmployeeID, out employeeID);
@@ -151,6 +151,9 @@ namespace Lync_Billing.ui.session
 
                         user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
                         user.FullName = userInfo.FirstName + " " + userInfo.LastName;
+                        user.TelephoneNumber = HelperFunctions.FormatUserTelephoneNumber(userInfo.Telephone);
+                        user.Department = userInfo.department;
+                        user.SiteName = userInfo.physicalDeliveryOfficeName;
                      
                         Users.InsertUser(user);
                     }
