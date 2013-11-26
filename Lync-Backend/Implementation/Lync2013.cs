@@ -130,7 +130,7 @@ namespace Lync_Backend.Implementation
                 }
                 catch (Exception e)
                 {
-                    break;
+                    continue;
                 }
             }
 
