@@ -281,14 +281,14 @@ namespace Lync_Billing.DB.Summaries
 
 
             //Get the sites which share this site's gateway
-            List<GatewayDetail> gatewayDetails = GatewayDetail.GetGatewaysDetails(siteName);
+            //List<GatewayDetail> gatewayDetails = GatewayDetail.GetGatewaysDetails(siteName);
 
-            foreach (GatewayDetail detail in gatewayDetails)
-            {
-                sharedSitesPerGateway.AddRange(GatewayDetail.GetSitesNamesForGateway(detail.GatewayID));
-            }
+            //foreach (GatewayDetail detail in gatewayDetails)
+            //{
+            //    sharedSitesPerGateway.AddRange(GatewayDetail.GetSitesNamesForGateway(detail.GatewayID));
+            //}
 
-            sharedSitesPerGateway.Remove(siteName);
+            //sharedSitesPerGateway.Remove(siteName);
 
 
             //Add the siteName to the functionParams
@@ -335,7 +335,8 @@ namespace Lync_Billing.DB.Summaries
                 userSummary.TotalCallsDurations = userSummary.BusinessCallsDuration + userSummary.PersonalCallsDuration + userSummary.UnmarkedCallsDuration;
                 userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
 
-                if(!sharedSitesPerGateway.Contains(userSummary.SiteName))
+                //if(!sharedSitesPerGateway.Contains(userSummary.SiteName))
+                if(userSummary.SiteName == siteName)
                     usersSummaryList.Add(userSummary);
             }
 
