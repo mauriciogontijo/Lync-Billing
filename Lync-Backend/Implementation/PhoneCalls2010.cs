@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Lync_Backend.Interfaces;
 using Lync_Backend.Helpers;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace Lync_Backend.Implementation
 {
@@ -154,26 +155,26 @@ namespace Lync_Backend.Implementation
                 {
                     thisCall.Marker_CallType = "NATIONAL-FIXEDLINE";
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
-
+                   
                     return thisCall;
                 }
                 else if (dstCallType == "gsm")
                 {
                     thisCall.Marker_CallType = "NATIONAL-MOBILE";
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
-
+                  
                     return thisCall;
+
                 }
                 else
                 {
                     thisCall.Marker_CallType = "NATIONAL-FIXEDLINE";
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
-
+                  
                     return thisCall;
                 }
             }
-
-            else
+             else
             {
                 if (!string.IsNullOrEmpty(dstDIDdsc))
                 {
@@ -191,21 +192,21 @@ namespace Lync_Backend.Implementation
                 {
                     thisCall.Marker_CallType = "INTERNATIONAL-FIXEDLINE";
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
-
+                   
                     return thisCall;
                 }
                 else if (dstCallType == "gsm")
                 {
                     thisCall.Marker_CallType = "INTERNATIONAL-MOBILE";
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
-
+                    
                     return thisCall;
                 }
                 else
                 {
                     thisCall.Marker_CallType = "INTERNATIONAL-FIXEDLINE";
                     thisCall.Marker_CallTypeID = callTypes.Find(type => type.CallType == thisCall.Marker_CallType).id;
-
+                  
                     return thisCall;
                 }
             }
