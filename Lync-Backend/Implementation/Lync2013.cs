@@ -113,6 +113,13 @@ namespace Lync_Backend.Implementation
                     else
                         phoneCallObj.ChargingParty = phoneCallObj.SourceUserUri;
                 }
+                else 
+                {
+                    if (!string.IsNullOrEmpty(phoneCallObj.ReferredBy))
+                        phoneCallObj.ChargingParty = phoneCallObj.ReferredBy;
+                    else
+                        phoneCallObj.ChargingParty = phoneCallObj.SourceUserUri;
+                }
 
                 lastMarkedPhoneCallDate = phoneCallObj.SessionIdTime;
 
