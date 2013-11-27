@@ -371,7 +371,7 @@ namespace Lync_Billing.DB
             if(!string.IsNullOrEmpty(phoneCall.ChargingParty))
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.ChargingParty), phoneCall.ChargingParty);
 
-            if (phoneCall.UI_MarkedOn != null)
+            if (phoneCall.UI_MarkedOn != DateTime.MinValue)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn), phoneCall.UI_MarkedOn);
 
             if (!string.IsNullOrEmpty(phoneCall.UI_UpdatedByUser))
@@ -383,19 +383,19 @@ namespace Lync_Billing.DB
             if (!string.IsNullOrEmpty(phoneCall.UI_AssignedByUser))
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser), phoneCall.UI_AssignedByUser);
 
-            if (phoneCall.UI_AssignedOn != null)
-                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser), phoneCall.UI_AssignedOn);
+            if (phoneCall.UI_AssignedOn != DateTime.MinValue)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn), phoneCall.UI_AssignedOn);
 
-            if (!string.IsNullOrEmpty(phoneCall.AC_DisputeStatus))
+            if (phoneCall.AC_DisputeStatus != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus), phoneCall.AC_DisputeStatus);
 
-            if (phoneCall.AC_DisputeResolvedOn != null)
+            if (phoneCall.AC_DisputeResolvedOn != DateTime.MinValue)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn), phoneCall.AC_DisputeResolvedOn);
 
-            if (!string.IsNullOrEmpty(phoneCall.AC_IsInvoiced))
+            if (phoneCall.AC_IsInvoiced != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), phoneCall.AC_IsInvoiced);
 
-            if (phoneCall.AC_InvoiceDate != null)
+            if (phoneCall.AC_InvoiceDate != DateTime.MinValue)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), phoneCall.AC_InvoiceDate);
 
             //Execute Update
