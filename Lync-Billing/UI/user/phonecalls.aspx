@@ -460,7 +460,7 @@
                                     runat="server"
                                     Text="Assigned By"
                                     Width="140"
-                                    DataIndex="AssignedByUser">
+                                    DataIndex="UI_AssignedByUser">
                                 </ext:Column>
 
                                 <ext:Column
