@@ -815,7 +815,12 @@ namespace Lync_Billing.ui.user
 
         protected void DepartmentPhoneCallsStore_Load(object sender, EventArgs e)
         {
-            string SiteDepartment = session.NormalUserInfo.SiteName + "_" + session.NormalUserInfo.Department;
+            //string SiteDepartment = session.NormalUserInfo.SiteName + "_" + session.NormalUserInfo.Department;
+
+            string SiteDepartment =
+                (session.ActiveRoleName == userDelegeeRoleName) ?
+                session.NormalUserInfo.SiteName + "_" + session.NormalUserInfo.Department :
+                session.DelegeeAccount.DelegeeUserAccount.SiteName + "_" + session.DelegeeAccount.DelegeeUserAccount.Department;
 
             DepartmentPhoneCallsGrid.GetStore().DataSource = PhoneCall.GetPhoneCalls(SiteDepartment);
             DepartmentPhoneCallsGrid.GetStore().DataBind();
