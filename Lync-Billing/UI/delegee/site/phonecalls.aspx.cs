@@ -143,18 +143,6 @@ namespace Lync_Billing.ui.delegee.site
 
             if (SiteDelegeeDepartments.Count > 0)
             {
-                //Handle the FireSelect event
-                if (alwaysFireSelect == true)
-                {
-                    DepartmentsListComboBox.SetValueAndFireSelect(SiteDelegeeDepartments.First().DepartmentID);
-
-                    //Handle the ReadOnly Property
-                    if (SiteDelegeeDepartments.Count == 1)
-                    {
-                        DepartmentsListComboBox.ReadOnly = true;
-                    }
-                }
-
                 //Bind all the Data and return to the view
                 DepartmentsListComboBox.GetStore().DataSource = SiteDelegeeDepartments;
                 DepartmentsListComboBox.GetStore().DataBind();
@@ -287,6 +275,12 @@ namespace Lync_Billing.ui.delegee.site
         protected void RejectChanges_DirectEvent(object sender, DirectEventArgs e)
         {
             ManagePhoneCallsGrid.GetStore().RejectChanges();
+        }
+
+        [DirectMethod]
+        protected void AssignSelectedPhoneCallsToDepartment(object sender, DirectEventArgs e)
+        {
+
         }
 
     }

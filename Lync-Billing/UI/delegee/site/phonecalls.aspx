@@ -62,7 +62,7 @@
                         Disabled="true"
                         DisabledCls=""
                         Cls="font-12 popup-menu-field-label-background" />
-
+                    
                     <ext:ComboBox
                         ID="DepartmentsListComboBox"
                         runat="server"
@@ -105,14 +105,20 @@
                                 </Html>
                             </ItemTpl>
                         </ListConfig>
-
-                        <%--<DirectEvents>
-                            <Select OnEvent="">
-                                <EventMask ShowMask="true" />
-                            </Select>
-                        </DirectEvents>--%>
                     </ext:ComboBox>
 
+                    <ext:Button
+                        ID="AssignToDepartmentButton"
+                        runat="server"
+                        Icon="Add"
+                        Margins="0 5 0 0"
+                        Text="Assign Phonecalls">
+                        <DirectEvents>
+                            <Click OnEvent="AssignSelectedPhoneCallsToDepartment">
+                                <EventMask ShowMask="true" />
+                            </Click>
+                        </DirectEvents>
+                    </ext:Button>
                 </Items>
             </ext:Menu>
 
