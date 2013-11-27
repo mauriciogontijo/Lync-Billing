@@ -194,7 +194,7 @@ namespace Lync_Billing.ui.user
             }
             else
             {
-                userSessionPhoneCalls = session.Phonecalls;
+                userSessionAddressBook = session.Addressbook;
                 userSessionPhoneCallsPerPageJson = session.PhonecallsPerPage;
             }
 
@@ -562,7 +562,7 @@ namespace Lync_Billing.ui.user
             PhoneBook phoneBookEntry;
             List<PhoneCall> submittedPhoneCalls;
             List<PhoneCall> phoneCallsPerPage;
-            IEnumerable<PhoneCall> matchedDestinationCalls;
+            List<PhoneCall> matchedDestinationCalls;
             List<PhoneBook> newOrUpdatedPhoneBookEntries = new List<PhoneBook>();
 
             //These would refer to either the the user's or the delegee's
@@ -587,8 +587,8 @@ namespace Lync_Billing.ui.user
             selectiomModel = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
             submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
-            phoneCallsPerPage = JsonConvert.DeserializeObject<List<PhoneCall>>(session.PhonecallsPerPage, settings);
-            userSessionPhoneCallsPerPageJson = json;
+            phoneCallsPerPage = JsonConvert.DeserializeObject<List<PhoneCall>>(userSessionPhoneCallsPerPageJson, settings);
+            //userSessionPhoneCallsPerPageJson = json;
 
             //Start allocating the submitted phone calls
             foreach (PhoneCall phoneCall in submittedPhoneCalls)
@@ -617,13 +617,15 @@ namespace Lync_Billing.ui.user
                     newOrUpdatedPhoneBookEntries.Add(phoneBookEntry);
                 }
 
-                matchedDestinationCalls = userSessionPhoneCalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
+                matchedDestinationCalls = userSessionPhoneCalls.Where(
+                    o => o.DestinationNumberUri == phoneCall.DestinationNumberUri && (string.IsNullOrEmpty(o.UI_CallType) || o.UI_CallType == "Business")
+                ).ToList();
                 
 
                 foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
                 {
-                    if (matchedDestinationCall.UI_CallType == "Personal")
-                        break;
+                    //if (matchedDestinationCall.UI_CallType == "Personal")
+                    //    continue;
 
                     matchedDestinationCall.UI_CallType = "Personal";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
@@ -685,7 +687,7 @@ namespace Lync_Billing.ui.user
             phoneCallsPerPage = JsonConvert.DeserializeObject<List<PhoneCall>>(session.PhonecallsPerPage, settings);
             userSessionPhoneCallsPerPageJson = json;
 
-            
+
             //Start allocating the submitted phone calls
             foreach (PhoneCall phoneCall in submittedPhoneCalls)
             {
@@ -713,12 +715,15 @@ namespace Lync_Billing.ui.user
                     newOrUpdatedPhoneBookEntries.Add(phoneBookEntry);
                 }
 
-                matchedDestinationCalls = session.Phonecalls.Where(o => o.DestinationNumberUri == phoneCall.DestinationNumberUri);
+
+                matchedDestinationCalls = userSessionPhoneCalls.Where(
+                    o => o.DestinationNumberUri == phoneCall.DestinationNumberUri && (string.IsNullOrEmpty(o.UI_CallType) || o.UI_CallType == "Personal")
+                ).ToList();
 
                 foreach (PhoneCall matchedDestinationCall in matchedDestinationCalls)
                 {
-                    if (matchedDestinationCall.UI_CallType == "Business")
-                        break;
+                    //if (matchedDestinationCall.UI_CallType == "Business")
+                    //    continue;
 
                     matchedDestinationCall.UI_CallType = "Business";
                     matchedDestinationCall.UI_MarkedOn = DateTime.Now;
@@ -757,10 +762,47 @@ namespace Lync_Billing.ui.user
             {
                 PhoneCallsStore.Filter("UI_CallType", FilterTypeComboBox.SelectedItem.Value);
                 PhoneBookNameEditorTextbox.ReadOnly = true;
+
+                if (FilterTypeComboBox.SelectedItem.Value == "Personal")
+                {
+                    AllocatePhonecallsAsPersonal.Disabled = true;
+                    AllocateDestinationsAsAlwaysPersonal.Disabled = true;
+
+                    AllocatePhonecallsAsDispute.Disabled = false;
+                    AllocatePhonecallsAsBusiness.Disabled = false;
+                    AllocateDestinationsAsAlwaysBusiness.Disabled = false;
+                }
+
+                if (FilterTypeComboBox.SelectedItem.Value == "Business")
+                {
+                    AllocatePhonecallsAsBusiness.Disabled = true;
+                    AllocateDestinationsAsAlwaysBusiness.Disabled = true;
+
+                    AllocatePhonecallsAsDispute.Disabled = false;
+                    AllocatePhonecallsAsPersonal.Disabled = false;
+                    AllocateDestinationsAsAlwaysPersonal.Disabled = false;
+                }
+
+                if (FilterTypeComboBox.SelectedItem.Value == "Disputed")
+                {
+                    AllocatePhonecallsAsDispute.Disabled = true;
+
+                    AllocatePhonecallsAsBusiness.Disabled = false;
+                    AllocatePhonecallsAsPersonal.Disabled = false;
+                    AllocateDestinationsAsAlwaysBusiness.Disabled = false;
+                    AllocateDestinationsAsAlwaysPersonal.Disabled = false;
+                }
             }
             else
             {
                 PhoneBookNameEditorTextbox.ReadOnly = false;
+
+                AllocatePhonecallsAsDispute.Disabled = false;
+                AllocatePhonecallsAsBusiness.Disabled = false;
+                AllocatePhonecallsAsPersonal.Disabled = false;
+
+                AllocateDestinationsAsAlwaysPersonal.Disabled = false;
+                AllocateDestinationsAsAlwaysBusiness.Disabled = false;
             }
 
             PhoneCallsStore.LoadPage(1);
