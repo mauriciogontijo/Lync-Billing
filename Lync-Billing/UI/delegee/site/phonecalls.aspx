@@ -71,8 +71,9 @@
                         QueryMode="Local"
                         DisplayField="DepartmentName"
                         ValueField="DepartmentID"
+                        Editable="true"
                         Width="300"
-                        Editable="true">
+                        Margins="0 5 0 0">
                         <Store>
                             <ext:Store 
                                 ID="DepartmentsFilterStore"
@@ -94,6 +95,7 @@
 
                         <ListConfig
                             Border="true"
+                            MinHeight="25"
                             MinWidth="230"
                             MaxWidth="250"
                             EmptyText="Please select a department...">
@@ -130,7 +132,8 @@
                         QueryMode="Local"
                         DisplayField="SipAccount"
                         ValueField="SipAccount"
-                        Width="300">
+                        Width="300"
+                        Margins="0 5 0 0">
                         <Store>
                             <ext:Store 
                                 ID="FilterUsersByDepartmentStore"
@@ -153,6 +156,7 @@
 
                         <ListConfig
                             LoadingText="Searching..."
+                            MinHeight="25"
                             MinWidth="330"
                             MaxWidth="350"
                             Border="true"
