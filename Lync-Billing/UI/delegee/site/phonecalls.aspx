@@ -129,7 +129,7 @@
                 OnSelecting="PhoneCallsDataSource_Selecting"
                 OnSelected="PhoneCallsDataSource_Selected"
                 SelectMethod="GetPhoneCallsFilter"
-                TypeName="Lync_Billing.ui.user.phonecalls">
+                TypeName="Lync_Billing.ui.delegee.site.phonecalls">
                 <SelectParameters>
                     <asp:Parameter Name="start" Type="Int32" />
                     <asp:Parameter Name="limit" Type="Int32" />
@@ -280,13 +280,11 @@
                                 Width="200"
                                 Margins="5 470 5 5">
                                 <Items>
-                                    <ext:ListItem Text="Unallocated" Value="Unmarked" />
-                                    <ext:ListItem Text="Business" Value="Business" />
-                                    <ext:ListItem Text="Personal" Value="Personal" />
-                                    <ext:ListItem Text="Disputed" Value="Disputed" />
+                                    <ext:ListItem Text="Assigned" Value="Assigned" />
+                                    <ext:ListItem Text="Unassigned" Value="Unassigned" />
                                 </Items>
                                 <SelectedItems>
-                                    <ext:ListItem Text="Unallocated" Value="Unmarked" />
+                                    <ext:ListItem Text="Unassigned" Value="Unassigned" />
                                 </SelectedItems>
                                 <DirectEvents>
                                     <Select OnEvent="PhoneCallsTypeFilter" />

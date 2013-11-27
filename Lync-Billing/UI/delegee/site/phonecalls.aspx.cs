@@ -23,7 +23,8 @@ namespace Lync_Billing.ui.delegee.site
     {
         private UserSession session;
         private string sipAccount = string.Empty;
-        private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee);
+        private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
+        private string siteDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee);
 
         private List<Department> SiteDelegeeDepartments = new List<Department>();
 
@@ -49,14 +50,14 @@ namespace Lync_Billing.ui.delegee.site
             {
                 session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-                if (session.ActiveRoleName != allowedRoleName)
+                if (session.ActiveRoleName != siteDelegeeRoleName)
                 {
-                    Response.Redirect("~/ui/session/authenticate.aspx?access=" + allowedRoleName);
+                    Response.Redirect("~/ui/session/authenticate.aspx?access=" + siteDelegeeRoleName);
                 }
             }
 
-            //sipAccount = session.EffectiveSipAccount;
-            sipAccount = session.NormalUserInfo.SipAccount;
+            //sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
 
             /***
              * Thie following solves the issue of infinitely looping like: Page_Load--->BindDepartmentsForThisUser--->DrawStatisticsForDepartment
@@ -73,10 +74,59 @@ namespace Lync_Billing.ui.delegee.site
             }
         }
 
+        //Get the user sipaccount.
+        private string GetEffectiveSipAccount()
+        {
+            string userSipAccount = string.Empty;
+            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+
+            //if the user is a user-delegee return the delegate sipaccount.
+            if (session.ActiveRoleName == siteDelegeeRoleName)
+            {
+                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
+            }
+            else
+            {
+                userSipAccount = session.NormalUserInfo.SipAccount;
+            }
+
+            return userSipAccount;
+        }
+
+        //Get the user session phonecalls
+        //Handle normal user mode and user delegee mode
+        private List<PhoneCall> GetUserSessionPhoneCalls(bool force = false)
+        {
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
+
+            if (session.DelegeeAccount.DelegeeUserPhonecalls == null || session.DelegeeAccount.DelegeeUserPhonecalls.Count == 0 || force == true)
+            {
+                var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                var addressbook = session.DelegeeAccount.DelegeeUserAddressbook;
+
+                if (addressbook == null || addressbook.Count == 0)
+                    addressbook = PhoneBook.GetAddressBook(sipAccount);
+
+                foreach (var phoneCall in userPhoneCalls)
+                {
+                    if (addressbook.ContainsKey(phoneCall.DestinationNumberUri))
+                    {
+                        phoneCall.PhoneBookName = ((PhoneBook)addressbook[phoneCall.DestinationNumberUri]).Name;
+                    }
+                }
+
+                session.DelegeeAccount.DelegeeUserPhonecalls = userPhoneCalls.ToList();
+
+                xmldoc = HelperFunctions.SerializeObject<List<PhoneCall>>(session.DelegeeAccount.DelegeeUserPhonecalls);
+            }
+
+            return session.DelegeeAccount.DelegeeUserPhonecalls;
+        }
+
         private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
         {
             session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-            sipAccount = session.NormalUserInfo.SipAccount;
 
             //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
             if (session.IsDeveloper)
@@ -117,7 +167,7 @@ namespace Lync_Billing.ui.delegee.site
         {
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             //sipAccount = session.EffectiveSipAccount;
-            sipAccount = session.NormalUserInfo.SipAccount;
+           
 
             if (session.Phonecalls == null || session.Phonecalls.Count == 0 || force == true)
             {
@@ -128,39 +178,45 @@ namespace Lync_Billing.ui.delegee.site
 
         public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
+            List<PhoneCall> userSessionPhoneCalls;
+            IEnumerable<PhoneCall> filteredPhoneCalls;
+            int filteredPhoneCallsCount;
+
+            //Get use session and user phonecalls list.
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            getPhoneCalls();
 
-            IEnumerable<PhoneCall> result;
+            //Get user session phonecalls; handle normal user mode and delegee mode
+            userSessionPhoneCalls = GetUserSessionPhoneCalls();
 
+
+            //Begin the filtering process
             if (filter == null)
-                result = session.Phonecalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
+                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
             else
-                result = session.Phonecalls.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
+                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
 
+
+            //Begin sorting process
             if (sort != null)
             {
                 ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
-
-                //Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
-
                 var p = Expression.Parameter(typeof(PhoneCall));
                 var sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.TypeAs(Expression.Property(p, sort.Property), typeof(object)), p).Compile();
 
                 if (sort.Direction == Ext.Net.SortDirection.DESC)
-                    result = result.OrderByDescending(sortExpression);
+                    filteredPhoneCalls = filteredPhoneCalls.OrderByDescending(sortExpression);
                 else
-                    result = result.OrderBy(sortExpression);
+                    filteredPhoneCalls = filteredPhoneCalls.OrderBy(sortExpression);
             }
 
-            int resultCount = result.Count();
+            filteredPhoneCallsCount = filteredPhoneCalls.Count();
 
             if (start >= 0 && limit > 0)
-                result = result.Skip(start).Take(limit);
+                filteredPhoneCalls = filteredPhoneCalls.Skip(start).Take(limit);
 
-            count = resultCount;
+            count = filteredPhoneCallsCount;
 
-            return result.ToList();
+            return filteredPhoneCalls.ToList();
         }
 
         [DirectMethod]
@@ -168,9 +224,9 @@ namespace Lync_Billing.ui.delegee.site
         {
             PhoneCallsStore.ClearFilter();
 
-            if (FilterTypeComboBox.SelectedItem.Value != "Unmarked")
+            if (FilterTypeComboBox.SelectedItem.Value != "Unassigned")
             {
-                PhoneCallsStore.Filter("UI_CallType", FilterTypeComboBox.SelectedItem.Value);
+                PhoneCallsStore.Filter(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser), sipAccount);
                 PhoneBookNameEditorTextbox.ReadOnly = true;
             }
             else
@@ -214,7 +270,8 @@ namespace Lync_Billing.ui.delegee.site
             this.e = e;
             PhoneCallsStore.DataBind();
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            session.PhonecallsPerPage = PhoneCallsStore.JsonData;
+            //session.PhonecallsPerPage = PhoneCallsStore.JsonData;
+            session.DelegeeAccount.DelegeeUserPhonecallsPerPage = PhoneCallsStore.JsonData;
         }
 
         [DirectMethod]
