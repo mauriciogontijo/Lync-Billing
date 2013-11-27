@@ -746,8 +746,7 @@ namespace Lync_Billing.ui.user
             SetUserSessionPhoneCallsData(userSessionPhoneCalls, userSessionAddressBook, userSessionPhoneCallsPerPageJson);
         }
 
-
-
+        [DirectMethod]
         protected void RejectChanges_DirectEvent(object sender, DirectEventArgs e)
         {
             ManagePhoneCallsGrid.GetStore().RejectChanges();
@@ -812,6 +811,14 @@ namespace Lync_Billing.ui.user
         protected void ShowUserHelpPanel(object sender, DirectEventArgs e)
         {
             this.UserHelpPanel.Show();
+        }
+
+        protected void DepartmentPhoneCallsStore_Load(object sender, EventArgs e)
+        {
+            string SiteDepartment = session.NormalUserInfo.SiteName + "_" + session.NormalUserInfo.Department;
+
+            DepartmentPhoneCallsGrid.GetStore().DataSource = PhoneCall.GetPhoneCalls(SiteDepartment);
+            DepartmentPhoneCallsGrid.GetStore().DataBind();
         }
 
     }
