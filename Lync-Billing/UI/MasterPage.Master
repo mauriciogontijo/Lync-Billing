@@ -151,7 +151,7 @@
                                     
                                         <% if(current_session.ActiveRoleName == userDelegeeRoleName) { %>
                                             <li id="access-tab">
-                                                <a title="Drop delegee access" href="../session/authenticate.aspx?drop=userdelegee">Drop Delegee Access<span class="shutdown"></span></a>
+                                                <a title="Drop delegee access" href="../session/authenticate.aspx?action=drop">Drop Delegee Access<span class="shutdown"></span></a>
                                             </li>
                                         <% } %>
                                     <% } %>

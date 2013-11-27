@@ -56,7 +56,7 @@
                             <div class="ie7flot-fix" ><!--ie7 fix-->
                                 <ul id="navigation-tabs" class="vertical-navigation " >
                                     <li id="access-tab">
-                                        <a title="" href="../../session/authenticate.aspx?drop=<%= current_session.ActiveRoleName %>">
+                                        <a title="" href="../../session/authenticate.aspx?action=drop">
                                             <%= DROP_ACCESS_BUTTON_TEXT %><span class="shutdown"></span>
                                         </a>
                                     </li>
@@ -299,10 +299,10 @@
                                 <Content>
                                     <div class='sidebar-section'>
                                         <div class="sidebar-section-header">
-                                            <p>Manage Phonecalls</p>
+                                            <p>Phonecalls</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../site/phonecalls.aspx' id="ui_delegee_site">For Site</a></p>
+                                            <p><a href='../site/phonecalls.aspx' id="ui_delegee_site">Manage Phonecalls</a></p>
                                         </div>
                                     </div>
                                 </Content>

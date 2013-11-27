@@ -131,7 +131,7 @@ namespace Lync_Billing.DB.Roles
                         delegatedAccount.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.SipAccount))
-                        delegatedAccount.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        delegatedAccount.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName])).TrimEnd();
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.Description))
                         delegatedAccount.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));

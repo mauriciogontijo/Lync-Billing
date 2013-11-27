@@ -70,56 +70,54 @@ namespace Lync_Billing.ui.session
                  * The asked permission was actually granted for the current user.
                  **/
 
-                //Mode 1: The Normal User Mode
-                if (!string.IsNullOrEmpty(session.NormalUserInfo.SipAccount) && (session.DelegeeAccount == null || session.DelegeeAccount.DelegeeUserAccount == null))
+                //Mode 1: Non-delegee requests access
+                if (!string.IsNullOrEmpty(session.NormalUserInfo.SipAccount) && session.DelegeeAccount == null)
                 {
-                    //Case 1: The user asks for Admin or Accounting access
-                    //Should pass "access" and "access" should be coherent within our own system
-                    //Shouldn't pass the other variables, such as: identity (see the case of "identity" below.
-                    //The following condition covers the case in which the user is asking an elevated access-permission
-                    if (!string.IsNullOrEmpty(Request.QueryString["access"]) && AccessLevels.Contains(Request.QueryString["access"].ToLower()) && string.IsNullOrEmpty(Request.QueryString["identity"]))
+                    if (!string.IsNullOrEmpty(Request.QueryString["access"]) && AccessLevels.Contains(Request.QueryString["access"].ToLower()))
                     {
-                        accessParam = Request.QueryString["access"].ToLower();
-                        HeaderAuthBoxMessage = "You have requested an elevated access";
-                        ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
-
-                        //if the user was authenticated already
-                        if (session.ActiveRoleName != "user" && (session.IsSiteAdmin || session.IsSiteAccountant || session.IsDeveloper || session.IsDepartmentHead))
+                        //Case 1: The user asks for Admin or Accounting access
+                        //Should pass "access" and "access" should be coherent within our own system
+                        //Shouldn't pass the other variables, such as: identity (see the case of "identity" below.
+                        //The following condition covers the case in which the user is asking an elevated access-permission
+                        if (string.IsNullOrEmpty(Request.QueryString["identity"]))
                         {
-                            Response.Redirect(getHomepageLink(session.ActiveRoleName));
+                            accessParam = Request.QueryString["access"].ToLower();
+                            HeaderAuthBoxMessage = "You have requested an elevated access";
+                            ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
+
+                            //if the user was authenticated already
+                            if (session.ActiveRoleName != normalUserRoleName && (session.IsSiteAdmin || session.IsSiteAccountant || session.IsDeveloper || session.IsDepartmentHead))
+                            {
+                                Response.Redirect(getHomepageLink(session.ActiveRoleName));
+                            }
+
+                            //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
+                            else if (
+                                (accessParam == siteAdminRoleName && session.IsSiteAdmin) ||
+                                (accessParam == siteAccountantRoleName && session.IsSiteAccountant) ||
+                                (accessParam == systemAdminRoleName && session.IsSystemAdmin) ||
+                                (accessParam == departmentHeadRoleName && session.IsDepartmentHead) ||
+                                session.IsDeveloper)
+                            {
+                                //set the value of hidden field in this page to the value of passed access variable.
+                                this.ACCESS_LEVEL_FIELD.Value = accessParam;
+
+                                //The user WOULD HAvE BEEN redirected if s/he weren't granted the elevated-access-permission s/he is asking for. But in this case, they passed the redirection.
+                                redirectionFlag = false;
+                            }
                         }
-
-                        //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
-                        else if (
-                            (accessParam == siteAdminRoleName && session.IsSiteAdmin) ||
-                            (accessParam == siteAccountantRoleName && session.IsSiteAccountant) ||
-                            (accessParam == systemAdminRoleName && session.IsSystemAdmin) ||
-                            (accessParam == departmentHeadRoleName && session.IsDepartmentHead) ||
-                            session.IsDeveloper)
+                    
+                        //Case 2: The user asks for Delegee access
+                        if ( ! string.IsNullOrEmpty(Request.QueryString["identity"]))
                         {
-                            //set the value of hidden field in this page to the value of passed access variable.
-                            this.ACCESS_LEVEL_FIELD.Value = accessParam;
+                            accessParam = Request.QueryString["access"].ToLower();
+                            identityParam = Request.QueryString["identity"];
+                            HeaderAuthBoxMessage = "You have requested to manage a delegee account";
+                            ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
 
-                            //The user WOULD HAvE BEEN redirected if s/he weren't granted the elevated-access-permission s/he is asking for. But in this case, they passed the redirection.
-                            redirectionFlag = false;
-                        }
-                    }
-
-                    //Case 2: The user asks for Delegee access
-                    if (!string.IsNullOrEmpty(Request.QueryString["access"]) && !string.IsNullOrEmpty(Request.QueryString["identity"]))
-                    {
-                        accessParam = Request.QueryString["access"].ToLower();
-                        identityParam = Request.QueryString["identity"];
-                        HeaderAuthBoxMessage = "You have requested to manage a delegee account";
-                        ParagraphAuthBoxMessage = "Please note that you must authenticate your information before proceeding any further.";
-
-                        bool accessParameterExists = (accessParam == userDelegeeRoleName || accessParam == departmentDelegeeRoleName || accessParam == siteDelegeeRoleName);
-
-                        if (accessParameterExists)
-                        {
-                            bool userDelegeeCaseMatch = (session.IsUserDelegate && accessParam == userDelegeeRoleName && session.UserDelegateRoles.Find(user => user.SipAccount == identityParam) != null);
-                            bool departmentDelegeeCaseMatch = (session.IsDepartmentDelegate && accessParam == departmentDelegeeRoleName && session.DepartmentDelegateRoles.Find(department => department.DelegeeDepartment.DepartmentName == identityParam) != null);
-                            bool siteDelegeeCaseMatch = (session.IsSiteDelegate && accessParam == siteDelegeeRoleName && session.SiteDelegateRoles.Find(site => site.DelegeeSite.SiteName == identityParam) != null);
+                            bool userDelegeeCaseMatch = (session.IsUserDelegate && accessParam == userDelegeeRoleName && session.UserDelegateRoles.Find(role => role.SipAccount == identityParam) != null);
+                            bool departmentDelegeeCaseMatch = (session.IsDepartmentDelegate && accessParam == departmentDelegeeRoleName && session.DepartmentDelegateRoles.Find(role => role.SipAccount == identityParam) != null);
+                            bool siteDelegeeCaseMatch = (session.IsSiteDelegate && accessParam == siteDelegeeRoleName && session.SiteDelegateRoles.Find(role => role.SipAccount == identityParam) != null);
 
                             //if the user has the elevated-access-permission s/he is asking for, we fill the access text value in a hidden field in this page's form
                             if (userDelegeeCaseMatch || departmentDelegeeCaseMatch || siteDelegeeCaseMatch || session.IsDeveloper)
@@ -134,59 +132,25 @@ namespace Lync_Billing.ui.session
                             }
                         }
                     }
-
-                    //The following condition covers the case in which the user is asking to drop the already granted elevated-access-permission
-                    else if (!string.IsNullOrEmpty(Request.QueryString["drop"]))
-                    {
-                        dropParam = Request.QueryString["drop"].ToLower();
-
-                        //Case 1: Drop Admin or Accounting Access
-                        if (AccessLevels.Contains(dropParam))
-                        {
-                            if ((session.IsSiteAdmin && dropParam == siteAdminRoleName && session.ActiveRoleName == siteAdminRoleName) ||
-                                (session.IsSiteAccountant && dropParam == siteAccountantRoleName && session.ActiveRoleName == siteAccountantRoleName) ||
-                                (session.IsSystemAdmin && dropParam == systemAdminRoleName && session.ActiveRoleName == systemAdminRoleName) ||
-                                (session.IsDepartmentHead && dropParam == departmentHeadRoleName && session.ActiveRoleName == departmentHeadRoleName) ||
-                                session.IsDeveloper)
-                            {
-                                DropAccess(dropParam);
-
-                                //Notice the redirection which means that the user passed all the previous criteria and therefore, they shouldn't be redirected.
-                                //However if they didn't pass this last condition, the redirection flag will still hold the value FALSE and the last if condition will redirect
-                                //the user to the User Dashboard page.
-                                redirectionFlag = false;
-                            }
-                        }
-                        else
-                        {
-                            //The user was already authenticated, redirect him/het to the respective elevated access dashboard
-                            if (session.ActiveRoleName != normalUserRoleName && session.ActiveRoleName != userDelegeeRoleName)
-                            {
-                                Response.Redirect(getHomepageLink(session.ActiveRoleName));
-                            }
-                            else redirectionFlag = true;
-                        }
-                    }
                 }
 
-                //Mode 2: The UserDelegee Mode
-                else if (session.DelegeeAccount != null && session.DelegeeAccount.DelegeeTypeID == DelegateRole.UserDelegeeTypeID && session.DelegeeAccount.DelegeeUserAccount != null)
+                //The following condition covers the case in which the user is asking to drop the already granted elevated-access-permission
+                if (!string.IsNullOrEmpty(Request.QueryString["action"]))
                 {
-                    if (!string.IsNullOrEmpty(Request.QueryString["drop"]))
+                    dropParam = Request.QueryString["action"].ToLower();
+
+                    //Case 1: Drop Admin or Accounting Access
+                    if (dropParam == "drop")
                     {
-                        dropParam = Request.QueryString["drop"].ToLower();
-
-                        if (dropParam == userDelegeeRoleName && session.ActiveRoleName == userDelegeeRoleName)
-                        {
-                            DropAccess(dropParam);
-
-                            //Notice the redirection which means that the user passed all the previous criteria and therefore, they shouldn't be redirected.
-                            //However if they didn't pass this last condition, the redirection flag will still hold the value FALSE and the last if condition will redirect
-                            //the user to the User Dashboard page.
-                            redirectionFlag = false;
-                        }
+                        DropAccess(dropParam);
+                        redirectionFlag = false;
+                    }
+                    else
+                    {
+                        redirectionFlag = true;
                     }
                 }
+
 
                 //if the user was not granted any elevated-access permission or he is currently in a manage-delegee mode, redirect him/her to the User Dashboard page.
                 //Or if the redirection_flag was not set to FALSE so far, we redurect the user to the USER DASHBOARD
@@ -265,24 +229,22 @@ namespace Lync_Billing.ui.session
                         //Site Delegee
                         else if (requestedAccessLevel == siteDelegeeRoleName)
                         {
-                            DelegateRole role = session.SiteDelegateRoles.Find(someRole => someRole.DelegeeSite != null && someRole.DelegeeSite.SiteName == requestedDelegeeIdentity);
+                            DelegateRole role = session.SiteDelegateRoles.Find(someRole => someRole.DelegeeSite != null && someRole.SipAccount == requestedDelegeeIdentity);
 
                             if (role != null)
                             {
-                                Site site = role.DelegeeSite;
-                                SwitchToDelegeeAndRedirect(role.SipAccount, site, DelegateRole.SiteDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(role.SipAccount, role.DelegeeSite, DelegateRole.SiteDelegeeTypeID);
                             }
                         }
 
                         //Department Delegee
                         else if (requestedAccessLevel == departmentDelegeeRoleName)
                         {
-                            DelegateRole role = session.DepartmentDelegateRoles.Find(someRole => someRole.DelegeeDepartment != null && someRole.DelegeeDepartment.DepartmentName == requestedDelegeeIdentity);
+                            DelegateRole role = session.DepartmentDelegateRoles.Find(someRole => someRole.DelegeeDepartment != null && someRole.SipAccount == requestedDelegeeIdentity);
 
                             if(role != null)
                             {
-                                Department department = role.DelegeeDepartment;
-                                SwitchToDelegeeAndRedirect(role.SipAccount, department, DelegateRole.DepartmentDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(role.SipAccount, role.DelegeeDepartment, DelegateRole.DepartmentDelegeeTypeID);
                             }
                         }
 
@@ -293,8 +255,7 @@ namespace Lync_Billing.ui.session
 
                             if(role != null)
                             {
-                                Users user = role.DelegeeUser;
-                                SwitchToDelegeeAndRedirect(role.SipAccount, user, DelegateRole.UserDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(role.SipAccount, role.DelegeeUser, DelegateRole.UserDelegeeTypeID);
                             }
                         }
 
