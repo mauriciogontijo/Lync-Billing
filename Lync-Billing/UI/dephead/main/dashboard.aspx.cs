@@ -69,10 +69,13 @@ namespace Lync_Billing.ui.dephead.main
             sipAccount = session.NormalUserInfo.SipAccount;
 
             //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
-            if (session.IsDeveloper)
-                UserDepartments = Department.GetAllDepartments();
-            else
-                UserDepartments = DepartmentHeadRole.GetDepartmentsForHead(sipAccount);
+            if (UserDepartments == null || UserDepartments.Count == 0)
+            {
+                if (session.IsDeveloper)
+                    UserDepartments = Department.GetAllDepartments();
+                else
+                    UserDepartments = DepartmentHeadRole.GetDepartmentsForHead(sipAccount);
+            }
 
 
             //By default the filter combobox is not read only

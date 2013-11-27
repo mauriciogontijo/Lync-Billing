@@ -51,10 +51,13 @@ namespace Lync_Billing.ui.dephead.users
             sipAccount = session.NormalUserInfo.SipAccount;
 
             //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
-            if (session.IsDeveloper)
-                UserDepartments = Department.GetAllDepartments();
-            else
-                UserDepartments = DepartmentHeadRole.GetDepartmentsForHead(sipAccount);
+            if (UserDepartments == null || UserDepartments.Count == 0)
+            {
+                if (session.IsDeveloper)
+                    UserDepartments = Department.GetAllDepartments();
+                else
+                    UserDepartments = DepartmentHeadRole.GetDepartmentsForHead(sipAccount);
+            }
 
 
             //By default the filter combobox is not read only
@@ -107,28 +110,31 @@ namespace Lync_Billing.ui.dephead.users
             FilterUsersByDepartment.ReadOnly = false;
 
             //Begin fetching the users
-            string siteName = string.Empty;
-            string departmentName = string.Empty;
-
+            int departmentID;
+            Department department;
+            
             if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
             {
-                departmentName = FilterDepartments.SelectedItem.Value.ToString();
-                siteName = UserDepartments.Find(dep => dep.DepartmentName == departmentName).SiteName;
+                departmentID = Convert.ToInt32(FilterDepartments.SelectedItem.Value);
+                department = UserDepartments.Find(dep => dep.DepartmentID == departmentID);
 
-                List<Users> users = GetUsers(departmentName, siteName);
-
-                FilterUsersByDepartment.Disabled = false;
-                FilterUsersByDepartment.GetStore().DataSource = users;
-                FilterUsersByDepartment.GetStore().DataBind();
-
-                if (users.Count == 1)
+                if (department != null)
                 {
-                    FilterUsersByDepartment.SetValueAndFireSelect(users.First().SipAccount);
-                    FilterUsersByDepartment.ReadOnly = true;
-                }
-                else
-                {
-                    FilterUsersByDepartment.ReadOnly = false;
+                    List<Users> users = GetUsers(department.DepartmentName, department.SiteName);
+
+                    FilterUsersByDepartment.Disabled = false;
+                    FilterUsersByDepartment.GetStore().DataSource = users;
+                    FilterUsersByDepartment.GetStore().DataBind();
+
+                    if (users.Count == 1)
+                    {
+                        FilterUsersByDepartment.SetValueAndFireSelect(users.First().SipAccount);
+                        FilterUsersByDepartment.ReadOnly = true;
+                    }
+                    else
+                    {
+                        FilterUsersByDepartment.ReadOnly = false;
+                    }
                 }
             }
         }

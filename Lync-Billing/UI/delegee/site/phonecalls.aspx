@@ -19,7 +19,7 @@
             <ext:Menu
                 ID="PhoneCallsAllocationToolsMenu"
                 runat="server"
-                Width="170"
+                Width="250"
                 Frame="false">
                 <Items>
                     <ext:MenuItem
@@ -39,8 +39,6 @@
                         QueryMode="Local"
                         DisplayField="DepartmentName"
                         ValueField="DepartmentID"
-                        FieldLabel="Select:"
-                        LabelWidth="60"
                         Width="300"
                         Margins="5 15 5 5"
                         Editable="true">
@@ -90,36 +88,6 @@
                         Disabled="true"
                         DisabledCls=""
                         Cls="font-12 popup-menu-field-label-background" />
-
-                    <ext:MenuItem
-                        ID="AllocateDestinationsAsAlwaysBusiness"
-                        Text="As Always Business"
-                        runat="server"
-                        Margins="0 0 5 0">
-                        <%--<DirectEvents>
-                            <Click OnEvent="AssignAlwaysBusiness">
-                                <EventMask ShowMask="true" />
-                                <ExtraParams>
-                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                </ExtraParams>
-                            </Click>
-                        </DirectEvents>--%>
-                    </ext:MenuItem>
-
-                    <ext:MenuItem
-                        ID="AllocateDestinationsAsAlwaysPersonal"
-                        Text="As Always Personal"
-                        runat="server"
-                        Margins="0 0 5 0">
-                        <%--<DirectEvents>
-                            <Click OnEvent="AssignAlwaysPersonal">
-                                <EventMask ShowMask="true" />
-                                <ExtraParams>
-                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                </ExtraParams>
-                            </Click>
-                        </DirectEvents>--%>
-                    </ext:MenuItem>
                 </Items>
             </ext:Menu>
 

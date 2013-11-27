@@ -68,7 +68,7 @@
                                 TriggerAction="Query"
                                 QueryMode="Local"
                                 DisplayField="DepartmentName"
-                                ValueField="DepartmentName"
+                                ValueField="DepartmentID"
                                 FieldLabel="Department:"
                                 LabelWidth="60"  
                                 Width="250"
@@ -82,9 +82,10 @@
                                                 ID="DepartmentHeadsStoreModel"
                                                 runat="server">
                                                 <Fields>
-                                                    <ext:ModelField Name="DepartmentName" />
-                                                    <ext:ModelField Name="SiteName" />
                                                     <ext:ModelField Name="SiteID" />
+                                                    <ext:ModelField Name="SiteName" />
+                                                    <ext:ModelField Name="DepartmentID" />
+                                                    <ext:ModelField Name="DepartmentName" />
                                                 </Fields>
                                             </ext:Model>
                                         </Model>
