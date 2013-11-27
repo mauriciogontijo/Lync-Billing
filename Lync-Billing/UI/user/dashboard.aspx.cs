@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Web.Script.Serialization;
 using System.Web.SessionState;
 using System.Globalization;
+using System.Security.Cryptography;
+using System.Text;
 using Ext.Net;
 
 using Lync_Billing.DB;
@@ -83,6 +85,11 @@ namespace Lync_Billing.ui.user
             CallsCostsChartPanel.Title = "Calls Cost Chart for " + currentYear;
             TopDestinationNumbersGrid.Title = "Most Called Numbers in " + currentYear;
             TopDestinationCountriesPanel.Title = "Most Called Countries in " + currentYear;
+
+            //SHA1 hash = SHA1.Create();
+            //ASCIIEncoding x = new ASCIIEncoding();
+            //string source = (session.NormalUserInfo.SipAccount + session.NormalUserInfo.Department + session.NormalUserInfo.SiteName);
+            //string gethash = HttpUtility.UrlEncode(Convert.ToBase64String(hash.ComputeHash(x.GetBytes(source))));
         }
 
 
