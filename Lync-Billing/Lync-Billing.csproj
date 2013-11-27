@@ -191,6 +191,7 @@
     <Compile Include="DB\Roles\DepartmentHeadRole.cs" />
     <Compile Include="DB\DialingPrefixsRates.cs" />
     <Compile Include="DB\Gateway.cs" />
+    <Compile Include="DB\SharedAccount.cs" />
     <Compile Include="DB\Statistics\MailStatistics.cs" />
     <Compile Include="DB\MailTemplates.cs" />
     <Compile Include="Libs\HelperFunctions.cs" />

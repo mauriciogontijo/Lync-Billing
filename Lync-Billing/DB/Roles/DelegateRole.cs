@@ -21,6 +21,7 @@ namespace Lync_Billing.DB.Roles
         public string Description { get; set; }
 
         //These are logical representation of data, they don't belong to the table
+        public string DelegeeDisplayName { get; set; }
         public Users DelegeeUser { get; set; }
         public Site DelegeeSite { get; set; }
         public Department DelegeeDepartment { get; set; }
@@ -140,13 +141,32 @@ namespace Lync_Billing.DB.Roles
                 {
                     delegatedAccount.DelegeeUser = Users.GetUser(delegatedAccount.SipAccount);
                     delegatedAccount.DelegeeUser.DisplayName = HelperFunctions.FormatUserDisplayName(delegatedAccount.DelegeeUser.FullName, delegatedAccount.DelegeeUser.SipAccount, returnNameIfExists: true);
+                    delegatedAccount.DelegeeDisplayName = delegatedAccount.DelegeeUser.DisplayName;
                 }
 
                 else if (delegatedAccount.DelegeeType == DelegateRole.DepartmentDelegeeTypeID)
+                {
                     delegatedAccount.DelegeeDepartment = Department.GetDepartment(delegatedAccount.DepartmentID);
 
+                    var sipAccountInfo = Users.GetUser(delegatedAccount.SipAccount);
+
+                    if (sipAccountInfo == null)
+                        delegatedAccount.DelegeeDisplayName = delegatedAccount.SipAccount;
+                    else
+                        delegatedAccount.DelegeeDisplayName = HelperFunctions.FormatUserDisplayName(sipAccountInfo.FullName, sipAccountInfo.SipAccount, returnAddressPartIfExists: true);
+                }
+
                 else if (delegatedAccount.DelegeeType == DelegateRole.SiteDelegeeTypeID)
+                {
                     delegatedAccount.DelegeeSite = Site.GetSite(delegatedAccount.SiteID);
+
+                    var sipAccountInfo = Users.GetUser(delegatedAccount.SipAccount.TrimEnd());
+
+                    if (sipAccountInfo == null)
+                        delegatedAccount.DelegeeDisplayName = delegatedAccount.SipAccount;
+                    else
+                        delegatedAccount.DelegeeDisplayName = HelperFunctions.FormatUserDisplayName(sipAccountInfo.FullName, sipAccountInfo.SipAccount, returnNameIfExists: true, returnAddressPartIfExists: true);
+                }
 
                 DelegatedAccounts.Add(delegatedAccount);
             }

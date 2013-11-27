@@ -270,7 +270,7 @@ namespace Lync_Billing.ui.session
                             if (role != null)
                             {
                                 Site site = role.DelegeeSite;
-                                SwitchToDelegeeAndRedirect(site, DelegateRole.SiteDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(role.SipAccount, site, DelegateRole.SiteDelegeeTypeID);
                             }
                         }
 
@@ -282,7 +282,7 @@ namespace Lync_Billing.ui.session
                             if(role != null)
                             {
                                 Department department = role.DelegeeDepartment;
-                                SwitchToDelegeeAndRedirect(department, DelegateRole.DepartmentDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(role.SipAccount, department, DelegateRole.DepartmentDelegeeTypeID);
                             }
                         }
 
@@ -294,7 +294,7 @@ namespace Lync_Billing.ui.session
                             if(role != null)
                             {
                                 Users user = role.DelegeeUser;
-                                SwitchToDelegeeAndRedirect(user, DelegateRole.UserDelegeeTypeID);
+                                SwitchToDelegeeAndRedirect(role.SipAccount, user, DelegateRole.UserDelegeeTypeID);
                             }
                         }
 
@@ -348,7 +348,7 @@ namespace Lync_Billing.ui.session
 
         //This function handles the switching to delegees
         //@param delegeeAddress could be a user sipAccount, a department name or a site name
-        private void SwitchToDelegeeAndRedirect(object delegee, int delegeeType)
+        private void SwitchToDelegeeAndRedirect(string sipAccount, object delegee, int delegeeType)
         {
             //Initialize a temp copy of the User Session
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
@@ -386,6 +386,9 @@ namespace Lync_Billing.ui.session
                 session.DelegeeAccount.DelegeeDepartmentAccount = (Department)delegee;
                 session.DelegeeAccount.DelegeeTypeID = DelegateRole.DepartmentDelegeeTypeID;
 
+                session.DelegeeAccount.DelegeeUserAccount = Users.GetUser(sipAccount);
+                session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnAddressPartIfExists: true);
+
                 //Switch ActiveRoleName to Department Delegee
                 session.ActiveRoleName = departmentDelegeeRoleName;
 
@@ -398,7 +401,10 @@ namespace Lync_Billing.ui.session
                 session.DelegeeAccount = new DelegeeAccountInfo();
                 session.DelegeeAccount.DelegeeSiteAccount = (Site)delegee;
                 session.DelegeeAccount.DelegeeTypeID = DelegateRole.SiteDelegeeTypeID;
-                
+
+                session.DelegeeAccount.DelegeeUserAccount = Users.GetUser(sipAccount);
+                session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnAddressPartIfExists: true);
+
                 //Switch ActiveRoleName to Site Delegee
                 session.ActiveRoleName = siteDelegeeRoleName;
 

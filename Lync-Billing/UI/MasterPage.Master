@@ -119,8 +119,8 @@
                                                     <% foreach (var siteDelegeeRecord in current_session.SiteDelegateRoles)
                                                        { %>
                                                         <li class="last-child">
-                                                            <a href="../session/authenticate.aspx?access=sitedelegee&identity=<%= siteDelegeeRecord.DelegeeSite.SiteName %>">
-                                                                <%= siteDelegeeRecord.DelegeeSite.SiteName %>
+                                                            <a href="../session/authenticate.aspx?access=sitedelegee&identity=<%= siteDelegeeRecord.SipAccount %>">
+                                                                <%= siteDelegeeRecord.DelegeeDisplayName %>
                                                             </a>
                                                         </li>
                                                     <% } %>
