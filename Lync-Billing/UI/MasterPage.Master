@@ -102,7 +102,7 @@
                                                     <% foreach (var userDelegeeRecord in current_session.UserDelegateRoles) { %>
                                                         <li class="last-child">
                                                             <a href="../session/authenticate.aspx?access=userdelegee&identity=<%= userDelegeeRecord.DelegeeUser.SipAccount %>">
-                                                                <%= Lync_Billing.Libs.HelperFunctions.FormatUserDisplayName(userDelegeeRecord.DelegeeUser.FullName, userDelegeeRecord.DelegeeUser.SipAccount, returnNameIfExists: true) %>
+                                                                <%= userDelegeeRecord.DelegeeDisplayName %>
                                                             </a>
                                                         </li>
                                                     <% } %>

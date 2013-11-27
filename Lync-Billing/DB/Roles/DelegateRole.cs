@@ -140,8 +140,8 @@ namespace Lync_Billing.DB.Roles
                 if (delegatedAccount.DelegeeType == DelegateRole.UserDelegeeTypeID)
                 {
                     delegatedAccount.DelegeeUser = Users.GetUser(delegatedAccount.SipAccount);
-                    delegatedAccount.DelegeeUser.DisplayName = HelperFunctions.FormatUserDisplayName(delegatedAccount.DelegeeUser.FullName, delegatedAccount.DelegeeUser.SipAccount, returnNameIfExists: true);
-                    delegatedAccount.DelegeeDisplayName = delegatedAccount.DelegeeUser.DisplayName;
+                    delegatedAccount.DelegeeUser.DisplayName = HelperFunctions.FormatUserDisplayName(delegatedAccount.DelegeeUser.FullName, delegatedAccount.DelegeeUser.SipAccount);
+                    delegatedAccount.DelegeeDisplayName = HelperFunctions.FormatUserDisplayName(delegatedAccount.DelegeeUser.FullName, delegatedAccount.DelegeeUser.SipAccount, returnNameIfExists: true, returnAddressPartIfExists: true); ;
                 }
 
                 else if (delegatedAccount.DelegeeType == DelegateRole.DepartmentDelegeeTypeID)

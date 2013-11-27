@@ -361,7 +361,7 @@ namespace Lync_Billing.ui.session
 
                 //Get the delegate user account
                 session.DelegeeAccount.DelegeeUserAccount = (Users)delegee;
-                session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnNameIfExists: true);
+                session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnAddressPartIfExists: true);
 
                 //Get the Delegee Phonecalls
                 session.DelegeeAccount.DelegeeUserPhonecallsPerPage = string.Empty;
