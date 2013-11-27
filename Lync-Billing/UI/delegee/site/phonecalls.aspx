@@ -73,11 +73,11 @@
                             </ItemTpl>
                         </ListConfig>
 
-                        <DirectEvents>
-                            <Select OnEvent="DrawStatisticsForDepartment">
+                        <%--<DirectEvents>
+                            <Select OnEvent="">
                                 <EventMask ShowMask="true" />
                             </Select>
-                        </DirectEvents>
+                        </DirectEvents>--%>
                     </ext:ComboBox>
                     
                     <ext:MenuSeparator ID="MenuSeparator" runat="server" />
