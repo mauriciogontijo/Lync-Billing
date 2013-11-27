@@ -39,6 +39,7 @@ namespace Lync_Billing.DB
         public string ResponseTime { set; get; }
         public string SessionEndTime { set; get; }
         public string SourceUserUri { set; get; }
+        public string ChargingParty { set; get; }
         public string SourceNumberUri { set; get; }
         public string DestinationNumberUri { set; get; }
         public string FromMediationServer { set; get; }
@@ -153,6 +154,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall._Marker_CallCost = Convert.ToDecimal(row[column.ColumnName]);
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ChargingParty) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneCall.ChargingParty = Convert.ToString(row[column.ColumnName]);
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_MarkedOn = Convert.ToDateTime(row[column.ColumnName]);
@@ -306,14 +310,17 @@ namespace Lync_Billing.DB
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall._Marker_CallCost = (decimal)row[column.ColumnName];
 
+                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ChargingParty) && row[column.ColumnName] != System.DBNull.Value)
+                            phoneCall.ChargingParty = Convert.ToString(row[column.ColumnName]);
+
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.UI_MarkedOn = (DateTime)row[column.ColumnName];
 
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser) && row[column.ColumnName] != System.DBNull.Value)
-                            phoneCall.UI_UpdatedByUser = (string)row[column.ColumnName];
+                            phoneCall.UI_UpdatedByUser = Convert.ToString(row[column.ColumnName]);
 
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_CallType) && row[column.ColumnName] != System.DBNull.Value)
-                            phoneCall.UI_CallType = (string)row[column.ColumnName];
+                            phoneCall.UI_CallType = Convert.ToString(row[column.ColumnName]);
 
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.UI_AssignedByUser = Convert.ToString(row[column.ColumnName]);
@@ -328,7 +335,7 @@ namespace Lync_Billing.DB
                             phoneCall.AC_DisputeResolvedOn = (DateTime)row[column.ColumnName];
 
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) && row[column.ColumnName] != System.DBNull.Value)
-                            phoneCall.AC_IsInvoiced = (string)row[column.ColumnName];
+                            phoneCall.AC_IsInvoiced = Convert.ToString(row[column.ColumnName]);
 
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.AC_InvoiceDate = (DateTime)row[column.ColumnName];
@@ -361,28 +368,31 @@ namespace Lync_Billing.DB
             wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq), phoneCall.SessionIdSeq);
 
             //Set Part
+            if(!string.IsNullOrEmpty(phoneCall.ChargingParty))
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.ChargingParty), phoneCall.ChargingParty);
+
             if (phoneCall.UI_MarkedOn != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn), phoneCall.UI_MarkedOn);
 
-            if (phoneCall.UI_UpdatedByUser != null)
+            if (!string.IsNullOrEmpty(phoneCall.UI_UpdatedByUser))
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser), phoneCall.UI_UpdatedByUser);
 
-            if (phoneCall.UI_CallType != null)
+            if (!string.IsNullOrEmpty(phoneCall.UI_CallType))
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), phoneCall.UI_CallType);
 
-            if (phoneCall.UI_AssignedByUser != null)
+            if (!string.IsNullOrEmpty(phoneCall.UI_AssignedByUser))
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser), phoneCall.UI_AssignedByUser);
 
             if (phoneCall.UI_AssignedOn != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser), phoneCall.UI_AssignedOn);
 
-            if (phoneCall.AC_DisputeStatus != null)
+            if (!string.IsNullOrEmpty(phoneCall.AC_DisputeStatus))
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus), phoneCall.AC_DisputeStatus);
 
             if (phoneCall.AC_DisputeResolvedOn != null)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn), phoneCall.AC_DisputeResolvedOn);
 
-            if (phoneCall.AC_IsInvoiced != null)
+            if (!string.IsNullOrEmpty(phoneCall.AC_IsInvoiced))
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), phoneCall.AC_IsInvoiced);
 
             if (phoneCall.AC_InvoiceDate != null)
