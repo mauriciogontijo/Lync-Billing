@@ -129,10 +129,13 @@ namespace Lync_Billing.ui.delegee.site
             session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
-            if (session.IsDeveloper)
-                SiteDelegeeDepartments = Department.GetAllDepartments();
-            else
-                SiteDelegeeDepartments = Department.GetDepartmentsInSite(session.DelegeeAccount.DelegeeSiteAccount.SiteID);
+            if (SiteDelegeeDepartments == null || SiteDelegeeDepartments.Count == 0)
+            {
+                if (session.IsDeveloper)
+                    SiteDelegeeDepartments = Department.GetAllDepartments();
+                else
+                    SiteDelegeeDepartments = Department.GetDepartmentsInSite(session.DelegeeAccount.DelegeeSiteAccount.SiteID);
+            }
 
 
             //By default the filter combobox is not read only
@@ -163,18 +166,6 @@ namespace Lync_Billing.ui.delegee.site
             }
         }
 
-        protected void getPhoneCalls(bool force = false)
-        {
-            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            //sipAccount = session.EffectiveSipAccount;
-           
-
-            if (session.Phonecalls == null || session.Phonecalls.Count == 0 || force == true)
-            {
-                session.Phonecalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null).ToList();
-                xmldoc = HelperFunctions.SerializeObject<List<PhoneCall>>(session.Phonecalls);
-            }
-        }
 
         public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {

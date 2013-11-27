@@ -76,51 +76,6 @@ namespace Lync_Billing.ui.delegee.site {
         protected global::Ext.Net.Model DepartmentHeadsStoreModel;
         
         /// <summary>
-        /// MenuSeparator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuSeparator MenuSeparator;
-        
-        /// <summary>
-        /// AllocDestinationsFieldLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocDestinationsFieldLabel;
-        
-        /// <summary>
-        /// FilterUsersByDepartment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ComboBox FilterUsersByDepartment;
-        
-        /// <summary>
-        /// FilterUsersByDepartmentStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store FilterUsersByDepartmentStore;
-        
-        /// <summary>
-        /// FilterUsersByDepartmentModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Model FilterUsersByDepartmentModel;
-        
-        /// <summary>
         /// PhoneCallsDataSource control.
         /// </summary>
         /// <remarks>

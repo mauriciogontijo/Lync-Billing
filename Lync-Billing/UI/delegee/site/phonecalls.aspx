@@ -112,71 +112,7 @@
                             </Select>
                         </DirectEvents>--%>
                     </ext:ComboBox>
-                    
-                    <ext:MenuSeparator ID="MenuSeparator" runat="server" />
 
-                    <ext:MenuItem
-                        runat="server"
-                        ID="AllocDestinationsFieldLabel"
-                        Text="Assign to User:"
-                        Margins="5 0 5 0"
-                        Disabled="true"
-                        DisabledCls=""
-                        Cls="font-12 popup-menu-field-label-background" />
-
-                    <ext:ComboBox
-                        ID="FilterUsersByDepartment"
-                        runat="server"
-                        Icon="Find"
-                        TriggerAction="Query"
-                        QueryMode="Local"
-                        DisplayField="SipAccount"
-                        ValueField="SipAccount"
-                        Width="300"
-                        Margins="0 5 0 0">
-                        <Store>
-                            <ext:Store 
-                                ID="FilterUsersByDepartmentStore"
-                                runat="server">
-                                <Model>
-                                    <ext:Model 
-                                        ID="FilterUsersByDepartmentModel"
-                                        runat="server">
-                                        <Fields>
-                                            <ext:ModelField Name="EmployeeID" />
-                                            <ext:ModelField Name="SipAccount" />
-                                            <ext:ModelField Name="SiteName" />
-                                            <ext:ModelField Name="FullName" />
-                                            <ext:ModelField Name="Department" />
-                                        </Fields>
-                                    </ext:Model>
-                                </Model>
-                            </ext:Store>
-                        </Store>
-
-                        <ListConfig
-                            LoadingText="Searching..."
-                            MinHeight="25"
-                            MinWidth="330"
-                            MaxWidth="350"
-                            Border="true"
-                            EmptyText="Please select user..."
-                            Frame="true">
-                            <ItemTpl ID="ItemTpl1" runat="server">
-                                <Html>
-                                    <div class="search-item">
-							            <h3><span>{SipAccount}</span>{FullName}</h3>
-						            </div>
-                                </Html>
-                            </ItemTpl>
-                        </ListConfig>
-
-                        <%--<DirectEvents>
-                            <Select OnEvent="GetPhoneCallsForUser">
-                                <EventMask ShowMask="true" />
-                            </Select>
-                        </DirectEvents>--%>
-                    </ext:ComboBox>
                 </Items>
             </ext:Menu>
 
