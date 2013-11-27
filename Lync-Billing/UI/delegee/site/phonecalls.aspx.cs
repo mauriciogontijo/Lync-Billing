@@ -95,7 +95,7 @@ namespace Lync_Billing.ui.delegee.site
 
         //Get the user session phonecalls
         //Handle normal user mode and user delegee mode
-        private List<PhoneCall> GetUserSessionPhoneCalls(bool force = false)
+        private List<PhoneCall> GetDepartmentPhoneCalls(bool force = false)
         {
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
@@ -103,18 +103,6 @@ namespace Lync_Billing.ui.delegee.site
             if (session.DelegeeAccount.DelegeeUserPhonecalls == null || session.DelegeeAccount.DelegeeUserPhonecalls.Count == 0 || force == true)
             {
                 var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
-                var addressbook = session.DelegeeAccount.DelegeeUserAddressbook;
-
-                if (addressbook == null || addressbook.Count == 0)
-                    addressbook = PhoneBook.GetAddressBook(sipAccount);
-
-                foreach (var phoneCall in userPhoneCalls)
-                {
-                    if (addressbook.ContainsKey(phoneCall.DestinationNumberUri))
-                    {
-                        phoneCall.PhoneBookName = ((PhoneBook)addressbook[phoneCall.DestinationNumberUri]).Name;
-                    }
-                }
 
                 session.DelegeeAccount.DelegeeUserPhonecalls = userPhoneCalls.ToList();
 
@@ -131,10 +119,7 @@ namespace Lync_Billing.ui.delegee.site
             //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
             if (SiteDelegeeDepartments == null || SiteDelegeeDepartments.Count == 0)
             {
-                if (session.IsDeveloper)
-                    SiteDelegeeDepartments = Department.GetAllDepartments();
-                else
-                    SiteDelegeeDepartments = Department.GetDepartmentsInSite(session.DelegeeAccount.DelegeeSiteAccount.SiteID);
+                SiteDelegeeDepartments = Department.GetDepartmentsInSite(session.DelegeeAccount.DelegeeSiteAccount.SiteID);
             }
 
 
@@ -165,15 +150,20 @@ namespace Lync_Billing.ui.delegee.site
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
 
             //Get user session phonecalls; handle normal user mode and delegee mode
-            userSessionPhoneCalls = GetUserSessionPhoneCalls();
+            userSessionPhoneCalls = GetDepartmentPhoneCalls();
 
 
             //Begin the filtering process
-            if (filter == null)
-                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
-            else
-                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
 
+            if (filter == null || filter.Property == Enums.GetDescription(Enums.PhoneCalls.ChargingParty))
+            {
+                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.ChargingParty == sipAccount).AsQueryable();
+            }
+            else
+            {
+                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_AssignedByUser == sipAccount).AsQueryable();
+            }
+          
 
             //Begin sorting process
             if (sort != null)
@@ -203,16 +193,15 @@ namespace Lync_Billing.ui.delegee.site
         {
             PhoneCallsStore.ClearFilter();
 
-            if (FilterTypeComboBox.SelectedItem.Value != "Unassigned")
+            if (FilterTypeComboBox.SelectedItem.Value == "Unassigned")
             {
-                PhoneCallsStore.Filter(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser), sipAccount);
-                PhoneBookNameEditorTextbox.ReadOnly = true;
+                PhoneCallsStore.Filter("ChargingParty", sipAccount);
             }
-            else
+            else 
             {
-                PhoneBookNameEditorTextbox.ReadOnly = false;
+                PhoneCallsStore.Filter("UI_AssignedByUser", sipAccount);
             }
-
+            
             PhoneCallsStore.LoadPage(1);
         }
 
@@ -252,23 +241,11 @@ namespace Lync_Billing.ui.delegee.site
             //session.PhonecallsPerPage = PhoneCallsStore.JsonData;
             session.DelegeeAccount.DelegeeUserPhonecallsPerPage = PhoneCallsStore.JsonData;
         }
-
+        
         [DirectMethod]
         protected void ShowUserHelpPanel(object sender, DirectEventArgs e)
         {
             this.UserHelpPanel.Show();
-        }
-
-        [DirectMethod]
-        protected void AssignToUser(object sender, DirectEventArgs e)
-        {
-
-        }
-
-        [DirectMethod]
-        protected void AssignToDepartment(object sender, DirectEventArgs e)
-        {
-
         }
 
         [DirectMethod]
@@ -280,7 +257,59 @@ namespace Lync_Billing.ui.delegee.site
         [DirectMethod]
         protected void AssignSelectedPhoneCallsToDepartment(object sender, DirectEventArgs e)
         {
+            PhoneCall sessionPhoneCallRecord;
+            List<PhoneCall> submittedPhoneCalls;
+            List<PhoneCall> departmentPhoneCalls;
+            string userSessionPhoneCallsPerPageJson = string.Empty;
 
+            string json = string.Empty;
+           
+            int selectedDepartmentId;
+            Department selectedDepartment;
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+
+            //Get the session and sip account of the current user
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+
+            //Get user phonecalls from the session
+            //Handle user delegee mode and normal user mode
+            departmentPhoneCalls = GetDepartmentPhoneCalls();
+
+            json = e.ExtraParams["Values"];
+            selectedDepartmentId = Convert.ToInt32(e.ExtraParams["selectedDepartment"]);
+            selectedDepartment = Department.GetDepartment(selectedDepartmentId);
+
+           
+
+
+            submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+            userSessionPhoneCallsPerPageJson = json;
+
+
+            foreach (PhoneCall phoneCall in submittedPhoneCalls)
+            {
+                sessionPhoneCallRecord = departmentPhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
+
+                sessionPhoneCallRecord.UI_AssignedByUser = sipAccount;
+                sessionPhoneCallRecord.UI_AssignedOn = DateTime.Now;
+                sessionPhoneCallRecord.ChargingParty = selectedDepartment.SiteName + "-" + selectedDepartment.DepartmentName;
+                
+                PhoneCall.UpdatePhoneCall(sessionPhoneCallRecord);
+
+                ModelProxy model = PhoneCallsStore.Find(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), sessionPhoneCallRecord.SessionIdTime.ToString());
+                model.Set(sessionPhoneCallRecord);
+                model.Commit();
+                
+            }
+
+            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            PhoneCallsStore.LoadPage(1);
+
+            //Reassign the user session data
+            //Handle the normal user mode and user delegee mode
+            session.DelegeeAccount.DelegeeUserPhonecalls = departmentPhoneCalls;
         }
 
     }

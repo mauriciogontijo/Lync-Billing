@@ -67,7 +67,7 @@
                         ID="DepartmentsListComboBox"
                         runat="server"
                         Icon="Find"
-                        TriggerAction="Query"
+                        TriggerAction="All"
                         QueryMode="Local"
                         DisplayField="DepartmentName"
                         ValueField="DepartmentID"
@@ -99,11 +99,11 @@
                             MinWidth="230"
                             MaxWidth="250"
                             EmptyText="Please select a department...">
-                            <ItemTpl ID="ItemTpl2" runat="server">
+                           <%-- <ItemTpl ID="ItemTpl2" runat="server">
                                 <Html>
                                     <div>{SiteName}&nbsp;({DepartmentName})</div>
                                 </Html>
-                            </ItemTpl>
+                            </ItemTpl>--%>
                         </ListConfig>
                     </ext:ComboBox>
 
@@ -116,6 +116,10 @@
                         <DirectEvents>
                             <Click OnEvent="AssignSelectedPhoneCallsToDepartment">
                                 <EventMask ShowMask="true" />
+                                <ExtraParams>
+                                    <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                    <ext:Parameter Name="selectedDepartment" Value="#{DepartmentsListComboBox}.getValue()" Mode="Raw" />
+                                </ExtraParams>
                             </Click>
                         </DirectEvents>
                     </ext:Button>
@@ -171,8 +175,9 @@
                                     <ext:ModelField Name="Marker_CallCost" Type="Float" />
                                     <ext:ModelField Name="UI_CallType" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
-                                    <ext:ModelField Name="PhoneBookName" Type="String" />
-                                    <ext:ModelField Name="PhoneCallTable" Type="String" />
+                                    <ext:ModelField Name="ChargingParty" Type="String" />
+                                    <ext:ModelField Name="UI_AssignedOn" Type="date" />
+                                    <ext:ModelField Name="PhoneCallTableName" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
@@ -216,20 +221,12 @@
                             Width="130"
                             DataIndex="DestinationNumberUri" />
 
-                        <ext:Column ID="PhoneBookNameCol"
+                        <ext:Column
+                            ID="ChargingParty"
                             runat="server"
-                            Text="Contact Name"
-                            Width="190"
-                            DataIndex="PhoneBookName">
-                            <Editor>
-                                <ext:TextField
-                                    ID="PhoneBookNameEditorTextbox"
-                                    runat="server"
-                                    DataIndex="PhoneBookName"
-                                    EmptyText="Add a contact name"
-                                    ReadOnly="false" />
-                            </Editor>
-                        </ext:Column>
+                            Text="Assigned To"
+                            Width="130"
+                            DataIndex="ChargingParty" />
 
                         <ext:Column
                             ID="Duration"

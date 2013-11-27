@@ -166,22 +166,13 @@ namespace Lync_Billing.ui.delegee.site {
         protected global::Ext.Net.Column DestinationNumberUri;
         
         /// <summary>
-        /// PhoneBookNameCol control.
+        /// ChargingParty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column PhoneBookNameCol;
-        
-        /// <summary>
-        /// PhoneBookNameEditorTextbox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TextField PhoneBookNameEditorTextbox;
+        protected global::Ext.Net.Column ChargingParty;
         
         /// <summary>
         /// Duration control.
