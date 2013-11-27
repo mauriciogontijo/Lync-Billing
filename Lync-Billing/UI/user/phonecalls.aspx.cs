@@ -825,5 +825,12 @@ namespace Lync_Billing.ui.user
             DepartmentPhoneCallsGrid.GetStore().DataBind();
         }
 
+        protected void AssignDepartmentPhoneCall(object sender, DirectEventArgs e)
+        {
+        }
+
+        protected void UnassignDepartmentPhoneCall(object sender, DirectEventArgs e)
+        {
+        }
     }
 }
