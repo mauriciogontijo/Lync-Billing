@@ -5,6 +5,38 @@
         /* start manage-phone-calls grid styling */
         .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
         /* end manage-phone-calls grid styling */
+
+        /* start users search query result styling */
+        .search-item {
+            font          : normal 11px tahoma, arial, helvetica, sans-serif;
+            padding       : 3px 10px 3px 10px;
+            border        : 1px solid #fff;
+            border-bottom : 1px solid #eeeeee;
+            white-space   : normal;
+            color         : #555;
+        }
+        
+        .search-item h3 {
+            display     : block;
+            font        : inherit;
+            font-weight : bold;
+            color       : #222;
+            margin      : 0px;
+        }
+
+        .search-item h3 span {
+            float       : right;
+            font-weight : normal;
+            margin      : 0 0 5px 5px;
+            width       : 175px;
+            display     : block;
+            clear       : none;
+        } 
+        
+        p { width: 650px; }
+        
+        .ext-ie .x-form-text { position : static !important; }
+        /* end users search query result styling */
     </style>
 </asp:Content>
 
@@ -19,7 +51,7 @@
             <ext:Menu
                 ID="PhoneCallsAllocationToolsMenu"
                 runat="server"
-                Width="250"
+                Width="200"
                 Frame="false">
                 <Items>
                     <ext:MenuItem
@@ -40,7 +72,6 @@
                         DisplayField="DepartmentName"
                         ValueField="DepartmentID"
                         Width="300"
-                        Margins="5 15 5 5"
                         Editable="true">
                         <Store>
                             <ext:Store 
@@ -63,6 +94,8 @@
 
                         <ListConfig
                             Border="true"
+                            MinWidth="230"
+                            MaxWidth="250"
                             EmptyText="Please select a department...">
                             <ItemTpl ID="ItemTpl2" runat="server">
                                 <Html>
@@ -88,6 +121,58 @@
                         Disabled="true"
                         DisabledCls=""
                         Cls="font-12 popup-menu-field-label-background" />
+
+                    <ext:ComboBox
+                        ID="FilterUsersByDepartment"
+                        runat="server"
+                        Icon="Find"
+                        TriggerAction="Query"
+                        QueryMode="Local"
+                        DisplayField="SipAccount"
+                        ValueField="SipAccount"
+                        Width="300">
+                        <Store>
+                            <ext:Store 
+                                ID="FilterUsersByDepartmentStore"
+                                runat="server">
+                                <Model>
+                                    <ext:Model 
+                                        ID="FilterUsersByDepartmentModel"
+                                        runat="server">
+                                        <Fields>
+                                            <ext:ModelField Name="EmployeeID" />
+                                            <ext:ModelField Name="SipAccount" />
+                                            <ext:ModelField Name="SiteName" />
+                                            <ext:ModelField Name="FullName" />
+                                            <ext:ModelField Name="Department" />
+                                        </Fields>
+                                    </ext:Model>
+                                </Model>
+                            </ext:Store>
+                        </Store>
+
+                        <ListConfig
+                            LoadingText="Searching..."
+                            MinWidth="330"
+                            MaxWidth="350"
+                            Border="true"
+                            EmptyText="Please select user..."
+                            Frame="true">
+                            <ItemTpl ID="ItemTpl1" runat="server">
+                                <Html>
+                                    <div class="search-item">
+							            <h3><span>{SipAccount}</span>{FullName}</h3>
+						            </div>
+                                </Html>
+                            </ItemTpl>
+                        </ListConfig>
+
+                        <%--<DirectEvents>
+                            <Select OnEvent="GetPhoneCallsForUser">
+                                <EventMask ShowMask="true" />
+                            </Select>
+                        </DirectEvents>--%>
+                    </ext:ComboBox>
                 </Items>
             </ext:Menu>
 
@@ -248,8 +333,8 @@
                                 Width="200"
                                 Margins="5 470 5 5">
                                 <Items>
-                                    <ext:ListItem Text="Assigned" Value="Assigned" />
                                     <ext:ListItem Text="Unassigned" Value="Unassigned" />
+                                    <ext:ListItem Text="Assigned" Value="Assigned" />
                                 </Items>
                                 <SelectedItems>
                                     <ext:ListItem Text="Unassigned" Value="Unassigned" />
