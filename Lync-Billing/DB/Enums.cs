@@ -253,6 +253,10 @@ namespace Lync_Billing.DB
             UI_MarkedOn,
             [Description("ui_UpdatedByUser")]
             UI_UpdatedByUser,
+            [Description("ui_AssignedByUser")]
+            UI_AssignedByUser,
+            [Description("ui_AssignedOn")]
+            UI_AssignedOn,
             [Description("ui_CallType")]
             UI_CallType,
             [Description("ac_DisputeStatus")]
