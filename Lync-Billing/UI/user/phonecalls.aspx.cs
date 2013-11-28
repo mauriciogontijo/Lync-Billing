@@ -828,7 +828,52 @@ namespace Lync_Billing.ui.user
         [DirectMethod]
         protected void AssignSelectedPhonecallsToMe_DirectEvent(object sender, DirectEventArgs e)
         {
+            List<PhoneCall> submittedPhoneCalls;
+            List<PhoneCall> userSessionPhoneCalls;
+            string userSessionPhoneCallsPerPageJson = string.Empty;
 
+            string json = string.Empty;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+
+            //Get the session and sip account of the current user
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = GetEffectiveSipAccount();
+
+            //Get user phonecalls from the session
+            //Handle user delegee mode and normal user mode
+            userSessionPhoneCalls = GetUserSessionPhoneCalls();
+
+            json = e.ExtraParams["Values"];
+            //userSessionPhoneCallsPerPageJson = json;
+            submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+
+
+            foreach (PhoneCall phoneCall in submittedPhoneCalls)
+            {
+                //sessionPhoneCallRecord = userSessionPhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
+
+                //Assign the call to this user
+                phoneCall.UI_AssignedToUser = sipAccount;
+
+                //Update this phonecall in the database
+                PhoneCall.UpdatePhoneCall(phoneCall);
+
+                //Commit the changes to the grid and it's store
+                ModelProxy model = DepartmentPhoneCallsStore.Find(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), phoneCall.SessionIdTime.ToString());
+                model.Set(phoneCall);
+                model.Commit();
+
+                //Add this new phonecall to the user session
+                userSessionPhoneCalls.Add(phoneCall);
+            }
+
+            DepartmentPhoneCallsGrid.GetSelectionModel().DeselectAll();
+            DepartmentPhoneCallsStore.LoadPage(1);
+
+            //Reassign the user session data
+            //Handle the normal user mode and user delegee mode
+            SetUserSessionPhoneCallsData(userSessionPhoneCalls, null, null);
         }
     }
 }

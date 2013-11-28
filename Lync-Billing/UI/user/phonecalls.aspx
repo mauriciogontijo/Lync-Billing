@@ -33,7 +33,7 @@
                 ID="AddressBookTabPanel"
                 runat="server"
                 Header="true"
-                Title="Manage Address Book"
+                Title="Manage Phonecalls"
                 Width="740"
                 Height="770"
                 Plain="false">
@@ -377,7 +377,7 @@
                                     runat="server"
                                     Text="Assigned On"
                                     Width="140"
-                                    DataIndex="AssignedOn">
+                                    DataIndex="UI_AssignedOn">
                                     <Renderer Fn="DateRenderer" />
                                 </ext:Column>
                             </Columns>
@@ -591,7 +591,7 @@
                             <ext:MenuItem
                                 runat="server"
                                 ID="AssignSelectedPhonecallsToMeFieldLabel"
-                                Text="Selected Phonecall(s):"
+                                Text="Move Selected To:"
                                 Margins="5 0 5 0"
                                 Disabled="true"
                                 DisabledCls=""
@@ -599,7 +599,7 @@
 
                             <ext:MenuItem
                                 ID="AssignSelectedPhonecallsToMeButton"
-                                Text="Move to My Phonecalls"
+                                Text="My Phonecalls"
                                 runat="server"
                                 Margins="0 0 5 0">
                                 <DirectEvents>
