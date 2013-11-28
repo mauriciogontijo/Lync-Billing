@@ -255,6 +255,8 @@ namespace Lync_Billing.DB
             UI_UpdatedByUser,
             [Description("ui_AssignedByUser")]
             UI_AssignedByUser,
+            [Description("ui_AssignedToUser")]
+            UI_AssignedByUser,
             [Description("ui_AssignedOn")]
             UI_AssignedOn,
             [Description("ui_CallType")]
