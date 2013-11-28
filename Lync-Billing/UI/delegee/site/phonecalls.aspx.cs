@@ -155,13 +155,13 @@ namespace Lync_Billing.ui.delegee.site
 
             //Begin the filtering process
 
-            if (filter == null || filter.Property == Enums.GetDescription(Enums.PhoneCalls.ChargingParty))
+            if (filter == null || filter.Property == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser))
             {
                 filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.ChargingParty == sipAccount).AsQueryable();
             }
             else
             {
-                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_AssignedByUser == sipAccount).AsQueryable();
+                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_AssignedByUser != sipAccount).AsQueryable();
             }
           
 
@@ -195,7 +195,7 @@ namespace Lync_Billing.ui.delegee.site
 
             if (FilterTypeComboBox.SelectedItem.Value == "Unassigned")
             {
-                PhoneCallsStore.Filter("ChargingParty", sipAccount);
+                PhoneCallsStore.Filter("UI_AssignedByUser", null);
             }
             else 
             {
@@ -281,21 +281,17 @@ namespace Lync_Billing.ui.delegee.site
             selectedDepartmentId = Convert.ToInt32(e.ExtraParams["selectedDepartment"]);
             selectedDepartment = Department.GetDepartment(selectedDepartmentId);
 
-           
-
-
             submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
             userSessionPhoneCallsPerPageJson = json;
-
 
             foreach (PhoneCall phoneCall in submittedPhoneCalls)
             {
                 sessionPhoneCallRecord = departmentPhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
 
                 sessionPhoneCallRecord.UI_AssignedByUser = sipAccount;
+                sessionPhoneCallRecord.UI_AssignedToUser = selectedDepartment.SiteName + "-" + selectedDepartment.DepartmentName;
                 sessionPhoneCallRecord.UI_AssignedOn = DateTime.Now;
-                sessionPhoneCallRecord.ChargingParty = selectedDepartment.SiteName + "-" + selectedDepartment.DepartmentName;
-                
+               
                 PhoneCall.UpdatePhoneCall(sessionPhoneCallRecord);
 
                 ModelProxy model = PhoneCallsStore.Find(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), sessionPhoneCallRecord.SessionIdTime.ToString());
