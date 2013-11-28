@@ -59,6 +59,7 @@ namespace Lync_Billing.DB
         public DateTime UI_MarkedOn { set; get; }
         public string UI_CallType { set; get; }
         public string UI_AssignedByUser { set; get; }
+        public string UI_AssignedToUser { set; get; }
         public DateTime UI_AssignedOn { set; get; }
         public string AC_DisputeStatus { set; get; }
         public DateTime AC_DisputeResolvedOn { set; get; }
@@ -166,6 +167,9 @@ namespace Lync_Billing.DB
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_AssignedByUser = Convert.ToString(row[column.ColumnName]);
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedToUser) && row[column.ColumnName] != System.DBNull.Value)
+                        phoneCall.UI_AssignedToUser = Convert.ToString(row[column.ColumnName]);
 
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_AssignedOn = Convert.ToDateTime(row[column.ColumnName]);
@@ -382,6 +386,9 @@ namespace Lync_Billing.DB
 
             if (!string.IsNullOrEmpty(phoneCall.UI_AssignedByUser))
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser), phoneCall.UI_AssignedByUser);
+
+            if (!string.IsNullOrEmpty(phoneCall.UI_AssignedToUser))
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedToUser), phoneCall.UI_AssignedToUser);
 
             if (phoneCall.UI_AssignedOn != DateTime.MinValue)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn), phoneCall.UI_AssignedOn);
