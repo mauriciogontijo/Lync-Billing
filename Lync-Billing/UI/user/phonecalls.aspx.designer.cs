@@ -22,87 +22,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Hidden FormatType;
         
         /// <summary>
-        /// PhoneCallsAllocationToolsMenu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Menu PhoneCallsAllocationToolsMenu;
-        
-        /// <summary>
-        /// AllocPhonecallsFieldLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocPhonecallsFieldLabel;
-        
-        /// <summary>
-        /// AllocatePhonecallsAsBusiness control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocatePhonecallsAsBusiness;
-        
-        /// <summary>
-        /// AllocatePhonecallsAsPersonal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocatePhonecallsAsPersonal;
-        
-        /// <summary>
-        /// AllocatePhonecallsAsDispute control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocatePhonecallsAsDispute;
-        
-        /// <summary>
-        /// MenuSeparator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuSeparator MenuSeparator;
-        
-        /// <summary>
-        /// AllocDestinationsFieldLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocDestinationsFieldLabel;
-        
-        /// <summary>
-        /// AllocateDestinationsAsAlwaysBusiness control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocateDestinationsAsAlwaysBusiness;
-        
-        /// <summary>
-        /// AllocateDestinationsAsAlwaysPersonal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.MenuItem AllocateDestinationsAsAlwaysPersonal;
-        
-        /// <summary>
         /// PhoneCallsDataSource control.
         /// </summary>
         /// <remarks>
@@ -488,5 +407,113 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.PagingToolbar PagingToolbar2;
+        
+        /// <summary>
+        /// PhoneCallsAllocationToolsMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Menu PhoneCallsAllocationToolsMenu;
+        
+        /// <summary>
+        /// AllocPhonecallsFieldLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem AllocPhonecallsFieldLabel;
+        
+        /// <summary>
+        /// AllocatePhonecallsAsBusiness control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem AllocatePhonecallsAsBusiness;
+        
+        /// <summary>
+        /// AllocatePhonecallsAsPersonal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem AllocatePhonecallsAsPersonal;
+        
+        /// <summary>
+        /// AllocatePhonecallsAsDispute control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem AllocatePhonecallsAsDispute;
+        
+        /// <summary>
+        /// MenuSeparator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuSeparator MenuSeparator;
+        
+        /// <summary>
+        /// AllocDestinationsFieldLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem AllocDestinationsFieldLabel;
+        
+        /// <summary>
+        /// AllocateDestinationsAsAlwaysBusiness control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem AllocateDestinationsAsAlwaysBusiness;
+        
+        /// <summary>
+        /// AllocateDestinationsAsAlwaysPersonal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem AllocateDestinationsAsAlwaysPersonal;
+        
+        /// <summary>
+        /// DepartmentPhonecallsAllocationMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Menu DepartmentPhonecallsAllocationMenu;
+        
+        /// <summary>
+        /// AssignSelectedPhonecallsToMeFieldLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem AssignSelectedPhonecallsToMeFieldLabel;
+        
+        /// <summary>
+        /// AssignSelectedPhonecallsToMeButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem AssignSelectedPhonecallsToMeButton;
     }
 }

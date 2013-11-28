@@ -231,6 +231,18 @@ namespace Lync_Billing.ui.user
         }
 
 
+        protected void DepartmentPhoneCallsStore_Load(object sender, EventArgs e)
+        {
+            //string SiteDepartment = session.NormalUserInfo.SiteName + "_" + session.NormalUserInfo.Department;
+            string SiteDepartment =
+                (session.ActiveRoleName == userDelegeeRoleName) ?
+                session.DelegeeAccount.DelegeeUserAccount.SiteName + "-" + session.DelegeeAccount.DelegeeUserAccount.Department :
+                session.NormalUserInfo.SiteName + "-" + session.NormalUserInfo.Department;
+
+            DepartmentPhoneCallsGrid.GetStore().DataSource = PhoneCall.GetPhoneCalls(SiteDepartment);
+            DepartmentPhoneCallsGrid.GetStore().DataBind();
+        }
+
         protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             if (this.e.Start != -1)
@@ -813,24 +825,10 @@ namespace Lync_Billing.ui.user
             this.UserHelpPanel.Show();
         }
 
-        protected void DepartmentPhoneCallsStore_Load(object sender, EventArgs e)
+        [DirectMethod]
+        protected void AssignSelectedPhonecallsToMe_DirectEvent(object sender, DirectEventArgs e)
         {
-            //string SiteDepartment = session.NormalUserInfo.SiteName + "_" + session.NormalUserInfo.Department;
-            string SiteDepartment =
-                (session.ActiveRoleName == userDelegeeRoleName) ?
-                session.DelegeeAccount.DelegeeUserAccount.SiteName + "-" + session.DelegeeAccount.DelegeeUserAccount.Department :
-                session.NormalUserInfo.SiteName + "-" + session.NormalUserInfo.Department;
 
-            DepartmentPhoneCallsGrid.GetStore().DataSource = PhoneCall.GetPhoneCalls(SiteDepartment);
-            DepartmentPhoneCallsGrid.GetStore().DataBind();
-        }
-
-        protected void AssignDepartmentPhoneCall(object sender, DirectEventArgs e)
-        {
-        }
-
-        protected void UnassignDepartmentPhoneCall(object sender, DirectEventArgs e)
-        {
         }
     }
 }
