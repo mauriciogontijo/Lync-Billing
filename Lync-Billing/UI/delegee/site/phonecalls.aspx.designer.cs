@@ -85,15 +85,6 @@ namespace Lync_Billing.ui.delegee.site {
         protected global::Ext.Net.Button AssignToDepartmentButton;
         
         /// <summary>
-        /// PhoneCallsDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource PhoneCallsDataSource;
-        
-        /// <summary>
         /// ManagePhoneCallsGrid control.
         /// </summary>
         /// <remarks>
@@ -112,22 +103,13 @@ namespace Lync_Billing.ui.delegee.site {
         protected global::Ext.Net.Store PhoneCallsStore;
         
         /// <summary>
-        /// Model2 control.
+        /// PhoneCallsStoreModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model Model2;
-        
-        /// <summary>
-        /// CellEditingPlugin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.CellEditing CellEditingPlugin;
+        protected global::Ext.Net.Model PhoneCallsStoreModel;
         
         /// <summary>
         /// RowNumbererColumn2 control.
@@ -139,31 +121,31 @@ namespace Lync_Billing.ui.delegee.site {
         protected global::Ext.Net.RowNumbererColumn RowNumbererColumn2;
         
         /// <summary>
-        /// SessionIdTime control.
+        /// SessionIdTimeColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column SessionIdTime;
+        protected global::Ext.Net.Column SessionIdTimeColumn;
         
         /// <summary>
-        /// Marker_CallToCountry control.
+        /// Marker_CallToCountryColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Marker_CallToCountry;
+        protected global::Ext.Net.Column Marker_CallToCountryColumn;
         
         /// <summary>
-        /// DestinationNumberUri control.
+        /// DestinationNumberUriColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column DestinationNumberUri;
+        protected global::Ext.Net.Column DestinationNumberUriColumn;
         
         /// <summary>
         /// AssignedToColumn control.
@@ -175,22 +157,22 @@ namespace Lync_Billing.ui.delegee.site {
         protected global::Ext.Net.Column AssignedToColumn;
         
         /// <summary>
-        /// Duration control.
+        /// DurationColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Duration;
+        protected global::Ext.Net.Column DurationColumn;
         
         /// <summary>
-        /// Marker_CallCost control.
+        /// Marker_CallCostColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Marker_CallCost;
+        protected global::Ext.Net.Column Marker_CallCostColumn;
         
         /// <summary>
         /// CheckboxSelectionModel1 control.

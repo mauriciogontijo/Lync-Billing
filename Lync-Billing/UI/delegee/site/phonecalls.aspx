@@ -105,12 +105,6 @@
                                 </Html>
                             </ItemTpl>
                         </ListConfig>
-
-                        <DirectEvents>
-                            <Select OnEvent="DepartmentsListComboBox_Select">
-                                <EventMask ShowMask="true" />
-                            </Select>
-                        </DirectEvents>
                     </ext:ComboBox>
 
                     <ext:Button
@@ -132,20 +126,6 @@
                 </Items>
             </ext:Menu>
 
-            <asp:ObjectDataSource
-                ID="PhoneCallsDataSource"
-                runat="server"
-                OnSelecting="PhoneCallsDataSource_Selecting"
-                OnSelected="PhoneCallsDataSource_Selected"
-                SelectMethod="GetPhoneCallsFilter"
-                TypeName="Lync_Billing.ui.delegee.site.phonecalls">
-                <SelectParameters>
-                    <asp:Parameter Name="start" Type="Int32" />
-                    <asp:Parameter Name="limit" Type="Int32" />
-                    <asp:Parameter Name="sort" Type="Object" />
-                    <asp:Parameter Name="count" Direction="Output" Type="Int32" />
-                </SelectParameters>
-            </asp:ObjectDataSource>
 
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"
@@ -162,43 +142,40 @@
                     <ext:Store
                         ID="PhoneCallsStore"
                         runat="server"
+                        RemoteSort="true"
+                        IsPagingStore="true"
                         PageSize="25"
-                        DataSourceID="PhoneCallsDataSource"
-                        OnReadData="PhoneCallsStore_ReadData">
-                        <Proxy>
-                            <ext:PageProxy CacheString="" />
-                        </Proxy>
+                        OnLoad="PhoneCallsStore_Load">
+
                         <Model>
-                            <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
+                            <ext:Model ID="PhoneCallsStoreModel" runat="server" IDProperty="SessionIdTime">
                                 <Fields>
+                                    <ext:ModelField Name="ChargingParty" Type="String" />
                                     <ext:ModelField Name="SessionIdTime" Type="String" />
                                     <ext:ModelField Name="SessionIdSeq" Type="Int" />
                                     <ext:ModelField Name="ResponseTime" Type="String" />
                                     <ext:ModelField Name="SessionEndTime" Type="String" />
-                                    <ext:ModelField Name="Marker_CallToCountry" Type="String" />
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
                                     <ext:ModelField Name="Marker_CallCost" Type="Float" />
-                                    <ext:ModelField Name="ChargingParty" Type="String" />
-                                    <ext:ModelField Name="UI_AssignedOn" Type="date" />
-                                    <ext:ModelField Name="UI_AssignedByUser" Type="date" />
-                                    <ext:ModelField Name="UI_AssignedToUser" Type="date" />
+                                    <ext:ModelField Name="Marker_CallToCountry" Type="String" />
+                                    <ext:ModelField Name="PhoneBookName" Type="String" />
+                                    <ext:ModelField Name="PhoneCallTableName" Type="String" />
                                     <ext:ModelField Name="UI_CallType" Type="String" />
                                     <ext:ModelField Name="UI_MarkedOn" Type="Date" />
-                                    <ext:ModelField Name="PhoneCallTableName" Type="String" />
+                                    <ext:ModelField Name="UI_AssignedOn" Type="Date" />
+                                    <ext:ModelField Name="UI_AssignedByUser" Type="String" />
+                                    <ext:ModelField Name="UI_AssignedToUser" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
+
                         <Sorters>
                             <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
                         </Sorters>
                     </ext:Store>
                 </Store>
-
-                <Plugins>
-                    <ext:CellEditing ID="CellEditingPlugin" runat="server" ClicksToEdit="2" />
-                </Plugins>
-
+                
                 <ColumnModel ID="ColumnModel1" runat="server" Flex="1">
                     <Columns>
                         <ext:RowNumbererColumn
@@ -207,7 +184,7 @@
                             Width="25" />
 
                         <ext:Column
-                            ID="SessionIdTime"
+                            ID="SessionIdTimeColumn"
                             runat="server"
                             Text="Date"
                             Width="135"
@@ -216,14 +193,14 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="Marker_CallToCountry"
+                            ID="Marker_CallToCountryColumn"
                             runat="server"
                             Text="Country"
                             Width="90"
                             DataIndex="Marker_CallToCountry" />
 
                         <ext:Column
-                            ID="DestinationNumberUri"
+                            ID="DestinationNumberUriColumn"
                             runat="server"
                             Text="Destination"
                             Width="130"
@@ -237,7 +214,7 @@
                             DataIndex="UI_AssignedToUser" />
 
                         <ext:Column
-                            ID="Duration"
+                            ID="DurationColumn"
                             runat="server"
                             Text="Duration"
                             Width="90"
@@ -246,7 +223,7 @@
                         </ext:Column>
 
                         <ext:Column
-                            ID="Marker_CallCost"
+                            ID="Marker_CallCostColumn"
                             runat="server"
                             Text="Cost"
                             Width="70"
@@ -284,16 +261,19 @@
                                 Width="200"
                                 Margins="5 470 5 5">
                                 <Items>
+                                    <ext:ListItem Text="Everything" Value="Everything" />
                                     <ext:ListItem Text="Unassigned" Value="Unassigned" />
                                     <ext:ListItem Text="Assigned" Value="Assigned" />
                                 </Items>
 
                                 <SelectedItems>
-                                    <ext:ListItem Text="Unassigned" Value="Unassigned" />
+                                    <ext:ListItem Text="Everything" Value="Everything" />
                                 </SelectedItems>
                                 
                                 <DirectEvents>
-                                    <Select OnEvent="PhoneCallsTypeFilter" />
+                                    <Select OnEvent="PhoneCallsTypeFilter">
+                                        <EventMask ShowMask="true" />
+                                    </Select>
                                 </DirectEvents>
                             </ext:ComboBox>
 
