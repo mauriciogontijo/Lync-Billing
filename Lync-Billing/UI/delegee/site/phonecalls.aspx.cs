@@ -155,13 +155,13 @@ namespace Lync_Billing.ui.delegee.site
 
             //Begin the filtering process
 
-            if (filter == null || filter.Property == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser))
+            if (filter == null)
             {
-                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.ChargingParty == sipAccount).AsQueryable();
+                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_AssignedByUser) && string.IsNullOrEmpty(phoneCall.UI_AssignedToUser)).AsQueryable();
             }
             else
             {
-                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_AssignedByUser != sipAccount).AsQueryable();
+                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_AssignedByUser == filter.Value).AsQueryable();
             }
           
 
@@ -184,7 +184,7 @@ namespace Lync_Billing.ui.delegee.site
                 filteredPhoneCalls = filteredPhoneCalls.Skip(start).Take(limit);
 
             count = filteredPhoneCallsCount;
-
+            
             return filteredPhoneCalls.ToList();
         }
 
@@ -193,11 +193,7 @@ namespace Lync_Billing.ui.delegee.site
         {
             PhoneCallsStore.ClearFilter();
 
-            if (FilterTypeComboBox.SelectedItem.Value == "Unassigned")
-            {
-                PhoneCallsStore.Filter("UI_AssignedByUser", null);
-            }
-            else 
+            if (FilterTypeComboBox.SelectedItem.Value == "Assigned")
             {
                 PhoneCallsStore.Filter("UI_AssignedByUser", sipAccount);
             }
@@ -255,6 +251,12 @@ namespace Lync_Billing.ui.delegee.site
         }
 
         [DirectMethod]
+        protected void DepartmentsListComboBox_Select(object sender, DirectEventArgs e)
+        {
+
+        }
+
+        [DirectMethod]
         protected void AssignSelectedPhoneCallsToDepartment(object sender, DirectEventArgs e)
         {
             PhoneCall sessionPhoneCallRecord;
@@ -278,7 +280,7 @@ namespace Lync_Billing.ui.delegee.site
             departmentPhoneCalls = GetDepartmentPhoneCalls();
 
             json = e.ExtraParams["Values"];
-            selectedDepartmentId = Convert.ToInt32(e.ExtraParams["selectedDepartment"]);
+            selectedDepartmentId = Convert.ToInt32(e.ExtraParams["SelectedDepartment"]);
             selectedDepartment = Department.GetDepartment(selectedDepartmentId);
 
             submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
@@ -291,7 +293,7 @@ namespace Lync_Billing.ui.delegee.site
                 sessionPhoneCallRecord.UI_AssignedByUser = sipAccount;
                 sessionPhoneCallRecord.UI_AssignedToUser = selectedDepartment.SiteName + "-" + selectedDepartment.DepartmentName;
                 sessionPhoneCallRecord.UI_AssignedOn = DateTime.Now;
-               
+
                 PhoneCall.UpdatePhoneCall(sessionPhoneCallRecord);
 
                 ModelProxy model = PhoneCallsStore.Find(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), sessionPhoneCallRecord.SessionIdTime.ToString());

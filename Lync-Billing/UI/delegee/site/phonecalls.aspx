@@ -62,7 +62,7 @@
                         Disabled="true"
                         DisabledCls=""
                         Cls="font-12 popup-menu-field-label-background" />
-                    
+
                     <ext:ComboBox
                         ID="DepartmentsListComboBox"
                         runat="server"
@@ -99,12 +99,18 @@
                             MinWidth="230"
                             MaxWidth="250"
                             EmptyText="Please select a department...">
-                           <%-- <ItemTpl ID="ItemTpl2" runat="server">
+                            <ItemTpl ID="ItemTpl2" runat="server">
                                 <Html>
                                     <div>{SiteName}&nbsp;({DepartmentName})</div>
                                 </Html>
-                            </ItemTpl>--%>
+                            </ItemTpl>
                         </ListConfig>
+
+                        <DirectEvents>
+                            <Select OnEvent="DepartmentsListComboBox_Select">
+                                <EventMask ShowMask="true" />
+                            </Select>
+                        </DirectEvents>
                     </ext:ComboBox>
 
                     <ext:Button
@@ -118,7 +124,7 @@
                                 <EventMask ShowMask="true" />
                                 <ExtraParams>
                                     <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
-                                    <ext:Parameter Name="selectedDepartment" Value="#{DepartmentsListComboBox}.getValue()" Mode="Raw" />
+                                    <ext:Parameter Name="SelectedDepartment" Value="#{DepartmentsListComboBox}.getValue()" Mode="Raw" />
                                 </ExtraParams>
                             </Click>
                         </DirectEvents>
@@ -173,10 +179,12 @@
                                     <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                     <ext:ModelField Name="Duration" Type="Float" />
                                     <ext:ModelField Name="Marker_CallCost" Type="Float" />
-                                    <ext:ModelField Name="UI_CallType" Type="String" />
-                                    <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                     <ext:ModelField Name="ChargingParty" Type="String" />
                                     <ext:ModelField Name="UI_AssignedOn" Type="date" />
+                                    <ext:ModelField Name="UI_AssignedByUser" Type="date" />
+                                    <ext:ModelField Name="UI_AssignedToUser" Type="date" />
+                                    <ext:ModelField Name="UI_CallType" Type="String" />
+                                    <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                     <ext:ModelField Name="PhoneCallTableName" Type="String" />
                                 </Fields>
                             </ext:Model>
@@ -222,11 +230,11 @@
                             DataIndex="DestinationNumberUri" />
 
                         <ext:Column
-                            ID="ChargingParty"
+                            ID="AssignedToColumn"
                             runat="server"
                             Text="Assigned To"
                             Width="130"
-                            DataIndex="ChargingParty" />
+                            DataIndex="UI_AssignedToUser" />
 
                         <ext:Column
                             ID="Duration"
@@ -279,9 +287,11 @@
                                     <ext:ListItem Text="Unassigned" Value="Unassigned" />
                                     <ext:ListItem Text="Assigned" Value="Assigned" />
                                 </Items>
+
                                 <SelectedItems>
                                     <ext:ListItem Text="Unassigned" Value="Unassigned" />
                                 </SelectedItems>
+                                
                                 <DirectEvents>
                                     <Select OnEvent="PhoneCallsTypeFilter" />
                                 </DirectEvents>
