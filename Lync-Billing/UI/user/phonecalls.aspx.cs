@@ -69,15 +69,14 @@ namespace Lync_Billing.ui.user
             string userSipAccount = string.Empty;
             session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            //If the user is a normal one, just return the normal user sipaccount.
-            if (session.ActiveRoleName == normalUserRoleName)
-            {
-                userSipAccount = session.NormalUserInfo.SipAccount;
-            }
             //if the user is a user-delegee return the delegate sipaccount.
-            else if (session.ActiveRoleName == userDelegeeRoleName)
+            if (session.ActiveRoleName == userDelegeeRoleName)
             {
                 userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
+            }
+            else
+            {
+                userSipAccount = session.NormalUserInfo.SipAccount;
             }
 
             return userSipAccount;
