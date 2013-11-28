@@ -68,6 +68,7 @@
                                 <Model>
                                     <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
                                         <Fields>
+                                            <ext:ModelField Name="ChargingParty" Type="String" />
                                             <ext:ModelField Name="SessionIdTime" Type="String" />
                                             <ext:ModelField Name="SessionIdSeq" Type="Int" />
                                             <ext:ModelField Name="ResponseTime" Type="String" />
@@ -79,7 +80,7 @@
                                             <ext:ModelField Name="UI_CallType" Type="String" />
                                             <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                             <ext:ModelField Name="PhoneBookName" Type="String" />
-                                            <ext:ModelField Name="PhoneCallTable" Type="String" />
+                                            <ext:ModelField Name="PhoneCallTableName" Type="String" />
                                         </Fields>
                                     </ext:Model>
                                 </Model>
