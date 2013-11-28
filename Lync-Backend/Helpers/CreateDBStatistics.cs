@@ -185,8 +185,8 @@ namespace Lync_Backend.Helpers
             //Get WhereStatemnet and append it to every Select 
             string whereStatement = 
                 string.Format(
-                    "WHERE " + 
-                    "[" +Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND " + 
+                    "WHERE " +
+                    "([" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount  OR [" + Enums.GetDescription(Enums.PhoneCalls.UI_AssignedToUser) + "]=@SipAccount ) AND " + 
                     "[" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n" 

@@ -99,6 +99,8 @@ namespace Lync_Backend.Helpers
             UI_UpdatedByUser,
             [Description("ui_AssignedByUser")]
             UI_AssignedByUser,
+            [Description("ui_AssignedToUser")]
+            UI_AssignedToUser,
             [Description("ui_AssignedOn,")]
             UI_AssignedOn,
             [Description("ui_CallType")]
