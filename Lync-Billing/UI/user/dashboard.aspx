@@ -4,7 +4,6 @@
     <script type="text/javascript">
         //Pie Chart Data-Lable Renderer for Countries Destinations Calls
         var TopDestinationCountries_LableRenderer = function (storeItem, item) {
-            debugger;
             var total = 0,
                 all_countries_data = {},
                 component_name = "main_content_place_holder_" + "TopDestinationCountriesChart";
