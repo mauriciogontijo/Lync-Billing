@@ -854,6 +854,7 @@ namespace Lync_Billing.ui.user
                 //sessionPhoneCallRecord = userSessionPhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
 
                 //Assign the call to this user
+                phoneCall.UI_CallType = null;
                 phoneCall.UI_AssignedToUser = sipAccount;
 
                 //Update this phonecall in the database
@@ -861,16 +862,20 @@ namespace Lync_Billing.ui.user
 
                 //Commit the changes to the grid and it's store
                 ModelProxy model = DepartmentPhoneCallsStore.Find(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), phoneCall.SessionIdTime.ToString());
-                model.Set(phoneCall);
+                model.SetDirty();
                 model.Commit();
+                DepartmentPhoneCallsStore.Remove(model);
+
+                //Add it to the phonecalls store
+                PhoneCallsStore.Add(phoneCall);
 
                 //Add this new phonecall to the user session
                 userSessionPhoneCalls.Add(phoneCall);
             }
 
+            //Reload the department phonecalls grid
             DepartmentPhoneCallsGrid.GetSelectionModel().DeselectAll();
-            DepartmentPhoneCallsStore.LoadPage(1);
-
+            
             //Reassign the user session data
             //Handle the normal user mode and user delegee mode
             SetUserSessionPhoneCallsData(userSessionPhoneCalls, null, null);

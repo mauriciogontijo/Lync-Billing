@@ -317,7 +317,7 @@
                                             <ext:ModelField Name="UI_AssignedByUser" Type="String" />
                                             <ext:ModelField Name="UI_AssignedOn" Type="Date" />
                                             <ext:ModelField Name="PhoneBookName" Type="String" />
-                                            <ext:ModelField Name="PhoneCallTable" Type="String" />
+                                            <ext:ModelField Name="PhoneCallTableName" Type="String" />
                                         </Fields>
                                     </ext:Model>
                                 </Model>
