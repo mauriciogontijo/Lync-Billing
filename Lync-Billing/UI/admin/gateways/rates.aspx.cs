@@ -10,8 +10,8 @@ using System.Xml;
 using System.Xml.Xsl;
 using Ext.Net;
 
-using Lync_Billing.DB;
-using Lync_Billing.DB.Roles;
+using Lync_Billing.Backend;
+using Lync_Billing.Backend.Roles;
 
 namespace Lync_Billing.ui.admin.gateways
 {
@@ -46,7 +46,7 @@ namespace Lync_Billing.ui.admin.gateways
 
             sipAccount = session.NormalUserInfo.SipAccount;
 
-            SitesStore.DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
+            SitesStore.DataSource = Backend.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
             SitesStore.DataBind();
         }
         
@@ -189,7 +189,7 @@ namespace Lync_Billing.ui.admin.gateways
 
             foreach (SystemRole role in userRoles)
             {
-                DB.Site tmpSite = new DB.Site();
+                Backend.Site tmpSite = new Backend.Site();
 
                 if (role.SiteID != 0 && (role.IsSiteAdmin() || role.IsDeveloper()))
                 {
@@ -198,11 +198,11 @@ namespace Lync_Billing.ui.admin.gateways
                 }
             }
 
-            List<Site> tmpSites = DB.Site.GetAllSites();
+            List<Site> tmpSites = Backend.Site.GetAllSites();
 
-            foreach (DB.Site site in sites)
+            foreach (Backend.Site site in sites)
             {
-                DB.Site tmpSite = new DB.Site();
+                Backend.Site tmpSite = new Backend.Site();
 
                 tmpSite = tmpSites.First(e => e.SiteID == site.SiteID);
 

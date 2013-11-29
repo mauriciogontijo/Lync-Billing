@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using Lync_Billing.DB;
+using Lync_Billing.Backend;
 using System.Web.Script.Serialization;
 
 namespace Lync_Billing.Libs

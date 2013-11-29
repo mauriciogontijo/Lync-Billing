@@ -9,7 +9,7 @@ using System.Web.Script.Serialization;
 using System.Xml;
 using System.Xml.Xsl;
 using Ext.Net;
-using Lync_Billing.DB;
+using Lync_Billing.Backend;
 
 namespace Lync_Billing.ui.admin.gateways
 {
@@ -53,7 +53,7 @@ namespace Lync_Billing.ui.admin.gateways
             PoolComboBox.GetStore().DataSource = pools;
             PoolComboBox.GetStore().DataBind();
 
-            sites = DB.Site.GetAllSites().OrderBy(item => item.SiteName).ToList();
+            sites = Backend.Site.GetAllSites().OrderBy(item => item.SiteName).ToList();
             SitesComboBox.GetStore().DataSource = sites;
             SitesComboBox.GetStore().DataBind();
 
@@ -108,7 +108,7 @@ namespace Lync_Billing.ui.admin.gateways
             {
                 if (gatewayDetails[0].SiteID != 0)
                 {
-                    Site selectedSite = new DB.Site();
+                    Site selectedSite = new Backend.Site();
                     selectedSite = sites.Single(item => item.SiteID == gatewayDetails[0].SiteID);
                     SitesComboBox.SetValue(selectedSite.SiteID);
                 }

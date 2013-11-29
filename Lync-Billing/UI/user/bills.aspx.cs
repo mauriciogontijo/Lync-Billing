@@ -11,9 +11,9 @@ using System.Collections.ObjectModel;
 using System.Web.Script.Serialization;
 using Microsoft.Build.Tasks;
 using Ext.Net;
-using Lync_Billing.DB;
+using Lync_Billing.Backend;
 using Lync_Billing.Libs;
-using Lync_Billing.DB.Summaries;
+using Lync_Billing.Backend.Summaries;
 
 
 namespace Lync_Billing.ui.user

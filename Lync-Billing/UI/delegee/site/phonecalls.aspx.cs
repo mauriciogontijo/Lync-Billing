@@ -13,9 +13,9 @@ using System.Xml.Serialization;
 using Ext.Net;
 using Newtonsoft.Json;
 
-using Lync_Billing.DB;
+using Lync_Billing.Backend;
 using Lync_Billing.Libs;
-using Lync_Billing.DB.Roles;
+using Lync_Billing.Backend.Roles;
 
 namespace Lync_Billing.ui.delegee.site
 {
@@ -74,44 +74,6 @@ namespace Lync_Billing.ui.delegee.site
             }
         }
 
-        //Get the user sipaccount.
-        private string GetEffectiveSipAccount()
-        {
-            string userSipAccount = string.Empty;
-            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-
-            //if the user is a user-delegee return the delegate sipaccount.
-            if (session.ActiveRoleName == siteDelegeeRoleName)
-            {
-                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
-            }
-            else
-            {
-                userSipAccount = session.NormalUserInfo.SipAccount;
-            }
-
-            return userSipAccount;
-        }
-
-        //Get the user session phonecalls
-        //Handle normal user mode and user delegee mode
-        private List<PhoneCall> GetUserSessionPhoneCalls(bool force = false)
-        {
-            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
-
-            if (session.DelegeeAccount.DelegeeUserPhonecalls == null || session.DelegeeAccount.DelegeeUserPhonecalls.Count == 0 || force == true)
-            {
-                var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
-
-                session.DelegeeAccount.DelegeeUserPhonecalls = userPhoneCalls.ToList();
-
-                xmldoc = HelperFunctions.SerializeObject<List<PhoneCall>>(session.DelegeeAccount.DelegeeUserPhonecalls);
-            }
-
-            return session.DelegeeAccount.DelegeeUserPhonecalls;
-        }
-
         private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
         {
             session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
@@ -139,12 +101,111 @@ namespace Lync_Billing.ui.delegee.site
             }
         }
 
+        protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            if (this.e.Start != -1)
+                e.InputParameters["start"] = this.e.Start;
+            else
+                e.InputParameters["start"] = 0;
+
+            if (this.e.Limit != -1)
+                e.InputParameters["limit"] = this.e.Limit;
+            else
+                e.InputParameters["limit"] = 25;
+
+            if (!string.IsNullOrEmpty(this.e.Parameters["sort"]))
+                e.InputParameters["sort"] = this.e.Sort[0];
+            else
+                e.InputParameters["sort"] = null;
+
+            if (!string.IsNullOrEmpty(this.e.Parameters["filter"]))
+                e.InputParameters["filter"] = this.e.Filter[0];
+            else
+                e.InputParameters["filter"] = null;
+        }
+
+        protected void PhoneCallsDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            (this.PhoneCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
+        }
+        
+        protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            this.e = e;
+            PhoneCallsStore.DataBind();
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            session.DelegeeAccount.DelegeeUserPhonecallsPerPage = PhoneCallsStore.JsonData;
+        }
+
+        public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
+        {
+            List<PhoneCall> userSessionPhoneCalls;
+            IEnumerable<PhoneCall> filteredPhoneCalls;
+            int filteredPhoneCallsCount;
+
+            //Get use session and user phonecalls list.
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+
+            //Get user session phonecalls; handle normal user mode and delegee mode
+            userSessionPhoneCalls = session.GetUserSessionPhoneCalls();
+
+
+            //Begin the filtering process
+            if (filter != null && filter.Value == "assigned")
+                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_AssignedByUser == sipAccount && !string.IsNullOrEmpty(phoneCall.UI_AssignedToUser)).AsQueryable();
+            else if (filter != null && filter.Value == "unassigned")
+                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_AssignedByUser) && string.IsNullOrEmpty(phoneCall.UI_AssignedToUser)).AsQueryable();
+            else
+                filteredPhoneCalls = userSessionPhoneCalls.AsQueryable();
+
+
+            //Begin sorting process
+            if (sort != null)
+            {
+                ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
+                var p = Expression.Parameter(typeof(PhoneCall));
+                var sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.TypeAs(Expression.Property(p, sort.Property), typeof(object)), p).Compile();
+
+                if (sort.Direction == Ext.Net.SortDirection.DESC)
+                    filteredPhoneCalls = filteredPhoneCalls.OrderByDescending(sortExpression);
+                else
+                    filteredPhoneCalls = filteredPhoneCalls.OrderBy(sortExpression);
+            }
+
+            filteredPhoneCallsCount = filteredPhoneCalls.Count();
+
+            if (start >= 0 && limit > 0)
+                filteredPhoneCalls = filteredPhoneCalls.Skip(start).Take(limit);
+
+            count = filteredPhoneCallsCount;
+
+            return filteredPhoneCalls.ToList();
+
+        }
+
         [DirectMethod]
         protected void PhoneCallsTypeFilter(object sender, DirectEventArgs e)
         {
             ManagePhoneCallsGrid.GetStore().ClearFilter();
 
-            var sessionPhoneCalls = GetUserSessionPhoneCalls();
+
+            //if (FilterTypeComboBox.SelectedItem.Value == "Everything")
+            //{
+            //    PhoneCallsStore.Filter("UI_AssignedByUser", null);
+            //}
+            //else if (FilterTypeComboBox.SelectedItem.Value == "Assigned")
+            //{
+            //    PhoneCallsStore.Filter("UI_AssignedByUser", "assigned");
+            //}
+            //else if (FilterTypeComboBox.SelectedItem.Value == "Unassigned")
+            //{
+            //    PhoneCallsStore.Filter("UI_AssignedByUser", "unassigned");
+            //}
+
+            //PhoneCallsStore.LoadPage(1);
+
+
+            var sessionPhoneCalls = session.GetUserSessionPhoneCalls();
 
             if (FilterTypeComboBox.SelectedItem.Value == "Everything")
             {
@@ -164,7 +225,7 @@ namespace Lync_Billing.ui.delegee.site
 
         protected void PhoneCallsStore_Load(object sender, EventArgs e)
         {
-            ManagePhoneCallsGrid.GetStore().DataSource = GetUserSessionPhoneCalls();
+            ManagePhoneCallsGrid.GetStore().DataSource = session.GetUserSessionPhoneCalls();
             ManagePhoneCallsGrid.GetStore().DataBind();
         }
         
@@ -195,7 +256,7 @@ namespace Lync_Billing.ui.delegee.site
 
             //Get user phonecalls from the session
             //Handle user delegee mode and normal user mode
-            departmentPhoneCalls = GetUserSessionPhoneCalls();
+            departmentPhoneCalls = session.GetUserSessionPhoneCalls();
 
             json = e.ExtraParams["Values"];
             selectedDepartmentId = Convert.ToInt32(e.ExtraParams["SelectedDepartment"]);

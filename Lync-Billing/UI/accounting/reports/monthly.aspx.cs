@@ -19,9 +19,9 @@ using Newtonsoft.Json;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
-using Lync_Billing.DB;
+using Lync_Billing.Backend;
 using Lync_Billing.Libs;
-using Lync_Billing.DB.Summaries;
+using Lync_Billing.Backend.Summaries;
 
 namespace Lync_Billing.ui.accounting.reports
 {
@@ -55,7 +55,7 @@ namespace Lync_Billing.ui.accounting.reports
             sipAccount = session.NormalUserInfo.SipAccount;
             
             //Get the list of sites for this accountant
-            FilterReportsBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAccountant));
+            FilterReportsBySite.GetStore().DataSource = Backend.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAccountant));
             FilterReportsBySite.GetStore().DataBind();
         }
 

@@ -205,9 +205,9 @@
                                 </ListConfig>
 
                                 <DirectEvents>
-                                    <Change OnEvent="FilterUsersBySite_Selected">
+                                    <Select OnEvent="FilterUsersBySite_Selected">
                                         <EventMask ShowMask="true" />
-                                    </Change>
+                                    </Select>
                                 </DirectEvents>
                             </ext:ComboBox>
 

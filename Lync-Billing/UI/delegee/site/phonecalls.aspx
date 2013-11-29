@@ -127,6 +127,22 @@
             </ext:Menu>
 
 
+            <asp:ObjectDataSource
+                ID="PhoneCallsDataSource"
+                runat="server"
+                OnSelecting="PhoneCallsDataSource_Selecting"
+                OnSelected="PhoneCallsDataSource_Selected"
+                SelectMethod="GetPhoneCallsFilter"
+                TypeName="Lync_Billing.ui.delegee.site.phonecalls">
+                <SelectParameters>
+                    <asp:Parameter Name="start" Type="Int32" />
+                    <asp:Parameter Name="limit" Type="Int32" />
+                    <asp:Parameter Name="sort" Type="Object" />
+                    <asp:Parameter Name="count" Direction="Output" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
+
+
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"
                 runat="server"
@@ -146,7 +162,9 @@
                         IsPagingStore="true"
                         PageSize="25"
                         OnLoad="PhoneCallsStore_Load">
-
+                        <%--DataSourceID="PhoneCallsDataSource"
+                        OnLoad="PhoneCallsStore_ReadData"--%>
+                        
                         <Model>
                             <ext:Model ID="PhoneCallsStoreModel" runat="server" IDProperty="SessionIdTime">
                                 <Fields>
@@ -173,6 +191,10 @@
                         <Sorters>
                             <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
                         </Sorters>
+
+                        <Proxy>
+                            <ext:PageProxy CacheString="" />
+                        </Proxy>
                     </ext:Store>
                 </Store>
                 

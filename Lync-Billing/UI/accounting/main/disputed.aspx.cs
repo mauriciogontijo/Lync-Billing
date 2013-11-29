@@ -10,8 +10,8 @@ using System.Xml;
 using System.Xml.Xsl;
 using Ext.Net;
 
-using Lync_Billing.DB;
-using Lync_Billing.DB.Roles;
+using Lync_Billing.Backend;
+using Lync_Billing.Backend.Roles;
 
 namespace Lync_Billing.ui.accounting.main
 {
@@ -163,7 +163,7 @@ namespace Lync_Billing.ui.accounting.main
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             wherePart.Add("SiteID", siteID);
 
-            List<Site> sites = DB.Site.GetAllSites(null, wherePart, 0);
+            List<Site> sites = Backend.Site.GetAllSites(null, wherePart, 0);
 
             return sites[0].SiteName;
         }

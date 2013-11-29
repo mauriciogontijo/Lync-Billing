@@ -211,15 +211,16 @@
                                 ID="FilterUsersBySite" 
                                 runat="server" 
                                 Icon="Find" 
-                                TriggerAction="All" 
-                                QueryMode="Local" 
+                                TriggerAction="Query"
+                                QueryMode="Local"
                                 DisplayField="SiteName" 
                                 ValueField="SiteName"
                                 Width="250"
                                 Margins="5 390 0 5"
                                 FieldLabel="Site"
                                 LabelSeparator=":"
-                                LabelWidth="25">
+                                LabelWidth="25"
+                                Editable="true">
                                 <Store>
                                     <ext:Store
                                         ID="SitesStore"
@@ -240,16 +241,16 @@
                                     <ItemTpl ID="SitesItemTpl" runat="server">
                                         <Html>
                                             <div data-qtip="{SiteName}. {CountryCode}">
-                                                {SiteName} ({CountryCode})
+                                                {SiteName}&nbsp;({CountryCode})
                                             </div>
                                         </Html>
                                     </ItemTpl>
                                 </ListConfig>
 
                                 <DirectEvents>
-                                    <Change OnEvent="GetUnmarkedCallsForSite">
+                                    <Select OnEvent="GetUnmarkedCallsForSite">
                                         <EventMask ShowMask="true" />
-                                    </Change>
+                                    </Select>
                                 </DirectEvents>
                             </ext:ComboBox>
 

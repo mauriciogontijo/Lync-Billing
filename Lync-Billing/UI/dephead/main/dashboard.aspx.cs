@@ -6,11 +6,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-using Lync_Billing.DB;
+using Lync_Billing.Backend;
 using Lync_Billing.Libs;
-using Lync_Billing.DB.Roles;
-using Lync_Billing.DB.Summaries;
-using Lync_Billing.DB.Statistics;
+using Lync_Billing.Backend.Roles;
+using Lync_Billing.Backend.Summaries;
+using Lync_Billing.Backend.Statistics;
 
 
 namespace Lync_Billing.ui.dephead.main
@@ -119,7 +119,7 @@ namespace Lync_Billing.ui.dephead.main
                 department = Department.GetDepartment(departmentID);
 
                 //siteID = Convert.ToInt32((from dep in UserDepartments where dep.DepartmentName == departmentName select dep.SiteID).First());
-                //site = DB.Site.GetSite(siteID);
+                //site = Backend.Site.GetSite(siteID);
 
                 if (department != null && !string.IsNullOrEmpty(department.SiteName))
                 {

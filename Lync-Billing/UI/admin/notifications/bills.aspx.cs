@@ -11,10 +11,10 @@ using System.Xml.Xsl;
 using Ext.Net;
 using System.Globalization;
 
-using Lync_Billing.DB;
+using Lync_Billing.Backend;
 using Lync_Billing.Libs;
-using Lync_Billing.DB.Summaries;
-using Lync_Billing.DB.Roles;
+using Lync_Billing.Backend.Summaries;
+using Lync_Billing.Backend.Roles;
 
 namespace Lync_Billing.ui.admin.notifications
 {
@@ -45,7 +45,7 @@ namespace Lync_Billing.ui.admin.notifications
 
             sipAccount = session.NormalUserInfo.SipAccount;
 
-            FilterUsersBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
+            FilterUsersBySite.GetStore().DataSource = Backend.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
             FilterUsersBySite.GetStore().DataBind();
         }
 
@@ -59,7 +59,7 @@ namespace Lync_Billing.ui.admin.notifications
 
             foreach (SystemRole role in userRoles)
             {
-                DB.Site tmpSite = new DB.Site();
+                Backend.Site tmpSite = new Backend.Site();
 
                 if (role.SiteID != 0 && (role.IsSiteAdmin() || role.IsDeveloper()))
                 {
@@ -68,11 +68,11 @@ namespace Lync_Billing.ui.admin.notifications
                 }
             }
 
-            List<Site> tmpSites = DB.Site.GetAllSites();
+            List<Site> tmpSites = Backend.Site.GetAllSites();
 
-            foreach (DB.Site site in sites)
+            foreach (Backend.Site site in sites)
             {
-                DB.Site tmpSite = new DB.Site();
+                Backend.Site tmpSite = new Backend.Site();
 
                 tmpSite = tmpSites.First(e => e.SiteID == site.SiteID);
 

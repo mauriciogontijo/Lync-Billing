@@ -9,9 +9,9 @@ using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
-using Lync_Billing.DB;
+using Lync_Billing.Backend;
 using Lync_Billing.Libs;
-using Lync_Billing.DB.Summaries;
+using Lync_Billing.Backend.Summaries;
 using Lync_Billing.ConfigurationSections;
 
 namespace Lync_Billing.Libs

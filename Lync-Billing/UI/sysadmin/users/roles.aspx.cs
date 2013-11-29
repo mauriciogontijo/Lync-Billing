@@ -6,9 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Ext.Net;
 using Newtonsoft.Json;
-using Lync_Billing.DB;
+using Lync_Billing.Backend;
 
-using Lync_Billing.DB.Roles;
+using Lync_Billing.Backend.Roles;
 
 namespace Lync_Billing.ui.sysadmin.users
 {
@@ -39,7 +39,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
             sipAccount = session.NormalUserInfo.SipAccount;
 
-            FilterUsersRolesBySite.GetStore().DataSource = DB.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSystemAdmin));
+            FilterUsersRolesBySite.GetStore().DataSource = Backend.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSystemAdmin));
             FilterUsersRolesBySite.GetStore().DataBind();
         }
 
@@ -53,8 +53,8 @@ namespace Lync_Billing.ui.sysadmin.users
                 {"SiteName", siteName},
             };
             
-            List<DB.Site> sitesResults = DB.Site.GetAllSites(DbSiteColumns, DbSiteWherePart, 0);
-            DB.Site site = sitesResults.First();
+            List<Backend.Site> sitesResults = Backend.Site.GetAllSites(DbSiteColumns, DbSiteWherePart, 0);
+            Backend.Site site = sitesResults.First();
 
 
             List<string> columns = new List<string>();

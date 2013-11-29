@@ -9,7 +9,7 @@ using System.Web.Script.Serialization;
 using System.Xml;
 using System.Xml.Xsl;
 using Ext.Net;
-using Lync_Billing.DB;
+using Lync_Billing.Backend;
 using Lync_Billing.Libs;
 
 namespace Lync_Billing.ui.user
@@ -65,8 +65,8 @@ namespace Lync_Billing.ui.user
 
         public List<Site> getSites() 
         {
-            List<Site> sites = new List<DB.Site>();
-            return sites = DB.Site.GetAllSites();
+            List<Site> sites = new List<Backend.Site>();
+            return sites = Backend.Site.GetAllSites();
         }
 
         public List<Gateway> GetGateways()
@@ -77,7 +77,7 @@ namespace Lync_Billing.ui.user
             gateways = Gateway.GetGateways();
 
             //GetSite ID
-            DB.Site userSite = getSites().First(item => item.SiteName == siteName);
+            Backend.Site userSite = getSites().First(item => item.SiteName == siteName);
 
             int siteID = userSite.SiteID;
             
