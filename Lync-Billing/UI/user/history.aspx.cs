@@ -53,63 +53,8 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
         }
-
-
-        //Get the user sipaccount.
-        private string GetEffectiveSipAccount()
-        {
-            string userSipAccount = string.Empty;
-            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-
-            //If the user is a normal one, just return the normal user sipaccount.
-            if (session.ActiveRoleName == normalUserRoleName)
-            {
-                userSipAccount = session.NormalUserInfo.SipAccount;
-            }
-            //if the user is a user-delegee return the delegate sipaccount.
-            else if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
-            }
-
-            return userSipAccount;
-        }
-
-        //Get user phonecalls and assign to the respective session variable
-        //Handle both the normal user mode and the delegee user mode.
-        protected List<PhoneCall> getPhoneCalls(bool force = false)
-        {
-            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = GetEffectiveSipAccount();
-
-            wherePart = new Dictionary<string, object>();
-
-            //User delegee mode
-            if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                if (session.DelegeeAccount.DelegeeUserPhonecallsHistory == null || session.DelegeeAccount.DelegeeUserPhonecallsHistory.Count == 0 || force == true)
-                {
-                    wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
-                    session.DelegeeAccount.DelegeeUserPhonecallsHistory = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0);
-                }
-
-                return session.DelegeeAccount.DelegeeUserPhonecallsHistory;
-            }
-            //Normal user delegee mode
-            else
-            {
-                if (session.PhonecallsHistory == null || session.PhonecallsHistory.Count == 0 || force == true)
-                {
-                    wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
-                    session.PhonecallsHistory = PhoneCall.GetPhoneCalls(sipAccount, wherePart, 0);
-                }
-
-                return session.PhonecallsHistory;
-            }
-        }
-
 
         protected void PhoneCallStore_ReadData(object sender, StoreReadDataEventArgs e)
         {
@@ -156,7 +101,7 @@ namespace Lync_Billing.ui.user
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
 
             //Get user session phonecalls history; handle normal user mode and delegee mode
-            userSessionPhoneCallsHistory = getPhoneCalls();
+            userSessionPhoneCallsHistory = session.GetUserSessionPhoneCalls();
 
             //Start filtering process
             if (filter == null)

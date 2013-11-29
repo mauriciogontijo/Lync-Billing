@@ -32,7 +32,8 @@ namespace Lync_Billing.ui.user
         private string pageData = string.Empty;
         private StoreReadDataEventArgs e;
 
-        string xmldoc = string.Empty;
+        private string xmldoc = string.Empty;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,7 +54,7 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             //Handle user delegee mode and normal user mode
             if (session.ActiveRoleName == userDelegeeRoleName)
@@ -61,27 +62,6 @@ namespace Lync_Billing.ui.user
             else
                 session.Addressbook = PhoneBook.GetAddressBook(sipAccount);
         }
-
-
-        //Get the user sipaccount.
-        private string GetEffectiveSipAccount()
-        {
-            string userSipAccount = string.Empty;
-            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-
-            //if the user is a user-delegee return the delegate sipaccount.
-            if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
-            }
-            else
-            {
-                userSipAccount = session.NormalUserInfo.SipAccount;
-            }
-
-            return userSipAccount;
-        }
-
 
         private void ShowInfoMessages()
         {
@@ -108,127 +88,6 @@ namespace Lync_Billing.ui.user
                 HelperFunctions.Message(title, notificationMessage, type, hideDelay: 10000, width: 250, height: 100);
             }
         }
-
-
-        //Get the user session phonecalls
-        //Handle normal user mode and user delegee mode
-        private List<PhoneCall> GetUserSessionPhoneCalls(bool force = false)
-        {
-            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = GetEffectiveSipAccount();
-
-            //User Delegee Mode
-            if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                if (session.DelegeeAccount.DelegeeUserPhonecalls == null || session.DelegeeAccount.DelegeeUserPhonecalls.Count == 0 || force == true)
-                {
-                    var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
-                    var addressbook = session.DelegeeAccount.DelegeeUserAddressbook;
-
-                    if (addressbook == null || addressbook.Count == 0)
-                        addressbook = PhoneBook.GetAddressBook(sipAccount);
-
-                    foreach (var phoneCall in userPhoneCalls)
-                    {
-                        if (addressbook.ContainsKey(phoneCall.DestinationNumberUri))
-                        {
-                            phoneCall.PhoneBookName = ((PhoneBook)addressbook[phoneCall.DestinationNumberUri]).Name;
-                        }
-                    }
-
-                    session.DelegeeAccount.DelegeeUserPhonecalls = userPhoneCalls.ToList();
-
-                    xmldoc = HelperFunctions.SerializeObject<List<PhoneCall>>(session.DelegeeAccount.DelegeeUserPhonecalls);
-                }
-
-                return session.DelegeeAccount.DelegeeUserPhonecalls;
-            }
-            //Normal User Mode
-            else
-            {
-                if (session.Phonecalls == null || session.Phonecalls.Count == 0 || force == true)
-                {
-                    var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
-                    var addressbook = session.Addressbook;
-
-                    if (addressbook == null || addressbook.Count == 0)
-                        addressbook = PhoneBook.GetAddressBook(sipAccount);
-
-                    foreach (var phoneCall in userPhoneCalls)
-                    {
-                        if (addressbook.ContainsKey(phoneCall.DestinationNumberUri))
-                        {
-                            phoneCall.PhoneBookName = ((PhoneBook)session.Addressbook[phoneCall.DestinationNumberUri]).Name;
-                        }
-                    }
-
-                    session.Phonecalls = userPhoneCalls.ToList();
-
-                    xmldoc = HelperFunctions.SerializeObject<List<PhoneCall>>(session.Phonecalls);
-                }
-
-                return session.Phonecalls;
-            }
-        }
-
-
-        //Get the user session phonecalls data, such as: PhoneCalls list, AddressBook and PhoneCallsPerPage JSON String
-        //Handle normal user mode and user delegee mode
-        private void GetUserSessionPhoneCallsData(out List<PhoneCall> userSessionPhoneCalls, out Dictionary<string, PhoneBook> userSessionAddressBook, out string userSessionPhoneCallsPerPageJson)
-        {
-            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-
-            //Initialize the passed varaibles
-            userSessionPhoneCalls = new List<PhoneCall>();
-            userSessionAddressBook = new Dictionary<string, PhoneBook>();
-            userSessionPhoneCallsPerPageJson = string.Empty;
-
-            //This part is off-loaded to another procedure due to size of code
-            userSessionPhoneCalls = GetUserSessionPhoneCalls();
-
-            if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                userSessionAddressBook = session.DelegeeAccount.DelegeeUserAddressbook;
-                userSessionPhoneCallsPerPageJson = session.DelegeeAccount.DelegeeUserPhonecallsPerPage;
-            }
-            else
-            {
-                userSessionAddressBook = session.Addressbook;
-                userSessionPhoneCallsPerPageJson = session.PhonecallsPerPage;
-            }
-
-        }
-
-
-        //Pass any of the three variables to this function and it will assign it's data to the respective UserSession container
-        //The functions respectively stand for the the list of user phonecalls, his/her addressbook contacts, and the phonecalls grid json string
-        //This handles the normal user mode and the user delegee mode.
-        private void SetUserSessionPhoneCallsData(List<PhoneCall> userSessionPhoneCalls, Dictionary<string, PhoneBook> userSessionAddressBook, string userSessionPhoneCallsPerPageJson)
-        {
-            if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                if (userSessionPhoneCalls != null && userSessionPhoneCalls.Count > 0)
-                    session.DelegeeAccount.DelegeeUserPhonecalls = userSessionPhoneCalls;
-
-                if (userSessionAddressBook != null && userSessionAddressBook.Count > 0)
-                    session.DelegeeAccount.DelegeeUserAddressbook = userSessionAddressBook;
-
-                if (!string.IsNullOrEmpty(userSessionPhoneCallsPerPageJson))
-                    session.DelegeeAccount.DelegeeUserPhonecallsPerPage = userSessionPhoneCallsPerPageJson;
-            }
-            else
-            {
-                if (userSessionPhoneCalls != null && userSessionPhoneCalls.Count > 0)
-                    session.Phonecalls = userSessionPhoneCalls;
-
-                if (userSessionAddressBook != null && userSessionAddressBook.Count > 0)
-                    session.Addressbook = userSessionAddressBook;
-
-                if (!string.IsNullOrEmpty(userSessionPhoneCallsPerPageJson))
-                    session.PhonecallsPerPage = userSessionPhoneCallsPerPageJson;
-            }
-        }
-
 
         protected void DepartmentPhoneCallsStore_Load(object sender, EventArgs e)
         {
@@ -298,7 +157,7 @@ namespace Lync_Billing.ui.user
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             
             //Get user session phonecalls; handle normal user mode and delegee mode
-            userSessionPhoneCalls = GetUserSessionPhoneCalls();
+            userSessionPhoneCalls = session.GetUserSessionPhoneCalls();
 
 
             //Begin the filtering process
@@ -334,7 +193,7 @@ namespace Lync_Billing.ui.user
         protected void AssignAllPersonal(object sender, DirectEventArgs e)
         {
             //session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            //sipAccount = GetEffectiveSipAccount();
+            //sipAccount = session.GetEffectiveSipAccount();
 
             //RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -377,7 +236,7 @@ namespace Lync_Billing.ui.user
         protected void AssignAllBusiness(object sender, DirectEventArgs e)
         {
             //session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            //sipAccount = GetEffectiveSipAccount();
+            //sipAccount = session.GetEffectiveSipAccount();
 
             //RowSelectionModel sm = this.ManagePhoneCallsGrid.GetSelectionModel() as RowSelectionModel;
 
@@ -428,11 +287,11 @@ namespace Lync_Billing.ui.user
 
             //Get the session and sip account of the current user
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             //Get user phonecalls from the session
             //Handle user delegee mode and normal user mode
-            userSessionPhoneCalls = GetUserSessionPhoneCalls();
+            userSessionPhoneCalls = session.GetUserSessionPhoneCalls();
             
             json = e.ExtraParams["Values"];
             submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
@@ -459,7 +318,7 @@ namespace Lync_Billing.ui.user
 
             //Reassign the user session data
             //Handle the normal user mode and user delegee mode
-            SetUserSessionPhoneCallsData(userSessionPhoneCalls, null, null);
+            session.AssignSessionPhonecallsAndAddressbookData(userSessionPhoneCalls, null, null);
         }
 
         protected void AssignBusiness(object sender, DirectEventArgs e) 
@@ -475,11 +334,11 @@ namespace Lync_Billing.ui.user
 
             //Get the session and sip account of the current user
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             //Get user phonecalls from the session
             //Handle user delegee mode and normal user mode
-            userSessionPhoneCalls = GetUserSessionPhoneCalls();
+            userSessionPhoneCalls = session.GetUserSessionPhoneCalls();
 
             json = e.ExtraParams["Values"];
             submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
@@ -505,7 +364,7 @@ namespace Lync_Billing.ui.user
 
             //Reassign the user session data
             //Handle the normal user mode and user delegee mode
-            SetUserSessionPhoneCallsData(userSessionPhoneCalls, null, userSessionPhoneCallsPerPageJson);
+            session.AssignSessionPhonecallsAndAddressbookData(userSessionPhoneCalls, null, userSessionPhoneCallsPerPageJson);
         }
 
         protected void AssignDispute(object sender, DirectEventArgs e)
@@ -521,12 +380,12 @@ namespace Lync_Billing.ui.user
 
             //Get the session and sip account of the current user
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
 
             //Get user phonecalls from the session
             //Handle user delegee mode and normal user mode
-            userSessionPhoneCalls = GetUserSessionPhoneCalls();
+            userSessionPhoneCalls = session.GetUserSessionPhoneCalls();
 
 
             json = e.ExtraParams["Values"];
@@ -559,7 +418,7 @@ namespace Lync_Billing.ui.user
 
             //Reassign the user session data
             //Handle the normal user mode and user delegee mode
-            SetUserSessionPhoneCallsData(userSessionPhoneCalls, null, userSessionPhoneCallsPerPageJson);
+            session.AssignSessionPhonecallsAndAddressbookData(userSessionPhoneCalls, null, userSessionPhoneCallsPerPageJson);
         }
 
         protected void AssignAlwaysPersonal(object sender, DirectEventArgs e)
@@ -583,12 +442,12 @@ namespace Lync_Billing.ui.user
             
             //Get user session and effective sip account
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
 
             //Get user phoneCalls, addressbook, and phoneCallsPerPage;
             //Handle user delegee mode and normal user mode
-            GetUserSessionPhoneCallsData(out userSessionPhoneCalls, out userSessionAddressBook, out userSessionPhoneCallsPerPageJson);
+            session.FetchSessionPhonecallsAndAddressbookData(out userSessionPhoneCalls, out userSessionAddressBook, out userSessionPhoneCallsPerPageJson);
 
             
             //Get the submitted grid data
@@ -656,7 +515,7 @@ namespace Lync_Billing.ui.user
 
             //Reassign the user session data
             //Handle the normal user mode and user delegee mode
-            SetUserSessionPhoneCallsData(userSessionPhoneCalls, userSessionAddressBook, userSessionPhoneCallsPerPageJson);
+            session.AssignSessionPhonecallsAndAddressbookData(userSessionPhoneCalls, userSessionAddressBook, userSessionPhoneCallsPerPageJson);
         }
 
         protected void AssignAlwaysBusiness(object sender, DirectEventArgs e)
@@ -680,12 +539,12 @@ namespace Lync_Billing.ui.user
 
             //Get user session and effective sip account
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
 
             //Get user phoneCalls, addressbook, and phoneCallsPerPage;
             //Handle user delegee mode and normal user mode
-            GetUserSessionPhoneCallsData(out userSessionPhoneCalls, out userSessionAddressBook, out userSessionPhoneCallsPerPageJson);
+            session.FetchSessionPhonecallsAndAddressbookData(out userSessionPhoneCalls, out userSessionAddressBook, out userSessionPhoneCallsPerPageJson);
 
 
             //Get the submitted grid data
@@ -754,7 +613,7 @@ namespace Lync_Billing.ui.user
 
             //Reassign the user session data
             //Handle the normal user mode and user delegee mode
-            SetUserSessionPhoneCallsData(userSessionPhoneCalls, userSessionAddressBook, userSessionPhoneCallsPerPageJson);
+            session.AssignSessionPhonecallsAndAddressbookData(userSessionPhoneCalls, userSessionAddressBook, userSessionPhoneCallsPerPageJson);
         }
 
         [DirectMethod]
@@ -837,11 +696,11 @@ namespace Lync_Billing.ui.user
 
             //Get the session and sip account of the current user
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             //Get user phonecalls from the session
             //Handle user delegee mode and normal user mode
-            userSessionPhoneCalls = GetUserSessionPhoneCalls();
+            userSessionPhoneCalls = session.GetUserSessionPhoneCalls();
 
             json = e.ExtraParams["Values"];
             //userSessionPhoneCallsPerPageJson = json;
@@ -877,7 +736,7 @@ namespace Lync_Billing.ui.user
             
             //Reassign the user session data
             //Handle the normal user mode and user delegee mode
-            SetUserSessionPhoneCallsData(userSessionPhoneCalls, null, null);
+            session.AssignSessionPhonecallsAndAddressbookData(userSessionPhoneCalls, null, null);
         }
     }
 }

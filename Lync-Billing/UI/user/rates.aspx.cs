@@ -43,32 +43,10 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             BindGatewaysData();
         }
-
-
-        //Get the user sipaccount.
-        private string GetEffectiveSipAccount()
-        {
-            string userSipAccount = string.Empty;
-            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-
-            //If the user is a normal one, just return the normal user sipaccount.
-            if (session.ActiveRoleName == normalUserRoleName)
-            {
-                userSipAccount = session.NormalUserInfo.SipAccount;
-            }
-            //if the user is a user-delegee return the delegate sipaccount.
-            else if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
-            }
-
-            return userSipAccount;
-        }
-
 
         private void BindGatewaysData()
         {
@@ -122,7 +100,6 @@ namespace Lync_Billing.ui.user
             return filteredGateways;
         }
 
-
         public string GetProviderName(int gatewayID) 
         {
             if (gateways.Count < 1)
@@ -130,7 +107,6 @@ namespace Lync_Billing.ui.user
 
             return GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).ProviderName;
         }
-
 
         public string GetRatesTableName(int gatewayID) 
         {
@@ -140,7 +116,6 @@ namespace Lync_Billing.ui.user
             return GatewayRate.GetGatewaysRates(gatewayID).First(item => item.EndingDate == DateTime.MinValue).RatesTableName;
 
         }
-
 
         protected void GetRates(object sender, DirectEventArgs e)
         {

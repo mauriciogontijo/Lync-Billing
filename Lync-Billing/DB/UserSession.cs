@@ -86,7 +86,6 @@ namespace Lync_Billing.DB
             SiteDelegateRoles = new List<DelegateRole>();
         }
 
-        
         private void InitializeSystemRoles(List<SystemRole> SystemRoles = null)
         {
             if (SystemRoles != null && SystemRoles.Count > 0) 
@@ -117,7 +116,6 @@ namespace Lync_Billing.DB
                 }
             }
         }
-
 
         /***
          * Please note that this function depends on the state of the "PrimarySipAccount" variable
@@ -154,7 +152,6 @@ namespace Lync_Billing.DB
 
         }
 
-
         /***
          * Please note that this function depends on the state of the "PrimarySipAccount" variable
          * So, don't call this function before at least initializing these instance variables unless you pass the SipAccount directly
@@ -174,7 +171,6 @@ namespace Lync_Billing.DB
             IsDepartmentHead = DepartmentHeadRole.IsDepartmentHead(userSipAccount);
         }
 
-
         public void AddUserSession(UserSession userSession)
         {
             if (!usersSessions.Contains(userSession))
@@ -183,7 +179,6 @@ namespace Lync_Billing.DB
             }
         }
 
-
         public void RemoveUserSession(UserSession userSession)
         {
             if (!usersSessions.Contains(userSession))
@@ -191,7 +186,6 @@ namespace Lync_Billing.DB
                 usersSessions.Remove(userSession);
             }
         }
-
 
         public void InitializeAllRolesInformation(string userSipAccount)
         {
@@ -212,6 +206,182 @@ namespace Lync_Billing.DB
 
             ActiveRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
         }
+
+        //Get the user sipaccount.
+        public string GetEffectiveSipAccount()
+        {
+            List<string> DelegeesRoleNames = new List<string>()
+            {
+                Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee),
+                Enums.GetDescription(Enums.ActiveRoleNames.DepartmentDelegee),
+                Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee)
+            };
+
+            //if the user is a user-delegee return the delegate sipaccount.
+            if (DelegeesRoleNames.Contains(this.ActiveRoleName) && this.DelegeeAccount != null)
+            {
+                return (this.DelegeeAccount.DelegeeUserAccount.SipAccount);
+            }
+            //else then the user is a normal one, just return the normal user sipaccount.
+            else
+            {
+                return (this.NormalUserInfo.SipAccount);
+            }
+        }
+
+        //Get the user displayname.
+        public string GetEffectiveDisplayName()
+        {
+            List<string> DelegeesRoleNames = new List<string>()
+            {
+                Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee),
+                Enums.GetDescription(Enums.ActiveRoleNames.DepartmentDelegee),
+                Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee)
+            };
+
+            //if the user is a user-delegee return the delegate sipaccount.
+            if (DelegeesRoleNames.Contains(this.ActiveRoleName) && this.DelegeeAccount != null)
+            {
+                return (this.DelegeeAccount.DelegeeUserAccount.DisplayName);
+            }
+            //else then the user is a normal one, just return the normal user sipaccount.
+            else
+            {
+                return (this.NormalUserInfo.DisplayName);
+            }
+        }
+
+        //Get the user session phonecalls
+        //Handle normal user mode and user delegee mode
+        public List<PhoneCall> GetUserSessionPhoneCalls(bool force = false)
+        {
+            string sipAccount = this.GetEffectiveSipAccount();
+            
+            List<string> DelegeesRoleNames = new List<string>()
+            {
+                Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee),
+                Enums.GetDescription(Enums.ActiveRoleNames.DepartmentDelegee),
+                Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee)
+            };
+
+            //Delegee Mode
+            if (DelegeesRoleNames.Contains(this.ActiveRoleName))
+            {
+                if (this.DelegeeAccount.DelegeeUserPhonecalls == null || this.DelegeeAccount.DelegeeUserPhonecalls.Count == 0 || force == true)
+                {
+                    var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                    var addressbook = this.DelegeeAccount.DelegeeUserAddressbook;
+
+                    if (addressbook == null || addressbook.Count == 0)
+                        addressbook = PhoneBook.GetAddressBook(sipAccount);
+
+                    foreach (var phoneCall in userPhoneCalls)
+                    {
+                        if (addressbook.Keys.Contains(phoneCall.DestinationNumberUri))
+                        {
+                            phoneCall.PhoneBookName = ((PhoneBook)addressbook[phoneCall.DestinationNumberUri]).Name;
+                        }
+                    }
+
+                    this.DelegeeAccount.DelegeeUserPhonecalls = userPhoneCalls.ToList();
+                }
+
+                return this.DelegeeAccount.DelegeeUserPhonecalls;
+            }
+            //Normal User Mode
+            else
+            {
+                if (this.Phonecalls == null || this.Phonecalls.Count == 0 || force == true)
+                {
+                    var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                    var addressbook = this.Addressbook;
+
+                    if (addressbook == null || addressbook.Count == 0)
+                        addressbook = PhoneBook.GetAddressBook(sipAccount);
+
+                    foreach (var phoneCall in userPhoneCalls)
+                    {
+                        if (addressbook.Keys.Contains(phoneCall.DestinationNumberUri))
+                        {
+                            phoneCall.PhoneBookName = ((PhoneBook)addressbook[phoneCall.DestinationNumberUri]).Name;
+                        }
+                    }
+
+                    this.Phonecalls = userPhoneCalls.ToList();
+                }
+
+                return this.Phonecalls;
+            }
+        }
+
+        //Get the user session phonecalls data, such as: PhoneCalls list, AddressBook and PhoneCallsPerPage JSON String
+        //Handle normal user mode and user delegee mode
+        public void FetchSessionPhonecallsAndAddressbookData(out List<PhoneCall> userSessionPhoneCalls, out Dictionary<string, PhoneBook> userSessionAddressBook, out string userSessionPhoneCallsPerPageJson)
+        {
+            //Initialize the passed varaibles
+            userSessionPhoneCalls = new List<PhoneCall>();
+            userSessionAddressBook = new Dictionary<string, PhoneBook>();
+            userSessionPhoneCallsPerPageJson = string.Empty;
+
+            List<string> DelegeesRoleNames = new List<string>()
+            {
+                Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee),
+                Enums.GetDescription(Enums.ActiveRoleNames.DepartmentDelegee),
+                Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee)
+            };
+            
+            //This part is off-loaded to another procedure due to size of code
+            userSessionPhoneCalls = GetUserSessionPhoneCalls();
+
+            if (DelegeesRoleNames.Contains(this.ActiveRoleName))
+            {
+                userSessionAddressBook = this.DelegeeAccount.DelegeeUserAddressbook;
+                userSessionPhoneCallsPerPageJson = this.DelegeeAccount.DelegeeUserPhonecallsPerPage;
+            }
+            else
+            {
+                userSessionAddressBook = this.Addressbook;
+                userSessionPhoneCallsPerPageJson = this.PhonecallsPerPage;
+            }
+
+        }
+
+        //Pass any of the three variables to this function and it will assign it's data to the respective UserSession container
+        //The functions respectively stand for the the list of user phonecalls, his/her addressbook contacts, and the phonecalls grid json string
+        //This handles the normal user mode and the user delegee mode.
+        public void AssignSessionPhonecallsAndAddressbookData(List<PhoneCall> userSessionPhoneCalls, Dictionary<string, PhoneBook> userSessionAddressBook, string userSessionPhoneCallsPerPageJson)
+        {
+            List<string> DelegeesRoleNames = new List<string>()
+            {
+                Enums.GetDescription(Enums.ActiveRoleNames.UserDelegee),
+                Enums.GetDescription(Enums.ActiveRoleNames.DepartmentDelegee),
+                Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee)
+            };
+
+            if (DelegeesRoleNames.Contains(this.ActiveRoleName))
+            {
+                if (userSessionPhoneCalls != null && userSessionPhoneCalls.Count > 0)
+                    this.DelegeeAccount.DelegeeUserPhonecalls = userSessionPhoneCalls;
+
+                if (userSessionAddressBook != null && userSessionAddressBook.Count > 0)
+                    this.DelegeeAccount.DelegeeUserAddressbook = userSessionAddressBook;
+
+                if (!string.IsNullOrEmpty(userSessionPhoneCallsPerPageJson))
+                    this.DelegeeAccount.DelegeeUserPhonecallsPerPage = userSessionPhoneCallsPerPageJson;
+            }
+            else
+            {
+                if (userSessionPhoneCalls != null && userSessionPhoneCalls.Count > 0)
+                    this.Phonecalls = userSessionPhoneCalls;
+
+                if (userSessionAddressBook != null && userSessionAddressBook.Count > 0)
+                    this.Addressbook = userSessionAddressBook;
+
+                if (!string.IsNullOrEmpty(userSessionPhoneCallsPerPageJson))
+                    this.PhonecallsPerPage = userSessionPhoneCallsPerPageJson;
+            }
+        }
+
 
     }
 }

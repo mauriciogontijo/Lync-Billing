@@ -45,56 +45,33 @@ namespace Lync_Billing.ui.user
             }
 
             //Get the sip account of this user
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             //Get the data
             GridsDataManager(true);
         }
-
-
-        private string GetEffectiveSipAccount()
-        {
-            string userSipAccount = string.Empty;
-            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-            
-            //If the user is a normal one, just return the normal user sipaccount.
-            if (session.ActiveRoleName == normalUserRoleName)
-            {
-                userSipAccount = session.NormalUserInfo.SipAccount;
-            }
-            //if the user is a user-delegee return the delegate sipaccount.
-            else if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
-            }
-
-            return userSipAccount;
-        }
-
-
+        
+        
         private void UpdateSessionRelatedInformation()
         {
             List<PhoneCall> phoneCalls;
-            Dictionary<string, PhoneBook> phoneBook;
+            Dictionary<string, PhoneBook> addressBook;
 
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             //Get user addressbook
-            phoneBook = PhoneBook.GetAddressBook(sipAccount);
+            addressBook = PhoneBook.GetAddressBook(sipAccount);
 
             //Get userphonecalls
-            if (session.ActiveRoleName == userDelegeeRoleName)
-                phoneCalls = session.DelegeeAccount.DelegeeUserPhonecalls ?? PhoneCall.GetPhoneCalls(sipAccount);
-            else
-                phoneCalls = session.Phonecalls ?? PhoneCall.GetPhoneCalls(sipAccount);
+            phoneCalls = session.GetUserSessionPhoneCalls();
             
             //Update user phonecalls
             foreach (var phoneCall in phoneCalls)
             {
-                if (phoneBook.ContainsKey(phoneCall.DestinationNumberUri))
+                if (addressBook.ContainsKey(phoneCall.DestinationNumberUri))
                 {
-                    phoneCall.PhoneBookName = ((PhoneBook)phoneBook[phoneCall.DestinationNumberUri]).Name;
+                    phoneCall.PhoneBookName = ((PhoneBook)addressBook[phoneCall.DestinationNumberUri]).Name;
                 }
                 else
                 {
@@ -102,26 +79,16 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            //Allocate the addressbook to the session
+            //Allocate the phonecalls and addressbook to the session
             //Handle normal user mode, and user delegee mode
-            if (session.ActiveRoleName == userDelegeeRoleName)
-                session.DelegeeAccount.DelegeeUserAddressbook = phoneBook;
-            else
-                session.Addressbook = phoneBook;
-
-            //Allocate the phonecalls to the session
-            //Handle normal user mode, and user delegee mode
-            if (session.ActiveRoleName == userDelegeeRoleName)
-                session.DelegeeAccount.DelegeeUserPhonecalls = phoneCalls;
-            else
-                session.Phonecalls = phoneCalls;
+            session.AssignSessionPhonecallsAndAddressbookData(phoneCalls, addressBook, null);
             
         }
 
 
         protected void GridsDataManager(bool GetFreshData = false, bool BindData = true)
         {
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             if (GetFreshData == true)
             {
@@ -193,7 +160,7 @@ namespace Lync_Billing.ui.user
 
         protected void ImportContactsFromHistory(object sender, DirectEventArgs e)
         {
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             string json = e.ExtraParams["Values"];
             
@@ -227,7 +194,7 @@ namespace Lync_Billing.ui.user
 
         protected void UpdateAddressBook_DirectEvent(object sender, DirectEventArgs e)
         {
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             string json = e.ExtraParams["Values"];
 

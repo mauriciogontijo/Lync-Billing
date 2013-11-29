@@ -30,6 +30,9 @@ namespace Lync_Billing.ui.user
         public int unmarkedCallsCount = 0;
         public string DisplayName = string.Empty;
 
+        //This is used as a flag to fire AutoMarkPhoneCallsFromAddressBook directly after login only!
+        public static bool IsThisTheFirstTimeAfterLogin = false;
+
         public Dictionary<string, PhoneBook> phoneBookEntries;
         public List<PhoneCall> phoneCalls;
         public MailStatistics userMailStatistics;
@@ -66,13 +69,10 @@ namespace Lync_Billing.ui.user
             current_session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             //initialize the local copy of the current user's PrimarySipAccount
-            sipAccount = GetEffectiveSipAccount();
-
-            //Initialize the unmarked calls counter - this is being used in the frontend.
-            unmarkedCallsCount = getUnmarkedCallsCount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             //Get the display name for this user
-            DisplayName = GetEffectiveDisplayName();
+            DisplayName = session.GetEffectiveDisplayName();
 
             //Initialize the Address Book data.
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
@@ -86,54 +86,84 @@ namespace Lync_Billing.ui.user
             TopDestinationNumbersGrid.Title = "Most Called Numbers in " + currentYear;
             TopDestinationCountriesPanel.Title = "Most Called Countries in " + currentYear;
 
+            //Initialize the unmarked calls counter - this is being used in the frontend.
+            //unmarkedCallsCount = getUnmarkedCallsCount();
+            unmarkedCallsCount = AutoMarkPhoneCallsFromAddressBook();
+
+
             //SHA1 hash = SHA1.Create();
             //ASCIIEncoding x = new ASCIIEncoding();
             //string source = (session.NormalUserInfo.SipAccount + session.NormalUserInfo.Department + session.NormalUserInfo.SiteName);
             //string gethash = HttpUtility.UrlEncode(Convert.ToBase64String(hash.ComputeHash(x.GetBytes(source))));
         }
 
-
-        //Get the user sipaccount.
-        private string GetEffectiveSipAccount()
+        //Automark phonecalls from addressbook
+        //This returns the number of phonecalls which weren't marked
+        private int AutoMarkPhoneCallsFromAddressBook()
         {
-            string userSipAccount = string.Empty;
-            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+            List<PhoneCall> userSessionPhoneCalls;
+            Dictionary<string, PhoneBook> userSessionAddressbook;
+            string userSessionPhoneCallsPerPage;
+            PhoneBook addressBookEntry;
+            int numberOfRemainingUnmarked;
 
-            //If the user is a normal one, just return the normal user sipaccount.
-            if (session.ActiveRoleName == normalUserRoleName)
+            //Get the unmarked calls from the user session phonecalls container
+            session.FetchSessionPhonecallsAndAddressbookData(out userSessionPhoneCalls, out userSessionAddressbook, out userSessionPhoneCallsPerPage);
+
+            userSessionPhoneCalls = userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_CallType)).ToList();
+            numberOfRemainingUnmarked = userSessionPhoneCalls.Count;
+
+            if (IsThisTheFirstTimeAfterLogin == false)
             {
-                userSipAccount = session.NormalUserInfo.SipAccount;
-            }
-            //if the user is a user-delegee return the delegate sipaccount.
-            else if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                userSipAccount = session.DelegeeAccount.DelegeeUserAccount.SipAccount;
+                foreach (var phoneCall in userSessionPhoneCalls)
+                {
+                    if (userSessionAddressbook.Keys.Contains(phoneCall.DestinationNumberUri))
+                    {
+                        addressBookEntry = (PhoneBook)userSessionAddressbook[phoneCall.DestinationNumberUri];
+
+                        if (!string.IsNullOrEmpty(addressBookEntry.Type))
+                        {
+                            phoneCall.UI_CallType = addressBookEntry.Type;
+                            phoneCall.UI_UpdatedByUser = sipAccount;
+                            phoneCall.UI_MarkedOn = DateTime.Now;
+
+                            PhoneCall.UpdatePhoneCall(phoneCall);
+
+                            numberOfRemainingUnmarked = numberOfRemainingUnmarked - 1;
+                        }
+                    }
+                }
+
+                session.AssignSessionPhonecallsAndAddressbookData(userSessionPhoneCalls, userSessionAddressbook, null);
+
+                IsThisTheFirstTimeAfterLogin = true;
             }
 
-            return userSipAccount;
+            return numberOfRemainingUnmarked;
         }
 
-
-        //Get the user displayname.
-        private string GetEffectiveDisplayName()
+        protected int getUnmarkedCallsCount()
         {
-            string userDisplayName = string.Empty;
-            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+            sipAccount = session.GetEffectiveSipAccount();
 
-            //If the user is a normal one, just return the normal user sipaccount.
-            if (session.ActiveRoleName == normalUserRoleName)
+            wherePart = new Dictionary<string, object>
             {
-                userDisplayName = session.NormalUserInfo.DisplayName;
-            }
-            //if the user is a user-delegee return the delegate sipaccount.
-            else if (session.ActiveRoleName == userDelegeeRoleName)
-            {
-                userDisplayName = session.DelegeeAccount.DelegeeUserAccount.DisplayName;
-            }
+                { Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null }
+            };
 
-            return userDisplayName;
+            return PhoneCall.GetPhoneCalls(sipAccount, wherePart).ToList().Count;
         }
 
+        private string GetUserNameBySip(string sipAccount)
+        {
+            AdLib adRoutines = new AdLib();
+            ADUserInfo userInfo = adRoutines.GetUserAttributes(sipAccount);
+
+            if (userInfo != null && userInfo.DisplayName != null)
+                return userInfo.DisplayName;
+            else
+                return string.Empty;
+        }
 
         protected void CallsCostsChartStore_Load(object sender, EventArgs e)
         {
@@ -141,10 +171,9 @@ namespace Lync_Billing.ui.user
             CallsCostsChartStore.DataBind();
         }
 
-
         protected void TopDestinationNumbersStore_Load(object sender, EventArgs e)
         {
-            sipAccount = GetEffectiveSipAccount();
+            sipAccount = session.GetEffectiveSipAccount();
 
             TopDestinationNumbersList = TopDestinationNumbers.GetTopDestinationNumbers(sipAccount, 5);
 
@@ -177,29 +206,6 @@ namespace Lync_Billing.ui.user
             TopDestinationCountriesStore.DataSource = TopDestinationCountriesList;
             
             TopDestinationCountriesStore.DataBind();
-        }
-        
-        protected int getUnmarkedCallsCount()
-        {
-            sipAccount = GetEffectiveSipAccount();
-            
-            wherePart = new Dictionary<string, object>
-            {
-                { Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null }
-            };
-
-            return PhoneCall.GetPhoneCalls(sipAccount, wherePart).ToList().Count;
-        }
-
-        private string GetUserNameBySip(string sipAccount) 
-        {
-            AdLib adRoutines = new AdLib();
-            ADUserInfo userInfo = adRoutines.GetUserAttributes(sipAccount);
-
-            if (userInfo != null && userInfo.DisplayName != null)
-                return userInfo.DisplayName;
-            else
-                return string.Empty;
         }
     }
 
