@@ -23,16 +23,12 @@ namespace Lync_Billing.ui.delegee.site
     {
         private UserSession session;
         private string sipAccount = string.Empty;
-        private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
         private string siteDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee);
 
         private List<Department> SiteDelegeeDepartments = new List<Department>();
-
-        private List<PhoneCall> AutoMarkedPhoneCalls = new List<PhoneCall>();
-        private string pageData = string.Empty;
         private StoreReadDataEventArgs e;
+        private string xmldoc = string.Empty;
 
-        string xmldoc = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -65,13 +61,9 @@ namespace Lync_Billing.ui.delegee.site
              * The chain consist of two DirectEvents: OnDepartmentSelect X---FIRE---> DrawStatisticsForDepartment which fires Page_Load and then it goes again for ever.
              * */
             if (!Ext.Net.X.IsAjaxRequest)
-            {
                 BindDepartmentsForThisUser(true);
-            }
             else
-            {
                 BindDepartmentsForThisUser(false);
-            }
         }
 
         private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
@@ -101,6 +93,61 @@ namespace Lync_Billing.ui.delegee.site
             }
         }
 
+        protected void PhoneCallsStore_Load(object sender, EventArgs e)
+        {
+            ManagePhoneCallsGrid.GetStore().DataSource = session.GetUserSessionPhoneCalls();
+            ManagePhoneCallsGrid.GetStore().DataBind();
+        }
+
+        protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            this.e = e;
+            PhoneCallsStore.DataBind();
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            session.DelegeeAccount.DelegeeUserPhonecallsPerPage = PhoneCallsStore.JsonData;
+        }
+
+        [DirectMethod]
+        protected void PhoneCallsTypeFilter(object sender, DirectEventArgs e)
+        {
+            //Clear the filter
+            ManagePhoneCallsGrid.GetStore().ClearFilter();
+
+            //Get the phonecalls from the session and bind a filtered version of the list to the store
+            var sessionPhoneCalls = session.GetUserSessionPhoneCalls();
+
+            if (FilterTypeComboBox.SelectedItem.Value == "Everything")
+            {
+                PhoneCallsStore.LoadData(sessionPhoneCalls);
+            }
+            else if (FilterTypeComboBox.SelectedItem.Value == "Assigned")
+            {
+                sessionPhoneCalls = sessionPhoneCalls.Where(phoneCall => phoneCall.UI_AssignedByUser == sipAccount && !string.IsNullOrEmpty(phoneCall.UI_AssignedToUser)).ToList();
+                PhoneCallsStore.LoadData(sessionPhoneCalls);
+            }
+            else if (FilterTypeComboBox.SelectedItem.Value == "Unassigned")
+            {
+                sessionPhoneCalls = sessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_AssignedByUser) && string.IsNullOrEmpty(phoneCall.UI_AssignedToUser)).ToList();
+                PhoneCallsStore.LoadData(sessionPhoneCalls);
+            }
+
+            // APPROACH 2 - Should work for server side pagination.
+            //if (FilterTypeComboBox.SelectedItem.Value == "Everything")
+            //{
+            //    PhoneCallsStore.Filter("UI_AssignedByUser", null);
+            //}
+            //else if (FilterTypeComboBox.SelectedItem.Value == "Assigned")
+            //{
+            //    PhoneCallsStore.Filter("UI_AssignedByUser", "assigned");
+            //}
+            //else if (FilterTypeComboBox.SelectedItem.Value == "Unassigned")
+            //{
+            //    PhoneCallsStore.Filter("UI_AssignedByUser", "unassigned");
+            //}
+
+            //PhoneCallsStore.LoadPage(1);
+        }
+
         protected void PhoneCallsDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             if (this.e.Start != -1)
@@ -128,15 +175,8 @@ namespace Lync_Billing.ui.delegee.site
         {
             (this.PhoneCallsStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
         }
-        
-        protected void PhoneCallsStore_ReadData(object sender, StoreReadDataEventArgs e)
-        {
-            this.e = e;
-            PhoneCallsStore.DataBind();
-            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            session.DelegeeAccount.DelegeeUserPhonecallsPerPage = PhoneCallsStore.JsonData;
-        }
 
+        //Object Data Source Filter
         public List<PhoneCall> GetPhoneCallsFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
             List<PhoneCall> userSessionPhoneCalls;
@@ -183,52 +223,6 @@ namespace Lync_Billing.ui.delegee.site
 
         }
 
-        [DirectMethod]
-        protected void PhoneCallsTypeFilter(object sender, DirectEventArgs e)
-        {
-            ManagePhoneCallsGrid.GetStore().ClearFilter();
-
-
-            //if (FilterTypeComboBox.SelectedItem.Value == "Everything")
-            //{
-            //    PhoneCallsStore.Filter("UI_AssignedByUser", null);
-            //}
-            //else if (FilterTypeComboBox.SelectedItem.Value == "Assigned")
-            //{
-            //    PhoneCallsStore.Filter("UI_AssignedByUser", "assigned");
-            //}
-            //else if (FilterTypeComboBox.SelectedItem.Value == "Unassigned")
-            //{
-            //    PhoneCallsStore.Filter("UI_AssignedByUser", "unassigned");
-            //}
-
-            //PhoneCallsStore.LoadPage(1);
-
-
-            var sessionPhoneCalls = session.GetUserSessionPhoneCalls();
-
-            if (FilterTypeComboBox.SelectedItem.Value == "Everything")
-            {
-                PhoneCallsStore.LoadData(sessionPhoneCalls);
-            }
-            else if (FilterTypeComboBox.SelectedItem.Value == "Assigned")
-            {
-                sessionPhoneCalls = sessionPhoneCalls.Where(phoneCall => phoneCall.UI_AssignedByUser == sipAccount && !string.IsNullOrEmpty(phoneCall.UI_AssignedToUser)).ToList();
-                PhoneCallsStore.LoadData(sessionPhoneCalls);
-            }
-            else if (FilterTypeComboBox.SelectedItem.Value == "Unassigned")
-            {
-                sessionPhoneCalls = sessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_AssignedByUser) && string.IsNullOrEmpty(phoneCall.UI_AssignedToUser)).ToList();
-                PhoneCallsStore.LoadData(sessionPhoneCalls);
-            }
-        }
-
-        protected void PhoneCallsStore_Load(object sender, EventArgs e)
-        {
-            ManagePhoneCallsGrid.GetStore().DataSource = session.GetUserSessionPhoneCalls();
-            ManagePhoneCallsGrid.GetStore().DataBind();
-        }
-        
         [DirectMethod]
         protected void ShowUserHelpPanel(object sender, DirectEventArgs e)
         {

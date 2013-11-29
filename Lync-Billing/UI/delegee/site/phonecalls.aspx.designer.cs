@@ -85,15 +85,6 @@ namespace Lync_Billing.ui.delegee.site {
         protected global::Ext.Net.Button AssignToDepartmentButton;
         
         /// <summary>
-        /// PhoneCallsDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource PhoneCallsDataSource;
-        
-        /// <summary>
         /// ManagePhoneCallsGrid control.
         /// </summary>
         /// <remarks>

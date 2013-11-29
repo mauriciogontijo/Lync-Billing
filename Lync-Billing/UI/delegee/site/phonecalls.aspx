@@ -127,7 +127,7 @@
             </ext:Menu>
 
 
-            <asp:ObjectDataSource
+            <%--<asp:ObjectDataSource
                 ID="PhoneCallsDataSource"
                 runat="server"
                 OnSelecting="PhoneCallsDataSource_Selecting"
@@ -140,7 +140,7 @@
                     <asp:Parameter Name="sort" Type="Object" />
                     <asp:Parameter Name="count" Direction="Output" Type="Int32" />
                 </SelectParameters>
-            </asp:ObjectDataSource>
+            </asp:ObjectDataSource>--%>
 
 
             <ext:GridPanel
