@@ -62,9 +62,6 @@
                                 DataSourceID="PhoneCallsDataSource"
                                 OnSubmitData="PhoneCallsStore_SubmitData"
                                 OnReadData="PhoneCallsStore_ReadData">
-                                <Proxy>
-                                    <ext:PageProxy CacheString="" />
-                                </Proxy>
                                 <Model>
                                     <ext:Model ID="Model2" runat="server" IDProperty="SessionIdTime">
                                         <Fields>
@@ -84,9 +81,14 @@
                                         </Fields>
                                     </ext:Model>
                                 </Model>
+
                                 <Sorters>
                                     <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
                                 </Sorters>
+
+                                <Proxy>
+                                    <ext:PageProxy CacheString="" />
+                                </Proxy>
                             </ext:Store>
                         </Store>
 
