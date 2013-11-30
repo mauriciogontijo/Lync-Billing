@@ -269,20 +269,28 @@ namespace Lync_Billing.Backend
             //Delegee Mode
             if (DelegeesRoleNames.Contains(this.ActiveRoleName))
             {
+                //Initialize the addressbook if it was not initialized already
+                if (this.DelegeeAccount.DelegeeUserAddressbook == null || this.DelegeeAccount.DelegeeUserAddressbook.Count == 0)
+                {
+                    this.DelegeeAccount.DelegeeUserAddressbook = PhoneBook.GetAddressBook(sipAccount);
+                }
+
+                //Initialize and/or return phonecalls.
                 if (this.DelegeeAccount.DelegeeUserPhonecalls == null || this.DelegeeAccount.DelegeeUserPhonecalls.Count == 0 || force == true)
                 {
-                    var userPhoneCalls = PhoneCall.GetPhoneCallsFast(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
                     //var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                    var userPhoneCalls = PhoneCall.GetPhoneCallsFast(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
                     var addressbook = this.DelegeeAccount.DelegeeUserAddressbook;
 
-                    if (addressbook == null || addressbook.Count == 0)
-                        addressbook = PhoneBook.GetAddressBook(sipAccount);
-
-                    foreach (var phoneCall in userPhoneCalls)
+                    //Skip the adding addressbook contact names to the phonecalls if there are no entries in the addressbook
+                    if (addressbook.Count > 0)
                     {
-                        if (addressbook.Keys.Contains(phoneCall.DestinationNumberUri))
+                        foreach (var phoneCall in userPhoneCalls)
                         {
-                            phoneCall.PhoneBookName = ((PhoneBook)addressbook[phoneCall.DestinationNumberUri]).Name;
+                            if (addressbook.Keys.Contains(phoneCall.DestinationNumberUri))
+                            {
+                                phoneCall.PhoneBookName = ((PhoneBook)addressbook[phoneCall.DestinationNumberUri]).Name;
+                            }
                         }
                     }
 
@@ -294,20 +302,28 @@ namespace Lync_Billing.Backend
             //Normal User Mode
             else
             {
+                //Initialize the addressbook if it was not initialized already
+                if (this.Addressbook == null || this.Addressbook.Count == 0)
+                {
+                    this.Addressbook = PhoneBook.GetAddressBook(sipAccount);
+                }
+
+                //Initialize and/or return phonecalls.
                 if (this.Phonecalls == null || this.Phonecalls.Count == 0 || force == true)
                 {
-                    var userPhoneCalls = PhoneCall.GetPhoneCallsFast(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
                     //var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                    var userPhoneCalls = PhoneCall.GetPhoneCallsFast(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
                     var addressbook = this.Addressbook;
 
-                    if (addressbook == null || addressbook.Count == 0)
-                        addressbook = PhoneBook.GetAddressBook(sipAccount);
-
-                    foreach (var phoneCall in userPhoneCalls)
+                    //Skip the adding addressbook contact names to the phonecalls if there are no entries in the addressbook
+                    if (addressbook.Count > 0)
                     {
-                        if (phoneCall.DestinationNumberUri != null && addressbook.Keys.Contains(phoneCall.DestinationNumberUri))
+                        foreach (var phoneCall in userPhoneCalls)
                         {
-                            phoneCall.PhoneBookName = ((PhoneBook)addressbook[phoneCall.DestinationNumberUri]).Name;
+                            if (phoneCall.DestinationNumberUri != null && addressbook.Keys.Contains(phoneCall.DestinationNumberUri))
+                            {
+                                phoneCall.PhoneBookName = ((PhoneBook)addressbook[phoneCall.DestinationNumberUri]).Name;
+                            }
                         }
                     }
 
@@ -339,22 +355,13 @@ namespace Lync_Billing.Backend
 
             if (DelegeesRoleNames.Contains(this.ActiveRoleName))
             {
-                userSessionPhoneCallsPerPageJson = this.DelegeeAccount.DelegeeUserPhonecallsPerPage;
-
-                if (this.DelegeeAccount.DelegeeUserAddressbook.Count == 0)
-                    this.DelegeeAccount.DelegeeUserAddressbook = PhoneBook.GetAddressBook(DelegeeAccount.DelegeeUserAccount.SipAccount);
-
                 userSessionAddressBook = this.DelegeeAccount.DelegeeUserAddressbook;
+                userSessionPhoneCallsPerPageJson = this.DelegeeAccount.DelegeeUserPhonecallsPerPage;
             }
             else
             {
-                userSessionPhoneCallsPerPageJson = this.PhonecallsPerPage;
-
-                if (this.Addressbook.Count == 0)
-                   this.Addressbook =  PhoneBook.GetAddressBook(this.NormalUserInfo.SipAccount);
-
                 userSessionAddressBook = this.Addressbook;
-                
+                userSessionPhoneCallsPerPageJson = this.PhonecallsPerPage;
             }
 
         }

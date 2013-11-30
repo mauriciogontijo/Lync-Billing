@@ -115,6 +115,7 @@ namespace Lync_Billing.ui.user
 
             if (IsThisTheFirstTimeAfterLogin == false)
             {
+                //If the user has no addressbook contacts, skip the auto marking process
                 if (userSessionAddressbook.Keys.Count > 0)
                 {
                     foreach (var phoneCall in userSessionPhoneCalls)
