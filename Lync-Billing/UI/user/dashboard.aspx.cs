@@ -110,7 +110,7 @@ namespace Lync_Billing.ui.user
             //Get the unmarked calls from the user session phonecalls container
             session.FetchSessionPhonecallsAndAddressbookData(out userSessionPhoneCalls, out userSessionAddressbook, out userSessionPhoneCallsPerPage);
 
-            userSessionPhoneCalls = userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_CallType)).ToList();
+            //userSessionPhoneCalls = userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_CallType)).ToList();
             numberOfRemainingUnmarked = userSessionPhoneCalls.Count;
 
             if (IsThisTheFirstTimeAfterLogin == false)
@@ -118,7 +118,7 @@ namespace Lync_Billing.ui.user
                 //If the user has no addressbook contacts, skip the auto marking process
                 if (userSessionAddressbook.Keys.Count > 0)
                 {
-                    foreach (var phoneCall in userSessionPhoneCalls)
+                    foreach (var phoneCall in userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_CallType)))
                     {
                         if (userSessionAddressbook.Keys.Contains(phoneCall.DestinationNumberUri))
                         {
