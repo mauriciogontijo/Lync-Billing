@@ -278,8 +278,7 @@ namespace Lync_Billing.Backend
                 //Initialize and/or return phonecalls.
                 if (this.DelegeeAccount.DelegeeUserPhonecalls == null || this.DelegeeAccount.DelegeeUserPhonecalls.Count == 0 || force == true)
                 {
-                    //var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
-                    var userPhoneCalls = PhoneCall.GetPhoneCallsFast(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                    var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
                     var addressbook = this.DelegeeAccount.DelegeeUserAddressbook;
 
                     //Skip the adding addressbook contact names to the phonecalls if there are no entries in the addressbook
@@ -311,8 +310,7 @@ namespace Lync_Billing.Backend
                 //Initialize and/or return phonecalls.
                 if (this.Phonecalls == null || this.Phonecalls.Count == 0 || force == true)
                 {
-                    //var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
-                    var userPhoneCalls = PhoneCall.GetPhoneCallsFast(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                    var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
                     var addressbook = this.Addressbook;
 
                     //Skip the adding addressbook contact names to the phonecalls if there are no entries in the addressbook

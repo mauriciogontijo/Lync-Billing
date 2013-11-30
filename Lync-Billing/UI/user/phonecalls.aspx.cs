@@ -162,7 +162,7 @@ namespace Lync_Billing.ui.user
 
             //Begin the filtering process
             if(filter == null)
-                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_CallType == null).AsQueryable();
+                filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_CallType)).AsQueryable();
             else
                 filteredPhoneCalls = userSessionPhoneCalls.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
          

@@ -76,7 +76,7 @@ namespace Lync_Billing.Backend
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
 
-        public static List<PhoneCall> GetPhoneCallsFast(string sipAccount, Dictionary<string, object> wherePart = null, int limits = 0) 
+        public static List<PhoneCall> GetPhoneCalls(string sipAccount, Dictionary<string, object> wherePart = null, int limits = 0) 
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_ChargeableCalls_ForUser);
@@ -135,7 +135,8 @@ namespace Lync_Billing.Backend
          * This is used to return the list of phonecalls for a given user.
          * Used in the Disputed page.
          */
-        public static List<PhoneCall> GetPhoneCalls(string sipAccount, Dictionary<string, object> wherePart = null, int limits = 0)
+        [Obsolete]
+        public static List<PhoneCall> GetPhoneCallsOld(string sipAccount, Dictionary<string, object> wherePart = null, int limits = 0)
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_ChargeableCalls_ForUser);
