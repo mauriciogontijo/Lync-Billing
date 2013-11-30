@@ -205,6 +205,15 @@ namespace Lync_Billing.Libs
             return result;
         }
 
+        public static string ConvertDate(DateTime datetTime)
+        {
+            if (datetTime != DateTime.MinValue || datetTime != null)
+                return datetTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            else
+                return null;
+        }
+      
+
     }
 
 }
