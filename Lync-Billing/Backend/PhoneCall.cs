@@ -140,7 +140,7 @@ namespace Lync_Billing.Backend
                                                      DateTime.MinValue,
                                     
                                     PhoneCallTableName = Convert.ToString(rw[Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName)])
-                              }).ToList();
+                              }).ToList<PhoneCall>();
 
             phoneCalls = phoneCalls.Distinct<PhoneCall>(linqDistinctComparer).ToList();
 
