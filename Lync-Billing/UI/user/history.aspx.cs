@@ -101,11 +101,11 @@ namespace Lync_Billing.ui.user
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
 
             //Get user session phonecalls history; handle normal user mode and delegee mode
-            userSessionPhoneCallsHistory = session.GetUserSessionPhoneCalls();
+            userSessionPhoneCallsHistory = session.GetUserSessionPhoneCalls().Where(phoneCall => phoneCall.AC_InvoiceDate != DateTime.MinValue && (!string.IsNullOrEmpty(phoneCall.AC_IsInvoiced) && phoneCall.AC_IsInvoiced != "NO")).ToList();
 
             //Start filtering process
             if (filter == null)
-                filteredPhoneCalls = userSessionPhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType != null).AsQueryable();
+                filteredPhoneCalls = userSessionPhoneCallsHistory.Where(phoneCall => !string.IsNullOrEmpty(phoneCall.UI_CallType)).AsQueryable();
             else
                 filteredPhoneCalls = userSessionPhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
 
