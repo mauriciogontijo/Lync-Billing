@@ -85,7 +85,7 @@ namespace Lync_Billing.ui.session
             //END TMP BLOCK
 
 
-            //email.Text = "AAlhour@ccc.gr";
+           //email.Text = "ghassan@ccc.gr";
             //status = true;
 
 
@@ -95,7 +95,7 @@ namespace Lync_Billing.ui.session
                 
                 /** ----
                  * To impersonate user identity 
-                 * userInfo = Users.GetUserInfo("shaj@ccc.ae");
+                 *  userInfo = Users.GetUserInfo("ghassan@ccc.gr");
                  /* -------
                  */
                 
