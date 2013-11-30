@@ -118,7 +118,8 @@ namespace Lync_Billing.Backend
                                     AC_DisputeStatus = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw["AC_DisputeStatus"])),
                                     AC_DisputeResolvedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn)] != DBNull.Value) ? Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn)]) : DateTime.MinValue,
                                     AC_IsInvoiced = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced)])),
-                                    AC_InvoiceDate = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)] != DBNull.Value) ? Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)]) : DateTime.MinValue
+                                    AC_InvoiceDate = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)] != DBNull.Value) ? Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)]) : DateTime.MinValue,
+                                    PhoneCallTableName = Convert.ToString(rw[Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName)])
                               }).ToList();
 
             phoneCalls = phoneCalls.Distinct<PhoneCall>(linqDistinctComparer).ToList();
