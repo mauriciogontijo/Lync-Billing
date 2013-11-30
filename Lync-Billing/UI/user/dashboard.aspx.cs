@@ -115,21 +115,24 @@ namespace Lync_Billing.ui.user
 
             if (IsThisTheFirstTimeAfterLogin == false)
             {
-                foreach (var phoneCall in userSessionPhoneCalls)
+                if (userSessionAddressbook.Keys.Count > 0)
                 {
-                    if (userSessionAddressbook.Keys.Contains(phoneCall.DestinationNumberUri))
+                    foreach (var phoneCall in userSessionPhoneCalls)
                     {
-                        addressBookEntry = (PhoneBook)userSessionAddressbook[phoneCall.DestinationNumberUri];
-
-                        if (!string.IsNullOrEmpty(addressBookEntry.Type))
+                        if (userSessionAddressbook.Keys.Contains(phoneCall.DestinationNumberUri))
                         {
-                            phoneCall.UI_CallType = addressBookEntry.Type;
-                            phoneCall.UI_UpdatedByUser = sipAccount;
-                            phoneCall.UI_MarkedOn = DateTime.Now;
+                            addressBookEntry = (PhoneBook)userSessionAddressbook[phoneCall.DestinationNumberUri];
 
-                            PhoneCall.UpdatePhoneCall(phoneCall);
+                            if (!string.IsNullOrEmpty(addressBookEntry.Type))
+                            {
+                                phoneCall.UI_CallType = addressBookEntry.Type;
+                                phoneCall.UI_UpdatedByUser = sipAccount;
+                                phoneCall.UI_MarkedOn = DateTime.Now;
 
-                            numberOfRemainingUnmarked = numberOfRemainingUnmarked - 1;
+                                PhoneCall.UpdatePhoneCall(phoneCall);
+
+                                numberOfRemainingUnmarked = numberOfRemainingUnmarked - 1;
+                            }
                         }
                     }
                 }

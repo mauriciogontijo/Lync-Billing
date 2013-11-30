@@ -76,6 +76,59 @@ namespace Lync_Billing.Backend
         public static List<PhoneCall> PhoneCalls = new List<PhoneCall>();
 
 
+        public static List<PhoneCall> GetPhoneCallsFast(string sipAccount, Dictionary<string, object> wherePart = null, int limits = 0) 
+        {
+            DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_ChargeableCalls_ForUser);
+            PhoneCallsComparer linqDistinctComparer = new PhoneCallsComparer();
+
+            //Initialize function parameters and then query the database
+            List<object> functionaParams = new List<object>() { sipAccount };
+
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionaParams, wherePart);
+
+            var phoneCalls = (from rw in dt.AsEnumerable()
+                              select new PhoneCall()
+                              {
+                                    SessionIdTime = Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)]).ToString(),
+                                    SessionIdSeq = Convert.ToInt32(rw[Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq)]),
+                                    ResponseTime = Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)]).ToString(),
+                                    SessionEndTime = (rw[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)] != DBNull.Value) ? Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)]).ToString() : DateTime.MinValue.ToString(),
+                                    SourceUserUri = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.SourceUserUri)])),
+                                    ChargingParty = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.ChargingParty)])),
+                                    SourceNumberUri = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri)])),
+                                    DestinationNumberUri = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri)])),
+                                    FromMediationServer = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.FromMediationServer)])),
+                                    ToMediationServer = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.ToMediationServer)])),
+                                    FromGateway = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.FromGateway)])),
+                                    ToGateway = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.FromGateway)])),
+                                    SourceUserEdgeServer = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer)])),
+                                    DestinationUserEdgeServer = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer)])),
+                                    ServerFQDN = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.ServerFQDN)])),
+                                    PoolFQDN = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.PoolFQDN)])),
+                                    Marker_CallToCountry = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry)])),
+                                    marker_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallType)])),
+                                    Duration = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Duration)])),
+                                    UI_UpdatedByUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser)])),
+                                    UI_MarkedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn)] != DBNull.Value) ? Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn)]) : DateTime.MinValue,
+                                    UI_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_CallType)])),
+                                    UI_AssignedByUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser)])),
+                                    UI_AssignedToUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedToUser)])),
+                                    UI_AssignedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn)] != DBNull.Value) ? Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn)]) : DateTime.MinValue,
+                                    AC_DisputeStatus = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw["AC_DisputeStatus"])),
+                                    AC_DisputeResolvedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn)] != DBNull.Value) ? Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn)]) : DateTime.MinValue,
+                                    AC_IsInvoiced = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced)])),
+                                    AC_InvoiceDate = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)] != DBNull.Value) ? Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)]) : DateTime.MinValue
+                              }).ToList();
+
+            phoneCalls = phoneCalls.Distinct<PhoneCall>(linqDistinctComparer).ToList();
+
+            if (limits > 0)
+                return phoneCalls.GetRange(0, limits);
+            else
+                return phoneCalls;
+        }
+
         /***
          * GetPhoneCalls
          * This is used to return the list of phonecalls for a given user.
@@ -105,91 +158,91 @@ namespace Lync_Billing.Backend
                     if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.SessionIdTime = Convert.ToDateTime(row[column.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss.fff");
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.SessionIdSeq = Convert.ToInt32(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ResponseTime) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ResponseTime) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.ResponseTime = Convert.ToDateTime(row[column.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss.fff");
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionEndTime) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionEndTime) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.SessionEndTime = Convert.ToDateTime(row[column.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss.fff");
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.SourceUserUri = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.SourceNumberUri = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.DestinationNumberUri = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.FromMediationServer) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.FromMediationServer) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.FromMediationServer = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ToMediationServer) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ToMediationServer) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.ToMediationServer = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.FromGateway) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.FromGateway) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.FromGateway = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ToGateway) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ToGateway) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.ToGateway = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.SourceUserEdgeServer = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.DestinationUserEdgeServer = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ServerFQDN) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ServerFQDN) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.ServerFQDN = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.PoolFQDN) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.PoolFQDN) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.PoolFQDN = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Duration) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Duration) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.Duration = Convert.ToDecimal(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.Marker_CallToCountry = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall._Marker_CallCost = Convert.ToDecimal(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ChargingParty) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ChargingParty) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.ChargingParty = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_MarkedOn = Convert.ToDateTime(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_UpdatedByUser = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_AssignedByUser = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedToUser) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedToUser) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_AssignedToUser = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_AssignedOn = Convert.ToDateTime(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_CallType) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_CallType) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.UI_CallType = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.AC_DisputeStatus = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.AC_DisputeResolvedOn = Convert.ToDateTime(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.AC_IsInvoiced = Convert.ToString(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.AC_InvoiceDate = Convert.ToDateTime(row[column.ColumnName]);
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName) && row[column.ColumnName] != System.DBNull.Value)
+                    else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName) && row[column.ColumnName] != System.DBNull.Value)
                         phoneCall.PhoneCallTableName = Convert.ToString(row[column.ColumnName]);
                 }
 
@@ -263,85 +316,85 @@ namespace Lync_Billing.Backend
                         if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.SessionIdTime = Convert.ToDateTime(row[column.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss.fff");
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.SessionIdSeq = (int)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ResponseTime) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ResponseTime) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.ResponseTime = Convert.ToDateTime(row[column.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss.fff");
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionEndTime) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SessionEndTime) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.SessionEndTime = Convert.ToDateTime(row[column.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss.fff");
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceUserUri) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.SourceUserUri = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceNumberUri) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.SourceNumberUri = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.DestinationNumberUri) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.DestinationNumberUri = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.FromMediationServer) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.FromMediationServer) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.FromMediationServer = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ToMediationServer) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ToMediationServer) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.ToMediationServer = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.FromGateway) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.FromGateway) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.FromGateway = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ToGateway) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ToGateway) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.ToGateway = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.SourceUserEdgeServer) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.SourceUserEdgeServer = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.DestinationUserEdgeServer = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ServerFQDN) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ServerFQDN) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.ServerFQDN = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.PoolFQDN) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.PoolFQDN) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.PoolFQDN = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Duration) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Duration) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.Duration = (decimal)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.Marker_CallToCountry = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall._Marker_CallCost = (decimal)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ChargingParty) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.ChargingParty) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.ChargingParty = Convert.ToString(row[column.ColumnName]);
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.UI_MarkedOn = (DateTime)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.UI_UpdatedByUser = Convert.ToString(row[column.ColumnName]);
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_CallType) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_CallType) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.UI_CallType = Convert.ToString(row[column.ColumnName]);
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.UI_AssignedByUser = Convert.ToString(row[column.ColumnName]);
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.UI_AssignedOn = Convert.ToDateTime(row[column.ColumnName]);
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.AC_DisputeStatus = (string)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.AC_DisputeResolvedOn = (DateTime)row[column.ColumnName];
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.AC_IsInvoiced = Convert.ToString(row[column.ColumnName]);
 
-                        if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate) && row[column.ColumnName] != System.DBNull.Value)
+                        else if (column.ColumnName == Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate) && row[column.ColumnName] != System.DBNull.Value)
                             phoneCall.AC_InvoiceDate = (DateTime)row[column.ColumnName];
 
                     }

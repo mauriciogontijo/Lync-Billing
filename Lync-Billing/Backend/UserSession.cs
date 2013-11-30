@@ -22,10 +22,12 @@ namespace Lync_Billing.Backend
         //Roles Related
         public string ActiveRoleName { set; get; }
         public List<SystemRole> SystemRoles { set; get; }
-        public DelegeeAccountInfo DelegeeAccount { get; set; }
         public List<DelegateRole> UserDelegateRoles { get; set; }
         public List<DelegateRole> SiteDelegateRoles { get; set; }
         public List<DelegateRole> DepartmentDelegateRoles { get; set; }
+
+        public DelegeeAccountInfo DelegeeAccount { get; set; }
+        
 
         //Phone Calls and Phone Book Related
         public string PhonecallsPerPage { set; get; }
@@ -269,7 +271,8 @@ namespace Lync_Billing.Backend
             {
                 if (this.DelegeeAccount.DelegeeUserPhonecalls == null || this.DelegeeAccount.DelegeeUserPhonecalls.Count == 0 || force == true)
                 {
-                    var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                    var userPhoneCalls = PhoneCall.GetPhoneCallsFast(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                    //var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
                     var addressbook = this.DelegeeAccount.DelegeeUserAddressbook;
 
                     if (addressbook == null || addressbook.Count == 0)
@@ -293,7 +296,8 @@ namespace Lync_Billing.Backend
             {
                 if (this.Phonecalls == null || this.Phonecalls.Count == 0 || force == true)
                 {
-                    var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                    var userPhoneCalls = PhoneCall.GetPhoneCallsFast(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
+                    //var userPhoneCalls = PhoneCall.GetPhoneCalls(sipAccount).Where(item => item.AC_IsInvoiced == "NO" || item.AC_IsInvoiced == string.Empty || item.AC_IsInvoiced == null);
                     var addressbook = this.Addressbook;
 
                     if (addressbook == null || addressbook.Count == 0)
@@ -301,7 +305,7 @@ namespace Lync_Billing.Backend
 
                     foreach (var phoneCall in userPhoneCalls)
                     {
-                        if (addressbook.Keys.Contains(phoneCall.DestinationNumberUri))
+                        if (phoneCall.DestinationNumberUri != null && addressbook.Keys.Contains(phoneCall.DestinationNumberUri))
                         {
                             phoneCall.PhoneBookName = ((PhoneBook)addressbook[phoneCall.DestinationNumberUri]).Name;
                         }
@@ -335,13 +339,22 @@ namespace Lync_Billing.Backend
 
             if (DelegeesRoleNames.Contains(this.ActiveRoleName))
             {
-                userSessionAddressBook = this.DelegeeAccount.DelegeeUserAddressbook;
                 userSessionPhoneCallsPerPageJson = this.DelegeeAccount.DelegeeUserPhonecallsPerPage;
+
+                if (this.DelegeeAccount.DelegeeUserAddressbook.Count == 0)
+                    this.DelegeeAccount.DelegeeUserAddressbook = PhoneBook.GetAddressBook(DelegeeAccount.DelegeeUserAccount.SipAccount);
+
+                userSessionAddressBook = this.DelegeeAccount.DelegeeUserAddressbook;
             }
             else
             {
-                userSessionAddressBook = this.Addressbook;
                 userSessionPhoneCallsPerPageJson = this.PhonecallsPerPage;
+
+                if (this.Addressbook.Count == 0)
+                   this.Addressbook =  PhoneBook.GetAddressBook(this.NormalUserInfo.SipAccount);
+
+                userSessionAddressBook = this.Addressbook;
+                
             }
 
         }
