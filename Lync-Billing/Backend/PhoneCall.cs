@@ -468,13 +468,13 @@ namespace Lync_Billing.Backend
             if (phoneCall.UI_AssignedOn != DateTime.MinValue)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn), phoneCall.UI_AssignedOn);
 
-            if (phoneCall.AC_DisputeStatus != null)
+            if (!string.IsNullOrEmpty(phoneCall.AC_DisputeStatus))
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus), phoneCall.AC_DisputeStatus);
 
             if (phoneCall.AC_DisputeResolvedOn != DateTime.MinValue)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn), phoneCall.AC_DisputeResolvedOn);
 
-            if (phoneCall.AC_IsInvoiced != null)
+            if (!string.IsNullOrEmpty(phoneCall.AC_IsInvoiced))
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), phoneCall.AC_IsInvoiced);
 
             if (phoneCall.AC_InvoiceDate != DateTime.MinValue)
