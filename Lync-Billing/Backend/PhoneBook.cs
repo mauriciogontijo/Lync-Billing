@@ -18,7 +18,32 @@ namespace Lync_Billing.Backend
 
         private static DBLib DBRoutines = new DBLib();
 
-        public static Dictionary<string, PhoneBook> GetAddressBook(string sipAccount)
+        public static Dictionary<string, PhoneBook> GetAddressBook(string sipAccount) 
+        {
+            Dictionary<string, PhoneBook> phoneBookEntries = new Dictionary<string, PhoneBook>();
+            DataTable dt = new DataTable();
+           
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.PhoneBook.TableName), Enums.GetDescription(Enums.PhoneBook.SipAccount), sipAccount);
+
+             var phoneBook = (from rw in dt.AsEnumerable()
+                               select new PhoneBook()
+                               {
+                                   ID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(rw[Enums.GetDescription(Enums.PhoneBook.ID)])),
+                                   SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(Enums.GetDescription(Enums.PhoneBook.SipAccount))),
+                                   Name = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneBook.Name)])), 
+                                   DestinationNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneBook.DestinationNumber)])),
+                                   DestinationCountry = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneBook.DestinationCountry)])),
+                                   Type = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneBook.Type)]))
+                               }).ToList();
+
+             foreach (PhoneBook entry in phoneBook) 
+             {
+                 phoneBookEntries.Add(entry.DestinationNumber, entry);
+             }
+             return phoneBookEntries;
+        }
+
+        public static Dictionary<string, PhoneBook> GetAddressBookOLD(string sipAccount)
         {
             Dictionary<string, PhoneBook> phoneBookEntries = new Dictionary<string, PhoneBook>();
             DataTable dt = new DataTable();
@@ -89,21 +114,32 @@ namespace Lync_Billing.Backend
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionparameters, wherePart);
 
 
-            foreach (DataRow row in dt.Rows)
-            {
-                phoneBookEntry = new PhoneBook();
+            var phoneBook = (from rw in dt.AsEnumerable()
+                             select new PhoneBook()
+                             {
+                                 DestinationNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.TopDestinationNumbers.PhoneNumber)])),
+                                 DestinationCountry = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.TopDestinationNumbers.Country)])),
+                               
+                             }).ToList();
 
-                columnName = Enums.GetDescription(Enums.TopDestinationNumbers.PhoneNumber);
-                phoneBookEntry.DestinationNumber = (string)HelperFunctions.ReturnEmptyIfNull(row[columnName]);
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    phoneBookEntry = new PhoneBook();
 
-                columnName = Enums.GetDescription(Enums.TopDestinationNumbers.Country);
-                phoneBookEntry.DestinationCountry = (string)HelperFunctions.ReturnEmptyIfNull(row[columnName]);
+            //    columnName = Enums.GetDescription(Enums.TopDestinationNumbers.PhoneNumber);
+            //    phoneBookEntry.DestinationNumber = (string)HelperFunctions.ReturnEmptyIfNull(row[columnName]);
 
-                phoneBookEntries.Add(phoneBookEntry);
-            }
+            //    columnName = Enums.GetDescription(Enums.TopDestinationNumbers.Country);
+            //    phoneBookEntry.DestinationCountry = (string)HelperFunctions.ReturnEmptyIfNull(row[columnName]);
+
+            //    phoneBookEntries.Add(phoneBookEntry);
+            //}
 
             //Filter only the distinct values.
-            phoneBookEntries = phoneBookEntries.Distinct(linqDistinctComparer).ToList();
+            //phoneBookEntries = phoneBookEntries.Distinct(linqDistinctComparer).ToList();
+           
+            phoneBookEntries = phoneBook.Distinct(linqDistinctComparer).ToList();
+            
             return phoneBookEntries;
         }
 
