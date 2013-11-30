@@ -61,14 +61,13 @@ namespace Lync_Billing.ui.accounting.reports
 
         protected List<UserCallsSummary> MonthlyReports(string siteName, DateTime date)
         {
-            List<UserCallsSummary> listOfUsersCallsSummary = new List<UserCallsSummary>();
+            List<UserCallsSummary> listOfUsersCallsSummary;
 
             DateTime beginningOfTheMonth = new DateTime(date.Year, date.Month, 1);
             DateTime endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
 
-            listOfUsersCallsSummary.AddRange(
-                UserCallsSummary.GetUsersCallsSummaryInSite(siteName, beginningOfTheMonth, endOfTheMonth).Where
-                            (e => e.PersonalCallsCost != 0 || e.BusinessCallsCost != 0 || e.UnmarkedCallsCost != 0).AsEnumerable<UserCallsSummary>());
+            listOfUsersCallsSummary = UserCallsSummary.GetUsersCallsSummaryInSite(siteName, beginningOfTheMonth, endOfTheMonth, true)
+                                        .Where(e => e.PersonalCallsCost > 0 || e.BusinessCallsCost > 0 || e.UnmarkedCallsCost > 0).ToList();
             
             return listOfUsersCallsSummary;
         }

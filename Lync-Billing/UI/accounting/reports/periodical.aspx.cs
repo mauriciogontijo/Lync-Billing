@@ -64,39 +64,10 @@ namespace Lync_Billing.ui.accounting.reports
 
         List<UserCallsSummary> PeriodicalReport(string siteName, DateTime startingDate, DateTime endingDate) 
         {
-            List<UserCallsSummary> tmp = new List<UserCallsSummary>();
+            List<UserCallsSummary> data = UserCallsSummary.GetUsersCallsSummaryInSite(siteName, startingDate, endingDate, asTotals: true)
+                                        .Where(e=> e.PersonalCallsCost > 0 || e.BusinessCallsCost > 0 || e.UnmarkedCallsCost > 0).ToList();
 
-
-            tmp.AddRange(UserCallsSummary.GetUsersCallsSummaryInSite(siteName, startingDate, endingDate).AsEnumerable<UserCallsSummary>());
-            
-            var sipAccounts = 
-                (
-                    from data in tmp.AsEnumerable()
-
-                        group data by new { data.SipAccount, data.EmployeeID, data.FullName, data.SiteName } into res
-
-                        select new UserCallsSummary
-                        {
-                            EmployeeID = res.Key.EmployeeID,
-                            FullName = res.Key.FullName,
-                            SipAccount = res.Key.SipAccount,
-                            SiteName = res.Key.SiteName,
-
-                            BusinessCallsCost = res.Sum(x => x.BusinessCallsCost),
-                            BusinessCallsDuration = res.Sum(x => x.BusinessCallsDuration),
-                            BusinessCallsCount = res.Sum(x => x.BusinessCallsCount),
-
-                            PersonalCallsCost = res.Sum(x => x.PersonalCallsCost),
-                            PersonalCallsDuration = res.Sum(x => x.PersonalCallsDuration),
-                            PersonalCallsCount = res.Sum(x => x.PersonalCallsCount),
-
-                            UnmarkedCallsCost = res.Sum(x => x.UnmarkedCallsCost),
-                            UnmarkedCallsDuration = res.Sum(x => x.UnmarkedCallsDuration),
-                            UnmarkedCallsCount = res.Sum(x => x.UnmarkedCallsCount),
-                        }
-                ).Where(e=> e.PersonalCallsCost > 0 || e.BusinessCallsCost > 0 || e.UnmarkedCallsCost > 0).ToList();
-
-            return sipAccounts;
+            return data;
         }
 
 

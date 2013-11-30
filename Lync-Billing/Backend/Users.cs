@@ -211,6 +211,25 @@ namespace Lync_Billing.Backend
 
         }
 
+        public static string GetUserSite(string sipAccount)
+        {
+            Users user = new Users();
+            DataTable dt = new DataTable();
+
+            dt = DBRoutines.SELECT(
+                Enums.GetDescription(Enums.Users.TableName),
+                Enums.GetDescription(Enums.Users.SipAccount),
+                sipAccount);
+
+            if (dt.Rows.Count > 0)
+            {
+                var row = dt.Rows[0];
+                return Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[Enums.GetDescription(Enums.Users.SiteName)]));
+            }
+            else
+                return null;
+        }
+
         public static int InsertUser(Users user)
         {
             int rowID = 0;
