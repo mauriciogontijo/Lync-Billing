@@ -111,7 +111,7 @@ namespace Lync_Billing.ui.user
             session.FetchSessionPhonecallsAndAddressbookData(out userSessionPhoneCalls, out userSessionAddressbook, out userSessionPhoneCallsPerPage);
 
             //userSessionPhoneCalls = userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_CallType)).ToList();
-            numberOfRemainingUnmarked = userSessionPhoneCalls.Count;
+            numberOfRemainingUnmarked = userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_CallType)).ToList().Count;
 
             if (IsThisTheFirstTimeAfterLogin == false)
             {
