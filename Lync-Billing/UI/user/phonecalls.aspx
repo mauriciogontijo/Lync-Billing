@@ -493,7 +493,7 @@
                     <ext:Menu
                         ID="PhoneCallsAllocationToolsMenu"
                         runat="server"
-                        Width="170"
+                        Width="190"
                         Frame="false"
                         >
                         <Items>
@@ -592,8 +592,17 @@
                             <ext:MenuSeparator ID="MenuSeparator1" runat="server" />
 
                             <ext:MenuItem
+                                runat="server"
+                                ID="MoveToDepartmentFieldLabel"
+                                Text="Move Selected To:"
+                                Margins="5 0 5 0"
+                                Disabled="true"
+                                DisabledCls=""
+                                Cls="font-12 popup-menu-field-label-background" />
+
+                            <ext:MenuItem
                                 ID="MoveToDepartmnet"
-                                Text="Move to Department"
+                                Text="My Department's Phonecalls"
                                 runat="server"
                                 Margins="0 0 5 0">
                                 <DirectEvents>

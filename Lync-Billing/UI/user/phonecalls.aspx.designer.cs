@@ -499,6 +499,15 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.MenuSeparator MenuSeparator1;
         
         /// <summary>
+        /// MoveToDepartmentFieldLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem MoveToDepartmentFieldLabel;
+        
+        /// <summary>
         /// MoveToDepartmnet control.
         /// </summary>
         /// <remarks>
