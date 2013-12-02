@@ -523,22 +523,27 @@ namespace Lync_Billing.Libs
         /// <returns></returns>
         public bool UPDATE(string tableName, Dictionary<string, object> columnsValues, Dictionary<string,object> wherePart)
         {
-
             StringBuilder fieldsValues = new StringBuilder();
             StringBuilder whereStatement = new StringBuilder();
             
-
             foreach (KeyValuePair<string, object> pair in columnsValues)
             {
-
-                Type valueType = pair.Value.GetType();
-
-                if (valueType == typeof(int) || valueType == typeof(Double))
+                if (pair.Value == null)
+                {
+                    fieldsValues.Append("[" + pair.Key + "]=null,");
+                }
+                else if (pair.Value is int || pair.Value is Double)
+                {
                     fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");
-                else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+                }
+                else if (pair.Value is DateTime && ((DateTime)pair.Value == DateTime.MinValue))
+                {
                     continue;
+                }
                 else
-                    fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value.ToString().Replace("'","`") + "'" + ",");  
+                {
+                    fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value.ToString().Replace("'", "`") + "'" + ",");
+                }
             }
             
             fieldsValues.Remove(fieldsValues.Length - 1, 1);
@@ -547,16 +552,22 @@ namespace Lync_Billing.Libs
             {
                 Type valueType = pair.Value.GetType();
 
-                if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue)){}
-
-
-
-                if (valueType == typeof(int) || valueType == typeof(Double))
+                if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+                {
+                    // DO NOTHING
+                }
+                else if (valueType == typeof(int) || valueType == typeof(Double))
+                {
                     whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
+                }
                 else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+                {
                     continue;
+                }
                 else
-                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value.ToString().Replace("'","`") + "' AND ");
+                {
+                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value.ToString().Replace("'", "`") + "' AND ");
+                }
 
             }
             whereStatement.Remove(whereStatement.Length - 5, 5);
