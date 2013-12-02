@@ -616,6 +616,60 @@ namespace Lync_Billing.ui.user
             session.AssignSessionPhonecallsAndAddressbookData(userSessionPhoneCalls, userSessionAddressBook, userSessionPhoneCallsPerPageJson);
         }
 
+        protected void MoveToDepartmnent(object sender, DirectEventArgs e) 
+        {
+            PhoneCall sessionPhoneCallRecord;
+            List<PhoneCall> submittedPhoneCalls;
+            List<PhoneCall> userSessionPhoneCalls;
+            string userSessionPhoneCallsPerPageJson = string.Empty;
+
+            string json = string.Empty;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+
+            //Get the session and sip account of the current user
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.GetEffectiveSipAccount();
+
+            //Get user phonecalls from the session
+            //Handle user delegee mode and normal user mode
+            userSessionPhoneCalls = session.GetUserSessionPhoneCalls();
+
+            json = e.ExtraParams["Values"];
+            submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+            userSessionPhoneCallsPerPageJson = json;
+
+
+            foreach (PhoneCall phoneCall in submittedPhoneCalls)
+            {
+                sessionPhoneCallRecord = userSessionPhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
+
+                if (sessionPhoneCallRecord.UI_AssignedByUser != null)
+                {
+
+                    sessionPhoneCallRecord.UI_AssignedToUser = session.DelegeeAccount.DelegeeUserAccount.SiteName + "-" + session.DelegeeAccount.DelegeeUserAccount.Department;
+                    sessionPhoneCallRecord.UI_CallType = null;
+
+                    PhoneCall.UpdatePhoneCall(sessionPhoneCallRecord);
+
+                    ModelProxy model = PhoneCallsStore.Find(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), sessionPhoneCallRecord.SessionIdTime.ToString());
+                    model.Set(sessionPhoneCallRecord);
+                    model.Commit();
+                }
+                else 
+                {
+                    continue;
+                }
+            }
+
+            ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
+            PhoneCallsStore.LoadPage(1);
+
+            //Reassign the user session data
+            //Handle the normal user mode and user delegee mode
+            session.AssignSessionPhonecallsAndAddressbookData(userSessionPhoneCalls, null, null);
+        }
+
         [DirectMethod]
         protected void RejectChanges_DirectEvent(object sender, DirectEventArgs e)
         {
@@ -738,5 +792,27 @@ namespace Lync_Billing.ui.user
             //Handle the normal user mode and user delegee mode
             session.AssignSessionPhonecallsAndAddressbookData(userSessionPhoneCalls, null, null);
         }
+
+        protected void PhoneCallsGridSelectDirectEvents(object sender, DirectEventArgs e)
+        {
+            string json = string.Empty;
+            List<PhoneCall> submittedPhoneCalls;
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+
+
+            json = e.ExtraParams["Values"];
+            submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
+            
+            var resul = submittedPhoneCalls.Where(item => !string.IsNullOrEmpty(item.UI_AssignedByUser)).ToList();
+
+            if (submittedPhoneCalls.Count == resul.Count)
+                MoveToDepartmnet.Disabled = false;
+            else
+                MoveToDepartmnet.Disabled = true;
+
+        }
+
     }
 }

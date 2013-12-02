@@ -74,6 +74,9 @@
                                             <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                             <ext:ModelField Name="Duration" Type="Float" />
                                             <ext:ModelField Name="Marker_CallCost" Type="Float" />
+                                             <ext:ModelField Name="UI_AssignedByUser" Type="String" />
+                                            <ext:ModelField Name="UI_AssignedToUser" Type="String" />
+                                            <ext:ModelField Name="UI_AssignedOn" Type="Date" />
                                             <ext:ModelField Name="UI_CallType" Type="String" />
                                             <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                             <ext:ModelField Name="PhoneBookName" Type="String" />
@@ -297,6 +300,7 @@
                         Scroll="Both"
                         Layout="TableLayout"
                         ContextMenuID="DepartmentPhonecallsAllocationMenu">
+                        
                         <Store>
                             <ext:Store 
                                 ID="DepartmentPhoneCallsStore"
@@ -318,6 +322,7 @@
                                             <ext:ModelField Name="UI_CallType" Type="String" />
                                             <ext:ModelField Name="UI_MarkedOn" Type="Date" />
                                             <ext:ModelField Name="UI_AssignedByUser" Type="String" />
+                                            <ext:ModelField Name="UI_AssignedToUser" Type="String" />
                                             <ext:ModelField Name="UI_AssignedOn" Type="Date" />
                                             <ext:ModelField Name="PhoneBookName" Type="String" />
                                             <ext:ModelField Name="PhoneCallTableName" Type="String" />
@@ -489,7 +494,8 @@
                         ID="PhoneCallsAllocationToolsMenu"
                         runat="server"
                         Width="170"
-                        Frame="false">
+                        Frame="false"
+                        >
                         <Items>
                             <ext:MenuItem
                                 runat="server"
@@ -582,7 +588,31 @@
                                     </Click>
                                 </DirectEvents>
                             </ext:MenuItem>
+
+                            <ext:MenuSeparator ID="MenuSeparator1" runat="server" />
+
+                            <ext:MenuItem
+                                ID="MoveToDepartmnet"
+                                Text="Move to Department"
+                                runat="server"
+                                Margins="0 0 5 0">
+                                <DirectEvents>
+                                    <Click OnEvent="MoveToDepartmnent">
+                                        <EventMask ShowMask="true" />
+                                        <ExtraParams>
+                                            <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                        </ExtraParams>
+                                    </Click>
+                                </DirectEvents>
+                            </ext:MenuItem>
                         </Items>
+                          <DirectEvents>
+                            <BeforeShow OnEvent="PhoneCallsGridSelectDirectEvents">
+                                <ExtraParams>
+                                        <ext:Parameter Name="Values" Value="Ext.encode(#{ManagePhoneCallsGrid}.getRowsValues({selectedOnly:true}))" Mode="Raw" />
+                                </ExtraParams>
+                            </BeforeShow>
+                        </DirectEvents>
                     </ext:Menu>
 
                     <ext:Menu
