@@ -622,6 +622,7 @@ namespace Lync_Billing.ui.user
             List<PhoneCall> submittedPhoneCalls;
             List<PhoneCall> userSessionPhoneCalls;
             string userSessionPhoneCallsPerPageJson = string.Empty;
+            string userSiteDepartment = string.Empty;
 
             string json = string.Empty;
             JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -644,19 +645,31 @@ namespace Lync_Billing.ui.user
             {
                 sessionPhoneCallRecord = userSessionPhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
 
-                if (sessionPhoneCallRecord.UI_AssignedByUser != null)
+                if (sessionPhoneCallRecord.UI_AssignedToUser == sipAccount && !string.IsNullOrEmpty(sessionPhoneCallRecord.UI_AssignedByUser))
                 {
+                    userSiteDepartment = 
+                        (session.ActiveRoleName == userDelegeeRoleName) ?
+                        session.DelegeeAccount.DelegeeUserAccount.SiteName + "-" + session.DelegeeAccount.DelegeeUserAccount.Department :
+                        session.NormalUserInfo.SiteName + "-" + session.NormalUserInfo.Department;  
 
-                    sessionPhoneCallRecord.UI_AssignedToUser = session.DelegeeAccount.DelegeeUserAccount.SiteName + "-" + session.DelegeeAccount.DelegeeUserAccount.Department;
-                    sessionPhoneCallRecord.UI_CallType = null;
+                    sessionPhoneCallRecord.UI_AssignedToUser = userSiteDepartment;
 
-                    PhoneCall.UpdatePhoneCall(sessionPhoneCallRecord);
+                    PhoneCall.UpdatePhoneCall(sessionPhoneCallRecord, FORCE_RESET_UI_CallType: true);
 
                     ModelProxy model = PhoneCallsStore.Find(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), sessionPhoneCallRecord.SessionIdTime.ToString());
                     model.Set(sessionPhoneCallRecord);
                     model.Commit();
+
+                    //Remove it from the PhoneCallsStore
+                    PhoneCallsStore.Remove(model);
+
+                    //Add it to the Department's PhoneCalls Store
+                    DepartmentPhoneCallsStore.Add(phoneCall);
+
+                    //Remove from the user own session PhoneCalls list.
+                    userSessionPhoneCalls.Remove(sessionPhoneCallRecord);
                 }
-                else 
+                else
                 {
                     continue;
                 }
@@ -766,16 +779,17 @@ namespace Lync_Billing.ui.user
                 //sessionPhoneCallRecord = userSessionPhoneCalls.Where(o => o.SessionIdTime == phoneCall.SessionIdTime).First();
 
                 //Assign the call to this user
-                phoneCall.UI_CallType = null;
                 phoneCall.UI_AssignedToUser = sipAccount;
 
                 //Update this phonecall in the database
-                PhoneCall.UpdatePhoneCall(phoneCall);
+                PhoneCall.UpdatePhoneCall(phoneCall, FORCE_RESET_UI_CallType: true);
 
                 //Commit the changes to the grid and it's store
                 ModelProxy model = DepartmentPhoneCallsStore.Find(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), phoneCall.SessionIdTime.ToString());
                 model.SetDirty();
                 model.Commit();
+
+                //Remove from the Department's PhoneCalls Store
                 DepartmentPhoneCallsStore.Remove(model);
 
                 //Add it to the phonecalls store

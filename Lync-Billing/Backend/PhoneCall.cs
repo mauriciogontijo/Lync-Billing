@@ -434,7 +434,7 @@ namespace Lync_Billing.Backend
          * UpdatePhoneCall
          * Updates a phone call record in the database, given a phonecall object.
          */
-        public static bool UpdatePhoneCall(PhoneCall phoneCall) 
+        public static bool UpdatePhoneCall(PhoneCall phoneCall, bool FORCE_RESET_UI_CallType = false) 
         {
             bool status = false;
 
@@ -479,6 +479,9 @@ namespace Lync_Billing.Backend
 
             if (phoneCall.AC_InvoiceDate != DateTime.MinValue)
                 setPart.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), phoneCall.AC_InvoiceDate);
+
+            if (FORCE_RESET_UI_CallType == true)
+                setPart.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null);
 
             //Execute Update
             status = DBRoutines.UPDATE(phoneCall.PhoneCallTableName, setPart, wherePart);
