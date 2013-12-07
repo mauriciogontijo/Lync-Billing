@@ -112,6 +112,7 @@ namespace Lync_Billing.Backend
                                     PoolFQDN = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.PoolFQDN)])),
                                     Marker_CallToCountry = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry)])),
                                     marker_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallType)])),
+                                    Marker_CallCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost)])),
                                     Duration = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Duration)])),
                                     UI_UpdatedByUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser)])),
                                     
@@ -121,21 +122,21 @@ namespace Lync_Billing.Backend
                                     
                                    UI_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_CallType)])),
                                    UI_AssignedByUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser)])),
-                                    UI_AssignedToUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedToUser)])),
+                                   UI_AssignedToUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedToUser)])),
                                     
-                                    UI_AssignedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn)] != DBNull.Value) ? 
+                                   UI_AssignedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn)] != DBNull.Value) ? 
                                                     Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn)]) : 
                                                     DateTime.MinValue,
                                     
-                                    AC_DisputeStatus = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw["AC_DisputeStatus"])),
+                                   AC_DisputeStatus = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw["AC_DisputeStatus"])),
                                     
-                                    AC_DisputeResolvedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn)] != DBNull.Value) ? 
+                                   AC_DisputeResolvedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn)] != DBNull.Value) ? 
                                                             Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn)]) : 
                                                             DateTime.MinValue,
                                     
-                                    AC_IsInvoiced = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced)])),
+                                   AC_IsInvoiced = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced)])),
                                     
-                                    AC_InvoiceDate = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)] != DBNull.Value) ? 
+                                   AC_InvoiceDate = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)] != DBNull.Value) ? 
                                                      Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)]) : 
                                                      DateTime.MinValue,
                                     
