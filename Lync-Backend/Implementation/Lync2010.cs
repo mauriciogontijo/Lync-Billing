@@ -105,6 +105,7 @@ namespace Lync_Backend.Implementation
                 
                 ((Interfaces.IPhoneCalls)instance).SetCallType(phoneCallObj);
                 ((Interfaces.IPhoneCalls)instance).ApplyRate(phoneCallObj);
+                ((Interfaces.IPhoneCalls)instance).ApplyExclusions(phoneCallObj);
 
                 if (!string.IsNullOrEmpty(phoneCallObj.ReferredBy))
                     phoneCallObj.ChargingParty = phoneCallObj.ReferredBy;
