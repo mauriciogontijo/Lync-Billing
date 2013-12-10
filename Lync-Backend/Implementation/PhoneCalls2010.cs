@@ -296,10 +296,11 @@ namespace Lync_Backend.Implementation
         {
             // Set All greece national calls cost to 0
 
-            if (thisCall.Marker_CallTo.ToString().StartsWith("302") && thisCall.Marker_CallFrom.ToString().StartsWith("302")) 
+            if (thisCall.Marker_CallTo.ToString().StartsWith("302") && thisCall.Marker_CallFrom.ToString().StartsWith("302") && (thisCall.Marker_CallTypeID == 2 || thisCall.Marker_CallTypeID == 4 || thisCall.Marker_CallTypeID == 21))
             {
                 thisCall.Marker_CallCost = Convert.ToDecimal(0);
             }
+
             return thisCall;
         }
     }
