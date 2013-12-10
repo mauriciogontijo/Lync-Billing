@@ -13,5 +13,6 @@ namespace Lync_Backend.Interfaces
 
         PhoneCalls ApplyRate(PhoneCalls thisCall);
 
+        PhoneCalls ApplyExclusions(PhoneCalls thisCalls);
     }
 }

@@ -407,5 +407,17 @@ namespace Lync_Backend.Implementation
             }
             return thisCall;
         }
+
+
+        public PhoneCalls ApplyExclusions(PhoneCalls thisCall)
+        {
+            // Set All greece national calls cost to 0
+
+            if (thisCall.Marker_CallTo.ToString().StartsWith("302") && thisCall.Marker_CallFrom.ToString().StartsWith("302"))
+            {
+                thisCall.Marker_CallCost = Convert.ToDecimal(0);
+            }
+            return thisCall;
+        }
     }
 }
