@@ -138,8 +138,8 @@ namespace Lync_Billing.Libs
             else 
                 selectedfields.Append("*");
 
-           if(whereClause.Count != 0)
-           {
+            if (whereClause != null && whereClause.Count != 0)
+            {
                whereStatement.Append("WHERE ");
                foreach (KeyValuePair<string, object> pair in whereClause)
                {
@@ -217,7 +217,7 @@ namespace Lync_Billing.Libs
                 if (whereClause !=null)
                     selectQuery = string.Format("SELECT {0} FROM  [{1}] {2} {3}", selectedfields.ToString(), tableName, whereStatement.ToString(), orderBy);
                 else
-                    selectQuery = string.Format("SELECT {0} FROM  ['{1}'] {2}", selectedfields.ToString(), tableName, orderBy);
+                    selectQuery = string.Format("SELECT {0} FROM  [{1}] {2}", selectedfields.ToString(), tableName, orderBy);
             }
             else
             {
