@@ -27,9 +27,9 @@ namespace Lync_Billing.Backend.Roles
         public Department DelegeeDepartment { get; set; }
 
         //These are for lookup use only in the application
-        public static int UserDelegeeTypeID { get { return 1; } }
-        public static int DepartmentDelegeeTypeID { get { return 2; } }
-        public static int SiteDelegeeTypeID { get { return 3; } }
+        public static int UserDelegeeTypeID { get { return Convert.ToInt32(Enums.GetDescription(Enums.DelegateTypes.UserDelegeeType)); } }
+        public static int DepartmentDelegeeTypeID { get { return Convert.ToInt32(Enums.GetDescription(Enums.DelegateTypes.DepartemntDelegeeType)); ; } }
+        public static int SiteDelegeeTypeID { get { return Convert.ToInt32(Enums.GetDescription(Enums.DelegateTypes.SiteDelegeeType)); ; } }
 
         public static bool IsUserDelegate(string delegateAccount) 
         {
@@ -271,9 +271,9 @@ namespace Lync_Billing.Backend.Roles
             if (delegee.SipAccount.ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.DelegateRoles.SipAccount), delegee.SipAccount);
 
-            if (delegee.SiteID.ToString() != null)
+            if (delegee.SiteID != 0 && delegee.SiteID.ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.DelegateRoles.SiteID), delegee.SiteID);
-            
+
             if (delegee.DepartmentID.ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.DelegateRoles.DepartmentID), delegee.DepartmentID);
 
