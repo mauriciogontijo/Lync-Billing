@@ -126,7 +126,6 @@
     <Content Include="ui\sysadmin\configuration\exceptions.aspx" />
     <Content Include="ui\sysadmin\configuration\mail.aspx" />
     <Content Include="ui\sysadmin\configuration\systemroles.aspx" />
-    <Content Include="ui\sysadmin\manage\currencies.aspx" />
     <Content Include="ui\sysadmin\manage\gateways.aspx" />
     <Content Include="ui\sysadmin\configuration\translations.aspx" />
     <Content Include="ui\sysadmin\main\dashboard.aspx" />
@@ -167,7 +166,8 @@
     <Content Include="ui\resources\js\ext-all.js" />
     <Content Include="ui\resources\js\jquery-1.9.1.min.js" />
     <Content Include="ui\resources\js\stacktrace.js" />
-    <Content Include="ui\sysadmin\users\roles.aspx" />
+    <Content Include="ui\sysadmin\users\depheads.aspx" />
+    <Content Include="ui\sysadmin\users\sysroles.aspx" />
     <Content Include="ui\user\bills.aspx" />
     <Content Include="ui\user\dashboard.aspx" />
     <Content Include="ui\user\addressbook.aspx" />
@@ -340,13 +340,6 @@
     <Compile Include="ui\sysadmin\configuration\systemroles.aspx.designer.cs">
       <DependentUpon>systemroles.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\sysadmin\manage\currencies.aspx.cs">
-      <DependentUpon>currencies.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ui\sysadmin\manage\currencies.aspx.designer.cs">
-      <DependentUpon>currencies.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ui\sysadmin\manage\gateways.aspx.cs">
       <DependentUpon>gateways.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -452,12 +445,19 @@
     <Compile Include="ui\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
-    <Compile Include="ui\sysadmin\users\roles.aspx.cs">
-      <DependentUpon>roles.aspx</DependentUpon>
+    <Compile Include="ui\sysadmin\users\depheads.aspx.cs">
+      <DependentUpon>depheads.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\sysadmin\users\roles.aspx.designer.cs">
-      <DependentUpon>roles.aspx</DependentUpon>
+    <Compile Include="ui\sysadmin\users\depheads.aspx.designer.cs">
+      <DependentUpon>depheads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\users\sysroles.aspx.cs">
+      <DependentUpon>sysroles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\users\sysroles.aspx.designer.cs">
+      <DependentUpon>sysroles.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\user\bills.aspx.cs">
       <DependentUpon>bills.aspx</DependentUpon>

@@ -89,7 +89,10 @@
                                 <Fields>
                                     <ext:ModelField Name="ID" Type="Int" />
                                     <ext:ModelField Name="SipAccount" Type="String" />
-                                    <ext:ModelField Name="DelegeeAccount" Type="String" />
+                                    <ext:ModelField Name="SiteID" Type="Int" />
+                                    <ext:ModelField Name="DepartmentID" Type="Int" />
+                                    <ext:ModelField Name="DelegeeType" Type="Int" />
+                                    <ext:ModelField Name="Delegee" Type="String" />
                                     <ext:ModelField Name="Description" Type="String" />
                                 </Fields>
                             </ext:Model>
