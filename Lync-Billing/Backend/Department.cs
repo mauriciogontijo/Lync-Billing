@@ -17,6 +17,10 @@ namespace Lync_Billing.Backend
         public string SiteName { get; set; }
         public string DepartmentName { get; set; }
 
+        //This is a logical representation of the SiteName and DepartmentName
+        //example: MOA (IDS), RASO (ISD) ... etc
+        public string DepartmentIdentifier { get; set; }
+
         public static string GetDepartmentName(int departmentID)
         {
             DataTable dt;
@@ -76,6 +80,8 @@ namespace Lync_Billing.Backend
                         department.SiteName = Site.GetSiteName(department.SiteID);
                     }
                 }
+
+                department.DepartmentIdentifier = String.Format("{0} ({1})", department.SiteName, department.DepartmentName);
             }
 
             return department;
@@ -118,6 +124,8 @@ namespace Lync_Billing.Backend
                     }
                 }
 
+                department.DepartmentIdentifier = String.Format("{0} ({1})", department.SiteName, department.DepartmentName);
+
                 departmentsList.Add(department);
             }
 
@@ -157,11 +165,20 @@ namespace Lync_Billing.Backend
                     }
                 }
 
+                department.DepartmentIdentifier = String.Format("{0} ({1})", department.SiteName, department.DepartmentName);
+
                 departmentsList.Add(department);
             }
 
             return departmentsList;
         }
 
+
+        public override string ToString()
+        {
+            return this.DepartmentIdentifier;
+        }
+
     }
+
 }

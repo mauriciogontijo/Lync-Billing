@@ -191,7 +191,7 @@ namespace Lync_Billing.Backend.Roles
                         delegatedAccount.ID = Convert.ToInt32(row[column.ColumnName]);
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.Delegee))
-                        delegatedAccount.DelegeeAccount = Convert.ToString(row[column.ColumnName]);
+                        delegatedAccount.DelegeeAccount = Convert.ToString(row[column.ColumnName]).TrimEnd();
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.DelegeeType))
                         delegatedAccount.DelegeeType = Convert.ToInt32(row[column.ColumnName]);
@@ -203,7 +203,7 @@ namespace Lync_Billing.Backend.Roles
                         delegatedAccount.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.SipAccount))
-                        delegatedAccount.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        delegatedAccount.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName])).TrimEnd();
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.Description))
                         delegatedAccount.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));

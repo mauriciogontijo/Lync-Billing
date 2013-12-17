@@ -11,6 +11,8 @@
             var clearFilter = function () {
                 #{SipAccountFilter}.reset();
                 #{DelegeeAccountFilter}.reset();
+                #{SiteFilter}.reset();
+                #{DepartmentFilter}.reset();
                 #{DescriptionFilter}.reset();
                 
                 #{ManageDelegatesStore}.clearFilter();
@@ -38,6 +40,18 @@
                 f.push({
                     filter: function (record) {                         
                         return filterString(#{DelegeeAccountFilter}.getValue(), "DelegeeAccount", record);
+                    }
+                });
+
+                f.push({
+                    filter: function(record) {
+                        return filterString(#{SiteFilter}.getValue(), "SiteID", record);
+                    }
+                });
+
+                f.push({
+                    filter: function(record) {
+                        return filterString(#{DepartmentFilter}.getValue(), "DepartmentID", record);
                     }
                 });
 
@@ -90,9 +104,11 @@
                                     <ext:ModelField Name="ID" Type="Int" />
                                     <ext:ModelField Name="SipAccount" Type="String" />
                                     <ext:ModelField Name="SiteID" Type="Int" />
+                                    <ext:ModelField Name="DelegeeSite" Type="String" />
                                     <ext:ModelField Name="DepartmentID" Type="Int" />
+                                    <ext:ModelField Name="DelegeeDepartment" Type="String" />
                                     <ext:ModelField Name="DelegeeType" Type="Int" />
-                                    <ext:ModelField Name="Delegee" Type="String" />
+                                    <ext:ModelField Name="DelegeeAccount" Type="String" />
                                     <ext:ModelField Name="Description" Type="String" />
                                 </Fields>
                             </ext:Model>
@@ -100,27 +116,17 @@
                     </ext:Store>
                 </Store>
 
+                <Plugins>
+                    <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
+                </Plugins>
+
                 <ColumnModel ID="ManageDelegatesColumnModel" runat="server" Flex="1">
                     <Columns>
-                        <ext:RowNumbererColumn ID="RowNumbererColumn2" runat="server" Width="25" />
-
-                        <ext:ComponentColumn
-                            ID="IDCol"
-                            runat="server"
-                            Text="ID"
-                            Width="160"
-                            DataIndex="ID"
-                            Visible="false"
-                            Editor="true"
-                            OverOnly="true"
-                            PinEvents="expand"
-                            UnpinEvents="collapse">
-                        </ext:ComponentColumn>
 
                         <ext:Column ID="Column1"
                             runat="server"
                             Text="User"
-                            Width="160"
+                            Width="150"
                             DataIndex="SipAccount"
                             Sortable="true"
                             Groupable="true">
@@ -142,10 +148,134 @@
                             </Editor>
                         </ext:Column>
 
+                        <ext:Column ID="Column4"
+                            runat="server"
+                            Text="Site"
+                            Width="120"
+                            DataIndex="SiteID"
+                            Sortable="true"
+                            Groupable="true">
+
+                            <HeaderItems>
+                                <ext:TextField ID="SiteFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearSiteFilter" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
+
+                            <Editor>
+                                <ext:ComboBox
+                                    ID="SitesList"
+                                    runat="server"
+                                    DisplayField="SiteName"
+                                    ValueField="SiteID"
+                                    TriggerAction="Query"
+                                    QueryMode="Local"
+                                    EmptyText="Please Select Site"
+                                    SelectOnFocus="true"
+                                    SelectOnTab="true"
+                                    Selectable="true"
+                                    Editable="true"
+                                    Width="130">
+                                    <Store>
+                                        <ext:Store 
+                                            ID="Store1"
+                                            runat="server">
+                                            <Model>
+                                                <ext:Model 
+                                                    ID="Model1"
+                                                    runat="server">
+                                                    <Fields>
+                                                        <ext:ModelField Name="SiteID" />
+                                                        <ext:ModelField Name="SiteName" />
+                                                    </Fields>
+                                                </ext:Model>
+                                            </Model>
+                                        </ext:Store>
+                                    </Store>
+
+                                </ext:ComboBox>
+                            </Editor>
+                        </ext:Column>
+
+
+                        <ext:Column ID="Column5"
+                            runat="server"
+                            Text="Department"
+                            Width="130"
+                            DataIndex="DepartmentID"
+                            Sortable="true"
+                            Groupable="true">
+                            
+                            <HeaderItems>
+                                <ext:TextField ID="DepartmentFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearDepartmentFiler" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
+                            
+                            <Editor>
+                                <ext:ComboBox
+                                    ID="DepartmentsList"
+                                    runat="server"
+                                    DisplayField="DepartmentName"
+                                    ValueField="DepartmentID"
+                                    TriggerAction="Query"
+                                    QueryMode="Local"
+                                    EmptyText="Please Select Department"
+                                    SelectOnFocus="true"
+                                    SelectOnTab="true"
+                                    Selectable="true"
+                                    Editable="true"
+                                    Width="130">
+                                    <Store>
+                                        <ext:Store 
+                                            ID="DepartmentsListStore"
+                                            runat="server">
+                                            <Model>
+                                                <ext:Model 
+                                                    ID="DepartmentHeadsStoreModel"
+                                                    runat="server">
+                                                    <Fields>
+                                                        <ext:ModelField Name="SiteID" />
+                                                        <ext:ModelField Name="SiteName" />
+                                                        <ext:ModelField Name="DepartmentID" />
+                                                        <ext:ModelField Name="DepartmentName" />
+                                                    </Fields>
+                                                </ext:Model>
+                                            </Model>
+                                        </ext:Store>
+                                    </Store>
+
+                                    <ListConfig
+                                        Border="true"
+                                        MinWidth="150"
+                                        MaxHeight="300"
+                                        EmptyText="Type department name...">
+                                        <ItemTpl ID="ItemTpl2" runat="server">
+                                            <Html>
+                                                <div>{SiteName}&nbsp;({DepartmentName})</div>
+                                            </Html>
+                                        </ItemTpl>
+                                    </ListConfig>
+                                </ext:ComboBox>
+                            </Editor>
+
+                            <%--<Renderer Fn="" />--%>
+                        </ext:Column>
+
                         <ext:Column ID="Column2"
                             runat="server"
-                            Text="Delegate"
-                            Width="160"
+                            Text="Delegee User"
+                            Width="140"
                             DataIndex="DelegeeAccount"
                             Sortable="true"
                             Groupable="true">
@@ -170,7 +300,7 @@
                         <ext:Column ID="Column3"
                             runat="server"
                             Text="Description"
-                            Width="293"
+                            Width="100"
                             DataIndex="Description"
                             Sortable="true"
                             Groupable="true">
@@ -207,7 +337,7 @@
                             </Listeners>
                         </ext:ImageCommandColumn>
 
-                         <ext:CommandColumn ID="RejectChange" runat="server" Width="70">
+                         <ext:CommandColumn ID="RejectChange" runat="server" Width="65">
                             <Commands>
                                 <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
                             </Commands>
@@ -219,14 +349,6 @@
 
                     </Columns>
                 </ColumnModel>
-
-                <SelectionModel>
-                    <ext:RowSelectionModel ID="RowSelectionModel1" runat="server" />
-                </SelectionModel>
-                
-                <Plugins>
-                    <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
-                </Plugins>
 
                 <TopBar>
                     <ext:Toolbar ID="FilterDelegatesSitesToolBar" runat="server">

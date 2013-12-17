@@ -39,9 +39,17 @@ namespace Lync_Billing.ui.sysadmin.users
 
             sipAccount = session.NormalUserInfo.SipAccount;
 
-            FilterDelegatesBySite.GetStore().DataSource = Backend.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSystemAdmin));
+            var sites = Backend.Site.GetAllSites();
+            var departments = Backend.Department.GetAllDepartments();
+
+            FilterDelegatesBySite.GetStore().DataSource = sites;
             FilterDelegatesBySite.GetStore().DataBind();
 
+            SitesList.GetStore().DataSource = sites;
+            SitesList.GetStore().DataBind();
+
+            DepartmentsList.GetStore().DataSource = departments;
+            DepartmentsList.GetStore().DataBind();
         }
 
         protected void GetDelegates(object sender, DirectEventArgs e)
@@ -79,6 +87,7 @@ namespace Lync_Billing.ui.sysadmin.users
                     usersList.Add(user.SipAccount);
                 }
             }
+
             return usersList;
         }
 
@@ -117,5 +126,6 @@ namespace Lync_Billing.ui.sysadmin.users
         {
             ManageDelegatesGrid.GetStore().RejectChanges();
         }
+
     }
 }

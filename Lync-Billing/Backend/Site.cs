@@ -288,5 +288,12 @@ namespace Lync_Billing.Backend
             return (new List<Site>());
         }
 
+
+        public override string ToString()
+        {
+            return this.SiteName;
+        }
+
     }
+
 }
