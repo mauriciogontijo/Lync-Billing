@@ -106,22 +106,32 @@ namespace Lync_Billing.Libs
         /// <param name="limits">Holds how many rows to be fetched from the database table. 
         /// 1. 0 if all Rows 
         /// 2. Value for number of rows</param>
+        /// <param name="setWhereStatementOperatorToOR">The default operator in the where statement is "AND", if you set this one to true, the operator will be turned to "OR" in the where statement</param>
         /// <returns>DataTable Object</returns>
-        public DataTable SELECT(string tableName,List <string> fields, Dictionary<string, object> whereClause, int limits)
+        public DataTable SELECT(string tableName,List <string> fields, Dictionary<string, object> whereClause, int limits, bool setWhereStatementOperatorToOR = false)
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
             string selectQuery = string.Empty;
+            string OPERATOR = (setWhereStatementOperatorToOR == true) ? " OR " : " AND ";
 
             StringBuilder selectedfields = new StringBuilder();
             StringBuilder whereStatement = new StringBuilder();
             StringBuilder orderBy = new StringBuilder();
 
-            if (tableName.Contains("Phonecalls"))
-                orderBy.Append("ORDER BY [SessionIdTime] DESC");
-            else
-                orderBy.Append("");
 
+            //Handle tableName
+            if (tableName.Contains("Phonecalls"))
+            {
+                orderBy.Append("ORDER BY [SessionIdTime] DESC");
+            }
+            else
+            {
+                orderBy.Append("");
+            }
+
+
+            //Handle the fields collection
             if (fields != null)
             {
                 if (fields.Count != 0)
@@ -135,81 +145,97 @@ namespace Lync_Billing.Libs
                 else
                     selectedfields.Append("*");
             }
-            else 
+            else
+            {
                 selectedfields.Append("*");
+            }
 
+
+            //Handle the whereClause collection
             if (whereClause != null && whereClause.Count != 0)
             {
                whereStatement.Append("WHERE ");
+
                foreach (KeyValuePair<string, object> pair in whereClause)
                {
-                   if (pair.Value == null)
-                   {
-                       whereStatement.Append("[" + pair.Key + "] IS NULL" + " AND ");
-                   }
+                    if (pair.Value == null)
+                    {
+                        whereStatement.Append("[" + pair.Key + "] IS NULL " + OPERATOR);
+                    }
 
-                   else if (pair.Value.ToString() == "!null") 
-                   {
-                       whereStatement.Append("[" + pair.Key + "] IS NOT NULL" + " AND ");
-                   }
+                    else if (pair.Value.ToString() == "!null") 
+                    {
+                        whereStatement.Append("[" + pair.Key + "] IS NOT NULL " + OPERATOR);
+                    }
+    
+                    else if (pair.Value.ToString() == "!=0")
+                    {
+                        whereStatement.Append("[" + pair.Key + "] <> 0 " + OPERATOR);
+                    }
 
-                   else if (pair.Value.ToString() == "!=0")
-                   {
-                       whereStatement.Append("[" + pair.Key + "] <> 0" + " AND ");
-                   }
+                    else if (pair.Value is string && pair.Value.ToString().ToLower().Contains("like"))
+                    {
+                        whereStatement.Append("[" + pair.Key + "] " + pair.Value + OPERATOR);
+                    }
 
-                   else if (pair.Value is string && (pair.Value.ToString()).Contains(","))
-                   {
-                       var betweenStatementParts = (pair.Value.ToString()).Split(',');
+                    else if (pair.Value is string && (pair.Value.ToString()).Contains(","))
+                    {
+                        var betweenStatementParts = (pair.Value.ToString()).Split(',');
 
-                       whereStatement.Append("[" + pair.Key + "] BETWEEN ");
-                       whereStatement.Append("'" + betweenStatementParts[0] + "' AND ");
-                       whereStatement.Append("'" + betweenStatementParts[1] + "' ");
+                        whereStatement.Append("[" + pair.Key + "] BETWEEN ");
+                        whereStatement.Append("'" + betweenStatementParts[0] + "'" + OPERATOR);
+                        whereStatement.Append("'" + betweenStatementParts[1] + "' ");
 
-                       whereStatement.Append(" AND ");
-                   }
+                        whereStatement.Append(OPERATOR);
+                    }
 
-                   else if (pair.Value is List<int>)
-                   {
-                       whereStatement.Append("[" + pair.Key + "] in ( ");
+                    else if (pair.Value is List<int>)
+                    {
+                        whereStatement.Append("[" + pair.Key + "] in ( ");
 
-                       foreach (var item in (List<int>)pair.Value) {
-                           whereStatement.Append(item.ToString() + ",");
-                       }
+                        foreach (var item in (List<int>)pair.Value)
+                        {
+                            whereStatement.Append(item.ToString() + ",");
+                        }
                         //Remove last ','
-                       whereStatement.Remove(whereStatement.Length - 1, 1);
+                        whereStatement.Remove(whereStatement.Length - 1, 1);
 
-                       whereStatement.Append(" ) AND ");
-                   }
+                        whereStatement.Append(" ) " + OPERATOR);
+                    }
 
-                   else if (pair.Value is List<string>)
-                   {
-                       whereStatement.Append("[" + pair.Key + "] in ( ");
+                    else if (pair.Value is List<string>)
+                    {
+                        whereStatement.Append("[" + pair.Key + "] in ( ");
 
-                       foreach (var item in (List<string>)pair.Value)
-                       {
-                           whereStatement.Append(item.ToString() + ",");
-                       }
-                       //Remove last ','
-                       whereStatement.Remove(whereStatement.Length - 1, 1);
+                        foreach (var item in (List<string>)pair.Value)
+                        {
+                            whereStatement.Append(item.ToString() + ",");
+                        }
+                        //Remove last ','
+                        whereStatement.Remove(whereStatement.Length - 1, 1);
 
-                       whereStatement.Append(" ) AND ");
-                   }
+                        whereStatement.Append(" ) " + OPERATOR);
+                    }
 
-                   else
-                   {
-                       Type valueType = pair.Value.GetType();
-                       if (valueType == typeof(int) || valueType == typeof(Double))
-                       {
-                           whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
-                       }
-                       else
-                       {
-                           whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "' AND ");
-                       }
-                   }
-               }
-               whereStatement.Remove(whereStatement.Length-5, 5);
+                    else
+                    {
+                        Type valueType = pair.Value.GetType();
+                        if (valueType == typeof(int) || valueType == typeof(Double))
+                        {
+                            whereStatement.Append("[" + pair.Key + "]=" + pair.Value + OPERATOR);
+                        }
+                        else
+                        {
+                            whereStatement.Append("[" + pair.Key + "]='" + pair.Value + "'" + OPERATOR);
+                        }
+                    }
+                }
+
+                //Trim the whereStatement
+                if(setWhereStatementOperatorToOR == true)
+                    whereStatement.Remove(whereStatement.Length - 4, 4);
+                else
+                    whereStatement.Remove(whereStatement.Length - 5, 5);
             }
 
             if (limits == 0)
