@@ -28,7 +28,7 @@
             float       : right;
             font-weight : normal;
             margin      : 0 0 5px 5px;
-            width       : 175px;
+            width       : 185px;
             display     : block;
             clear       : none;
         } 
@@ -386,6 +386,7 @@
                                         DisplayField="SipAccount"
                                         ValueField="SipAccount"
                                         FieldLabel="User SipAccount:"
+                                        EmptyText="Please Select a User"
                                         LabelWidth="125"
                                         Width="350">
                                         <Store>
@@ -415,7 +416,7 @@
 
                                         <ListConfig
                                             Border="true"
-                                            MinWidth="350"
+                                            MinWidth="400"
                                             MaxHeight="300"
                                             EmptyText="Type User Name or SipAccount...">
                                             <ItemTpl ID="ItemTpl1" runat="server">
@@ -438,6 +439,7 @@
                                         DisplayField="SipAccount"
                                         ValueField="SipAccount"
                                         FieldLabel="Delegee SipAccount:"
+                                        EmptyText="Please Select a Delegee"
                                         LabelWidth="125"
                                         Width="350">
                                         <Store>
@@ -467,7 +469,7 @@
 
                                         <ListConfig
                                             Border="true"
-                                            MinWidth="350"
+                                            MinWidth="400"
                                             MaxHeight="300"
                                             EmptyText="Type User Name or SipAccount...">
                                             <ItemTpl ID="ItemTpl3" runat="server">
@@ -593,6 +595,10 @@
                                         </Items>
                                     </ext:Toolbar>
                                 </BottomBar>
+
+                                <DirectEvents>
+                                    <BeforeHide OnEvent="AddNewDelegeeWindowPanel_BeforeHide" />
+                                </DirectEvents>
                             </ext:Window>
 
                         </Items>

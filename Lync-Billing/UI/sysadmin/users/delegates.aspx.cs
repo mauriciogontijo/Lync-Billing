@@ -218,6 +218,17 @@ namespace Lync_Billing.ui.sysadmin.users
             }
         }
 
+        protected void AddNewDelegeeWindowPanel_BeforeHide(object sender, DirectEventArgs e)
+        {
+            NewDelegee_DelegeeTypeCombobox.Select(0);
+            NewDelegee_UserSipAccount.Clear();
+            NewDelegee_DelegeeSipAccount.Clear();
+            NewDelegee_DepartmentsList.Value = null;
+            NewDelegee_SitesList.Value = null;
+            NewDelegee_DepartmentsList.Hidden = true;
+            NewDelegee_SitesList.Hidden = true;
+        }
+
     }
 
 }
