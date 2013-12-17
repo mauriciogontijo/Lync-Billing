@@ -58,15 +58,6 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Model ManageDelegatesModel;
         
         /// <summary>
-        /// CellEditing1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.CellEditing CellEditing1;
-        
-        /// <summary>
         /// Column1 control.
         /// </summary>
         /// <remarks>
@@ -92,15 +83,6 @@ namespace Lync_Billing.ui.sysadmin.users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.ClearButton ClearSipAccountFilterBtn;
-        
-        /// <summary>
-        /// SipAccountTextbox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TextField SipAccountTextbox;
         
         /// <summary>
         /// Column4 control.
@@ -130,33 +112,6 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.ClearButton ClearSiteFilter;
         
         /// <summary>
-        /// SitesList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ComboBox SitesList;
-        
-        /// <summary>
-        /// Store1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store Store1;
-        
-        /// <summary>
-        /// Model1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Model Model1;
-        
-        /// <summary>
         /// Column5 control.
         /// </summary>
         /// <remarks>
@@ -182,33 +137,6 @@ namespace Lync_Billing.ui.sysadmin.users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.ClearButton ClearDepartmentFiler;
-        
-        /// <summary>
-        /// DepartmentsList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ComboBox DepartmentsList;
-        
-        /// <summary>
-        /// DepartmentsListStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store DepartmentsListStore;
-        
-        /// <summary>
-        /// DepartmentHeadsStoreModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Model DepartmentHeadsStoreModel;
         
         /// <summary>
         /// Column2 control.
@@ -238,15 +166,6 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.ClearButton ClearDelegeeAccountFilterBtn;
         
         /// <summary>
-        /// DelegeeAccountTextbox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TextField DelegeeAccountTextbox;
-        
-        /// <summary>
         /// Column3 control.
         /// </summary>
         /// <remarks>
@@ -274,15 +193,6 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.ClearButton ClearDescFilterBtn;
         
         /// <summary>
-        /// DescriptionTextbox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TextField DescriptionTextbox;
-        
-        /// <summary>
         /// DeleteButtonsColumn control.
         /// </summary>
         /// <remarks>
@@ -290,15 +200,6 @@ namespace Lync_Billing.ui.sysadmin.users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.ImageCommandColumn DeleteButtonsColumn;
-        
-        /// <summary>
-        /// RejectChange control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.CommandColumn RejectChange;
         
         /// <summary>
         /// FilterDelegatesSitesToolBar control.
@@ -337,22 +238,157 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Model DelegatesSitesModel;
         
         /// <summary>
-        /// UpdateEditedRecords control.
+        /// AddRecordButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button UpdateEditedRecords;
+        protected global::Ext.Net.Button AddRecordButton;
         
         /// <summary>
-        /// CancelChangesButton control.
+        /// AddNewDelegeeWindowPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button CancelChangesButton;
+        protected global::Ext.Net.Window AddNewDelegeeWindowPanel;
+        
+        /// <summary>
+        /// NewDelegee_DelegeeTypeCombobox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewDelegee_DelegeeTypeCombobox;
+        
+        /// <summary>
+        /// NewDelegee_UserSipAccount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewDelegee_UserSipAccount;
+        
+        /// <summary>
+        /// Store1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store Store1;
+        
+        /// <summary>
+        /// Model2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model Model2;
+        
+        /// <summary>
+        /// NewDelegee_DelegeeSipAccount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewDelegee_DelegeeSipAccount;
+        
+        /// <summary>
+        /// FilterUsersByDepartmentStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store FilterUsersByDepartmentStore;
+        
+        /// <summary>
+        /// FilterUsersByDepartmentModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model FilterUsersByDepartmentModel;
+        
+        /// <summary>
+        /// NewDelegee_SitesList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewDelegee_SitesList;
+        
+        /// <summary>
+        /// SitesListStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store SitesListStore;
+        
+        /// <summary>
+        /// Model1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model Model1;
+        
+        /// <summary>
+        /// NewDelegee_DepartmentsList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewDelegee_DepartmentsList;
+        
+        /// <summary>
+        /// DepartmentsListStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store DepartmentsListStore;
+        
+        /// <summary>
+        /// DepartmentHeadsStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model DepartmentHeadsStoreModel;
+        
+        /// <summary>
+        /// AddNewDelegeeButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button AddNewDelegeeButton;
+        
+        /// <summary>
+        /// CancelNewDelegeeButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button CancelNewDelegeeButton;
         
         /// <summary>
         /// ManageDelegatesPagingToolbar control.

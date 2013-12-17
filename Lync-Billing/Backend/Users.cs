@@ -117,6 +117,60 @@ namespace Lync_Billing.Backend
             return users;
         }
 
+        public static List<Users> SearchForUsers(string searchTerm)
+        {
+            Users user = new Users();
+            DataTable dt = new DataTable();
+            List<Users> users = new List<Users>();
+
+            List<string> columns = new List<string>()
+            {
+                Enums.GetDescription(Enums.Users.DisplayName),
+                Enums.GetDescription(Enums.Users.SipAccount)
+            };
+
+            Dictionary<string, object> wherePart = new Dictionary<string, object>()
+            {
+                { Enums.GetDescription(Enums.Users.SipAccount), String.Format("like '%{0}%'", searchTerm) },
+                { Enums.GetDescription(Enums.Users.DisplayName), String.Format("like '%{0}%'", searchTerm) }
+            };
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Users.TableName), columns, wherePart, 0, setWhereStatementOperatorToOR: true);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                user = new Users();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.EmployeeID))
+                        user.EmployeeID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SipAccount))
+                        user.SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.SiteName))
+                        user.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.DisplayName))
+                    {
+                        user.FullName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.DisplayName = HelperFunctions.FormatUserDisplayName(user.FullName, user.SipAccount);
+                    }
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.Department))
+                        user.Department = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Users.TelephoneNumber))
+                        user.TelephoneNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                }
+
+                users.Add(user);
+            }
+
+            return users;
+        }
+
         public static Users GetUser(string sipAccount) 
         {
             Users user = new Users();

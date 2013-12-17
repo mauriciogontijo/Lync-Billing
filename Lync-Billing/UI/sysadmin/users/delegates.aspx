@@ -1,6 +1,44 @@
 ﻿<%@ Page Title="tBill Admin | Manage Delegates" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="delegates.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.users.delegates" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        /* start manage-phone-calls grid styling */
+        .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
+        /* end manage-phone-calls grid styling */
+
+        /* start users search query result styling */
+        .search-item {
+            font          : normal 11px tahoma, arial, helvetica, sans-serif;
+            padding       : 3px 10px 3px 10px;
+            border        : 1px solid #fff;
+            border-bottom : 1px solid #eeeeee;
+            white-space   : normal;
+            color         : #555;
+        }
+        
+        .search-item h3 {
+            display     : block;
+            font        : inherit;
+            font-weight : bold;
+            color       : #222;
+            margin      : 0px;
+        }
+
+        .search-item h3 span {
+            float       : right;
+            font-weight : normal;
+            margin      : 0 0 5px 5px;
+            width       : 175px;
+            display     : block;
+            clear       : none;
+        } 
+        
+        p { width: 650px; }
+        
+        .ext-ie .x-form-text { position : static !important; }
+        /* end users search query result styling */
+    </style>
+
     <ext:XScript ID="XScript1" runat="server">
         <script>       
             var applyFilter = function (field) {                
@@ -116,17 +154,13 @@
                     </ext:Store>
                 </Store>
 
-                <Plugins>
-                    <ext:CellEditing ID="CellEditing1" runat="server" ClicksToEdit="2" />
-                </Plugins>
-
                 <ColumnModel ID="ManageDelegatesColumnModel" runat="server" Flex="1">
                     <Columns>
 
                         <ext:Column ID="Column1"
                             runat="server"
                             Text="User"
-                            Width="150"
+                            Width="160"
                             DataIndex="SipAccount"
                             Sortable="true"
                             Groupable="true">
@@ -140,18 +174,12 @@
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
-                            <Editor>
-                                <ext:TextField
-                                    ID="SipAccountTextbox"
-                                    runat="server"
-                                    DataIndex="SipAccount" />
-                            </Editor>
                         </ext:Column>
 
                         <ext:Column ID="Column4"
                             runat="server"
                             Text="Site"
-                            Width="120"
+                            Width="130"
                             DataIndex="SiteID"
                             Sortable="true"
                             Groupable="true">
@@ -167,46 +195,13 @@
                                 </ext:TextField>
                             </HeaderItems>
 
-                            <Editor>
-                                <ext:ComboBox
-                                    ID="SitesList"
-                                    runat="server"
-                                    DisplayField="SiteName"
-                                    ValueField="SiteID"
-                                    TriggerAction="Query"
-                                    QueryMode="Local"
-                                    EmptyText="Please Select Site"
-                                    SelectOnFocus="true"
-                                    SelectOnTab="true"
-                                    Selectable="true"
-                                    Editable="true"
-                                    Width="130">
-                                    <Store>
-                                        <ext:Store 
-                                            ID="Store1"
-                                            runat="server">
-                                            <Model>
-                                                <ext:Model 
-                                                    ID="Model1"
-                                                    runat="server">
-                                                    <Fields>
-                                                        <ext:ModelField Name="SiteID" />
-                                                        <ext:ModelField Name="SiteName" />
-                                                    </Fields>
-                                                </ext:Model>
-                                            </Model>
-                                        </ext:Store>
-                                    </Store>
-
-                                </ext:ComboBox>
-                            </Editor>
                         </ext:Column>
 
 
                         <ext:Column ID="Column5"
                             runat="server"
                             Text="Department"
-                            Width="130"
+                            Width="140"
                             DataIndex="DepartmentID"
                             Sortable="true"
                             Groupable="true">
@@ -221,53 +216,6 @@
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
-                            
-                            <Editor>
-                                <ext:ComboBox
-                                    ID="DepartmentsList"
-                                    runat="server"
-                                    DisplayField="DepartmentName"
-                                    ValueField="DepartmentID"
-                                    TriggerAction="Query"
-                                    QueryMode="Local"
-                                    EmptyText="Please Select Department"
-                                    SelectOnFocus="true"
-                                    SelectOnTab="true"
-                                    Selectable="true"
-                                    Editable="true"
-                                    Width="130">
-                                    <Store>
-                                        <ext:Store 
-                                            ID="DepartmentsListStore"
-                                            runat="server">
-                                            <Model>
-                                                <ext:Model 
-                                                    ID="DepartmentHeadsStoreModel"
-                                                    runat="server">
-                                                    <Fields>
-                                                        <ext:ModelField Name="SiteID" />
-                                                        <ext:ModelField Name="SiteName" />
-                                                        <ext:ModelField Name="DepartmentID" />
-                                                        <ext:ModelField Name="DepartmentName" />
-                                                    </Fields>
-                                                </ext:Model>
-                                            </Model>
-                                        </ext:Store>
-                                    </Store>
-
-                                    <ListConfig
-                                        Border="true"
-                                        MinWidth="150"
-                                        MaxHeight="300"
-                                        EmptyText="Type department name...">
-                                        <ItemTpl ID="ItemTpl2" runat="server">
-                                            <Html>
-                                                <div>{SiteName}&nbsp;({DepartmentName})</div>
-                                            </Html>
-                                        </ItemTpl>
-                                    </ListConfig>
-                                </ext:ComboBox>
-                            </Editor>
 
                             <%--<Renderer Fn="" />--%>
                         </ext:Column>
@@ -275,7 +223,7 @@
                         <ext:Column ID="Column2"
                             runat="server"
                             Text="Delegee User"
-                            Width="140"
+                            Width="150"
                             DataIndex="DelegeeAccount"
                             Sortable="true"
                             Groupable="true">
@@ -289,18 +237,12 @@
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
-                            <Editor>
-                                <ext:TextField
-                                    ID="DelegeeAccountTextbox"
-                                    runat="server"
-                                    DataIndex="DelegeeAccount" />
-                            </Editor>
                         </ext:Column>
 
                         <ext:Column ID="Column3"
                             runat="server"
                             Text="Description"
-                            Width="100"
+                            Width="110"
                             DataIndex="Description"
                             Sortable="true"
                             Groupable="true">
@@ -314,12 +256,6 @@
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
-                            <Editor>
-                                <ext:TextField
-                                    ID="DescriptionTextbox"
-                                    runat="server"
-                                    DataIndex="Description" />
-                            </Editor>
                         </ext:Column>
 
                         <ext:ImageCommandColumn
@@ -336,16 +272,6 @@
                                 <Command Handler="this.up(#{ManageDelegatesGrid}.store.removeAt(recordIndex));" />
                             </Listeners>
                         </ext:ImageCommandColumn>
-
-                         <ext:CommandColumn ID="RejectChange" runat="server" Width="65">
-                            <Commands>
-                                <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
-                            </Commands>
-                            <PrepareToolbar Handler="toolbar.items.get(0).setVisible(record.dirty);" />
-                            <Listeners>
-                                <Command Handler="record.reject();" />
-                            </Listeners>
-                        </ext:CommandColumn>
 
                     </Columns>
                 </ColumnModel>
@@ -397,33 +323,266 @@
                             </ext:ComboBox>
 
                             <ext:Button
-                                ID="UpdateEditedRecords"
+                                ID="AddRecordButton"
                                 runat="server"
-                                Text="Save Changes"
-                                Icon="ApplicationEdit"
-                                Margins="5 10 0 250">
+                                Text="Add New Delegee"
+                                Icon="Add"
+                                Margins="5 10 0 350">
                                 <DirectEvents>
-                                    <Click OnEvent="UpdateEdited_DirectEvent" before="return #{ManageDelegatesStore}.isDirty();">
-                                        <EventMask ShowMask="true" />
-                                        <ExtraParams>
-                                            <ext:Parameter Name="Values" Value="#{ManageDelegatesStore}.getChangedData()" Mode="Raw" />
-                                        </ExtraParams>
-                                    </Click>
+                                    <Click OnEvent="ShowAddDelegeePanel" />
                                 </DirectEvents>
                             </ext:Button>
 
-                            <ext:Button
-                                ID="CancelChangesButton"
-                                Text="Cancel Changes"
-                                Icon="Cancel"
-                                runat="server"
-                                Margins="5 0 0 0">
-                                <DirectEvents>
-                                    <Click OnEvent="RejectChanges_DirectEvent">
-                                        <EventMask ShowMask="true" />
-                                    </Click>
-                                </DirectEvents>
-                            </ext:Button>
+                            <ext:Window 
+                                ID="AddNewDelegeeWindowPanel" 
+                                runat="server" 
+                                Icon="Add" 
+                                Title="Add New Delegee" 
+                                Hidden="true"
+                                Width="380"
+                                Height="270"
+                                Frame="true"
+                                X="100"
+                                Y="100">
+                                
+                                <Defaults>
+                                    <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
+                                </Defaults>
+
+                                <Items>
+                                    <ext:ComboBox
+                                        ID="NewDelegee_DelegeeTypeCombobox"
+                                        runat="server"
+                                        DisplayField="TypeName"
+                                        ValueField="TypeValue"
+                                        SelectOnFocus="true"
+                                        SelectOnTab="true"
+                                        Selectable="true"
+                                        Width="350"
+                                        FieldLabel="Delegee Type"
+                                        LabelWidth="150">
+                                        <Items>
+                                            <ext:ListItem Text="User" Value="1" />
+                                            <ext:ListItem Text="Department" Value="2" />
+                                            <ext:ListItem Text="Site" Value="3" />
+                                        </Items>
+
+                                        <SelectedItems>
+                                            <ext:ListItem Text="User" Value="1" />
+                                        </SelectedItems>
+
+                                        <DirectEvents>
+                                            <Select OnEvent="DelegeeTypeMenu_Selected" />
+                                        </DirectEvents>
+                                    </ext:ComboBox>
+
+                                    <ext:ComboBox
+                                        ID="NewDelegee_UserSipAccount"
+                                        runat="server"
+                                        Icon="Find"
+                                        TriggerAction="Query"
+                                        QueryMode="Remote"
+                                        DisplayField="SipAccount"
+                                        ValueField="SipAccount"
+                                        FieldLabel="User SipAccount:"
+                                        LabelWidth="150"
+                                        Width="350">
+                                        <Store>
+                                            <ext:Store 
+                                                ID="Store1"
+                                                runat="server">
+                                                <Model>
+                                                    <ext:Model 
+                                                        ID="Model2"
+                                                        runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="EmployeeID" />
+                                                            <ext:ModelField Name="SipAccount" />
+                                                            <ext:ModelField Name="SiteName" />
+                                                            <ext:ModelField Name="FullName" />
+                                                            <ext:ModelField Name="Department" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                        </Store>
+                                        
+                                        <DirectEvents>
+                                            <BeforeQuery OnEvent="NewDelegee_UserSipAccount_BeforeQuery" />
+                                        </DirectEvents>
+
+                                        <ListConfig
+                                            Border="true"
+                                            MinWidth="350"
+                                            MaxHeight="300"
+                                            EmptyText="Type User Name or SipAccount...">
+                                            <ItemTpl ID="ItemTpl1" runat="server">
+                                                <Html>
+                                                    <div class="search-item">
+                                                        <h3><span>{FullName}</span>{SipAccount}</h3>
+                                                    </div>
+                                                </Html>
+                                            </ItemTpl>
+                                        </ListConfig>
+                                    </ext:ComboBox>
+
+                                    
+                                    <ext:ComboBox
+                                        ID="NewDelegee_DelegeeSipAccount"
+                                        runat="server"
+                                        Icon="Find"
+                                        TriggerAction="Query"
+                                        QueryMode="Remote"
+                                        DisplayField="SipAccount"
+                                        ValueField="SipAccount"
+                                        FieldLabel="Delegee SipAccount:"
+                                        LabelWidth="150"
+                                        Width="350">
+                                        <Store>
+                                            <ext:Store 
+                                                ID="FilterUsersByDepartmentStore"
+                                                runat="server">
+                                                <Model>
+                                                    <ext:Model 
+                                                        ID="FilterUsersByDepartmentModel"
+                                                        runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="EmployeeID" />
+                                                            <ext:ModelField Name="SipAccount" />
+                                                            <ext:ModelField Name="SiteName" />
+                                                            <ext:ModelField Name="FullName" />
+                                                            <ext:ModelField Name="Department" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                        </Store>
+
+                                        <DirectEvents>
+                                            <BeforeQuery OnEvent="NewDelegee_DelegeeSipAccount_BeforeQuery" />
+                                        </DirectEvents>
+
+                                        <ListConfig
+                                            Border="true"
+                                            MinWidth="350"
+                                            MaxHeight="300"
+                                            EmptyText="Type User Name or SipAccount...">
+                                            <ItemTpl ID="ItemTpl3" runat="server">
+                                                <Html>
+                                                    <div class="search-item">
+                                                        <h3><span>{FullName}</span>{SipAccount}</h3>
+                                                    </div>
+                                                </Html>
+                                            </ItemTpl>
+                                        </ListConfig>
+                                    </ext:ComboBox>
+
+                                    <ext:ComboBox
+                                        ID="NewDelegee_SitesList"
+                                        runat="server"
+                                        DisplayField="SiteName"
+                                        ValueField="SiteID"
+                                        TriggerAction="Query"
+                                        QueryMode="Local"
+                                        EmptyText="Please Select Site"
+                                        SelectOnFocus="true"
+                                        SelectOnTab="true"
+                                        Selectable="true"
+                                        Editable="true"
+                                        FieldLabel="Site:"
+                                        LabelWidth="150"
+                                        Width="350"
+                                        Disabled="true">
+                                        <Store>
+                                            <ext:Store 
+                                                ID="SitesListStore"
+                                                runat="server">
+                                                <Model>
+                                                    <ext:Model 
+                                                        ID="Model1"
+                                                        runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="SiteID" />
+                                                            <ext:ModelField Name="SiteName" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                        </Store>
+                                    </ext:ComboBox>
+
+                                    <ext:ComboBox
+                                        ID="NewDelegee_DepartmentsList"
+                                        runat="server"
+                                        DisplayField="DepartmentName"
+                                        ValueField="DepartmentID"
+                                        TriggerAction="Query"
+                                        QueryMode="Local"
+                                        EmptyText="Please Select Department"
+                                        SelectOnFocus="true"
+                                        SelectOnTab="true"
+                                        Selectable="true"
+                                        Editable="true"
+                                        FieldLabel="Department:"
+                                        LabelWidth="150"
+                                        Width="350"
+                                        Disabled="true">
+                                        <Store>
+                                            <ext:Store 
+                                                ID="DepartmentsListStore"
+                                                runat="server">
+                                                <Model>
+                                                    <ext:Model 
+                                                        ID="DepartmentHeadsStoreModel"
+                                                        runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="SiteID" />
+                                                            <ext:ModelField Name="SiteName" />
+                                                            <ext:ModelField Name="DepartmentID" />
+                                                            <ext:ModelField Name="DepartmentName" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                        </Store>
+
+                                        <ListConfig
+                                            Border="true"
+                                            MinWidth="150"
+                                            MaxHeight="300"
+                                            EmptyText="Type department name...">
+                                            <ItemTpl ID="ItemTpl2" runat="server">
+                                                <Html>
+                                                    <div>{SiteName}&nbsp;({DepartmentName})</div>
+                                                </Html>
+                                            </ItemTpl>
+                                        </ListConfig>
+                                    </ext:ComboBox>
+
+                                    <ext:Button
+                                        ID="AddNewDelegeeButton"
+                                        runat="server"
+                                        Text="Add"
+                                        Icon="ApplicationFormAdd"
+                                        Flat="true">
+                                        <DirectEvents>
+                                            <Click OnEvent="AddNewDelegeeButton_Click" />
+                                        </DirectEvents>
+                                    </ext:Button>
+
+                                    <ext:Button
+                                        ID="CancelNewDelegeeButton"
+                                        runat="server"
+                                        Text="Cancel"
+                                        Icon="Cancel"
+                                        Flat="true">
+                                        <DirectEvents>
+                                            <Click OnEvent="CancelNewDelegeeButton_Click" />
+                                        </DirectEvents>
+                                    </ext:Button>
+                                </Items>
+                            </ext:Window>
+
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
