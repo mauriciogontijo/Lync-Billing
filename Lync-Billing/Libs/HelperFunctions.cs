@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using System.Text.RegularExpressions;
 using Ext.Net;
 
 namespace Lync_Billing.Libs
@@ -176,7 +177,7 @@ namespace Lync_Billing.Libs
             if (!string.IsNullOrEmpty(displayName))
             {
                 if (returnNameIfExists == true)
-                    return displayName;
+                    return Regex.Replace(displayName, @"\ \(\w{1,}\)", "");
                 else
                     return (displayName.Split(' '))[0];
             }

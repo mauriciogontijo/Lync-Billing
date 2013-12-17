@@ -155,7 +155,7 @@ namespace Lync_Billing.Backend
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.DisplayName))
                     {
                         user.FullName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
-                        user.DisplayName = HelperFunctions.FormatUserDisplayName(user.FullName, user.SipAccount);
+                        user.DisplayName = HelperFunctions.FormatUserDisplayName(user.FullName, user.SipAccount, returnNameIfExists: true);
                     }
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.Department))

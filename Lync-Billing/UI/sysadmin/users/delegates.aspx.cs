@@ -153,18 +153,18 @@ namespace Lync_Billing.ui.sysadmin.users
 
                 if (selected == DelegateRole.DepartmentDelegeeTypeID)
                 {
-                    NewDelegee_SitesList.Disabled = false;
-                    NewDelegee_DepartmentsList.Disabled = false;
+                    NewDelegee_DepartmentsList.Hidden = false;
+                    NewDelegee_SitesList.Hidden = true;
                 }
                 else if (selected == DelegateRole.SiteDelegeeTypeID)
                 {
-                    NewDelegee_SitesList.Disabled = false;
-                    NewDelegee_DepartmentsList.Disabled = true;
+                    NewDelegee_SitesList.Hidden = false;
+                    NewDelegee_DepartmentsList.Hidden = true;
                 }
                 else
                 {
-                    NewDelegee_SitesList.Disabled = true;
-                    NewDelegee_DepartmentsList.Disabled = true;
+                    NewDelegee_SitesList.Hidden = true;
+                    NewDelegee_DepartmentsList.Hidden = true;
                 }
 
             }
@@ -173,7 +173,7 @@ namespace Lync_Billing.ui.sysadmin.users
         
         protected void AddNewDelegeeButton_Click(object sender, DirectEventArgs e)
         {
-            if(NewDelegee_DelegeeTypeCombobox.SelectedItem.Index != -1)
+            if (NewDelegee_DelegeeTypeCombobox.SelectedItem.Index != -1)
             {
                 //var userSipAcount = NewDelegee_UserSipAccount.Value;
                 //var delegeeSipAccount = NewDelegee_DelegeeSipAccount.Value;

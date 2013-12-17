@@ -336,14 +336,15 @@
                             <ext:Window 
                                 ID="AddNewDelegeeWindowPanel" 
                                 runat="server" 
-                                Icon="Add" 
+                                Frame="true"
+                                Resizable="false"
                                 Title="Add New Delegee" 
                                 Hidden="true"
                                 Width="380"
-                                Height="270"
-                                Frame="true"
+                                Icon="Add" 
                                 X="100"
-                                Y="100">
+                                Y="100"
+                                BodyStyle="background-color: #f9f9f9;">
                                 
                                 <Defaults>
                                     <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
@@ -360,7 +361,7 @@
                                         Selectable="true"
                                         Width="350"
                                         FieldLabel="Delegee Type"
-                                        LabelWidth="150">
+                                        LabelWidth="125">
                                         <Items>
                                             <ext:ListItem Text="User" Value="1" />
                                             <ext:ListItem Text="Department" Value="2" />
@@ -385,7 +386,7 @@
                                         DisplayField="SipAccount"
                                         ValueField="SipAccount"
                                         FieldLabel="User SipAccount:"
-                                        LabelWidth="150"
+                                        LabelWidth="125"
                                         Width="350">
                                         <Store>
                                             <ext:Store 
@@ -400,6 +401,7 @@
                                                             <ext:ModelField Name="SipAccount" />
                                                             <ext:ModelField Name="SiteName" />
                                                             <ext:ModelField Name="FullName" />
+                                                            <ext:ModelField Name="DisplayName" />
                                                             <ext:ModelField Name="Department" />
                                                         </Fields>
                                                     </ext:Model>
@@ -419,7 +421,7 @@
                                             <ItemTpl ID="ItemTpl1" runat="server">
                                                 <Html>
                                                     <div class="search-item">
-                                                        <h3><span>{FullName}</span>{SipAccount}</h3>
+                                                        <h3><span>{DisplayName}</span>{SipAccount}</h3>
                                                     </div>
                                                 </Html>
                                             </ItemTpl>
@@ -436,7 +438,7 @@
                                         DisplayField="SipAccount"
                                         ValueField="SipAccount"
                                         FieldLabel="Delegee SipAccount:"
-                                        LabelWidth="150"
+                                        LabelWidth="125"
                                         Width="350">
                                         <Store>
                                             <ext:Store 
@@ -451,6 +453,7 @@
                                                             <ext:ModelField Name="SipAccount" />
                                                             <ext:ModelField Name="SiteName" />
                                                             <ext:ModelField Name="FullName" />
+                                                            <ext:ModelField Name="DisplayName" />
                                                             <ext:ModelField Name="Department" />
                                                         </Fields>
                                                     </ext:Model>
@@ -470,7 +473,7 @@
                                             <ItemTpl ID="ItemTpl3" runat="server">
                                                 <Html>
                                                     <div class="search-item">
-                                                        <h3><span>{FullName}</span>{SipAccount}</h3>
+                                                        <h3><span>{DisplayName}</span>{SipAccount}</h3>
                                                     </div>
                                                 </Html>
                                             </ItemTpl>
@@ -490,9 +493,9 @@
                                         Selectable="true"
                                         Editable="true"
                                         FieldLabel="Site:"
-                                        LabelWidth="150"
+                                        LabelWidth="125"
                                         Width="350"
-                                        Disabled="true">
+                                        Hidden="true">
                                         <Store>
                                             <ext:Store 
                                                 ID="SitesListStore"
@@ -524,9 +527,9 @@
                                         Selectable="true"
                                         Editable="true"
                                         FieldLabel="Department:"
-                                        LabelWidth="150"
+                                        LabelWidth="125"
                                         Width="350"
-                                        Disabled="true">
+                                        Hidden="true">
                                         <Store>
                                             <ext:Store 
                                                 ID="DepartmentsListStore"
@@ -558,29 +561,38 @@
                                             </ItemTpl>
                                         </ListConfig>
                                     </ext:ComboBox>
-
-                                    <ext:Button
-                                        ID="AddNewDelegeeButton"
-                                        runat="server"
-                                        Text="Add"
-                                        Icon="ApplicationFormAdd"
-                                        Flat="true">
-                                        <DirectEvents>
-                                            <Click OnEvent="AddNewDelegeeButton_Click" />
-                                        </DirectEvents>
-                                    </ext:Button>
-
-                                    <ext:Button
-                                        ID="CancelNewDelegeeButton"
-                                        runat="server"
-                                        Text="Cancel"
-                                        Icon="Cancel"
-                                        Flat="true">
-                                        <DirectEvents>
-                                            <Click OnEvent="CancelNewDelegeeButton_Click" />
-                                        </DirectEvents>
-                                    </ext:Button>
                                 </Items>
+
+                                <BottomBar>
+                                    <ext:Toolbar
+                                        ID="NewDelegeeWindowBottomBar"
+                                        runat="server"
+                                        Height="30">
+                                        <Items>
+                                            <ext:Button
+                                                ID="AddNewDelegeeButton"
+                                                runat="server"
+                                                Text="Add"
+                                                Icon="ApplicationFormAdd"
+                                                Height="25">
+                                                <DirectEvents>
+                                                    <Click OnEvent="AddNewDelegeeButton_Click" />
+                                                </DirectEvents>
+                                            </ext:Button>
+
+                                            <ext:Button
+                                                ID="CancelNewDelegeeButton"
+                                                runat="server"
+                                                Text="Cancel"
+                                                Icon="Cancel"
+                                                Height="25">
+                                                <DirectEvents>
+                                                    <Click OnEvent="CancelNewDelegeeButton_Click" />
+                                                </DirectEvents>
+                                            </ext:Button>
+                                        </Items>
+                                    </ext:Toolbar>
+                                </BottomBar>
                             </ext:Window>
 
                         </Items>

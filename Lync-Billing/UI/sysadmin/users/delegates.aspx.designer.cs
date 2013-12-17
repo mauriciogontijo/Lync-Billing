@@ -373,6 +373,15 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Model DepartmentHeadsStoreModel;
         
         /// <summary>
+        /// NewDelegeeWindowBottomBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Toolbar NewDelegeeWindowBottomBar;
+        
+        /// <summary>
         /// AddNewDelegeeButton control.
         /// </summary>
         /// <remarks>
