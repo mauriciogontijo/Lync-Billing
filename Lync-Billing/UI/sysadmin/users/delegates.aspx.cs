@@ -163,7 +163,6 @@ namespace Lync_Billing.ui.sysadmin.users
                     NewDelegee_SitesList.Hidden = true;
                     NewDelegee_DepartmentsList.Hidden = true;
                 }
-
             }
         }
 

@@ -147,9 +147,9 @@
                                 <Fields>
                                     <ext:ModelField Name="ID" Type="Int" />
                                     <ext:ModelField Name="SipAccount" Type="String" />
-                                    <ext:ModelField Name="SiteID" Type="Int" />
+                                    <ext:ModelField Name="SiteID" Type="String" />
                                     <ext:ModelField Name="DelegeeSite" Type="String" />
-                                    <ext:ModelField Name="DepartmentID" Type="Int" />
+                                    <ext:ModelField Name="DepartmentID" Type="String" />
                                     <ext:ModelField Name="DelegeeDepartment" Type="String" />
                                     <ext:ModelField Name="DelegeeType" Type="Int" />
                                     <ext:ModelField Name="DelegeeAccount" Type="String" />
@@ -303,9 +303,7 @@
                                 Margins="5 5 0 5"
                                 Width="250">
                                 <Store>
-                                    <ext:Store
-                                        ID="DelegatesSitesStore"
-                                        runat="server">
+                                    <ext:Store ID="DelegatesSitesStore" runat="server">
                                         <Model>
                                             <ext:Model ID="DelegatesSitesModel" runat="server">
                                                 <Fields>
@@ -319,7 +317,7 @@
                                 </Store>
 
                                 <ListConfig>
-                                    <ItemTpl ID="SitesItemTpl" runat="server">
+                                    <ItemTpl ID="FilterSitesItemTpl" runat="server">
                                         <Html>
                                             <div>{SiteName}&nbsp;({CountryCode})</div>
                                         </Html>
@@ -524,21 +522,26 @@
                                         Width="350"
                                         Hidden="true">
                                         <Store>
-                                            <ext:Store 
-                                                ID="SitesListStore"
-                                                runat="server">
+                                            <ext:Store ID="SitesListStore" runat="server">
                                                 <Model>
-                                                    <ext:Model 
-                                                        ID="Model1"
-                                                        runat="server">
+                                                    <ext:Model ID="Model1" runat="server">
                                                         <Fields>
                                                             <ext:ModelField Name="SiteID" />
                                                             <ext:ModelField Name="SiteName" />
+                                                            <ext:ModelField Name="CountryCode" />
                                                         </Fields>
                                                     </ext:Model>
                                                 </Model>
                                             </ext:Store>
                                         </Store>
+
+                                        <ListConfig>
+                                            <ItemTpl ID="NewDelegeeSitesListTpl" runat="server">
+                                                <Html>
+                                                    <div>{SiteName}&nbsp;({CountryCode})</div>
+                                                </Html>
+                                            </ItemTpl>
+                                        </ListConfig>
                                     </ext:ComboBox>
 
                                     <ext:ComboBox
@@ -558,13 +561,9 @@
                                         Width="350"
                                         Hidden="true">
                                         <Store>
-                                            <ext:Store 
-                                                ID="DepartmentsListStore"
-                                                runat="server">
+                                            <ext:Store ID="DepartmentsListStore" runat="server">
                                                 <Model>
-                                                    <ext:Model 
-                                                        ID="DepartmentHeadsStoreModel"
-                                                        runat="server">
+                                                    <ext:Model ID="DepartmentHeadsStoreModel" runat="server">
                                                         <Fields>
                                                             <ext:ModelField Name="SiteID" />
                                                             <ext:ModelField Name="SiteName" />
