@@ -312,26 +312,27 @@ namespace Lync_Billing.Backend.Roles
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
 
             //Set Part
-            if (delegee.SipAccount.ToString() != null)
+            if (!string.IsNullOrEmpty(delegee.SipAccount))
                 columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.SipAccount), delegee.SipAccount);
 
-            if (delegee.SiteID.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.SiteID), delegee.SiteID);
-
-            if (delegee.DepartmentID.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.DepartmentID), delegee.DepartmentID);
-
-            if (delegee.DelegeeAccount.ToString() != null)
+            if (!string.IsNullOrEmpty(delegee.DelegeeAccount))
                 columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.Delegee), delegee.DelegeeAccount);
 
-            if (delegee.DelegeeType.ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.Delegee), delegee.DelegeeType);
+            if (!string.IsNullOrEmpty(delegee.SiteID.ToString()) && delegee.SiteID != 0)
+                columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.SiteID), delegee.SiteID);
 
-            if (delegee.Description.ToString() != null)
+            if (!string.IsNullOrEmpty(delegee.DepartmentID.ToString()) && delegee.DepartmentID != 0)
+                columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.DepartmentID), delegee.DepartmentID);
+
+            if (!string.IsNullOrEmpty(delegee.DelegeeType.ToString()) && delegee.DelegeeType != 0)
+                columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.DelegeeType), delegee.DelegeeType);
+
+            if (!string.IsNullOrEmpty(delegee.Description.ToString()))
                 columnsValues.Add(Enums.GetDescription(Enums.DelegateRoles.Description), delegee.Description);
 
             //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.DelegateRoles.TableName), columnsValues, Enums.GetDescription(Enums.DelegateRoles.ID));
+            if (!string.IsNullOrEmpty(delegee.SipAccount) && !string.IsNullOrEmpty(delegee.DelegeeAccount) && delegee.DelegeeType != 0)
+                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.DelegateRoles.TableName), columnsValues, Enums.GetDescription(Enums.DelegateRoles.ID));
 
             return rowID;
         }

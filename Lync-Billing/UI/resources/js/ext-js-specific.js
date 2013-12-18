@@ -3,6 +3,15 @@
 BrowserDetect.init();
 
 
+////This is a function that handles the zero ids of departments and sites
+////It is called from the System Admin ->>> Manage Delegates page.
+//function RenderZeroAsNA(value, meta, record, rowIndex, colIndex, store) {
+//    //if (typeof record.data.DepartmentID !== undefined){}
+//    if (typeof value !== undefined) {
+//        return ((value == 0) ? "N/A" : value);
+//    }
+//}
+
 
 //This function reads the cost value from stores and returns a percentage.
 //Handles the Bills grid, PhoneCalls grid, History page, and Delegees PhoneCalls grid

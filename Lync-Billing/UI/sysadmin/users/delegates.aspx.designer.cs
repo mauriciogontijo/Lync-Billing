@@ -247,6 +247,15 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Button AddRecordButton;
         
         /// <summary>
+        /// SaveChangesButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button SaveChangesButton;
+        
+        /// <summary>
         /// AddNewDelegeeWindowPanel control.
         /// </summary>
         /// <remarks>
@@ -379,7 +388,7 @@ namespace Lync_Billing.ui.sysadmin.users {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Toolbar NewDelegeeWindowBottomBar;
+        protected global::Ext.Net.StatusBar NewDelegeeWindowBottomBar;
         
         /// <summary>
         /// AddNewDelegeeButton control.
@@ -398,6 +407,24 @@ namespace Lync_Billing.ui.sysadmin.users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button CancelNewDelegeeButton;
+        
+        /// <summary>
+        /// NewDelegeeWindow_BottomBarSeparator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator NewDelegeeWindow_BottomBarSeparator;
+        
+        /// <summary>
+        /// NewDelegee_StatusMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarTextItem NewDelegee_StatusMessage;
         
         /// <summary>
         /// ManageDelegatesPagingToolbar control.

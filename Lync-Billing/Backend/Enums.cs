@@ -397,6 +397,12 @@ namespace Lync_Billing.Backend
             DepartemntDelegeeType,
             [Description("3")]
             SiteDelegeeType,
+            [Description("User-Delegee")]
+            UserDelegeeTypeDescription,
+            [Description("Department-Delegee")]
+            DepartemntDelegeeTypeDescription,
+            [Description("Site-Delegee")]
+            SiteDelegeeTypeDescription,
         }
 
         public enum DelegateRoles

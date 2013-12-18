@@ -110,6 +110,12 @@
                     return true;
                 };
             };
+
+            var FilterZeroIDs = function (value, meta, record, rowIndex, colIndex, store) {
+                if (typeof value !== undefined) {
+                    return ((value == 0) ? "N/A" : value);
+                }
+            }
         </script>
     </ext:XScript>
 </asp:Content>
@@ -195,6 +201,7 @@
                                 </ext:TextField>
                             </HeaderItems>
 
+                            <Renderer Fn="FilterZeroIDs" />
                         </ext:Column>
 
 
@@ -217,7 +224,7 @@
                                 </ext:TextField>
                             </HeaderItems>
 
-                            <%--<Renderer Fn="" />--%>
+                            <Renderer Fn="FilterZeroIDs" />
                         </ext:Column>
 
                         <ext:Column ID="Column2"
@@ -283,8 +290,12 @@
                                 ID="FilterDelegatesBySite"
                                 runat="server"
                                 Icon="Find"
-                                TriggerAction="All"
+                                TriggerAction="Query"
                                 QueryMode="Local"
+                                SelectOnFocus="true"
+                                SelectOnTab="true"
+                                Selectable="true"
+                                Editable="true"
                                 DisplayField="SiteName"
                                 ValueField="SiteName"
                                 FieldLabel="Site"
@@ -310,15 +321,13 @@
                                 <ListConfig>
                                     <ItemTpl ID="SitesItemTpl" runat="server">
                                         <Html>
-                                            <div data-qtip="{SiteName}. {CountryCode}">
-                                                {SiteName} ({CountryCode})
-                                            </div>
+                                            <div>{SiteName}&nbsp;({CountryCode})</div>
                                         </Html>
                                     </ItemTpl>
                                 </ListConfig>
 
                                 <DirectEvents>
-                                    <Change OnEvent="GetDelegates" />
+                                    <Select OnEvent="GetDelegates" />
                                 </DirectEvents>
                             </ext:ComboBox>
 
@@ -327,9 +336,25 @@
                                 runat="server"
                                 Text="Add New Delegee"
                                 Icon="Add"
-                                Margins="5 10 0 350">
+                                Margins="5 5 0 250">
                                 <DirectEvents>
                                     <Click OnEvent="ShowAddDelegeePanel" />
+                                </DirectEvents>
+                            </ext:Button>
+
+                            <ext:Button
+                                ID="SaveChangesButton"
+                                runat="server"
+                                Text="Save Changes"
+                                Icon="DatabaseSave"
+                                Margins="5 5 0 0">
+                                <DirectEvents>
+                                    <Click OnEvent="UpdateEdited_DirectEvent" before="return #{ManageDelegatesStore}.isDirty();">
+                                        <EventMask ShowMask="true" />
+                                        <ExtraParams>
+                                            <ext:Parameter Name="Values" Value="#{ManageDelegatesStore}.getChangedData()" Mode="Raw" />
+                                        </ExtraParams>
+                                    </Click>
                                 </DirectEvents>
                             </ext:Button>
 
@@ -435,7 +460,7 @@
                                         runat="server"
                                         Icon="Find"
                                         TriggerAction="Query"
-                                        QueryMode="Remote"
+                                        QueryMode="Local"
                                         DisplayField="SipAccount"
                                         ValueField="SipAccount"
                                         FieldLabel="Delegee SipAccount:"
@@ -489,11 +514,11 @@
                                         ValueField="SiteID"
                                         TriggerAction="Query"
                                         QueryMode="Local"
-                                        EmptyText="Please Select Site"
                                         SelectOnFocus="true"
                                         SelectOnTab="true"
                                         Selectable="true"
                                         Editable="true"
+                                        EmptyText="Please Select Site"
                                         FieldLabel="Site:"
                                         LabelWidth="125"
                                         Width="350"
@@ -523,11 +548,11 @@
                                         ValueField="DepartmentID"
                                         TriggerAction="Query"
                                         QueryMode="Local"
-                                        EmptyText="Please Select Department"
                                         SelectOnFocus="true"
                                         SelectOnTab="true"
                                         Selectable="true"
                                         Editable="true"
+                                        EmptyText="Please Select Department"
                                         FieldLabel="Department:"
                                         LabelWidth="125"
                                         Width="350"
@@ -566,9 +591,11 @@
                                 </Items>
 
                                 <BottomBar>
-                                    <ext:Toolbar
+                                    <ext:StatusBar
                                         ID="NewDelegeeWindowBottomBar"
                                         runat="server"
+                                        StatusAlign="Right"
+                                        DefaultText=""
                                         Height="30">
                                         <Items>
                                             <ext:Button
@@ -592,8 +619,19 @@
                                                     <Click OnEvent="CancelNewDelegeeButton_Click" />
                                                 </DirectEvents>
                                             </ext:Button>
+
+                                            <ext:ToolbarSeparator
+                                                ID="NewDelegeeWindow_BottomBarSeparator"
+                                                runat="server" />
+
+                                            <ext:ToolbarTextItem
+                                                ID="NewDelegee_StatusMessage"
+                                                runat="server"
+                                                Height="15"
+                                                Text=""
+                                                Margins="0 0 0 5" />
                                         </Items>
-                                    </ext:Toolbar>
+                                    </ext:StatusBar>
                                 </BottomBar>
 
                                 <DirectEvents>

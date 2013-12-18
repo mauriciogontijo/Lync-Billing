@@ -46,17 +46,10 @@ namespace Lync_Billing.ui.sysadmin.users
 
             allSites = Backend.Site.GetAllSites();
             allDepartments = Backend.Department.GetAllDepartments();
-            //allUsers = Users.GetUsers(null, null, 0);
-
+            
             FilterDelegatesBySite.GetStore().DataSource = allSites;
             FilterDelegatesBySite.GetStore().DataBind();
-
-            //NewDelegee_UserSipAccount.GetStore().DataSource = allUsers;
-            //NewDelegee_UserSipAccount.GetStore().DataBind();
-
-            //NewDelegee_DelegeeSipAccount.GetStore().DataSource = allUsers;
-            //NewDelegee_DelegeeSipAccount.GetStore().DataBind();
-
+            
             NewDelegee_SitesList.GetStore().DataSource = allSites;
             NewDelegee_SitesList.GetStore().DataBind();
 
@@ -108,28 +101,32 @@ namespace Lync_Billing.ui.sysadmin.users
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = session.NormalUserInfo.SipAccount;
 
-            string json = e.ExtraParams["Values"];
+            string json = string.Empty;
+            ChangeRecords<DelegateRole> toBeUpdated;
 
-            List<DelegateRole> recordsToUpate = new List<DelegateRole>();
+            json = e.ExtraParams["Values"];
 
-            ChangeRecords<DelegateRole> toBeUpdated = new StoreDataHandler(e.ExtraParams["Values"]).BatchObjectData<DelegateRole>();
-
-            if (toBeUpdated.Updated.Count > 0)
+            if (!string.IsNullOrEmpty(json))
             {
+                toBeUpdated = new StoreDataHandler(json).BatchObjectData<DelegateRole>();
 
-                foreach (DelegateRole userDelgate in toBeUpdated.Updated)
-                {
-                    DelegateRole.UpadeDelegate(userDelgate);
-                    ManageDelegatesStore.GetById(userDelgate.ID).Commit();
-                }
-            }
+                //if (toBeUpdated.Updated.Count > 0)
+                //{
 
-            if (toBeUpdated.Deleted.Count > 0)
-            {
-                foreach (DelegateRole userDelgate in toBeUpdated.Deleted)
+                //    foreach (DelegateRole userDelgate in toBeUpdated.Updated)
+                //    {
+                //        DelegateRole.UpadeDelegate(userDelgate);
+                //        ManageDelegatesStore.GetById(userDelgate.ID).Commit();
+                //    }
+                //}
+
+                if (toBeUpdated.Deleted.Count > 0)
                 {
-                    DelegateRole.DeleteDelegate(userDelgate);
-                    ManageDelegatesStore.GetById(userDelgate.ID).Commit();
+                    foreach (DelegateRole userDelgate in toBeUpdated.Deleted)
+                    {
+                        DelegateRole.DeleteDelegate(userDelgate);
+                        ManageDelegatesStore.GetById(userDelgate.ID).Commit();
+                    }
                 }
             }
         }
@@ -173,17 +170,117 @@ namespace Lync_Billing.ui.sysadmin.users
         
         protected void AddNewDelegeeButton_Click(object sender, DirectEventArgs e)
         {
-            if (NewDelegee_DelegeeTypeCombobox.SelectedItem.Index != -1)
+            DelegateRole newDelegee;
+
+            int selectedType;
+            string userSipAccount;
+            string delegeeSipAccount;
+            int delegeeSiteID;
+            int delegeeDepartmentID;
+
+            string statusMessage = string.Empty;
+
+            if (NewDelegee_DelegeeTypeCombobox.SelectedItem.Index != -1 && NewDelegee_UserSipAccount.SelectedItem.Index != -1 && NewDelegee_DelegeeSipAccount.SelectedItem.Index != -1)
             {
-                //var userSipAcount = NewDelegee_UserSipAccount.Value;
-                //var delegeeSipAccount = NewDelegee_DelegeeSipAccount.Value;
+                newDelegee = new DelegateRole();
+
+                selectedType = Convert.ToInt32(NewDelegee_DelegeeTypeCombobox.SelectedItem.Value);
+                userSipAccount = NewDelegee_UserSipAccount.SelectedItem.Value.ToString();
+                delegeeSipAccount = NewDelegee_DelegeeSipAccount.SelectedItem.Value.ToString();
+
+                var delegates = DelegateRole.GetDelegees(delegeeSipAccount);
+                var userAccount = Users.GetUser(userSipAccount);
+                var delegeeAccount = Users.GetUser(delegeeSipAccount);
+
+                //Check if the users exist in our system
+                if (userAccount == null || delegeeAccount == null)
+                {
+                    statusMessage = "Either one of the SipAccounts or both of them don't exist!";
+                }
+                //Check for duplicates
+                else if (delegates.Find(item => item.SipAccount == userSipAccount) != null)
+                {
+                    statusMessage = "Cannot add duplicate delegees!";
+                }
+                //This delegee record doesn't exist, add it.
+                else
+                {
+                    if (selectedType == DelegateRole.UserDelegeeTypeID)
+                    {
+                        newDelegee.DelegeeType = DelegateRole.UserDelegeeTypeID;
+                        newDelegee.SipAccount = userSipAccount;
+                        newDelegee.DelegeeAccount = delegeeSipAccount;
+                        newDelegee.Description = Enums.GetDescription(Enums.DelegateTypes.UserDelegeeTypeDescription);
+
+                        DelegateRole.AddDelegate(newDelegee);
+
+                        ManageDelegatesStore.Add(newDelegee);
+
+                        this.AddNewDelegeeWindowPanel.Hide();
+                    }
+
+                    else if (selectedType == DelegateRole.DepartmentDelegeeTypeID)
+                    {
+                        if (NewDelegee_DepartmentsList.SelectedItem.Index != -1)
+                        {
+                            delegeeDepartmentID = Convert.ToInt32(NewDelegee_DepartmentsList.SelectedItem.Value);
+
+                            newDelegee.DelegeeType = DelegateRole.DepartmentDelegeeTypeID;
+                            newDelegee.SipAccount = userSipAccount;
+                            newDelegee.DelegeeAccount = delegeeSipAccount;
+                            newDelegee.DepartmentID = delegeeDepartmentID;
+                            newDelegee.Description = Enums.GetDescription(Enums.DelegateTypes.DepartemntDelegeeTypeDescription);
+
+                            DelegateRole.AddDelegate(newDelegee);
+
+                            ManageDelegatesStore.Add(newDelegee);
+
+                            this.AddNewDelegeeWindowPanel.Hide();
+                        }
+                        else
+                        {
+                            statusMessage = "Please select a department!";
+                        }
+                    }
+
+                    else if (selectedType == DelegateRole.SiteDelegeeTypeID)
+                    {
+                        if (NewDelegee_SitesList.SelectedItem.Index != -1)
+                        {
+                            delegeeSiteID = Convert.ToInt32(NewDelegee_SitesList.SelectedItem.Value);
+
+                            newDelegee.DelegeeType = DelegateRole.SiteDelegeeTypeID;
+                            newDelegee.SipAccount = userSipAccount;
+                            newDelegee.DelegeeAccount = delegeeSipAccount;
+                            newDelegee.SiteID = delegeeSiteID;
+                            newDelegee.Description = Enums.GetDescription(Enums.DelegateTypes.SiteDelegeeTypeDescription);
+
+                            DelegateRole.AddDelegate(newDelegee);
+
+                            ManageDelegatesStore.Add(newDelegee);
+
+                            this.AddNewDelegeeWindowPanel.Hide();
+                        }
+                        else
+                        {
+                            statusMessage = "Please select a site!";
+                        }
+                    }
+                }//End else
             }
+            else
+            {
+                statusMessage = "Please provide the required information!";
+            }
+
+            this.NewDelegee_StatusMessage.Text = statusMessage;
+            //this.NewDelegee_StatusMessage = Icon.Error;
         }
 
 
         protected void CancelNewDelegeeButton_Click(object sender, DirectEventArgs e)
         {
-
+            this.AddNewDelegeeWindowPanel.Hide();
         }
 
 
@@ -227,6 +324,7 @@ namespace Lync_Billing.ui.sysadmin.users
             NewDelegee_SitesList.Value = null;
             NewDelegee_DepartmentsList.Hidden = true;
             NewDelegee_SitesList.Hidden = true;
+            NewDelegee_StatusMessage.Text = string.Empty;
         }
 
     }
