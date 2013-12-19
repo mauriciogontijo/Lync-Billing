@@ -229,13 +229,13 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Store DelegatesSitesStore;
         
         /// <summary>
-        /// DelegatesSitesModel control.
+        /// DelegatesSitesStoreModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model DelegatesSitesModel;
+        protected global::Ext.Net.Model DelegatesSitesStoreModel;
         
         /// <summary>
         /// AddRecordButton control.
@@ -346,13 +346,13 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Store SitesListStore;
         
         /// <summary>
-        /// Model1 control.
+        /// SitesListStoreModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model Model1;
+        protected global::Ext.Net.Model SitesListStoreModel;
         
         /// <summary>
         /// NewDelegee_DepartmentsList control.

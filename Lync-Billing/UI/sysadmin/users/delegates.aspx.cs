@@ -46,12 +46,15 @@ namespace Lync_Billing.ui.sysadmin.users
 
             allSites = Backend.Site.GetAllSites();
             allDepartments = Backend.Department.GetAllDepartments();
+
+            DelegatesSitesStore.DataSource = allSites;
+            DelegatesSitesStore.LoadData(allSites);
+
+            //FilterDelegatesBySite.GetStore().DataSource = allSites;
+            //FilterDelegatesBySite.GetStore().DataBind();
             
-            FilterDelegatesBySite.GetStore().DataSource = allSites;
-            FilterDelegatesBySite.GetStore().DataBind();
-            
-            NewDelegee_SitesList.GetStore().DataSource = allSites;
-            NewDelegee_SitesList.GetStore().DataBind();
+            //NewDelegee_SitesList.GetStore().DataSource = allSites;
+            //NewDelegee_SitesList.GetStore().DataBind();
 
             NewDelegee_DepartmentsList.GetStore().DataSource = allDepartments;
             NewDelegee_DepartmentsList.GetStore().DataBind();
@@ -61,13 +64,13 @@ namespace Lync_Billing.ui.sysadmin.users
         {
             if (FilterDelegatesBySite.SelectedItem != null)
             {
-                string site = FilterDelegatesBySite.SelectedItem.Value;
+                int siteID = Convert.ToInt32(FilterDelegatesBySite.SelectedItem.Value);
 
                 List<DelegateRole> usersDelgates = new List<DelegateRole>();
                 List<DelegateRole> tmpUsersDelegates = new List<DelegateRole>();
                 List<string> usersPersite = new List<string>();
 
-                usersPersite = GetUsersPerSite(site);
+                usersPersite = GetUsersPerSite(siteID);
 
                 usersDelgates = DelegateRole.GetDelegees();
 
@@ -78,12 +81,14 @@ namespace Lync_Billing.ui.sysadmin.users
             }
         }
 
-        public List<string> GetUsersPerSite(string siteName)
+        public List<string> GetUsersPerSite(int siteID)
         {
             List<Users> users = new List<Users>();
             List<string> usersList = new List<string>();
 
-            users = Users.GetUsers(siteName);
+            var siteObject = allSites.Find(site => site.SiteID == siteID);
+
+            users = Users.GetUsers(siteObject.SiteName);
 
             if (users.Count > 0)
             {

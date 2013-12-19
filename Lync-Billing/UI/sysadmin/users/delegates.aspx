@@ -112,9 +112,34 @@
             };
 
             var FilterZeroIDs = function (value, meta, record, rowIndex, colIndex, store) {
+                var siteName = "";
+                var departmentName = "";
+
                 if (typeof value !== undefined) {
-                    return ((value == 0) ? "N/A" : value);
-                }
+                    if(value == 0) {
+                        return "N/A";
+                    } else {
+                        var sitesStore = #{FilterDelegatesBySite}.getStore();
+                        var departmentsStore = #{NewDelegee_DepartmentsList}.getStore();
+
+                        if(record.data.SiteID == value.toString()) {
+                            sitesStore.each(function(record) {
+                                if(record.get('SiteID') == value.toString())
+                                    siteName = record.get('SiteName');
+                            });
+
+                            return siteName;
+                        }
+                        else if (record.data.DepartmentID == value.toString()) {
+                            departmentsStore.each(function(record) {
+                                if(record.get('DepartmentID') == value.toString())
+                                    departmentName = record.get("SiteName") + " (" + record.get("DepartmentName") + ")";
+                            });
+                            
+                            return departmentName;
+                        }//End elseif
+                    }//End else
+                }//End if
             }
         </script>
     </ext:XScript>
@@ -125,6 +150,7 @@
 
     <div id='generate-report-block' class='block float-right wauto h100p'>
         <div class="block-body pt5">
+            
             <ext:GridPanel
                 ID="ManageDelegatesGrid"
                 runat="server"
@@ -249,7 +275,7 @@
                         <ext:Column ID="Column3"
                             runat="server"
                             Text="Description"
-                            Width="110"
+                            Width="125"
                             DataIndex="Description"
                             Sortable="true"
                             Groupable="true">
@@ -297,7 +323,7 @@
                                 Selectable="true"
                                 Editable="true"
                                 DisplayField="SiteName"
-                                ValueField="SiteName"
+                                ValueField="SiteID"
                                 FieldLabel="Site"
                                 LabelWidth="25"
                                 Margins="5 5 0 5"
@@ -305,7 +331,7 @@
                                 <Store>
                                     <ext:Store ID="DelegatesSitesStore" runat="server">
                                         <Model>
-                                            <ext:Model ID="DelegatesSitesModel" runat="server">
+                                            <ext:Model ID="DelegatesSitesStoreModel" runat="server">
                                                 <Fields>
                                                     <ext:ModelField Name="SiteID" />
                                                     <ext:ModelField Name="SiteName" />
@@ -524,7 +550,7 @@
                                         <Store>
                                             <ext:Store ID="SitesListStore" runat="server">
                                                 <Model>
-                                                    <ext:Model ID="Model1" runat="server">
+                                                    <ext:Model ID="SitesListStoreModel" runat="server">
                                                         <Fields>
                                                             <ext:ModelField Name="SiteID" />
                                                             <ext:ModelField Name="SiteName" />
