@@ -194,8 +194,8 @@
                             Text="User"
                             Width="160"
                             DataIndex="SipAccount"
-                            Sortable="true"
-                            Groupable="true">
+                            Sortable="false"
+                            Groupable="false">
                             <HeaderItems>
                                 <ext:TextField ID="SipAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -213,8 +213,8 @@
                             Text="Site"
                             Width="130"
                             DataIndex="SiteID"
-                            Sortable="true"
-                            Groupable="true">
+                            Sortable="false"
+                            Groupable="false">
 
                             <HeaderItems>
                                 <ext:TextField ID="SiteFilter" runat="server" Icon="Magnifier">
@@ -236,8 +236,8 @@
                             Text="Department"
                             Width="140"
                             DataIndex="DepartmentID"
-                            Sortable="true"
-                            Groupable="true">
+                            Sortable="false"
+                            Groupable="false">
                             
                             <HeaderItems>
                                 <ext:TextField ID="DepartmentFilter" runat="server" Icon="Magnifier">
@@ -258,8 +258,8 @@
                             Text="Delegee User"
                             Width="150"
                             DataIndex="DelegeeAccount"
-                            Sortable="true"
-                            Groupable="true">
+                            Sortable="false"
+                            Groupable="false">
                             <HeaderItems>
                                 <ext:TextField ID="DelegeeAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -277,8 +277,8 @@
                             Text="Description"
                             Width="125"
                             DataIndex="Description"
-                            Sortable="true"
-                            Groupable="true">
+                            Sortable="false"
+                            Groupable="false">
                             <HeaderItems>
                                 <ext:TextField ID="DescriptionFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -295,8 +295,9 @@
                             ID="DeleteButtonsColumn"
                             runat="server"
                             Width="30"
+                            Align="Center"
                             Sortable="false"
-                            Align="Center">
+                            Groupable="false">
                             <Commands>
                                 <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Delegate" CommandName="delete">                            
                                 </ext:ImageCommand>
