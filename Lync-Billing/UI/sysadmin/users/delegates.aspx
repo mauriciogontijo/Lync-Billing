@@ -48,7 +48,7 @@
              
             var clearFilter = function () {
                 #{SipAccountFilter}.reset();
-                #{DelegeeAccountFilter}.reset();
+                #{DelegeeSipAccountFilter}.reset();
                 #{SiteFilter}.reset();
                 #{DepartmentFilter}.reset();
                 #{DescriptionFilter}.reset();
@@ -77,19 +77,19 @@
                  
                 f.push({
                     filter: function (record) {                         
-                        return filterString(#{DelegeeAccountFilter}.getValue(), "DelegeeAccount", record);
+                        return filterString(#{DelegeeSipAccountFilter}.getValue(), "DelegeeSipAccount", record);
                     }
                 });
 
                 f.push({
                     filter: function(record) {
-                        return filterString(#{SiteFilter}.getValue(), "SiteID", record);
+                        return filterString(#{SiteFilter}.getValue(), "DelegeeSiteName", record);
                     }
                 });
 
                 f.push({
                     filter: function(record) {
-                        return filterString(#{DepartmentFilter}.getValue(), "DepartmentID", record);
+                        return filterString(#{DepartmentFilter}.getValue(), "DelegeeDepartmentName", record);
                     }
                 });
 
@@ -110,37 +110,6 @@
                     return true;
                 };
             };
-
-            var FilterZeroIDs = function (value, meta, record, rowIndex, colIndex, store) {
-                var siteName = "";
-                var departmentName = "";
-
-                if (typeof value !== undefined) {
-                    if(value == 0) {
-                        return "N/A";
-                    } else {
-                        var sitesStore = #{FilterDelegatesBySite}.getStore();
-                        var departmentsStore = #{NewDelegee_DepartmentsList}.getStore();
-
-                        if(record.data.SiteID == value.toString()) {
-                            sitesStore.each(function(record) {
-                                if(record.get('SiteID') == value.toString())
-                                    siteName = record.get('SiteName');
-                            });
-
-                            return siteName;
-                        }
-                        else if (record.data.DepartmentID == value.toString()) {
-                            departmentsStore.each(function(record) {
-                                if(record.get('DepartmentID') == value.toString())
-                                    departmentName = record.get("SiteName") + " (" + record.get("DepartmentName") + ")";
-                            });
-                            
-                            return departmentName;
-                        }//End elseif
-                    }//End else
-                }//End if
-            }
         </script>
     </ext:XScript>
 </asp:Content>
@@ -172,13 +141,11 @@
                             <ext:Model ID="ManageDelegatesModel" runat="server" IDProperty="ID">
                                 <Fields>
                                     <ext:ModelField Name="ID" Type="Int" />
-                                    <ext:ModelField Name="SipAccount" Type="String" />
-                                    <ext:ModelField Name="SiteID" Type="String" />
-                                    <ext:ModelField Name="DelegeeSite" Type="String" />
-                                    <ext:ModelField Name="DepartmentID" Type="String" />
-                                    <ext:ModelField Name="DelegeeDepartment" Type="String" />
                                     <ext:ModelField Name="DelegeeType" Type="Int" />
-                                    <ext:ModelField Name="DelegeeAccount" Type="String" />
+                                    <ext:ModelField Name="SipAccount" Type="String" />
+                                    <ext:ModelField Name="DelegeeSipAccount" Type="String" />
+                                    <ext:ModelField Name="DelegeeDepartmentName" Type="String" />
+                                    <ext:ModelField Name="DelegeeSiteName" Type="String" />
                                     <ext:ModelField Name="Description" Type="String" />
                                 </Fields>
                             </ext:Model>
@@ -212,7 +179,7 @@
                             runat="server"
                             Text="Site"
                             Width="130"
-                            DataIndex="SiteID"
+                            DataIndex="DelegeeSiteName"
                             Sortable="false"
                             Groupable="false">
 
@@ -227,7 +194,7 @@
                                 </ext:TextField>
                             </HeaderItems>
 
-                            <Renderer Fn="FilterZeroIDs" />
+                            <%--<Renderer Fn="FilterZeroIDs" />--%>
                         </ext:Column>
 
 
@@ -235,7 +202,7 @@
                             runat="server"
                             Text="Department"
                             Width="140"
-                            DataIndex="DepartmentID"
+                            DataIndex="DelegeeDepartmentName"
                             Sortable="false"
                             Groupable="false">
                             
@@ -250,23 +217,23 @@
                                 </ext:TextField>
                             </HeaderItems>
 
-                            <Renderer Fn="FilterZeroIDs" />
+                            <%--<Renderer Fn="FilterZeroIDs" />--%>
                         </ext:Column>
 
                         <ext:Column ID="Column2"
                             runat="server"
                             Text="Delegee User"
                             Width="150"
-                            DataIndex="DelegeeAccount"
+                            DataIndex="DelegeeSipAccount"
                             Sortable="false"
                             Groupable="false">
                             <HeaderItems>
-                                <ext:TextField ID="DelegeeAccountFilter" runat="server" Icon="Magnifier">
+                                <ext:TextField ID="DelegeeSipAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
                                         <Change Handler="applyFilter(this);" Buffer="260" />                                                
                                     </Listeners>
                                     <Plugins>
-                                        <ext:ClearButton ID="ClearDelegeeAccountFilterBtn" runat="server" />
+                                        <ext:ClearButton ID="ClearDelegeeSipAccountFilterBtn" runat="server" />
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
@@ -319,9 +286,6 @@
                                 Icon="Find"
                                 TriggerAction="Query"
                                 QueryMode="Local"
-                                SelectOnFocus="true"
-                                SelectOnTab="true"
-                                Selectable="true"
                                 Editable="true"
                                 DisplayField="SiteName"
                                 ValueField="SiteID"
@@ -330,7 +294,7 @@
                                 Margins="5 5 0 5"
                                 Width="250">
                                 <Store>
-                                    <ext:Store ID="DelegatesSitesStore" runat="server">
+                                    <ext:Store ID="DelegatesSitesStore" runat="server" OnLoad="DelegatesSitesStore_Load">
                                         <Model>
                                             <ext:Model ID="DelegatesSitesStoreModel" runat="server">
                                                 <Fields>
@@ -406,9 +370,6 @@
                                         runat="server"
                                         DisplayField="TypeName"
                                         ValueField="TypeValue"
-                                        SelectOnFocus="true"
-                                        SelectOnTab="true"
-                                        Selectable="true"
                                         Width="350"
                                         FieldLabel="Delegee Type"
                                         LabelWidth="125">
@@ -433,6 +394,7 @@
                                         Icon="Find"
                                         TriggerAction="Query"
                                         QueryMode="Remote"
+                                        Editable="true"
                                         DisplayField="SipAccount"
                                         ValueField="SipAccount"
                                         FieldLabel="User SipAccount:"
@@ -485,7 +447,8 @@
                                         runat="server"
                                         Icon="Find"
                                         TriggerAction="Query"
-                                        QueryMode="Local"
+                                        QueryMode="Remote"
+                                        Editable="true"
                                         DisplayField="SipAccount"
                                         ValueField="SipAccount"
                                         FieldLabel="Delegee SipAccount:"
@@ -539,9 +502,6 @@
                                         ValueField="SiteID"
                                         TriggerAction="Query"
                                         QueryMode="Local"
-                                        SelectOnFocus="true"
-                                        SelectOnTab="true"
-                                        Selectable="true"
                                         Editable="true"
                                         EmptyText="Please Select Site"
                                         FieldLabel="Site:"
@@ -549,7 +509,7 @@
                                         Width="350"
                                         Hidden="true">
                                         <Store>
-                                            <ext:Store ID="SitesListStore" runat="server">
+                                            <ext:Store ID="SitesListStore" runat="server" OnLoad="SitesListStore_Load">
                                                 <Model>
                                                     <ext:Model ID="SitesListStoreModel" runat="server">
                                                         <Fields>
@@ -569,6 +529,10 @@
                                                 </Html>
                                             </ItemTpl>
                                         </ListConfig>
+
+                                        <DirectEvents>
+                                            <Select OnEvent="NewDelegee_SitesList_Selected" />
+                                        </DirectEvents>
                                     </ext:ComboBox>
 
                                     <ext:ComboBox
@@ -578,9 +542,6 @@
                                         ValueField="DepartmentID"
                                         TriggerAction="Query"
                                         QueryMode="Local"
-                                        SelectOnFocus="true"
-                                        SelectOnTab="true"
-                                        Selectable="true"
                                         Editable="true"
                                         EmptyText="Please Select Department"
                                         FieldLabel="Department:"
@@ -602,7 +563,7 @@
                                             </ext:Store>
                                         </Store>
 
-                                        <ListConfig
+                                        <%--<ListConfig
                                             Border="true"
                                             MinWidth="150"
                                             MaxHeight="300"
@@ -612,7 +573,7 @@
                                                     <div>{SiteName}&nbsp;({DepartmentName})</div>
                                                 </Html>
                                             </ItemTpl>
-                                        </ListConfig>
+                                        </ListConfig>--%>
                                     </ext:ComboBox>
                                 </Items>
 

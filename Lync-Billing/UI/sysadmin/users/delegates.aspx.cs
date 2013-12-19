@@ -46,18 +46,6 @@ namespace Lync_Billing.ui.sysadmin.users
 
             allSites = Backend.Site.GetAllSites();
             allDepartments = Backend.Department.GetAllDepartments();
-
-            DelegatesSitesStore.DataSource = allSites;
-            DelegatesSitesStore.LoadData(allSites);
-
-            //FilterDelegatesBySite.GetStore().DataSource = allSites;
-            //FilterDelegatesBySite.GetStore().DataBind();
-            
-            //NewDelegee_SitesList.GetStore().DataSource = allSites;
-            //NewDelegee_SitesList.GetStore().DataBind();
-
-            NewDelegee_DepartmentsList.GetStore().DataSource = allDepartments;
-            NewDelegee_DepartmentsList.GetStore().DataBind();
         }
 
         protected void GetDelegates(object sender, DirectEventArgs e)
@@ -74,14 +62,14 @@ namespace Lync_Billing.ui.sysadmin.users
 
                 usersDelgates = DelegateRole.GetDelegees();
 
-                tmpUsersDelegates = usersDelgates.Where(item => usersPersite.Contains(item.SipAccount)).ToList();
+                tmpUsersDelegates = usersDelgates.Where(item => siteID == item.SiteID || usersPersite.Contains(item.SipAccount) || usersPersite.Contains(item.DelegeeSipAccount)).ToList();
 
                 ManageDelegatesGrid.GetStore().DataSource = tmpUsersDelegates;
                 ManageDelegatesGrid.GetStore().DataBind();
             }
         }
 
-        public List<string> GetUsersPerSite(int siteID)
+        private List<string> GetUsersPerSite(int siteID)
         {
             List<Users> users = new List<Users>();
             List<string> usersList = new List<string>();
@@ -156,7 +144,7 @@ namespace Lync_Billing.ui.sysadmin.users
                 if (selected == DelegateRole.DepartmentDelegeeTypeID)
                 {
                     NewDelegee_DepartmentsList.Hidden = false;
-                    NewDelegee_SitesList.Hidden = true;
+                    NewDelegee_SitesList.Hidden = false;
                 }
                 else if (selected == DelegateRole.SiteDelegeeTypeID)
                 {
@@ -176,11 +164,11 @@ namespace Lync_Billing.ui.sysadmin.users
         {
             DelegateRole newDelegee;
 
-            int selectedType;
-            string userSipAccount;
-            string delegeeSipAccount;
-            int delegeeSiteID;
-            int delegeeDepartmentID;
+            int selectedType = 0;
+            string userSipAccount = string.Empty;
+            string delegeeSipAccount = string.Empty;
+            int delegeeSiteID = 0;
+            int delegeeDepartmentID = 0;
 
             string statusMessage = string.Empty;
 
@@ -213,7 +201,7 @@ namespace Lync_Billing.ui.sysadmin.users
                     {
                         newDelegee.DelegeeType = DelegateRole.UserDelegeeTypeID;
                         newDelegee.SipAccount = userSipAccount;
-                        newDelegee.DelegeeAccount = delegeeSipAccount;
+                        newDelegee.DelegeeSipAccount = delegeeSipAccount;
                         newDelegee.Description = Enums.GetDescription(Enums.DelegateTypes.UserDelegeeTypeDescription);
 
                         DelegateRole.AddDelegate(newDelegee);
@@ -225,14 +213,18 @@ namespace Lync_Billing.ui.sysadmin.users
 
                     else if (selectedType == DelegateRole.DepartmentDelegeeTypeID)
                     {
-                        if (NewDelegee_DepartmentsList.SelectedItem.Index != -1)
+                        if (NewDelegee_SitesList.SelectedItem.Index != -1 && NewDelegee_DepartmentsList.SelectedItem.Index != -1)
                         {
+                            delegeeSiteID = Convert.ToInt32(NewDelegee_SitesList.SelectedItem.Value);
                             delegeeDepartmentID = Convert.ToInt32(NewDelegee_DepartmentsList.SelectedItem.Value);
 
                             newDelegee.DelegeeType = DelegateRole.DepartmentDelegeeTypeID;
                             newDelegee.SipAccount = userSipAccount;
-                            newDelegee.DelegeeAccount = delegeeSipAccount;
+                            newDelegee.DelegeeSipAccount = delegeeSipAccount;
+                            newDelegee.SiteID = delegeeSiteID;
+                            newDelegee.DelegeeSiteName = ((Site)allSites.Where(site => site.SiteID == delegeeSiteID)).SiteName;
                             newDelegee.DepartmentID = delegeeDepartmentID;
+                            newDelegee.DelegeeDepartmentName = ((Department)allDepartments.Where(department => department.DepartmentID == delegeeDepartmentID)).DepartmentName;
                             newDelegee.Description = Enums.GetDescription(Enums.DelegateTypes.DepartemntDelegeeTypeDescription);
 
                             DelegateRole.AddDelegate(newDelegee);
@@ -243,7 +235,7 @@ namespace Lync_Billing.ui.sysadmin.users
                         }
                         else
                         {
-                            statusMessage = "Please select a department!";
+                            statusMessage = "Please select a Site and a Department!";
                         }
                     }
 
@@ -255,7 +247,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
                             newDelegee.DelegeeType = DelegateRole.SiteDelegeeTypeID;
                             newDelegee.SipAccount = userSipAccount;
-                            newDelegee.DelegeeAccount = delegeeSipAccount;
+                            newDelegee.DelegeeSipAccount = delegeeSipAccount;
                             newDelegee.SiteID = delegeeSiteID;
                             newDelegee.Description = Enums.GetDescription(Enums.DelegateTypes.SiteDelegeeTypeDescription);
 
@@ -267,7 +259,7 @@ namespace Lync_Billing.ui.sysadmin.users
                         }
                         else
                         {
-                            statusMessage = "Please select a site!";
+                            statusMessage = "Please select a Site!";
                         }
                     }
                 }//End else
@@ -299,6 +291,7 @@ namespace Lync_Billing.ui.sysadmin.users
                 
                 matchedUsers = Users.SearchForUsers(searchTerm);
 
+                NewDelegee_UserSipAccount.GetStore().DataSource = matchedUsers;
                 NewDelegee_UserSipAccount.GetStore().LoadData(matchedUsers);
             }
         }
@@ -315,6 +308,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
                 matchedUsers = Users.SearchForUsers(searchTerm);
 
+                NewDelegee_DelegeeSipAccount.GetStore().DataSource = matchedUsers;
                 NewDelegee_DelegeeSipAccount.GetStore().LoadData(matchedUsers);
             }
         }
@@ -329,6 +323,52 @@ namespace Lync_Billing.ui.sysadmin.users
             NewDelegee_DepartmentsList.Hidden = true;
             NewDelegee_SitesList.Hidden = true;
             NewDelegee_StatusMessage.Text = string.Empty;
+        }
+
+        protected void SitesListStore_Load(object sender, EventArgs e)
+        {
+            //NewDelegee_SitesList.GetStore().DataSource = allSites;
+            //NewDelegee_SitesList.GetStore().DataBind();
+            NewDelegee_SitesList.GetStore().DataSource = allSites;
+            NewDelegee_SitesList.GetStore().LoadData(allSites);
+        }
+
+        protected void DelegatesSitesStore_Load(object sender, EventArgs e)
+        {
+            //FilterDelegatesBySite.GetStore().DataSource = allSites;
+            //FilterDelegatesBySite.GetStore().DataBind();
+            FilterDelegatesBySite.GetStore().DataSource = allSites;
+            FilterDelegatesBySite.GetStore().LoadData(allSites);
+        }
+
+        //protected void DepartmentsListStore_Load(object sender, EventArgs e)
+        //{
+            //NewDelegee_DepartmentsList.GetStore().DataSource = allDepartments;
+            //NewDelegee_DepartmentsList.GetStore().DataBind();
+            //if (NewDelegee_SitesList.SelectedItem.Index != -1)
+            //{
+            //    int siteID = Convert.ToInt32(NewDelegee_SitesList.SelectedItem.Value);
+            //    var selectedSiteDepartments = allDepartments.Where(department => department.SiteID == siteID).ToList<Department>();
+
+            //    NewDelegee_DepartmentsList.GetStore().DataSource = selectedSiteDepartments;
+            //    NewDelegee_DepartmentsList.GetStore().LoadData(selectedSiteDepartments);
+            //}
+            //else
+            //{
+            //    NewDelegee_DepartmentsList.Clear();
+            //}
+        //}
+
+        protected void NewDelegee_SitesList_Selected(object sender, EventArgs e)
+        {
+            int siteID = Convert.ToInt32(NewDelegee_SitesList.SelectedItem.Value);
+            var selectedSiteDepartments = allDepartments.Where(department => department.SiteID == siteID).ToList<Department>();
+
+            NewDelegee_DepartmentsList.ClearValue();
+            NewDelegee_DepartmentsList.Clear();
+
+            NewDelegee_DepartmentsList.GetStore().DataSource = selectedSiteDepartments;
+            NewDelegee_DepartmentsList.GetStore().LoadData(selectedSiteDepartments);
         }
 
     }

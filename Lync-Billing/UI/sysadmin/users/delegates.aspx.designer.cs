@@ -148,22 +148,22 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Column Column2;
         
         /// <summary>
-        /// DelegeeAccountFilter control.
+        /// DelegeeSipAccountFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField DelegeeAccountFilter;
+        protected global::Ext.Net.TextField DelegeeSipAccountFilter;
         
         /// <summary>
-        /// ClearDelegeeAccountFilterBtn control.
+        /// ClearDelegeeSipAccountFilterBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ClearButton ClearDelegeeAccountFilterBtn;
+        protected global::Ext.Net.ClearButton ClearDelegeeSipAccountFilterBtn;
         
         /// <summary>
         /// Column3 control.
