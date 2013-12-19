@@ -145,6 +145,7 @@
                                     <ext:ModelField Name="SipAccount" Type="String" />
                                     <ext:ModelField Name="DelegeeSipAccount" Type="String" />
                                     <ext:ModelField Name="DelegeeDepartmentName" Type="String" />
+                                    <ext:ModelField Name="SiteID" Type="Int" />
                                     <ext:ModelField Name="DelegeeSiteName" Type="String" />
                                     <ext:ModelField Name="Description" Type="String" />
                                 </Fields>
@@ -193,8 +194,6 @@
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
-
-                            <%--<Renderer Fn="FilterZeroIDs" />--%>
                         </ext:Column>
 
 
@@ -216,8 +215,6 @@
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
-
-                            <%--<Renderer Fn="FilterZeroIDs" />--%>
                         </ext:Column>
 
                         <ext:Column ID="Column2"
@@ -227,6 +224,7 @@
                             DataIndex="DelegeeSipAccount"
                             Sortable="false"
                             Groupable="false">
+
                             <HeaderItems>
                                 <ext:TextField ID="DelegeeSipAccountFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -246,6 +244,7 @@
                             DataIndex="Description"
                             Sortable="false"
                             Groupable="false">
+
                             <HeaderItems>
                                 <ext:TextField ID="DescriptionFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
@@ -265,10 +264,12 @@
                             Align="Center"
                             Sortable="false"
                             Groupable="false">
+
                             <Commands>
                                 <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Delegate" CommandName="delete">                            
                                 </ext:ImageCommand>
                             </Commands>
+
                             <Listeners>
                                 <Command Handler="this.up(#{ManageDelegatesGrid}.store.removeAt(recordIndex));" />
                             </Listeners>
@@ -320,25 +321,32 @@
                                 </DirectEvents>
                             </ext:ComboBox>
 
+
                             <ext:Button
                                 ID="AddRecordButton"
                                 runat="server"
                                 Text="Add New Delegee"
                                 Icon="Add"
-                                Margins="5 5 0 250">
+                                Margins="5 5 0 240">
                                 <DirectEvents>
                                     <Click OnEvent="ShowAddDelegeePanel" />
                                 </DirectEvents>
                             </ext:Button>
+
+
+                            <ext:ToolbarSeparator
+                                ID="ToolbarSeparaator"
+                                runat="server" />
+
 
                             <ext:Button
                                 ID="SaveChangesButton"
                                 runat="server"
                                 Text="Save Changes"
                                 Icon="DatabaseSave"
-                                Margins="5 5 0 0">
+                                Margins="5 5 0 5">
                                 <DirectEvents>
-                                    <Click OnEvent="UpdateEdited_DirectEvent" before="return #{ManageDelegatesStore}.isDirty();">
+                                    <Click OnEvent="SaveChanges_DirectEvent" before="return #{ManageDelegatesStore}.isDirty();">
                                         <EventMask ShowMask="true" />
                                         <ExtraParams>
                                             <ext:Parameter Name="Values" Value="#{ManageDelegatesStore}.getChangedData()" Mode="Raw" />
@@ -346,6 +354,7 @@
                                     </Click>
                                 </DirectEvents>
                             </ext:Button>
+
 
                             <ext:Window 
                                 ID="AddNewDelegeeWindowPanel" 
@@ -625,7 +634,6 @@
                                     <BeforeHide OnEvent="AddNewDelegeeWindowPanel_BeforeHide" />
                                 </DirectEvents>
                             </ext:Window>
-
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
@@ -639,7 +647,6 @@
                         Weight="25"
                         DisplayMsg="Users Delegates {0} - {1} of {2}" />
                 </BottomBar>
-
             </ext:GridPanel>
 
         </div>

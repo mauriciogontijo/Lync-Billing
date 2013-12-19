@@ -247,6 +247,15 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Button AddRecordButton;
         
         /// <summary>
+        /// ToolbarSeparaator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator ToolbarSeparaator;
+        
+        /// <summary>
         /// SaveChangesButton control.
         /// </summary>
         /// <remarks>
