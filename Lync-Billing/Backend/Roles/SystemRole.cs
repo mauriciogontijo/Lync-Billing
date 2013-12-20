@@ -127,10 +127,10 @@ namespace Lync_Billing.Backend.Roles
 
                 if (!string.IsNullOrEmpty(userRole.Description))
                     columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.Description), userRole.Description);
-            }
 
-            //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.SystemRoles.TableName), columnsValues, Enums.GetDescription(Enums.SystemRoles.ID));
+                //Execute Insert
+                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.SystemRoles.TableName), columnsValues, Enums.GetDescription(Enums.SystemRoles.ID));
+            }
           
             return rowID;
         }
@@ -141,23 +141,22 @@ namespace Lync_Billing.Backend.Roles
             bool status = false;
 
             Dictionary<string, object> setPart = new Dictionary<string, object>();
-              
-            //Set Part
-            if ((userRole.SiteID).ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.SystemRoles.SiteID), userRole.SiteID);
 
-            if (userRole.SipAccount != null)
+            if (userRole.RoleID > 0 && !string.IsNullOrEmpty(userRole.RoleID.ToString()) && !string.IsNullOrEmpty(userRole.SipAccount))
+            {
+                setPart.Add(Enums.GetDescription(Enums.SystemRoles.RoleID), userRole.RoleID);
                 setPart.Add(Enums.GetDescription(Enums.SystemRoles.SipAccount), userRole.SipAccount);
 
-            if ((userRole.RoleID).ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.SystemRoles.RoleID), userRole.RoleID);
+                if (userRole.SiteID > 0 && !string.IsNullOrEmpty(userRole.SiteID.ToString()))
+                    setPart.Add(Enums.GetDescription(Enums.SystemRoles.SiteID), userRole.SiteID);
 
-            if (userRole.Description != null)
-                setPart.Add(Enums.GetDescription(Enums.SystemRoles.Description), userRole.Description);
+                if (userRole.Description != null)
+                    setPart.Add(Enums.GetDescription(Enums.SystemRoles.Description), userRole.Description);
 
-            //Execute Update
-            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.SystemRoles.TableName), setPart, Enums.GetDescription(Enums.SystemRoles.ID), userRole.ID);
-                        
+                //Execute Update
+                status = DBRoutines.UPDATE(Enums.GetDescription(Enums.SystemRoles.TableName), setPart, Enums.GetDescription(Enums.SystemRoles.ID), userRole.ID);
+            }
+            
             return status;
         }
 
