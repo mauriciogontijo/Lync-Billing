@@ -129,7 +129,8 @@
                 Scroll="Both"
                 Layout="FitLayout"
                 Header="true"
-                Title="Manage Delegates">
+                Title="Manage Delegates"
+                ComponentCls="fix-ui-vertical-align">
 
                 <Store>
                     <ext:Store
@@ -159,7 +160,7 @@
 
                         <ext:Column ID="Column1"
                             runat="server"
-                            Text="User"
+                            Text="User Email"
                             Width="160"
                             DataIndex="SipAccount"
                             Sortable="false"
@@ -367,7 +368,8 @@
                                 Icon="Add" 
                                 X="100"
                                 Y="100"
-                                BodyStyle="background-color: #f9f9f9;">
+                                BodyStyle="background-color: #f9f9f9;"
+                                ComponentCls="fix-ui-vertical-align">
                                 
                                 <Defaults>
                                     <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
@@ -406,7 +408,7 @@
                                         Editable="true"
                                         DisplayField="SipAccount"
                                         ValueField="SipAccount"
-                                        FieldLabel="User SipAccount:"
+                                        FieldLabel="User Email:"
                                         EmptyText="Please Select a User"
                                         LabelWidth="125"
                                         Width="350">
@@ -460,7 +462,7 @@
                                         Editable="true"
                                         DisplayField="SipAccount"
                                         ValueField="SipAccount"
-                                        FieldLabel="Delegee SipAccount:"
+                                        FieldLabel="Delegee Email:"
                                         EmptyText="Please Select a Delegee"
                                         LabelWidth="125"
                                         Width="350">
@@ -493,7 +495,7 @@
                                             Border="true"
                                             MinWidth="400"
                                             MaxHeight="300"
-                                            EmptyText="Type User Name or SipAccount...">
+                                            EmptyText="Type User Name or Email...">
                                             <ItemTpl ID="ItemTpl3" runat="server">
                                                 <Html>
                                                     <div class="search-item">
@@ -571,18 +573,6 @@
                                                 </Model>
                                             </ext:Store>
                                         </Store>
-
-                                        <%--<ListConfig
-                                            Border="true"
-                                            MinWidth="150"
-                                            MaxHeight="300"
-                                            EmptyText="Type department name...">
-                                            <ItemTpl ID="ItemTpl2" runat="server">
-                                                <Html>
-                                                    <div>{SiteName}&nbsp;({DepartmentName})</div>
-                                                </Html>
-                                            </ItemTpl>
-                                        </ListConfig>--%>
                                     </ext:ComboBox>
                                 </Items>
 

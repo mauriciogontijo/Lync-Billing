@@ -177,14 +177,14 @@ namespace Lync_Billing.ui.sysadmin.users
 
                     if (statusFlag == true)
                     {
-                        successMessage = "DepartmentHead(s) were deleted successfully, changes were saved.";
-                        HelperFunctions.Message("Delete DepartmentHeads", successMessage, "success", hideDelay: 10000, width: 200, height: 100);
+                        successMessage = "Department Head(s) were deleted successfully, changes were saved.";
+                        HelperFunctions.Message("Delete Departmen tHeads", successMessage, "success", hideDelay: 10000, width: 200, height: 100);
 
                     }
                     else
                     {
-                        errorMessage = "Some DepartmentHeads weren't deleted, please try again!";
-                        HelperFunctions.Message("Delete DepartmentHeads", errorMessage, "error", hideDelay: 10000, width: 200, height: 100);
+                        errorMessage = "Some Department Heads were NOT deleted, please try again!";
+                        HelperFunctions.Message("Delete Department Heads", errorMessage, "error", hideDelay: 10000, width: 200, height: 100);
                     }
                 }
             }
@@ -210,13 +210,8 @@ namespace Lync_Billing.ui.sysadmin.users
                 DepartmentHeadSipAccount = NewDepartmentHead_UserSipAccount.SelectedItem.Value.ToString();
                 var DepartmentHeadUserAccount = Users.GetUser(DepartmentHeadSipAccount);
                 
-                //Check if the users exist in our system
-                if (DepartmentHeadUserAccount == null)
-                {
-                    statusMessage = "The user doesn't seem to be in the system!";
-                }
                 //Check for duplicates
-                else if (allDepartmenHeads.Find(item => item.SipAccount == DepartmentHeadSipAccount) != null)
+                if (allDepartmenHeads.Find(item => item.SipAccount == DepartmentHeadSipAccount) != null)
                 {
                     statusMessage = "Cannot add duplicate Department Heads!";
                 }
@@ -250,7 +245,7 @@ namespace Lync_Billing.ui.sysadmin.users
                         ManageDepartmentHeadsGrid.GetStore().Filter("SiteID", FilterDepartmentHeadsBySite.SelectedItem.Value);
                     }
 
-                    successStatusMessage = "DepartmentHead was added successfully, select their respective Site from the menu for more information.";
+                    successStatusMessage = "Department Head was added successfully, select their respective Site from the menu for more information.";
                 }
             }
             else
@@ -261,7 +256,7 @@ namespace Lync_Billing.ui.sysadmin.users
             this.NewDepartmentHead_StatusMessage.Text = statusMessage;
 
             if (!string.IsNullOrEmpty(successStatusMessage))
-                HelperFunctions.Message("Add New DepartmentHead", successStatusMessage, "success", hideDelay: 10000, width: 200, height: 100);
+                HelperFunctions.Message("New Department Head", successStatusMessage, "success", hideDelay: 10000, width: 200, height: 100);
         }
 
     }

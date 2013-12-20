@@ -218,26 +218,6 @@ namespace Lync_Billing.ui.sysadmin.users
             {
                 storeShangedData = new StoreDataHandler(json).BatchObjectData<DelegateRole>();
 
-                ////Add new delegees
-                //if (storeShangedData.Created.Count > 0)
-                //{
-                //    foreach (DelegateRole newDelegee in storeShangedData.Deleted)
-                //    {
-                //        statusFlag = Convert.ToBoolean(DelegateRole.AddDelegate(newDelegee));
-                //    }
-
-                //    if (statusFlag == true)
-                //    {
-                //        successMessage = "Delegee was added successfully, select their respective Site from the menu for more information.";
-                //        HelperFunctions.Message("Add New Delegees", successMessage, "success", hideDelay: 10000, width: 200, height: 100);
-                //    }
-                //    else
-                //    {
-                //        errorMessage = "Delegee was NOT added successfully, an error has occured, please try again.";
-                //        HelperFunctions.Message("Delete Delegees", errorMessage, "error", hideDelay: 10000, width: 200, height: 100);
-                //    }
-                //}
-
                 //Delete existent delegees
                 if (storeShangedData.Deleted.Count > 0)
                 {
@@ -287,13 +267,8 @@ namespace Lync_Billing.ui.sysadmin.users
                 var userAccount = Users.GetUser(userSipAccount);
                 var delegeeAccount = Users.GetUser(delegeeSipAccount);
 
-                //Check if the users exist in our system
-                if (userAccount == null || delegeeAccount == null)
-                {
-                    statusMessage = "Either one of the SipAccounts or both of them don't exist!";
-                }
                 //Check for duplicates
-                else if (delegates.Find(item => item.SipAccount == userSipAccount) != null)
+                if (delegates.Find(item => item.SipAccount == userSipAccount) != null)
                 {
                     statusMessage = "Cannot add duplicate delegees!";
                 }
