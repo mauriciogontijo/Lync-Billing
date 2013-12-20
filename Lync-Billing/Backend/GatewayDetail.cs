@@ -200,7 +200,7 @@ namespace Lync_Billing.Backend
             DataTable dt = new DataTable();
             List<GatewayDetail> gateways = new List<GatewayDetail>();
 
-            var site = Backend.Site.GetSite(siteName);
+            var site = Backend.Site.GetSite(SiteName: siteName);
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.GatewaysDetails.TableName), Enums.GetDescription(Enums.GatewaysDetails.SiteID), site.SiteID);
 

@@ -16,6 +16,7 @@ namespace Lync_Billing.Backend
         public int SiteID { get; set; }
         public string SiteName { get; set; }
         public string CountryCode { get; set; }
+        public string Description { get; set; }
 
 
         public static string GetSiteName(int ID)
@@ -49,16 +50,27 @@ namespace Lync_Billing.Backend
             return siteName;
         }
 
-        public static Site GetSite(int ID)
+
+        public static Site GetSite(int? SiteID = null, string SiteName = null)
         {
             Site site = new Site();
             DataTable dt = new DataTable();
-
             List<string> columns = new List<string>();
-            Dictionary<string, object> wherePart = new Dictionary<string, object>
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+
+            if (SiteID != null && SiteName == null)
             {
-                { Enums.GetDescription(Enums.Sites.SiteID), ID }
-            };
+                wherePart.Add(Enums.GetDescription(Enums.Sites.SiteID), Convert.ToInt32(SiteID));
+            }
+            else if (SiteID == null && SiteName != null)
+            {
+                wherePart.Add(Enums.GetDescription(Enums.Sites.SiteName), Convert.ToString(SiteName));
+            }
+            else 
+            {
+                //both of the parameters are null
+                return null;
+            }
 
             dt = DBRoutines.SELECT( Enums.GetDescription(Enums.Sites.TableName), columns, wherePart, 1);
 
@@ -71,29 +83,28 @@ namespace Lync_Billing.Backend
                     if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID))
                         site.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
                         site.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
                         site.CountryCode = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Sites.Description))
+                        site.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                 }
             }
 
             return site;
         }
 
-        public static Site GetSite(string siteName) 
+        
+        public static List<Site> GetAllSites(List<string> columns = null, Dictionary<string, object> wherePart = null, int limits = 0)
         {
-            Site site = new Site();
+            Site site;
             DataTable dt = new DataTable();
-
-            List<string> columns = new List<string>();
-            Dictionary<string, object> wherePart = new Dictionary<string, object>
-            {
-                { Enums.GetDescription(Enums.Sites.SiteName), siteName }
-            };
-
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Sites.TableName), columns, wherePart, 1);
+            List<Site> sites = new List<Site>();
+          
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Sites.TableName), columns, wherePart, limits);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -104,131 +115,22 @@ namespace Lync_Billing.Backend
                     if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID))
                         site.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
                         site.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
                         site.CountryCode = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Sites.Description))
+                        site.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                 }
-            }
 
-            return site;
-        }
-
-        public static List<Site> GetAllSites() 
-        {
-            Site site;
-            DataTable dt = new DataTable();
-            List<Site> sites = new List<Site>();
-
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Sites.TableName));
-
-            foreach (DataRow row in dt.Rows)
-            {
-                site = new Site();
-
-                foreach (DataColumn column in dt.Columns)
-                {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID) && row[column.ColumnName] != System.DBNull.Value)
-                        site.SiteID = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName) && row[column.ColumnName] != System.DBNull.Value)
-                        site.SiteName = (string)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode) && row[column.ColumnName] != System.DBNull.Value)
-                        site.CountryCode = (string)row[column.ColumnName];
-                }
                 sites.Add(site);
             }
 
             return sites;
         }
 
-        public static List<Site> GetAllSites(List<string> columns, Dictionary<string, object> wherePart, int limits)
-        {
-            Site site;
-            DataTable dt = new DataTable();
-            List<Site> sites = new List<Site>();
-          
-            dt = DBRoutines.SELECT(
-                Enums.GetDescription(Enums.Sites.TableName),
-                columns,
-                wherePart,
-                limits);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                site = new Site();
-
-                foreach (DataColumn column in dt.Columns)
-                {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID) && row[column.ColumnName] != System.DBNull.Value)
-                        site.SiteID = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName) && row[column.ColumnName] != System.DBNull.Value)
-                        site.SiteName = (string)row[column.ColumnName];
-                   
-                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode) && row[column.ColumnName] != System.DBNull.Value)
-                        site.CountryCode = (string)row[column.ColumnName];
-                }
-                sites.Add(site);
-            }
-
-            return sites;
-
-        }
-
-        public static int InsertSite(Site site)
-        {
-            int rowID = 0;
-            Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
-
-            //Set Part
-            if ((site.SiteName).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Sites.SiteName), site.SiteName);
-          
-            if ((site.CountryCode).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
-
-            //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Sites.TableName), columnsValues, Enums.GetDescription(Enums.Sites.SiteID));
-
-            return rowID;
-        }
-
-        public static bool UpdateSite(Site site)
-        {
-            bool status = false;
-
-            Dictionary<string, object> setPart = new Dictionary<string, object>();
-
-            //Set Part
-            if ((site.SiteName).ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.Sites.SiteName), site.SiteName);
-
-            if (site.CountryCode != null)
-                setPart.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
-
-            //Execute Update
-            status = DBRoutines.UPDATE(
-                Enums.GetDescription(Enums.Sites.TableName),
-                setPart,
-                Enums.GetDescription(Enums.Sites.SiteID),
-                site.SiteID);
-
-            return status;
-        }
-
-        public static bool DeleteSite(Site site)
-        {
-            bool status = false;
-
-            status = DBRoutines.DELETE(
-                Enums.GetDescription(Enums.Sites.TableName), 
-                Enums.GetDescription(Enums.Sites.SiteID),site.SiteID );
-
-            return status;
-        }
 
         /// <summary>
         /// Given a list of user roles for a specific user, his SipAccount and his granted user-roles, return a list of the sites on which he was granted elevated access.
@@ -289,9 +191,53 @@ namespace Lync_Billing.Backend
         }
 
 
-        public override string ToString()
+        public static int AddSite(Site site)
         {
-            return this.SiteName;
+            int rowID = 0;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
+
+            if (!string.IsNullOrEmpty(site.SiteName))
+            {
+                columnsValues.Add(Enums.GetDescription(Enums.Sites.SiteName), site.SiteName);
+
+                if (!string.IsNullOrEmpty(site.CountryCode))
+                    columnsValues.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
+
+                //Execute Insert
+                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Sites.TableName), columnsValues, Enums.GetDescription(Enums.Sites.SiteID));
+            }
+
+            return rowID;
+        }
+
+
+        public static bool UpdateSite(Site site)
+        {
+            bool status = false;
+
+            Dictionary<string, object> setPart = new Dictionary<string, object>();
+
+            //Set Part
+            if (!string.IsNullOrEmpty(site.SiteName))
+                setPart.Add(Enums.GetDescription(Enums.Sites.SiteName), site.SiteName);
+
+            if (!string.IsNullOrEmpty(site.CountryCode))
+                setPart.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
+
+            //Execute Update
+            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Sites.TableName), setPart, Enums.GetDescription(Enums.Sites.SiteID), site.SiteID);
+
+            return status;
+        }
+
+
+        public static bool DeleteSite(Site site)
+        {
+            bool status = false;
+
+            status = DBRoutines.DELETE(Enums.GetDescription(Enums.Sites.TableName), Enums.GetDescription(Enums.Sites.SiteID), site.SiteID);
+
+            return status;
         }
 
     }

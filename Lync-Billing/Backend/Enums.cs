@@ -37,7 +37,9 @@ namespace Lync_Billing.Backend
             [Description("SiteName")]
             SiteName,
             [Description("CountryCode")]
-            CountryCode
+            CountryCode,
+            [Description("Description")]
+            Description
         }
 
         /// <summary>
