@@ -156,5 +156,39 @@ namespace Lync_Billing.Backend
         }
 
 
+        public static string GetCountryName(string TwoCharactersCountryCode = null, string ThreeCharactersCountryCode = null)
+        {
+            DataTable dt = new DataTable();
+            string countryName = string.Empty;
+
+            List<string> columns = new List<string>();
+            Dictionary<string, object> whrerPart = new Dictionary<string, object>();
+
+            columns.Add(Enums.GetDescription(Enums.NumberingPlan.CountryName));
+            
+            if(!string.IsNullOrEmpty(TwoCharactersCountryCode) && string.IsNullOrEmpty(ThreeCharactersCountryCode))
+            {
+                whrerPart.Add(Enums.GetDescription(Enums.NumberingPlan.TwoDigitsCountryCode), TwoCharactersCountryCode);
+            }
+            else if(string.IsNullOrEmpty(TwoCharactersCountryCode) && !string.IsNullOrEmpty(ThreeCharactersCountryCode))
+            {
+                whrerPart.Add(Enums.GetDescription(Enums.NumberingPlan.ThreeDigitsCountryCode), ThreeCharactersCountryCode);
+            }
+
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.NumberingPlan.TableName), columns, whrerPart, 1);
+
+
+            if(dt.Rows.Count > 0)
+            {
+                var row = dt.Rows[0];
+                var columnName = Enums.GetDescription(Enums.NumberingPlan.CountryName);
+                countryName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[columnName]));
+            }
+            
+            return countryName;
+        }
+
+
     }
 }
