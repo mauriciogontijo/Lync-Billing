@@ -24,27 +24,11 @@ namespace Lync_Billing.Backend.Roles
         public static int SiteAdminRoleID { get { return Convert.ToInt32(Enums.GetDescription(Enums.SystemRoles.SiteAdminRoleID)); } }
         public static int SiteAccountantRoleID { get { return Convert.ToInt32(Enums.GetDescription(Enums.SystemRoles.SiteAccountantRoleID)); } }
         
-
-        //Generic User SystemRoles
-        public bool IsDeveloper()
-        {
-            return this.RoleID == DeveloperRoleID ? true : false; 
-        }
-
-        public bool IsSystemAdmin()
-        {
-            return this.RoleID == SystemAdminRoleID ? true : false; 
-        }
-
-        public bool IsSiteAdmin()
-        {
-            return this.RoleID == SiteAdminRoleID ? true : false; 
-        }
-
-        public bool IsSiteAccountant()
-        {
-            return this.RoleID == SiteAccountantRoleID ? true : false; 
-        }
+        //"This" System Role Flags
+        public bool IsDeveloper() { return this.RoleID == DeveloperRoleID ? true : false; }
+        public bool IsSystemAdmin() { return this.RoleID == SystemAdminRoleID ? true : false; }
+        public bool IsSiteAdmin() { return this.RoleID == SiteAdminRoleID ? true : false; }
+        public bool IsSiteAccountant() { return this.RoleID == SiteAccountantRoleID ? true : false; }
 
 
         //Get Users SystemRoles
