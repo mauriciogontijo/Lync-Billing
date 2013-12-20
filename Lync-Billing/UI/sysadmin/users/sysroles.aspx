@@ -485,7 +485,7 @@
                         StoreID="ManageSystemRolesStore"
                         DisplayInfo="true"
                         Weight="25"
-                        DisplayMsg="Users Roles {0} - {1} of {2}" />
+                        DisplayMsg="System Roles {0} - {1} of {2}" />
                 </BottomBar>
             </ext:GridPanel>
 
