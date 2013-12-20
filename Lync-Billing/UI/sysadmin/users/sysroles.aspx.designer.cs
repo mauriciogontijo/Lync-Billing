@@ -22,31 +22,31 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.ResourceManager resourceManager;
         
         /// <summary>
-        /// ManageUsersRolesGrid control.
+        /// ManageSystemRolesGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridPanel ManageUsersRolesGrid;
+        protected global::Ext.Net.GridPanel ManageSystemRolesGrid;
         
         /// <summary>
-        /// ManageUsersRolesStore control.
+        /// ManageSystemRolesStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store ManageUsersRolesStore;
+        protected global::Ext.Net.Store ManageSystemRolesStore;
         
         /// <summary>
-        /// ManageUsersRolesModel control.
+        /// ManageSystemRolesStoreModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model ManageUsersRolesModel;
+        protected global::Ext.Net.Model ManageSystemRolesStoreModel;
         
         /// <summary>
         /// Column1 control.
@@ -67,22 +67,22 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Column Column2;
         
         /// <summary>
-        /// Column4 control.
+        /// Column3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column4;
+        protected global::Ext.Net.Column Column3;
         
         /// <summary>
-        /// Column5 control.
+        /// DeleteButtonsColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column5;
+        protected global::Ext.Net.ImageCommandColumn DeleteButtonsColumn;
         
         /// <summary>
         /// RowSelectionModel1 control.
@@ -94,15 +94,6 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.RowSelectionModel RowSelectionModel1;
         
         /// <summary>
-        /// CellEditing1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.CellEditing CellEditing1;
-        
-        /// <summary>
         /// FilterToolBar control.
         /// </summary>
         /// <remarks>
@@ -112,22 +103,22 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Toolbar FilterToolBar;
         
         /// <summary>
-        /// FilterUsersRolesBySite control.
+        /// FilterSystemRolesBySite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ComboBox FilterUsersRolesBySite;
+        protected global::Ext.Net.ComboBox FilterSystemRolesBySite;
         
         /// <summary>
-        /// SitesStore control.
+        /// FilterSystemRolesBySiteStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store SitesStore;
+        protected global::Ext.Net.Store FilterSystemRolesBySiteStore;
         
         /// <summary>
         /// SiteModel control.
@@ -139,30 +130,156 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Model SiteModel;
         
         /// <summary>
-        /// UpdateEditedRecords control.
+        /// AddRecordButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button UpdateEditedRecords;
+        protected global::Ext.Net.Button AddRecordButton;
         
         /// <summary>
-        /// CancelChangesButton control.
+        /// ToolbarSeparaator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button CancelChangesButton;
+        protected global::Ext.Net.ToolbarSeparator ToolbarSeparaator;
         
         /// <summary>
-        /// ManageUsersRolesPagingToolbar control.
+        /// SaveChangesButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.PagingToolbar ManageUsersRolesPagingToolbar;
+        protected global::Ext.Net.Button SaveChangesButton;
+        
+        /// <summary>
+        /// AddNewSystemRoleWindowPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window AddNewSystemRoleWindowPanel;
+        
+        /// <summary>
+        /// NewSystemRole_RoleTypeCombobox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewSystemRole_RoleTypeCombobox;
+        
+        /// <summary>
+        /// NewSystemRole_UserSipAccount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewSystemRole_UserSipAccount;
+        
+        /// <summary>
+        /// Store1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store Store1;
+        
+        /// <summary>
+        /// Model2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model Model2;
+        
+        /// <summary>
+        /// NewSystemRole_SitesList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewSystemRole_SitesList;
+        
+        /// <summary>
+        /// SitesListStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store SitesListStore;
+        
+        /// <summary>
+        /// SitesListStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model SitesListStoreModel;
+        
+        /// <summary>
+        /// NewSystemRoleWindowBottomBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.StatusBar NewSystemRoleWindowBottomBar;
+        
+        /// <summary>
+        /// AddNewSystemRoleButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button AddNewSystemRoleButton;
+        
+        /// <summary>
+        /// CancelNewSystemRoleButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button CancelNewSystemRoleButton;
+        
+        /// <summary>
+        /// AddNewSystemRoleWindow_BottomBarSeparator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator AddNewSystemRoleWindow_BottomBarSeparator;
+        
+        /// <summary>
+        /// NewSystemRole_StatusMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarTextItem NewSystemRole_StatusMessage;
+        
+        /// <summary>
+        /// ManageSystemRolesPagingToolbar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.PagingToolbar ManageSystemRolesPagingToolbar;
     }
 }
