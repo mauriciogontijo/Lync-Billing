@@ -314,9 +314,8 @@ namespace Lync_Billing.ui.sysadmin.users
                         this.AddNewDelegeeWindowPanel.Hide();
 
                         //FilterDelegatesBySite.SetValueAndFireSelect(delegeeSiteID);
-                        ManageDelegatesStore.Add(newDelegee);
-                        ManageDelegatesGrid.GetStore().GetById(newDelegee.ID).SetDirty();
-
+                        ManageDelegatesGrid.GetStore().Add(newDelegee);
+                        
                         //Add the delegee record to the store and apply the filter
                         //Apply the filter on SiteID if the Site was already selected from the FilterDelegatesBySite combobox
                         if (FilterDelegatesBySite.SelectedItem.Index != -1)
@@ -351,8 +350,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
                             //Add the delegee record to the store and apply the filter
                             //FilterDelegatesBySite.SetValueAndFireSelect(delegeeSiteID);
-                            ManageDelegatesStore.Add(newDelegee);
-                            ManageDelegatesGrid.GetStore().GetById(newDelegee.ID).SetDirty();
+                            ManageDelegatesGrid.GetStore().Add(newDelegee);
 
                             //Apply the filter on SiteID if the Site was already selected from the FilterDelegatesBySite combobox
                             if (FilterDelegatesBySite.SelectedItem.Index != -1)
@@ -389,8 +387,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
                             //Add the delegee record to the store and apply the filter
                             //FilterDelegatesBySite.SetValueAndFireSelect(delegeeSiteID);
-                            ManageDelegatesStore.Add(newDelegee);
-                            ManageDelegatesGrid.GetStore().GetById(newDelegee.ID).SetDirty();
+                            ManageDelegatesGrid.GetStore().Add(newDelegee);
 
                             //Apply the filter on SiteID if the Site was already selected from the FilterDelegatesBySite combobox
                             if (FilterDelegatesBySite.SelectedItem.Index != -1)

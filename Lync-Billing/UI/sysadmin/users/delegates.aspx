@@ -325,9 +325,9 @@
                             <ext:Button
                                 ID="AddRecordButton"
                                 runat="server"
-                                Text="Add New Delegee"
+                                Text="New Delegee"
                                 Icon="Add"
-                                Margins="5 5 0 240">
+                                Margins="5 5 0 260">
                                 <DirectEvents>
                                     <Click OnEvent="ShowAddDelegeePanel" />
                                 </DirectEvents>
@@ -361,7 +361,7 @@
                                 runat="server" 
                                 Frame="true"
                                 Resizable="false"
-                                Title="Add New Delegee" 
+                                Title="New Delegee Role" 
                                 Hidden="true"
                                 Width="380"
                                 Icon="Add" 
