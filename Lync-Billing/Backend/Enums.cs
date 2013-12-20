@@ -391,12 +391,14 @@ namespace Lync_Billing.Backend
             DelegeeType,
             [Description("Description")]
             Description,
+            
             [Description("1")]
             UserDelegeeType,
             [Description("2")]
             DepartemntDelegeeType,
             [Description("3")]
             SiteDelegeeType,
+
             [Description("User-Delegee")]
             UserDelegeeTypeDescription,
             [Description("Department-Delegee")]
@@ -442,6 +444,7 @@ namespace Lync_Billing.Backend
             SiteID,
             [Description("Description")]
             Description,
+
             [Description("10")]
             DeveloperRoleID,
             [Description("20")]
@@ -450,6 +453,15 @@ namespace Lync_Billing.Backend
             SiteAdminRoleID,
             [Description("40")]
             SiteAccountantRoleID,
+
+            [Description("System Developer")]
+            DeveloperRoleDescription,
+            [Description("System Admin")]
+            SystemAdminRoleDescription,
+            [Description("Site Administrator")]
+            SiteAdminRoleDescription,
+            [Description("Site Accountant")]
+            SiteAccountantRoleDescription,
         }
 
         /// <summary>
