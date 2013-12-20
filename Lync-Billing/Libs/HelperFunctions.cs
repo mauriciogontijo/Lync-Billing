@@ -48,6 +48,8 @@ namespace Lync_Billing.Libs
                 notificationConfig.PinEvent = "click";
             }
 
+            notificationConfig.BodyStyle = "background-color: #f9f9f9;";
+
             Notification.Show(notificationConfig);
         }
 
