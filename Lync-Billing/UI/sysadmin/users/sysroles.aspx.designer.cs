@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.sysadmin.users {
     public partial class sysroles {
         
         /// <summary>
+        /// XScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript XScript1;
+        
+        /// <summary>
         /// resourceManager control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,24 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Column Column1;
         
         /// <summary>
+        /// RoleOwnerNameFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField RoleOwnerNameFilter;
+        
+        /// <summary>
+        /// ClearSipAccountFilterBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearSipAccountFilterBtn;
+        
+        /// <summary>
         /// Column2 control.
         /// </summary>
         /// <remarks>
@@ -67,6 +94,24 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.Column Column2;
         
         /// <summary>
+        /// RoleDescriptionFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField RoleDescriptionFilter;
+        
+        /// <summary>
+        /// ClearButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearButton1;
+        
+        /// <summary>
         /// Column3 control.
         /// </summary>
         /// <remarks>
@@ -74,6 +119,24 @@ namespace Lync_Billing.ui.sysadmin.users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column Column3;
+        
+        /// <summary>
+        /// SiteNameFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField SiteNameFilter;
+        
+        /// <summary>
+        /// ClearButton2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ClearButton ClearButton2;
         
         /// <summary>
         /// DeleteButtonsColumn control.

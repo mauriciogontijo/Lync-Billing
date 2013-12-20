@@ -38,6 +38,66 @@
         .ext-ie .x-form-text { position : static !important; }
         /* end users search query result styling */
     </style>
+
+    <ext:XScript ID="XScript1" runat="server">
+        <script>       
+            var applyFilter = function (field) {                
+                var store = #{ManageSystemRolesGrid}.getStore();
+                store.filterBy(getRecordFilter());                                                
+            };
+             
+            var clearFilter = function () {
+                #{RoleOwnerNameFilter}.reset();
+                #{RoleDescriptionFilter}.reset();
+                #{SiteNameFilter}.reset();
+                
+                #{ManageSystemRolesStore}.clearFilter();
+            }
+ 
+            var filterString = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if (typeof val != "string") {
+                    return value.length == 0;
+                }
+                
+                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+            };
+ 
+            var getRecordFilter = function () {
+                var f = [];
+ 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{RoleOwnerNameFilter}.getValue(), "RoleOwnerName", record);
+                    }
+                });
+                
+                f.push({
+                    filter: function(record) {
+                        return filterString(#{RoleDescriptionFilter}.getValue(), "RoleDescription", record);
+                    }
+                });
+
+                f.push({
+                    filter: function(record) {
+                        return filterString(#{SiteNameFilter}.getValue(), "SiteName", record);
+                    }
+                });
+
+                var len = f.length;
+                 
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
+            };
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="MainBodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -89,6 +149,16 @@
                             DataIndex="RoleOwnerName"
                             Sortable="false"
                             Groupable="false">
+                            <HeaderItems>
+                                <ext:TextField ID="RoleOwnerNameFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearSipAccountFilterBtn" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
                         </ext:Column>
 
                         <ext:Column ID="Column2"
@@ -98,6 +168,16 @@
                             DataIndex="RoleDescription"
                             Sortable="false"
                             Groupable="false">
+                            <HeaderItems>
+                                <ext:TextField ID="RoleDescriptionFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearButton1" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
                         </ext:Column>
 
                         <ext:Column ID="Column3"
@@ -107,6 +187,16 @@
                             DataIndex="SiteName"
                             Sortable="false"
                             Groupable="false">
+                            <HeaderItems>
+                                <ext:TextField ID="SiteNameFilter" runat="server" Icon="Magnifier">
+                                    <Listeners>
+                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
+                                    </Listeners>
+                                    <Plugins>
+                                        <ext:ClearButton ID="ClearButton2" runat="server" />
+                                    </Plugins>
+                                </ext:TextField>
+                            </HeaderItems>
                         </ext:Column>
 
                         <ext:ImageCommandColumn
