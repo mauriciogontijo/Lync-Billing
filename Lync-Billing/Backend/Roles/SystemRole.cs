@@ -12,47 +12,38 @@ namespace Lync_Billing.Backend.Roles
     {
         private static DBLib DBRoutines = new DBLib();
 
-        public int UsersRolesID { set; get; }
+        public int ID { set; get; }
         public string SipAccount { get; set; }
         public int RoleID { get; set; }
         public int SiteID { get; set; }
-        public int PoolID { get; set; }
-        public int GatewayID { get; set; }
-        public string Notes { get; set; }
+        public string Description { get; set; }
 
         //To be used from outside the class as lookup values
-        public static int DeveloperRoleID { get { return 10; } }
-        public static int SystemAdminRoleID { get { return 20; } }
-        public static int SiteAdminRoleID { get { return 30; } }
-        public static int SiteAccountantRoleID { get { return 40; } }
-        public static int DepartmentHeadRoleID { get { return 50; } }
-        public static int DelegeeRoleID { get { return 60; } }
-
+        public static int DeveloperRoleID { get { return Convert.ToInt32(Enums.GetDescription(Enums.SystemRoles.DeveloperRoleID)); } }
+        public static int SystemAdminRoleID { get { return Convert.ToInt32(Enums.GetDescription(Enums.SystemRoles.SystemAdminRoleID)); } }
+        public static int SiteAdminRoleID { get { return Convert.ToInt32(Enums.GetDescription(Enums.SystemRoles.SiteAdminRoleID)); } }
+        public static int SiteAccountantRoleID { get { return Convert.ToInt32(Enums.GetDescription(Enums.SystemRoles.SiteAccountantRoleID)); } }
+        
 
         //Generic User SystemRoles
         public bool IsDeveloper()
         {
-            return this.RoleID == 10 ? true : false; 
+            return this.RoleID == DeveloperRoleID ? true : false; 
         }
 
         public bool IsSystemAdmin()
         {
-            return this.RoleID == 20 ? true : false; 
+            return this.RoleID == SystemAdminRoleID ? true : false; 
         }
 
         public bool IsSiteAdmin()
-        { 
-            return this.RoleID == 30 ? true : false; 
+        {
+            return this.RoleID == SiteAdminRoleID ? true : false; 
         }
 
         public bool IsSiteAccountant()
         {
-            return this.RoleID == 40 ? true : false; 
-        }
-
-        public bool IsDepartmentHead()
-        {
-            return this.RoleID == 50 ? true : false; 
+            return this.RoleID == SiteAccountantRoleID ? true : false; 
         }
 
 
@@ -80,17 +71,11 @@ namespace Lync_Billing.Backend.Roles
                     if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.SiteID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.PoolID) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.PoolID = (int)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.ID) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.ID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.GatewayID = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.UsersRolesID) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.UsersRolesID = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.Notes))
-                        userRole.Notes = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.Description))
+                        userRole.Description = (string)row[column.ColumnName];
                     
                 }
                 roles.Add(userRole);
@@ -121,25 +106,19 @@ namespace Lync_Billing.Backend.Roles
                     if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.SiteID) && row[column.ColumnName] != System.DBNull.Value)
                         userRole.SiteID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.PoolID) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.PoolID = (int)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.ID) && row[column.ColumnName] != System.DBNull.Value)
+                        userRole.ID = (int)row[column.ColumnName];
 
-                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.GatewayID) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.GatewayID = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.UsersRolesID) && row[column.ColumnName] != System.DBNull.Value)
-                        userRole.UsersRolesID = (int)row[column.ColumnName];
-
-                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.Notes))
-                        userRole.Notes = (string)row[column.ColumnName];
+                    if (column.ColumnName == Enums.GetDescription(Enums.SystemRoles.Description))
+                        userRole.Description = (string)row[column.ColumnName];
 
                 }
                 roles.Add(userRole);
             }
+
             return roles;
-
-
         }
+
 
         public static int InsertUserRole(SystemRole userRole)
         {
@@ -150,26 +129,21 @@ namespace Lync_Billing.Backend.Roles
             if ((userRole.SiteID).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.SiteID), userRole.SiteID);
 
-            if ((userRole.PoolID).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.PoolID), userRole.PoolID);
-
-            if ((userRole.GatewayID).ToString() != null)
-                columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.GatewayID), userRole.GatewayID);
-
             if (userRole.SipAccount != null)
                 columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.SipAccount), userRole.SipAccount);
 
             if ((userRole.RoleID).ToString() != null)
                 columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.RoleID), userRole.RoleID);
 
-            if (userRole.Notes != null)
-                columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.Notes), userRole.Notes);
+            if (userRole.Description != null)
+                columnsValues.Add(Enums.GetDescription(Enums.SystemRoles.Description), userRole.Description);
 
             //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.SystemRoles.TableName), columnsValues, Enums.GetDescription(Enums.SystemRoles.UsersRolesID));
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.SystemRoles.TableName), columnsValues, Enums.GetDescription(Enums.SystemRoles.ID));
           
             return rowID;
         }
+
 
         public static bool UpdateUsersRole(SystemRole userRole)
         {
@@ -181,43 +155,31 @@ namespace Lync_Billing.Backend.Roles
             if ((userRole.SiteID).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.SystemRoles.SiteID), userRole.SiteID);
 
-            if ((userRole.PoolID).ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.SystemRoles.PoolID), userRole.PoolID);
-
-            if ((userRole.GatewayID).ToString() != null)
-                setPart.Add(Enums.GetDescription(Enums.SystemRoles.GatewayID), userRole.GatewayID);
-
             if (userRole.SipAccount != null)
                 setPart.Add(Enums.GetDescription(Enums.SystemRoles.SipAccount), userRole.SipAccount);
 
             if ((userRole.RoleID).ToString() != null)
                 setPart.Add(Enums.GetDescription(Enums.SystemRoles.RoleID), userRole.RoleID);
 
-            if (userRole.Notes != null)
-                setPart.Add(Enums.GetDescription(Enums.SystemRoles.Notes), userRole.Notes);
+            if (userRole.Description != null)
+                setPart.Add(Enums.GetDescription(Enums.SystemRoles.Description), userRole.Description);
 
             //Execute Update
-            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.SystemRoles.TableName), setPart, Enums.GetDescription(Enums.SystemRoles.UsersRolesID), userRole.UsersRolesID);
-
-            if (status == false)
-            {
-                //throw error message
-            }
-            
-            return true;
+            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.SystemRoles.TableName), setPart, Enums.GetDescription(Enums.SystemRoles.ID), userRole.ID);
+                        
+            return status;
         }
+
 
         public static bool DeleteFromUsersRole(SystemRole userRole)
         {
             bool status = false;
 
-            status = DBRoutines.DELETE(
-                Enums.GetDescription(Enums.SystemRoles.TableName), 
-                Enums.GetDescription(Enums.SystemRoles.UsersRolesID), 
-                userRole.UsersRolesID);
+            status = DBRoutines.DELETE(Enums.GetDescription(Enums.SystemRoles.TableName), Enums.GetDescription(Enums.SystemRoles.ID), userRole.ID);
           
             return status;
         }
+
 
         public static bool ValidateUsersRoles(string EmailAddress, int RoleID)
         {
@@ -236,14 +198,10 @@ namespace Lync_Billing.Backend.Roles
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.SystemRoles.TableName), columns, wherePart, 0);
 
-            if(dt.Rows.Count > 0)
-                return true;
-            else
-                return false;
+            
+            return (dt.Rows.Count > 0) ? true : false;
         }
-    
-        
-    
+
     }
 
 }

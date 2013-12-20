@@ -432,20 +432,24 @@ namespace Lync_Billing.Backend
         {
             [Description("Roles_System")]
             TableName,
-            [Description("UsersRolesID")]
-            UsersRolesID,
-            [Description("SipAccount")]
-            SipAccount,
+            [Description("ID")]
+            ID,
             [Description("RoleID")]
             RoleID,
+            [Description("SipAccount")]
+            SipAccount,
             [Description("SiteID")]
             SiteID,
-            [Description("PoolID")]
-            PoolID,
-            [Description("GatewayID")]
-            GatewayID,
-            [Description("Notes")]
-            Notes
+            [Description("Description")]
+            Description,
+            [Description("10")]
+            DeveloperRoleID,
+            [Description("20")]
+            SystemAdminRoleID,
+            [Description("30")]
+            SiteAdminRoleID,
+            [Description("40")]
+            SiteAccountantRoleID,
         }
 
         /// <summary>
