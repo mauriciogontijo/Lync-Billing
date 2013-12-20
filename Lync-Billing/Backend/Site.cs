@@ -18,6 +18,9 @@ namespace Lync_Billing.Backend
         public string CountryCode { get; set; }
         public string Description { get; set; }
 
+        //This is a logical representation of data, it doesn't belong to the table.
+        public string CountryName { get; set; }
+
 
         public static string GetSiteName(int ID)
         {
@@ -58,11 +61,11 @@ namespace Lync_Billing.Backend
             List<string> columns = new List<string>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
 
-            if (SiteID != null && SiteName == null)
+            if (SiteID != null && string.IsNullOrEmpty(SiteName))
             {
                 wherePart.Add(Enums.GetDescription(Enums.Sites.SiteID), Convert.ToInt32(SiteID));
             }
-            else if (SiteID == null && SiteName != null)
+            else if (SiteID == null && !string.IsNullOrEmpty(SiteName))
             {
                 wherePart.Add(Enums.GetDescription(Enums.Sites.SiteName), Convert.ToString(SiteName));
             }
@@ -87,7 +90,15 @@ namespace Lync_Billing.Backend
                         site.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
+                    {
                         site.CountryCode = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                        if (!string.IsNullOrEmpty(site.CountryCode))
+                        {
+                            if (site.CountryCode.Length == 2) site.CountryName = NumberingPlan.GetCountryName(TwoCharactersCountryCode: site.CountryCode.ToUpper());
+                            if (site.CountryCode.Length == 3) site.CountryName = NumberingPlan.GetCountryName(ThreeCharactersCountryCode: site.CountryCode.ToUpper());
+                        }
+                    }
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Sites.Description))
                         site.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
@@ -119,7 +130,15 @@ namespace Lync_Billing.Backend
                         site.SiteName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
+                    {
                         site.CountryCode = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                        if (!string.IsNullOrEmpty(site.CountryCode))
+                        {
+                            if (site.CountryCode.Length == 2) site.CountryName = NumberingPlan.GetCountryName(TwoCharactersCountryCode: site.CountryCode.ToUpper());
+                            if (site.CountryCode.Length == 3) site.CountryName = NumberingPlan.GetCountryName(ThreeCharactersCountryCode: site.CountryCode.ToUpper());
+                        }
+                    }
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Sites.Description))
                         site.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
