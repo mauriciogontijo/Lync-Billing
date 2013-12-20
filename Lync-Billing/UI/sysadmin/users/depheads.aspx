@@ -1,6 +1,44 @@
 ﻿<%@ Page Title="tBill Admin | Manage Department Heads"  Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="depheads.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.users.depheads" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
+    <style>
+        /* start manage-phone-calls grid styling */
+        .x-grid-with-row-lines .x-grid-cell { height: 25px !important; }
+        /* end manage-phone-calls grid styling */
+
+        /* start users search query result styling */
+        .search-item {
+            font          : normal 11px tahoma, arial, helvetica, sans-serif;
+            padding       : 3px 10px 3px 10px;
+            border        : 1px solid #fff;
+            border-bottom : 1px solid #eeeeee;
+            white-space   : normal;
+            color         : #555;
+        }
+        
+        .search-item h3 {
+            display     : block;
+            font        : inherit;
+            font-weight : bold;
+            color       : #222;
+            margin      : 0px;
+        }
+
+        .search-item h3 span {
+            float       : right;
+            font-weight : normal;
+            margin      : 0 0 5px 5px;
+            width       : 185px;
+            display     : block;
+            clear       : none;
+        } 
+        
+        p { width: 650px; }
+        
+        .ext-ie .x-form-text { position : static !important; }
+        /* end users search query result styling */
+    </style>
+
     <ext:XScript ID="XScript1" runat="server">
         <script>       
             var applyFilter = function (field) {                
@@ -33,7 +71,13 @@
                         return filterString(#{DepartmentHeadFilter}.getValue(), "DepartmentHeadName", record);
                     }
                 });
-                 
+                
+                f.push({
+                    filter: function(record) {
+                        return filterString(#{SiteFilter}.getValue(), "SiteName", record);
+                    }
+                });
+
                 f.push({
                     filter: function(record) {
                         return filterString(#{DepartmentFilter}.getValue(), "DepartmentName", record);
@@ -126,7 +170,7 @@
                                         <Change Handler="applyFilter(this);" Buffer="260" />                                                
                                     </Listeners>
                                     <Plugins>
-                                        <ext:ClearButton ID="ClearButton1" runat="server" />
+                                        <ext:ClearButton ID="ClearSiteFiler" runat="server" />
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
@@ -213,6 +257,241 @@
                                     <Select OnEvent="GetDepartmentHeads" />
                                 </DirectEvents>
                             </ext:ComboBox>
+
+
+                            <ext:Button
+                                ID="AddRecordButton"
+                                runat="server"
+                                Text="New Department Head"
+                                Icon="Add"
+                                Margins="5 5 0 215">
+                                <DirectEvents>
+                                    <Click OnEvent="ShowAddDepartmentHeadWindowPanel" />
+                                </DirectEvents>
+                            </ext:Button>
+
+
+                            <ext:ToolbarSeparator
+                                ID="ToolbarSeparaator"
+                                runat="server" />
+
+
+                            <ext:Button
+                                ID="SaveChangesButton"
+                                runat="server"
+                                Text="Save Changes"
+                                Icon="DatabaseSave"
+                                Margins="5 5 0 5">
+                                <DirectEvents>
+                                    <Click OnEvent="SaveChanges_DirectEvent" before="return #{ManageDepartmentHeadsStore}.isDirty();">
+                                        <EventMask ShowMask="true" />
+                                        <ExtraParams>
+                                            <ext:Parameter Name="Values" Value="#{ManageDepartmentHeadsStore}.getChangedData()" Mode="Raw" />
+                                        </ExtraParams>
+                                    </Click>
+                                </DirectEvents>
+                            </ext:Button>
+
+
+                            <ext:Window 
+                                ID="AddNewDepartmentHeadWindowPanel" 
+                                runat="server" 
+                                Frame="true"
+                                Resizable="false"
+                                Title="New Department Head Role" 
+                                Hidden="true"
+                                Width="380"
+                                Icon="Add" 
+                                X="100"
+                                Y="100"
+                                BodyStyle="background-color: #f9f9f9;">
+                                
+                                <Defaults>
+                                    <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
+                                </Defaults>
+
+                                <Items>
+                                    <ext:ComboBox
+                                        ID="NewDepartmentHead_UserSipAccount"
+                                        runat="server"
+                                        Icon="Find"
+                                        TriggerAction="Query"
+                                        QueryMode="Remote"
+                                        Editable="true"
+                                        DisplayField="SipAccount"
+                                        ValueField="SipAccount"
+                                        FieldLabel="User SipAccount:"
+                                        EmptyText="Please Select a User"
+                                        LabelWidth="125"
+                                        Width="350">
+                                        <Store>
+                                            <ext:Store 
+                                                ID="Store1"
+                                                runat="server">
+                                                <Model>
+                                                    <ext:Model 
+                                                        ID="Model2"
+                                                        runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="EmployeeID" />
+                                                            <ext:ModelField Name="SipAccount" />
+                                                            <ext:ModelField Name="SiteName" />
+                                                            <ext:ModelField Name="FullName" />
+                                                            <ext:ModelField Name="DisplayName" />
+                                                            <ext:ModelField Name="Department" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                        </Store>
+                                        
+                                        <DirectEvents>
+                                            <BeforeQuery OnEvent="NewDepartmentHead_UserSipAccount_BeforeQuery" />
+                                        </DirectEvents>
+
+                                        <ListConfig
+                                            Border="true"
+                                            MinWidth="400"
+                                            MaxHeight="300"
+                                            EmptyText="Type User Name or SipAccount...">
+                                            <ItemTpl ID="ItemTpl2" runat="server">
+                                                <Html>
+                                                    <div class="search-item">
+                                                        <h3><span>{DisplayName}</span>{SipAccount}</h3>
+                                                    </div>
+                                                </Html>
+                                            </ItemTpl>
+                                        </ListConfig>
+                                    </ext:ComboBox>
+
+                                    <ext:ComboBox
+                                        ID="NewDepartmentHead_SitesList"
+                                        runat="server"
+                                        DisplayField="SiteName"
+                                        ValueField="SiteID"
+                                        TriggerAction="Query"
+                                        QueryMode="Local"
+                                        Editable="true"
+                                        EmptyText="Please Select Site"
+                                        FieldLabel="Site:"
+                                        LabelWidth="125"
+                                        Width="350">
+                                        <Store>
+                                            <ext:Store ID="SitesListStore" runat="server" OnLoad="NewDepartmentHead_SitesListStore_Load">
+                                                <Model>
+                                                    <ext:Model ID="SitesListStoreModel" runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="SiteID" />
+                                                            <ext:ModelField Name="SiteName" />
+                                                            <ext:ModelField Name="CountryCode" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                        </Store>
+
+                                        <ListConfig>
+                                            <ItemTpl ID="NewDepartmentHeadSitesListTpl" runat="server">
+                                                <Html>
+                                                    <div>{SiteName}&nbsp;({CountryCode})</div>
+                                                </Html>
+                                            </ItemTpl>
+                                        </ListConfig>
+
+                                        <DirectEvents>
+                                            <Select OnEvent="NewDepartmentHead_SitesList_Selected" />
+                                        </DirectEvents>
+                                    </ext:ComboBox>
+
+                                    <ext:ComboBox
+                                        ID="NewDepartmentHead_DepartmentsList"
+                                        runat="server"
+                                        DisplayField="DepartmentName"
+                                        ValueField="DepartmentID"
+                                        TriggerAction="Query"
+                                        QueryMode="Local"
+                                        Editable="true"
+                                        EmptyText="Please Select Department"
+                                        FieldLabel="Department:"
+                                        LabelWidth="125"
+                                        Width="350">
+                                        <Store>
+                                            <ext:Store ID="DepartmentsListStore" runat="server">
+                                                <Model>
+                                                    <ext:Model ID="DepartmentsStoreModel" runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="SiteID" />
+                                                            <ext:ModelField Name="SiteName" />
+                                                            <ext:ModelField Name="DepartmentID" />
+                                                            <ext:ModelField Name="DepartmentName" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                        </Store>
+
+                                        <%--<ListConfig
+                                            Border="true"
+                                            MinWidth="150"
+                                            MaxHeight="300"
+                                            EmptyText="Type department name...">
+                                            <ItemTpl ID="ItemTpl2" runat="server">
+                                                <Html>
+                                                    <div>{SiteName}&nbsp;({DepartmentName})</div>
+                                                </Html>
+                                            </ItemTpl>
+                                        </ListConfig>--%>
+                                    </ext:ComboBox>
+                                </Items>
+
+                                <BottomBar>
+                                    <ext:StatusBar
+                                        ID="NewDepartmentHeadWindowBottomBar"
+                                        runat="server"
+                                        StatusAlign="Right"
+                                        DefaultText=""
+                                        Height="30">
+                                        <Items>
+                                            <ext:Button
+                                                ID="AddNewDepartmentHeadButton"
+                                                runat="server"
+                                                Text="Add"
+                                                Icon="ApplicationFormAdd"
+                                                Height="25">
+                                                <DirectEvents>
+                                                    <Click OnEvent="AddNewDepartmentHeadButton_Click" />
+                                                </DirectEvents>
+                                            </ext:Button>
+
+                                            <ext:Button
+                                                ID="CancelNewDepartmentHeadButton"
+                                                runat="server"
+                                                Text="Cancel"
+                                                Icon="Cancel"
+                                                Height="25">
+                                                <DirectEvents>
+                                                    <Click OnEvent="CancelNewDepartmentHeadButton_Click" />
+                                                </DirectEvents>
+                                            </ext:Button>
+
+                                            <ext:ToolbarSeparator
+                                                ID="NewDepartmentHeadWindow_BottomBarSeparator"
+                                                runat="server" />
+
+                                            <ext:ToolbarTextItem
+                                                ID="NewDepartmentHead_StatusMessage"
+                                                runat="server"
+                                                Height="15"
+                                                Text=""
+                                                Margins="0 0 0 5" />
+                                        </Items>
+                                    </ext:StatusBar>
+                                </BottomBar>
+
+                                <DirectEvents>
+                                    <BeforeHide OnEvent="AddNewDepartmentHeadWindowPanel_BeforeHide" />
+                                </DirectEvents>
+                            </ext:Window>
 
                         </Items>
                     </ext:Toolbar>

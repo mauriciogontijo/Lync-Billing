@@ -103,13 +103,13 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.TextField SiteFilter;
         
         /// <summary>
-        /// ClearButton1 control.
+        /// ClearSiteFiler control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ClearButton ClearButton1;
+        protected global::Ext.Net.ClearButton ClearSiteFiler;
         
         /// <summary>
         /// Column5 control.
@@ -182,6 +182,168 @@ namespace Lync_Billing.ui.sysadmin.users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Model DelegatesSitesStoreModel;
+        
+        /// <summary>
+        /// AddRecordButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button AddRecordButton;
+        
+        /// <summary>
+        /// ToolbarSeparaator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator ToolbarSeparaator;
+        
+        /// <summary>
+        /// SaveChangesButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button SaveChangesButton;
+        
+        /// <summary>
+        /// AddNewDepartmentHeadWindowPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window AddNewDepartmentHeadWindowPanel;
+        
+        /// <summary>
+        /// NewDepartmentHead_UserSipAccount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewDepartmentHead_UserSipAccount;
+        
+        /// <summary>
+        /// Store1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store Store1;
+        
+        /// <summary>
+        /// Model2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model Model2;
+        
+        /// <summary>
+        /// NewDepartmentHead_SitesList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewDepartmentHead_SitesList;
+        
+        /// <summary>
+        /// SitesListStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store SitesListStore;
+        
+        /// <summary>
+        /// SitesListStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model SitesListStoreModel;
+        
+        /// <summary>
+        /// NewDepartmentHead_DepartmentsList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewDepartmentHead_DepartmentsList;
+        
+        /// <summary>
+        /// DepartmentsListStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store DepartmentsListStore;
+        
+        /// <summary>
+        /// DepartmentsStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model DepartmentsStoreModel;
+        
+        /// <summary>
+        /// NewDepartmentHeadWindowBottomBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.StatusBar NewDepartmentHeadWindowBottomBar;
+        
+        /// <summary>
+        /// AddNewDepartmentHeadButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button AddNewDepartmentHeadButton;
+        
+        /// <summary>
+        /// CancelNewDepartmentHeadButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button CancelNewDepartmentHeadButton;
+        
+        /// <summary>
+        /// NewDepartmentHeadWindow_BottomBarSeparator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator NewDepartmentHeadWindow_BottomBarSeparator;
+        
+        /// <summary>
+        /// NewDepartmentHead_StatusMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarTextItem NewDepartmentHead_StatusMessage;
         
         /// <summary>
         /// ManageDepartmentHeadsPagingToolbar control.
