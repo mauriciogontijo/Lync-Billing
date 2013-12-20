@@ -103,7 +103,7 @@
                                 <Content>
                                     <div class='sidebar-section'>
                                         <div class="sidebar-section-header">
-                                            <p>Roles</p>
+                                            <p>User Roles</p>
                                         </div>
                                         <div class="sidebar-section-body">
                                             <p><a href='../users/delegates.aspx' id="ui_sysadmin_users_delegates">Delegates</a></p>

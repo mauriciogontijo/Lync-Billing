@@ -9,7 +9,10 @@ using System.Web.Script.Serialization;
 using System.Xml;
 using System.Xml.Xsl;
 using Ext.Net;
+
+using Lync_Billing.Libs;
 using Lync_Billing.Backend;
+
 
 namespace Lync_Billing.ui.sysadmin.manage
 {
@@ -18,6 +21,9 @@ namespace Lync_Billing.ui.sysadmin.manage
         private UserSession session;
         private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
+
+        List<Backend.Site> allSites = new List<Backend.Site>();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,6 +45,14 @@ namespace Lync_Billing.ui.sysadmin.manage
             }
 
             sipAccount = session.NormalUserInfo.SipAccount;
+            allSites = Backend.Site.GetAllSites();
+        }
+
+
+        protected void ManageSitesStore_Load(object sender, EventArgs e)
+        {
+            ManageSitesGrid.GetStore().DataSource = allSites;
+            ManageSitesGrid.GetStore().DataBind();
         }
     }
 }
