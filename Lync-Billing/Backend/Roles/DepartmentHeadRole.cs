@@ -18,6 +18,7 @@ namespace Lync_Billing.Backend.Roles
         public int SiteID { get; set; }
         public string SiteName { get; set; }
         public string DepartmentName { get; set; }
+        public string DepartmentHeadName { get; set; }
 
         //The following instance variables represent actual columns in the original table.
         public int ID { get; set; }
@@ -32,7 +33,7 @@ namespace Lync_Billing.Backend.Roles
         }
 
 
-        public static List<DepartmentHeadRole> GetDepartmentHeads(int departmentID)
+        public static List<DepartmentHeadRole> GetDepartmentHeads(int? departmentID = null)
         {
             DataTable dt = new DataTable();
             List<string> columns;
@@ -42,15 +43,25 @@ namespace Lync_Billing.Backend.Roles
             DepartmentHeadRole departmentHead;
             List<DepartmentHeadRole> ListOfDepartmentHeads = new List<DepartmentHeadRole>();
 
+            //Used to retrieve users full-names.
+            List<Users> allUsersInfo = Users.GetUsers(null, null, 0);
+
             //Get the data from the database
-            columns = new List<string>();
-
-            wherePart = new Dictionary<string, object>
+            if (departmentID != null)
             {
-                { Enums.GetDescription(Enums.DepartmentHeadRoles.DepartmentID), departmentID }
-            };
+                columns = new List<string>();
 
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DepartmentHeadRoles.TableName), columns, wherePart, 0);
+                wherePart = new Dictionary<string, object>
+                {
+                    { Enums.GetDescription(Enums.DepartmentHeadRoles.DepartmentID), Convert.ToInt32(departmentID) }
+                };
+
+                dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DepartmentHeadRoles.TableName), columns, wherePart, 0);
+            }
+            else
+            {
+                dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DepartmentHeadRoles.TableName));
+            }
 
 
             foreach (DataRow row in dt.Rows)
@@ -64,7 +75,11 @@ namespace Lync_Billing.Backend.Roles
                         departmentHead.ID = Convert.ToInt32(row[column.ColumnName]);
 
                     if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeadRoles.SipAccount))
+                    {
                         departmentHead.SipAccount = Convert.ToString(row[column.ColumnName]);
+                        var userInfo = allUsersInfo.Find(user => user.SipAccount == departmentHead.SipAccount);
+                        departmentHead.DepartmentHeadName = HelperFunctions.FormatUserDisplayName(userInfo.FullName, userInfo.SipAccount, returnNameIfExists: true, returnAddressPartIfExists: true);
+                    }
 
                     if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeadRoles.DepartmentID))
                     {

@@ -64,7 +64,12 @@ namespace Lync_Billing.Backend.Roles
             DelegateRole delegatedAccount;
             List<DelegateRole> DelegatedAccounts = new List<DelegateRole>();
             Dictionary<string, object> wherePart;
-            
+
+            //Used to Lookup all the names of departments and sites
+            List<Department> allDepartments = Department.GetAllDepartments();
+            List<Site> allSites = Site.GetAllSites();
+
+
             if(string.IsNullOrEmpty(delegateSipAccount) && delegeeType == null)
             {
                 dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DelegateRoles.TableName));
@@ -84,6 +89,7 @@ namespace Lync_Billing.Backend.Roles
                 dt = DBRoutines.SELECT(Enums.GetDescription(Enums.DelegateRoles.TableName), null, wherePart, 0);
             }
 
+
             foreach (DataRow row in dt.Rows)
             {
                 delegatedAccount = new DelegateRole();
@@ -102,13 +108,17 @@ namespace Lync_Billing.Backend.Roles
                     else if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.SiteID))
                     {
                         delegatedAccount.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                        delegatedAccount.DelegeeSiteName = Site.GetSiteName(delegatedAccount.SiteID);
+                        
+                        if (delegatedAccount.SiteID > 0)
+                            delegatedAccount.DelegeeSiteName = ((Site)allSites.Find(site => site.SiteID == delegatedAccount.SiteID)).SiteName;
                     }
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.DepartmentID))
                     {
                         delegatedAccount.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                        delegatedAccount.DelegeeDepartmentName = Department.GetDepartmentName(delegatedAccount.DepartmentID);
+
+                        if (delegatedAccount.DepartmentID > 0)
+                            delegatedAccount.DelegeeDepartmentName = ((Department)allDepartments.Find(department => department.DepartmentID == delegatedAccount.DepartmentID)).DepartmentName;
                     }
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.DelegateRoles.SipAccount))
