@@ -158,6 +158,7 @@ div#main_content_place_holder_ViewPhoneCallsGrid *,
 div#main_content_place_holder_FilterDepartmentStatisticsPanel *,
 div#main_content_place_holder_PhoneCallsAllocationToolsMenu *,
 div#main_content_place_holder_AddNewDelegeeWindowPanel *,
+div#main_content_place_holder_AddNewDepartmentHeadWindowPanel *,
 div#main_content_place_holder_ManageDepartmentHeadsGrid * { 
     vertical-align: bottom; 
 }
