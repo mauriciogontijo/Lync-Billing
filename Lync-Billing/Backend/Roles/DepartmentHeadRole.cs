@@ -136,6 +136,34 @@ namespace Lync_Billing.Backend.Roles
 
             return departmentsList;
         }
+
+
+        public static int AddDepartmentHead(DepartmentHeadRole newDepartmentHead)
+        {
+            int rowID = 0;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
+
+            if (!string.IsNullOrEmpty(newDepartmentHead.SipAccount) && newDepartmentHead.DepartmentID > 0 && !string.IsNullOrEmpty(newDepartmentHead.DepartmentID.ToString()))
+            {
+                columnsValues.Add(Enums.GetDescription(Enums.DepartmentHeadRoles.SipAccount), newDepartmentHead.SipAccount);
+                columnsValues.Add(Enums.GetDescription(Enums.DepartmentHeadRoles.DepartmentID), newDepartmentHead.DepartmentID);
+
+                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.DepartmentHeadRoles.TableName), columnsValues, Enums.GetDescription(Enums.DepartmentHeadRoles.ID));
+            }
+
+            return rowID;
+        }
+
+
+        public static bool DeleteDepartmentHead(DepartmentHeadRole departmentHead)
+        {
+            bool status = false;
+
+            status = DBRoutines.DELETE(Enums.GetDescription(Enums.DepartmentHeadRoles.TableName), Enums.GetDescription(Enums.DepartmentHeadRoles.ID), departmentHead.ID);
+
+            return status;
+        }
+
     }
 
 }
