@@ -157,10 +157,13 @@ div#main_content_place_holder_ManageUsersRolesGrid *,
 div#main_content_place_holder_ViewPhoneCallsGrid *,
 div#main_content_place_holder_FilterDepartmentStatisticsPanel *,
 div#main_content_place_holder_PhoneCallsAllocationToolsMenu *,
-div#main_content_place_holder_AddNewDelegeeWindowPanel *,
-div#main_content_place_holder_AddNewDepartmentHeadWindowPanel *,
-div#main_content_place_holder_ManageDepartmentHeadsGrid * { 
+div#main_content_place_holder_FilterDepartmentStatisticsPanel *,
+div#main_content_place_holder_PhoneCallsAllocationToolsMenu * { 
     vertical-align: bottom; 
+}
+
+.fix-ui-vertical-align, .fix-ui-vertical-align * {
+    vertical-align: bottom;
 }
 /* end asp & ext blocks styling */
 /* **************************** */
