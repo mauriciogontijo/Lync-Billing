@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="sites.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.manage.sites" %>
+﻿<%@ Page Title="tBill Admin | Manage Sites" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="sites.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.manage.sites" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -32,11 +32,11 @@
 
                 <Store>
                     <ext:Store
-                        ID="ManageSitesStore"
+                        ID="ManageSitesGridStore"
                         runat="server"
                         RemoteSort="true"
                         PageSize="25"
-                        OnLoad="ManageSitesStore_Load">
+                        OnLoad="ManageSitesGridStore_Load">
                         <Model>
                             <ext:Model ID="ManageSitesModel" runat="server" IDProperty="SiteID">
                                 <Fields>
@@ -51,28 +51,12 @@
                     </ext:Store>
                 </Store>
 
+                <Plugins>
+                    <ext:RowEditing ID="RowEditingPlugin" runat="server" ClicksToEdit="2" />
+                </Plugins>
+
                 <ColumnModel ID="ManageSitesColumnModel" runat="server" Flex="1">
                     <Columns>
-
-                        <ext:Column ID="Column1"
-                            runat="server"
-                            Text="Site ID"
-                            Width="80"
-                            DataIndex="SiteID"
-                            Sortable="false"
-                            Groupable="false">
-                            <HeaderItems>
-                                <ext:TextField ID="SiteIDFilter" runat="server" Icon="Magnifier">
-                                    <Listeners>
-                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
-                                    </Listeners>
-                                    <Plugins>
-                                        <ext:ClearButton ID="ClearSipAccountFilterBtn" runat="server" />
-                                    </Plugins>
-                                </ext:TextField>
-                            </HeaderItems>
-                        </ext:Column>
-
                         <ext:Column ID="Column4"
                             runat="server"
                             Text="Site Name"
@@ -91,34 +75,19 @@
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
-                        </ext:Column>
 
-                        <ext:Column ID="Column5"
-                            runat="server"
-                            Text="Country Code"
-                            Width="100"
-                            DataIndex="CountryCode"
-                            Sortable="false"
-                            Groupable="false">
-                            
-                            <HeaderItems>
-                                <ext:TextField ID="CountryCodeFilter" runat="server" Icon="Magnifier">
-                                    <Listeners>
-                                        <Change Handler="applyFilter(this);" Buffer="260" />                                                
-                                    </Listeners>
-                                    <Plugins>
-                                        <ext:ClearButton ID="ClearDepartmentFiler" runat="server" />
-                                    </Plugins>
-                                </ext:TextField>
-                            </HeaderItems>
-
-                            <Renderer Fn="ViewUpperCase" />
+                            <Editor>
+                                <ext:TextField
+                                    ID="Editor_SiteNameTextField"
+                                    runat="server"
+                                    DataIndex="SiteName" />
+                            </Editor>
                         </ext:Column>
 
                         <ext:Column ID="Column2"
                             runat="server"
                             Text="Country Name"
-                            Width="200"
+                            Width="280"
                             DataIndex="CountryName"
                             Sortable="false"
                             Groupable="false">
@@ -133,12 +102,42 @@
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
+
+                            <Editor>
+                                <ext:ComboBox
+                                    ID="Editor_CountryNameCombobox"
+                                    runat="server"
+                                    DataIndex="CountryCode"
+                                    TriggerAction="Query"
+                                    QueryMode="Local"
+                                    Editable="true"
+                                    DisplayField="CountryName"
+                                    ValueField="CountryName"
+                                    EmptyText="Please Select Country"
+                                    Width="70"
+                                    AllowBlank="true"
+                                    AllowOnlyWhitespace="false">
+                                    <Store>
+                                        <ext:Store ID="Editor_CountryNameComboboxStore" runat="server" OnLoad="Editor_CountryNameComboboxStore_Load">
+                                            <Model>
+                                                <ext:Model ID="Editor_CountryNameComboboxStoreModel" runat="server">
+                                                    <Fields>
+                                                        <ext:ModelField Name="TwoDigitsCountryCode" Type="String" />
+                                                        <ext:ModelField Name="ThreeDigitsCountryCode" Type="String" />
+                                                        <ext:ModelField Name="CountryName" Type="String" />
+                                                    </Fields>
+                                                </ext:Model>
+                                            </Model>
+                                        </ext:Store>
+                                    </Store>
+                                </ext:ComboBox>
+                            </Editor>
                         </ext:Column>
 
                         <ext:Column ID="Column3"
                             runat="server"
                             Text="Description"
-                            Width="200"
+                            Width="220"
                             DataIndex="Description"
                             Sortable="false"
                             Groupable="false">
@@ -153,8 +152,24 @@
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
+
+                            <Editor>
+                                <ext:TextField
+                                    ID="Editor_DescriptionTextField"
+                                    runat="server"
+                                    DataIndex="Description" />
+                            </Editor>
                         </ext:Column>
 
+                        <ext:CommandColumn ID="RejectChange" runat="server" Width="70">
+                            <Commands>
+                                <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
+                            </Commands>
+                            <PrepareToolbar Handler="toolbar.items.get(0).setVisible(record.dirty);" />
+                            <Listeners>
+                                <Command Handler="record.reject();" />
+                            </Listeners>
+                        </ext:CommandColumn>
                     </Columns>
                 </ColumnModel>
 
@@ -182,14 +197,14 @@
                                 Text="Save Changes"
                                 Icon="DatabaseSave"
                                 Margins="5 5 0 5">
-                                <%--<DirectEvents>
-                                    <Click OnEvent="SaveChanges_DirectEvent" before="return #{ManageSitesStore}.isDirty();">
+                                <DirectEvents>
+                                    <Click OnEvent="SaveChanges_DirectEvent" before="return #{ManageSitesGridStore}.isDirty();">
                                         <EventMask ShowMask="true" />
                                         <ExtraParams>
-                                            <ext:Parameter Name="Values" Value="#{ManageSitesStore}.getChangedData()" Mode="Raw" />
+                                            <ext:Parameter Name="Values" Value="#{ManageSitesGridStore}.getChangedData()" Mode="Raw" />
                                         </ExtraParams>
                                     </Click>
-                                </DirectEvents>--%>
+                                </DirectEvents>
                             </ext:Button>
 
                         </Items>

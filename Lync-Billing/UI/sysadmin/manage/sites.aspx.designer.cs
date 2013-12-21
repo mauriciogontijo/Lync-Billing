@@ -31,13 +31,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.GridPanel ManageSitesGrid;
         
         /// <summary>
-        /// ManageSitesStore control.
+        /// ManageSitesGridStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store ManageSitesStore;
+        protected global::Ext.Net.Store ManageSitesGridStore;
         
         /// <summary>
         /// ManageSitesModel control.
@@ -49,31 +49,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.Model ManageSitesModel;
         
         /// <summary>
-        /// Column1 control.
+        /// RowEditingPlugin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column1;
-        
-        /// <summary>
-        /// SiteIDFilter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TextField SiteIDFilter;
-        
-        /// <summary>
-        /// ClearSipAccountFilterBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ClearButton ClearSipAccountFilterBtn;
+        protected global::Ext.Net.RowEditing RowEditingPlugin;
         
         /// <summary>
         /// Column4 control.
@@ -103,31 +85,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.ClearButton ClearSiteFilter;
         
         /// <summary>
-        /// Column5 control.
+        /// Editor_SiteNameTextField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column5;
-        
-        /// <summary>
-        /// CountryCodeFilter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TextField CountryCodeFilter;
-        
-        /// <summary>
-        /// ClearDepartmentFiler control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ClearButton ClearDepartmentFiler;
+        protected global::Ext.Net.TextField Editor_SiteNameTextField;
         
         /// <summary>
         /// Column2 control.
@@ -157,6 +121,33 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.ClearButton ClearButton1;
         
         /// <summary>
+        /// Editor_CountryNameCombobox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox Editor_CountryNameCombobox;
+        
+        /// <summary>
+        /// Editor_CountryNameComboboxStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store Editor_CountryNameComboboxStore;
+        
+        /// <summary>
+        /// Editor_CountryNameComboboxStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model Editor_CountryNameComboboxStoreModel;
+        
+        /// <summary>
         /// Column3 control.
         /// </summary>
         /// <remarks>
@@ -182,6 +173,24 @@ namespace Lync_Billing.ui.sysadmin.manage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.ClearButton ClearDescFilterBtn;
+        
+        /// <summary>
+        /// Editor_DescriptionTextField control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField Editor_DescriptionTextField;
+        
+        /// <summary>
+        /// RejectChange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.CommandColumn RejectChange;
         
         /// <summary>
         /// FilterDelegatesSitesToolBar control.
