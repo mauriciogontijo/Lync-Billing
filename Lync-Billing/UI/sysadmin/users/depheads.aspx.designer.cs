@@ -229,22 +229,22 @@ namespace Lync_Billing.ui.sysadmin.users {
         protected global::Ext.Net.ComboBox NewDepartmentHead_UserSipAccount;
         
         /// <summary>
-        /// Store1 control.
+        /// NewDepartmentHead_UserSipAccountStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store Store1;
+        protected global::Ext.Net.Store NewDepartmentHead_UserSipAccountStore;
         
         /// <summary>
-        /// Model2 control.
+        /// NewDepartmentHead_UserSipAccountStoreModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model Model2;
+        protected global::Ext.Net.Model NewDepartmentHead_UserSipAccountStoreModel;
         
         /// <summary>
         /// NewDepartmentHead_SitesList control.

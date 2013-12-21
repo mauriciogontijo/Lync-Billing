@@ -327,13 +327,9 @@
                                         LabelWidth="125"
                                         Width="350">
                                         <Store>
-                                            <ext:Store 
-                                                ID="Store1"
-                                                runat="server">
+                                            <ext:Store ID="NewDepartmentHead_UserSipAccountStore" runat="server">
                                                 <Model>
-                                                    <ext:Model 
-                                                        ID="Model2"
-                                                        runat="server">
+                                                    <ext:Model ID="NewDepartmentHead_UserSipAccountStoreModel" runat="server">
                                                         <Fields>
                                                             <ext:ModelField Name="EmployeeID" />
                                                             <ext:ModelField Name="SipAccount" />
