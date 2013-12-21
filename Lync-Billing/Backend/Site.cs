@@ -243,6 +243,9 @@ namespace Lync_Billing.Backend
             if (!string.IsNullOrEmpty(site.CountryCode))
                 setPart.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
 
+            if (!string.IsNullOrEmpty(site.Description))
+                setPart.Add(Enums.GetDescription(Enums.Sites.Description), site.Description);
+
             //Execute Update
             status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Sites.TableName), setPart, Enums.GetDescription(Enums.Sites.SiteID), site.SiteID);
 
