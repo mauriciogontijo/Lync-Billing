@@ -118,7 +118,10 @@
                 ComponentCls="fix-ui-vertical-align">
 
                 <Store>
-                    <ext:Store ID="ManageDepartmentHeadsStore" runat="server" PageSize="25">
+                    <ext:Store ID="ManageDepartmentHeadsStore"
+                        runat="server"
+                        IsPagingStore="true"
+                        PageSize="25">
                         <Model>
                             <ext:Model ID="ManageDepartmentHeadsModel" runat="server" IDProperty="ID">
                                 <Fields>

@@ -122,6 +122,7 @@
                         ID="ManageSystemRolesStore"
                         runat="server"
                         RemoteSort="true"
+                        IsPagingStore="true"
                         PageSize="25">
                         <Model>
                             <ext:Model ID="ManageSystemRolesStoreModel" runat="server" IDProperty="ID">

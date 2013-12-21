@@ -137,6 +137,7 @@
                         ID="ManageDelegatesStore"
                         runat="server"
                         RemoteSort="true"
+                        IsPagingStore="true"
                         PageSize="25">
                         <Model>
                             <ext:Model ID="ManageDelegatesModel" runat="server" IDProperty="ID">
