@@ -36,7 +36,7 @@ namespace Lync_Billing.Libs
             else if (type == "warning")
                 notificationConfig.Icon = Icon.AsteriskYellow;
             else if (type == "error")
-                notificationConfig.Icon = Icon.Error;
+                notificationConfig.Icon = Icon.Exclamation;
             else if (type == "help")
                 notificationConfig.Icon = Icon.Help;
 
