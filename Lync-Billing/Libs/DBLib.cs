@@ -98,7 +98,7 @@ namespace Lync_Billing.Libs
         /// Construct Generic Select Statemnet 
         /// </summary>
         /// <param name="tableName">DB Table Name</param>
-        /// <param name="fields">List of Fields to be fetched from Database</param>
+        /// <param name="fieldsList">List of Fields to be fetched from Database</param>
         /// <param name="whereClause"> A dictionary which holds the fields and its related values to be able to construct Where Statemnet
         /// 1. Null if there is no condition
         /// 2. Dictionary holds fields names and values if there is a condition
@@ -108,7 +108,7 @@ namespace Lync_Billing.Libs
         /// 2. Value for number of rows</param>
         /// <param name="setWhereStatementOperatorToOR">The default operator in the where statement is "AND", if you set this one to true, the operator will be turned to "OR" in the where statement</param>
         /// <returns>DataTable Object</returns>
-        public DataTable SELECT(string tableName,List <string> fields, Dictionary<string, object> whereClause, int limits, bool setWhereStatementOperatorToOR = false)
+        public DataTable SELECT(string tableName,List <string> fieldsList, Dictionary<string, object> whereClause, int limits, bool setWhereStatementOperatorToOR = false)
         {
             DataTable dt = new DataTable();
             OleDbDataReader dr;
@@ -132,13 +132,20 @@ namespace Lync_Billing.Libs
 
 
             //Handle the fields collection
-            if (fields != null)
+            if (fieldsList != null)
             {
-                if (fields.Count != 0)
+                if (fieldsList.Count != 0)
                 {
-                    foreach (string fieldName in fields)
+                    foreach (string field in fieldsList)
                     {
-                        selectedfields.Append(fieldName + ",");
+                        //selectedfields.Append(fieldName + ",");
+                        if (!string.IsNullOrEmpty(field))
+                        {
+                            if (field.Contains("COUNT") || field.Contains("SUM") || field.Contains("YEAR") || field.Contains("MONTH") || field.Contains("DISTINCT"))
+                                selectedfields.Append(field + ",");
+                            else
+                                selectedfields.Append("[" + field + "],");
+                        }
                     }
                     selectedfields.Remove(selectedfields.Length - 1, 1);
                 }
