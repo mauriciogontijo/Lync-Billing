@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.sysadmin.manage {
     public partial class sites {
         
         /// <summary>
+        /// XScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript XScript1;
+        
+        /// <summary>
         /// resourceManager control.
         /// </summary>
         /// <remarks>
@@ -40,13 +49,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.Store ManageSitesGridStore;
         
         /// <summary>
-        /// ManageSitesModel control.
+        /// ManageSitesGridStoreModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model ManageSitesModel;
+        protected global::Ext.Net.Model ManageSitesGridStoreModel;
         
         /// <summary>
         /// ManageSites_RowEditing control.
@@ -103,13 +112,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.Column Column2;
         
         /// <summary>
-        /// TextField1 control.
+        /// CountryNameFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField TextField1;
+        protected global::Ext.Net.TextField CountryNameFilter;
         
         /// <summary>
         /// ClearButton1 control.

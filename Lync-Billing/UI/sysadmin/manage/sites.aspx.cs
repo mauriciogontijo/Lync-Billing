@@ -49,6 +49,17 @@ namespace Lync_Billing.ui.sysadmin.manage
 
             allSites = Backend.Site.GetAllSites();
             allCountries = NumberingPlan.GetAllCountries();
+
+            
+            /***
+             * IMPORTANT
+             * Uncomment to assign Three Characters Countries Codes to all Sites
+             */
+            //foreach (var site in allSites)
+            //{
+            //    site.CountryCode = ((NumberingPlan)allCountries.Find(country => country.TwoDigitsCountryCode.ToLower() == site.CountryCode.ToLower())).ThreeDigitsCountryCode;
+            //    Backend.Site.UpdateSite(site);
+            //}
         }
 
 
@@ -119,6 +130,16 @@ namespace Lync_Billing.ui.sysadmin.manage
                         var originalSiteObject = (Site)allSites.Find(siteRecord => siteRecord.SiteID == storeSiteObject.SiteID);
                         var countryInfo = (NumberingPlan)allCountries.Find(country => country.CountryName == storeSiteObject.CountryName);
 
+                        //Validate the Country Name
+                        //If the submitted country name doesn't exist in the database, exit and display error message
+                        if (countryInfo == null)
+                        {
+                            messageType = "error";
+                            notificationMessage = String.Format("[{0}] was NOT updated successfully due to invalid Country Name. Please try again.", storeSiteObject.SiteName);
+
+                            break;
+                        }
+
                         //Check for duplicate site name
                         //If the site name was changed
                         if (storeSiteObject.SiteName != originalSiteObject.SiteName)
@@ -133,19 +154,8 @@ namespace Lync_Billing.ui.sysadmin.manage
                             }
                         }
 
-                        //Validate the Country Name
-                        //If the submitted country name doesn't exist in the database, exit and display error message
-                        if (countryInfo == null)
-                        {
-                            messageType = "error";
-                            notificationMessage = String.Format("[{0}] was NOT updated successfully due to invalid Country Name. Please try again.", storeSiteObject.SiteName);
-
-                            break;
-                        }
-
-
                         //Everything is ok, proceed with updating the site
-                        storeSiteObject.CountryCode = countryInfo.TwoDigitsCountryCode.ToLower();
+                        storeSiteObject.CountryCode = countryInfo.TwoDigitsCountryCode.ToUpper();
                         statusFlag = Backend.Site.UpdateSite(storeSiteObject);
 
                         //If an error has occured during the Database Update, display error message
@@ -172,7 +182,64 @@ namespace Lync_Billing.ui.sysadmin.manage
 
         protected void AddNewSiteButton_Click(object sender, DirectEventArgs e)
         {
-            
+            Backend.Site NewSite;
+
+            string SiteName = string.Empty;
+            string CountryName = string.Empty;
+            string Description = string.Empty;
+            Backend.Site SiteInfo;
+
+            string statusMessage = string.Empty;
+            string successStatusMessage = string.Empty;
+
+            if (!string.IsNullOrEmpty(NewSite_SiteName.Text) && NewSite_CountryList.SelectedItem.Index != -1)
+            {
+                NewSite = new Backend.Site();
+
+                SiteName = NewSite_SiteName.Text.ToString();
+                CountryName = NewSite_CountryList.SelectedItem.Value.ToString();
+
+                //Check for duplicates
+                if (allSites.Find(site => site.SiteName == SiteName) != null)
+                {
+                    statusMessage = "Cannot add duplicate Sites - with the same name!";
+                }
+                //This Site record doesn't exist, add it.
+                else
+                {
+                    SiteName = NewSite_SiteName.Text.ToString();
+                    CountryName = NewSite_CountryList.SelectedItem.Value.ToString();
+                    
+                    if(!string.IsNullOrEmpty(NewSite_Description.Text))
+                        Description = NewSite_Description.Text.ToString();
+
+                    NewSite.SiteName = SiteName;
+                    NewSite.CountryName = CountryName;
+                    NewSite.CountryCode = ((NumberingPlan)allCountries.Find(country => country.CountryName == CountryName)).TwoDigitsCountryCode;
+                    NewSite.Description = Description;
+
+                    //Insert the DepartmentHead to the database
+                    Backend.Site.AddSite(NewSite);
+
+                    //Close the window
+                    this.AddNewSiteWindowPanel.Hide();
+
+                    //Add the DepartmentHead record to the store and apply the filter
+                    ManageSitesGrid.GetStore().Add(NewSite);
+                    ManageSitesGrid.GetStore().Reload();
+
+                    successStatusMessage = String.Format("The site was added successfully. {0} ({1})", NewSite.SiteName, NewSite.CountryCode);
+                }
+            }
+            else
+            {
+                statusMessage = "Please provide all the required information!";
+            }
+
+            this.NewSite_StatusMessage.Text = statusMessage;
+
+            if (!string.IsNullOrEmpty(successStatusMessage))
+                HelperFunctions.Message("New Site", successStatusMessage, "success", hideDelay: 10000, width: 200, height: 100);
         }
 
     }

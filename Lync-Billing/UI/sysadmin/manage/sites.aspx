@@ -10,6 +10,66 @@
             }
         }
     </script>
+
+    <ext:XScript ID="XScript1" runat="server">
+        <script>       
+            var applyFilter = function (field) {                
+                var store = #{ManageSitesGrid}.getStore();
+                store.filterBy(getRecordFilter());                                                
+            };
+             
+            var clearFilter = function () {
+                #{SiteNameFilter}.reset();
+                #{CountryNameFilter}.reset();
+                #{DescriptionFilter}.reset();
+                
+                #{ManageSitesGridStore}.clearFilter();
+            }
+ 
+            var filterString = function (value, dataIndex, record) {
+                var val = record.get(dataIndex);
+                
+                if (typeof val != "string") {
+                    return value.length == 0;
+                }
+                
+                return val.toLowerCase().indexOf(value.toLowerCase()) > -1;
+            };
+ 
+            var getRecordFilter = function () {
+                var f = [];
+ 
+                f.push({
+                    filter: function (record) {                         
+                        return filterString(#{SiteNameFilter}.getValue(), "SiteName", record);
+                    }
+                });
+                
+                f.push({
+                    filter: function(record) {
+                        return filterString(#{CountryNameFilter}.getValue(), "CountryName", record);
+                    }
+                });
+
+                f.push({
+                    filter: function(record) {
+                        return filterString(#{DescriptionFilter}.getValue(), "Description", record);
+                    }
+                });
+
+                var len = f.length;
+                 
+                return function (record) {
+                    for (var i = 0; i < len; i++) {
+                        if (!f[i].filter(record)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                };
+            };
+        </script>
+    </ext:XScript>
 </asp:Content>
 
 <asp:Content ID="BodyContentPlaceHolder" ContentPlaceHolderID="main_content_place_holder" runat="server">
@@ -35,10 +95,11 @@
                         ID="ManageSitesGridStore"
                         runat="server"
                         RemoteSort="true"
+                        IsPagingStore="true"
                         PageSize="25"
                         OnLoad="ManageSitesGridStore_Load">
                         <Model>
-                            <ext:Model ID="ManageSitesModel" runat="server" IDProperty="SiteID">
+                            <ext:Model ID="ManageSitesGridStoreModel" runat="server" IDProperty="SiteID">
                                 <Fields>
                                     <ext:ModelField Name="SiteID" Type="Int" />
                                     <ext:ModelField Name="SiteName" Type="String" />
@@ -97,7 +158,7 @@
                             Groupable="false">
                             
                             <HeaderItems>
-                                <ext:TextField ID="TextField1" runat="server" Icon="Magnifier">
+                                <ext:TextField ID="CountryNameFilter" runat="server" Icon="Magnifier">
                                     <Listeners>
                                         <Change Handler="applyFilter(this);" Buffer="260" />                                                
                                     </Listeners>
@@ -246,7 +307,9 @@
                                         ValueField="CountryName"
                                         EmptyText="Please Select Country"
                                         Width="350"
-                                        FieldLabel="Country:">
+                                        FieldLabel="Country:"
+                                        AllowBlank="false"
+                                        AllowOnlyWhitespace="false">
                                         <Store>
                                             <ext:Store ID="NewSite_CountryListStore" runat="server" OnLoad="NewSite_CountryListStore_Load">
                                                 <Model>
@@ -265,8 +328,6 @@
                                     <ext:TextField
                                         ID="NewSite_Description"
                                         runat="server"
-                                        AllowBlank="false"
-                                        AllowOnlyWhitespace="false"
                                         EmptyText="Empty Description"
                                         Width="350"
                                         FieldLabel="Description:" />
