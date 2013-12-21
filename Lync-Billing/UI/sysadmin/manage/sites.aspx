@@ -52,7 +52,11 @@
                 </Store>
 
                 <Plugins>
-                    <ext:RowEditing ID="RowEditingPlugin" runat="server" ClicksToEdit="2" />
+                    <ext:RowEditing ID="ManageSites_RowEditing" runat="server" ClicksToEdit="2">
+                        <DirectEvents>
+                            <BeforeEdit OnEvent="ManageSites_RowEditing_BeforeEdit" />
+                        </DirectEvents>
+                    </ext:RowEditing>
                 </Plugins>
 
                 <ColumnModel ID="ManageSitesColumnModel" runat="server" Flex="1">
@@ -113,12 +117,9 @@
                                     Editable="true"
                                     DisplayField="CountryName"
                                     ValueField="CountryName"
-                                    EmptyText="Please Select Country"
-                                    Width="70"
-                                    AllowBlank="true"
-                                    AllowOnlyWhitespace="false">
+                                    EmptyText="Please Select Country">
                                     <Store>
-                                        <ext:Store ID="Editor_CountryNameComboboxStore" runat="server" OnLoad="Editor_CountryNameComboboxStore_Load">
+                                        <ext:Store ID="Editor_CountryNameComboboxStore" runat="server">
                                             <Model>
                                                 <ext:Model ID="Editor_CountryNameComboboxStoreModel" runat="server">
                                                     <Fields>
@@ -182,9 +183,9 @@
                                 Text="New Site"
                                 Icon="Add"
                                 Margins="5 5 0 5">
-                                <%--<DirectEvents>
+                                <DirectEvents>
                                     <Click OnEvent="ShowAddSitePanel" />
-                                </DirectEvents>--%>
+                                </DirectEvents>
                             </ext:Button>
 
                             <ext:ToolbarSeparator
@@ -206,6 +207,119 @@
                                     </Click>
                                 </DirectEvents>
                             </ext:Button>
+
+                            <ext:Window 
+                                ID="AddNewSiteWindowPanel" 
+                                runat="server" 
+                                Frame="true"
+                                Resizable="false"
+                                Title="New Department Head Role" 
+                                Hidden="true"
+                                Width="380"
+                                Icon="Add" 
+                                X="100"
+                                Y="100"
+                                BodyStyle="background-color: #f9f9f9;"
+                                ComponentCls="fix-ui-vertical-align">
+                                
+                                <Defaults>
+                                    <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
+                                </Defaults>
+
+                                <Items>
+                                    <ext:TextField
+                                        ID="NewSite_SiteName"
+                                        runat="server"
+                                        AllowBlank="false"
+                                        AllowOnlyWhitespace="false"
+                                        EmptyText="Empty Site Name"
+                                        Width="350"
+                                        FieldLabel="Site Name:" />
+
+                                    <ext:ComboBox
+                                        ID="NewSite_CountryList"
+                                        runat="server"
+                                        TriggerAction="Query"
+                                        QueryMode="Local"
+                                        Editable="true"
+                                        DisplayField="CountryName"
+                                        ValueField="CountryName"
+                                        EmptyText="Please Select Country"
+                                        Width="350"
+                                        FieldLabel="Country:">
+                                        <Store>
+                                            <ext:Store ID="NewSite_CountryListStore" runat="server" OnLoad="NewSite_CountryListStore_Load">
+                                                <Model>
+                                                    <ext:Model ID="NewSite_CountryListStoreModel" runat="server">
+                                                        <Fields>
+                                                            <ext:ModelField Name="CountryName" Type="String" />
+                                                            <ext:ModelField Name="TwoDigitsCountryCode" Type="String" />
+                                                            <ext:ModelField Name="ThreeDigitsCountryCode" Type="String" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                        </Store>
+                                    </ext:ComboBox>
+
+                                    <ext:TextField
+                                        ID="NewSite_Description"
+                                        runat="server"
+                                        AllowBlank="false"
+                                        AllowOnlyWhitespace="false"
+                                        EmptyText="Empty Description"
+                                        Width="350"
+                                        FieldLabel="Description:" />
+                                </Items>
+
+                                <BottomBar>
+                                    <ext:StatusBar
+                                        ID="NewSiteWindowBottomBar"
+                                        runat="server"
+                                        StatusAlign="Right"
+                                        DefaultText=""
+                                        Height="30">
+                                        <Items>
+                                            <ext:Button
+                                                ID="AddNewSiteButton"
+                                                runat="server"
+                                                Text="Add"
+                                                Icon="ApplicationFormAdd"
+                                                Height="25">
+                                                <DirectEvents>
+                                                    <Click OnEvent="AddNewSiteButton_Click" />
+                                                </DirectEvents>
+                                            </ext:Button>
+
+                                            <ext:Button
+                                                ID="CancelNewSiteButton"
+                                                runat="server"
+                                                Text="Cancel"
+                                                Icon="Cancel"
+                                                Height="25">
+                                                <DirectEvents>
+                                                    <Click OnEvent="CancelNewSiteButton_Click" />
+                                                </DirectEvents>
+                                            </ext:Button>
+
+                                            <ext:ToolbarSeparator
+                                                ID="NewSiteWindow_BottomBarSeparator"
+                                                runat="server" />
+
+                                            <ext:ToolbarTextItem
+                                                ID="NewSite_StatusMessage"
+                                                runat="server"
+                                                Height="15"
+                                                Text=""
+                                                Margins="0 0 0 5" />
+                                        </Items>
+                                    </ext:StatusBar>
+                                </BottomBar>
+
+                                <DirectEvents>
+                                    <BeforeHide OnEvent="AddNewSiteWindowPanel_BeforeHide" />
+                                </DirectEvents>
+                            </ext:Window>
 
                         </Items>
                     </ext:Toolbar>

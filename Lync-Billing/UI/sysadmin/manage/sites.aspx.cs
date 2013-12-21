@@ -59,10 +59,37 @@ namespace Lync_Billing.ui.sysadmin.manage
         }
 
 
-        protected void Editor_CountryNameComboboxStore_Load(object sender, EventArgs e)
+        protected void ManageSites_RowEditing_BeforeEdit(object sender, DirectEventArgs e)
         {
             Editor_CountryNameCombobox.GetStore().DataSource = allCountries;
             Editor_CountryNameCombobox.GetStore().LoadData(allCountries);
+        }
+
+        protected void NewSite_CountryListStore_Load(object sender, EventArgs e)
+        {
+            NewSite_CountryList.GetStore().DataSource = allCountries;
+            NewSite_CountryList.GetStore().LoadData(allCountries);
+        }
+
+
+        protected void ShowAddSitePanel(object sender, DirectEventArgs e)
+        {
+            this.AddNewSiteWindowPanel.Show();
+        }
+
+
+        protected void CancelNewSiteButton_Click(object sender, DirectEventArgs e)
+        {
+            this.AddNewSiteWindowPanel.Hide();
+        }
+
+
+        protected void AddNewSiteWindowPanel_BeforeHide(object sender, DirectEventArgs e)
+        {
+            NewSite_SiteName.Text = null;
+            NewSite_CountryList.Value = null;
+            NewSite_Description.Text = null;
+            NewSite_StatusMessage.Text = null;
         }
 
 
@@ -141,5 +168,13 @@ namespace Lync_Billing.ui.sysadmin.manage
                 }//End if
             }//End if
         }
+
+
+        protected void AddNewSiteButton_Click(object sender, DirectEventArgs e)
+        {
+            
+        }
+
     }
+
 }

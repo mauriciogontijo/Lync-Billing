@@ -49,13 +49,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.Model ManageSitesModel;
         
         /// <summary>
-        /// RowEditingPlugin control.
+        /// ManageSites_RowEditing control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.RowEditing RowEditingPlugin;
+        protected global::Ext.Net.RowEditing ManageSites_RowEditing;
         
         /// <summary>
         /// Column4 control.
@@ -227,6 +227,105 @@ namespace Lync_Billing.ui.sysadmin.manage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button SaveChangesButton;
+        
+        /// <summary>
+        /// AddNewSiteWindowPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window AddNewSiteWindowPanel;
+        
+        /// <summary>
+        /// NewSite_SiteName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField NewSite_SiteName;
+        
+        /// <summary>
+        /// NewSite_CountryList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox NewSite_CountryList;
+        
+        /// <summary>
+        /// NewSite_CountryListStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store NewSite_CountryListStore;
+        
+        /// <summary>
+        /// NewSite_CountryListStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model NewSite_CountryListStoreModel;
+        
+        /// <summary>
+        /// NewSite_Description control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField NewSite_Description;
+        
+        /// <summary>
+        /// NewSiteWindowBottomBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.StatusBar NewSiteWindowBottomBar;
+        
+        /// <summary>
+        /// AddNewSiteButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button AddNewSiteButton;
+        
+        /// <summary>
+        /// CancelNewSiteButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button CancelNewSiteButton;
+        
+        /// <summary>
+        /// NewSiteWindow_BottomBarSeparator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator NewSiteWindow_BottomBarSeparator;
+        
+        /// <summary>
+        /// NewSite_StatusMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarTextItem NewSite_StatusMessage;
         
         /// <summary>
         /// ManageSitesPagingToolbar control.
