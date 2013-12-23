@@ -51,7 +51,7 @@ namespace Lync_Billing.ui.session
         private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo)
         {
             //First and foremost initialize the user's most basic and mandatory fields
-            session.NormalUserInfo = User.GetUser(userInfo.SipAccount.Replace("sip:", ""));
+            session.NormalUserInfo = Users.GetUser(userInfo.SipAccount.Replace("sip:", ""));
             session.NormalUserInfo.DisplayName = HelperFunctions.FormatUserDisplayName(userInfo.DisplayName, userInfo.SipAccount);
             
             session.DelegeeAccount = null;
@@ -91,11 +91,11 @@ namespace Lync_Billing.ui.session
 
             if (status == true)
             {
-                userInfo = User.GetUserInfo(email.Text);
+                userInfo = Users.GetUserInfo(email.Text);
                 
                 /** ----
                  * To impersonate user identity 
-                 */  userInfo = User.GetUserInfo("aalhour@ccc.gr");
+                 */  userInfo = Users.GetUserInfo("aalhour@ccc.gr");
                  /* -------
                  */
                 
@@ -103,7 +103,7 @@ namespace Lync_Billing.ui.session
                 if (!userInfo.Equals(null))
                 {
                     //Try to get user from the database
-                    Users DatabaseUserRecord = User.GetUser(userInfo.SipAccount.Replace("sip:", ""));
+                    Users DatabaseUserRecord = Users.GetUser(userInfo.SipAccount.Replace("sip:", ""));
                     
                     //Update the user, if exists and if his/her info has changed... Insert the Users if s/he doesn't exist
                     if (DatabaseUserRecord != null)
@@ -132,7 +132,7 @@ namespace Lync_Billing.ui.session
                             user.Department = userInfo.department;
                             user.SiteName = userInfo.physicalDeliveryOfficeName;
 
-                            User.UpdateUser(user);
+                            Users.UpdateUser(user);
                         }
                     }
                     else
@@ -155,7 +155,7 @@ namespace Lync_Billing.ui.session
                         user.Department = userInfo.department;
                         user.SiteName = userInfo.physicalDeliveryOfficeName;
                      
-                        User.InsertUser(user);
+                        Users.InsertUser(user);
                     }
 
                     //Assign the current userInfo to the UserSession fields.

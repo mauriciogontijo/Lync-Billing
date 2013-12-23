@@ -99,7 +99,7 @@ namespace Lync_Billing.ui.dephead.users
                 { Enums.GetDescription(Enums.Users.Department), departmentName }
             };
 
-            return User.GetUsers(columns, whereClause, 0);
+            return Users.GetUsers(columns, whereClause, 0);
         }
 
 

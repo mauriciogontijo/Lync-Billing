@@ -76,7 +76,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
             var siteObject = allSites.Find(site => site.SiteID == siteID);
 
-            users = User.GetUsers(siteObject.SiteName);
+            users = Users.GetUsers(siteObject.SiteName);
 
             if (users.Count > 0)
             {
@@ -147,7 +147,7 @@ namespace Lync_Billing.ui.sysadmin.users
             {
                 searchTerm = NewDelegee_UserSipAccount.Value.ToString();
                 
-                matchedUsers = User.SearchForUsers(searchTerm);
+                matchedUsers = Users.SearchForUsers(searchTerm);
 
                 NewDelegee_UserSipAccount.GetStore().DataSource = matchedUsers;
                 NewDelegee_UserSipAccount.GetStore().LoadData(matchedUsers);
@@ -164,7 +164,7 @@ namespace Lync_Billing.ui.sysadmin.users
             {
                 searchTerm = NewDelegee_DelegeeSipAccount.Value.ToString();
 
-                matchedUsers = User.SearchForUsers(searchTerm);
+                matchedUsers = Users.SearchForUsers(searchTerm);
 
                 NewDelegee_DelegeeSipAccount.GetStore().DataSource = matchedUsers;
                 NewDelegee_DelegeeSipAccount.GetStore().LoadData(matchedUsers);
@@ -264,8 +264,8 @@ namespace Lync_Billing.ui.sysadmin.users
                 delegeeSipAccount = NewDelegee_DelegeeSipAccount.SelectedItem.Value.ToString();
 
                 var delegates = DelegateRole.GetDelegees(delegeeSipAccount);
-                var userAccount = User.GetUser(userSipAccount);
-                var delegeeAccount = User.GetUser(delegeeSipAccount);
+                var userAccount = Users.GetUser(userSipAccount);
+                var delegeeAccount = Users.GetUser(delegeeSipAccount);
 
                 //Check for duplicates
                 if (delegates.Find(item => item.SipAccount == userSipAccount) != null)

@@ -347,7 +347,7 @@ namespace Lync_Billing.ui.session
                 session.DelegeeAccount.DelegeeDepartmentAccount = (Department)delegee;
                 session.DelegeeAccount.DelegeeTypeID = DelegateRole.DepartmentDelegeeTypeID;
 
-                session.DelegeeAccount.DelegeeUserAccount = User.GetUser(sipAccount);
+                session.DelegeeAccount.DelegeeUserAccount = Users.GetUser(sipAccount);
                 session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnAddressPartIfExists: true);
 
                 //Switch ActiveRoleName to Department Delegee
@@ -363,7 +363,7 @@ namespace Lync_Billing.ui.session
                 session.DelegeeAccount.DelegeeSiteAccount = (Site)delegee;
                 session.DelegeeAccount.DelegeeTypeID = DelegateRole.SiteDelegeeTypeID;
 
-                session.DelegeeAccount.DelegeeUserAccount = User.GetUser(sipAccount);
+                session.DelegeeAccount.DelegeeUserAccount = Users.GetUser(sipAccount);
                 session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnAddressPartIfExists: true);
 
                 //Switch ActiveRoleName to Site Delegee
