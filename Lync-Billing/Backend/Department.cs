@@ -241,6 +241,16 @@ namespace Lync_Billing.Backend
             return rowID;
         }
 
+
+        public static bool DeleteDepartment(Department department)
+        {
+            bool status = false;
+
+            status = DBRoutines.DELETE(Enums.GetDescription(Enums.Departments.TableName), Enums.GetDescription(Enums.Departments.ID), department.DepartmentID);
+
+            return status;
+        }
+
     }
 
 }
