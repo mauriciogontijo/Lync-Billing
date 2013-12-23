@@ -14,7 +14,7 @@ namespace Lync_Billing.Backend
         private List<DelegateRole> userDelegees = new List<DelegateRole>();
 
         //Normal user data
-        public User NormalUserInfo { get; set; }
+        public Users NormalUserInfo { get; set; }
         public string TelephoneNumber { set; get; }
         public string IPAddress { set; get; }
         public string UserAgent { set; get; }
@@ -35,7 +35,7 @@ namespace Lync_Billing.Backend
         public List<PhoneCall> PhonecallsHistory { set; get; }
         public Dictionary<string, PhoneBook> Addressbook { set; get; }
                
-        //Generic User SystemRoles
+        //Generic Users SystemRoles
         public bool IsDeveloper { set; get; }
 
         //System Roles
@@ -55,7 +55,7 @@ namespace Lync_Billing.Backend
 
         public UserSession()
         {
-            NormalUserInfo = new User();
+            NormalUserInfo = new Users();
             TelephoneNumber = string.Empty;
             IPAddress = string.Empty;
             UserAgent = string.Empty;
@@ -298,7 +298,7 @@ namespace Lync_Billing.Backend
 
                 return this.DelegeeAccount.DelegeeUserPhonecalls;
             }
-            //Normal User Mode
+            //Normal Users Mode
             else
             {
                 //Initialize the addressbook if it was not initialized already

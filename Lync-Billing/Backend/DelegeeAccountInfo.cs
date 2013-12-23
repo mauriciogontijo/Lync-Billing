@@ -15,8 +15,8 @@ namespace Lync_Billing.Backend
         //Departent Delegate Role related
         public Department DelegeeDepartmentAccount { get; set; }
 
-        //User Delegate Role related
-        public User DelegeeUserAccount { get; set; }
+        //Users Delegate Role related
+        public Users DelegeeUserAccount { get; set; }
         public string DelegeeUserPhonecallsPerPage { set; get; }
         public List<PhoneCall> DelegeeUserPhonecalls { get; set; }
         public List<PhoneCall> DelegeeUserPhonecallsHistory { get; set; }

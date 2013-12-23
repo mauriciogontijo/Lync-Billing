@@ -96,7 +96,7 @@ namespace Lync_Billing.Backend.Summaries
             userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
 
             //Get the remaining user information
-            User userInfo = User.GetUser(sipAccount);
+            Users userInfo = Users.GetUser(sipAccount);
 
             userSummary.EmployeeID = userInfo.EmployeeID.ToString();
             userSummary.SipAccount = userInfo.SipAccount;
@@ -174,7 +174,7 @@ namespace Lync_Billing.Backend.Summaries
             userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
 
             //Get the remaining user information
-            User userInfo = User.GetUser(sipAccount);
+            Users userInfo = Users.GetUser(sipAccount);
 
             userSummary.EmployeeID = userInfo.EmployeeID.ToString();
             userSummary.SipAccount = userInfo.SipAccount;
@@ -205,7 +205,7 @@ namespace Lync_Billing.Backend.Summaries
             List<UserCallsSummary> chartList = new List<UserCallsSummary>();
 
             //Get this user's information
-            User userInfo = User.GetUser(sipAccount);
+            Users userInfo = Users.GetUser(sipAccount);
 
             //Initialize the function parameters and query the database
             wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), Year);
@@ -266,7 +266,7 @@ namespace Lync_Billing.Backend.Summaries
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUsers_PerSite);
 
-            User userInfo;
+            Users userInfo;
             UserCallsSummary userSummary;
             List<UserCallsSummary> usersSummaryList = new List<UserCallsSummary>();
 
@@ -289,7 +289,7 @@ namespace Lync_Billing.Backend.Summaries
                                     EmployeeID = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.EmployeeID)])),
                                     SipAccount = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty)])),
                                     FullName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.DisplayName)])),
-                                    SiteName = User.GetUserSite(Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty)]))),
+                                    SiteName = Users.GetUserSite(Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty)]))),
                                     
                                     BusinessCallsDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)])),
                                     BusinessCallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)])),

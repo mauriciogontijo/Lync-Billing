@@ -174,7 +174,7 @@ namespace Lync_Billing.Backend
         }
 
         /// <summary>
-        /// User Database table Fields Names
+        /// Users Database table Fields Names
         /// </summary>
         public enum Users 
         {
@@ -407,7 +407,7 @@ namespace Lync_Billing.Backend
             [Description("3")]
             SiteDelegeeType,
 
-            [Description("User-Delegee")]
+            [Description("Users-Delegee")]
             UserDelegeeTypeDescription,
             [Description("Department-Delegee")]
             DepartemntDelegeeTypeDescription,

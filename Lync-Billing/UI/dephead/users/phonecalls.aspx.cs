@@ -89,9 +89,9 @@ namespace Lync_Billing.ui.dephead.users
         }
 
 
-        private List<User> GetUsers(string departmentName, string siteName)
+        private List<Users> GetUsers(string departmentName, string siteName)
         {
-            //List<User> users = new List<User>();
+            //List<Users> users = new List<Users>();
             List<string> columns = new List<string>();
             Dictionary<string, object> whereClause = new Dictionary<string, object>() 
             { 
@@ -120,7 +120,7 @@ namespace Lync_Billing.ui.dephead.users
 
                 if (department != null)
                 {
-                    List<User> users = GetUsers(department.DepartmentName, department.SiteName);
+                    List<Users> users = GetUsers(department.DepartmentName, department.SiteName);
 
                     FilterUsersByDepartment.Disabled = false;
                     FilterUsersByDepartment.GetStore().DataSource = users;

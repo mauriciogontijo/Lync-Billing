@@ -133,8 +133,8 @@ namespace Lync_Billing.Libs
         }
 
         /// <summary>
-        /// Get All User Related Attributes from Active Directory by Quering two forests 
-        /// 1. for User Related Information
+        /// Get All Users Related Attributes from Active Directory by Quering two forests 
+        /// 1. for Users Related Information
         /// 2. Sip Related Information
         /// </summary>
         /// <param name="mailAddress"></param>
@@ -253,7 +253,7 @@ namespace Lync_Billing.Libs
         }
 
         /// <summary>
-        /// Get User Attributes From Phone Number
+        /// Get Users Attributes From Phone Number
         /// </summary>
         /// <param name="phoneNumber">Business Phone Number</param>
         /// <returns>ADUserInfo Object</returns>

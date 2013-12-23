@@ -81,7 +81,7 @@ namespace Lync_Billing.ui.accounting.reports
             Dictionary<string, Dictionary<string, object>> UsersCollection;
 
             //These are created to hold the data submitted through the grid as JSON
-            List<User> usersData;
+            List<Users> usersData;
             Dictionary<string, object> tempUserDataContainer;
 
             XmlNode xml = e.Xml;
@@ -105,9 +105,9 @@ namespace Lync_Billing.ui.accounting.reports
 
                 case "pdf":
                     UsersCollection = new Dictionary<string, Dictionary<string, object>>();
-                    usersData = (new JavaScriptSerializer()).Deserialize<List<User>>(e.Json);
+                    usersData = (new JavaScriptSerializer()).Deserialize<List<Users>>(e.Json);
 
-                    foreach (User user in usersData)
+                    foreach (Users user in usersData)
                     {
                         //SipAccountsList.Add(user.SipAccount);
                         tempUserDataContainer = new Dictionary<string, object>();
@@ -141,9 +141,9 @@ namespace Lync_Billing.ui.accounting.reports
                 case "pdf-d":
                     SipAccountsList = new List<string>();
                     UsersCollection = new Dictionary<string, Dictionary<string, object>>();
-                    usersData = (new JavaScriptSerializer()).Deserialize<List<User>>(e.Json);
+                    usersData = (new JavaScriptSerializer()).Deserialize<List<Users>>(e.Json);
 
-                    foreach (User user in usersData)
+                    foreach (Users user in usersData)
                     {
                         //SipAccountsList.Add(user.SipAccount);
                         tempUserDataContainer = new Dictionary<string, object>();

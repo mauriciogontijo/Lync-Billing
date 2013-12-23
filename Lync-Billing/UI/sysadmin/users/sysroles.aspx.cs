@@ -79,7 +79,7 @@ namespace Lync_Billing.ui.sysadmin.users
         protected void NewSystemRole_UserSipAccount_BeforeQuery(object sender, DirectEventArgs e)
         {
             string searchTerm = string.Empty;
-            List<User> matchedUsers;
+            List<Users> matchedUsers;
 
             if (NewSystemRole_UserSipAccount.Value != null && NewSystemRole_UserSipAccount.Value.ToString().Length > 3)
             {

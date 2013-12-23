@@ -19,7 +19,7 @@ namespace Lync_Billing.ui.sysadmin.users
         private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
-        private List<User> allUsers = new List<User>();
+        private List<Users> allUsers = new List<Users>();
         private List<Site> allSites = new List<Site>();
         private List<Department> allDepartments = new List<Department>();
         private List<DelegateRole> allDelegees = new List<DelegateRole>();
@@ -71,7 +71,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
         private List<string> GetUsersPerSite(int siteID)
         {
-            List<User> users = new List<User>();
+            List<Users> users = new List<Users>();
             List<string> usersList = new List<string>();
 
             var siteObject = allSites.Find(site => site.SiteID == siteID);
@@ -80,7 +80,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
             if (users.Count > 0)
             {
-                foreach (User user in users)
+                foreach (Users user in users)
                 {
                     usersList.Add(user.SipAccount);
                 }
@@ -141,7 +141,7 @@ namespace Lync_Billing.ui.sysadmin.users
         protected void NewDelegee_UserSipAccount_BeforeQuery(object sender, DirectEventArgs e)
         {
             string searchTerm = string.Empty;
-            List<User> matchedUsers;
+            List<Users> matchedUsers;
 
             if (NewDelegee_UserSipAccount.Value != null && NewDelegee_UserSipAccount.Value.ToString().Length > 3)
             {
@@ -158,7 +158,7 @@ namespace Lync_Billing.ui.sysadmin.users
         protected void NewDelegee_DelegeeSipAccount_BeforeQuery(object sender, DirectEventArgs e)
         {
             string searchTerm = string.Empty;
-            List<User> matchedUsers;
+            List<Users> matchedUsers;
 
             if (NewDelegee_DelegeeSipAccount.Value != null && NewDelegee_DelegeeSipAccount.Value.ToString().Length > 3)
             {

@@ -172,9 +172,9 @@ namespace Lync_Billing.Libs
 
         //This function formats the display-name of a user,
         //and removes unnecessary extra information.
-        public static string FormatUserDisplayName(string displayName = null, string defaultValue = "tBill User", bool returnNameIfExists = false, bool returnAddressPartIfExists = false)
+        public static string FormatUserDisplayName(string displayName = null, string defaultValue = "tBill Users", bool returnNameIfExists = false, bool returnAddressPartIfExists = false)
         {
-            //Get the first part of the User's Display Name if s/he has a name like this: "firstname lastname (extra text)"
+            //Get the first part of the Users's Display Name if s/he has a name like this: "firstname lastname (extra text)"
             //removes the "(extra text)" part
             if (!string.IsNullOrEmpty(displayName))
             {

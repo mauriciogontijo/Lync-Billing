@@ -54,7 +54,7 @@ namespace Lync_Billing.Backend
         public string marker_CallType { set; get; }
         public decimal Duration { set; get; }
        
-        //User UI update Fields
+        //Users UI update Fields
         public string UI_UpdatedByUser { set; get; }
         public DateTime UI_MarkedOn { set; get; }
         public string UI_CallType { set; get; }

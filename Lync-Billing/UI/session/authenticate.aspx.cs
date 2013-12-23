@@ -64,7 +64,7 @@ namespace Lync_Billing.ui.session
                 redirectionFlag = true;
 
                 /*
-                 * The User must pass the following autentiaction criteria
+                 * The Users must pass the following autentiaction criteria
                  * PrimarySipAccount = EffectiveSipAccount, which means he is not viewing another's user account (X Person) and this X person seems to have some elevated access permissions.
                  * The asked permission actually exists - in the query string and in the system!
                  * The asked permission was actually granted for the current user.
@@ -152,7 +152,7 @@ namespace Lync_Billing.ui.session
                 }
 
 
-                //if the user was not granted any elevated-access permission or he is currently in a manage-delegee mode, redirect him/her to the User Dashboard page.
+                //if the user was not granted any elevated-access permission or he is currently in a manage-delegee mode, redirect him/her to the Users Dashboard page.
                 //Or if the redirection_flag was not set to FALSE so far, we redurect the user to the USER DASHBOARD
                 if (redirectionFlag == true)
                 {
@@ -248,7 +248,7 @@ namespace Lync_Billing.ui.session
                             }
                         }
 
-                        //User Delegee
+                        //Users Delegee
                         else if (requestedAccessLevel == userDelegeeRoleName && this.DELEGEE_IDENTITY != null)
                         {
                             DelegateRole role = session.UserDelegateRoles.Find(someRole => someRole.DelegeeUser != null && someRole.SipAccount == requestedDelegeeIdentity);
@@ -311,17 +311,17 @@ namespace Lync_Billing.ui.session
         //@param delegeeAddress could be a user sipAccount, a department name or a site name
         private void SwitchToDelegeeAndRedirect(string sipAccount, object delegee, int delegeeType)
         {
-            //Initialize a temp copy of the User Session
+            //Initialize a temp copy of the Users Session
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            if (delegee is User && delegeeType == DelegateRole.UserDelegeeTypeID)
+            if (delegee is Users && delegeeType == DelegateRole.UserDelegeeTypeID)
             {
                 //Switch identity
                 session.DelegeeAccount = new DelegeeAccountInfo();
                 session.DelegeeAccount.DelegeeTypeID = DelegateRole.UserDelegeeTypeID;
 
                 //Get the delegate user account
-                session.DelegeeAccount.DelegeeUserAccount = (User)delegee;
+                session.DelegeeAccount.DelegeeUserAccount = (Users)delegee;
                 session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnAddressPartIfExists: true);
 
                 //Get the Delegee Phonecalls
@@ -377,7 +377,7 @@ namespace Lync_Billing.ui.session
         //This function is responsible for dropping the already-granted elevated-access-permission
         private void DropAccess(string accessParameter)
         {
-            //Initialize a temp copy of the User Session
+            //Initialize a temp copy of the Users Session
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
             //Nullify the DelegeeSipAccount object.
@@ -386,7 +386,7 @@ namespace Lync_Billing.ui.session
             //Always set the ActiveRoleName to "user"
             session.ActiveRoleName = normalUserRoleName;
 
-            //Redirect to the User Dashboard
+            //Redirect to the Users Dashboard
             Response.Redirect(getHomepageLink(normalUserRoleName));
         }
 

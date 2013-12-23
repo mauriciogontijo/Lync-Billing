@@ -82,8 +82,8 @@ namespace Lync_Billing.ui.user
 
             if (!Ext.Net.X.IsAjaxRequest)
             {
-                //HelperFunctions.Message("User Help", "To allocate your phonecalls please [Right Click] on the grid and choose your preferred action.", "help", isPinned: true, width: 220, height: 120);
-                //HelperFunctions.Message("User Help", "You can select multiple phonecalls by pressing the [Ctrl] button.", "help", isPinned: true, width: 220, height: 120);
+                //HelperFunctions.Message("Users Help", "To allocate your phonecalls please [Right Click] on the grid and choose your preferred action.", "help", isPinned: true, width: 220, height: 120);
+                //HelperFunctions.Message("Users Help", "You can select multiple phonecalls by pressing the [Ctrl] button.", "help", isPinned: true, width: 220, height: 120);
 
                 HelperFunctions.Message(title, notificationMessage, type, hideDelay: 10000, width: 250, height: 100);
             }
@@ -510,7 +510,7 @@ namespace Lync_Billing.ui.user
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
             PhoneCallsStore.LoadPage(1);
 
-            //Add To User Addressbook Store
+            //Add To Users Addressbook Store
             PhoneBook.AddOrUpdatePhoneBookEntries(sipAccount, newOrUpdatedPhoneBookEntries);
 
             //Reassign the user session data
@@ -608,7 +608,7 @@ namespace Lync_Billing.ui.user
             ManagePhoneCallsGrid.GetSelectionModel().DeselectAll();
             PhoneCallsStore.LoadPage(1);
 
-            //Add To User Addressbook Store
+            //Add To Users Addressbook Store
             PhoneBook.AddOrUpdatePhoneBookEntries(sipAccount, newOrUpdatedPhoneBookEntries);
 
             //Reassign the user session data

@@ -189,7 +189,7 @@ namespace Lync_Billing.ui.accounting.main
 
         public string GetSipAccountSite(string sipAccount)
         {
-            User user = new User();
+            Users user = new Users();
             user = User.GetUser(sipAccount);
                
             return user.SiteName;

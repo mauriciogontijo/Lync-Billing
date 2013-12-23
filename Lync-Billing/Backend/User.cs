@@ -9,7 +9,7 @@ using Lync_Billing.Backend.Roles;
 
 namespace Lync_Billing.Backend
 {
-    public class User
+    public class Users
     {
         public static DBLib DBRoutines = new DBLib();
         
@@ -25,11 +25,11 @@ namespace Lync_Billing.Backend
         //This is a copy from the ADUserInfo record for this user.
         public string DisplayName { get; set; }
 
-        public static List<User> GetUsers(List<string> columns, Dictionary<string, object> wherePart, int limits)
+        public static List<Users> GetUsers(List<string> columns, Dictionary<string, object> wherePart, int limits)
         {
-            User user = new User();
+            Users user = new Users();
             DataTable dt = new DataTable();
-            List<User> users = new List<User>();
+            List<Users> users = new List<Users>();
 
             dt = DBRoutines.SELECT(
                 Enums.GetDescription(Enums.Users.TableName),
@@ -39,7 +39,7 @@ namespace Lync_Billing.Backend
 
             foreach (DataRow row in dt.Rows)
             {
-                user = new User();
+                user = new Users();
 
                 foreach (DataColumn column in dt.Columns)
                 {
@@ -72,11 +72,11 @@ namespace Lync_Billing.Backend
 
         }
 
-        public static List<User> GetUsers(string siteName) 
+        public static List<Users> GetUsers(string siteName) 
         {
-            User user = new User();
+            Users user = new Users();
             DataTable dt = new DataTable();
-            List<User> users = new List<User>();
+            List<Users> users = new List<Users>();
 
             dt = DBRoutines.SELECT(
                 Enums.GetDescription(Enums.Users.TableName),
@@ -85,7 +85,7 @@ namespace Lync_Billing.Backend
 
             foreach (DataRow row in dt.Rows)
             {
-                user = new User();
+                user = new Users();
 
                 foreach (DataColumn column in dt.Columns)
                 {
@@ -117,11 +117,11 @@ namespace Lync_Billing.Backend
             return users;
         }
 
-        public static List<User> SearchForUsers(string searchTerm)
+        public static List<Users> SearchForUsers(string searchTerm)
         {
-            User user = new User();
+            Users user = new Users();
             DataTable dt = new DataTable();
-            List<User> users = new List<User>();
+            List<Users> users = new List<Users>();
 
             List<string> columns = new List<string>()
             {
@@ -139,7 +139,7 @@ namespace Lync_Billing.Backend
 
             foreach (DataRow row in dt.Rows)
             {
-                user = new User();
+                user = new Users();
 
                 foreach (DataColumn column in dt.Columns)
                 {
@@ -171,9 +171,9 @@ namespace Lync_Billing.Backend
             return users;
         }
 
-        public static User GetUser(string sipAccount) 
+        public static Users GetUser(string sipAccount) 
         {
-            User user = new User();
+            Users user = new Users();
             DataTable dt = new DataTable();
 
             dt = DBRoutines.SELECT(
@@ -218,9 +218,9 @@ namespace Lync_Billing.Backend
             
         }
 
-        public static User GetUser(int employeeID)
+        public static Users GetUser(int employeeID)
         {
-            User user = new User();
+            Users user = new Users();
             DataTable dt = new DataTable();
 
             dt = DBRoutines.SELECT(
@@ -267,7 +267,7 @@ namespace Lync_Billing.Backend
 
         public static string GetUserSite(string sipAccount)
         {
-            User user = new User();
+            Users user = new Users();
             DataTable dt = new DataTable();
 
             dt = DBRoutines.SELECT(
@@ -284,7 +284,7 @@ namespace Lync_Billing.Backend
                 return null;
         }
 
-        public static int InsertUser(User user)
+        public static int InsertUser(Users user)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -317,7 +317,7 @@ namespace Lync_Billing.Backend
             return rowID;
         }
 
-        public static bool UpdateUser(User user)
+        public static bool UpdateUser(Users user)
         {
             bool status = false;
             
@@ -357,7 +357,7 @@ namespace Lync_Billing.Backend
             return status;
         }
 
-        public static bool DeleteUser(User user)
+        public static bool DeleteUser(Users user)
         {
             bool status = false;
 
@@ -369,9 +369,9 @@ namespace Lync_Billing.Backend
         }
 
         /// <summary>
-        /// Get All Related User Information From Active Directory
+        /// Get All Related Users Information From Active Directory
         /// </summary>
-        /// <param name="emailAddress">User Email Address</param>
+        /// <param name="emailAddress">Users Email Address</param>
         /// <returns>Onject Holds all related user information</returns>
         public static ADUserInfo GetUserInfo(string emailAddress)
         {

@@ -576,7 +576,7 @@ namespace Lync_Billing.Libs
          * @param pdfColumnsSchema: A list of column-names. This is to specify exactly what columns to include from the datatable in case we don't want to view all of its columns.
          * @param pdfDocumentHeaders: The header texts and paragraphs to be written on top of the main page.
          * @param handleName: How to divide the user data, say you pass "SourceUserId", then all the data will be divided based on the SourceUserId values, each collection on a separate page. This helps divides the users phonecalls on pages.
-         * @param UsersCollection: Collection of users data, to optimize the performance and avoid getting it while creating the user report. This might cotnain some data fetched directly from the grid like Sip Accounts, Display Names, Summations and xtra User Information.
+         * @param UsersCollection: Collection of users data, to optimize the performance and avoid getting it while creating the user report. This might cotnain some data fetched directly from the grid like Sip Accounts, Display Names, Summations and xtra Users Information.
          * 
          * @return @variable document of type Document.
          */

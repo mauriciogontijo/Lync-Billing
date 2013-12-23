@@ -99,23 +99,23 @@ namespace Lync_Billing.ui.session
                  /* -------
                  */
                 
-                // User Information was found in active directory
+                // Users Information was found in active directory
                 if (!userInfo.Equals(null))
                 {
                     //Try to get user from the database
-                    User DatabaseUserRecord = User.GetUser(userInfo.SipAccount.Replace("sip:", ""));
+                    Users DatabaseUserRecord = User.GetUser(userInfo.SipAccount.Replace("sip:", ""));
                     
-                    //Update the user, if exists and if his/her info has changed... Insert the User if s/he doesn't exist
+                    //Update the user, if exists and if his/her info has changed... Insert the Users if s/he doesn't exist
                     if (DatabaseUserRecord != null)
                     {
-                        //If user information from Active directory doesnt match the one in User Table : update user table 
+                        //If user information from Active directory doesnt match the one in Users Table : update user table 
                         if (DatabaseUserRecord.EmployeeID.ToString() != userInfo.EmployeeID ||
                             DatabaseUserRecord.FullName != userInfo.FirstName + " " + userInfo.LastName || 
                             DatabaseUserRecord.SiteName != userInfo.physicalDeliveryOfficeName ||
                             DatabaseUserRecord.Department != userInfo.department || 
                             DatabaseUserRecord.TelephoneNumber != userInfo.Telephone)
                         {
-                            User user = new User();
+                            Users user = new Users();
                             int employeeID = 0;
                             
                             // Validate employeeID if it could be parsed as integer or not
@@ -137,8 +137,8 @@ namespace Lync_Billing.ui.session
                     }
                     else
                     {
-                        // If user not found in User tables that means this is his first login : insert his information into User table
-                        User user = new User();
+                        // If user not found in Users tables that means this is his first login : insert his information into Users table
+                        Users user = new Users();
                         
                         int employeeID = 0;
 
