@@ -98,6 +98,7 @@ namespace Lync_Billing.ui.sysadmin.manage
             sipAccount = session.NormalUserInfo.SipAccount;
 
             bool statusFlag = false;
+            bool resetDescriptionFlag = false;
             string messageType = "error";
             string notificationMessage = string.Empty;
 
@@ -132,11 +133,13 @@ namespace Lync_Billing.ui.sysadmin.manage
                             }
                         }
 
+
                         //Everything is ok, proceed with updating the department
+                        //Handle the case of resetting the description
                         if(string.IsNullOrEmpty(storeDepartmentObject.Description) && storeDepartmentObject.Description != originalDepartmentObject.Description)
-                            statusFlag = Department.UpdateDepartment(storeDepartmentObject, FORCE_RESET_DESCRIPTION: true);
-                        else
-                            statusFlag = Department.UpdateDepartment(storeDepartmentObject);
+                            resetDescriptionFlag = true;
+
+                        statusFlag = Department.UpdateDepartment(storeDepartmentObject, FORCE_RESET_DESCRIPTION: resetDescriptionFlag);
                         
 
                         if (statusFlag == false)
