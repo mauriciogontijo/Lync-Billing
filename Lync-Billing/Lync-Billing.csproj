@@ -125,6 +125,7 @@
     <Content Include="ui\sysadmin\configuration\announcements.aspx" />
     <Content Include="ui\sysadmin\configuration\exceptions.aspx" />
     <Content Include="ui\sysadmin\configuration\mail.aspx" />
+    <Content Include="ui\sysadmin\manage\departments.aspx" />
     <Content Include="ui\sysadmin\manage\gateways.aspx" />
     <Content Include="ui\sysadmin\configuration\translations.aspx" />
     <Content Include="ui\sysadmin\main\dashboard.aspx" />
@@ -184,7 +185,7 @@
     <Compile Include="ConfigurationSections\PDFReportsPropertiesSection.cs" />
     <Compile Include="ConfigurationSections\PhoneCallsTablesSection.cs" />
     <Compile Include="Backend\Announcements.cs" />
-    <Compile Include="Backend\Currencies.cs" />
+    <Compile Include="Backend\Countries.cs" />
     <Compile Include="Backend\DelegeeAccountInfo.cs" />
     <Compile Include="Backend\Department.cs" />
     <Compile Include="Backend\Roles\DepartmentHeadRole.cs" />
@@ -331,6 +332,13 @@
     </Compile>
     <Compile Include="ui\sysadmin\configuration\mail.aspx.designer.cs">
       <DependentUpon>mail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\manage\departments.aspx.cs">
+      <DependentUpon>departments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\manage\departments.aspx.designer.cs">
+      <DependentUpon>departments.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\manage\gateways.aspx.cs">
       <DependentUpon>gateways.aspx</DependentUpon>

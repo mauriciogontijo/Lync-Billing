@@ -23,7 +23,7 @@ namespace Lync_Billing.ui.admin.gateways
         private List<GatewayDetail> gatewayDetails = new List<GatewayDetail>();
         private List<Site> sites = new List<Site>();
         private List<Pool> pools = new List<Pool>();
-        private List<Currencies> currencies = new List<Currencies>();
+        private List<Countries> currencies = new List<Countries>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -57,7 +57,7 @@ namespace Lync_Billing.ui.admin.gateways
             SitesComboBox.GetStore().DataSource = sites;
             SitesComboBox.GetStore().DataBind();
 
-            currencies = Currencies.GetCurrencies();
+            currencies = Countries.GetCurrencies();
             CurrenciesCodesCombobox.GetStore().DataSource = currencies;
             CurrenciesCodesCombobox.GetStore().DataBind();
 
@@ -98,7 +98,7 @@ namespace Lync_Billing.ui.admin.gateways
 
                 if (gatewayRates[0].CurrencyCode != null)
                 {
-                    Currencies selectedCurrency = currencies.First(item => item.CurrencyISOName == tmpGatewayRate.CurrencyCode);
+                    Countries selectedCurrency = currencies.First(item => item.CurrencyISOName == tmpGatewayRate.CurrencyCode);
                     CurrenciesCodesCombobox.SetValue(selectedCurrency.CurrencyISOName);
                 }
             }
