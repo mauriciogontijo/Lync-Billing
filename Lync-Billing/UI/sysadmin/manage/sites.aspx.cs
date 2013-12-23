@@ -49,17 +49,6 @@ namespace Lync_Billing.ui.sysadmin.manage
 
             allSites = Backend.Site.GetAllSites();
             allCountries = NumberingPlan.GetAllCountries();
-
-            
-            /***
-             * IMPORTANT
-             * Uncomment to assign Three Characters Countries Codes to all Sites
-             */
-            //foreach (var site in allSites)
-            //{
-            //    site.CountryCode = ((NumberingPlan)allCountries.Find(country => country.TwoDigitsCountryCode.ToLower() == site.CountryCode.ToLower())).ThreeDigitsCountryCode;
-            //    Backend.Site.UpdateSite(site);
-            //}
         }
 
 
@@ -187,7 +176,6 @@ namespace Lync_Billing.ui.sysadmin.manage
             string SiteName = string.Empty;
             string CountryName = string.Empty;
             string Description = string.Empty;
-            Backend.Site SiteInfo;
 
             string statusMessage = string.Empty;
             string successStatusMessage = string.Empty;
@@ -218,13 +206,13 @@ namespace Lync_Billing.ui.sysadmin.manage
                     NewSite.CountryCode = ((NumberingPlan)allCountries.Find(country => country.CountryName == CountryName)).TwoDigitsCountryCode;
                     NewSite.Description = Description;
 
-                    //Insert the DepartmentHead to the database
+                    //Insert the New Site to the database
                     Backend.Site.AddSite(NewSite);
 
                     //Close the window
                     this.AddNewSiteWindowPanel.Hide();
 
-                    //Add the DepartmentHead record to the store and apply the filter
+                    //Add the New Site record to the store and apply the filter
                     ManageSitesGrid.GetStore().Add(NewSite);
                     ManageSitesGrid.GetStore().Reload();
 
