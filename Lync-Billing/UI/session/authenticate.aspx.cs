@@ -192,7 +192,7 @@ namespace Lync_Billing.ui.session
                     /** 
                      * -------
                      * To spoof identity for intermediate authentication
-                     */ status = true;
+                     * status = true;
                      /* --------
                      **/
 
