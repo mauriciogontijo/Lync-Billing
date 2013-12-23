@@ -51,7 +51,7 @@ namespace Lync_Billing.Backend.Roles
         }
 
 
-        //Get Users SystemRoles
+        //Get User SystemRoles
         public static List<SystemRole> GetSystemRoles(List<string> columns = null, Dictionary<string, object> wherePart = null, int limits = 0)
         {
             SystemRole userRole;
@@ -79,7 +79,7 @@ namespace Lync_Billing.Backend.Roles
                     {
                         userRole.SipAccount = (string)row[column.ColumnName];
 
-                        var userInfo = Users.GetUser(userRole.SipAccount);
+                        var userInfo = User.GetUser(userRole.SipAccount);
                         userRole.RoleOwnerName = HelperFunctions.FormatUserDisplayName(userInfo.FullName, userInfo.SipAccount, returnNameIfExists: true, returnAddressPartIfExists: true);
                     }
 

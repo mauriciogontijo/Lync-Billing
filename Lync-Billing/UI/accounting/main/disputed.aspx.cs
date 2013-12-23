@@ -93,7 +93,7 @@ namespace Lync_Billing.ui.accounting.main
 
             foreach (string siteName in accountantSitesNames)
             {
-                usersInSites.AddRange(Users.GetUsers(siteName).Select(user => user.SipAccount));
+                usersInSites.AddRange(User.GetUsers(siteName).Select(user => user.SipAccount));
             }
 
             this.DisputedCallsStore.DataSource = PhoneCall.GetDisputedPhoneCalls(usersInSites, wherePart, 0);
@@ -189,8 +189,8 @@ namespace Lync_Billing.ui.accounting.main
 
         public string GetSipAccountSite(string sipAccount)
         {
-            Users user = new Users();
-            user = Users.GetUser(sipAccount);
+            User user = new User();
+            user = User.GetUser(sipAccount);
                
             return user.SiteName;
         }

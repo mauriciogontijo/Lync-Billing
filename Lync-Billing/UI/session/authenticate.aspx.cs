@@ -314,14 +314,14 @@ namespace Lync_Billing.ui.session
             //Initialize a temp copy of the User Session
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            if (delegee is Users && delegeeType == DelegateRole.UserDelegeeTypeID)
+            if (delegee is User && delegeeType == DelegateRole.UserDelegeeTypeID)
             {
                 //Switch identity
                 session.DelegeeAccount = new DelegeeAccountInfo();
                 session.DelegeeAccount.DelegeeTypeID = DelegateRole.UserDelegeeTypeID;
 
                 //Get the delegate user account
-                session.DelegeeAccount.DelegeeUserAccount = (Users)delegee;
+                session.DelegeeAccount.DelegeeUserAccount = (User)delegee;
                 session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnAddressPartIfExists: true);
 
                 //Get the Delegee Phonecalls
@@ -347,7 +347,7 @@ namespace Lync_Billing.ui.session
                 session.DelegeeAccount.DelegeeDepartmentAccount = (Department)delegee;
                 session.DelegeeAccount.DelegeeTypeID = DelegateRole.DepartmentDelegeeTypeID;
 
-                session.DelegeeAccount.DelegeeUserAccount = Users.GetUser(sipAccount);
+                session.DelegeeAccount.DelegeeUserAccount = User.GetUser(sipAccount);
                 session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnAddressPartIfExists: true);
 
                 //Switch ActiveRoleName to Department Delegee
@@ -363,7 +363,7 @@ namespace Lync_Billing.ui.session
                 session.DelegeeAccount.DelegeeSiteAccount = (Site)delegee;
                 session.DelegeeAccount.DelegeeTypeID = DelegateRole.SiteDelegeeTypeID;
 
-                session.DelegeeAccount.DelegeeUserAccount = Users.GetUser(sipAccount);
+                session.DelegeeAccount.DelegeeUserAccount = User.GetUser(sipAccount);
                 session.DelegeeAccount.DelegeeUserAccount.DisplayName = HelperFunctions.FormatUserDisplayName(session.DelegeeAccount.DelegeeUserAccount.FullName, session.DelegeeAccount.DelegeeUserAccount.SipAccount, returnAddressPartIfExists: true);
 
                 //Switch ActiveRoleName to Site Delegee

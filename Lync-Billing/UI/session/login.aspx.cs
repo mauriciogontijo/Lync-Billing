@@ -51,7 +51,7 @@ namespace Lync_Billing.ui.session
         private void SetUserSessionFields(ref UserSession session, ADUserInfo userInfo)
         {
             //First and foremost initialize the user's most basic and mandatory fields
-            session.NormalUserInfo = Users.GetUser(userInfo.SipAccount.Replace("sip:", ""));
+            session.NormalUserInfo = User.GetUser(userInfo.SipAccount.Replace("sip:", ""));
             session.NormalUserInfo.DisplayName = HelperFunctions.FormatUserDisplayName(userInfo.DisplayName, userInfo.SipAccount);
             
             session.DelegeeAccount = null;
@@ -91,11 +91,11 @@ namespace Lync_Billing.ui.session
 
             if (status == true)
             {
-                userInfo = Users.GetUserInfo(email.Text);
+                userInfo = User.GetUserInfo(email.Text);
                 
                 /** ----
                  * To impersonate user identity 
-                 */  userInfo = Users.GetUserInfo("aalhour@ccc.gr");
+                 */  userInfo = User.GetUserInfo("aalhour@ccc.gr");
                  /* -------
                  */
                 
@@ -103,19 +103,19 @@ namespace Lync_Billing.ui.session
                 if (!userInfo.Equals(null))
                 {
                     //Try to get user from the database
-                    Users DatabaseUserRecord = Users.GetUser(userInfo.SipAccount.Replace("sip:", ""));
+                    User DatabaseUserRecord = User.GetUser(userInfo.SipAccount.Replace("sip:", ""));
                     
                     //Update the user, if exists and if his/her info has changed... Insert the User if s/he doesn't exist
                     if (DatabaseUserRecord != null)
                     {
-                        //If user information from Active directory doesnt match the one in Users Table : update user table 
+                        //If user information from Active directory doesnt match the one in User Table : update user table 
                         if (DatabaseUserRecord.EmployeeID.ToString() != userInfo.EmployeeID ||
                             DatabaseUserRecord.FullName != userInfo.FirstName + " " + userInfo.LastName || 
                             DatabaseUserRecord.SiteName != userInfo.physicalDeliveryOfficeName ||
                             DatabaseUserRecord.Department != userInfo.department || 
                             DatabaseUserRecord.TelephoneNumber != userInfo.Telephone)
                         {
-                            Users user = new Users();
+                            User user = new User();
                             int employeeID = 0;
                             
                             // Validate employeeID if it could be parsed as integer or not
@@ -132,13 +132,13 @@ namespace Lync_Billing.ui.session
                             user.Department = userInfo.department;
                             user.SiteName = userInfo.physicalDeliveryOfficeName;
 
-                            Users.UpdateUser(user);
+                            User.UpdateUser(user);
                         }
                     }
                     else
                     {
-                        // If user not found in Users tables that means this is his first login : insert his information into Users table
-                        Users user = new Users();
+                        // If user not found in User tables that means this is his first login : insert his information into User table
+                        User user = new User();
                         
                         int employeeID = 0;
 
@@ -155,7 +155,7 @@ namespace Lync_Billing.ui.session
                         user.Department = userInfo.department;
                         user.SiteName = userInfo.physicalDeliveryOfficeName;
                      
-                        Users.InsertUser(user);
+                        User.InsertUser(user);
                     }
 
                     //Assign the current userInfo to the UserSession fields.

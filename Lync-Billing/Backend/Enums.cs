@@ -174,7 +174,7 @@ namespace Lync_Billing.Backend
         }
 
         /// <summary>
-        /// Users Database table Fields Names
+        /// User Database table Fields Names
         /// </summary>
         public enum Users 
         {

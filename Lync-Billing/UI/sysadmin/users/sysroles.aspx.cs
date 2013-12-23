@@ -79,13 +79,13 @@ namespace Lync_Billing.ui.sysadmin.users
         protected void NewSystemRole_UserSipAccount_BeforeQuery(object sender, DirectEventArgs e)
         {
             string searchTerm = string.Empty;
-            List<Users> matchedUsers;
+            List<User> matchedUsers;
 
             if (NewSystemRole_UserSipAccount.Value != null && NewSystemRole_UserSipAccount.Value.ToString().Length > 3)
             {
                 searchTerm = NewSystemRole_UserSipAccount.Value.ToString();
 
-                matchedUsers = Users.SearchForUsers(searchTerm);
+                matchedUsers = User.SearchForUsers(searchTerm);
 
                 NewSystemRole_UserSipAccount.GetStore().DataSource = matchedUsers;
                 NewSystemRole_UserSipAccount.GetStore().LoadData(matchedUsers);
@@ -181,7 +181,7 @@ namespace Lync_Billing.ui.sysadmin.users
                 roleTypeID = Convert.ToInt32(NewSystemRole_RoleTypeCombobox.SelectedItem.Value);
                 userSipAccount = NewSystemRole_UserSipAccount.SelectedItem.Value.ToString();
 
-                var userAccount = Users.GetUser(userSipAccount);
+                var userAccount = User.GetUser(userSipAccount);
                 
                 //Check for duplicates
                 if (allSystemRoles.Find(item => item.SipAccount == userSipAccount && item.RoleID == roleTypeID) != null)

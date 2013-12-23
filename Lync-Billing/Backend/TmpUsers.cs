@@ -47,11 +47,11 @@ namespace Lync_Billing.Backend
             List<string> users = GetAllUsers();
 
             ADUserInfo userInfo;
-            Users dbUser;
+            User dbUser;
             foreach (string user in users) 
             {
                 userInfo = new ADUserInfo();
-                dbUser = new Users();
+                dbUser = new User();
 
                 userInfo = ADRoutine.GetUserAttributes(user);
 
@@ -79,12 +79,12 @@ namespace Lync_Billing.Backend
                 dbUser.Department = userInfo.department;
 
                 //get the actual data from ADUser table to match if exists and needs to be updated or inserted 
-                Users adUser = Users.GetUser(dbUser.SipAccount);
+                User adUser = User.GetUser(dbUser.SipAccount);
 
                 if (adUser == null)
-                    Users.InsertUser(dbUser);
+                    User.InsertUser(dbUser);
                 else
-                    Users.UpdateUser(dbUser);
+                    User.UpdateUser(dbUser);
 
             }
 

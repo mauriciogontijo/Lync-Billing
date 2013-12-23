@@ -19,7 +19,7 @@ namespace Lync_Billing.ui.sysadmin.users
         private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
-        private List<Users> allUsers = new List<Users>();
+        private List<User> allUsers = new List<User>();
         private List<Site> allSites = new List<Site>();
         private List<Department> allDepartments = new List<Department>();
         private List<DelegateRole> allDelegees = new List<DelegateRole>();
@@ -71,16 +71,16 @@ namespace Lync_Billing.ui.sysadmin.users
 
         private List<string> GetUsersPerSite(int siteID)
         {
-            List<Users> users = new List<Users>();
+            List<User> users = new List<User>();
             List<string> usersList = new List<string>();
 
             var siteObject = allSites.Find(site => site.SiteID == siteID);
 
-            users = Users.GetUsers(siteObject.SiteName);
+            users = User.GetUsers(siteObject.SiteName);
 
             if (users.Count > 0)
             {
-                foreach (Users user in users)
+                foreach (User user in users)
                 {
                     usersList.Add(user.SipAccount);
                 }
@@ -141,13 +141,13 @@ namespace Lync_Billing.ui.sysadmin.users
         protected void NewDelegee_UserSipAccount_BeforeQuery(object sender, DirectEventArgs e)
         {
             string searchTerm = string.Empty;
-            List<Users> matchedUsers;
+            List<User> matchedUsers;
 
             if (NewDelegee_UserSipAccount.Value != null && NewDelegee_UserSipAccount.Value.ToString().Length > 3)
             {
                 searchTerm = NewDelegee_UserSipAccount.Value.ToString();
                 
-                matchedUsers = Users.SearchForUsers(searchTerm);
+                matchedUsers = User.SearchForUsers(searchTerm);
 
                 NewDelegee_UserSipAccount.GetStore().DataSource = matchedUsers;
                 NewDelegee_UserSipAccount.GetStore().LoadData(matchedUsers);
@@ -158,13 +158,13 @@ namespace Lync_Billing.ui.sysadmin.users
         protected void NewDelegee_DelegeeSipAccount_BeforeQuery(object sender, DirectEventArgs e)
         {
             string searchTerm = string.Empty;
-            List<Users> matchedUsers;
+            List<User> matchedUsers;
 
             if (NewDelegee_DelegeeSipAccount.Value != null && NewDelegee_DelegeeSipAccount.Value.ToString().Length > 3)
             {
                 searchTerm = NewDelegee_DelegeeSipAccount.Value.ToString();
 
-                matchedUsers = Users.SearchForUsers(searchTerm);
+                matchedUsers = User.SearchForUsers(searchTerm);
 
                 NewDelegee_DelegeeSipAccount.GetStore().DataSource = matchedUsers;
                 NewDelegee_DelegeeSipAccount.GetStore().LoadData(matchedUsers);
@@ -264,8 +264,8 @@ namespace Lync_Billing.ui.sysadmin.users
                 delegeeSipAccount = NewDelegee_DelegeeSipAccount.SelectedItem.Value.ToString();
 
                 var delegates = DelegateRole.GetDelegees(delegeeSipAccount);
-                var userAccount = Users.GetUser(userSipAccount);
-                var delegeeAccount = Users.GetUser(delegeeSipAccount);
+                var userAccount = User.GetUser(userSipAccount);
+                var delegeeAccount = User.GetUser(delegeeSipAccount);
 
                 //Check for duplicates
                 if (delegates.Find(item => item.SipAccount == userSipAccount) != null)

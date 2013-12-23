@@ -14,7 +14,7 @@ namespace Lync_Billing.Backend
         private List<DelegateRole> userDelegees = new List<DelegateRole>();
 
         //Normal user data
-        public Users NormalUserInfo { get; set; }
+        public User NormalUserInfo { get; set; }
         public string TelephoneNumber { set; get; }
         public string IPAddress { set; get; }
         public string UserAgent { set; get; }
@@ -55,7 +55,7 @@ namespace Lync_Billing.Backend
 
         public UserSession()
         {
-            NormalUserInfo = new Users();
+            NormalUserInfo = new User();
             TelephoneNumber = string.Empty;
             IPAddress = string.Empty;
             UserAgent = string.Empty;

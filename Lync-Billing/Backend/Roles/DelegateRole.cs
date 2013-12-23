@@ -22,7 +22,7 @@ namespace Lync_Billing.Backend.Roles
 
         //These are logical representation of data, they don't belong to the table
         public string DelegeeDisplayName { get; set; }
-        public Users DelegeeUser { get; set; }
+        public User DelegeeUser { get; set; }
         public Site DelegeeSite { get; set; }
         public Department DelegeeDepartment { get; set; }
 
@@ -130,7 +130,7 @@ namespace Lync_Billing.Backend.Roles
 
                 if (delegatedAccount.DelegeeType == DelegateRole.UserDelegeeTypeID)
                 {
-                    delegatedAccount.DelegeeUser = Users.GetUser(delegatedAccount.SipAccount);
+                    delegatedAccount.DelegeeUser = User.GetUser(delegatedAccount.SipAccount);
                     delegatedAccount.DelegeeUser.DisplayName = HelperFunctions.FormatUserDisplayName(delegatedAccount.DelegeeUser.FullName, delegatedAccount.DelegeeUser.SipAccount);
                     delegatedAccount.DelegeeDisplayName = HelperFunctions.FormatUserDisplayName(delegatedAccount.DelegeeUser.FullName, delegatedAccount.DelegeeUser.SipAccount, returnNameIfExists: true, returnAddressPartIfExists: true); ;
                 }
@@ -139,7 +139,7 @@ namespace Lync_Billing.Backend.Roles
                 {
                     delegatedAccount.DelegeeDepartment = Department.GetDepartment(delegatedAccount.DepartmentID);
 
-                    var sipAccountInfo = Users.GetUser(delegatedAccount.SipAccount);
+                    var sipAccountInfo = User.GetUser(delegatedAccount.SipAccount);
 
                     if (sipAccountInfo == null)
                         delegatedAccount.DelegeeDisplayName = delegatedAccount.SipAccount;
@@ -151,7 +151,7 @@ namespace Lync_Billing.Backend.Roles
                 {
                     delegatedAccount.DelegeeSite = Site.GetSite(delegatedAccount.SiteID);
 
-                    var sipAccountInfo = Users.GetUser(delegatedAccount.SipAccount.TrimEnd());
+                    var sipAccountInfo = User.GetUser(delegatedAccount.SipAccount.TrimEnd());
 
                     if (sipAccountInfo == null)
                         delegatedAccount.DelegeeDisplayName = delegatedAccount.SipAccount;
@@ -186,7 +186,7 @@ namespace Lync_Billing.Backend.Roles
                 if (delegateTypeID == DelegateRole.UserDelegeeTypeID)
                 {
                     //Try to get the user from the system by the associated delegateAccount.SipAccount
-                    userInfo = Users.GetUserInfo(delegateAccount.SipAccount);
+                    userInfo = User.GetUserInfo(delegateAccount.SipAccount);
                     delegateName = (userInfo == null) ? delegateAccount.SipAccount : HelperFunctions.ReturnEmptyIfNull(userInfo.FirstName) + " " + HelperFunctions.ReturnEmptyIfNull(userInfo.LastName);
 
                     DelegatedAccounts.Add(delegateAccount.SipAccount, delegateName);

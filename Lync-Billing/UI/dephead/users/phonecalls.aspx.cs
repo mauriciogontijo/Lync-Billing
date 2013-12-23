@@ -89,9 +89,9 @@ namespace Lync_Billing.ui.dephead.users
         }
 
 
-        private List<Users> GetUsers(string departmentName, string siteName)
+        private List<User> GetUsers(string departmentName, string siteName)
         {
-            //List<Users> users = new List<Users>();
+            //List<User> users = new List<User>();
             List<string> columns = new List<string>();
             Dictionary<string, object> whereClause = new Dictionary<string, object>() 
             { 
@@ -99,7 +99,7 @@ namespace Lync_Billing.ui.dephead.users
                 { Enums.GetDescription(Enums.Users.Department), departmentName }
             };
 
-            return Users.GetUsers(columns, whereClause, 0);
+            return User.GetUsers(columns, whereClause, 0);
         }
 
 
@@ -120,7 +120,7 @@ namespace Lync_Billing.ui.dephead.users
 
                 if (department != null)
                 {
-                    List<Users> users = GetUsers(department.DepartmentName, department.SiteName);
+                    List<User> users = GetUsers(department.DepartmentName, department.SiteName);
 
                     FilterUsersByDepartment.Disabled = false;
                     FilterUsersByDepartment.GetStore().DataSource = users;

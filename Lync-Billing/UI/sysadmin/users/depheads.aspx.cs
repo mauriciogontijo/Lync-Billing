@@ -19,7 +19,7 @@ namespace Lync_Billing.ui.sysadmin.users
         private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
-        private List<Users> allUsers = new List<Users>();
+        private List<User> allUsers = new List<User>();
         private List<Site> allSites = new List<Site>();
         private List<Department> allDepartments = new List<Department>();
         private List<DepartmentHeadRole> allDepartmenHeads = new List<DepartmentHeadRole>();
@@ -53,16 +53,16 @@ namespace Lync_Billing.ui.sysadmin.users
 
         private List<string> GetUsersPerSite(int siteID)
         {
-            List<Users> users = new List<Users>();
+            List<User> users = new List<User>();
             List<string> usersList = new List<string>();
 
             var siteObject = allSites.Find(site => site.SiteID == siteID);
 
-            users = Users.GetUsers(siteObject.SiteName);
+            users = User.GetUsers(siteObject.SiteName);
 
             if (users.Count > 0)
             {
-                foreach (Users user in users)
+                foreach (User user in users)
                 {
                     usersList.Add(user.SipAccount);
                 }
@@ -118,13 +118,13 @@ namespace Lync_Billing.ui.sysadmin.users
         protected void NewDepartmentHead_UserSipAccount_BeforeQuery(object sender, DirectEventArgs e)
         {
             string searchTerm = string.Empty;
-            List<Users> matchedUsers;
+            List<User> matchedUsers;
 
             if (NewDepartmentHead_UserSipAccount.Value != null && NewDepartmentHead_UserSipAccount.Value.ToString().Length > 3)
             {
                 searchTerm = NewDepartmentHead_UserSipAccount.Value.ToString();
 
-                matchedUsers = Users.SearchForUsers(searchTerm);
+                matchedUsers = User.SearchForUsers(searchTerm);
 
                 NewDepartmentHead_UserSipAccount.GetStore().DataSource = matchedUsers;
                 NewDepartmentHead_UserSipAccount.GetStore().LoadData(matchedUsers);
@@ -208,7 +208,7 @@ namespace Lync_Billing.ui.sysadmin.users
                 newDepartmentHead = new DepartmentHeadRole();
 
                 DepartmentHeadSipAccount = NewDepartmentHead_UserSipAccount.SelectedItem.Value.ToString();
-                var DepartmentHeadUserAccount = Users.GetUser(DepartmentHeadSipAccount);
+                var DepartmentHeadUserAccount = User.GetUser(DepartmentHeadSipAccount);
                 
                 //Check for duplicates
                 if (allDepartmenHeads.Find(item => item.SipAccount == DepartmentHeadSipAccount) != null)
