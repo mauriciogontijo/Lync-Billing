@@ -152,7 +152,7 @@ namespace Lync_Billing.ui.sysadmin.manage
                         }
 
                         //Everything is ok, proceed with updating the site
-                        storeSiteObject.CountryCode = countryInfo.CountryCodeISO2.ToUpper();
+                        storeSiteObject.CountryCode = countryInfo.CountryCodeISO3.ToUpper();
 
                         //Handle the case of resetting the description
                         if (string.IsNullOrEmpty(storeSiteObject.Description) && storeSiteObject.Description != originalSiteObject.Description)
@@ -217,7 +217,7 @@ namespace Lync_Billing.ui.sysadmin.manage
 
                     NewSite.SiteName = SiteName;
                     NewSite.CountryName = CountryName;
-                    NewSite.CountryCode = ((Country)allCountries.Find(country => country.CountryName == CountryName)).CountryCodeISO2;
+                    NewSite.CountryCode = ((Country)allCountries.Find(country => country.CountryName == CountryName)).CountryCodeISO3;
                     NewSite.Description = Description;
 
                     //Insert the New Site to the database

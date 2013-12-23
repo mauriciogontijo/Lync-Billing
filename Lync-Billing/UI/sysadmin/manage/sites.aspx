@@ -113,7 +113,7 @@
                 </Store>
 
                 <Plugins>
-                    <ext:RowEditing ID="ManageSites_RowEditing" runat="server" ClicksToEdit="2" ClicksToMoveEditor="1">
+                    <ext:RowEditing ID="ManageSites_RowEditing" runat="server" ClicksToEdit="2">
                         <%--<DirectEvents>
                             <BeforeEdit OnEvent="ManageSites_RowEditing_BeforeEdit" />
                         </DirectEvents>--%>
