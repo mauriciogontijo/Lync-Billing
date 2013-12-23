@@ -214,7 +214,7 @@
     <Compile Include="Backend\Roles\Roles.cs" />
     <Compile Include="Backend\Roles\SystemRole.cs" />
     <Compile Include="Backend\Site.cs" />
-    <Compile Include="Backend\User.cs" />
+    <Compile Include="Backend\Users.cs" />
     <Compile Include="Backend\UserSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
