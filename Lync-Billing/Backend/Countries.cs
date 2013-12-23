@@ -19,7 +19,7 @@ namespace Lync_Billing.Backend
 
         public static List<Countries> GetCurrencies()
         {
-            Countries currency;
+            Countries country;
             DataTable dt = new DataTable();
             List<Countries> currencies = new List<Countries>();
 
@@ -27,20 +27,26 @@ namespace Lync_Billing.Backend
 
             foreach (DataRow row in dt.Rows)
             {
-                currency = new Countries();
+                country = new Countries();
 
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.Countries.CountryName) && row[column.ColumnName] != System.DBNull.Value)
-                        currency.CountryName = (string)row[column.ColumnName];
+                        country.CountryName = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Countries.CurrencyName) && row[column.ColumnName] != System.DBNull.Value)
-                        currency.CurrencyName = (string)row[column.ColumnName];
+                        country.CurrencyName = (string)row[column.ColumnName];
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Countries.CurrencyISOName) && row[column.ColumnName] != System.DBNull.Value)
-                        currency.CurrencyISOName = (string)row[column.ColumnName];
+                        country.CurrencyISOName = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Countries.CountryCodeISO2) && row[column.ColumnName] != System.DBNull.Value)
+                        country.CountryCodeISO2 = (string)row[column.ColumnName];
+
+                    if (column.ColumnName == Enums.GetDescription(Enums.Countries.CountryCodeISO3) && row[column.ColumnName] != System.DBNull.Value)
+                        country.CountryCodeISO3 = (string)row[column.ColumnName];
                 }
-                currencies.Add(currency);
+                currencies.Add(country);
             }
             return currencies;
         }
