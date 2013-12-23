@@ -99,6 +99,7 @@ namespace Lync_Billing.ui.sysadmin.manage
             sipAccount = session.NormalUserInfo.SipAccount;
 
             bool statusFlag = false;
+            bool resetDescriptionFlag = false;
             string messageType = "error";
             string notificationMessage = string.Empty;
 
@@ -145,7 +146,13 @@ namespace Lync_Billing.ui.sysadmin.manage
 
                         //Everything is ok, proceed with updating the site
                         storeSiteObject.CountryCode = countryInfo.TwoDigitsCountryCode.ToUpper();
-                        statusFlag = Backend.Site.UpdateSite(storeSiteObject);
+
+                        //Handle the case of resetting the description
+                        if (string.IsNullOrEmpty(storeSiteObject.Description) && storeSiteObject.Description != originalSiteObject.Description)
+                            resetDescriptionFlag = true;
+
+                        statusFlag = Backend.Site.UpdateSite(storeSiteObject, FORCE_RESET_DESCRIPTION: resetDescriptionFlag);
+
 
                         //If an error has occured during the Database Update, display error message
                         if (statusFlag == false)
