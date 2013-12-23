@@ -67,13 +67,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.RowEditing ManageSites_RowEditing;
         
         /// <summary>
-        /// Column4 control.
+        /// SiteNameColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column4;
+        protected global::Ext.Net.Column SiteNameColumn;
         
         /// <summary>
         /// SiteNameFilter control.
@@ -103,13 +103,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.TextField Editor_SiteNameTextField;
         
         /// <summary>
-        /// Column2 control.
+        /// CountryNameColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column2;
+        protected global::Ext.Net.Column CountryNameColumn;
         
         /// <summary>
         /// CountryNameFilter control.
@@ -121,13 +121,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.TextField CountryNameFilter;
         
         /// <summary>
-        /// ClearButton1 control.
+        /// ClearCountryNameFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ClearButton ClearButton1;
+        protected global::Ext.Net.ClearButton ClearCountryNameFilter;
         
         /// <summary>
         /// Editor_CountryNameCombobox control.
@@ -157,13 +157,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.Model Editor_CountryNameComboboxStoreModel;
         
         /// <summary>
-        /// Column3 control.
+        /// DescriptionColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column3;
+        protected global::Ext.Net.Column DescriptionColumn;
         
         /// <summary>
         /// DescriptionFilter control.

@@ -65,6 +65,13 @@ namespace Lync_Billing.ui.sysadmin.manage
             Editor_CountryNameCombobox.GetStore().LoadData(allCountries);
         }
 
+        protected void Editor_CountryNameComboboxStore_Load(object sender, EventArgs e)
+        {
+            Editor_CountryNameCombobox.GetStore().DataSource = allCountries;
+            Editor_CountryNameCombobox.GetStore().DataBind();
+            //Editor_CountryNameCombobox.GetStore().LoadData(allCountries);
+        }
+
         protected void NewSite_CountryListStore_Load(object sender, EventArgs e)
         {
             NewSite_CountryList.GetStore().DataSource = allCountries;

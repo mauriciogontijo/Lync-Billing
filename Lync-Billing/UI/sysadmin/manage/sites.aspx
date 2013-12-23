@@ -113,16 +113,16 @@
                 </Store>
 
                 <Plugins>
-                    <ext:RowEditing ID="ManageSites_RowEditing" runat="server" ClicksToEdit="2">
-                        <DirectEvents>
+                    <ext:RowEditing ID="ManageSites_RowEditing" runat="server" ClicksToEdit="2" ClicksToMoveEditor="1">
+                        <%--<DirectEvents>
                             <BeforeEdit OnEvent="ManageSites_RowEditing_BeforeEdit" />
-                        </DirectEvents>
+                        </DirectEvents>--%>
                     </ext:RowEditing>
                 </Plugins>
 
                 <ColumnModel ID="ManageSitesColumnModel" runat="server" Flex="1">
                     <Columns>
-                        <ext:Column ID="Column4"
+                        <ext:Column ID="SiteNameColumn"
                             runat="server"
                             Text="Site Name"
                             Width="150"
@@ -142,14 +142,11 @@
                             </HeaderItems>
 
                             <Editor>
-                                <ext:TextField
-                                    ID="Editor_SiteNameTextField"
-                                    runat="server"
-                                    DataIndex="SiteName" />
+                                <ext:TextField ID="Editor_SiteNameTextField" runat="server" />
                             </Editor>
                         </ext:Column>
 
-                        <ext:Column ID="Column2"
+                        <ext:Column ID="CountryNameColumn"
                             runat="server"
                             Text="Country Name"
                             Width="280"
@@ -163,7 +160,7 @@
                                         <Change Handler="applyFilter(this);" Buffer="260" />                                                
                                     </Listeners>
                                     <Plugins>
-                                        <ext:ClearButton ID="ClearButton1" runat="server" />
+                                        <ext:ClearButton ID="ClearCountryNameFilter" runat="server" />
                                     </Plugins>
                                 </ext:TextField>
                             </HeaderItems>
@@ -172,15 +169,16 @@
                                 <ext:ComboBox
                                     ID="Editor_CountryNameCombobox"
                                     runat="server"
-                                    DataIndex="CountryCode"
-                                    TriggerAction="Query"
-                                    QueryMode="Local"
-                                    Editable="true"
+                                    TriggerAction="All"
+                                    Editable="false"
                                     DisplayField="CountryName"
                                     ValueField="CountryName"
                                     EmptyText="Please Select Country">
                                     <Store>
-                                        <ext:Store ID="Editor_CountryNameComboboxStore" runat="server">
+                                        <ext:Store
+                                            ID="Editor_CountryNameComboboxStore"
+                                            runat="server"
+                                            OnLoad="Editor_CountryNameComboboxStore_Load">
                                             <Model>
                                                 <ext:Model ID="Editor_CountryNameComboboxStoreModel" runat="server">
                                                     <Fields>
@@ -190,13 +188,17 @@
                                                     </Fields>
                                                 </ext:Model>
                                             </Model>
+
+                                            <Sorters>
+                                                <ext:DataSorter Property="CountryName" Direction="ASC" />
+                                            </Sorters>
                                         </ext:Store>
                                     </Store>
                                 </ext:ComboBox>
                             </Editor>
                         </ext:Column>
 
-                        <ext:Column ID="Column3"
+                        <ext:Column ID="DescriptionColumn"
                             runat="server"
                             Text="Description"
                             Width="220"
@@ -216,10 +218,7 @@
                             </HeaderItems>
 
                             <Editor>
-                                <ext:TextField
-                                    ID="Editor_DescriptionTextField"
-                                    runat="server"
-                                    DataIndex="Description" />
+                                <ext:TextField ID="Editor_DescriptionTextField" runat="server" />
                             </Editor>
                         </ext:Column>
 
