@@ -16,6 +16,7 @@ namespace Lync_Billing.Backend
         public int DepartmentID { get; set; }
         public string SiteName { get; set; }
         public string DepartmentName { get; set; }
+        public string Description { get; set; }
 
         //This is a logical representation of the SiteName and DepartmentName
         //example: MOA (IDS), RASO (ISD) ... etc
@@ -69,15 +70,20 @@ namespace Lync_Billing.Backend
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.Departments.ID))
-                        department.DepartmentID = Convert.ToInt32(row[column.ColumnName]);
+                        department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     else if(column.ColumnName == Enums.GetDescription(Enums.Departments.DepartmentName))
-                        department.DepartmentName = Convert.ToString(row[column.ColumnName]);
+                        department.DepartmentName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.SiteID))
                     {
-                        department.SiteID = Convert.ToInt32(row[column.ColumnName]);
+                        department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
                         department.SiteName = Site.GetSiteName(department.SiteID);
+                    }
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.Description))
+                    {
+                        department.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                     }
                 }
 
@@ -112,15 +118,20 @@ namespace Lync_Billing.Backend
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.Departments.ID))
-                        department.DepartmentID = Convert.ToInt32(row[column.ColumnName]);
+                        department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.DepartmentName))
-                        department.DepartmentName = Convert.ToString(row[column.ColumnName]);
+                        department.DepartmentName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.SiteID))
                     {
-                        department.SiteID = Convert.ToInt32(row[column.ColumnName]);
+                        department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
                         department.SiteName = Site.GetSiteName(department.SiteID);
+                    }
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.Description))
+                    {
+                        department.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                     }
                 }
 
@@ -153,15 +164,20 @@ namespace Lync_Billing.Backend
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.Departments.ID))
-                        department.DepartmentID = Convert.ToInt32(row[column.ColumnName]);
+                        department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.DepartmentName))
-                        department.DepartmentName = Convert.ToString(row[column.ColumnName]);
+                        department.DepartmentName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.SiteID))
                     {
-                        department.SiteID = Convert.ToInt32(row[column.ColumnName]);
+                        department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
                         department.SiteName = Site.GetSiteName(department.SiteID);
+                    }
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.Description))
+                    {
+                        department.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
                     }
                 }
 
@@ -173,10 +189,56 @@ namespace Lync_Billing.Backend
             return departmentsList;
         }
 
-
-        public override string ToString()
+        public static bool UpdateDepartment(Department existingDepartment, bool FORCE_RESET_DESCRIPTION = false)
         {
-            return this.DepartmentIdentifier;
+            bool status = false;
+
+            Dictionary<string, object> columnValues = new Dictionary<string, object>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+
+            wherePart.Add(Enums.GetDescription(Enums.Departments.ID), existingDepartment.DepartmentID);
+
+
+            //Set Part
+            if (!string.IsNullOrEmpty(existingDepartment.DepartmentName))
+                columnValues.Add(Enums.GetDescription(Enums.Departments.DepartmentName), existingDepartment.DepartmentName);
+
+            if (existingDepartment.SiteID > 0)
+                columnValues.Add(Enums.GetDescription(Enums.Departments.SiteID), existingDepartment.SiteID);
+
+            if (!string.IsNullOrEmpty(existingDepartment.Description))
+                columnValues.Add(Enums.GetDescription(Enums.Departments.Description), existingDepartment.Description);
+
+
+            //RESET FLAG
+            if (FORCE_RESET_DESCRIPTION == true)
+                columnValues.Add(Enums.GetDescription(Enums.Departments.Description), null);
+
+
+            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Departments.TableName), columnValues, wherePart);
+
+            return status;
+        }
+
+        public static int AddDepartment(Department newDepartment)
+        {
+            int rowID = 0;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>();
+
+            if (!string.IsNullOrEmpty(newDepartment.DepartmentName) && newDepartment.SiteID > 0)
+            {
+                columnsValues.Add(Enums.GetDescription(Enums.Departments.SiteID), newDepartment.SiteID);
+
+                columnsValues.Add(Enums.GetDescription(Enums.Departments.DepartmentName), newDepartment.DepartmentName);
+
+                if (!string.IsNullOrEmpty(newDepartment.Description))
+                    columnsValues.Add(Enums.GetDescription(Enums.Departments.Description), newDepartment.Description);
+
+                //Execute Insert
+                rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Departments.TableName), columnsValues, Enums.GetDescription(Enums.Departments.ID));
+            }
+
+            return rowID;
         }
 
     }
