@@ -45,7 +45,7 @@ namespace Lync_Billing.ui.dephead.main
 
             //Set the year number in the charts header's title
             string currentYear = DateTime.Now.Year.ToString();
-            TopDestinationCountriesPanel.Title = "Most Called Countries in " + currentYear;
+            TopDestinationCountriesPanel.Title = "Most Called Country in " + currentYear;
             DepartmentCallsPerMonthChartPanel.Title = "Phonecalls Distribution for " + currentYear;
 
             /***
@@ -123,7 +123,7 @@ namespace Lync_Billing.ui.dephead.main
 
                 if (department != null && !string.IsNullOrEmpty(department.SiteName))
                 {
-                    // Get Top Countries
+                    // Get Top Country
                     TopDestinationCountriesStore.DataSource = TopDestinationCountries.GetTopDestinationCountriesForDepartment(department.SiteName, department.DepartmentName, 5);
                     TopDestinationCountriesStore.DataBind();
 

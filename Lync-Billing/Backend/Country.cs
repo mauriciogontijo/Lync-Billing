@@ -7,7 +7,7 @@ using Lync_Billing.Libs;
 
 namespace Lync_Billing.Backend
 {
-    public class Countries
+    public class Country
     {
         public string CountryName { get; set; }
         public string CurrencyName { get; set; }
@@ -17,17 +17,17 @@ namespace Lync_Billing.Backend
 
         private static DBLib DBRoutines = new DBLib();
 
-        public static List<Countries> GetCurrencies()
+        public static List<Country> GetAllCountries()
         {
-            Countries country;
+            Country country;
             DataTable dt = new DataTable();
-            List<Countries> currencies = new List<Countries>();
+            List<Country> currencies = new List<Country>();
 
             dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Countries.TableName));
 
             foreach (DataRow row in dt.Rows)
             {
-                country = new Countries();
+                country = new Country();
 
                 foreach (DataColumn column in dt.Columns)
                 {

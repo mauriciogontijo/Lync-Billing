@@ -182,9 +182,9 @@
                                             <Model>
                                                 <ext:Model ID="Editor_CountryNameComboboxStoreModel" runat="server">
                                                     <Fields>
-                                                        <ext:ModelField Name="TwoDigitsCountryCode" Type="String" />
-                                                        <ext:ModelField Name="ThreeDigitsCountryCode" Type="String" />
                                                         <ext:ModelField Name="CountryName" Type="String" />
+                                                        <ext:ModelField Name="CountryCodeISO2" Type="String" />
+                                                        <ext:ModelField Name="CountryCodeISO3" Type="String" />
                                                     </Fields>
                                                 </ext:Model>
                                             </Model>
@@ -315,8 +315,8 @@
                                                     <ext:Model ID="NewSite_CountryListStoreModel" runat="server">
                                                         <Fields>
                                                             <ext:ModelField Name="CountryName" Type="String" />
-                                                            <ext:ModelField Name="TwoDigitsCountryCode" Type="String" />
-                                                            <ext:ModelField Name="ThreeDigitsCountryCode" Type="String" />
+                                                            <ext:ModelField Name="CountryCodeISO2" Type="String" />
+                                                            <ext:ModelField Name="CountryCodeISO3" Type="String" />
                                                         </Fields>
                                                     </ext:Model>
                                                 </Model>

@@ -23,7 +23,7 @@ namespace Lync_Billing.ui.sysadmin.manage
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
         List<Backend.Site> allSites = new List<Backend.Site>();
-        List<NumberingPlan> allCountries = new List<NumberingPlan>();
+        List<Country> allCountries = new List<Country>();
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace Lync_Billing.ui.sysadmin.manage
             sipAccount = session.NormalUserInfo.SipAccount;
 
             allSites = Backend.Site.GetAllSites();
-            allCountries = NumberingPlan.GetAllCountries();
+            allCountries = Country.GetAllCountries();
         }
 
 
@@ -125,7 +125,7 @@ namespace Lync_Billing.ui.sysadmin.manage
                     foreach (Backend.Site storeSiteObject in storeShangedData.Updated)
                     {
                         var originalSiteObject = (Site)allSites.Find(siteRecord => siteRecord.SiteID == storeSiteObject.SiteID);
-                        var countryInfo = (NumberingPlan)allCountries.Find(country => country.CountryName == storeSiteObject.CountryName);
+                        var countryInfo = (Country)allCountries.Find(country => country.CountryName == storeSiteObject.CountryName);
 
                         //Validate the Country Name
                         //If the submitted country name doesn't exist in the database, exit and display error message
@@ -152,7 +152,7 @@ namespace Lync_Billing.ui.sysadmin.manage
                         }
 
                         //Everything is ok, proceed with updating the site
-                        storeSiteObject.CountryCode = countryInfo.TwoDigitsCountryCode.ToUpper();
+                        storeSiteObject.CountryCode = countryInfo.CountryCodeISO2.ToUpper();
 
                         //Handle the case of resetting the description
                         if (string.IsNullOrEmpty(storeSiteObject.Description) && storeSiteObject.Description != originalSiteObject.Description)
@@ -217,7 +217,7 @@ namespace Lync_Billing.ui.sysadmin.manage
 
                     NewSite.SiteName = SiteName;
                     NewSite.CountryName = CountryName;
-                    NewSite.CountryCode = ((NumberingPlan)allCountries.Find(country => country.CountryName == CountryName)).TwoDigitsCountryCode;
+                    NewSite.CountryCode = ((Country)allCountries.Find(country => country.CountryName == CountryName)).CountryCodeISO2;
                     NewSite.Description = Description;
 
                     //Insert the New Site to the database

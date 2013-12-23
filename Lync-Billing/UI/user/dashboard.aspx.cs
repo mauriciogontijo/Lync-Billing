@@ -84,7 +84,7 @@ namespace Lync_Billing.ui.user
             string currentYear = DateTime.Now.Year.ToString();
             CallsCostsChartPanel.Title = "Calls Cost Chart for " + currentYear;
             TopDestinationNumbersGrid.Title = "Most Called Numbers in " + currentYear;
-            TopDestinationCountriesPanel.Title = "Most Called Countries in " + currentYear;
+            TopDestinationCountriesPanel.Title = "Most Called Country in " + currentYear;
 
             //Initialize the unmarked calls counter - this is being used in the frontend.
             //unmarkedCallsCount = getUnmarkedCallsCount();

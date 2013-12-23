@@ -192,7 +192,7 @@ namespace Lync_Billing.ui.session
                     /** 
                      * -------
                      * To spoof identity for intermediate authentication
-                     * status = true;
+                     */ status = true;
                      /* --------
                      **/
 
@@ -327,11 +327,11 @@ namespace Lync_Billing.ui.session
                 //Get the Delegee Phonecalls
                 session.DelegeeAccount.DelegeeUserPhonecallsPerPage = string.Empty;
                 session.DelegeeAccount.DelegeeUserPhonecalls = new List<PhoneCall>();
-                //session.DelegeeAccount.DelegeeUserPhonecalls = PhoneCall.GetPhoneCalls(session.DelegeeAccount.DelegeeUserAccount.SipAccount);
+                //session.DelegeeSipAccount.DelegeeUserPhonecalls = PhoneCall.GetPhoneCalls(session.DelegeeSipAccount.DelegeeUserAccount.SipAccount);
                 
                 //Get the Delegee Addressbook
                 session.DelegeeAccount.DelegeeUserAddressbook = new Dictionary<string,PhoneBook>();
-                //session.DelegeeAccount.DelegeeUserAddressbook = PhoneBook.GetAddressBook(session.DelegeeAccount.DelegeeUserAccount.SipAccount);
+                //session.DelegeeSipAccount.DelegeeUserAddressbook = PhoneBook.GetAddressBook(session.DelegeeSipAccount.DelegeeUserAccount.SipAccount);
 
                 //Set the ActiveRoleName to "userdelegee"
                 session.ActiveRoleName = userDelegeeRoleName;
@@ -380,7 +380,7 @@ namespace Lync_Billing.ui.session
             //Initialize a temp copy of the User Session
             UserSession session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            //Nullify the DelegeeAccount object.
+            //Nullify the DelegeeSipAccount object.
             session.DelegeeAccount = null;
 
             //Always set the ActiveRoleName to "user"

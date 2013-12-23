@@ -185,7 +185,7 @@
     <Compile Include="ConfigurationSections\PDFReportsPropertiesSection.cs" />
     <Compile Include="ConfigurationSections\PhoneCallsTablesSection.cs" />
     <Compile Include="Backend\Announcements.cs" />
-    <Compile Include="Backend\Countries.cs" />
+    <Compile Include="Backend\Country.cs" />
     <Compile Include="Backend\DelegeeAccountInfo.cs" />
     <Compile Include="Backend\Department.cs" />
     <Compile Include="Backend\Roles\DepartmentHeadRole.cs" />

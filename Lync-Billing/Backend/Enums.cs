@@ -313,7 +313,7 @@ namespace Lync_Billing.Backend
 
         public enum Countries
         {
-            [Description("Countries")]
+            [Description("Country")]
             TableName,
             [Description("CountryName")]
             CountryName,
