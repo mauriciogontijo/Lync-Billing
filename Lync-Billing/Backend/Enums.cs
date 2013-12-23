@@ -54,7 +54,9 @@ namespace Lync_Billing.Backend
             [Description("SiteID")]
             SiteID,
             [Description("DepartmentName")]
-            DepartmentName
+            DepartmentName,
+            [Description("Description")]
+            Description
         }
 
         /// <summary>
@@ -309,16 +311,20 @@ namespace Lync_Billing.Backend
             Name
         }
 
-        public enum Currencies
+        public enum Countries
         {
-            [Description("Currencies")]
+            [Description("Countries")]
             TableName,
             [Description("CountryName")]
             CountryName,
             [Description("CurrencyName")]
             CurrencyName,
             [Description("CurrencyISOName")]
-            CurrencyISOName
+            CurrencyISOName,
+            [Description("CountryCodeISO2")]
+            CountryCodeISO2,
+            [Description("CountryCodeISO3")]
+            CountryCodeISO3
         }
 
         public enum MailStatistics
