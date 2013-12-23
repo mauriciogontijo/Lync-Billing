@@ -230,24 +230,34 @@ namespace Lync_Billing.Backend
         }
 
 
-        public static bool UpdateSite(Site site)
+        public static bool UpdateSite(Site site, bool FORCE_RESET_DESCRIPTION = false)
         {
             bool status = false;
 
-            Dictionary<string, object> setPart = new Dictionary<string, object>();
+            Dictionary<string, object> columnValues = new Dictionary<string, object>();
+            Dictionary<string, object> wherePart = new Dictionary<string, object>();
+
+            wherePart.Add(Enums.GetDescription(Enums.Sites.SiteID), site.SiteID);
+
 
             //Set Part
             if (!string.IsNullOrEmpty(site.SiteName))
-                setPart.Add(Enums.GetDescription(Enums.Sites.SiteName), site.SiteName);
+                columnValues.Add(Enums.GetDescription(Enums.Sites.SiteName), site.SiteName);
 
             if (!string.IsNullOrEmpty(site.CountryCode))
-                setPart.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
+                columnValues.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
 
             if (!string.IsNullOrEmpty(site.Description))
-                setPart.Add(Enums.GetDescription(Enums.Sites.Description), site.Description);
+                columnValues.Add(Enums.GetDescription(Enums.Sites.Description), site.Description);
+
+
+            //RESET FLAG
+            if (FORCE_RESET_DESCRIPTION == true)
+                columnValues.Add(Enums.GetDescription(Enums.Sites.Description), null);
+
 
             //Execute Update
-            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Sites.TableName), setPart, Enums.GetDescription(Enums.Sites.SiteID), site.SiteID);
+            status = DBRoutines.UPDATE(Enums.GetDescription(Enums.Sites.TableName), columnValues, wherePart);
 
             return status;
         }
