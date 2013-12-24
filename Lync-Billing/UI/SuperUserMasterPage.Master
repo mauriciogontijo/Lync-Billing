@@ -117,7 +117,7 @@
                                             <p>Management</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='#' id="ui_sysadmin_manage_dids">DIDs</a></p>
+                                            <p><a href='../manage/dids.aspx' id="ui_sysadmin_manage_dids">DIDs</a></p>
                                             <p><a href='../manage/sites.aspx' id="ui_sysadmin_manage_sites">Sites</a></p>
                                             <p><a href='../manage/departments.aspx' id="ui_sysadmin_manage_departments">Departments</a></p>
                                             <p><a href='../manage/gateways.aspx' id="ui_sysadmin_manage_gateways">Gateways</a></p>

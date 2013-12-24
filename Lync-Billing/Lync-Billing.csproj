@@ -126,6 +126,7 @@
     <Content Include="ui\sysadmin\configuration\exceptions.aspx" />
     <Content Include="ui\sysadmin\configuration\mail.aspx" />
     <Content Include="ui\sysadmin\manage\departments.aspx" />
+    <Content Include="ui\sysadmin\manage\dids.aspx" />
     <Content Include="ui\sysadmin\manage\gateways.aspx" />
     <Content Include="ui\sysadmin\configuration\translations.aspx" />
     <Content Include="ui\sysadmin\main\dashboard.aspx" />
@@ -180,6 +181,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend\DID.cs" />
     <Compile Include="ConfigurationSections\BillableCallTypesSection.cs" />
     <Compile Include="ConfigurationSections\PDFReportColumnsDescriptions.cs" />
     <Compile Include="ConfigurationSections\PDFReportsPropertiesSection.cs" />
@@ -339,6 +341,13 @@
     </Compile>
     <Compile Include="ui\sysadmin\manage\departments.aspx.designer.cs">
       <DependentUpon>departments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\manage\dids.aspx.cs">
+      <DependentUpon>dids.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\manage\dids.aspx.designer.cs">
+      <DependentUpon>dids.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\manage\gateways.aspx.cs">
       <DependentUpon>gateways.aspx</DependentUpon>
