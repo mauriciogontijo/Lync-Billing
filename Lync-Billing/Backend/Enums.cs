@@ -22,7 +22,7 @@ namespace Lync_Billing.Backend
             [Description("ID")]
             ID,
             [Description("DID")]
-            DIDString,
+            DIDPattern,
             [Description("Description")]
             Description
         }

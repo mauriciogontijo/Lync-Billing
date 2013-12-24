@@ -11,7 +11,7 @@ namespace Lync_Billing.Backend
     public class DID
     {
         public int ID { get; set; }
-        public string DIDString { get; set; }
+        public string DIDPattern { get; set; }
         public string Description { get; set; }
 
         private static DBLib DBRoutines = new DBLib();
@@ -33,8 +33,8 @@ namespace Lync_Billing.Backend
                     if (column.ColumnName == Enums.GetDescription(Enums.DIDs.ID))
                         DIDObject.ID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
-                    else if (column.ColumnName == Enums.GetDescription(Enums.DIDs.DIDString))
-                        DIDObject.DIDString = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                    else if (column.ColumnName == Enums.GetDescription(Enums.DIDs.DIDPattern))
+                        DIDObject.DIDPattern = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.DIDs.Description))
                         DIDObject.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
@@ -47,14 +47,14 @@ namespace Lync_Billing.Backend
         }
 
 
-        public int AddDID(DID newDIDObject)
+        public static int AddDID(DID newDIDObject)
         {
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
 
-            if (!string.IsNullOrEmpty(newDIDObject.DIDString))
+            if (!string.IsNullOrEmpty(newDIDObject.DIDPattern))
             {
-                columnsValues.Add(Enums.GetDescription(Enums.DIDs.DIDString), newDIDObject.DIDString);
+                columnsValues.Add(Enums.GetDescription(Enums.DIDs.DIDPattern), newDIDObject.DIDPattern);
 
                 if (!string.IsNullOrEmpty(newDIDObject.Description))
                     columnsValues.Add(Enums.GetDescription(Enums.DIDs.Description), newDIDObject.Description);
@@ -66,7 +66,7 @@ namespace Lync_Billing.Backend
         }
 
 
-        public bool UpdateDID(DID existingDIDObject)
+        public static bool UpdateDID(DID existingDIDObject, bool FORCE_RESET_DESCRIPTION = false)
         {
             bool status = false;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
@@ -74,12 +74,15 @@ namespace Lync_Billing.Backend
 
             wherePart.Add(Enums.GetDescription(Enums.DIDs.ID), existingDIDObject.ID);
 
-            if (!string.IsNullOrEmpty(existingDIDObject.DIDString) && existingDIDObject.ID > 0)
+            if (!string.IsNullOrEmpty(existingDIDObject.DIDPattern) && existingDIDObject.ID > 0)
             {
-                columnsValues.Add(Enums.GetDescription(Enums.DIDs.DIDString), existingDIDObject.DIDString);
+                columnsValues.Add(Enums.GetDescription(Enums.DIDs.DIDPattern), existingDIDObject.DIDPattern);
 
                 if (!string.IsNullOrEmpty(existingDIDObject.Description))
                     columnsValues.Add(Enums.GetDescription(Enums.DIDs.Description), existingDIDObject.Description);
+
+                else if (FORCE_RESET_DESCRIPTION == true)
+                    columnsValues.Add(Enums.GetDescription(Enums.DIDs.Description), null);
 
                 status = DBRoutines.UPDATE(Enums.GetDescription(Enums.DIDs.TableName), columnsValues, wherePart);
             }
@@ -88,7 +91,7 @@ namespace Lync_Billing.Backend
         }
 
 
-        public bool DeleteDID(DID existingDIDObject)
+        public static bool DeleteDID(DID existingDIDObject)
         {
             bool status = false;
 
