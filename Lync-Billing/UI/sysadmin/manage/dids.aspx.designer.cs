@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.sysadmin.manage {
     public partial class dids {
         
         /// <summary>
+        /// FiltersXScript control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.XScript FiltersXScript;
+        
+        /// <summary>
         /// resourceManager control.
         /// </summary>
         /// <remarks>
@@ -58,22 +67,22 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.RowEditing ManageDIDs_RowEditing;
         
         /// <summary>
-        /// DIDStringColumn control.
+        /// DIDPatternColumn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column DIDStringColumn;
+        protected global::Ext.Net.Column DIDPatternColumn;
         
         /// <summary>
-        /// DIDStringFilter control.
+        /// DIDPatternFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField DIDStringFilter;
+        protected global::Ext.Net.TextField DIDPatternFilter;
         
         /// <summary>
         /// ClearDIDFilter control.
@@ -85,13 +94,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.ClearButton ClearDIDFilter;
         
         /// <summary>
-        /// Editor_DIDStringTextField control.
+        /// Editor_DIDPatternTextField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField Editor_DIDStringTextField;
+        protected global::Ext.Net.TextField Editor_DIDPatternTextField;
         
         /// <summary>
         /// DescriptionColumn control.
@@ -130,6 +139,15 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.TextField Editor_DescriptionTextField;
         
         /// <summary>
+        /// DeleteButtonsColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ImageCommandColumn DeleteButtonsColumn;
+        
+        /// <summary>
         /// RejectChange control.
         /// </summary>
         /// <remarks>
@@ -139,13 +157,13 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.CommandColumn RejectChange;
         
         /// <summary>
-        /// FilterDelegatesDIDsToolBar control.
+        /// FilterDIDsDIDsToolBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Toolbar FilterDelegatesDIDsToolBar;
+        protected global::Ext.Net.Toolbar FilterDIDsDIDsToolBar;
         
         /// <summary>
         /// AddRecordButton control.
@@ -173,6 +191,78 @@ namespace Lync_Billing.ui.sysadmin.manage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button SaveChangesButton;
+        
+        /// <summary>
+        /// AddNewDIDWindowPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window AddNewDIDWindowPanel;
+        
+        /// <summary>
+        /// NewDID_DIDPattern control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField NewDID_DIDPattern;
+        
+        /// <summary>
+        /// NewDID_Description control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField NewDID_Description;
+        
+        /// <summary>
+        /// NewDIDWindowBottomBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.StatusBar NewDIDWindowBottomBar;
+        
+        /// <summary>
+        /// AddNewDIDButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button AddNewDIDButton;
+        
+        /// <summary>
+        /// CancelNewDIDButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button CancelNewDIDButton;
+        
+        /// <summary>
+        /// NewDIDWindow_BottomBarSeparator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator NewDIDWindow_BottomBarSeparator;
+        
+        /// <summary>
+        /// NewDID_StatusMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarTextItem NewDID_StatusMessage;
         
         /// <summary>
         /// ManageDIDsPagingToolbar control.
