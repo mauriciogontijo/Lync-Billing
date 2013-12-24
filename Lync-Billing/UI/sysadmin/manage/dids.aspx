@@ -259,6 +259,8 @@
                                     <ext:TextField
                                         ID="NewDID_Description"
                                         runat="server"
+                                        AllowBlank="false"
+                                        AllowOnlyWhitespace="false"
                                         EmptyText="Empty Description"
                                         Width="480"
                                         FieldLabel="Description"
