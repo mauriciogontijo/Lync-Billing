@@ -13,6 +13,21 @@ namespace Lync_Billing.Backend
     public static class Enums
     {
         /// <summary>
+        /// DIDs datadbase table fields names
+        /// </summary>
+        public enum DIDs
+        {
+            [Description("DIDs")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("DID")]
+            DIDString,
+            [Description("Description")]
+            Description
+        }
+
+        /// <summary>
         /// Gateways datadbase table fields names
         /// </summary>
         public enum Gateways 
