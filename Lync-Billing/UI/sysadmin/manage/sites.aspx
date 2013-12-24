@@ -275,7 +275,7 @@
                                 Resizable="false"
                                 Title="New Site" 
                                 Hidden="true"
-                                Width="380"
+                                Width="410"
                                 Icon="Add" 
                                 X="100"
                                 Y="100"
@@ -293,8 +293,10 @@
                                         AllowBlank="false"
                                         AllowOnlyWhitespace="false"
                                         EmptyText="Empty Site Name"
-                                        Width="350"
-                                        FieldLabel="Site Name:" />
+                                        FieldLabel="Site Name"
+                                        LabelSeparator=":"
+                                        LabelWidth="70"
+                                        Width="380" />
 
                                     <ext:ComboBox
                                         ID="NewSite_CountryList"
@@ -305,8 +307,10 @@
                                         DisplayField="CountryName"
                                         ValueField="CountryName"
                                         EmptyText="Please Select Country"
-                                        Width="350"
-                                        FieldLabel="Country:"
+                                        FieldLabel="Country"
+                                        LabelSeparator=":"
+                                        LabelWidth="70"
+                                        Width="380"
                                         AllowBlank="false"
                                         AllowOnlyWhitespace="false">
                                         <Store>
@@ -328,8 +332,10 @@
                                         ID="NewSite_Description"
                                         runat="server"
                                         EmptyText="Empty Description"
-                                        Width="350"
-                                        FieldLabel="Description:" />
+                                        FieldLabel="Description"
+                                        LabelSeparator=":"
+                                        LabelWidth="70"
+                                        Width="380" />
                                 </Items>
 
                                 <BottomBar>

@@ -365,7 +365,7 @@
                                 Resizable="false"
                                 Title="New Delegee Role" 
                                 Hidden="true"
-                                Width="380"
+                                Width="410"
                                 Icon="Add" 
                                 X="100"
                                 Y="100"
@@ -382,9 +382,9 @@
                                         runat="server"
                                         DisplayField="TypeName"
                                         ValueField="TypeValue"
-                                        Width="350"
+                                        Width="380"
                                         FieldLabel="Delegee Type"
-                                        LabelWidth="125">
+                                        LabelWidth="100">
                                         <Items>
                                             <ext:ListItem Text="User" Value="1" />
                                             <ext:ListItem Text="Department" Value="2" />
@@ -411,8 +411,8 @@
                                         ValueField="SipAccount"
                                         FieldLabel="User Email:"
                                         EmptyText="Please Select a User"
-                                        LabelWidth="125"
-                                        Width="350">
+                                        LabelWidth="100"
+                                        Width="380">
                                         <Store>
                                             <ext:Store 
                                                 ID="Store1"
@@ -465,8 +465,8 @@
                                         ValueField="SipAccount"
                                         FieldLabel="Delegee Email:"
                                         EmptyText="Please Select a Delegee"
-                                        LabelWidth="125"
-                                        Width="350">
+                                        LabelWidth="100"
+                                        Width="380">
                                         <Store>
                                             <ext:Store 
                                                 ID="FilterUsersByDepartmentStore"

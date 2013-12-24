@@ -304,7 +304,7 @@
                                 Resizable="false"
                                 Title="New Department Head Role" 
                                 Hidden="true"
-                                Width="380"
+                                Width="410"
                                 Icon="Add" 
                                 X="100"
                                 Y="100"
@@ -327,8 +327,8 @@
                                         ValueField="SipAccount"
                                         FieldLabel="User Email:"
                                         EmptyText="Please Select a User"
-                                        LabelWidth="125"
-                                        Width="350">
+                                        LabelWidth="80"
+                                        Width="380">
                                         <Store>
                                             <ext:Store ID="NewDepartmentHead_UserSipAccountStore" runat="server">
                                                 <Model>
@@ -375,8 +375,8 @@
                                         Editable="true"
                                         EmptyText="Please Select Site"
                                         FieldLabel="Site:"
-                                        LabelWidth="125"
-                                        Width="350">
+                                        LabelWidth="80"
+                                        Width="380">
                                         <Store>
                                             <ext:Store ID="SitesListStore" runat="server" OnLoad="NewDepartmentHead_SitesListStore_Load">
                                                 <Model>
@@ -414,8 +414,8 @@
                                         Editable="true"
                                         EmptyText="Please Select Department"
                                         FieldLabel="Department:"
-                                        LabelWidth="125"
-                                        Width="350">
+                                        LabelWidth="80"
+                                        Width="380">
                                         <Store>
                                             <ext:Store ID="DepartmentsListStore" runat="server">
                                                 <Model>

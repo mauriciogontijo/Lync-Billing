@@ -259,7 +259,7 @@
                                 Resizable="false"
                                 Title="New Department" 
                                 Hidden="true"
-                                Width="380"
+                                Width="410"
                                 Icon="Add" 
                                 X="100"
                                 Y="100"
@@ -283,7 +283,7 @@
                                         FieldLabel="Site"
                                         LabelSeparator=":"
                                         LabelWidth="115"
-                                        Width="350"
+                                        Width="380"
                                         AllowBlank="false">
                                         <Store>
                                             <ext:Store ID="NewDepartment_SitesListStore" runat="server" OnLoad="NewDepartment_SitesListStore_Load">
@@ -312,7 +312,7 @@
                                         ID="NewDepartment_DepartmentName"
                                         runat="server"
                                         EmptyText="Empty Department Name"
-                                        Width="350"
+                                        Width="380"
                                         FieldLabel="Department Name"
                                         LabelSeparator=":"
                                         LabelWidth="115"
@@ -322,7 +322,7 @@
                                         ID="NewDepartment_Description"
                                         runat="server"
                                         EmptyText="Empty Description"
-                                        Width="350"
+                                        Width="380"
                                         FieldLabel="Description"
                                         LabelSeparator=":"
                                         LabelWidth="115" />

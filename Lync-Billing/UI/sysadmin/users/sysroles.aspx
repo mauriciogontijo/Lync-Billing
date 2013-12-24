@@ -308,7 +308,7 @@
                                 Resizable="false"
                                 Title="New System Role" 
                                 Hidden="true"
-                                Width="380"
+                                Width="410"
                                 Icon="Add" 
                                 X="100"
                                 Y="100"
@@ -325,9 +325,9 @@
                                         runat="server"
                                         DisplayField="TypeName"
                                         ValueField="TypeValue"
-                                        Width="350"
+                                        Width="380"
                                         FieldLabel="Role Type"
-                                        LabelWidth="125">
+                                        LabelWidth="70">
                                         <Items>
                                             <ext:ListItem Text="Site Administrator" Value="30" />
                                             <ext:ListItem Text="Site Accountant" Value="40" />
@@ -349,8 +349,8 @@
                                         ValueField="SipAccount"
                                         FieldLabel="User Email:"
                                         EmptyText="Please Select a User"
-                                        LabelWidth="125"
-                                        Width="350">
+                                        LabelWidth="70"
+                                        Width="380">
                                         <Store>
                                             <ext:Store 
                                                 ID="Store1"
@@ -401,8 +401,8 @@
                                         Editable="true"
                                         EmptyText="Please Select Site"
                                         FieldLabel="Site:"
-                                        LabelWidth="125"
-                                        Width="350">
+                                        LabelWidth="70"
+                                        Width="380">
                                         <Store>
                                             <ext:Store ID="SitesListStore" runat="server" OnLoad="SitesListStore_Load">
                                                 <Model>
