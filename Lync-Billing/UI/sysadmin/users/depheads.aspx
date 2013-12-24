@@ -144,7 +144,7 @@
                         <ext:Column ID="Column1"
                             runat="server"
                             Text="Department Head"
-                            Width="230"
+                            Width="240"
                             DataIndex="DepartmentHeadName"
                             Sortable="false"
                             Groupable="false">

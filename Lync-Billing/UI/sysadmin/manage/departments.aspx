@@ -257,7 +257,7 @@
                                 runat="server" 
                                 Frame="true"
                                 Resizable="false"
-                                Title="New Department Head Role" 
+                                Title="New Department" 
                                 Hidden="true"
                                 Width="380"
                                 Icon="Add" 
