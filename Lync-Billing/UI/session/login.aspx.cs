@@ -105,34 +105,42 @@ namespace Lync_Billing.ui.session
                     //Try to get user from the database
                     Users DatabaseUserRecord = Users.GetUser(userInfo.SipAccount.Replace("sip:", ""));
                     
-                    //Update the user, if exists and if his/her info has changed... Insert the Users if s/he doesn't exist
+                    //Update the user, if exists and if his/her info has changed... Insert te Users if s/he doesn't exist
                     if (DatabaseUserRecord != null)
                     {
-                        //If user information from Active directory doesnt match the one in Users Table : update user table 
-                        if (DatabaseUserRecord.EmployeeID.ToString() != userInfo.EmployeeID ||
-                            DatabaseUserRecord.FullName != userInfo.FirstName + " " + userInfo.LastName || 
-                            DatabaseUserRecord.SiteName != userInfo.physicalDeliveryOfficeName ||
-                            DatabaseUserRecord.Department != userInfo.department || 
-                            DatabaseUserRecord.TelephoneNumber != userInfo.Telephone)
+
+                        //Make sure the user record was updated by ActiveDirectory and not by the System Admin
+                        //If the system admin has updated this user then you cannot update his record from Active Directory
+                        if (DatabaseUserRecord.UpdatedByAD == true)
                         {
-                            Users user = new Users();
-                            int employeeID = 0;
-                            
-                            // Validate employeeID if it could be parsed as integer or not
-                            bool result = Int32.TryParse(userInfo.EmployeeID, out employeeID);
 
-                            if (result)
-                                user.EmployeeID = employeeID;
-                            else
-                                user.EmployeeID = 0;
-                            
-                            user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
-                            user.FullName = userInfo.FirstName + " " + userInfo.LastName;
-                            user.TelephoneNumber = HelperFunctions.FormatUserTelephoneNumber(userInfo.Telephone);
-                            user.Department = userInfo.department;
-                            user.SiteName = userInfo.physicalDeliveryOfficeName;
+                            //If user information from Active directory doesnt match the one in Users Table : update user table 
+                            if (DatabaseUserRecord.EmployeeID.ToString() != userInfo.EmployeeID ||
+                                DatabaseUserRecord.FullName != String.Format("{0} {1}", userInfo.FirstName, userInfo.LastName) ||
+                                DatabaseUserRecord.SiteName != userInfo.physicalDeliveryOfficeName ||
+                                DatabaseUserRecord.Department != userInfo.department ||
+                                DatabaseUserRecord.TelephoneNumber != HelperFunctions.FormatUserTelephoneNumber(userInfo.Telephone))
+                            {
+                                Users user = new Users();
+                                int employeeID = 0;
 
-                            Users.UpdateUser(user);
+                                // Validate employeeID if it could be parsed as integer or not
+                                bool result = Int32.TryParse(userInfo.EmployeeID, out employeeID);
+
+                                if (result)
+                                    user.EmployeeID = employeeID;
+                                else
+                                    user.EmployeeID = 0;
+
+                                user.SipAccount = userInfo.SipAccount.Replace("sip:", "");
+                                user.FullName = userInfo.FirstName + " " + userInfo.LastName;
+                                user.TelephoneNumber = HelperFunctions.FormatUserTelephoneNumber(userInfo.Telephone);
+                                user.Department = userInfo.department;
+                                user.SiteName = userInfo.physicalDeliveryOfficeName;
+                                user.UpdatedByAD = true;
+
+                                Users.UpdateUser(user);
+                            }
                         }
                     }
                     else
@@ -154,6 +162,7 @@ namespace Lync_Billing.ui.session
                         user.TelephoneNumber = HelperFunctions.FormatUserTelephoneNumber(userInfo.Telephone);
                         user.Department = userInfo.department;
                         user.SiteName = userInfo.physicalDeliveryOfficeName;
+                        user.UpdatedByAD = true;
                      
                         Users.InsertUser(user);
                     }
