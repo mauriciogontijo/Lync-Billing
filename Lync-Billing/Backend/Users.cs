@@ -64,13 +64,13 @@ namespace Lync_Billing.Backend
                         user.TelephoneNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.UpdatedByAD))
-                        user.UpdatedByAD = Convert.ToBoolean(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+                        user.UpdatedByAD = Convert.ToBoolean(HelperFunctions.ReturnFalseIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.CreatedAt))
-                        user.CreatedAt = Convert.ToDateTime(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.CreatedAt = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.UpdatedAt))
-                        user.UpdatedAt = Convert.ToDateTime(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.UpdatedAt = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(row[column.ColumnName]));
                 }
 
                 users.Add(user);
@@ -119,13 +119,13 @@ namespace Lync_Billing.Backend
                         user.TelephoneNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.UpdatedByAD))
-                        user.UpdatedByAD = Convert.ToBoolean(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+                        user.UpdatedByAD = Convert.ToBoolean(HelperFunctions.ReturnFalseIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.CreatedAt))
-                        user.CreatedAt = Convert.ToDateTime(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.CreatedAt = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.UpdatedAt))
-                        user.UpdatedAt = Convert.ToDateTime(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.UpdatedAt = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(row[column.ColumnName]));
                 }
 
                 users.Add(user);
@@ -182,13 +182,13 @@ namespace Lync_Billing.Backend
                         user.TelephoneNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.UpdatedByAD))
-                        user.UpdatedByAD = Convert.ToBoolean(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+                        user.UpdatedByAD = Convert.ToBoolean(HelperFunctions.ReturnFalseIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.CreatedAt))
-                        user.CreatedAt = Convert.ToDateTime(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.CreatedAt = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.UpdatedAt))
-                        user.UpdatedAt = Convert.ToDateTime(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.UpdatedAt = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(row[column.ColumnName]));
                 }
 
                 users.Add(user);
@@ -204,19 +204,16 @@ namespace Lync_Billing.Backend
 
             if (employeeID != null)
             {
-                dt = DBRoutines.SELECT(
-                    Enums.GetDescription(Enums.Users.TableName),
-                    Enums.GetDescription(Enums.Users.EmployeeID),
-                    Convert.ToInt32(employeeID));
+                dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Users.TableName), Enums.GetDescription(Enums.Users.EmployeeID), Convert.ToInt32(employeeID));
             }
             else if (!string.IsNullOrEmpty(sipAccount))
             {
-                dt = DBRoutines.SELECT(
-                    Enums.GetDescription(Enums.Users.TableName),
-                    Enums.GetDescription(Enums.Users.SipAccount),
-                    sipAccount);
+                dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Users.TableName), Enums.GetDescription(Enums.Users.SipAccount), sipAccount);
             }
-
+            else
+            {
+                return null;
+            }
 
 
             if (dt.Rows.Count > 0)
@@ -247,13 +244,13 @@ namespace Lync_Billing.Backend
                         user.TelephoneNumber = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.UpdatedByAD))
-                        user.UpdatedByAD = Convert.ToBoolean(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+                        user.UpdatedByAD = Convert.ToBoolean(HelperFunctions.ReturnFalseIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.CreatedAt))
-                        user.CreatedAt = Convert.ToDateTime(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.CreatedAt = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(row[column.ColumnName]));
 
                     if (column.ColumnName == Enums.GetDescription(Enums.Users.UpdatedAt))
-                        user.UpdatedAt = Convert.ToDateTime(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                        user.UpdatedAt = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(row[column.ColumnName]));
                 }
 
                 return user;
