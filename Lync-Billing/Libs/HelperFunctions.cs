@@ -160,11 +160,26 @@ namespace Lync_Billing.Libs
                 return value;
         }
 
-
         public static object ReturnEmptyIfNull(object value)
         {
             if (value == System.DBNull.Value)
                 return string.Empty;
+            else
+                return value;
+        }
+
+        public static object ReturnFalseIfNull(object value)
+        {
+            if (value == System.DBNull.Value)
+                return false;
+            else
+                return value;
+        }
+
+        public static object ReturnDateTimeMinIfNull(object value)
+        {
+            if (value == System.DBNull.Value)
+                return DateTime.MinValue;
             else
                 return value;
         }
