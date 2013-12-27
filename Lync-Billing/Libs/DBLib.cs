@@ -559,47 +559,55 @@ namespace Lync_Billing.Libs
             StringBuilder fieldsValues = new StringBuilder();
             StringBuilder whereStatement = new StringBuilder();
             
-            foreach (KeyValuePair<string, object> pair in columnsValues)
+            foreach (KeyValuePair<string, object> columnValuePair in columnsValues)
             {
-                if (pair.Value == null)
+                if (columnValuePair.Value == null)
                 {
-                    fieldsValues.Append("[" + pair.Key + "]=null,");
+                    fieldsValues.Append("[" + columnValuePair.Key + "]=null,");
                 }
-                else if (pair.Value is int || pair.Value is Double)
+                else if (columnValuePair.Value is int || columnValuePair.Value is Double)
                 {
-                    fieldsValues.Append("[" + pair.Key + "]=" + pair.Value + ",");
+                    fieldsValues.Append("[" + columnValuePair.Key + "]=" + columnValuePair.Value + ",");
                 }
-                else if (pair.Value is DateTime && ((DateTime)pair.Value == DateTime.MinValue))
+                else if (columnValuePair.Value is bool)
+                {
+                    if ((bool)columnValuePair.Value == true)
+                        fieldsValues.Append("[" + columnValuePair.Key + "]=" + 1 + ",");
+                    else
+                        fieldsValues.Append("[" + columnValuePair.Key + "]=" + 0 + ",");
+                }
+                else if (columnValuePair.Value is DateTime && ((DateTime)columnValuePair.Value == DateTime.MinValue))
                 {
                     continue;
                 }
                 else
                 {
-                    fieldsValues.Append("[" + pair.Key + "]=" + "'" + pair.Value.ToString().Replace("'", "`") + "'" + ",");
+                    fieldsValues.Append("[" + columnValuePair.Key + "]=" + "'" + columnValuePair.Value.ToString().Replace("'", "`") + "'" + ",");
                 }
             }
             
             fieldsValues.Remove(fieldsValues.Length - 1, 1);
 
-            foreach (KeyValuePair<string, object> pair in wherePart)
+            foreach (KeyValuePair<string, object> wherePair in wherePart)
             {
-                Type valueType = pair.Value.GetType();
-
-                if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
-                {
-                    // DO NOTHING
-                }
-                else if (valueType == typeof(int) || valueType == typeof(Double))
-                {
-                    whereStatement.Append("[" + pair.Key + "]=" + pair.Value + " AND ");
-                }
-                else if (valueType == typeof(DateTime) && ((DateTime)pair.Value == DateTime.MinValue))
+                if (wherePair.Value is DateTime && ((DateTime)wherePair.Value == DateTime.MinValue))
                 {
                     continue;
                 }
+                else if (wherePair.Value is int || wherePair.Value is Double)
+                {
+                    whereStatement.Append("[" + wherePair.Key + "]=" + wherePair.Value + " AND ");
+                }
+                else if (wherePair.Value is bool)
+                {
+                    if ((bool)wherePair.Value == true)
+                        whereStatement.Append("[" + wherePair.Key + "]=" + 1 + " AND ");
+                    else
+                        whereStatement.Append("[" + wherePair.Key + "]=" + 0 + " AND ");
+                }
                 else
                 {
-                    whereStatement.Append("[" + pair.Key + "]='" + pair.Value.ToString().Replace("'", "`") + "' AND ");
+                    whereStatement.Append("[" + wherePair.Key + "]='" + wherePair.Value.ToString().Replace("'", "`") + "' AND ");
                 }
 
             }
