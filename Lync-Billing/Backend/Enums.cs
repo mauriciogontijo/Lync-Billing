@@ -206,7 +206,13 @@ namespace Lync_Billing.Backend
             [Description("AD_Department")]
             Department,
             [Description("AD_TelephoneNumber")]
-            TelephoneNumber
+            TelephoneNumber,
+            [Description("UpdatedByAD")]
+            UpdatedByAD,
+            [Description("CreatedAt")]
+            CreatedAt,
+            [Description("UpdatedAt")]
+            UpdatedAt
         }
 
         public enum TmpUsers 
