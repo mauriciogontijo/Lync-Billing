@@ -50,9 +50,9 @@ namespace Lync_Billing.Backend
         public string DestinationUserEdgeServer { set; get; }
         public string ServerFQDN { set; get; }
         public string PoolFQDN { set; get; }
-        public string Marker_CallToCountry { set; get; }
-        public string marker_CallType { set; get; }
         public decimal Duration { set; get; }
+        public string Marker_CallToCountry { set; get; }
+        public string Marker_CallType { set; get; }
        
         //Users UI update Fields
         public string UI_UpdatedByUser { set; get; }
@@ -61,10 +61,12 @@ namespace Lync_Billing.Backend
         public string UI_AssignedByUser { set; get; }
         public string UI_AssignedToUser { set; get; }
         public DateTime UI_AssignedOn { set; get; }
+
         public string AC_DisputeStatus { set; get; }
         public DateTime AC_DisputeResolvedOn { set; get; }
         public string AC_IsInvoiced { set; get; }
         public DateTime AC_InvoiceDate { set; get; }
+
         public string PhoneBookName { set; get; }
         
         //This is used to tell where to find and update this PhoneCall
@@ -94,9 +96,7 @@ namespace Lync_Billing.Backend
                                     SessionIdSeq = Convert.ToInt32(rw[Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq)]),
                                     ResponseTime = HelperFunctions.ConvertDate(Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)])),
                                    
-                                    SessionEndTime = (rw[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)] != DBNull.Value) ? 
-                                        HelperFunctions.ConvertDate(Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)])) : 
-                                        DateTime.MinValue.ToString(),
+                                    SessionEndTime = HelperFunctions.ConvertDate(Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)]))),
                                     
                                     SourceUserUri = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.SourceUserUri)])),
                                     ChargingParty = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.ChargingParty)])),
@@ -110,35 +110,23 @@ namespace Lync_Billing.Backend
                                     DestinationUserEdgeServer = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.DestinationUserEdgeServer)])),
                                     ServerFQDN = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.ServerFQDN)])),
                                     PoolFQDN = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.PoolFQDN)])),
-                                    Marker_CallToCountry = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry)])),
-                                    marker_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallType)])),
-                                    Marker_CallCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost)])),
                                     Duration = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Duration)])),
+                                    
+                                    Marker_CallToCountry = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry)])),
+                                    Marker_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallType)])),
+                                    Marker_CallCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost)])),
+                                    
                                     UI_UpdatedByUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_UpdatedByUser)])),
+                                    UI_MarkedOn = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn)])),
+                                    UI_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_CallType)])),
+                                    UI_AssignedByUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser)])),
+                                    UI_AssignedToUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedToUser)])),
+                                    UI_AssignedOn = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn)])),
                                     
-                                    UI_MarkedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn)] != DBNull.Value) ? 
-                                                  Convert.ToDateTime(Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.UI_MarkedOn)])) : 
-                                                  DateTime.MinValue,
-                                    
-                                   UI_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_CallType)])),
-                                   UI_AssignedByUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedByUser)])),
-                                   UI_AssignedToUser = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedToUser)])),
-                                    
-                                   UI_AssignedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn)] != DBNull.Value) ? 
-                                                    Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.UI_AssignedOn)]) : 
-                                                    DateTime.MinValue,
-                                    
-                                   AC_DisputeStatus = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw["AC_DisputeStatus"])),
-                                    
-                                   AC_DisputeResolvedOn = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn)] != DBNull.Value) ? 
-                                                            Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn)]) : 
-                                                            DateTime.MinValue,
-                                    
-                                   AC_IsInvoiced = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced)])),
-                                    
-                                   AC_InvoiceDate = (rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)] != DBNull.Value) ? 
-                                                     Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)]) : 
-                                                     DateTime.MinValue,
+                                    AC_DisputeStatus = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw["AC_DisputeStatus"])),
+                                    AC_DisputeResolvedOn = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_DisputeResolvedOn)])),
+                                    AC_IsInvoiced = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced)])),
+                                    AC_InvoiceDate = Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate)])),
                                     
                                     PhoneCallTableName = Convert.ToString(rw[Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName)])
                               }).ToList<PhoneCall>();
