@@ -21,7 +21,7 @@ namespace Lync_Billing.Backend
         public string Department { get; set; }
         public string TelephoneNumber { get; set; }
         public bool UpdatedByAD { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public DateTime CreatedAt { get; set; }
         
         //This is a logical representation, it doesn't exist in the database.
