@@ -9,14 +9,27 @@ namespace Lync_Billing.Backend
 {
     public class SitesDepartments
     {
-        public int ID { get; set; }
-        public int SiteID { get; set; }
-        public int DepartmentID { get; set; }
+
+        private static DBLib DBRoutines = new DBLib();
 
         private static List<Department> departments = Department.GetAllDepartments();
         private static List<Site> sites = Backend.Site.GetAllSites();
 
-        private static DBLib DBRoutines = new DBLib();
+        public int ID { get; set; }
+        public int SiteID { get; set; }
+        public int DepartmentID { get; set; }
+
+        public Department Department 
+        {
+            get { return departments.FirstOrDefault(item => item.DepartmentID == DepartmentID); }
+            set { Department = departments.FirstOrDefault(item => item.DepartmentID == DepartmentID); } 
+        }
+       
+        public Site Site 
+        {
+            get { return sites.FirstOrDefault(item => item.SiteID == SiteID); }
+            set { Site = sites.FirstOrDefault(item => item.SiteID == SiteID); }
+        }
 
         public static List<SitesDepartments> GetDepartmentsInSite(int siteID)
         {
@@ -61,6 +74,16 @@ namespace Lync_Billing.Backend
             }
 
             return departmentsList;
+        }
+
+        public static Department GetDepartment(int departmentID)
+        {
+            return departments.FirstOrDefault(item => item.DepartmentID == departmentID);
+        }
+
+        public static Site getSite(int SiteID) 
+        {
+            return sites.FirstOrDefault(item => item.SiteID == SiteID);
         }
 
     }
