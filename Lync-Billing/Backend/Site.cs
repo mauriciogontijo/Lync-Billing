@@ -315,7 +315,7 @@ namespace Lync_Billing.Backend
                 if (!string.IsNullOrEmpty(site.SiteName))
                     continue;
                 else
-                    AddSite(new Site { SiteName = user.SiteName , CountryCode="N/A"});
+                    AddSite(new Site { SiteName = user.SiteName };
             }
         }
 
