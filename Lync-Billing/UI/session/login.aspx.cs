@@ -81,9 +81,11 @@ namespace Lync_Billing.ui.session
             
 
             // TMP BLOCK TO IMPORT ALL USERS FROM AD
-            //TmpUsers.InsertUsers();
+            //TmpUsers.SyncWithAD();
             //END TMP BLOCK
 
+            //AdLib adLib = new AdLib();
+            //adLib.GetAllUsers();
 
             //email.Text = "aalhour@ccc.gr";
             //status = true;

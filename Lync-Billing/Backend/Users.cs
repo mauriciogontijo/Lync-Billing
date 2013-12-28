@@ -319,7 +319,7 @@ namespace Lync_Billing.Backend
             return rowID;
         }
 
-        public static void InsertUsers()
+        public static void SyncWithAD()
         {
             AdLib ADRoutine = new AdLib();
 

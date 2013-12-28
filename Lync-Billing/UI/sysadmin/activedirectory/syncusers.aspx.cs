@@ -20,7 +20,7 @@ namespace Lync_Billing.ui.sysadmin.activedirectory
 
         protected void SyncWithADButton_Click(object sender, DirectEventArgs e)
         {
-            Users.InsertUsers();
+            Users.SyncWithAD();
         }
     }
 }
