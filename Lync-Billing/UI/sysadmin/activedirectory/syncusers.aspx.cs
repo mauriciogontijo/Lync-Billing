@@ -20,23 +20,23 @@ namespace Lync_Billing.ui.sysadmin.activedirectory
         protected void Page_Load(object sender, EventArgs e)
         {
             //If the user is not loggedin, redirect to Login page.
-            //if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
-            //{
-            //    string redirect_to = @"~/ui/sysadmin/main/dashboard.aspx";
-            //    string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
-            //    Response.Redirect(url);
-            //}
-            //else
-            //{
-            //    session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
+            if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
+            {
+                string redirect_to = @"~/ui/sysadmin/main/dashboard.aspx";
+                string url = @"~/ui/session/login.aspx?redirect_to=" + redirect_to;
+                Response.Redirect(url);
+            }
+            else
+            {
+                session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            //    if (session.ActiveRoleName != allowedRoleName)
-            //    {
-            //        Response.Redirect("~/ui/session/authenticate.aspx?access=sysadmin");
-            //    }
-            //}
+                if (session.ActiveRoleName != allowedRoleName)
+                {
+                    Response.Redirect("~/ui/session/authenticate.aspx?access=sysadmin");
+                }
+            }
 
-            //sipAccount = session.NormalUserInfo.SipAccount;
+            sipAccount = session.NormalUserInfo.SipAccount;
         }
 
 
@@ -57,7 +57,7 @@ namespace Lync_Billing.ui.sysadmin.activedirectory
 
         protected void SyncSitesDepartmentsButton_Click(object sender, DirectEventArgs e)
         {
-            //to do
+            SitesDepartments.SyncSitesDepartmnets();
         }
     }
 }
