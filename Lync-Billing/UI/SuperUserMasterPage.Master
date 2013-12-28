@@ -146,6 +146,15 @@
                                             <%--<p><a href='../configuration/announcements.aspx' id="ui_sysadmin_configuration_announcements">Announcements</a></p>--%>
                                         </div>
                                     </div>
+
+                                    <div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>Active Directory Sync</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../activedirectory/syncusers.aspx' id="ui_sysadmin_activedirectory_syncusers">Sync Users Data</a></p>
+                                        </div>
+                                    </div>
                                 </Content>
                             </ext:Panel>
                         </div>

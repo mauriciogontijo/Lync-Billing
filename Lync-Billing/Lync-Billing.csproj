@@ -122,6 +122,7 @@
     <Content Include="ui\dephead\main\dashboard.aspx" />
     <Content Include="ui\dephead\users\phonecalls.aspx" />
     <Content Include="ui\resources\js\feedback.js" />
+    <Content Include="ui\sysadmin\activedirectory\syncusers.aspx" />
     <Content Include="ui\sysadmin\configuration\announcements.aspx" />
     <Content Include="ui\sysadmin\configuration\exceptions.aspx" />
     <Content Include="ui\sysadmin\configuration\mail.aspx" />
@@ -205,7 +206,6 @@
     <Compile Include="Backend\Statistics\TopDestinationNumbers.cs" />
     <Compile Include="Backend\Summaries\DepartmentCallsSummary.cs" />
     <Compile Include="Backend\Summaries\UserCallsSummary.cs" />
-    <Compile Include="Backend\TmpUsers.cs" />
     <Compile Include="Backend\Summaries\UsersCallsSummaryChartData.cs" />
     <Compile Include="Backend\Roles\DelegateRole.cs" />
     <Compile Include="Backend\GatewayDetail.cs" />
@@ -313,6 +313,13 @@
     </Compile>
     <Compile Include="ui\dephead\users\phonecalls.aspx.designer.cs">
       <DependentUpon>phonecalls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\sysadmin\activedirectory\syncusers.aspx.cs">
+      <DependentUpon>syncusers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\sysadmin\activedirectory\syncusers.aspx.designer.cs">
+      <DependentUpon>syncusers.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\configuration\announcements.aspx.cs">
       <DependentUpon>announcements.aspx</DependentUpon>

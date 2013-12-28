@@ -36,7 +36,9 @@
                 Width="740"
                 Frame="true"
                 Height="635"
-                ButtonAlign="Center">
+                ButtonAlign="Center"
+                ComponentCls="fix-ui-vertical-align">
+
                 <TopBar>
                     <ext:Toolbar
                         ID="EditGatewaysToolbar"
