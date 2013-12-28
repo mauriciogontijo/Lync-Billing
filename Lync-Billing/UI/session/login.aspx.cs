@@ -78,14 +78,7 @@ namespace Lync_Billing.ui.session
 
             status = athenticator.AuthenticateUser(email.Text, password.Text, out msg);
             AuthenticationMessage = msg;
-            
 
-            // TMP BLOCK TO IMPORT ALL USERS FROM AD
-            //TmpUsers.SyncWithAD();
-            //END TMP BLOCK
-
-            //AdLib adLib = new AdLib();
-            //adLib.GetAllUsers();
 
             //email.Text = "aalhour@ccc.gr";
             //status = true;

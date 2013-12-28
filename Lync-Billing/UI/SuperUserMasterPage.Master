@@ -95,7 +95,7 @@
                         <div class="block-body">
                             <ext:Panel ID="SystemAdminSidebar"
                                 runat="server"
-                                Height="460"
+                                Height="550"
                                 Width="180"
                                 Title="Admin Tools"
                                 Collapsed="false"
