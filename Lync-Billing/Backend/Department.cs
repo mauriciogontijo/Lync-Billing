@@ -217,12 +217,8 @@ namespace Lync_Billing.Backend
                 if (!string.IsNullOrEmpty(departmnet.DepartmentName))
                     continue;
                 else
-                {
-                    if (user.Department.StartsWith("E-PROC"))
-                        sameer = string.Empty;
-                    
                     AddDepartment(new Department { DepartmentName = user.Department });
-                }
+                
             }
         }
 

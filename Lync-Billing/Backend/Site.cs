@@ -53,6 +53,47 @@ namespace Lync_Billing.Backend
             return siteName;
         }
 
+        public static Site GetSite(string siteName) 
+        {
+            DataTable dt;
+          
+            List<string> columns;
+            Dictionary<string, object> wherePart;
+
+            Site site = new Site();
+
+            columns = new List<string>()
+            { 
+                Enums.GetDescription(Enums.Sites.SiteName)
+            };
+
+            wherePart = new Dictionary<string, object>
+            {
+                { Enums.GetDescription(Enums.Sites.SiteName), siteName }
+            };
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Sites.TableName), columns, wherePart, 1);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                foreach (DataColumn column in dt.Columns)
+                {
+                   
+                    if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteID))
+                        site.SiteID = Convert.ToInt32(row[column.ColumnName]);
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Sites.SiteName))
+                        site.SiteName = Convert.ToString(row[column.ColumnName]);
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Sites.CountryCode))
+                        site.CountryCode = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Sites.Description))
+                        site.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                }
+            }
+            return site;
+        }
 
         public static Site GetSite(int? SiteID = null, string SiteName = null)
         {
@@ -262,6 +303,21 @@ namespace Lync_Billing.Backend
             return status;
         }
 
+
+        public static void SyncSites() 
+        {
+            List<Users> listOfUsers = Users.GetUsers(null, null, 0);
+
+            foreach (Users user in listOfUsers)
+            {
+                Site site = GetSite(user.SiteName);
+
+                if (!string.IsNullOrEmpty(site.SiteName))
+                    continue;
+                else
+                    AddSite(new Site { SiteName = user.SiteName });
+            }
+        }
 
         public static bool DeleteSite(Site site)
         {
