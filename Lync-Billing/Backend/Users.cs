@@ -319,6 +319,56 @@ namespace Lync_Billing.Backend
             return rowID;
         }
 
+        public static void InsertUsers()
+        {
+            AdLib ADRoutine = new AdLib();
+
+            ADUserInfo userInfo;
+            Users dbUser;
+
+            List<string> users = ADRoutine.GetAllUsers();
+
+            foreach (string user in users)
+            {
+                userInfo = new ADUserInfo();
+                dbUser = new Users();
+
+                userInfo = ADRoutine.GetUserAttributes(user);
+
+                if (userInfo == null)
+                    continue;
+
+                dbUser.SipAccount = user;
+
+                if (userInfo.FirstName != null)
+                    dbUser.FullName = userInfo.FirstName + " " + userInfo.LastName;
+                else if (userInfo.DisplayName != null)
+                    dbUser.FullName = userInfo.DisplayName;
+                else
+                    dbUser.FullName = string.Empty;
+                try
+                {
+                    dbUser.EmployeeID = Convert.ToInt32((userInfo.EmployeeID));
+                }
+                catch (Exception ex)
+                {
+                    dbUser.EmployeeID = 0;
+                }
+
+                dbUser.SiteName = userInfo.physicalDeliveryOfficeName;
+                dbUser.Department = userInfo.department;
+                dbUser.TelephoneNumber = userInfo.Telephone;
+
+                //get the actual data from ADUser table to match if exists and needs to be updated or inserted 
+                Users adUser = Users.GetUser(dbUser.SipAccount);
+
+                if (adUser == null)
+                    Users.InsertUser(dbUser);
+                else
+                    Users.UpdateUser(dbUser);
+            }
+        }
+
         public static bool UpdateUser(Users user)
         {
             bool status = false;
