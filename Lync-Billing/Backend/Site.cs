@@ -152,12 +152,12 @@ namespace Lync_Billing.Backend
 
 
         /// <summary>
-        /// Given a list of user roles for a specific user, his SipAccount and his granted user-roles, return a list of the sites on which he was granted elevated access.
+        /// Given a list of user roles for a specific user, his SipAccount and his granted user-roles, return a list of the AllSites on which he was granted elevated access.
         /// </summary>
         /// <param name="userRoles">A list of the user's roles, taken from the session.</param>
         /// <param name="sipAccount">This is the user's SipAccount, taken from the session.</param>
         /// <param name="enumValidRole">This is parameter of the type Backend.Enum.ValidRoles.</param>
-        /// <returns>The list of sites on which the user was granted an elevated-access, such as: SiteAdmin, SiteAccountant. Developer is a universal access-role.</returns>
+        /// <returns>The list of AllSites on which the user was granted an elevated-access, such as: SiteAdmin, SiteAccountant. Developer is a universal access-role.</returns>
         public static List<Site> GetUserRoleSites(List<SystemRole> userRoles, string enumValidRole)
         {
             List<Site> sites = new List<Site>();
@@ -205,7 +205,7 @@ namespace Lync_Billing.Backend
                 return sites;
             }
 
-            //else return an empty list of sites
+            //else return an empty list of AllSites
             return (new List<Site>());
         }
 
