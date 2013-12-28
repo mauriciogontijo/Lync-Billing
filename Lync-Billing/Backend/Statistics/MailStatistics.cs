@@ -50,7 +50,7 @@ namespace Lync_Billing.Backend.Statistics
             whereClause = new Dictionary<string, object>
             {
                 { Enums.GetDescription(Enums.MailStatistics.EmailAddress), sipAccount },
-                { Enums.GetDescription(Enums.MailStatistics.Timestamp), String.Format("BETWEEN {0} AND {1}", startingDate, endingDate) }
+                { Enums.GetDescription(Enums.MailStatistics.Timestamp), String.Format("BETWEEN '{0}' AND '{1}'", startingDate, endingDate) }
             };
 
             //Get the data from the database

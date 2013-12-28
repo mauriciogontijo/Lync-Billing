@@ -63,7 +63,7 @@ namespace Lync_Billing.Backend.Summaries
 
             //Initialize the function parameters and query the database
             wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), Year);
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN {0} AND {1}", fromMonth, toMonth));
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", fromMonth, toMonth));
             functionParams.Add(sipAccount);
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
@@ -126,8 +126,8 @@ namespace Lync_Billing.Backend.Summaries
             UserCallsSummary userSummary = new UserCallsSummary();
 
             //Initialize the function parameters and query the database
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), String.Format("BETWEEN {0} AND {1}", startDate.Year, endDate.Year));
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN {0} AND {1}", startDate.Month, endDate.Month));
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), String.Format("BETWEEN '{0}' AND '{1}'", startDate.Year, endDate.Year));
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", startDate.Month, endDate.Month));
             functionParams.Add(sipAccount);
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
@@ -209,7 +209,7 @@ namespace Lync_Billing.Backend.Summaries
 
             //Initialize the function parameters and query the database
             wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), Year);
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN {0} AND {1}", fromMonth, toMonth));
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", fromMonth, toMonth));
             functionParams.Add(sipAccount);
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
@@ -277,8 +277,8 @@ namespace Lync_Billing.Backend.Summaries
 
 
             //Add the siteName to the functionParams
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), String.Format("BETWEEN {0} AND {1}", startingDate.Year, endingDate.Year));
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN {0} AND {1}", startingDate.Month, endingDate.Month));
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), String.Format("BETWEEN '{0}' AND '{1}'", startingDate.Year, endingDate.Year));
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", startingDate.Month, endingDate.Month));
             functionParams.Add(siteName);
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
@@ -495,7 +495,7 @@ namespace Lync_Billing.Backend.Summaries
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType));
 
             wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty), UsersCollection.Keys.ToList<string>());
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime), String.Format("BETWEEN {0} AND {1}", startingDate, endingDate));
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime), String.Format("BETWEEN '{0}' AND '{1}'", startingDate, endingDate));
 
             //The PDF report body contents
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart, selectColumnsList: columnsList);
