@@ -212,7 +212,6 @@ namespace Lync_Billing.Backend
             foreach (Users user in listOfUsers) 
             {
                 Department departmnet = GetDepartment(user.Department);
-                string sameer;
 
                 if (!string.IsNullOrEmpty(departmnet.DepartmentName))
                     continue;
