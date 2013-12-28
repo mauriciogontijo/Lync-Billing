@@ -66,12 +66,22 @@ namespace Lync_Billing.Backend
             TableName,
             [Description("ID")]
             ID,
-            [Description("SiteID")]
-            SiteID,
             [Description("DepartmentName")]
             DepartmentName,
             [Description("Description")]
             Description
+        }
+
+        public enum SitesDepartmnets 
+        {
+            [Description("Sites_Departments")]
+            TableName,
+            [Description("ID")]
+            ID,
+            [Description("SiteID")]
+            SiteID,
+            [Description("DepartmentID")]
+            DepartmentID
         }
 
         /// <summary>
@@ -213,16 +223,6 @@ namespace Lync_Billing.Backend
             CreatedAt,
             [Description("UpdatedAt")]
             UpdatedAt
-        }
-
-        public enum TmpUsers 
-        {
-            [Description("TmpUsers")]
-            TableName,
-            [Description("ID")]
-            ID,
-            [Description("SipAccount")]
-            SipAccount
         }
 
         /// <summary>
