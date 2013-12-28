@@ -166,7 +166,7 @@
                                     Icon="Find"
                                     TriggerAction="Query"
                                     QueryMode="Local"
-                                    DisplayField="DepartmentName"
+                                    DisplayField="DepartmentID"
                                     ValueField="DepartmentID"
                                     FieldLabel="Department:"
                                     LabelWidth="60"

@@ -185,15 +185,22 @@ namespace Lync_Billing.Libs
                         whereStatement.Append("[" + pair.Key + "] " + pair.Value + OPERATOR);
                     }
 
-                    else if (pair.Value is string && (pair.Value.ToString()).Contains(","))
+                    //else if (pair.Value is string && (pair.Value.ToString()).Contains(";"))
+                    //{
+                    //    var betweenStatementParts = (pair.Value.ToString()).Split(';');
+
+                    //    whereStatement.Append("[" + pair.Key + "] BETWEEN ");
+                    //    whereStatement.Append("'" + betweenStatementParts[0] + "' AND ");
+                    //    whereStatement.Append("'" + betweenStatementParts[1] + "' ");
+
+                    //    whereStatement.Append(" AND ");
+                    //}
+
+                    else if (pair.Value is string && (pair.Value.ToString()).Contains("BETWEEN"))
                     {
-                        var betweenStatementParts = (pair.Value.ToString()).Split(',');
+                        whereStatement.Append("[" + pair.Key + "]  " + pair.Value);
 
-                        whereStatement.Append("[" + pair.Key + "] BETWEEN ");
-                        whereStatement.Append("'" + betweenStatementParts[0] + "'" + OPERATOR);
-                        whereStatement.Append("'" + betweenStatementParts[1] + "' ");
-
-                        whereStatement.Append(OPERATOR);
+                        whereStatement.Append(" AND ");
                     }
 
                     else if (pair.Value is List<int>)
@@ -352,14 +359,21 @@ namespace Lync_Billing.Libs
                         WhereStatement.Append("[" + pair.Key + "] <> 0" + " AND ");
                     }
 
-                    else if (pair.Value is string && (pair.Value.ToString()).Contains(","))
+                    //else if (pair.Value is string && (pair.Value.ToString()).Contains(";"))
+                    //{
+                    //    var betweenStatementParts = (pair.Value.ToString()).Split(';');
+
+                    //    WhereStatement.Append("[" + pair.Key + "] BETWEEN ");
+                    //    WhereStatement.Append("'" + betweenStatementParts[0] + "' AND ");
+                    //    WhereStatement.Append("'" + betweenStatementParts[1] + "' ");
+
+                    //    WhereStatement.Append(" AND ");
+                    //}
+
+                    else if (pair.Value is string && (pair.Value.ToString()).Contains("BETWEEN"))
                     {
-                        var betweenStatementParts = (pair.Value.ToString()).Split(',');
-
-                        WhereStatement.Append("[" + pair.Key + "] BETWEEN ");
-                        WhereStatement.Append("'" + betweenStatementParts[0] + "' AND ");
-                        WhereStatement.Append("'" + betweenStatementParts[1] + "' ");
-
+                        WhereStatement.Append("[" + pair.Key + "]  " + pair.Value);
+                        
                         WhereStatement.Append(" AND ");
                     }
 

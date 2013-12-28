@@ -47,8 +47,10 @@ namespace Lync_Billing.ui.sysadmin.users
             allSites = Backend.Site.GetAllSites();
 
             //Get all Site Admins and Site Accountants Roles
-            Dictionary<string, object> conditions = new Dictionary<string, object>{
-                { Enums.GetDescription(Enums.SystemRoles.RoleID), String.Format("{0},{1}", SystemRole.SiteAdminRoleID, SystemRole.SiteAdminRoleID) }
+            var filteredSystemRolesIDs = new List<int>() { SystemRole.SiteAccountantRoleID, SystemRole.SiteAdminRoleID };
+            Dictionary<string, object> conditions = new Dictionary<string, object>
+            {
+                { Enums.GetDescription(Enums.SystemRoles.RoleID), filteredSystemRolesIDs}
             };
 
             allSystemRoles = SystemRole.GetSystemRoles(wherePart: conditions);

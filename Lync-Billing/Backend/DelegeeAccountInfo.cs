@@ -13,7 +13,7 @@ namespace Lync_Billing.Backend
         public Site DelegeeSiteAccount { get; set; }
 
         //Departent Delegate Role related
-        public Department DelegeeDepartmentAccount { get; set; }
+        public SitesDepartments DelegeeDepartmentAccount { get; set; }
 
         //Users Delegate Role related
         public Users DelegeeUserAccount { get; set; }

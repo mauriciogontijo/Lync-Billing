@@ -28,7 +28,7 @@ namespace Lync_Billing.Backend.Roles
 
         public static bool IsDepartmentHead(string userSipAccount)
         {
-            var departments = GetDepartmentsForHead(userSipAccount);
+            var departments = GetSiteDepartmentsForHead(userSipAccount);
             return (departments.Count > 0);
         }
 
@@ -39,7 +39,7 @@ namespace Lync_Billing.Backend.Roles
             List<string> columns;
             Dictionary<string, object> wherePart;
 
-            Department department;
+            SitesDepartments department;
             DepartmentHeadRole departmentHead;
             List<DepartmentHeadRole> ListOfDepartmentHeads = new List<DepartmentHeadRole>();
 
@@ -66,7 +66,7 @@ namespace Lync_Billing.Backend.Roles
 
             foreach (DataRow row in dt.Rows)
             {
-                department = new Department();
+                department = new SitesDepartments();
                 departmentHead = new DepartmentHeadRole();
 
                 foreach (DataColumn column in dt.Columns)
@@ -85,7 +85,7 @@ namespace Lync_Billing.Backend.Roles
                     {
                         departmentHead.DepartmentID = Convert.ToInt32(row[column.ColumnName]);
 
-                        department = Department.GetDepartment(departmentHead.DepartmentID);
+                        department = SitesDepartments.GetSiteDepartment(departmentHead.DepartmentID);
 
                         departmentHead.SiteID = department.SiteID;
                         departmentHead.SiteName = department.SiteName;
@@ -100,15 +100,15 @@ namespace Lync_Billing.Backend.Roles
         }
 
 
-        public static List<Department> GetDepartmentsForHead(string sipAccount)
+        public static List<SitesDepartments> GetSiteDepartmentsForHead(string sipAccount)
         {
             DataTable dt;
             List<string> columns;
             Dictionary<string, object> wherePart;
 
             int departmentId;
-            Department department;
-            List<Department> departmentsList = new List<Department>();
+            SitesDepartments department;
+            List<SitesDepartments> departmentsList = new List<SitesDepartments>();
             
             //Get the data from the database
             columns = new List<string>();
@@ -121,14 +121,14 @@ namespace Lync_Billing.Backend.Roles
 
             foreach (DataRow row in dt.Rows)
             {
-                department = new Department();
+                department = new SitesDepartments();
 
                 foreach(DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.DepartmentHeadRoles.DepartmentID))
                     {
                         departmentId = Convert.ToInt32(row[column.ColumnName]);
-                        department = Department.GetDepartment(departmentId);
+                        department = SitesDepartments.GetSiteDepartment(departmentId);
                         departmentsList.Add(department);
                     }
                 }

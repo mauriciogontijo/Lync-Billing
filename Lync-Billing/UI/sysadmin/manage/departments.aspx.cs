@@ -19,8 +19,8 @@ namespace Lync_Billing.ui.sysadmin.manage
         private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin);
 
-        private List<Site> allSites = new List<Site>();
-        private List<Department> allDepartments = new List<Department>();
+        private List<Site> allSites;
+        private List<SitesDepartments> allDepartments;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -46,7 +46,7 @@ namespace Lync_Billing.ui.sysadmin.manage
 
             //Get all Sites
             allSites = Backend.Site.GetAllSites();
-            allDepartments = Department.GetAllDepartments();
+            allDepartments = SitesDepartments.GetAllSitesDepartments();
         }
 
         protected void FilterDepartmentsBySiteStore_Load(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace Lync_Billing.ui.sysadmin.manage
             {
                 int selectedSiteID = Convert.ToInt32(FilterDepartmentsBySite.SelectedItem.Value);
 
-                var filteredDepartmentsList = allDepartments.Where(department => department.SiteID == selectedSiteID).ToList<Department>();
+                var filteredDepartmentsList = allDepartments.Where(department => department.SiteID == selectedSiteID).ToList<SitesDepartments>();
 
                 ManageDepartmentsGrid.GetStore().ClearFilter();
                 ManageDepartmentsGrid.GetStore().DataSource = filteredDepartmentsList;
@@ -103,22 +103,22 @@ namespace Lync_Billing.ui.sysadmin.manage
             string notificationMessage = string.Empty;
 
             string json = string.Empty;
-            ChangeRecords<Department> storeShangedData;
+            ChangeRecords<SitesDepartments> storeShangedData;
 
             json = e.ExtraParams["Values"];
 
             if (!string.IsNullOrEmpty(json))
             {
-                storeShangedData = new StoreDataHandler(json).BatchObjectData<Department>();
+                storeShangedData = new StoreDataHandler(json).BatchObjectData<SitesDepartments>();
 
                 //Delete existent delegees
                 if (storeShangedData.Updated.Count > 0)
                 {
-                    foreach (Department storeDepartmentObject in storeShangedData.Updated)
+                    foreach (SitesDepartments storeDepartmentObject in storeShangedData.Updated)
                     {
                         var originalDepartmentObject = allDepartments.Find(department => department.DepartmentID == storeDepartmentObject.DepartmentID);
 
-                        //Check for duplicate departments names
+                        //Check for duplicate AllDepartments names
                         //If the department name was changed
                         if (storeDepartmentObject.DepartmentName != originalDepartmentObject.DepartmentName)
                         {
@@ -134,12 +134,7 @@ namespace Lync_Billing.ui.sysadmin.manage
                         }
 
 
-                        //Everything is ok, proceed with updating the department
-                        //Handle the case of resetting the description
-                        if(string.IsNullOrEmpty(storeDepartmentObject.Description) && storeDepartmentObject.Description != originalDepartmentObject.Description)
-                            resetDescriptionFlag = true;
-
-                        statusFlag = Department.UpdateDepartment(storeDepartmentObject, FORCE_RESET_DESCRIPTION: resetDescriptionFlag);
+                        //statusFlag = SitesDepartments.UpdateDepartment(storeDepartmentObject, FORCE_RESET_DESCRIPTION: resetDescriptionFlag);
                         
 
                         if (statusFlag == false)
@@ -171,7 +166,7 @@ namespace Lync_Billing.ui.sysadmin.manage
             string DepartmentName = string.Empty;
             string Description = string.Empty;
 
-            Department NewDepartment;
+            SitesDepartments NewDepartment;
 
             string statusMessage = string.Empty;
             string successStatusMessage = string.Empty;
@@ -191,15 +186,14 @@ namespace Lync_Billing.ui.sysadmin.manage
                 }
                 else
                 {
-                    NewDepartment = new Department();
+                    NewDepartment = new SitesDepartments();
 
                     NewDepartment.SiteID = SiteID;
                     NewDepartment.SiteName = ((Backend.Site)allSites.Find(site => site.SiteID == SiteID)).SiteName;
                     NewDepartment.DepartmentName = DepartmentName;
-                    NewDepartment.Description = Description;
 
                     //Insert the New Department to the database
-                    Department.AddDepartment(NewDepartment);
+                    //SitesDepartments.AddDepartment(NewDepartment);
 
                     //Close the window
                     this.AddNewDepartmentWindowPanel.Hide();

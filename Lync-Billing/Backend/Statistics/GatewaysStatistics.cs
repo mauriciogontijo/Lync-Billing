@@ -42,7 +42,7 @@ namespace Lync_Billing.Backend.Statistics
             whereClause = new Dictionary<string, object>
             {
                 { Enums.GetDescription(Enums.GatewaysSummary.Year), year },
-                { Enums.GetDescription(Enums.GatewaysSummary.Month), String.Format("{0},{1}", fromMonth, toMonth) }
+                { Enums.GetDescription(Enums.GatewaysSummary.Month), String.Format("BETWEEN {0} AND {1}", fromMonth, toMonth) }
             };
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParameters, whereClause);
@@ -125,7 +125,7 @@ namespace Lync_Billing.Backend.Statistics
             whereClause = new Dictionary<string, object>
             {
                 { Enums.GetDescription(Enums.GatewaysSummary.Year), year },
-                { Enums.GetDescription(Enums.GatewaysSummary.Month), String.Format("{0},{1}", fromMonth, toMonth) }
+                { Enums.GetDescription(Enums.GatewaysSummary.Month), String.Format("BETWEEN {0} AND {1}", fromMonth, toMonth) }
             };
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParameters, whereClause);

@@ -71,9 +71,7 @@ namespace Lync_Billing.Backend
                         department.DepartmentName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.Description))
-                    {
                         department.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
-                    }
                 }
 
               
@@ -108,12 +106,8 @@ namespace Lync_Billing.Backend
                         department.DepartmentName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.Description))
-                    {
                         department.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
-                    }
                 }
-
-                department.DepartmentIdentifier = String.Format("{0} ({1})", department.SiteName, department.DepartmentName);
             }
 
             return department;
@@ -146,12 +140,8 @@ namespace Lync_Billing.Backend
                         department.DepartmentName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.Description))
-                    {
                         department.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
-                    }
                 }
-
-                department.DepartmentIdentifier = String.Format("{0} ({1})", department.SiteName, department.DepartmentName);
 
                 departmentsList.Add(department);
             }
@@ -192,7 +182,7 @@ namespace Lync_Billing.Backend
             int rowID = 0;
             Dictionary<string, object> columnsValues = new Dictionary<string, object>();
 
-            if (!string.IsNullOrEmpty(newDepartment.DepartmentName) && newDepartment.SiteID > 0)
+            if (!string.IsNullOrEmpty(newDepartment.DepartmentName))
             {
                 columnsValues.Add(Enums.GetDescription(Enums.Departments.DepartmentName), newDepartment.DepartmentName);
 
@@ -222,11 +212,15 @@ namespace Lync_Billing.Backend
             foreach (Users user in listOfUsers) 
             {
                 Department departmnet = GetDepartment(user.Department);
+                string sameer;
 
-                if (departmnet != null)
+                if (!string.IsNullOrEmpty(departmnet.DepartmentName))
                     continue;
                 else
                 {
+                    if (user.Department.StartsWith("E-PROC"))
+                        sameer = string.Empty;
+                    
                     AddDepartment(new Department { DepartmentName = user.Department });
                 }
             }

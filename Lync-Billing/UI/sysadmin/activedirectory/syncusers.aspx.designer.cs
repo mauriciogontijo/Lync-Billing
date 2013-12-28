@@ -22,12 +22,84 @@ namespace Lync_Billing.ui.sysadmin.activedirectory {
         protected global::Ext.Net.ResourceManager resourceManager;
         
         /// <summary>
-        /// SyncWithADButton control.
+        /// SyncDataWithActiveDirectory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button SyncWithADButton;
+        protected global::Ext.Net.Panel SyncDataWithActiveDirectory;
+        
+        /// <summary>
+        /// SyncUsersButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button SyncUsersButton;
+        
+        /// <summary>
+        /// SyncUsersButtonLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Label SyncUsersButtonLabel;
+        
+        /// <summary>
+        /// PanelSeparator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator PanelSeparator1;
+        
+        /// <summary>
+        /// SyncDepartmentsButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button SyncDepartmentsButton;
+        
+        /// <summary>
+        /// SyncDepartmentsButtonLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Label SyncDepartmentsButtonLabel;
+        
+        /// <summary>
+        /// PanelSeparator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator PanelSeparator2;
+        
+        /// <summary>
+        /// SyncSitesButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button SyncSitesButton;
+        
+        /// <summary>
+        /// SyncSitesButtonLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Label SyncSitesButtonLabel;
     }
 }

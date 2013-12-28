@@ -24,7 +24,7 @@ namespace Lync_Billing.Backend.Roles
         public string DelegeeDisplayName { get; set; }
         public Users DelegeeUser { get; set; }
         public Site DelegeeSite { get; set; }
-        public Department DelegeeDepartment { get; set; }
+        public SitesDepartments DelegeeDepartment { get; set; }
 
         //The following are also logical representation of data, they are used to quickly lookup names from the Ext.NET views
         public string DelegeeDepartmentName { get; set; }
@@ -65,7 +65,7 @@ namespace Lync_Billing.Backend.Roles
             List<DelegateRole> DelegatedAccounts = new List<DelegateRole>();
             Dictionary<string, object> wherePart;
 
-            //Used to Lookup all the names of departments and sites
+            //Used to Lookup all the names of AllDepartments and sites
             List<Department> allDepartments = Department.GetAllDepartments();
             List<Site> allSites = Site.GetAllSites();
 
@@ -137,7 +137,7 @@ namespace Lync_Billing.Backend.Roles
 
                 else if (delegatedAccount.DelegeeType == DelegateRole.DepartmentDelegeeTypeID)
                 {
-                    delegatedAccount.DelegeeDepartment = Department.GetDepartment(delegatedAccount.DepartmentID);
+                    delegatedAccount.DelegeeDepartment = SitesDepartments.GetSiteDepartment(delegatedAccount.DepartmentID);
 
                     var sipAccountInfo = Users.GetUser(delegatedAccount.SipAccount);
 
@@ -194,7 +194,7 @@ namespace Lync_Billing.Backend.Roles
 
                 else if(delegateTypeID == DelegateRole.DepartmentDelegeeTypeID)
                 {
-                    var department = Department.GetDepartment(delegateAccount.DepartmentID);
+                    var department = SitesDepartments.GetSiteDepartment(delegateAccount.DepartmentID);
                     delegateName = String.Format("{0}-{1}", department.SiteName, department.DepartmentName);
 
                     DelegatedAccounts.Add(delegateName, delegateName);

@@ -355,8 +355,8 @@ namespace Lync_Billing.Backend
                     dbUser.EmployeeID = 0;
                 }
 
-                dbUser.SiteName = userInfo.physicalDeliveryOfficeName;
-                dbUser.Department = userInfo.department;
+                dbUser.SiteName = (!string.IsNullOrEmpty(userInfo.physicalDeliveryOfficeName) ? userInfo.physicalDeliveryOfficeName.ToUpper().Trim() : null);
+                dbUser.Department = (!string.IsNullOrEmpty(userInfo.department) ? userInfo.department.ToUpper().Trim() : null);
                 dbUser.TelephoneNumber = HelperFunctions.FormatUserTelephoneNumber(userInfo.Telephone);
                 dbUser.UpdatedByAD = true;
 

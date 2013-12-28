@@ -70,7 +70,7 @@ namespace Lync_Billing.ui.delegee.site
         {
             session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
 
-            //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
+            //If the current user is a system-developer, give him access to all the AllDepartments, otherwise grant him access to his/her own managed department
             if (SiteDelegeeDepartments == null || SiteDelegeeDepartments.Count == 0)
             {
                 SiteDelegeeDepartments = SitesDepartments.GetDepartmentsInSite(session.DelegeeAccount.DelegeeSiteAccount.SiteID);
@@ -86,7 +86,7 @@ namespace Lync_Billing.ui.delegee.site
                 DepartmentsListComboBox.GetStore().DataSource = SiteDelegeeDepartments;
                 DepartmentsListComboBox.GetStore().DataBind();
             }
-            //in case there are no longer any departments for this user to monitor.
+            //in case there are no longer any AllDepartments for this user to monitor.
             else
             {
                 DepartmentsListComboBox.Disabled = true;
@@ -240,7 +240,7 @@ namespace Lync_Billing.ui.delegee.site
             string json = string.Empty;
            
             int selectedDepartmentId;
-            Department selectedDepartment;
+            SitesDepartments selectedDepartment;
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             JsonSerializerSettings settings = new JsonSerializerSettings();
@@ -254,7 +254,7 @@ namespace Lync_Billing.ui.delegee.site
 
             json = e.ExtraParams["Values"];
             selectedDepartmentId = Convert.ToInt32(e.ExtraParams["SelectedDepartment"]);
-            selectedDepartment = Department.GetDepartment(selectedDepartmentId);
+            selectedDepartment = SitesDepartments.GetSiteDepartment(selectedDepartmentId);
 
             submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
             userSessionPhoneCallsPerPageJson = json;

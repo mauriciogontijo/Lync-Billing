@@ -18,9 +18,19 @@ namespace Lync_Billing.ui.sysadmin.activedirectory
         }
 
 
-        protected void SyncWithADButton_Click(object sender, DirectEventArgs e)
+        protected void SyncUsersButton_Click(object sender, DirectEventArgs e)
         {
             Users.SyncWithAD();
+        }
+
+        protected void SyncDepartmentsButton_Click(object sender, DirectEventArgs e)
+        {
+            Department.SyncDepartments();
+        }
+
+        protected void SyncSitesButton_Click(object sender, DirectEventArgs e)
+        {
+            //to do
         }
     }
 }

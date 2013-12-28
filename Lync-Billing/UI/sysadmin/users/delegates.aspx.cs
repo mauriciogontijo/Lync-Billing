@@ -21,7 +21,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
         private List<Users> allUsers = new List<Users>();
         private List<Site> allSites = new List<Site>();
-        private List<Department> allDepartments = new List<Department>();
+        private List<SitesDepartments> allDepartments = new List<SitesDepartments>();
         private List<DelegateRole> allDelegees = new List<DelegateRole>();
         private Dictionary<string, int> delegeeTypes = new Dictionary<string, int>();
 
@@ -47,7 +47,7 @@ namespace Lync_Billing.ui.sysadmin.users
             sipAccount = session.NormalUserInfo.SipAccount;
 
             allSites = Backend.Site.GetAllSites();
-            allDepartments = Backend.Department.GetAllDepartments();
+            allDepartments = SitesDepartments.GetAllSitesDepartments();
             allDelegees = DelegateRole.GetDelegees();
         }
 
@@ -190,7 +190,7 @@ namespace Lync_Billing.ui.sysadmin.users
         protected void NewDelegee_SitesList_Selected(object sender, EventArgs e)
         {
             int siteID = Convert.ToInt32(NewDelegee_SitesList.SelectedItem.Value);
-            var selectedSiteDepartments = allDepartments.Where(department => department.SiteID == siteID).ToList<Department>();
+            var selectedSiteDepartments = allDepartments.Where(department => department.SiteID == siteID).ToList<SitesDepartments>();
 
             NewDelegee_DepartmentsList.ClearValue();
             NewDelegee_DepartmentsList.Clear();
@@ -314,7 +314,7 @@ namespace Lync_Billing.ui.sysadmin.users
                             newDelegee.SiteID = delegeeSiteID;
                             newDelegee.DelegeeSiteName = ((Site)allSites.Find(site => site.SiteID == delegeeSiteID)).SiteName;
                             newDelegee.DepartmentID = delegeeDepartmentID;
-                            newDelegee.DelegeeDepartmentName = ((Department)allDepartments.Find(department => department.DepartmentID == delegeeDepartmentID)).DepartmentName;
+                            newDelegee.DelegeeDepartmentName = ((SitesDepartments)allDepartments.Find(department => department.DepartmentID == delegeeDepartmentID)).DepartmentName;
                             newDelegee.Description = Enums.GetDescription(Enums.DelegateTypes.DepartemntDelegeeTypeDescription);
 
                             //Insert the delegee to the database

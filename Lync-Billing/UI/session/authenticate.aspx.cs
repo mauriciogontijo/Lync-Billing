@@ -340,11 +340,11 @@ namespace Lync_Billing.ui.session
                 Response.Redirect(getHomepageLink(userDelegeeRoleName));
             }
 
-            else if(delegee is Department && delegeeType == DelegateRole.DepartmentDelegeeTypeID)
+            else if (delegee is SitesDepartments && delegeeType == DelegateRole.DepartmentDelegeeTypeID)
             {
                 //Get delegated department
                 session.DelegeeAccount = new DelegeeAccountInfo();
-                session.DelegeeAccount.DelegeeDepartmentAccount = (Department)delegee;
+                session.DelegeeAccount.DelegeeDepartmentAccount = (SitesDepartments)delegee;
                 session.DelegeeAccount.DelegeeTypeID = DelegateRole.DepartmentDelegeeTypeID;
 
                 session.DelegeeAccount.DelegeeUserAccount = Users.GetUser(sipAccount);

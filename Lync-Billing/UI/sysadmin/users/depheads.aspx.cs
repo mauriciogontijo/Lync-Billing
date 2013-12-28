@@ -21,7 +21,7 @@ namespace Lync_Billing.ui.sysadmin.users
 
         private List<Users> allUsers = new List<Users>();
         private List<Site> allSites = new List<Site>();
-        private List<Department> allDepartments = new List<Department>();
+        private List<SitesDepartments> allDepartments = new List<SitesDepartments>();
         private List<DepartmentHeadRole> allDepartmenHeads = new List<DepartmentHeadRole>();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -46,7 +46,7 @@ namespace Lync_Billing.ui.sysadmin.users
             sipAccount = session.NormalUserInfo.SipAccount;
 
             allSites = Backend.Site.GetAllSites();
-            allDepartments = Backend.Department.GetAllDepartments();
+            allDepartments = SitesDepartments.GetAllSitesDepartments();
             allDepartmenHeads = DepartmentHeadRole.GetDepartmentHeads();
         }
 
@@ -140,7 +140,7 @@ namespace Lync_Billing.ui.sysadmin.users
         protected void NewDepartmentHead_SitesList_Selected(object sender, EventArgs e)
         {
             int siteID = Convert.ToInt32(NewDepartmentHead_SitesList.SelectedItem.Value);
-            var selectedSiteDepartments = allDepartments.Where(department => department.SiteID == siteID).ToList<Department>();
+            var selectedSiteDepartments = allDepartments.Where(department => department.SiteID == siteID).ToList<SitesDepartments>();
 
             NewDepartmentHead_DepartmentsList.ClearValue();
             NewDepartmentHead_DepartmentsList.Clear();

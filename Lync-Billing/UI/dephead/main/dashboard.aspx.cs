@@ -19,7 +19,7 @@ namespace Lync_Billing.ui.dephead.main
     {
         private UserSession session;
         private string sipAccount = string.Empty;
-        private List<Department> UserDepartments;
+        private List<SitesDepartments> UserDepartments;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.DepartmentHead);
 
         protected void Page_Load(object sender, EventArgs e)
@@ -68,13 +68,13 @@ namespace Lync_Billing.ui.dephead.main
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = session.NormalUserInfo.SipAccount;
 
-            //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
+            //If the current user is a system-developer, give him access to all the AllDepartments, otherwise grant him access to his/her own managed department
             if (UserDepartments == null || UserDepartments.Count == 0)
             {
                 if (session.IsDeveloper)
-                    UserDepartments = Department.GetAllDepartments();
+                    UserDepartments = SitesDepartments.GetAllSitesDepartments();
                 else
-                    UserDepartments = DepartmentHeadRole.GetDepartmentsForHead(sipAccount);
+                    UserDepartments = DepartmentHeadRole.GetSiteDepartmentsForHead(sipAccount);
             }
 
 
@@ -99,7 +99,7 @@ namespace Lync_Billing.ui.dephead.main
                 FilterDepartments.GetStore().DataSource = UserDepartments;
                 FilterDepartments.GetStore().DataBind();
             }
-            //in case there are no longer any departments for this user to monitor.
+            //in case there are no longer any AllDepartments for this user to monitor.
             else
             {
                 FilterDepartments.Disabled = true;
@@ -109,14 +109,14 @@ namespace Lync_Billing.ui.dephead.main
         protected void DrawStatisticsForDepartment(object sender, DirectEventArgs e)
         {
             int departmentID;
-            Department department;
+            SitesDepartments department;
             
             MailStatistics departmentMailStatisticsData;
 
             if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
             {
                 departmentID = Convert.ToInt32(FilterDepartments.SelectedItem.Value);
-                department = Department.GetDepartment(departmentID);
+                department = SitesDepartments.GetSiteDepartment(departmentID);
 
                 //siteID = Convert.ToInt32((from dep in UserDepartments where dep.DepartmentName == departmentName select dep.SiteID).First());
                 //site = Backend.Site.GetSite(siteID);
