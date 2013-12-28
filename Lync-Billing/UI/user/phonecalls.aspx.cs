@@ -819,9 +819,9 @@ namespace Lync_Billing.ui.user
             json = e.ExtraParams["Values"];
             submittedPhoneCalls = serializer.Deserialize<List<PhoneCall>>(json);
             
-            var resul = submittedPhoneCalls.Where(item => !string.IsNullOrEmpty(item.UI_AssignedByUser)).ToList();
+            var result = submittedPhoneCalls.Where(item => !string.IsNullOrEmpty(item.UI_AssignedByUser)).ToList();
 
-            if (submittedPhoneCalls.Count == resul.Count)
+            if (submittedPhoneCalls.Count > 0 && submittedPhoneCalls.Count == result.Count)
                 MoveToDepartmnet.Disabled = false;
             else
                 MoveToDepartmnet.Disabled = true;
