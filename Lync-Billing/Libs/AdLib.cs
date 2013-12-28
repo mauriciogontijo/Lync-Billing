@@ -23,6 +23,7 @@ namespace Lync_Billing.Libs
 
         //INIT LOCAL GC
         private static DirectoryEntry forestResource = new DirectoryEntry(ResourceGCUri, ResourceGCUsername, ResourceGCPassword);
+        
         //INIT RESOURCE GC
         private static DirectoryEntry forestlocal = new DirectoryEntry(LocalGCUri, LocalGCUsername, LocalGCPassword);
         //INIT LOCAL SEARCHER
@@ -359,7 +360,43 @@ namespace Lync_Billing.Libs
                 throw argEx;
             }
         }
-    
+
+        public List<string> GetAllUsers() 
+        {
+            List<string> users = new List<string>();
+
+            resourceSearcher.SizeLimit = 10000;
+            resourceSearcher.PageSize = 250;
+
+            string localFilter = string.Format(@"(&(objectClass=user)(objectCategory=person)(!(objectClass=contact))(msRTCSIP-PrimaryUserAddress=*))");
+
+            resourceSearcher.Filter = localFilter;
+            
+            SearchResultCollection resourceForestResult;
+           
+            try
+            {
+                resourceForestResult = resourceSearcher.FindAll();
+
+                if (resourceForestResult != null) 
+                {
+
+                    foreach (SearchResult result in resourceForestResult) 
+                    {
+                        if (result.Properties.Contains("mail"))
+                            users.Add((string)result.Properties["mail"][0]);
+                    }
+                   
+                }
+
+            }
+            catch (Exception ex) 
+            {
+
+            }
+
+            return users;
+        }
     }
 
     public class ADUserInfo
