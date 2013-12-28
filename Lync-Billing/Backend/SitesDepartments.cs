@@ -20,25 +20,25 @@ namespace Lync_Billing.Backend
 
         public Site Site
         {
-            get { return Site; }
+            get { return AllSites.FirstOrDefault(item => item.SiteID == SiteID); }
             set { Site = AllSites.FirstOrDefault(item => item.SiteID == SiteID); }
         }
 
         public Department Department
         {
-            get { return Department; }
+            get { return AllDepartments.FirstOrDefault(item => item.DepartmentID == DepartmentID); }
             set { Department = AllDepartments.FirstOrDefault(item => item.DepartmentID == DepartmentID); }
         }
 
         public string SiteName
         {
-            get { return SiteName; }
+            get { return (Site != null ? Site.SiteName : null); }
             set { SiteName = (Site != null ? Site.SiteName : null); }
         }
         
         public string DepartmentName
         {
-            get { return DepartmentName; }
+            get { return (Department != null ? Department.DepartmentName : null); }
             set { DepartmentName = (Department != null ? Department.DepartmentName : null); }
         }
 
@@ -79,18 +79,13 @@ namespace Lync_Billing.Backend
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.ID))
-                        department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+                        department.ID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.SiteID))
-                    {
                         department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                    }
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.DepartmentID))
-                    {
                         department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                       
-                    }
                 }
 
                 departmentsList.Add(department);
@@ -118,18 +113,13 @@ namespace Lync_Billing.Backend
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.ID))
-                        department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+                        department.ID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.SiteID))
-                    {
                         department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                    }
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.DepartmentID))
-                    {
                         department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-
-                    }
                 }
 
                 sitesDepartmnets.Add(department);
@@ -158,17 +148,13 @@ namespace Lync_Billing.Backend
                 foreach (DataColumn column in dt.Columns)
                 {
                     if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.ID))
-                        department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+                        department.ID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.SiteID))
-                    {
                         department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                    }
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.DepartmentID))
-                    {
                         department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                    }
                 }
 
                 return department;
