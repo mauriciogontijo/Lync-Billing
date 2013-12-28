@@ -75,12 +75,6 @@ namespace Lync_Billing.Backend
                     else if(column.ColumnName == Enums.GetDescription(Enums.Departments.DepartmentName))
                         department.DepartmentName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
 
-                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.SiteID))
-                    {
-                        department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                        department.SiteName = Site.GetSiteName(department.SiteID);
-                    }
-
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.Description))
                     {
                         department.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
@@ -94,54 +88,7 @@ namespace Lync_Billing.Backend
         }
 
 
-        public static List<Department> GetDepartmentsInSite(int siteID)
-        {
-            DataTable dt;
-            List<string> columns;
-            Dictionary<string, object> wherePart;
-
-            Department department;
-            List<Department> departmentsList = new List<Department>();
-
-            columns = new List<string>();
-            wherePart = new Dictionary<string, object>
-            { 
-                { Enums.GetDescription(Enums.Departments.SiteID), siteID } 
-            };
-
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Departments.TableName), columns, wherePart, 0);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                department = new Department();
-
-                foreach (DataColumn column in dt.Columns)
-                {
-                    if (column.ColumnName == Enums.GetDescription(Enums.Departments.ID))
-                        department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-
-                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.DepartmentName))
-                        department.DepartmentName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
-
-                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.SiteID))
-                    {
-                        department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                        department.SiteName = Site.GetSiteName(department.SiteID);
-                    }
-
-                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.Description))
-                    {
-                        department.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
-                    }
-                }
-
-                department.DepartmentIdentifier = String.Format("{0} ({1})", department.SiteName, department.DepartmentName);
-
-                departmentsList.Add(department);
-            }
-
-            return departmentsList;
-        }
+        
 
         public static List<Department> GetAllDepartments()
         {
@@ -168,12 +115,6 @@ namespace Lync_Billing.Backend
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.DepartmentName))
                         department.DepartmentName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
-
-                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.SiteID))
-                    {
-                        department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                        department.SiteName = Site.GetSiteName(department.SiteID);
-                    }
 
                     else if (column.ColumnName == Enums.GetDescription(Enums.Departments.Description))
                     {
@@ -203,10 +144,7 @@ namespace Lync_Billing.Backend
             if (!string.IsNullOrEmpty(existingDepartment.DepartmentName))
                 columnValues.Add(Enums.GetDescription(Enums.Departments.DepartmentName), existingDepartment.DepartmentName);
 
-            if (existingDepartment.SiteID > 0)
-                columnValues.Add(Enums.GetDescription(Enums.Departments.SiteID), existingDepartment.SiteID);
-
-            if (!string.IsNullOrEmpty(existingDepartment.Description))
+           if (!string.IsNullOrEmpty(existingDepartment.Description))
                 columnValues.Add(Enums.GetDescription(Enums.Departments.Description), existingDepartment.Description);
 
 
@@ -227,8 +165,6 @@ namespace Lync_Billing.Backend
 
             if (!string.IsNullOrEmpty(newDepartment.DepartmentName) && newDepartment.SiteID > 0)
             {
-                columnsValues.Add(Enums.GetDescription(Enums.Departments.SiteID), newDepartment.SiteID);
-
                 columnsValues.Add(Enums.GetDescription(Enums.Departments.DepartmentName), newDepartment.DepartmentName);
 
                 if (!string.IsNullOrEmpty(newDepartment.Description))
