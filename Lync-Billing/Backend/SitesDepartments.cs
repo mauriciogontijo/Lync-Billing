@@ -13,6 +13,9 @@ namespace Lync_Billing.Backend
         public int SiteID { get; set; }
         public int DepartmentID { get; set; }
 
+        private static List<Department> departments = Department.GetAllDepartments();
+        private static List<Site> sites = Backend.Site.GetAllSites();
+
         private static DBLib DBRoutines = new DBLib();
 
         public static List<SitesDepartments> GetDepartmentsInSite(int siteID)
