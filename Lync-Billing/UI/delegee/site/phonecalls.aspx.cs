@@ -73,7 +73,7 @@ namespace Lync_Billing.ui.delegee.site
             //If the current user is a system-developer, give him access to all the AllDepartments, otherwise grant him access to his/her own managed department
             if (SiteDelegeeDepartments == null || SiteDelegeeDepartments.Count == 0)
             {
-                SiteDelegeeDepartments = SitesDepartments.GetDepartmentsInSite(session.DelegeeAccount.DelegeeSiteAccount.SiteID);
+                SiteDelegeeDepartments = SitesDepartments.GetDepartmentsInSite(session.DelegeeAccount.DelegeeSiteAccount.SiteID); 
             }
 
 
