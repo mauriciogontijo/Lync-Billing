@@ -263,6 +263,9 @@ namespace Lync_Billing.Backend
                 if (!string.IsNullOrEmpty(site.CountryCode))
                     columnsValues.Add(Enums.GetDescription(Enums.Sites.CountryCode), site.CountryCode);
 
+                if (!string.IsNullOrEmpty(site.Description))
+                    columnsValues.Add(Enums.GetDescription(Enums.Sites.Description), site.Description);
+
                 //Execute Insert
                 rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.Sites.TableName), columnsValues, Enums.GetDescription(Enums.Sites.SiteID));
             }
