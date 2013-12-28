@@ -81,7 +81,7 @@ namespace Lync_Billing.Backend
             return departments.FirstOrDefault(item => item.DepartmentID == departmentID);
         }
 
-        public static Site getSite(int SiteID) 
+        public static Site GetSite(int SiteID) 
         {
             return sites.FirstOrDefault(item => item.SiteID == SiteID);
         }
