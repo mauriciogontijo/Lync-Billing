@@ -86,7 +86,7 @@ namespace Lync_Billing.ui.dephead.main
                 //Handle the FireSelect event
                 if (alwaysFireSelect == true)
                 {
-                    FilterDepartments.SetValueAndFireSelect(UserDepartments.First().DepartmentID);
+                    FilterDepartments.SetValueAndFireSelect(UserDepartments.First().ID);
                     
                     //Handle the ReadOnly Property
                     if (UserDepartments.Count == 1)

@@ -166,8 +166,8 @@
                                     Icon="Find"
                                     TriggerAction="Query"
                                     QueryMode="Local"
-                                    DisplayField="DepartmentID"
-                                    ValueField="DepartmentID"
+                                    DisplayField="DepartmentName"
+                                    ValueField="ID"
                                     FieldLabel="Department:"
                                     LabelWidth="60"
                                     Width="300"
@@ -182,6 +182,7 @@
                                                     ID="DepartmentHeadsStoreModel"
                                                     runat="server">
                                                     <Fields>
+                                                        <ext:ModelField Name="ID" />
                                                         <ext:ModelField Name="SiteID" />
                                                         <ext:ModelField Name="SiteName" />
                                                         <ext:ModelField Name="DepartmentID" />
