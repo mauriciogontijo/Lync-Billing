@@ -36,7 +36,8 @@
                 Title="Manage Phonecalls"
                 Width="740"
                 Height="770"
-                Plain="false">
+                Plain="false"
+                ComponentCls="fix-ui-vertical-align">
                 
                 <Defaults>
                     <ext:Parameter Name="autoScroll" Value="true" Mode="Raw" />
@@ -226,7 +227,8 @@
                                         Height="420" 
                                         Frame="true" 
                                         X="150" 
-                                        Y="100">
+                                        Y="100"
+                                        ComponentCls="fix-ui-vertical-align">
                                         <Items>
                                             <ext:Panel ID="MultipleSelectPanel" runat="server" Icon="Anchor" Title="How do I select multiple Phonecalls?">
                                                 <Content>
@@ -495,7 +497,7 @@
                         runat="server"
                         Width="190"
                         Frame="false"
-                        >
+                        ComponentCls="fix-ui-vertical-align">
                         <Items>
                             <ext:MenuItem
                                 runat="server"

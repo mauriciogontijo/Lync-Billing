@@ -99,7 +99,8 @@
                 Title="Manage Address Book"
                 Width="740"
                 Height="785"
-                Plain="false">
+                Plain="false"
+                ComponentCls="fix-ui-vertical-align">
                 
                 <Defaults>
                     <ext:Parameter Name="autoScroll" Value="true" Mode="Raw" />
@@ -113,7 +114,8 @@
                         Layout="TableLayout"
                         Title="Address Book"
                         Height="740"
-                        Icon="BookOpen">
+                        Icon="BookOpen"
+                        ComponentCls="fix-ui-vertical-align">
                         <Store>
                             <ext:Store
                                 ID="AddressBookStore"
@@ -244,6 +246,17 @@
                                     </Columns>
                                 </ext:Column>
 
+                                
+                                <ext:CommandColumn ID="RejectChange" runat="server" Width="70">
+                                    <Commands>
+                                        <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
+                                    </Commands>
+                                    <PrepareToolbar Handler="toolbar.items.get(0).setVisible(record.dirty);" />
+                                    <Listeners>
+                                        <Command Handler="record.reject();" />
+                                    </Listeners>
+                                </ext:CommandColumn>
+
                                 <ext:ImageCommandColumn
                                     ID="DeleteButtonsColumn"
                                     runat="server"
@@ -258,16 +271,6 @@
                                         <Command Handler="this.up(#{AddressBookGrid}.store.removeAt(recordIndex));" />
                                     </Listeners>
                                 </ext:ImageCommandColumn>
-
-                                <ext:CommandColumn ID="RejectChange" runat="server" Width="70">
-                                    <Commands>
-                                        <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
-                                    </Commands>
-                                    <PrepareToolbar Handler="toolbar.items.get(0).setVisible(record.dirty);" />
-                                    <Listeners>
-                                        <Command Handler="record.reject();" />
-                                    </Listeners>
-                                </ext:CommandColumn>
 
                             </Columns>
                         </ColumnModel>
@@ -331,7 +334,8 @@
                         Layout="TableLayout"
                         Title="Import Contacts"
                         Height="740"
-                        Icon="BookEdit">
+                        Icon="BookEdit"
+                        ComponentCls="fix-ui-vertical-align">
                         <Store>
                             <ext:Store
                                 ID="ImportContactsStore"

@@ -175,15 +175,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ComboBox ADContactTypeCombo;
         
         /// <summary>
-        /// DeleteButtonsColumn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ImageCommandColumn DeleteButtonsColumn;
-        
-        /// <summary>
         /// RejectChange control.
         /// </summary>
         /// <remarks>
@@ -191,6 +182,15 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.CommandColumn RejectChange;
+        
+        /// <summary>
+        /// DeleteButtonsColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ImageCommandColumn DeleteButtonsColumn;
         
         /// <summary>
         /// Toolbar1 control.

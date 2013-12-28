@@ -152,7 +152,9 @@
                     Title="Department Statistics"
                     Width="740"
                     Height="61"
-                    Layout="AnchorLayout">
+                    Layout="AnchorLayout"
+                    ComponentCls="fix-ui-vertical-align">
+
                     <TopBar>
                         <ext:Toolbar
                             ID="FilterToolbar1"

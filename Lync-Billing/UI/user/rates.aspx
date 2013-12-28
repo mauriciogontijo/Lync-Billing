@@ -69,7 +69,8 @@
                 Scroll="Both"
                 Layout="FitLayout"
                 Header="true"
-                Title="View Telephony Rates">
+                Title="View Telephony Rates"
+                ComponentCls="fix-ui-vertical-align">
 
                 <Store>
                     <ext:Store

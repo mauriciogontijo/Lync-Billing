@@ -17,7 +17,8 @@
                 PaddingSummary="5px 5px 0"
                 Width="740"
                 Height="740"
-                ButtonAlign="Center">
+                ButtonAlign="Center"
+                ComponentCls="fix-ui-vertical-align">
                 <Store>
                     <ext:Store
                         ID="AppConfigStore"

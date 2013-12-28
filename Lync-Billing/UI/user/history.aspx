@@ -38,7 +38,8 @@
                 AutoScroll="true"
                 Header="true"
                 Scroll="Both" 
-                Layout="FitLayout">
+                Layout="FitLayout"
+                ComponentCls="fix-ui-vertical-align">
 
                 <Store>
                     <ext:Store

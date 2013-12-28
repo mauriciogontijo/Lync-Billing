@@ -52,7 +52,8 @@
                 ID="PhoneCallsAllocationToolsMenu"
                 runat="server"
                 Width="200"
-                Frame="false">
+                Frame="false"
+                ComponentCls="fix-ui-vertical-align">
                 <Items>
                     <ext:MenuItem
                         runat="server"
@@ -127,22 +128,6 @@
             </ext:Menu>
 
 
-            <%--<asp:ObjectDataSource
-                ID="PhoneCallsDataSource"
-                runat="server"
-                OnSelecting="PhoneCallsDataSource_Selecting"
-                OnSelected="PhoneCallsDataSource_Selected"
-                SelectMethod="GetPhoneCallsFilter"
-                TypeName="Lync_Billing.ui.delegee.site.phonecalls">
-                <SelectParameters>
-                    <asp:Parameter Name="start" Type="Int32" />
-                    <asp:Parameter Name="limit" Type="Int32" />
-                    <asp:Parameter Name="sort" Type="Object" />
-                    <asp:Parameter Name="count" Direction="Output" Type="Int32" />
-                </SelectParameters>
-            </asp:ObjectDataSource>--%>
-
-
             <ext:GridPanel
                 ID="ManagePhoneCallsGrid"
                 runat="server"
@@ -153,7 +138,8 @@
                 AutoScroll="true"
                 Scroll="Both"
                 Layout="TableLayout"
-                ContextMenuID="PhoneCallsAllocationToolsMenu">
+                ContextMenuID="PhoneCallsAllocationToolsMenu"
+                ComponentCls="fix-ui-vertical-align">
                 <Store>
                     <ext:Store
                         ID="PhoneCallsStore"
@@ -320,7 +306,8 @@
                                 Height="420" 
                                 Frame="true" 
                                 X="150" 
-                                Y="100">
+                                Y="100"
+                                ComponentCls="fix-ui-vertical-align">
                                 <Items>
                                     <ext:Panel ID="MultipleSelectPanel" runat="server" Icon="Anchor" Title="How do I select multiple Phonecalls?">
                                         <Content>

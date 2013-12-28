@@ -69,7 +69,8 @@
                 Scroll="Both"
                 Layout="FitLayout"
                 Header="true"
-                Title="Manage Gateways Rates">
+                Title="Manage Gateways Rates"
+                ComponentCls="fix-ui-vertical-align">
 
                 <Store>
                     <ext:Store
