@@ -25,7 +25,7 @@ namespace Lync_Billing.ui.delegee.site
         private string sipAccount = string.Empty;
         private string siteDelegeeRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteDelegee);
 
-        private List<Department> SiteDelegeeDepartments = new List<Department>();
+        private List<SitesDepartments> SiteDelegeeDepartments = new List<SitesDepartments>();
         private StoreReadDataEventArgs e;
         private string xmldoc = string.Empty;
 
@@ -73,7 +73,7 @@ namespace Lync_Billing.ui.delegee.site
             //If the current user is a system-developer, give him access to all the departments, otherwise grant him access to his/her own managed department
             if (SiteDelegeeDepartments == null || SiteDelegeeDepartments.Count == 0)
             {
-                SiteDelegeeDepartments = Department.GetDepartmentsInSite(session.DelegeeAccount.DelegeeSiteAccount.SiteID);
+                SiteDelegeeDepartments = SitesDepartments.GetDepartmentsInSite(session.DelegeeAccount.DelegeeSiteAccount.SiteID);
             }
 
 
