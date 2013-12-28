@@ -52,6 +52,11 @@ namespace Lync_Billing.ui.sysadmin.activedirectory
 
         protected void SyncSitesButton_Click(object sender, DirectEventArgs e)
         {
+            Backend.Site.SyncSites();
+        }
+
+        protected void SyncSitesDepartmentsButton_Click(object sender, DirectEventArgs e)
+        {
             //to do
         }
     }

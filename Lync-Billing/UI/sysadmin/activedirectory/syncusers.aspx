@@ -74,6 +74,28 @@
                         runat="server"
                         Text="This will add the new sites to the database and will update the existing ones."
                         Margin="15" />
+
+                    <ext:ToolbarSeparator ID="PanelSeparator3" runat="server" />
+
+                    <ext:Button
+                        ID="Button1"
+                        runat="server"
+                        Text="Associate Sites And Departments"
+                        Margin="15">
+                        <DirectEvents>
+                            <Click OnEvent="SyncSitesDepartmentsButton_Click">
+                                <EventMask ShowMask="true" Msg="Associating Sites and Departments" MinDelay="5000" />
+                            </Click>
+                        </DirectEvents>
+                    </ext:Button>
+
+                    <ext:Label
+                        ID="Label1"
+                        runat="server"
+                        Text="This will associate the departments to their respective sites."
+                        Margin="15" />
+
+                    SyncSitesDepartmentsButton_Click
                 </Items>
             </ext:Panel>
         </div>
