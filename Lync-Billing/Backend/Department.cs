@@ -12,15 +12,10 @@ namespace Lync_Billing.Backend
     {
         private static DBLib DBRoutines = new DBLib();
 
-        public int SiteID { get; set; }
         public int DepartmentID { get; set; }
-        public string SiteName { get; set; }
         public string DepartmentName { get; set; }
         public string Description { get; set; }
 
-        //This is a logical representation of the SiteName and DepartmentName
-        //example: MOA (IDS), RASO (ISD) ... etc
-        public string DepartmentIdentifier { get; set; }
 
         public static string GetDepartmentName(int departmentID)
         {
@@ -81,14 +76,48 @@ namespace Lync_Billing.Backend
                     }
                 }
 
-                department.DepartmentIdentifier = String.Format("{0} ({1})", department.SiteName, department.DepartmentName);
+              
             }
 
             return department;
         }
 
+        public static Department GetDepartment(string departmnetName) 
+        {
+            DataTable dt;
+            Department department = new Department();
+            List<string> columns;
+            Dictionary<string, object> wherePart;
 
-        
+            columns = new List<string>();
+            wherePart = new Dictionary<string, object>
+            { 
+                { Enums.GetDescription(Enums.Departments.DepartmentName), departmnetName } 
+            };
+
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.Departments.TableName), columns, wherePart, 1);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName == Enums.GetDescription(Enums.Departments.ID))
+                        department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.DepartmentName))
+                        department.DepartmentName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+
+                    else if (column.ColumnName == Enums.GetDescription(Enums.Departments.Description))
+                    {
+                        department.Description = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[column.ColumnName]));
+                    }
+                }
+
+                department.DepartmentIdentifier = String.Format("{0} ({1})", department.SiteName, department.DepartmentName);
+            }
+
+            return department;
+        }
 
         public static List<Department> GetAllDepartments()
         {
@@ -177,7 +206,6 @@ namespace Lync_Billing.Backend
             return rowID;
         }
 
-
         public static bool DeleteDepartment(Department department)
         {
             bool status = false;
@@ -185,6 +213,23 @@ namespace Lync_Billing.Backend
             status = DBRoutines.DELETE(Enums.GetDescription(Enums.Departments.TableName), Enums.GetDescription(Enums.Departments.ID), department.DepartmentID);
 
             return status;
+        }
+
+        public static void SyncDepartments() 
+        {
+            List<Users> listOfUsers =  Users.GetUsers(null, null, 0);
+
+            foreach (Users user in listOfUsers) 
+            {
+                Department departmnet = GetDepartment(user.Department);
+
+                if (departmnet != null)
+                    continue;
+                else
+                {
+                    AddDepartment(new Department { DepartmentName = user.Department });
+                }
+            }
         }
 
     }
