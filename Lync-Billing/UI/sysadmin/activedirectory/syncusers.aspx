@@ -12,7 +12,7 @@
             <ext:Panel
                 ID="SyncDataWithActiveDirectory"
                 runat="server"
-                Height="200"
+                Height="250"
                 Width="740"
                 Header="true"
                 Title="Sync User Data with Active Directory">
@@ -94,8 +94,6 @@
                         runat="server"
                         Text="This will associate the departments to their respective sites."
                         Margin="15" />
-
-                    SyncSitesDepartmentsButton_Click
                 </Items>
             </ext:Panel>
         </div>
