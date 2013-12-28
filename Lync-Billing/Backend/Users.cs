@@ -357,7 +357,8 @@ namespace Lync_Billing.Backend
 
                 dbUser.SiteName = userInfo.physicalDeliveryOfficeName;
                 dbUser.Department = userInfo.department;
-                dbUser.TelephoneNumber = userInfo.Telephone;
+                dbUser.TelephoneNumber = HelperFunctions.FormatUserTelephoneNumber(userInfo.Telephone);
+                dbUser.UpdatedByAD = true;
 
                 //get the actual data from ADUser table to match if exists and needs to be updated or inserted 
                 Users adUser = Users.GetUser(dbUser.SipAccount);
