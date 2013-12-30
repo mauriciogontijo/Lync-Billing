@@ -152,7 +152,7 @@
                                             <p>Active Directory</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../activedirectory/syncusers.aspx' id="ui_sysadmin_activedirectory_syncusers">Sync Users Data</a></p>
+                                            <p><a href='../activedirectory/syncusers.aspx' id="ui_sysadmin_activedirectory_syncusers">Sync System Data</a></p>
                                         </div>
                                     </div>
                                 </Content>

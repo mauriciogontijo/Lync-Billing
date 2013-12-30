@@ -122,7 +122,7 @@
     <Content Include="ui\dephead\main\dashboard.aspx" />
     <Content Include="ui\dephead\users\phonecalls.aspx" />
     <Content Include="ui\resources\js\feedback.js" />
-    <Content Include="ui\sysadmin\activedirectory\syncusers.aspx" />
+    <Content Include="ui\sysadmin\activedirectory\sync.aspx" />
     <Content Include="ui\sysadmin\configuration\announcements.aspx" />
     <Content Include="ui\sysadmin\configuration\exceptions.aspx" />
     <Content Include="ui\sysadmin\configuration\mail.aspx" />
@@ -315,12 +315,12 @@
     <Compile Include="ui\dephead\users\phonecalls.aspx.designer.cs">
       <DependentUpon>phonecalls.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ui\sysadmin\activedirectory\syncusers.aspx.cs">
-      <DependentUpon>syncusers.aspx</DependentUpon>
+    <Compile Include="ui\sysadmin\activedirectory\sync.aspx.cs">
+      <DependentUpon>sync.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ui\sysadmin\activedirectory\syncusers.aspx.designer.cs">
-      <DependentUpon>syncusers.aspx</DependentUpon>
+    <Compile Include="ui\sysadmin\activedirectory\sync.aspx.designer.cs">
+      <DependentUpon>sync.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\sysadmin\configuration\announcements.aspx.cs">
       <DependentUpon>announcements.aspx</DependentUpon>
