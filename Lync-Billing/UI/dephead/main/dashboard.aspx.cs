@@ -19,8 +19,11 @@ namespace Lync_Billing.ui.dephead.main
     {
         private UserSession session;
         private string sipAccount = string.Empty;
-        private List<SitesDepartments> UserDepartments;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.DepartmentHead);
+        
+        List<Site> UserSites;
+        List<SitesDepartments> UserSitesDepartments;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,58 +56,61 @@ namespace Lync_Billing.ui.dephead.main
              * This would happen due to a chain-reaction of triggering two DirectEvents from the aspx page
              * The chain consist of two DirectEvents: OnDepartmentSelect X---FIRE---> DrawStatisticsForDepartment which fires Page_Load and then it goes again for ever.
              * */
-            if (!Ext.Net.X.IsAjaxRequest)
-            {
-                BindDepartmentsForThisUser(true);
-            }
-            else
-            {
-                BindDepartmentsForThisUser(false);
-            }
+            //if (!Ext.Net.X.IsAjaxRequest)
+            //    BindSitesForThisUser();
         }
 
-        private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
-        {
-            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = session.NormalUserInfo.SipAccount;
 
-            //If the current user is a system-developer, give him access to all the AllDepartments, otherwise grant him access to his/her own managed department
-            if (UserDepartments == null || UserDepartments.Count == 0)
+        private void InitUserSitesAndDepartments()
+        {
+            //Get UserSites
+            if (UserSites == null)
             {
                 if (session.IsDeveloper)
-                    UserDepartments = SitesDepartments.GetAllSitesDepartments();
+                    UserSites = SitesDepartments.AllSites;
                 else
-                    UserDepartments = DepartmentHeadRole.GetSiteDepartmentsForHead(sipAccount);
+                    UserSites = Backend.Site.GetUserRoleSites(session.SystemRoles, allowedRoleName);
             }
 
-
-            //By default the filter combobox is not read only
-            FilterDepartments.ReadOnly = false;
-
-            if (UserDepartments.Count > 0)
+            //Get UserSitesDepartments
+            if (UserSitesDepartments == null)
             {
-                //Handle the FireSelect event
-                if (alwaysFireSelect == true)
-                {
-                    FilterDepartments.SetValueAndFireSelect(UserDepartments.First().ID);
-                    
-                    //Handle the ReadOnly Property
-                    if (UserDepartments.Count == 1)
-                    {
-                        FilterDepartments.ReadOnly = true;
-                    }
-                }
-
-                //Bind all the Data and return to the view
-                FilterDepartments.GetStore().DataSource = UserDepartments;
-                FilterDepartments.GetStore().DataBind();
-            }
-            //in case there are no longer any AllDepartments for this user to monitor.
-            else
-            {
-                FilterDepartments.Disabled = true;
+                if(session.IsDeveloper)
+                    UserSitesDepartments = SitesDepartments.GetAllSitesDepartments();
+                else
+                    UserSitesDepartments = DepartmentHeadRole.GetSiteDepartmentsForHead(sipAccount);
             }
         }
+
+
+        protected void FilterSitesComboBoxStore_Load(object sender, EventArgs e)
+        {
+            InitUserSitesAndDepartments();
+
+            FilterSitesComboBox.GetStore().DataSource = UserSites;
+            FilterSitesComboBox.GetStore().DataBind();
+        }
+
+
+        protected void FilterDepartmentsBySite_Selected(object sender, DirectEventArgs e)
+        {
+            FilterDepartments.Clear();
+            FilterDepartments.Disabled = true;
+
+            if (FilterSitesComboBox.SelectedItem.Index > -1)
+            {
+                InitUserSitesAndDepartments();
+
+                FilterDepartments.Disabled = false;
+
+                int siteID = Convert.ToInt32(FilterSitesComboBox.SelectedItem.Value);
+                var siteDepartments = UserSitesDepartments.Where(department => department.SiteID == siteID).ToList<SitesDepartments>();
+
+                FilterDepartments.GetStore().DataSource = siteDepartments;
+                FilterDepartments.GetStore().DataBind();
+            }
+        }
+
 
         protected void DrawStatisticsForDepartment(object sender, DirectEventArgs e)
         {
@@ -162,5 +168,7 @@ namespace Lync_Billing.ui.dephead.main
                 }
             }
         }
+
     }
+
 }

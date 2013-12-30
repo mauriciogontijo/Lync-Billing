@@ -161,26 +161,59 @@
                             runat="server">
                             <Items>
                                 <ext:ComboBox
+                                    ID="FilterSitesComboBox"
+                                    runat="server"
+                                    Icon="Find"
+                                    Editable="true"
+                                    DisplayField="SiteName"
+                                    ValueField="SiteID"
+                                    FieldLabel="Site:"
+                                    LabelWidth="25"
+                                    Width="230"
+                                    Margins="5 15 0 5">
+                                    <Store>
+                                        <ext:Store ID="FilterSitesComboBoxStore" runat="server" OnLoad="FilterSitesComboBoxStore_Load">
+                                            <Model>
+                                                <ext:Model ID="SitesModel" runat="server">
+                                                    <Fields>
+                                                        <ext:ModelField Name="SiteID" />
+                                                        <ext:ModelField Name="SiteName" />
+                                                        <ext:ModelField Name="CountryCode" />
+                                                    </Fields>
+                                                </ext:Model>
+                                            </Model>
+                                        </ext:Store>
+                                    </Store>
+
+                                    <DirectEvents>
+                                        <Select OnEvent="FilterDepartmentsBySite_Selected" />
+                                    </DirectEvents>
+
+                                    <ListConfig>
+                                        <ItemTpl ID="SitesItemTpl" runat="server">
+                                            <Html>
+                                                <div>{SiteName}&nbsp;({CountryCode})</div>
+                                            </Html>
+                                        </ItemTpl>
+                                    </ListConfig>
+                                </ext:ComboBox>
+
+                                <ext:ComboBox
                                     ID="FilterDepartments"
                                     runat="server"
                                     Icon="Find"
-                                    TriggerAction="Query"
-                                    QueryMode="Local"
+                                    Editable="true"
                                     DisplayField="DepartmentName"
                                     ValueField="ID"
                                     FieldLabel="Department:"
                                     LabelWidth="60"
                                     Width="300"
                                     Margins="5 15 5 5"
-                                    Editable="true">
+                                    Disabled="true">
                                     <Store>
-                                        <ext:Store 
-                                            ID="DepartmentsFilterStore"
-                                            runat="server">
+                                        <ext:Store ID="DepartmentsFilterStore" runat="server">
                                             <Model>
-                                                <ext:Model 
-                                                    ID="DepartmentHeadsStoreModel"
-                                                    runat="server">
+                                                <ext:Model ID="DepartmentHeadsStoreModel" runat="server">
                                                     <Fields>
                                                         <ext:ModelField Name="ID" />
                                                         <ext:ModelField Name="SiteID" />
@@ -192,17 +225,7 @@
                                             </Model>
                                         </ext:Store>
                                     </Store>
-
-                                    <ListConfig
-                                        Border="true"
-                                        EmptyText="Please select a department...">
-                                        <ItemTpl ID="ItemTpl2" runat="server">
-                                            <Html>
-                                                <div>{SiteName}&nbsp;({DepartmentName})</div>
-                                            </Html>
-                                        </ItemTpl>
-                                    </ListConfig>
-
+                                    
                                     <DirectEvents>
                                         <Select OnEvent="DrawStatisticsForDepartment">
                                             <EventMask ShowMask="true" />

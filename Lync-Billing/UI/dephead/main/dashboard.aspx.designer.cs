@@ -40,6 +40,33 @@ namespace Lync_Billing.ui.dephead.main {
         protected global::Ext.Net.Toolbar FilterToolbar1;
         
         /// <summary>
+        /// FilterSitesComboBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox FilterSitesComboBox;
+        
+        /// <summary>
+        /// FilterSitesComboBoxStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store FilterSitesComboBoxStore;
+        
+        /// <summary>
+        /// SitesModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model SitesModel;
+        
+        /// <summary>
         /// FilterDepartments control.
         /// </summary>
         /// <remarks>
