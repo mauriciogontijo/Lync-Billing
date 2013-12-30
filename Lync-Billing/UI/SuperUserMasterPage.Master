@@ -95,7 +95,7 @@
                         <div class="block-body">
                             <ext:Panel ID="SystemAdminSidebar"
                                 runat="server"
-                                Height="550"
+                                Height="560"
                                 Width="180"
                                 Title="Admin Tools"
                                 Collapsed="false"
@@ -152,7 +152,7 @@
                                             <p>Active Directory</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../activedirectory/syncusers.aspx' id="ui_sysadmin_activedirectory_syncusers">Sync System Data</a></p>
+                                            <p><a href='../activedirectory/sync.aspx' id="ui_sysadmin_activedirectory_sync">Sync System Data</a></p>
                                         </div>
                                     </div>
                                 </Content>

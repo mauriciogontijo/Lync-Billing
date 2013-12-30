@@ -218,7 +218,7 @@
                             ID="AssignedToColumn"
                             runat="server"
                             Text="Assigned To"
-                            Width="130"
+                            Width="190"
                             DataIndex="UI_AssignedToUser" />
 
                         <ext:Column
