@@ -25,6 +25,11 @@ namespace Lync_Billing.ui.sysadmin.manage
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // !!!! 
+            //  REDIRECTION 
+            // !!!
+            Response.Redirect("~/ui/sysadmin/main/dashboard.aspx");
+
             //If the user is not loggedin, redirect to Login page.
             if (HttpContext.Current.Session == null || HttpContext.Current.Session.Contents["UserData"] == null)
             {
@@ -111,7 +116,7 @@ namespace Lync_Billing.ui.sysadmin.manage
             {
                 storeShangedData = new StoreDataHandler(json).BatchObjectData<SitesDepartments>();
 
-                //Delete existent delegees
+                //Update existent departments
                 if (storeShangedData.Updated.Count > 0)
                 {
                     foreach (SitesDepartments storeDepartmentObject in storeShangedData.Updated)
@@ -133,10 +138,8 @@ namespace Lync_Billing.ui.sysadmin.manage
                             }
                         }
 
-
                         //statusFlag = SitesDepartments.UpdateDepartment(storeDepartmentObject, FORCE_RESET_DESCRIPTION: resetDescriptionFlag);
                         
-
                         if (statusFlag == false)
                         {
                             ManageDepartmentsGrid.GetStore().Filter("SiteID", storeDepartmentObject.SiteID.ToString());

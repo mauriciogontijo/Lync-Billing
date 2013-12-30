@@ -94,15 +94,6 @@ namespace Lync_Billing.ui.sysadmin.manage {
         protected global::Ext.Net.ClearButton ClearDepartmentFilter;
         
         /// <summary>
-        /// Editor_DepartmentNameTextField control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TextField Editor_DepartmentNameTextField;
-        
-        /// <summary>
         /// DescriptionColumn control.
         /// </summary>
         /// <remarks>

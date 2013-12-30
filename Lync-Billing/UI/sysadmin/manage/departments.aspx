@@ -129,18 +129,18 @@
                                 </ext:TextField>
                             </HeaderItems>
 
-                            <Editor>
+                            <%--<Editor>
                                 <ext:TextField
                                     ID="Editor_DepartmentNameTextField"
                                     runat="server"
                                     DataIndex="DepartmentName" />
-                            </Editor>
+                            </Editor>--%>
                         </ext:Column>
 
                         <ext:Column ID="DescriptionColumn"
                             runat="server"
                             Text="Description"
-                            Width="380"
+                            Width="370"
                             DataIndex="Description"
                             Sortable="false"
                             Groupable="false">

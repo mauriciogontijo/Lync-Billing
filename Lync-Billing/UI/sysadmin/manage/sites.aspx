@@ -141,9 +141,9 @@
                                 </ext:TextField>
                             </HeaderItems>
 
-                            <Editor>
+                            <%--<Editor>
                                 <ext:TextField ID="Editor_SiteNameTextField" runat="server" />
-                            </Editor>
+                            </Editor>--%>
                         </ext:Column>
 
                         <ext:Column ID="CountryNameColumn"
@@ -237,7 +237,7 @@
                 <TopBar>
                     <ext:Toolbar ID="FilterDelegatesSitesToolBar" runat="server">
                         <Items>
-                            <ext:Button
+                            <%--<ext:Button
                                 ID="AddRecordButton"
                                 runat="server"
                                 Text="New Site"
@@ -250,7 +250,7 @@
 
                             <ext:ToolbarSeparator
                                 ID="ToolbarSeparaator"
-                                runat="server" />
+                                runat="server" />--%>
 
                             <ext:Button
                                 ID="SaveChangesButton"
@@ -268,7 +268,7 @@
                                 </DirectEvents>
                             </ext:Button>
 
-                            <ext:Window 
+                            <%--<ext:Window 
                                 ID="AddNewSiteWindowPanel" 
                                 runat="server" 
                                 Frame="true"
@@ -385,7 +385,7 @@
                                 <DirectEvents>
                                     <BeforeHide OnEvent="AddNewSiteWindowPanel_BeforeHide" />
                                 </DirectEvents>
-                            </ext:Window>
+                            </ext:Window>--%>
 
                         </Items>
                     </ext:Toolbar>

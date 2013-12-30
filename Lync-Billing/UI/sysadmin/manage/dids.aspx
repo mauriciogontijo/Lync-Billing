@@ -153,41 +153,31 @@
                             </Editor>
                         </ext:Column>
 
-                        
-                        <ext:ImageCommandColumn
-                            ID="DeleteButtonsColumn"
-                            runat="server"
-                            Width="30"
-                            Align="Center"
-                            Sortable="false"
-                            Groupable="false">
-
-                            <Commands>
-                                <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Delegate" CommandName="delete">                            
-                                </ext:ImageCommand>
-                            </Commands>
-
-                            <Listeners>
-                                <Command Handler="this.up(#{ManageDIDsGrid}.store.removeAt(recordIndex));" />
-                            </Listeners>
-                        </ext:ImageCommandColumn>
-
-
-                        <ext:CommandColumn
-                            ID="RejectChange" 
-                            runat="server" 
-                            Width="70">
-                            
+                        <ext:CommandColumn ID="RejectChange"  runat="server"  Width="70">
                             <Commands>
                                 <ext:GridCommand Text="Reject" ToolTip-Text="Reject row changes" CommandName="reject" Icon="ArrowUndo" />
                             </Commands>
-                            
                             <PrepareToolbar Handler="toolbar.items.get(0).setVisible(record.dirty);" />
-                            
                             <Listeners>
                                 <Command Handler="record.reject();" />
                             </Listeners>
                         </ext:CommandColumn>
+                        
+                        <ext:ImageCommandColumn
+                            ID="DeleteButtonsColumn"
+                            runat="server"
+                            Width="25"
+                            Align="Center"
+                            Sortable="false"
+                            Groupable="false">
+                            <Commands>
+                                <ext:ImageCommand Icon="Decline" ToolTip-Text="Delete Delegate" CommandName="delete">                            
+                                </ext:ImageCommand>
+                            </Commands>
+                            <Listeners>
+                                <Command Handler="this.up(#{ManageDIDsGrid}.store.removeAt(recordIndex));" />
+                            </Listeners>
+                        </ext:ImageCommandColumn>
                     </Columns>
                 </ColumnModel>
 
