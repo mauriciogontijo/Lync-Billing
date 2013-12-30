@@ -94,8 +94,8 @@
 
                                 <ListConfig
                                     Border="true"
-                                    MinWidth="250"
-                                    MinHeight="300">
+                                    MinWidth="200"
+                                    MaxHeight="300">
                                     <ItemTpl ID="SitesItemTpl" runat="server">
                                         <Html>
                                             <div>{SiteName}&nbsp;({CountryCode})</div>
@@ -136,18 +136,6 @@
                                         </Model>
                                     </ext:Store>
                                 </Store>
-
-                                <ListConfig
-                                    MinWidth="280"
-                                    MinHeight="300"
-                                    Border="true"
-                                    EmptyText="Please select a department...">
-                                    <ItemTpl ID="ItemTpl2" runat="server">
-                                        <Html>
-                                            <div>{DepartmentName}&nbsp;({SiteName})</div>
-                                        </Html>
-                                    </ItemTpl>
-                                </ListConfig>
 
                                 <DirectEvents>
                                     <Select OnEvent="GetUsersPerDepartment">
@@ -191,6 +179,7 @@
                                     LoadingText="Searching..."
                                     MinWidth="430"
                                     MaxWidth="450"
+                                    MaxHeight="300"
                                     Border="true"
                                     EmptyText="Please select user..."
                                     Frame="true">
