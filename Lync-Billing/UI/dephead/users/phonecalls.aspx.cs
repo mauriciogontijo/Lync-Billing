@@ -17,7 +17,8 @@ namespace Lync_Billing.ui.dephead.users
         private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.DepartmentHead);
 
-        private List<SitesDepartments> UserDepartments;
+        private List<Site> UserSites;
+        private List<SitesDepartments> UserSitesDepartments;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -40,51 +41,26 @@ namespace Lync_Billing.ui.dephead.users
             }
 
             sipAccount = session.NormalUserInfo.SipAccount;
-
-            BindDepartmentsForThisUser();
         }
 
-
-        private void BindDepartmentsForThisUser(bool alwaysFireSelect = false)
+        private void InitUserSitesAndDepartments()
         {
-            session = (UserSession)HttpContext.Current.Session.Contents["UserData"];
-            sipAccount = session.NormalUserInfo.SipAccount;
-
-            //If the current user is a system-developer, give him access to all the AllDepartments, otherwise grant him access to his/her own managed department
-            if (UserDepartments == null || UserDepartments.Count == 0)
+            //Get UserSites
+            if (UserSites == null)
             {
                 if (session.IsDeveloper)
-                    UserDepartments = SitesDepartments.GetAllSitesDepartments();
+                    UserSites = SitesDepartments.AllSites;
                 else
-                    UserDepartments = DepartmentHeadRole.GetSiteDepartmentsForHead(sipAccount);
+                    UserSites = Backend.Site.GetUserRoleSites(session.SystemRoles, allowedRoleName);
             }
 
-
-            //By default the filter combobox is not read only
-            FilterDepartments.ReadOnly = false;
-
-            if (UserDepartments.Count > 0)
+            //Get UserSitesDepartments
+            if (UserSitesDepartments == null)
             {
-                //Handle the FireSelect event
-                if (alwaysFireSelect == true)
-                {
-                    FilterDepartments.SetValueAndFireSelect(UserDepartments.First().Department.DepartmentName);
-
-                    //Handle the ReadOnly Property
-                    if (UserDepartments.Count == 1)
-                    {
-                        FilterDepartments.ReadOnly = true;
-                    }
-                }
-
-                //Bind all the Data and return to the view
-                FilterDepartments.GetStore().DataSource = UserDepartments;
-                FilterDepartments.GetStore().DataBind();
-            }
-            //in case there are no longer any AllDepartments for this user to monitor.
-            else
-            {
-                FilterDepartments.Disabled = true;
+                if (session.IsDeveloper)
+                    UserSitesDepartments = SitesDepartments.GetAllSitesDepartments();
+                else
+                    UserSitesDepartments = DepartmentHeadRole.GetSiteDepartmentsForHead(sipAccount);
             }
         }
 
@@ -103,40 +79,81 @@ namespace Lync_Billing.ui.dephead.users
         }
 
 
+        protected void FilterSitesComboBoxStore_Load(object sender, EventArgs e)
+        {
+            InitUserSitesAndDepartments();
+
+            FilterSitesComboBox.GetStore().DataSource = UserSites;
+            FilterSitesComboBox.GetStore().DataBind();
+        }
+
+
+        protected void FilterDepartmentsBySite_Selected(object sender, DirectEventArgs e)
+        {
+            //Clear the Departments Filter
+            FilterDepartments.Clear();
+            FilterDepartments.Disabled = true;
+
+            //Clear the Users filter
+            FilterUsersByDepartment.Clear();
+            FilterUsersByDepartment.Disabled = true;
+
+            //Clear the phonecalls grid
+            ViewPhoneCallsGrid.GetStore().DataSource = new List<PhoneCall>();
+            ViewPhoneCallsGrid.DataBind();
+
+            if (FilterSitesComboBox.SelectedItem.Index > -1)
+            {
+                InitUserSitesAndDepartments();
+
+                FilterDepartments.Disabled = false;
+
+                int siteID = Convert.ToInt32(FilterSitesComboBox.SelectedItem.Value);
+                var siteDepartments = UserSitesDepartments.Where(department => department.SiteID == siteID).ToList<SitesDepartments>();
+
+                FilterDepartments.GetStore().DataSource = siteDepartments;
+                FilterDepartments.GetStore().DataBind();
+            }
+        }
+
+
         protected void GetUsersPerDepartment(object sender, DirectEventArgs e)
         {
             //Clear the list of user
             FilterUsersByDepartment.Clear();
             FilterUsersByDepartment.ReadOnly = false;
 
+            //Clear the phonecalls grid
+            ViewPhoneCallsGrid.GetStore().DataSource = new List<PhoneCall>();
+            ViewPhoneCallsGrid.DataBind();
+
             //Begin fetching the users
-            int departmentID;
+            int siteDepartmentID;
             SitesDepartments department;
             
-            if (FilterDepartments.SelectedItem != null && !string.IsNullOrEmpty(FilterDepartments.SelectedItem.Value))
+            if (FilterDepartments.SelectedItem.Index > -1)
             {
-                departmentID = Convert.ToInt32(FilterDepartments.SelectedItem.Value);
-                department = UserDepartments.Find(dep => dep.DepartmentID == departmentID);
+                siteDepartmentID = Convert.ToInt32(FilterDepartments.SelectedItem.Value);
+                department = UserSitesDepartments.Find(dep => dep.ID == siteDepartmentID);
 
-                if (department != null)
+                List<Users> users = GetUsers(department.DepartmentName, department.SiteName);
+
+                FilterUsersByDepartment.Disabled = false;
+                FilterUsersByDepartment.GetStore().DataSource = users;
+                FilterUsersByDepartment.GetStore().DataBind();
+
+                if (users.Count == 1)
                 {
-                    List<Users> users = GetUsers(department.DepartmentName, department.SiteName);
-
-                    FilterUsersByDepartment.Disabled = false;
-                    FilterUsersByDepartment.GetStore().DataSource = users;
-                    FilterUsersByDepartment.GetStore().DataBind();
-
-                    if (users.Count == 1)
-                    {
-                        FilterUsersByDepartment.SetValueAndFireSelect(users.First().SipAccount);
-                        FilterUsersByDepartment.ReadOnly = true;
-                    }
-                    else
-                    {
-                        FilterUsersByDepartment.ReadOnly = false;
-                    }
+                    FilterUsersByDepartment.SetValueAndFireSelect(users.First().SipAccount);
+                    FilterUsersByDepartment.ReadOnly = true;
                 }
+                else
+                {
+                    FilterUsersByDepartment.ReadOnly = false;
+                }
+
             }
+
         }
 
 
@@ -154,6 +171,7 @@ namespace Lync_Billing.ui.dephead.users
                 }
             }
         }
+
 
         private List<PhoneCall> GetUserPhoneCalls(string userSipAccount)
         {
@@ -180,4 +198,5 @@ namespace Lync_Billing.ui.dephead.users
         }
 
     }
+
 }
