@@ -169,7 +169,7 @@
                                     ValueField="SiteID"
                                     FieldLabel="Site:"
                                     LabelWidth="25"
-                                    Width="230"
+                                    Width="200"
                                     Margins="5 15 0 5">
                                     <Store>
                                         <ext:Store ID="FilterSitesComboBoxStore" runat="server" OnLoad="FilterSitesComboBoxStore_Load">

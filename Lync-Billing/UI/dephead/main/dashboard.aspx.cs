@@ -20,9 +20,9 @@ namespace Lync_Billing.ui.dephead.main
         private UserSession session;
         private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.DepartmentHead);
-        
-        List<Site> UserSites;
-        List<SitesDepartments> UserSitesDepartments;
+
+        private List<Site> UserSites;
+        private List<SitesDepartments> UserSitesDepartments;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -50,14 +50,6 @@ namespace Lync_Billing.ui.dephead.main
             string currentYear = DateTime.Now.Year.ToString();
             TopDestinationCountriesPanel.Title = "Most Called Country in " + currentYear;
             DepartmentCallsPerMonthChartPanel.Title = "Phonecalls Distribution for " + currentYear;
-
-            /***
-             * Thie following solves the issue of infinitely looping like: Page_Load--->BindDepartmentsForThisUser--->DrawStatisticsForDepartment
-             * This would happen due to a chain-reaction of triggering two DirectEvents from the aspx page
-             * The chain consist of two DirectEvents: OnDepartmentSelect X---FIRE---> DrawStatisticsForDepartment which fires Page_Load and then it goes again for ever.
-             * */
-            //if (!Ext.Net.X.IsAjaxRequest)
-            //    BindSitesForThisUser();
         }
 
 
