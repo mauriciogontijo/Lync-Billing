@@ -72,32 +72,32 @@ namespace Lync_Billing.ui.sysadmin.manage
             //Editor_CountryNameCombobox.GetStore().LoadData(allCountries);
         }
 
-        protected void NewSite_CountryListStore_Load(object sender, EventArgs e)
-        {
-            NewSite_CountryList.GetStore().DataSource = allCountries;
-            NewSite_CountryList.GetStore().LoadData(allCountries);
-        }
+        //protected void NewSite_CountryListStore_Load(object sender, EventArgs e)
+        //{
+        //    NewSite_CountryList.GetStore().DataSource = allCountries;
+        //    NewSite_CountryList.GetStore().LoadData(allCountries);
+        //}
 
 
-        protected void ShowAddSitePanel(object sender, DirectEventArgs e)
-        {
-            this.AddNewSiteWindowPanel.Show();
-        }
+        //protected void ShowAddSitePanel(object sender, DirectEventArgs e)
+        //{
+        //    this.AddNewSiteWindowPanel.Show();
+        //}
 
 
-        protected void CancelNewSiteButton_Click(object sender, DirectEventArgs e)
-        {
-            this.AddNewSiteWindowPanel.Hide();
-        }
+        //protected void CancelNewSiteButton_Click(object sender, DirectEventArgs e)
+        //{
+        //    this.AddNewSiteWindowPanel.Hide();
+        //}
 
 
-        protected void AddNewSiteWindowPanel_BeforeHide(object sender, DirectEventArgs e)
-        {
-            NewSite_SiteName.Text = null;
-            NewSite_CountryList.Value = null;
-            NewSite_Description.Text = null;
-            NewSite_StatusMessage.Text = null;
-        }
+        //protected void AddNewSiteWindowPanel_BeforeHide(object sender, DirectEventArgs e)
+        //{
+        //    NewSite_SiteName.Text = null;
+        //    NewSite_CountryList.Value = null;
+        //    NewSite_Description.Text = null;
+        //    NewSite_StatusMessage.Text = null;
+        //}
 
 
         protected void SaveChanges_DirectEvent(object sender, DirectEventArgs e)
@@ -183,66 +183,66 @@ namespace Lync_Billing.ui.sysadmin.manage
         }
 
 
-        protected void AddNewSiteButton_Click(object sender, DirectEventArgs e)
-        {
-            Backend.Site NewSite;
+        //protected void AddNewSiteButton_Click(object sender, DirectEventArgs e)
+        //{
+        //    Backend.Site NewSite;
 
-            string SiteName = string.Empty;
-            string CountryName = string.Empty;
-            string Description = string.Empty;
+        //    string SiteName = string.Empty;
+        //    string CountryName = string.Empty;
+        //    string Description = string.Empty;
 
-            string statusMessage = string.Empty;
-            string successStatusMessage = string.Empty;
+        //    string statusMessage = string.Empty;
+        //    string successStatusMessage = string.Empty;
 
-            if (!string.IsNullOrEmpty(NewSite_SiteName.Text) && NewSite_CountryList.SelectedItem.Index != -1)
-            {
-                NewSite = new Backend.Site();
+        //    if (!string.IsNullOrEmpty(NewSite_SiteName.Text) && NewSite_CountryList.SelectedItem.Index != -1)
+        //    {
+        //        NewSite = new Backend.Site();
 
-                SiteName = NewSite_SiteName.Text.ToString();
-                CountryName = NewSite_CountryList.SelectedItem.Value.ToString();
+        //        SiteName = NewSite_SiteName.Text.ToString();
+        //        CountryName = NewSite_CountryList.SelectedItem.Value.ToString();
 
-                //Check for duplicates
-                if (allSites.Find(site => site.SiteName == SiteName) != null)
-                {
-                    statusMessage = "Cannot add duplicate Sites - with the same name!";
-                }
-                //This Site record doesn't exist, add it.
-                else
-                {
-                    SiteName = NewSite_SiteName.Text.ToString();
-                    CountryName = NewSite_CountryList.SelectedItem.Value.ToString();
+        //        //Check for duplicates
+        //        if (allSites.Find(site => site.SiteName == SiteName) != null)
+        //        {
+        //            statusMessage = "Cannot add duplicate Sites - with the same name!";
+        //        }
+        //        //This Site record doesn't exist, add it.
+        //        else
+        //        {
+        //            SiteName = NewSite_SiteName.Text.ToString();
+        //            CountryName = NewSite_CountryList.SelectedItem.Value.ToString();
                     
-                    if(!string.IsNullOrEmpty(NewSite_Description.Text))
-                        Description = NewSite_Description.Text.ToString();
+        //            if(!string.IsNullOrEmpty(NewSite_Description.Text))
+        //                Description = NewSite_Description.Text.ToString();
 
-                    NewSite.SiteName = SiteName;
-                    NewSite.CountryName = CountryName;
-                    NewSite.CountryCode = ((Country)allCountries.Find(country => country.CountryName == CountryName)).CountryCodeISO3;
-                    NewSite.Description = Description;
+        //            NewSite.SiteName = SiteName;
+        //            NewSite.CountryName = CountryName;
+        //            NewSite.CountryCode = ((Country)allCountries.Find(country => country.CountryName == CountryName)).CountryCodeISO3;
+        //            NewSite.Description = Description;
 
-                    //Insert the New Site to the database
-                    Backend.Site.AddSite(NewSite);
+        //            //Insert the New Site to the database
+        //            Backend.Site.AddSite(NewSite);
 
-                    //Close the window
-                    this.AddNewSiteWindowPanel.Hide();
+        //            //Close the window
+        //            this.AddNewSiteWindowPanel.Hide();
 
-                    //Add the New Site record to the store and apply the filter
-                    ManageSitesGrid.GetStore().Add(NewSite);
-                    ManageSitesGrid.GetStore().Reload();
+        //            //Add the New Site record to the store and apply the filter
+        //            ManageSitesGrid.GetStore().Add(NewSite);
+        //            ManageSitesGrid.GetStore().Reload();
 
-                    successStatusMessage = String.Format("The site was added successfully. {0} ({1})", NewSite.SiteName, NewSite.CountryCode);
-                }
-            }
-            else
-            {
-                statusMessage = "Please provide all the required information!";
-            }
+        //            successStatusMessage = String.Format("The site was added successfully. {0} ({1})", NewSite.SiteName, NewSite.CountryCode);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        statusMessage = "Please provide all the required information!";
+        //    }
 
-            this.NewSite_StatusMessage.Text = statusMessage;
+        //    this.NewSite_StatusMessage.Text = statusMessage;
 
-            if (!string.IsNullOrEmpty(successStatusMessage))
-                HelperFunctions.Message("New Site", successStatusMessage, "success", hideDelay: 10000, width: 200, height: 100);
-        }
+        //    if (!string.IsNullOrEmpty(successStatusMessage))
+        //        HelperFunctions.Message("New Site", successStatusMessage, "success", hideDelay: 10000, width: 200, height: 100);
+        //}
 
     }
 
