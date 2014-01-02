@@ -64,7 +64,7 @@ using System.Runtime.InteropServices;namespace Lync_Backend
 
                 //FQN  for Lync2010: Lync_Backend.Implementation.Lync2010, Lync-Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
                 object instance = Activator.CreateInstance(type);
-
+                 
                 ((AbIdDatabaseImporter)instance).ImportGatewaysAndPools();
                 ((AbIdDatabaseImporter)instance).ImportPhoneCalls();
             }
