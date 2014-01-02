@@ -45,11 +45,6 @@ namespace Lync_Billing.ui.dephead.main
             }
 
             sipAccount = session.NormalUserInfo.SipAccount;
-
-            //Set the year number in the charts header's title
-            string currentYear = DateTime.Now.Year.ToString();
-            TopDestinationCountriesPanel.Title = "Most Called Country in " + currentYear;
-            DepartmentCallsPerMonthChartPanel.Title = "Phonecalls Distribution for " + currentYear;
         }
 
 
@@ -126,7 +121,7 @@ namespace Lync_Billing.ui.dephead.main
                     TopDestinationCountriesStore.DataBind();
 
                     // Get Department Phonecalls Summaries (for all year's month)
-                    DepartmentCallsPerMonthChart.GetStore().DataSource = DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(department.SiteName, department.DepartmentName, DateTime.Now.Year);
+                    DepartmentCallsPerMonthChart.GetStore().DataSource = DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(department.SiteName, department.DepartmentName);
                     DepartmentCallsPerMonthChart.GetStore().DataBind();
 
                     // Get Department Mail Statistics

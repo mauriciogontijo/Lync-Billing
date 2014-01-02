@@ -37,7 +37,7 @@ namespace Lync_Billing.Backend.Statistics
                 //fromDate = new DateTime(DateTime.Now.Year, 1, 1);
                 //toDate = fromDate.AddYears(1).AddDays(-1);
 
-                fromDate = DateTime.Now.AddYears(-1);
+                fromDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
                 toDate = DateTime.Now;
             }
             else

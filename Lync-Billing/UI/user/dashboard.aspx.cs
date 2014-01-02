@@ -171,7 +171,7 @@ namespace Lync_Billing.ui.user
 
         protected void CallsCostsChartStore_Load(object sender, EventArgs e)
         {
-            DateTime fromDate = DateTime.Now.AddYears(-1);
+            DateTime fromDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
             DateTime toDate = DateTime.Now;
 
             CallsCostsChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, fromDate, toDate);

@@ -8,6 +8,7 @@ using iTextSharp.text.pdf;
 using Lync_Billing.Libs;
 using Lync_Billing.ConfigurationSections;
 using System.Configuration;
+using System.Collections;
 
 namespace Lync_Billing.Backend.Summaries
 {
@@ -32,6 +33,7 @@ namespace Lync_Billing.Backend.Summaries
         public int Month { get; set; }
 
         private static DBLib DBRoutines = new DBLib();
+        
 
 
         /// <summary>
@@ -41,18 +43,34 @@ namespace Lync_Billing.Backend.Summaries
         /// <param name="departmentName">The Department's name</param>
         /// <param name="year">The year number of the phone calls summaries</param>
         /// <returns>A list of UserCallsSummary with respect to the months</returns>
-        public static List<DepartmentCallsSummary> GetPhoneCallsStatisticsForDepartment(string siteName, string departmentName, int year)
+        public static List<DepartmentCallsSummary> GetPhoneCallsStatisticsForDepartment(string siteName, string departmentName, DateTime? startingDate = null, DateTime? endingDate = null)
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForSiteDepartment);
 
             string columnName = string.Empty;
+            Dictionary<string, object> whereClause = new Dictionary<string, object>();
             List<object> functionParameters = new List<object>();
 
             DepartmentCallsSummary departmentSummary;
             List<DepartmentCallsSummary> ListOfDepartmentCallsSummaries = new List<DepartmentCallsSummary>();
 
+            DateTime fromDate, toDate;
+
+            if (startingDate == null || endingDate == null)
+            {
+                fromDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
+                toDate = DateTime.Now;
+            }
+            else
+            {
+                //Assign the beginning of date.Month to the startingDate and the end of it to the endingDate 
+                fromDate = (DateTime)startingDate;
+                toDate = (DateTime)endingDate;
+            }
+
             //Add the function parameters in a specific order, conceptually: bigger to smaller.
+            whereClause.Add(Enums.GetDescription(Enums.PhoneCallSummary.Date), String.Format("BETWEEN '{0}' AND '{1}'", fromDate, toDate));
             functionParameters.Add(siteName);
             functionParameters.Add(departmentName);
 
@@ -122,7 +140,36 @@ namespace Lync_Billing.Backend.Summaries
             }
 
             //Return only the summaries for specified Year.
-            return ListOfDepartmentCallsSummaries.Where(summary => summary.Year == year).ToList<DepartmentCallsSummary>();
+            DepartmentComparer comparer = new DepartmentComparer();
+            ListOfDepartmentCallsSummaries.Sort(comparer);
+
+            return ListOfDepartmentCallsSummaries;
+        }
+
+    }
+
+
+    public class DepartmentComparer : IComparer<DepartmentCallsSummary>
+    {
+        public int Compare(DepartmentCallsSummary x, DepartmentCallsSummary y)
+        {
+            //less than
+            if (x.Year < y.Year)
+                return -1;
+            //equals
+            else if (x.Year == y.Year)
+            {
+                if (x.Month < y.Month)
+                    return -1;
+                else if (x.Month == y.Month)
+                    return 0;
+                else
+                    return 1;
+            }
+            //greater than
+            else
+                return 1;
         }
     }
+
 }
