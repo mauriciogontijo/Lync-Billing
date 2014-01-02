@@ -276,16 +276,27 @@
                         </ColumnModel>
 
                         <TopBar>
-                            <ext:Toolbar
-                                ID="Toolbar1"
-                                runat="server">
+                            <ext:Toolbar ID="AddressBookToolbar" runat="server">
                                 <Items>
+                                    <ext:Button
+                                        ID="AddNewAddressBookContact"
+                                        Text="Add New Contact"
+                                        Icon="Add"
+                                        runat="server"
+                                        Margins="0 5 0 5">
+                                        <DirectEvents>
+                                            <Click OnEvent="AddNewAddressBookContact_Click" />
+                                        </DirectEvents>
+                                    </ext:Button>
+
+                                    <ext:ToolbarSeparator runat="server" />
+
                                     <ext:Button
                                         ID="UpdateAddressBookButton"
                                         Text="Save Changes"
-                                        Icon="Add"
+                                        Icon="DatabaseSave"
                                         runat="server"
-                                        Margins="0 20 0 5">
+                                        Margins="0 5 0 5">
                                         <DirectEvents>
                                             <Click OnEvent="UpdateAddressBook_DirectEvent" before="return #{AddressBookStore}.isDirty();">
                                                 <EventMask ShowMask="true" />
@@ -296,18 +307,154 @@
                                         </DirectEvents>
                                     </ext:Button>
 
+                                    <ext:ToolbarSeparator ID="ToolbarSeparator1" runat="server" />
+
                                     <ext:Button
                                         ID="CancelChangesButton"
                                         Text="Cancel Changes"
                                         Icon="Cancel"
                                         runat="server"
-                                        Margins="0 0 0 0">
+                                        Margins="0 5 0 5">
                                         <DirectEvents>
                                             <Click OnEvent="RejectAddressBookChanges_DirectEvent">
                                                 <EventMask ShowMask="true" />
                                             </Click>
                                         </DirectEvents>
                                     </ext:Button>
+
+                                    <ext:Window 
+                                        ID="AddNewContactWindowPanel" 
+                                        runat="server" 
+                                        Frame="true"
+                                        Resizable="false"
+                                        Title="New System Role" 
+                                        Hidden="true"
+                                        Width="410"
+                                        Icon="Add" 
+                                        X="100"
+                                        Y="100"
+                                        BodyStyle="background-color: #f9f9f9;"
+                                        ComponentCls="fix-ui-vertical-align">
+                                
+                                        <Defaults>
+                                            <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
+                                        </Defaults>
+
+                                        <Items>
+                                            <ext:TextField
+                                                ID="NewContact_ContactNumber"
+                                                runat="server"
+                                                AllowBlank="false"
+                                                LabelWidth="100"
+                                                Width="380"
+                                                FieldLabel="Contact Number"
+                                                LabelSeparator=":" />
+
+                                            <ext:ComboBox
+                                                ID="NewContact_ContactType"
+                                                runat="server"
+                                                DisplayField="TypeName"
+                                                ValueField="TypeValue"
+                                                Width="380"
+                                                FieldLabel="Contact Type"
+                                                LabelWidth="100">
+                                                <Items>
+                                                    <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
+                                                    <ext:ListItem Text="Business" Value="Business" Mode="Value" />
+                                                </Items>
+
+                                                <SelectedItems>
+                                                    <ext:ListItem Text="Personal" Value="Personal" Mode="Value" />
+                                                </SelectedItems>
+                                            </ext:ComboBox>
+
+                                            <ext:TextField
+                                                ID="NewContact_ContactName"
+                                                runat="server"
+                                                AllowBlank="false"
+                                                LabelWidth="100"
+                                                Width="380"
+                                                FieldLabel="Full Name"
+                                                LabelSeparator=":" />
+
+                                            <ext:ComboBox
+                                                ID="NewContact_Country"
+                                                runat="server"
+                                                DisplayField="CountryName"
+                                                ValueField="CountryCodeISO3"
+                                                TriggerAction="Query"
+                                                QueryMode="Local"
+                                                Editable="true"
+                                                AllowBlank="false"
+                                                EmptyText="Please Select Country"
+                                                FieldLabel="Country"
+                                                LabelSeparator=":"
+                                                LabelWidth="100"
+                                                Width="380">
+                                                <Store>
+                                                    <ext:Store ID="NewContact_CountryStore" runat="server" OnLoad="NewContact_CountryStore_Load">
+                                                        <Model>
+                                                            <ext:Model ID="NewContact_CountryStoreModel" runat="server">
+                                                                <Fields>
+                                                                    <ext:ModelField Name="CountryName" />
+                                                                    <ext:ModelField Name="CountryCodeISO2" />
+                                                                    <ext:ModelField Name="CountryCodeISO3" />
+                                                                </Fields>
+                                                            </ext:Model>
+                                                        </Model>
+                                                    </ext:Store>
+                                                </Store>
+                                            </ext:ComboBox>
+                                        </Items>
+
+                                        <BottomBar>
+                                            <ext:StatusBar
+                                                ID="NewContactWindowBottomBar"
+                                                runat="server"
+                                                StatusAlign="Right"
+                                                DefaultText=""
+                                                Height="30">
+                                                <Items>
+                                                    <ext:Button
+                                                        ID="AddNewContactButton"
+                                                        runat="server"
+                                                        Text="Add"
+                                                        Icon="ApplicationFormAdd"
+                                                        Height="25">
+                                                        <DirectEvents>
+                                                            <Click OnEvent="AddNewContactButton_Click" />
+                                                        </DirectEvents>
+                                                    </ext:Button>
+
+                                                    <ext:Button
+                                                        ID="CancelNewContactButton"
+                                                        runat="server"
+                                                        Text="Cancel"
+                                                        Icon="Cancel"
+                                                        Height="25">
+                                                        <DirectEvents>
+                                                            <Click OnEvent="CancelNewContactButton_Click" />
+                                                        </DirectEvents>
+                                                    </ext:Button>
+
+                                                    <ext:ToolbarSeparator
+                                                        ID="AddNewContactWindow_BottomBarSeparator"
+                                                        runat="server" />
+
+                                                    <ext:ToolbarTextItem
+                                                        ID="NewContact_StatusMessage"
+                                                        runat="server"
+                                                        Height="15"
+                                                        Text=""
+                                                        Margins="0 0 0 5" />
+                                                </Items>
+                                            </ext:StatusBar>
+                                        </BottomBar>
+
+                                        <DirectEvents>
+                                            <BeforeHide OnEvent="AddNewContactWindowPanel_BeforeHide" />
+                                        </DirectEvents>
+                                    </ext:Window>
                                 </Items>
                             </ext:Toolbar>
                         </TopBar>

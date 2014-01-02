@@ -121,26 +121,37 @@ namespace Lync_Billing.Backend
                                  DestinationCountry = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.TopDestinationNumbers.Country)])),
                                
                              }).ToList();
-
-            //foreach (DataRow row in dt.Rows)
-            //{
-            //    phoneBookEntry = new PhoneBook();
-
-            //    columnName = Enums.GetDescription(Enums.TopDestinationNumbers.PhoneNumber);
-            //    phoneBookEntry.DestinationNumber = (string)HelperFunctions.ReturnEmptyIfNull(row[columnName]);
-
-            //    columnName = Enums.GetDescription(Enums.TopDestinationNumbers.Country);
-            //    phoneBookEntry.DestinationCountry = (string)HelperFunctions.ReturnEmptyIfNull(row[columnName]);
-
-            //    phoneBookEntries.Add(phoneBookEntry);
-            //}
-
-            //Filter only the distinct values.
-            //phoneBookEntries = phoneBookEntries.Distinct(linqDistinctComparer).ToList();
            
             phoneBookEntries = phoneBook.Distinct(linqDistinctComparer).ToList();
             
             return phoneBookEntries;
+        }
+
+
+        public static void AddPhoneBookEntry(PhoneBook newContact)
+        {
+            Dictionary<string, object> ColumnValues = new Dictionary<string, object>();
+
+            //Set Part
+            if (!string.IsNullOrEmpty(newContact.SipAccount) && !string.IsNullOrEmpty(newContact.DestinationNumber) && !string.IsNullOrEmpty(newContact.Type))
+            {
+                ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.SipAccount), newContact.SipAccount);
+                ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.DestinationNumber), newContact.DestinationNumber);
+                ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.Type), newContact.Type);
+
+                if (!string.IsNullOrEmpty(newContact.Name))
+                    ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.Name), newContact.Name);
+                else
+                    ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.Name), string.Empty);
+
+                if (!string.IsNullOrEmpty(newContact.DestinationCountry))
+                    ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.DestinationCountry), newContact.DestinationCountry);
+                else
+                    ColumnValues.Add(Enums.GetDescription(Enums.PhoneBook.DestinationCountry), "N/A");
+
+                DBRoutines.INSERT(Enums.GetDescription(Enums.PhoneBook.TableName), ColumnValues, Enums.GetDescription(Enums.PhoneBook.ID));
+            }
+
         }
 
 

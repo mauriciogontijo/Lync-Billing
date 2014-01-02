@@ -52,7 +52,7 @@ namespace Lync_Billing.ui.user
         }
         
         
-        private void UpdateSessionRelatedInformation()
+        private void UpdateSessionRelatedInformation(PhoneBook phoneBookObj = null)
         {
             List<PhoneCall> phoneCalls;
             Dictionary<string, PhoneBook> addressBook;
@@ -65,19 +65,40 @@ namespace Lync_Billing.ui.user
 
             //Get userphonecalls
             phoneCalls = session.GetUserSessionPhoneCalls();
-            
-            //Update user phonecalls
-            foreach (var phoneCall in phoneCalls)
+
+            if (phoneBookObj != null)
             {
-                if (addressBook.ContainsKey(phoneCall.DestinationNumberUri))
+                if (phoneCalls.Find(item => item.DestinationNumberUri == phoneBookObj.DestinationNumber) != null)
                 {
-                    phoneCall.PhoneBookName = ((PhoneBook)addressBook[phoneCall.DestinationNumberUri]).Name;
-                }
-                else
-                {
-                    phoneCall.PhoneBookName = string.Empty;
+                    //Update user phonecalls
+                    foreach (var phoneCall in phoneCalls)
+                    {
+                        if (addressBook.ContainsKey(phoneCall.DestinationNumberUri))
+                        {
+                            phoneCall.PhoneBookName = ((PhoneBook)addressBook[phoneCall.DestinationNumberUri]).Name;
+                        }
+                        else
+                        {
+                            phoneCall.PhoneBookName = string.Empty;
+                        }
+                    }
                 }
             }
+            else
+            {
+                foreach (var phoneCall in phoneCalls)
+                {
+                    if (addressBook.ContainsKey(phoneCall.DestinationNumberUri))
+                    {
+                        phoneCall.PhoneBookName = ((PhoneBook)addressBook[phoneCall.DestinationNumberUri]).Name;
+                    }
+                    else
+                    {
+                        phoneCall.PhoneBookName = string.Empty;
+                    }
+                }
+            }
+
 
             //Allocate the phonecalls and addressbook to the session
             //Handle normal user mode, and user delegee mode
@@ -244,5 +265,74 @@ namespace Lync_Billing.ui.user
             UpdateSessionRelatedInformation();
         }
 
+
+        protected void AddNewAddressBookContact_Click(object sender, DirectEventArgs e)
+        {
+            AddNewContactWindowPanel.Show();
+        }
+
+
+        protected void CancelNewContactButton_Click(object sender, DirectEventArgs e)
+        {
+            AddNewContactWindowPanel.Hide();
+        }
+
+
+        protected void AddNewContactWindowPanel_BeforeHide(object sender, DirectEventArgs e)
+        {
+            NewContact_ContactName.Text = null;
+            NewContact_ContactNumber.Text = null;
+            NewContact_ContactType.Select(0);
+            NewContact_Country.Value = null;
+        }
+
+        protected void NewContact_CountryStore_Load(object sender, EventArgs e)
+        {
+            var countries = Country.GetAllCountries();
+            NewContact_Country.GetStore().DataSource = countries;
+            NewContact_Country.GetStore().LoadData(countries);
+        }
+
+        protected void AddNewContactButton_Click(object sender, DirectEventArgs e)
+        {
+            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+
+            PhoneBook NewContact;
+            string statusMessage = string.Empty;
+
+            if (!string.IsNullOrEmpty(NewContact_ContactNumber.Text) && NewContact_ContactType.SelectedItem.Index > -1)
+            {
+                NewContact = new PhoneBook();
+
+                NewContact.DestinationNumber = NewContact_ContactNumber.Text;
+                NewContact.SipAccount = sipAccount;
+                NewContact.Type = Convert.ToString(NewContact_ContactType.SelectedItem.Value);
+                NewContact.Name = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(NewContact_ContactName.Text));
+                NewContact.DestinationCountry = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(NewContact_Country.SelectedItem.Value));
+
+                if (session.Addressbook.ContainsKey(NewContact.DestinationNumber))
+                {
+                    statusMessage = "Cannot add duplicate contacts.";
+                }
+                else
+                {
+                    PhoneBook.AddPhoneBookEntry(NewContact);
+
+                    GridsDataManager(true);
+
+                    //Update the session's phonebook dictionary and phonecalls list.
+                    UpdateSessionRelatedInformation(NewContact);
+
+                    AddNewContactWindowPanel.Hide();
+                }
+            }
+            else
+            {
+                statusMessage = "Please provide all the information.";
+            }
+
+            NewContact_StatusMessage.Text = statusMessage;
+        }
     }
+
 }
