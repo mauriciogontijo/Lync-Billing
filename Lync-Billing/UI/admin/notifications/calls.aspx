@@ -100,7 +100,7 @@
                             </ext:Model>
                         </Model>
                         <Sorters>
-                            <ext:DataSorter Property="SipAccount" Direction="DESC" />
+                            <ext:DataSorter Property="SipAccount" Direction="ASC" />
                         </Sorters>
                     </ext:Store>
                 </Store>

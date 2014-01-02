@@ -5,6 +5,7 @@
         //Pie Chart Data-Lable Renderer for Countries Destinations Calls
         var TopDestinationCountries_LableRenderer = function (storeItem, item) {
             var total = 0,
+                percentage,
                 all_countries_data = {},
                 component_name = "main_content_place_holder_" + "TopDestinationCountriesChart";
 
@@ -18,7 +19,11 @@
             });
 
             if (all_countries_data[storeItem] != undefined) {
-                var percentage = ((all_countries_data[storeItem] * 1.0 / total).toFixed(4) * 100.0).toFixed(2);
+                percentage = 0;
+
+                if (total > 0)
+                    percentage = ((all_countries_data[storeItem] * 1.0 / total).toFixed(4) * 100.0).toFixed(2);
+
                 return ((percentage < 3.5) ? '' : (percentage + '%'));
             }
         };

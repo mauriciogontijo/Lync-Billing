@@ -68,7 +68,7 @@ namespace Lync_Billing.ui.dephead.main
             if (UserSitesDepartments == null)
             {
                 if(session.IsDeveloper)
-                    UserSitesDepartments = SitesDepartments.GetAllSitesDepartments();
+                    UserSitesDepartments = SitesDepartments.GetSitesDepartments();
                 else
                     UserSitesDepartments = DepartmentHeadRole.GetSiteDepartmentsForHead(sipAccount);
             }

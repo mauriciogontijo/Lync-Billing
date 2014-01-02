@@ -134,21 +134,6 @@ namespace Lync_Billing.Backend.Summaries
 
             foreach (DataRow row in dt.Rows)
             {
-                //summaryYear = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
-                //summaryMonth = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]));
-
-                ////Skip this summary-row if it's out of the range of the given date periods
-                //if ((summaryYear < startDate.Year && summaryMonth < startDate.Month) ||
-                //    (summaryYear > endDate.Year && summaryMonth > endDate.Month))
-                //    continue;
-
-                ////Start processing the summary
-                //userSummary = new UserCallsSummary();
-
-                //userSummary.Year = summaryYear;
-                //userSummary.Month = summaryMonth;
-                //userSummary.Date = new DateTime(summaryYear, summaryMonth, DateTime.DaysInMonth(summaryYear, summaryMonth));
-
                 //Start processing the summary
                 userSummary = new UserCallsSummary();
 
@@ -214,7 +199,6 @@ namespace Lync_Billing.Backend.Summaries
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
 
-
             foreach (DataRow row in dt.Rows)
             {
                 //Start processing the summary
@@ -249,6 +233,24 @@ namespace Lync_Billing.Backend.Summaries
                 chartList.Add(userSummary);
             }
 
+
+            //This handles the case in which the date is at the beginning of the year, and no data was recorded yet.
+            if (dt.Rows.Count == 0)
+            {
+                userSummary = new UserCallsSummary();
+                userSummary.Year = DateTime.Now.Year;
+                userSummary.Month = DateTime.Now.Month;
+                userSummary.Date = DateTime.Now;
+
+                userSummary.EmployeeID = userInfo.EmployeeID.ToString();
+                userSummary.SipAccount = userInfo.SipAccount;
+                userSummary.FullName = userInfo.FullName;
+                userSummary.SiteName = userInfo.SiteName;
+
+                chartList.Add(userSummary);
+            }
+
+
             return chartList;
         }
 
@@ -277,8 +279,7 @@ namespace Lync_Billing.Backend.Summaries
 
 
             //Add the siteName to the functionParams
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), String.Format("BETWEEN '{0}' AND '{1}'", startingDate.Year, endingDate.Year));
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", startingDate.Month, endingDate.Month));
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Date), String.Format("BETWEEN '{0}' AND '{1}'", startingDate, endingDate));
             functionParams.Add(siteName);
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);

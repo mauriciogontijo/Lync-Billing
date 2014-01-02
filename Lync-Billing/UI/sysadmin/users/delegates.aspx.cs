@@ -47,7 +47,7 @@ namespace Lync_Billing.ui.sysadmin.users
             sipAccount = session.NormalUserInfo.SipAccount;
 
             allSites = Backend.Site.GetAllSites();
-            allDepartments = SitesDepartments.GetAllSitesDepartments();
+            allDepartments = SitesDepartments.GetSitesDepartments();
             allDelegees = DelegateRole.GetDelegees();
         }
 

@@ -51,7 +51,7 @@ namespace Lync_Billing.ui.sysadmin.manage
 
             //Get all Sites
             allSites = Backend.Site.GetAllSites();
-            allDepartments = SitesDepartments.GetAllSitesDepartments();
+            allDepartments = SitesDepartments.GetSitesDepartments();
         }
 
         protected void FilterDepartmentsBySiteStore_Load(object sender, EventArgs e)

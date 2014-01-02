@@ -387,7 +387,7 @@
                                         LabelWidth="100">
                                         <Items>
                                             <ext:ListItem Text="User" Value="1" />
-                                            <ext:ListItem Text="Department" Value="2" />
+                                            <%--<ext:ListItem Text="Department" Value="2" />--%>
                                             <ext:ListItem Text="Site" Value="3" />
                                         </Items>
 

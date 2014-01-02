@@ -19,7 +19,7 @@ namespace Lync_Billing.Backend.Summaries
         public int TotalCost { get; set; }
 
 
-        public static List<UsersCallsSummaryChartData> GetUsersCallsSummary(string sipAccount, DateTime startingDate, DateTime endingDate)
+        public static List<UsersCallsSummaryChartData> GetUsersCallsSummary(string sipAccount, int Year, int FromMonth, int ToMonth)
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUser);
@@ -28,12 +28,12 @@ namespace Lync_Billing.Backend.Summaries
             List<object> functionParams = new List<object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             
-            int summaryYear, summaryMonth;
-
             UsersCallsSummaryChartData userSummary;
             List<UsersCallsSummaryChartData> chartList = new List<UsersCallsSummaryChartData>();
 
             //Specify the sipaccount for the database function
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), Year);
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", FromMonth, ToMonth));
             functionParams.Add(sipAccount);
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
@@ -41,14 +41,6 @@ namespace Lync_Billing.Backend.Summaries
 
             foreach (DataRow row in dt.Rows)
             {
-                summaryYear = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
-                summaryMonth = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]));
-
-                //Skip this summary-row if it's out of the range of the given date periods
-                if ((summaryYear < startingDate.Year && summaryMonth < startingDate.Month) ||
-                    (summaryYear > endingDate.Year && summaryMonth > endingDate.Month))
-                    continue;
-
                 //Start processing the BUSINESS CALLS Summary First
                 userSummary = new UsersCallsSummaryChartData();
                 userSummary.Name = "Business";
@@ -99,6 +91,25 @@ namespace Lync_Billing.Backend.Summaries
                 //Add or Update this summary in the local chartList variable
                 chartList = AddOrUpdateListOfSummaries(chartList, userSummary);
             }
+
+            
+            //This handles the case in which the date is at the beginning of the year, and no data was recorded yet.
+            if (dt.Rows.Count == 0)
+            {
+                var businessSummary = new UsersCallsSummaryChartData();
+                businessSummary.Name = "Business";
+
+                var personalSummary = new UsersCallsSummaryChartData();
+                personalSummary.Name = "Personal";
+
+                var unmarkedSummary = new UsersCallsSummaryChartData();
+                unmarkedSummary.Name = "Unmarked";
+
+                chartList.Add(businessSummary);
+                chartList.Add(personalSummary);
+                chartList.Add(unmarkedSummary);
+            }
+
 
             //Return the the summaries that have a total of phone calls greater than 0
             return chartList.Where(summary => summary.TotalCalls > 0).ToList<UsersCallsSummaryChartData>();

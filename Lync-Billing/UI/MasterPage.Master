@@ -136,12 +136,12 @@
                                             <li id="switch-roles" class="">
                                                 <a href="#">Elevate Access<span class="drop"></span></a>
                                                 <ul id="roles-dropdown">
-                                                    <% if(current_session.IsSiteAccountant || current_session.IsDeveloper) { %>
-                                                        <li class="first-child last-child"><a title="Elevate Access to Site Accountant Role" href="../session/authenticate.aspx?access=accounting">Site Accountant</a></li>
+                                                    <% if (current_session.IsSystemAdmin || current_session.IsDeveloper) { %>
+                                                        <li class="first-child last-child"><a title="Elevate Access to System Admin Role" href="../session/authenticate.aspx?access=sysadmin">System Administrator</a></li>
                                                     <% } if (current_session.IsSiteAdmin || current_session.IsDeveloper) { %>
                                                         <li class="first-child last-child"><a title="Elevate Access to Site Administrator Role" href="../session/authenticate.aspx?access=admin">Site Administrator</a></li>
-                                                    <% } if (current_session.IsSystemAdmin || current_session.IsDeveloper) { %>
-                                                        <li class="first-child last-child"><a title="Elevate Access to System Admin Role" href="../session/authenticate.aspx?access=sysadmin">System Administrator</a></li>
+                                                    <% } if(current_session.IsSiteAccountant || current_session.IsDeveloper) { %>
+                                                        <li class="first-child last-child"><a title="Elevate Access to Site Accountant Role" href="../session/authenticate.aspx?access=accounting">Site Accountant</a></li>
                                                     <% } if (current_session.IsDepartmentHead || current_session.IsDeveloper) { %>
                                                         <li class="first-child last-child"><a title="Elevate Access to Department Head Role" href="../session/authenticate.aspx?access=dephead">Department Head</a></li>
                                                     <% } %>

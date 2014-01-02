@@ -117,6 +117,8 @@
     <Content Include="ui\admin\main\dashboard.aspx" />
     <Content Include="ui\admin\notifications\bills.aspx" />
     <Content Include="ui\admin\notifications\calls.aspx" />
+    <Content Include="ui\admin\roles\delegates.aspx" />
+    <Content Include="ui\admin\roles\depheads.aspx" />
     <Content Include="ui\delegee\department\phonecalls.aspx" />
     <Content Include="ui\delegee\site\phonecalls.aspx" />
     <Content Include="ui\dephead\main\dashboard.aspx" />
@@ -279,6 +281,20 @@
     </Compile>
     <Compile Include="ui\admin\notifications\calls.aspx.designer.cs">
       <DependentUpon>calls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\admin\roles\delegates.aspx.cs">
+      <DependentUpon>delegates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\admin\roles\delegates.aspx.designer.cs">
+      <DependentUpon>delegates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ui\admin\roles\depheads.aspx.cs">
+      <DependentUpon>depheads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\admin\roles\depheads.aspx.designer.cs">
+      <DependentUpon>depheads.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\SuperUserMasterPage.Master.cs">
       <DependentUpon>SuperUserMasterPage.Master</DependentUpon>

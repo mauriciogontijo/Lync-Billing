@@ -95,7 +95,7 @@
                         <div class="block-body">
                             <ext:Panel ID="SystemAdminSidebar"
                                 runat="server"
-                                Height="560"
+                                Height="530"
                                 Width="180"
                                 Title="Admin Tools"
                                 Collapsed="false"
@@ -169,10 +169,20 @@
                                 runat="server"
                                 Height="340"
                                 Width="180"
-                                Title="Admin Tools"
+                                Title="Site Admin Tools"
                                 Collapsed="false"
                                 Collapsible="true">
                                 <Content>
+                                    <%--<div class='sidebar-section'>
+                                        <div class="sidebar-section-header">
+                                            <p>User Roles</p>
+                                        </div>
+                                        <div class="sidebar-section-body">
+                                            <p><a href='../roles/delegates.aspx' id="ui_admin_roles_delegates">Delegates</a></p>
+                                            <p><a href='../roles/depheads.aspx' id="ui_admin_roles_depheads">Department Heads</a></p>
+                                        </div>
+                                    </div>--%>
+
                                     <div class='sidebar-section'>
                                         <div class="sidebar-section-header">
                                             <p>Gateways</p>

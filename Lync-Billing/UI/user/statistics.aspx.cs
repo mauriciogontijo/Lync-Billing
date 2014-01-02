@@ -63,10 +63,7 @@ namespace Lync_Billing.ui.user
             UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
             sipAccount = session.GetEffectiveSipAccount();
 
-            CultureInfo provider = CultureInfo.InvariantCulture;
-            DateTime toDate = DateTime.ParseExact(DateTime.Now.Year.ToString() + "-01-01", "yyyy-mm-dd", provider);
-
-            return UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, toDate, DateTime.Now);
+            return UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
         }
 
         protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)

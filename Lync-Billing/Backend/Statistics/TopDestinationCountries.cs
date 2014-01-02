@@ -81,6 +81,17 @@ namespace Lync_Billing.Backend.Statistics
                 TopDestinationCountries.Add(topCountry);
             }
 
+
+            //This handles the case in which the date is at the beginning of the year, and no data was recorded yet.
+            if (dt.Rows.Count == 0)
+            {
+                topCountry = new TopDestinationCountries();
+                topCountry.CountryName = "N/A";
+
+                TopDestinationCountries.Add(topCountry);
+            }
+
+
             return TopDestinationCountries;
         }
 
@@ -146,6 +157,17 @@ namespace Lync_Billing.Backend.Statistics
 
                 TopDestinationCountries.Add(topCountry);
             }
+
+
+            //This handles the case in which the date is at the beginning of the year, and no data was recorded yet.
+            if (dt.Rows.Count == 0)
+            {
+                topCountry = new TopDestinationCountries();
+                topCountry.CountryName = "N/A";
+
+                TopDestinationCountries.Add(topCountry);
+            }
+
 
             return TopDestinationCountries;
         }
