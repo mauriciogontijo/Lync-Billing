@@ -54,57 +54,14 @@ namespace Lync_Billing.Backend
             return AllSites.FirstOrDefault(item => item.SiteID == SiteID);
         }
 
-        public static List<SitesDepartments> GetDepartmentsInSite(int siteID)
+
+        public static List<SitesDepartments> GetSitesDepartments(List<string> columns = null, Dictionary<string, object> whereClause = null, int limit = 0)
         {
             DataTable dt;
-            List<string> columns;
-            Dictionary<string, object> wherePart;
-
             SitesDepartments department;
-
-            List<SitesDepartments> departmentsList = new List<SitesDepartments>();
-
-            columns = new List<string>();
-            wherePart = new Dictionary<string, object>
-            { 
-                { Enums.GetDescription(Enums.SitesDepartmnets.SiteID), siteID } 
-            };
-
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.SitesDepartmnets.TableName), columns, wherePart, 0);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                department = new SitesDepartments();
-
-                foreach (DataColumn column in dt.Columns)
-                {
-                    if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.ID))
-                        department.ID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-
-                    else if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.SiteID))
-                        department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-
-                    else if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.DepartmentID))
-                        department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                }
-
-                departmentsList.Add(department);
-            }
-
-            return departmentsList;
-        }
-        
-        public static List<SitesDepartments> GetAllSitesDepartments() 
-        {
             List<SitesDepartments> sitesDepartmnets = new List<SitesDepartments>();
-            SitesDepartments department;
-
-            DataTable dt;
-            List<string> columns;
-        
-            columns = new List<string>();
-        
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.SitesDepartmnets.TableName), columns, null, 0);
+            
+            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.SitesDepartmnets.TableName), columns, whereClause, 0);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -128,40 +85,54 @@ namespace Lync_Billing.Backend
             return sitesDepartmnets;
         }
 
+
+        public static List<SitesDepartments> GetDepartmentsInSite(int siteID)
+        {
+            List<SitesDepartments> departmentsList;
+
+            Dictionary<string, object> conditions = new Dictionary<string, object>
+            {
+                { Enums.GetDescription(Enums.SitesDepartmnets.SiteID), siteID }
+            };
+
+            departmentsList = GetSitesDepartments(whereClause: conditions);
+
+            return departmentsList;
+        }
+
+
         public static SitesDepartments GetSiteDepartment(int siteDepartmentID)
         {
-            SitesDepartments department;
+            List<SitesDepartments> departmentsList;
 
-            DataTable dt;
-            List<string> columns;
-
-            columns = new List<string>();
-
-            dt = DBRoutines.SELECT(Enums.GetDescription(Enums.SitesDepartmnets.TableName), Enums.GetDescription(Enums.SitesDepartmnets.ID), siteDepartmentID);
-
-            if(dt.Rows.Count > 0)
+            Dictionary<string, object> conditions = new Dictionary<string, object>
             {
-                DataRow row = dt.Rows[0];
+                { Enums.GetDescription(Enums.SitesDepartmnets.ID), siteDepartmentID }
+            };
 
-                department = new SitesDepartments();
+            departmentsList = GetSitesDepartments(whereClause: conditions, limit: 1);
 
-                foreach (DataColumn column in dt.Columns)
-                {
-                    if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.ID))
-                        department.ID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-
-                    else if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.SiteID))
-                        department.SiteID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-
-                    else if (column.ColumnName == Enums.GetDescription(Enums.SitesDepartmnets.DepartmentID))
-                        department.DepartmentID = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[column.ColumnName]));
-                }
-
-                return department;
-            }
-
-            return null;
+            if (departmentsList.Count == 0)
+                return null;
+            else
+                return departmentsList.First();
         }
+
+
+        public static int AddSiteDepartments(SitesDepartments sitesDepartmentsObj)
+        {
+            int rowID = 0;
+            Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
+
+            columnsValues.Add(Enums.GetDescription(Enums.SitesDepartmnets.SiteID), sitesDepartmentsObj.SiteID);
+            columnsValues.Add(Enums.GetDescription(Enums.SitesDepartmnets.DepartmentID), sitesDepartmentsObj.DepartmentID);
+
+            //Execute Insert
+            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.SitesDepartmnets.TableName), columnsValues, Enums.GetDescription(Enums.SitesDepartmnets.ID));
+
+            return rowID;
+        }
+
 
         public static void SyncSitesDepartmnets() 
         {
@@ -172,7 +143,7 @@ namespace Lync_Billing.Backend
                 Site site = AllSites.SingleOrDefault(item => item.SiteName == user.SiteName);
                 Department departmnet = AllDepartments.SingleOrDefault(item => item.DepartmentName == user.Department);
 
-                List<SitesDepartments> sitesDepartments = GetAllSitesDepartments();
+                List<SitesDepartments> sitesDepartments = GetSitesDepartments();
                 
                 SitesDepartments sitesDepartmentsObj = sitesDepartments.FirstOrDefault(item=>item.SiteID == site.SiteID && item.DepartmentID == departmnet.DepartmentID);
 
@@ -184,21 +155,6 @@ namespace Lync_Billing.Backend
             }
         }
 
-        public static int AddSiteDepartments(SitesDepartments sitesDepartmentsObj) 
-        {
-            int rowID = 0;
-            Dictionary<string, object> columnsValues = new Dictionary<string, object>(); ;
-
-            columnsValues.Add(Enums.GetDescription(Enums.SitesDepartmnets.SiteID), sitesDepartmentsObj.SiteID);
-            columnsValues.Add(Enums.GetDescription(Enums.SitesDepartmnets.DepartmentID), sitesDepartmentsObj.DepartmentID);
-
-            //Execute Insert
-            rowID = DBRoutines.INSERT(Enums.GetDescription(Enums.SitesDepartmnets.TableName), columnsValues, Enums.GetDescription(Enums.SitesDepartmnets.ID));
-            
-            return rowID;
-        
-        }
-
-
     }
+
 }
