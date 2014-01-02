@@ -41,29 +41,14 @@ namespace Lync_Billing.ui.user
             }
 
             sipAccount = session.GetEffectiveSipAccount();
-
-            PhoneCallsDuartionChartStore.DataSource = getChartData();
-            PhoneCallsDuartionChartStore.DataBind();
-
-            PhoneCallsCostChartStore.DataSource = getChartData();
-            PhoneCallsCostChartStore.DataBind();
-
-            DurationCostChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
-            DurationCostChartStore.DataBind();
-
-            //Set the year number in the charts header's title
-            string currentYear = DateTime.Now.Year.ToString();
-            DurationCostChartPanel.Title = "Business/Personal Calls Report for " + currentYear;
-            PhoneCallsCostChartPanel.Title = "Calls Costs Report for " + currentYear;
-            PhoneCallsDuartionChartPanel.Title = "Calls Duration Report for " + currentYear;
         }
 
         public List<UsersCallsSummaryChartData> getChartData()
         {
-            UserSession userSession = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = session.GetEffectiveSipAccount();
+            DateTime fromDate = DateTime.Now.AddYears(-1);
+            DateTime toDate = DateTime.Now;
 
-            return UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
+            return UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, fromDate, toDate);
         }
 
         protected void PhoneCallsDuartionChartStore_Load(object sender, EventArgs e)
@@ -76,6 +61,15 @@ namespace Lync_Billing.ui.user
         {
             PhoneCallsCostChartStore.DataSource = getChartData();
             PhoneCallsCostChartStore.DataBind();
+        }
+
+        protected void DurationCostChartStore_Load(object sender, EventArgs e)
+        {
+            DateTime fromDate = DateTime.Now.AddYears(-1);
+            DateTime toDate = DateTime.Now;
+
+            DurationCostChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, fromDate, toDate);
+            DurationCostChartStore.DataBind();
         }
     }
 }

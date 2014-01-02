@@ -33,8 +33,12 @@ namespace Lync_Billing.Backend.Statistics
             {
                 //Both starting date and ending date respectively point to the beginning and ending of this current month.
                 //FromDate = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
-                fromDate = new DateTime(DateTime.Now.Year, 1, 1);
-                toDate = fromDate.AddYears(1).AddDays(-1);
+
+                //fromDate = new DateTime(DateTime.Now.Year, 1, 1);
+                //toDate = fromDate.AddYears(1).AddDays(-1);
+
+                fromDate = DateTime.Now.AddYears(-1);
+                toDate = DateTime.Now;
             }
             else
             {

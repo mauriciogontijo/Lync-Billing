@@ -44,70 +44,6 @@ namespace Lync_Billing.Backend.Summaries
 
 
         /// <summary>
-        /// Given a SipAccount address, a year's number, a starting month's number, and an ending month's number return sum object of all the phone calls summaries between the months.
-        /// </summary>
-        /// <param name="siteName">The user's SipAccount address</param>
-        /// <param name="year">The year of the phone calls summary</param>
-        /// <param name="fromMonth">The starting month of the phone calls summary</param>
-        /// <param name="endMonth">The ending month of the phone calls summary</param>
-        /// <returns>A UserCallsSummary sum object of all summaries between the months</returns>
-        public static UserCallsSummary GetUserCallsSummary(string sipAccount, int Year, int fromMonth, int toMonth)
-        {
-            DataTable dt = new DataTable();
-            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUser);
-
-            List<object> functionParams = new List<object>();
-            Dictionary<string, object> wherePart = new Dictionary<string, object>();
-
-            UserCallsSummary userSummary = new UserCallsSummary();
-
-            //Initialize the function parameters and query the database
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), Year);
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", fromMonth, toMonth));
-            functionParams.Add(sipAccount);
-
-            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
-
-
-            foreach (DataRow row in dt.Rows)
-            {
-                //Start processing the summary
-                userSummary = new UserCallsSummary();
-
-                userSummary.Year = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
-                userSummary.Month = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]));
-                userSummary.Date = new DateTime(userSummary.Year, userSummary.Month, DateTime.DaysInMonth(userSummary.Year, userSummary.Month));
-
-                userSummary.BusinessCallsDuration += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
-                userSummary.BusinessCallsCount += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
-                userSummary.BusinessCallsCost += Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost)]]));
-                userSummary.PersonalCallsDuration += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsDuration)]]));
-                userSummary.PersonalCallsCount += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCount)]]));
-                userSummary.PersonalCallsCost += Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost)]]));
-                userSummary.UnmarkedCallsDuration += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration)]]));
-                userSummary.UnmarkedCallsCount += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount)]]));
-                userSummary.UnmarkedCallsCost += Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost)]]));
-
-                userSummary.Duration += (userSummary.PersonalCallsDuration / 60);
-            }
-
-            userSummary.TotalCallsCosts = userSummary.BusinessCallsCost + userSummary.PersonalCallsCost + userSummary.UnmarkedCallsCost;
-            userSummary.TotalCallsDurations = userSummary.BusinessCallsDuration + userSummary.PersonalCallsDuration + userSummary.UnmarkedCallsDuration;
-            userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
-
-            //Get the remaining user information
-            Users userInfo = Users.GetUser(sipAccount);
-
-            userSummary.EmployeeID = userInfo.EmployeeID.ToString();
-            userSummary.SipAccount = userInfo.SipAccount;
-            userSummary.FullName = userInfo.FullName;
-            userSummary.SiteName = userInfo.SiteName;
-
-            return userSummary;
-        }
-
-
-        /// <summary>
         /// Given a SipAccount address, a starting date, and an ending date return a UserCallsSummary sum object of all the phone calls summaries between the dates.
         /// </summary>
         /// <param name="siteName">The user's SipAccount address</param>
@@ -115,19 +51,22 @@ namespace Lync_Billing.Backend.Summaries
         /// <param name="startingDate">The starting date of phone calls summary</param>
         /// <param name="endingDate">The ending date of the phone calls summary</param>
         /// <returns>A UserCallsSummary sum object of all summaries between the dates</returns>
-        public static UserCallsSummary GetUserCallsSummary(string sipAccount, DateTime startDate, DateTime endDate)
+        public static List<UserCallsSummary> GetUsersCallsSummary(string sipAccount, DateTime startDate, DateTime endDate)
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUser);
 
             List<object> functionParams = new List<object>();
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
-            
-            UserCallsSummary userSummary = new UserCallsSummary();
+
+            UserCallsSummary userSummary;
+            List<UserCallsSummary> chartList = new List<UserCallsSummary>();
+
+            //Get this user's information
+            Users userInfo = Users.GetUser(sipAccount);
 
             //Initialize the function parameters and query the database
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), String.Format("BETWEEN '{0}' AND '{1}'", startDate.Year, endDate.Year));
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", startDate.Month, endDate.Month));
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Date), String.Format("BETWEEN '{0}' AND '{1}'", startDate, endDate));
             functionParams.Add(sipAccount);
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
@@ -141,32 +80,50 @@ namespace Lync_Billing.Backend.Summaries
                 userSummary.Month = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Month)]]));
                 userSummary.Date = new DateTime(userSummary.Year, userSummary.Month, DateTime.DaysInMonth(userSummary.Year, userSummary.Month));
 
-                userSummary.BusinessCallsDuration += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
-                userSummary.BusinessCallsCount += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
-                userSummary.BusinessCallsCost += Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost)]]));
-                userSummary.PersonalCallsDuration += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsDuration)]]));
-                userSummary.PersonalCallsCount += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCount)]]));
-                userSummary.PersonalCallsCost += Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost)]]));
-                userSummary.UnmarkedCallsDuration += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration)]]));
-                userSummary.UnmarkedCallsCount += Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount)]]));
-                userSummary.UnmarkedCallsCost += Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost)]]));
+                userSummary.EmployeeID = userInfo.EmployeeID.ToString();
+                userSummary.SipAccount = userInfo.SipAccount;
+                userSummary.FullName = userInfo.FullName;
+                userSummary.SiteName = userInfo.SiteName;
 
-                userSummary.Duration += (userSummary.PersonalCallsDuration / 60);
+                userSummary.BusinessCallsDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)]]));
+                userSummary.BusinessCallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)]]));
+                userSummary.BusinessCallsCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost)]]));
+                userSummary.PersonalCallsDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsDuration)]]));
+                userSummary.PersonalCallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCount)]]));
+                userSummary.PersonalCallsCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost)]]));
+                userSummary.UnmarkedCallsDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsDuration)]]));
+                userSummary.UnmarkedCallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCount)]]));
+                userSummary.UnmarkedCallsCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost)]]));
+
+                userSummary.Duration = (userSummary.PersonalCallsDuration / 60);
+
+                userSummary.TotalCallsCosts = userSummary.BusinessCallsCost + userSummary.PersonalCallsCost + userSummary.UnmarkedCallsCost;
+                userSummary.TotalCallsDurations = userSummary.BusinessCallsDuration + userSummary.PersonalCallsDuration + userSummary.UnmarkedCallsDuration;
+                userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
+
+                //Add it to the list.
+                chartList.Add(userSummary);
             }
 
-            userSummary.TotalCallsCosts = userSummary.BusinessCallsCost + userSummary.PersonalCallsCost + userSummary.UnmarkedCallsCost;
-            userSummary.TotalCallsDurations = userSummary.BusinessCallsDuration + userSummary.PersonalCallsDuration + userSummary.UnmarkedCallsDuration;
-            userSummary.TotalCallsCount = userSummary.BusinessCallsCount + userSummary.PersonalCallsCount + userSummary.UnmarkedCallsCount;
 
-            //Get the remaining user information
-            Users userInfo = Users.GetUser(sipAccount);
+            //This handles the case in which the date is at the beginning of the year, and no data was recorded yet.
+            if (dt.Rows.Count == 0)
+            {
+                userSummary = new UserCallsSummary();
+                userSummary.Year = DateTime.Now.Year;
+                userSummary.Month = DateTime.Now.Month;
+                userSummary.Date = DateTime.Now;
 
-            userSummary.EmployeeID = userInfo.EmployeeID.ToString();
-            userSummary.SipAccount = userInfo.SipAccount;
-            userSummary.FullName = userInfo.FullName;
-            userSummary.SiteName = userInfo.SiteName;
+                userSummary.EmployeeID = userInfo.EmployeeID.ToString();
+                userSummary.SipAccount = userInfo.SipAccount;
+                userSummary.FullName = userInfo.FullName;
+                userSummary.SiteName = userInfo.SiteName;
 
-            return userSummary;
+                chartList.Add(userSummary);
+            }
+
+
+            return chartList;
         }
 
 

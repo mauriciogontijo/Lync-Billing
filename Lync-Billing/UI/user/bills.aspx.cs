@@ -51,37 +51,6 @@ namespace Lync_Billing.ui.user
             sipAccount = session.GetEffectiveSipAccount();
         }
 
-        protected void BillsStore_ReadData(object sender, StoreReadDataEventArgs e)
-        {
-            sipAccount = session.GetEffectiveSipAccount();
-
-            List<UserCallsSummary> UserSummariesList = new List<UserCallsSummary>();
-            CultureInfo provider = CultureInfo.InvariantCulture;
-            List<Dictionary<string, object>> BillsList = new List<Dictionary<string, object>>();
-            Dictionary<string, object> Bill;
-
-            int year = 2013,
-                start_month = 1,
-                end_month = DateTime.Now.Month;
-
-            //if the end month is not the beginning of the year, decrease it by 1, for the purpose of not including the current month
-            if (end_month != start_month) { end_month -= 1; }
-
-            UserSummariesList = UserCallsSummary.GetUsersCallsSummary(sipAccount, year, start_month, end_month);
-            foreach (UserCallsSummary summary in UserSummariesList)
-            {
-                Bill = new Dictionary<string, object>();
-                Bill.Add("BillDate", summary.Date);
-                Bill.Add("Cost", summary.PersonalCallsCost);
-                Bill.Add("TotalCalls", summary.PersonalCallsCount);
-                Bill.Add("CallsDuration", summary.PersonalCallsDuration);
-
-                BillsList.Add(Bill);
-            }
-
-            BillsStore.DataSource = BillsList;
-            BillsStore.DataBind();
-        }
 
         protected void BillsStore_Load(object sender, EventArgs e)
         {
@@ -90,15 +59,12 @@ namespace Lync_Billing.ui.user
             List<UserCallsSummary> UserSummariesList = new List<UserCallsSummary>();
             List<UserCallsSummary> BillsList = new List<UserCallsSummary>();
 
-            int year = 2013,
-                start_month = 1,
-                end_month = DateTime.Now.Month;
+            DateTime fromDate = new DateTime(DateTime.Now.Year - 1, 1, 1);
+            DateTime toDate = DateTime.Now;
 
-            //if the end month is not the beginning of the year, decrease it by 1, for the purpose of not including the current month
-            if (end_month != start_month) { end_month -= 1; }
+            UserSummariesList = UserCallsSummary.GetUsersCallsSummary(sipAccount, fromDate, toDate);
 
-            UserSummariesList = UserCallsSummary.GetUsersCallsSummary(sipAccount, year, start_month, end_month);
-            foreach(UserCallsSummary summary in UserSummariesList)
+            foreach (UserCallsSummary summary in UserSummariesList)
             {
                 BillsList.Add(summary);
             }
@@ -106,5 +72,7 @@ namespace Lync_Billing.ui.user
             BillsStore.DataSource = BillsList;
             BillsStore.DataBind();
         }
+
     }
+
 }

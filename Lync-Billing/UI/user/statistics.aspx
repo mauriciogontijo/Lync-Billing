@@ -215,7 +215,7 @@
                             runat="server"
                             Animate="true">
                             <Store>
-                                <ext:Store ID="DurationCostChartStore" runat="server">
+                                <ext:Store ID="DurationCostChartStore" runat="server" OnLoad="DurationCostChartStore_Load">
                                     <Model>
                                         <ext:Model ID="DurationCostChartModel" runat="server">
                                             <Fields>
@@ -325,7 +325,9 @@
                     runat="server"
                     Width="364"
                     Height="320"
-                    Layout="FitLayout">
+                    Layout="FitLayout"
+                    Header="true"
+                    Title="Calls Duration Report">
                     <Items>
                         <ext:Chart
                             ID="PhoneCallsDuartionChart"
@@ -382,7 +384,9 @@
                     runat="server"
                     Width="364"
                     Height="320"
-                    Layout="FitLayout">
+                    Layout="FitLayout"
+                    Header="true"
+                    Title="Calls Costs Report">
                     <Items>
                         <ext:Chart
                             ID="PhoneCallsCostChart"

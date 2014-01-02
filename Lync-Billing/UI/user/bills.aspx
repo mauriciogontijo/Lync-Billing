@@ -29,7 +29,6 @@
                         ID="BillsStore" 
                         runat="server" 
                         OnLoad="BillsStore_Load"
-                        OnReadData="BillsStore_ReadData"
                         IsPagingStore="true"  
                         PageSize="25">
                         <Model>

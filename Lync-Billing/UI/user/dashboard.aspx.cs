@@ -80,15 +80,16 @@ namespace Lync_Billing.ui.user
             //Get this user's mail statistics
             userMailStatistics = MailStatistics.GetMailStatistics(sipAccount, DateTime.Now);
 
-            //Set the year number in the charts header's title
-            string currentYear = DateTime.Now.Year.ToString();
-            CallsCostsChartPanel.Title = "Calls Cost Chart for " + currentYear;
-            TopDestinationNumbersGrid.Title = "Most Called Numbers in " + currentYear;
-            TopDestinationCountriesPanel.Title = "Most Called Country in " + currentYear;
-
             //Initialize the unmarked calls counter - this is being used in the frontend.
             //unmarkedCallsCount = getUnmarkedCallsCount();
             unmarkedCallsCount = AutoMarkPhoneCallsFromAddressBook();
+
+
+            //Set the year number in the charts header's title
+            //string currentYear = DateTime.Now.Year.ToString();
+            //CallsCostsChartPanel.Title = "Calls Cost Chart for " + currentYear;
+            //TopDestinationNumbersGrid.Title = "Most Called Numbers in " + currentYear;
+            //TopDestinationCountriesPanel.Title = "Most Called Country in " + currentYear;
 
 
             //SHA1 hash = SHA1.Create();
@@ -110,7 +111,6 @@ namespace Lync_Billing.ui.user
             //Get the unmarked calls from the user session phonecalls container
             session.FetchSessionPhonecallsAndAddressbookData(out userSessionPhoneCalls, out userSessionAddressbook, out userSessionPhoneCallsPerPage);
 
-            //userSessionPhoneCalls = userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_CallType)).ToList();
             numberOfRemainingUnmarked = userSessionPhoneCalls.Where(phoneCall => string.IsNullOrEmpty(phoneCall.UI_CallType)).ToList().Count;
 
             if (IsThisTheFirstTimeAfterLogin == false)
@@ -171,7 +171,10 @@ namespace Lync_Billing.ui.user
 
         protected void CallsCostsChartStore_Load(object sender, EventArgs e)
         {
-            CallsCostsChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, DateTime.Now.Year, 1, 12);
+            DateTime fromDate = DateTime.Now.AddYears(-1);
+            DateTime toDate = DateTime.Now;
+
+            CallsCostsChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, fromDate, toDate);
             CallsCostsChartStore.DataBind();
         }
 
