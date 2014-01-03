@@ -13,6 +13,15 @@ namespace Lync_Billing.ui.user {
     public partial class dashboard {
         
         /// <summary>
+        /// ManageStatisticsBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button ManageStatisticsBtn;
+        
+        /// <summary>
         /// TopDestinationCountriesPanel control.
         /// </summary>
         /// <remarks>
@@ -49,7 +58,7 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Model TopDestinationCountriesModel;
         
         /// <summary>
-        /// TOPDestinationNumbersGrid control.
+        /// TopDestinationNumbersGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -100,10 +109,19 @@ namespace Lync_Billing.ui.user {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column NumberOfPhoneCalls;
+        protected global::Ext.Net.Column CallsCount;
         
         /// <summary>
-        /// DurationCostChartPanel control.
+        /// UserMailStatisticsPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel UserMailStatisticsPanel;
+        
+        /// <summary>
+        /// CallsCostsChartPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -112,7 +130,7 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Panel CallsCostsChartPanel;
         
         /// <summary>
-        /// DurationCostChart control.
+        /// CallsCostsChart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -121,7 +139,7 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Chart CallsCostsChart;
         
         /// <summary>
-        /// DurationCostChartStore control.
+        /// CallsCostsChartStore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -130,7 +148,7 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Store CallsCostsChartStore;
         
         /// <summary>
-        /// DurationCostChartModel control.
+        /// CallsCostsChartModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -146,5 +164,95 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.VerticalMarker VerticalMarker1;
+        
+        /// <summary>
+        /// CustomizeStatisticsWindow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window CustomizeStatisticsWindow;
+        
+        /// <summary>
+        /// CustomizeStats_Year control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox CustomizeStats_Year;
+        
+        /// <summary>
+        /// CustomizeStats_YearStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store CustomizeStats_YearStore;
+        
+        /// <summary>
+        /// CustomizeStats_YearStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model CustomizeStats_YearStoreModel;
+        
+        /// <summary>
+        /// CustomizeStats_Quarter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox CustomizeStats_Quarter;
+        
+        /// <summary>
+        /// CustomizeStatsWindowBottomBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.StatusBar CustomizeStatsWindowBottomBar;
+        
+        /// <summary>
+        /// SubmitCustomizeStatisticsBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button SubmitCustomizeStatisticsBtn;
+        
+        /// <summary>
+        /// CancelCustomizeStatsBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button CancelCustomizeStatsBtn;
+        
+        /// <summary>
+        /// CustomizeStatisticsWindow_BottomBarSeparator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator CustomizeStatisticsWindow_BottomBarSeparator;
+        
+        /// <summary>
+        /// CustomizeStats_StatusMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarTextItem CustomizeStats_StatusMessage;
     }
 }

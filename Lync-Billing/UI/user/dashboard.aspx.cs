@@ -217,7 +217,7 @@ namespace Lync_Billing.ui.user
 
         protected void ManageStatisticsBtn_Click(object sender, DirectEventArgs e)
         {
-            
+            CustomizeStatisticsWindow.Show();
         }
 
         protected void CustomizeStats_YearStore_Load(object sender, EventArgs e)
@@ -230,6 +230,7 @@ namespace Lync_Billing.ui.user
 
         protected void CancelCustomizeStatsBtn_Click(object sender, DirectEventArgs e)
         {
+           
         }
     }
 

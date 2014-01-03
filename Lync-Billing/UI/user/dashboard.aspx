@@ -131,6 +131,19 @@
         <div class='clear h25'></div>
     <% } %>
 
+     <ext:Button
+        ID="ManageStatisticsBtn"
+        runat="server"
+        Width="128"
+        Height="64"
+        Text="Customize!">
+        <DirectEvents>
+            <Click OnEvent="ManageStatisticsBtn_Click" />
+        </DirectEvents>
+    </ext:Button>
+
+   
+
 
     <!-- START OF LEFT COLUMN -->
     <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
@@ -261,7 +274,7 @@
         <div id='user-mail-statistics-block' class='block wauto'>
             <div class='content wauto float-left mb10'>
                 <ext:Panel
-                    ID="UserMailStatistics" 
+                    ID="UserMailStatisticsPanel" 
                     runat="server"
                     Header="true"
                     Title="Mail Statistics for this Month"
@@ -381,7 +394,10 @@
                             </Plugins>
                             <LegendConfig Position="Bottom" />
                         </ext:Chart>
+                        
+
                     </Items>
+
                 </ext:Panel>
             </div>
             <!-- END OF CONTENT -->
@@ -390,135 +406,116 @@
     </div>
     <!-- END OF RIGHT COLUMN -->
 
-    <!-- START THE CUSTOMIZE BUTTON SECTION -->
-    <ext:Panel
-        ID="asdasdasd"
+     <!-- START THE CUSTOMIZE BUTTON SECTION -->
+    <ext:Window
+        ID="CustomizeStatisticsWindow"
         runat="server"
-        Header="false"
-        Border="false">
+        Frame="true"
+        Resizable="false"
+        Hidden="true"
+        Title="Customize Statistics"
+        Width="410"
+        Icon="Add"
+        X="100"
+        Y="100"
+        BodyStyle="background-color: #f9f9f9;"
+        ComponentCls="fix-ui-vertical-align">
+
+        <Defaults>
+            <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
+        </Defaults>
+
         <Items>
-            <ext:Button
-                ID="ManageStatisticsBtn"
+            <ext:ComboBox
+                ID="CustomizeStats_Year"
                 runat="server"
-                Width="128"
-                Height="64"
-                Text="Customize!">
-                <DirectEvents>
-                    <Click OnEvent="ManageStatisticsBtn_Click" />
-                </DirectEvents>
-            </ext:Button>
+                DisplayField="TypeName"
+                DisplayValue="TypeValue"
+                Editable="false"
+                Width="380"
+                LabelWidth="100"
+                FieldLabel="Filter Period"
+                LabelSeparator=":">
+                <Store>
+                    <ext:Store ID="CustomizeStats_YearStore" runat="server" OnLoad="CustomizeStats_YearStore_Load">
+                        <Model>
+                            <ext:Model ID="CustomizeStats_YearStoreModel" runat="server">
+                                <Fields>
+                                    <ext:ModelField Name="YearText" Type="String" />
+                                </Fields>
+                            </ext:Model>
+                        </Model>
+                    </ext:Store>
+                </Store>
+            </ext:ComboBox>
 
-            <ext:Window
-                ID="CustomizeStatisticsWindowPanel"
+            <ext:ComboBox
+                ID="CustomizeStats_Quarter"
                 runat="server"
-                Frame="true"
-                Resizable="false"
-                Title="Customize Statistics"
-                Hidden="true"
-                Width="410"
-                Icon="Add"
-                X="100"
-                Y="100"
-                BodyStyle="background-color: #f9f9f9;"
-                ComponentCls="fix-ui-vertical-align">
-
-                <Defaults>
-                    <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
-                </Defaults>
-
+                DisplayField="TypeName"
+                ValueField="TypeValue"
+                Editable="false"
+                FieldLabel="Quarter"
+                Width="380"
+                LabelWidth="100"
+                LabelSeparator=":">
                 <Items>
-                    <ext:ComboBox
-                        ID="CustomizeStats_Year"
-                        runat="server"
-                        DisplayField="TypeName"
-                        DisplayValue="TypeValue"
-                        Editable="false"
-                        Width="380"
-                        LabelWidth="100"
-                        FieldLabel="Filter Period"
-                        LabelSeparator=":">
-                        <Store>
-                            <ext:Store ID="CustomizeStats_YearStore" runat="server" OnLoad="CustomizeStats_YearStore_Load">
-                                <Model>
-                                    <ext:Model ID="CustomizeStats_YearStoreModel" runat="server">
-                                        <Fields>
-                                            <ext:ModelField Name="YearText" Type="String" />
-                                        </Fields>
-                                    </ext:Model>
-                                </Model>
-                            </ext:Store>
-                        </Store>
-                    </ext:ComboBox>
-
-                    <ext:ComboBox
-                        ID="CustomizeStats_Quarter"
-                        runat="server"
-                        DisplayField="TypeName"
-                        ValueField="TypeValue"
-                        Editable="false"
-                        FieldLabel="Quarter"
-                        Width="380"
-                        LabelWidth="100"
-                        LabelSeparator=":">
-                        <Items>
-                            <ext:ListItem Text="First Quarter" Value="1" />
-                            <ext:ListItem Text="Second Quarter" Value="2" />
-                            <ext:ListItem Text="Third Quarter" Value="3" />
-                            <ext:ListItem Text="Forth Quarter" Value="4" />
-                            <ext:ListItem Text="All Quarters" Value="5" />
-                        </Items>
-                        <SelectedItems>
-                            <ext:ListItem Text="All Quarters" Value="5" />
-                        </SelectedItems>
-                    </ext:ComboBox>
+                    <ext:ListItem Text="First Quarter" Value="1" />
+                    <ext:ListItem Text="Second Quarter" Value="2" />
+                    <ext:ListItem Text="Third Quarter" Value="3" />
+                    <ext:ListItem Text="Forth Quarter" Value="4" />
+                    <ext:ListItem Text="All Quarters" Value="5" />
                 </Items>
-
-                <BottomBar>
-                    <ext:StatusBar
-                        ID="CustomizeStatsWindowBottomBar"
-                        runat="server"
-                        StatusAlign="Right"
-                        DefaultText=""
-                        Height="30">
-                        <Items>
-                            <ext:Button
-                                ID="SubmitCustomizeStatisticsBtn"
-                                runat="server"
-                                Text="Add"
-                                Icon="ApplicationFormAdd"
-                                Height="25">
-                                <DirectEvents>
-                                    <Click OnEvent="SubmitCustomizeStatisticsBtn_Click" />
-                                </DirectEvents>
-                            </ext:Button>
-
-                            <ext:Button
-                                ID="CancelCustomizeStatsBtn"
-                                runat="server"
-                                Text="Cancel"
-                                Icon="Cancel"
-                                Height="25">
-                                <DirectEvents>
-                                    <Click OnEvent="CancelCustomizeStatsBtn_Click" />
-                                </DirectEvents>
-                            </ext:Button>
-
-                            <ext:ToolbarSeparator
-                                ID="CustomizeStatisticsWindow_BottomBarSeparator"
-                                runat="server" />
-
-                            <ext:ToolbarTextItem
-                                ID="CustomizeStats_StatusMessage"
-                                runat="server"
-                                Height="15"
-                                Text=""
-                                Margins="0 0 0 5" />
-                        </Items>
-                    </ext:StatusBar>
-                </BottomBar>
-            </ext:Window>
+                <SelectedItems>
+                    <ext:ListItem Text="All Quarters" Value="5" />
+                </SelectedItems>
+            </ext:ComboBox>
         </Items>
-    </ext:Panel>
+
+        <BottomBar>
+            <ext:StatusBar
+                ID="CustomizeStatsWindowBottomBar"
+                runat="server"
+                StatusAlign="Right"
+                DefaultText=""
+                Height="30">
+                <Items>
+                    <ext:Button
+                        ID="SubmitCustomizeStatisticsBtn"
+                        runat="server"
+                        Text="Add"
+                        Icon="ApplicationFormAdd"
+                        Height="25">
+                        <DirectEvents>
+                            <Click OnEvent="SubmitCustomizeStatisticsBtn_Click" />
+                        </DirectEvents>
+                    </ext:Button>
+
+                    <ext:Button
+                        ID="CancelCustomizeStatsBtn"
+                        runat="server"
+                        Text="Cancel"
+                        Icon="Cancel"
+                        Height="25">
+                        <DirectEvents>
+                            <Click OnEvent="CancelCustomizeStatsBtn_Click" />
+                        </DirectEvents>
+                    </ext:Button>
+
+                    <ext:ToolbarSeparator
+                        ID="CustomizeStatisticsWindow_BottomBarSeparator"
+                        runat="server" />
+
+                    <ext:ToolbarTextItem
+                        ID="CustomizeStats_StatusMessage"
+                        runat="server"
+                        Height="15"
+                        Text=""
+                        Margins="0 0 0 5" />
+                </Items>
+            </ext:StatusBar>
+        </BottomBar>
+    </ext:Window>
     <!-- END THE CUSTOMIZE BUTTON SECTION -->
 
 </asp:Content>
