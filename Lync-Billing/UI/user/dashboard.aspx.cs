@@ -214,6 +214,23 @@ namespace Lync_Billing.ui.user
             
             TopDestinationCountriesStore.DataBind();
         }
+
+        protected void ManageStatisticsBtn_Click(object sender, DirectEventArgs e)
+        {
+            
+        }
+
+        protected void CustomizeStats_YearStore_Load(object sender, EventArgs e)
+        {
+        }
+
+        protected void SubmitCustomizeStatisticsBtn_Click(object sender, DirectEventArgs e)
+        {
+        }
+
+        protected void CancelCustomizeStatsBtn_Click(object sender, DirectEventArgs e)
+        {
+        }
     }
 
 }
