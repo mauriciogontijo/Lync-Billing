@@ -134,16 +134,13 @@
      <ext:Button
         ID="ManageStatisticsBtn"
         runat="server"
-        Width="128"
-        Height="64"
+        Width="100"
+        Height="30"
         Text="Customize!">
         <DirectEvents>
             <Click OnEvent="ManageStatisticsBtn_Click" />
         </DirectEvents>
     </ext:Button>
-
-   
-
 
     <!-- START OF LEFT COLUMN -->
     <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
