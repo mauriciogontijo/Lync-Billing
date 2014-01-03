@@ -349,7 +349,7 @@
                                 <ext:CategoryAxis
                                     Position="Bottom"
                                     Fields="Date"
-                                    Title="Current Year">
+                                    Title="Month(s)">
                                     <Label>
                                         <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
                                     </Label>
@@ -424,7 +424,7 @@
         Resizable="false"
         Hidden="true"
         Title="Customize Statistics"
-        Width="410"
+        Width="360"
         Icon="Add"
         X="700"
         Y="150"
@@ -442,7 +442,7 @@
                 Editable="false"
                 DisplayField="YearName"
                 ValueField="YearName"
-                Width="380"
+                Width="300"
                 LabelWidth="100"
                 FieldLabel="Filter Period"
                 LabelSeparator=":">
@@ -470,14 +470,14 @@
                 ValueField="TypeValue"
                 Editable="false"
                 FieldLabel="Quarter"
-                Width="380"
+                Width="300"
                 LabelWidth="100"
                 LabelSeparator=":">
                 <Items>
-                    <ext:ListItem Text="First Quarter" Value="1" />
-                    <ext:ListItem Text="Second Quarter" Value="2" />
-                    <ext:ListItem Text="Third Quarter" Value="3" />
-                    <ext:ListItem Text="Forth Quarter" Value="4" />
+                    <ext:ListItem Text="1st Quarter" Value="1" />
+                    <ext:ListItem Text="2nd Quarter" Value="2" />
+                    <ext:ListItem Text="3rd Quarter" Value="3" />
+                    <ext:ListItem Text="4th Quarter" Value="4" />
                     <ext:ListItem Text="All Quarters" Value="5" />
                 </Items>
                 <SelectedItems>

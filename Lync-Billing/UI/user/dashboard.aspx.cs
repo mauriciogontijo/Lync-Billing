@@ -22,7 +22,7 @@ namespace Lync_Billing.ui.user
     public partial class dashboard : System.Web.UI.Page
     {
         //This is used for the statistics filter
-        private const string STATISTICS_FILTER_CUSTOM_YEAR_NAME = "One Year Back From Today";
+        private const string STATISTICS_FILTER_CUSTOM_YEAR_NAME = "One Year Ago from Today";
 
         //Instance Variables
         private UserSession session;
@@ -286,17 +286,21 @@ namespace Lync_Billing.ui.user
             int fromMonth, toMonth;
             DateTime startingDate, endingDate;
 
+            string yearTitleString = string.Empty;
+            string quarterTitleString = string.Empty;
+
             if (CustomizeStats_Years.SelectedItem.Index > -1 && CustomizeStats_Quarters.SelectedItem.Index > -1)
             {
                 filterYear = Convert.ToString(CustomizeStats_Years.SelectedItem.Value);
                 filterQuater = Convert.ToInt32(CustomizeStats_Quarters.SelectedItem.Value);
-                wherePart = new Dictionary<string, object>();
-
+                
                 //Handle the year
                 if(filterYear == STATISTICS_FILTER_CUSTOM_YEAR_NAME)
                 {
                     startingDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
                     endingDate = DateTime.Now;
+
+                    yearTitleString = STATISTICS_FILTER_CUSTOM_YEAR_NAME;
                 }
                 //Double check the year format - i.e. 2012, 2013, 2014
                 else if (filterYear.Length == 4)
@@ -307,51 +311,64 @@ namespace Lync_Billing.ui.user
                         case 1:
                             fromMonth = 1;
                             toMonth = 3;
+                            quarterTitleString = "(1st Quarter)";
                             break;
 
                         case 2:
                             fromMonth = 4;
                             toMonth = 6;
+                            quarterTitleString = "(2nd Quarter)";
                             break;
 
                         case 3:
                             fromMonth = 7;
                             toMonth = 9;
+                            quarterTitleString = "(3rd Quarter)";
                             break;
 
                         case 4:
                             fromMonth = 10;
                             toMonth = 12;
+                            quarterTitleString = "(4th Quarter)";
                             break;
 
                         case 5:
                             fromMonth = 1;
                             toMonth = 12;
+                            quarterTitleString = "(All Quarters)";
                             break;
 
                         default:
                             fromMonth = 1;
                             toMonth = 12;
+                            quarterTitleString = "(All Quarters)";
                             break;
                     }
 
                     startingDate = new DateTime(Convert.ToInt32(filterYear), fromMonth, 1);
                     endingDate = new DateTime(Convert.ToInt32(filterYear), toMonth, 1);
+
+                    yearTitleString = filterYear.ToString();
                 }
                 //Fail safe - one year from now
                 else
                 {
                     startingDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
                     endingDate = DateTime.Now;
+
+                    yearTitleString = "One Year Ago from Today";
                 }
 
 
                 //Re-bind TopDestinationCountries to match the filter dates criteria
                 var topDestinationCountries_DATA = TopDestinationCountries.GetTopDestinationCountriesForUser(sipAccount, 5, startingDate, endingDate);
+                
                 if (topDestinationCountries_DATA.Count > 0) 
                     TopDestinationCountriesChart.GetStore().LoadData(topDestinationCountries_DATA);
                 else
                     TopDestinationCountriesChart.GetStore().RemoveAll();
+
+                TopDestinationCountriesPanel.Title = String.Format("Most Called Countries - {0} {1}", yearTitleString, quarterTitleString);
 
 
                 //Re-bind TopDestinationNumbers to match the filter dates criteria
@@ -361,12 +378,15 @@ namespace Lync_Billing.ui.user
                     )
                 );
 
+                TopDestinationNumbersGrid.Title = String.Format("Most Called Numbers - {0} {1}", yearTitleString, quarterTitleString);
+
 
                 //Re-bind CallsCosts to match the filter dates criteria
                 CallsCostsChart.GetStore().LoadData(
                     UserCallsSummary.GetUsersCallsSummary(sipAccount, startingDate, endingDate)
                 );
 
+                CallsCostsChartPanel.Title = String.Format("Calls Cost Chart - {0} {1}", yearTitleString, quarterTitleString);
 
                 //Hide the window
                 CustomizeStatisticsWindow.Hide();
