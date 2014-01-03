@@ -131,16 +131,21 @@
         <div class='clear h25'></div>
     <% } %>
 
-     <ext:Button
+    <!-- START OF CUSTOM STATISTICS BUTTON -->
+    <ext:Button
         ID="ManageStatisticsBtn"
         runat="server"
-        Width="100"
-        Height="30"
+        Icon="CupAdd"
+        IconCls="width:32px;"
         Text="Customize!">
         <DirectEvents>
             <Click OnEvent="ManageStatisticsBtn_Click" />
         </DirectEvents>
     </ext:Button>
+
+    <div class="h15 clear"></div>
+    <!-- END OF CUSTOM STATISTICS BUTTON -->
+
 
     <!-- START OF LEFT COLUMN -->
     <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">
@@ -155,6 +160,14 @@
                     Title="Most Called Countries"
                     Layout="FitLayout">
                     <Items>
+                        <%--<ext:ActionColumn
+                            ID="dummyActionColumn"
+                            runat="server"
+                            Text="asdasdasdasdasd"
+                            Width="100"
+                            Height="30">
+                        </ext:ActionColumn>--%>
+
                         <ext:Chart
                             ID="TopDestinationCountriesChart"
                             runat="server"
@@ -413,8 +426,8 @@
         Title="Customize Statistics"
         Width="410"
         Icon="Add"
-        X="100"
-        Y="100"
+        X="700"
+        Y="150"
         BodyStyle="background-color: #f9f9f9;"
         ComponentCls="fix-ui-vertical-align">
 
@@ -424,11 +437,11 @@
 
         <Items>
             <ext:ComboBox
-                ID="CustomizeStats_Year"
+                ID="CustomizeStats_Years"
                 runat="server"
-                DisplayField="TypeName"
-                DisplayValue="TypeValue"
                 Editable="false"
+                DisplayField="YearName"
+                ValueField="YearName"
                 Width="380"
                 LabelWidth="100"
                 FieldLabel="Filter Period"
@@ -438,16 +451,20 @@
                         <Model>
                             <ext:Model ID="CustomizeStats_YearStoreModel" runat="server">
                                 <Fields>
-                                    <ext:ModelField Name="YearText" Type="String" />
+                                    <ext:ModelField Name="YearName" Type="String" />
                                 </Fields>
                             </ext:Model>
                         </Model>
                     </ext:Store>
                 </Store>
+
+                <DirectEvents>
+                    <Select OnEvent="CustomizeStats_Years_Select" />
+                </DirectEvents>
             </ext:ComboBox>
 
             <ext:ComboBox
-                ID="CustomizeStats_Quarter"
+                ID="CustomizeStats_Quarters"
                 runat="server"
                 DisplayField="TypeName"
                 ValueField="TypeValue"
@@ -474,19 +491,20 @@
                 ID="CustomizeStatsWindowBottomBar"
                 runat="server"
                 StatusAlign="Right"
-                DefaultText=""
                 Height="30">
                 <Items>
                     <ext:Button
                         ID="SubmitCustomizeStatisticsBtn"
                         runat="server"
-                        Text="Add"
-                        Icon="ApplicationFormAdd"
+                        Text="Apply"
+                        Icon="ApplicationGo"
                         Height="25">
                         <DirectEvents>
                             <Click OnEvent="SubmitCustomizeStatisticsBtn_Click" />
                         </DirectEvents>
                     </ext:Button>
+
+                    <ext:ToolbarSeparator runat="server" />
 
                     <ext:Button
                         ID="CancelCustomizeStatsBtn"
@@ -498,17 +516,6 @@
                             <Click OnEvent="CancelCustomizeStatsBtn_Click" />
                         </DirectEvents>
                     </ext:Button>
-
-                    <ext:ToolbarSeparator
-                        ID="CustomizeStatisticsWindow_BottomBarSeparator"
-                        runat="server" />
-
-                    <ext:ToolbarTextItem
-                        ID="CustomizeStats_StatusMessage"
-                        runat="server"
-                        Height="15"
-                        Text=""
-                        Margins="0 0 0 5" />
                 </Items>
             </ext:StatusBar>
         </BottomBar>

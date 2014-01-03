@@ -21,6 +21,10 @@ namespace Lync_Billing.ui.user
 {
     public partial class dashboard : System.Web.UI.Page
     {
+        //This is used for the statistics filter
+        private const string STATISTICS_FILTER_CUSTOM_YEAR_NAME = "One Year Back From Today";
+
+        //Instance Variables
         private UserSession session;
         private string sipAccount = string.Empty;
         private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
@@ -84,14 +88,6 @@ namespace Lync_Billing.ui.user
             //unmarkedCallsCount = getUnmarkedCallsCount();
             unmarkedCallsCount = AutoMarkPhoneCallsFromAddressBook();
 
-
-            //Set the year number in the charts header's title
-            //string currentYear = DateTime.Now.Year.ToString();
-            //CallsCostsChartPanel.Title = "Calls Cost Chart for " + currentYear;
-            //TopDestinationNumbersGrid.Title = "Most Called Numbers in " + currentYear;
-            //TopDestinationCountriesPanel.Title = "Most Called Country in " + currentYear;
-
-
             //SHA1 hash = SHA1.Create();
             //ASCIIEncoding x = new ASCIIEncoding();
             //string source = (session.NormalUserInfo.SipAccount + session.NormalUserInfo.Department + session.NormalUserInfo.SiteName);
@@ -146,45 +142,10 @@ namespace Lync_Billing.ui.user
             return numberOfRemainingUnmarked;
         }
 
-        protected int getUnmarkedCallsCount()
+
+        private List<TopDestinationNumbers> FilterDestinationNumbersNames(List<TopDestinationNumbers> DetinationNumbersList)
         {
-            sipAccount = session.GetEffectiveSipAccount();
-
-            wherePart = new Dictionary<string, object>
-            {
-                { Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null }
-            };
-
-            return PhoneCall.GetPhoneCalls(sipAccount, wherePart).ToList().Count;
-        }
-
-        private string GetUserNameBySip(string sipAccount)
-        {
-            AdLib adRoutines = new AdLib();
-            ADUserInfo userInfo = adRoutines.GetUserAttributes(sipAccount);
-
-            if (userInfo != null && userInfo.DisplayName != null)
-                return userInfo.DisplayName;
-            else
-                return string.Empty;
-        }
-
-        protected void CallsCostsChartStore_Load(object sender, EventArgs e)
-        {
-            DateTime fromDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
-            DateTime toDate = DateTime.Now;
-
-            CallsCostsChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, fromDate, toDate);
-            CallsCostsChartStore.DataBind();
-        }
-
-        protected void TopDestinationNumbersStore_Load(object sender, EventArgs e)
-        {
-            sipAccount = session.GetEffectiveSipAccount();
-
-            TopDestinationNumbersList = TopDestinationNumbers.GetTopDestinationNumbers(sipAccount, 5);
-
-            foreach (TopDestinationNumbers destination in TopDestinationNumbersList)
+            foreach (TopDestinationNumbers destination in DetinationNumbersList)
             {
                 //if (GetUserNameBySip(destination.PhoneNumber) != string.Empty)
                 //{
@@ -203,35 +164,217 @@ namespace Lync_Billing.ui.user
                 }
             }
 
-            TopDestinationNumbersStore.DataSource = TopDestinationNumbersList;
-            TopDestinationNumbersStore.DataBind();
+            return DetinationNumbersList;
         }
+
+
+        protected int getUnmarkedCallsCount()
+        {
+            sipAccount = session.GetEffectiveSipAccount();
+
+            wherePart = new Dictionary<string, object>
+            {
+                { Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null }
+            };
+
+            return PhoneCall.GetPhoneCalls(sipAccount, wherePart).ToList().Count;
+        }
+
+
+        private string GetUserNameBySip(string sipAccount)
+        {
+            AdLib adRoutines = new AdLib();
+            ADUserInfo userInfo = adRoutines.GetUserAttributes(sipAccount);
+
+            if (userInfo != null && userInfo.DisplayName != null)
+                return userInfo.DisplayName;
+            else
+                return string.Empty;
+        }
+
+
+        protected void CallsCostsChartStore_Load(object sender, EventArgs e)
+        {
+            if (!Ext.Net.X.IsAjaxRequest)
+            {
+                DateTime fromDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
+                DateTime toDate = DateTime.Now;
+
+                CallsCostsChartStore.DataSource = UserCallsSummary.GetUsersCallsSummary(sipAccount, fromDate, toDate);
+                CallsCostsChartStore.DataBind();
+            }
+        }
+
+
+        protected void TopDestinationNumbersStore_Load(object sender, EventArgs e)
+        {
+            if (!Ext.Net.X.IsAjaxRequest)
+            {
+                TopDestinationNumbersList = FilterDestinationNumbersNames(TopDestinationNumbers.GetTopDestinationNumbers(sipAccount, 5));
+
+                TopDestinationNumbersStore.DataSource = TopDestinationNumbersList;
+                TopDestinationNumbersStore.DataBind();
+            }
+        }
+
 
         protected void TopDestinationCountriesStore_Load(object sender, EventArgs e)
         {
-            TopDestinationCountriesList = TopDestinationCountries.GetTopDestinationCountriesForUser(sipAccount, 5);
-            TopDestinationCountriesStore.DataSource = TopDestinationCountriesList;
-            
-            TopDestinationCountriesStore.DataBind();
+            if (!Ext.Net.X.IsAjaxRequest)
+            {
+                TopDestinationCountriesList = TopDestinationCountries.GetTopDestinationCountriesForUser(sipAccount, 5);
+
+                TopDestinationCountriesStore.DataSource = TopDestinationCountriesList;
+                TopDestinationCountriesStore.DataBind();
+            }
         }
+
+
+        protected void CustomizeStats_YearStore_Load(object sender, EventArgs e)
+        {
+            //Get years from the database
+            List<UserCallsSummaryYears> Years = UserCallsSummary.GetUserCallsSummaryYears(sipAccount);
+
+            //Add a custom year criteria
+            UserCallsSummaryYears CustomYear = new UserCallsSummaryYears() { YearName = STATISTICS_FILTER_CUSTOM_YEAR_NAME };
+            Years.Add(CustomYear);
+
+            //Bind the data
+            CustomizeStats_Years.GetStore().DataSource = Years;
+            CustomizeStats_Years.GetStore().DataBind();
+            //CustomizeStats_Year.GetStore().LoadData(years);
+        }
+
+
+        protected void CustomizeStats_Years_Select(object sender, DirectEventArgs e)
+        {
+            if (CustomizeStats_Years.SelectedItem.Index > -1)
+            {
+                string selectedValue = Convert.ToString(CustomizeStats_Years.SelectedItem.Value);
+
+                if (selectedValue == STATISTICS_FILTER_CUSTOM_YEAR_NAME)
+                {
+                    CustomizeStats_Quarters.Hide();
+                }
+                else
+                {
+                    CustomizeStats_Quarters.Show();
+                }
+            }
+        }
+
 
         protected void ManageStatisticsBtn_Click(object sender, DirectEventArgs e)
         {
             CustomizeStatisticsWindow.Show();
         }
 
-        protected void CustomizeStats_YearStore_Load(object sender, EventArgs e)
-        {
-        }
-
-        protected void SubmitCustomizeStatisticsBtn_Click(object sender, DirectEventArgs e)
-        {
-        }
 
         protected void CancelCustomizeStatsBtn_Click(object sender, DirectEventArgs e)
         {
-           
+            CustomizeStatisticsWindow.Hide();
         }
-    }
+
+
+        protected void SubmitCustomizeStatisticsBtn_Click(object sender, DirectEventArgs e)
+        {
+            //Submitted from the view
+            string filterYear = string.Empty;
+            int filterQuater;
+
+            //For DateTime handling
+            int fromMonth, toMonth;
+            DateTime startingDate, endingDate;
+
+            if (CustomizeStats_Years.SelectedItem.Index > -1 && CustomizeStats_Quarters.SelectedItem.Index > -1)
+            {
+                filterYear = Convert.ToString(CustomizeStats_Years.SelectedItem.Value);
+                filterQuater = Convert.ToInt32(CustomizeStats_Quarters.SelectedItem.Value);
+                wherePart = new Dictionary<string, object>();
+
+                //Handle the year
+                if(filterYear == STATISTICS_FILTER_CUSTOM_YEAR_NAME)
+                {
+                    startingDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
+                    endingDate = DateTime.Now;
+                }
+                //Double check the year format - i.e. 2012, 2013, 2014
+                else if (filterYear.Length == 4)
+                {
+                    //Handle the fromMonth and toMonth
+                    switch (filterQuater)
+                    {
+                        case 1:
+                            fromMonth = 1;
+                            toMonth = 3;
+                            break;
+
+                        case 2:
+                            fromMonth = 4;
+                            toMonth = 6;
+                            break;
+
+                        case 3:
+                            fromMonth = 7;
+                            toMonth = 9;
+                            break;
+
+                        case 4:
+                            fromMonth = 10;
+                            toMonth = 12;
+                            break;
+
+                        case 5:
+                            fromMonth = 1;
+                            toMonth = 12;
+                            break;
+
+                        default:
+                            fromMonth = 1;
+                            toMonth = 12;
+                            break;
+                    }
+
+                    startingDate = new DateTime(Convert.ToInt32(filterYear), fromMonth, 1);
+                    endingDate = new DateTime(Convert.ToInt32(filterYear), toMonth, 1);
+                }
+                //Fail safe - one year from now
+                else
+                {
+                    startingDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
+                    endingDate = DateTime.Now;
+                }
+
+
+                //Re-bind TopDestinationCountries to match the filter dates criteria
+                var topDestinationCountries_DATA = TopDestinationCountries.GetTopDestinationCountriesForUser(sipAccount, 5, startingDate, endingDate);
+                if (topDestinationCountries_DATA.Count > 0) 
+                    TopDestinationCountriesChart.GetStore().LoadData(topDestinationCountries_DATA);
+                else
+                    TopDestinationCountriesChart.GetStore().RemoveAll();
+
+
+                //Re-bind TopDestinationNumbers to match the filter dates criteria
+                TopDestinationNumbersGrid.GetStore().LoadData(
+                    FilterDestinationNumbersNames(
+                        TopDestinationNumbers.GetTopDestinationNumbers(sipAccount, 5, startingDate, endingDate)
+                    )
+                );
+
+
+                //Re-bind CallsCosts to match the filter dates criteria
+                CallsCostsChart.GetStore().LoadData(
+                    UserCallsSummary.GetUsersCallsSummary(sipAccount, startingDate, endingDate)
+                );
+
+
+                //Hide the window
+                CustomizeStatisticsWindow.Hide();
+
+            }//End-if
+
+        }//End-Function
+
+    }//End-class
 
 }

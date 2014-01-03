@@ -43,6 +43,37 @@ namespace Lync_Billing.Backend.Summaries
         public int Month { get; set; }
 
 
+        public static List<UserCallsSummaryYears> GetUserCallsSummaryYears(string sipAccount)
+        {
+            DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUser);
+
+            List<object> functionParams = new List<object>();
+            Dictionary<string, object> whereClause = new Dictionary<string,object>();
+            List<string> columnsList = new List<string>() { String.Format("DISTINCT {0}", Enums.GetDescription(Enums.PhoneCallSummary.Year)) };
+
+            UserCallsSummaryYears userCallsSummaryYear;
+            List<UserCallsSummaryYears> Years = new List<UserCallsSummaryYears>();
+
+            //Initialize the function parameters and query the database
+            functionParams.Add(sipAccount);
+
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, null, columnsList);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                //Start processing the summary
+                userCallsSummaryYear = new UserCallsSummaryYears();
+                userCallsSummaryYear.YearName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
+                
+                //Add it to the list.
+                Years.Add(userCallsSummaryYear);
+            }
+
+            return Years;
+        }
+
+
         /// <summary>
         /// Given a SipAccount address, a starting date, and an ending date return a UserCallsSummary sum object of all the phone calls summaries between the dates.
         /// </summary>
@@ -474,6 +505,12 @@ namespace Lync_Billing.Backend.Summaries
             );
         }
 
+    }
+
+
+    public class UserCallsSummaryYears
+    {
+        public string YearName { get; set; }
     }
 
 }
