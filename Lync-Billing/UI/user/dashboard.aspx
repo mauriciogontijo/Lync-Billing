@@ -119,33 +119,33 @@
 
     <% if(unmarkedCallsCount != null) { %>
         <% if(unmarkedCallsCount > 0) { %>
-            <div id='warning-block' class='warning-block shadow'>
+            <div id='warning-block' class='warning-block float-left shadow'>
                 <p class="message"><%= String.Format("You have a total of <span class='bold'>{0}&nbsp;unmarked</span> calls, please click <a class='link bold' href='../user/phonecalls.aspx'>here</a> to mark them.", unmarkedCallsCount) %></p>
             </div>
         <% } else { %>
-            <div id='information-block' class='info-block shadow'>
+            <div id='information-block' class='info-block float-left shadow'>
                 <p class="message">All of your phone calls are marked. Thank you for keeping your phone calls updated!</p>
             </div>
         <% } %>
-                
+
+        <ext:Button
+            ID="ManageStatisticsBtn"
+            runat="server"
+            Icon="Cog"
+            Text="Customize<br/>Charts"
+            TextAlign="Center"
+            ShrinkWrap="Width"
+            Padding="5"
+            Width="90"
+            Height="52"
+            ComponentCls="float-left w100 mt10">
+            <DirectEvents>
+                <Click OnEvent="ManageStatisticsBtn_Click" />
+            </DirectEvents>
+        </ext:Button>
+        
         <div class='clear h25'></div>
     <% } %>
-
-    <!-- START OF CUSTOM STATISTICS BUTTON -->
-    <ext:Button
-        ID="ManageStatisticsBtn"
-        runat="server"
-        Icon="CupAdd"
-        IconCls="width:32px;"
-        Text="Customize!">
-        <DirectEvents>
-            <Click OnEvent="ManageStatisticsBtn_Click" />
-        </DirectEvents>
-    </ext:Button>
-
-    <div class="h15 clear"></div>
-    <!-- END OF CUSTOM STATISTICS BUTTON -->
-
 
     <!-- START OF LEFT COLUMN -->
     <div style="float: left; width: 49%; overflow: hidden; display: block; height: auto; min-height: 650px;">

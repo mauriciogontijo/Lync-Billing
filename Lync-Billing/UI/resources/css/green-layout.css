@@ -23,10 +23,12 @@ body {
 .footer-container { display: block; width: 1000px; min-height: 40px; overflow: hidden; padding: 10px; margin: 10px auto 5px auto; background-color: #fff; border: 1px solid #CECFCE; }
 .footer-container p { font-size: 11px; margin: 0 auto 3px auto; color: #000; width: auto; text-align: center; }
 
-.info-block, .warning-block { width: auto; height: 52px; display: block; padding: 10px 10px 15px 55px; margin: 0 0 10px 0; border: 1px solid #B6C0D2; background-repeat: no-repeat; background-position: 10px center; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
-.info-block p.message, .warning-block p.message { height:60px; line-height: 30px; font-size: 14px; float: left; display: inline-block; }
+/* .info-block, .warning-block { width: auto; height: 52px; display: block; padding: 10px 10px 15px 55px; margin: 0 0 10px 0; border: 1px solid #B6C0D2; background-repeat: no-repeat; background-position: 10px center; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; } */
+.messages-container, .info-block, .warning-block { width: 850px; height: 52px; display: block; padding: 10px 10px 15px 55px; margin: 10px 10px 10px 0; border: 1px solid #B6C0D2; background-repeat: no-repeat; background-position: 10px center; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; overflow: hidden; }
 .info-block { background-image: url(../images/info.png); background-color: #BDE5F8; color:#00529B; }
 .warning-block { background-image: url(../images/warning.png); background-color: #FEEFB3; color:#9F6000; }
+.info-block p.message, .warning-block p.message { height:60px; line-height: 30px; font-size: 14px; float: left; display: inline-block; }
+
 
 .block { width: auto; margin: 0 auto; color: #FFFFFF; display: block; overflow: hidden; }
 .block-body { position: relative; width: auto; margin: 5px; display: block; padding-top: 5px; color: #000000; overflow: hidden; }
