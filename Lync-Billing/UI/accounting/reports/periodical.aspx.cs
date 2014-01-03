@@ -169,7 +169,7 @@ namespace Lync_Billing.ui.accounting.reports
                     pdfDocumentHeaders = new Dictionary<string, string>()
                     {
                         {"siteName", siteName},
-                        {"title", "Accounting Monthly Report [Detailed]"},
+                        {"title", "Accounting Periodical Report [Detailed]"},
                         {"subTitle", "From: " + startDate.Month + "-" + startDate.Year + ", to: " + endDate.Month + "-" + endDate.Year + "."}
                     };
 
