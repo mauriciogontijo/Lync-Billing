@@ -39,8 +39,7 @@ namespace Lync_Billing.Backend.Statistics
             else
             {
                 //Assign the beginning of date.Month to the startingDate and the end of it to the endingDate 
-                //DateTime specificDate = (DateTime)date;
-                DateTime specificDate = new DateTime(2013, 10, 4);
+                DateTime specificDate = (DateTime)date;
                 startingDate = specificDate.AddDays(-(specificDate.Day - 1));
                 endingDate = startingDate.AddMonths(1).AddDays(-1);
             }
