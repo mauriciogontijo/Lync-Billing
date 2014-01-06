@@ -92,11 +92,11 @@ namespace Lync_Billing.Backend
             var phoneCalls = (from rw in dt.AsEnumerable()
                               select new PhoneCall()
                               {
-                                    SessionIdTime = HelperFunctions.ConvertDate(Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)])),
+                                    SessionIdTime = SpecialDateTime.ConvertDate(Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)])),
                                     SessionIdSeq = Convert.ToInt32(rw[Enums.GetDescription(Enums.PhoneCalls.SessionIdSeq)]),
-                                    ResponseTime = HelperFunctions.ConvertDate(Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)])),
-                                   
-                                    SessionEndTime = HelperFunctions.ConvertDate(Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)]))),
+                                    ResponseTime = SpecialDateTime.ConvertDate(Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.ResponseTime)])),
+
+                                    SessionEndTime = SpecialDateTime.ConvertDate(Convert.ToDateTime(HelperFunctions.ReturnDateTimeMinIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.SessionEndTime)]))),
                                     
                                     SourceUserUri = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.SourceUserUri)])),
                                     ChargingParty = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.ChargingParty)])),

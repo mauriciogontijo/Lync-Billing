@@ -256,8 +256,6 @@ namespace Lync_Billing.Backend.Summaries
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUsers_PerSite);
 
-            Users userInfo;
-            UserCallsSummary userSummary;
             List<UserCallsSummary> usersSummaryList = new List<UserCallsSummary>();
 
             List<string> sharedSitesPerGateway = new List<string>();
@@ -419,7 +417,7 @@ namespace Lync_Billing.Backend.Summaries
                 callsCostsTotals.Add("BusinessCallsCost", Decimal.Round(Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(dt.Compute("Sum(BusinessCallsCost)", "BusinessCallsCost > 0"))), 2));
                 callsCostsTotals.Add("UnmarkedCallsCost", Decimal.Round(Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(dt.Compute("Sum(UnmarkedCallsCost)", "UnmarkedCallsCost > 0"))), 2));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 callsCostsTotals.Add("PersonalCost", 0.00);
                 callsCostsTotals.Add("BusinessCost", 0.00);

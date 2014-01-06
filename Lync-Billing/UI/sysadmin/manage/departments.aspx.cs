@@ -103,7 +103,6 @@ namespace Lync_Billing.ui.sysadmin.manage
             sipAccount = session.NormalUserInfo.SipAccount;
 
             bool statusFlag = false;
-            bool resetDescriptionFlag = false;
             string messageType = "error";
             string notificationMessage = string.Empty;
 

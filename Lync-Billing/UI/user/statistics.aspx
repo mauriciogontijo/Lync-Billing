@@ -277,7 +277,7 @@
                                     Text="Apply"
                                     Icon="ApplicationGo"
                                     Height="25"
-                                    Margins="5 5 0 125">
+                                    Margins="5 5 0 130">
                                     <DirectEvents>
                                         <Click OnEvent="SubmitCustomizeStatisticsBtn_Click">
                                             <EventMask ShowMask="true" />

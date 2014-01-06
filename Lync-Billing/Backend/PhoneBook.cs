@@ -94,7 +94,6 @@ namespace Lync_Billing.Backend
             Dictionary<string, object> wherePart = new Dictionary<string, object>();
             List<object> functionparameters = new List<object>();
 
-            PhoneBook phoneBookEntry;
             List<PhoneBook> phoneBookEntries = new List<PhoneBook>();
             PhoneBookContactComparer linqDistinctComparer = new PhoneBookContactComparer();
             DateTime fromDate, toDate;

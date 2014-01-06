@@ -186,6 +186,7 @@
   <ItemGroup>
     <Compile Include="Backend\DID.cs" />
     <Compile Include="Backend\SitesDepartments.cs" />
+    <Compile Include="Libs\SpecialDateTime.cs" />
     <Compile Include="ConfigurationSections\BillableCallTypesSection.cs" />
     <Compile Include="ConfigurationSections\PDFReportColumnsDescriptions.cs" />
     <Compile Include="ConfigurationSections\PDFReportsPropertiesSection.cs" />

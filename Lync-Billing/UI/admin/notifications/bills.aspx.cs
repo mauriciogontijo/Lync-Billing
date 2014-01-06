@@ -176,7 +176,7 @@ namespace Lync_Billing.ui.admin.notifications
                             userSummary.FullName,
                             userSummary.Date.ToString("MMM", CultureInfo.InvariantCulture) + " " + userSummary.Date.Year,
                             userSummary.PersonalCallsCount,
-                            HelperFunctions.ConvertSecondsToReadable(userSummary.PersonalCallsDuration),
+                            SpecialDateTime.ConvertSecondsToReadable(userSummary.PersonalCallsDuration),
                             userSummary.PersonalCallsCost);
 
                 Mailer mailer = new Mailer(sipAccount, subject, RealBody);

@@ -123,7 +123,7 @@ namespace Lync_Billing.ui.admin.notifications
                             userSummary.FullName,
                             userSummary.UnmarkedCallsCount,
                             userSummary.UnmarkedCallsCost,
-                            HelperFunctions.ConvertSecondsToReadable(userSummary.UnmarkedCallsDuration));
+                            SpecialDateTime.ConvertSecondsToReadable(userSummary.UnmarkedCallsDuration));
 
                 Mailer mailer = new Mailer(sipAccount, subject, RealBody);
             }
