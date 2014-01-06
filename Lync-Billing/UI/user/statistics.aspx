@@ -202,12 +202,99 @@
         <div id='personal-duration-cost-chart' class='block float-right w100p'>
             <div class="block-body pt5">
                 <ext:Panel
+                    ID="CustomizeStatisticsPanel"
+                    runat="server"
+                    Height="61"
+                    Width="740"
+                    Header="True"
+                    Title="Customize Statistics"
+                    Layout="FitLayout"
+                    ComponentCls="fix-ui-vertical-align">
+                    <TopBar>
+                        <ext:Toolbar
+                            ID="CustomizeStatisticsToolbar"
+                            runat="server">
+                            <Items>
+                                <ext:ComboBox
+                                    ID="CustomizeStats_Years"
+                                    runat="server"
+                                    Editable="false"
+                                    DisplayField="YearName"
+                                    ValueField="YearName"
+                                    Width="250"
+                                    LabelWidth="70"
+                                    LabelSeparator=":"
+                                    Margins="5 15 5 5"
+                                    FieldLabel="Filter Period">
+                                    <Store>
+                                        <ext:Store ID="CustomizeStats_YearStore" runat="server" OnLoad="CustomizeStats_YearStore_Load">
+                                            <Model>
+                                                <ext:Model ID="CustomizeStats_YearStoreModel" runat="server">
+                                                    <Fields>
+                                                        <ext:ModelField Name="YearName" Type="String" />
+                                                    </Fields>
+                                                </ext:Model>
+                                            </Model>
+                                        </ext:Store>
+                                    </Store>
+
+                                    <DirectEvents>
+                                        <Select OnEvent="CustomizeStats_Years_Select" />
+                                    </DirectEvents>
+                                </ext:ComboBox>
+
+                                <ext:ComboBox
+                                    ID="CustomizeStats_Quarters"
+                                    runat="server"
+                                    DisplayField="TypeName"
+                                    ValueField="TypeValue"
+                                    Editable="false"
+                                    FieldLabel="Quarter"
+                                    Width="250"
+                                    LabelWidth="45"
+                                    LabelSeparator=":"
+                                    Margins="5 15 5 5">
+                                    <Items>
+                                        <ext:ListItem Text="1st Quarter" Value="1" />
+                                        <ext:ListItem Text="2nd Quarter" Value="2" />
+                                        <ext:ListItem Text="3rd Quarter" Value="3" />
+                                        <ext:ListItem Text="4th Quarter" Value="4" />
+                                        <ext:ListItem Text="All Quarters" Value="5" />
+                                    </Items>
+                                    <SelectedItems>
+                                        <ext:ListItem Text="All Quarters" Value="5" />
+                                    </SelectedItems>
+                                </ext:ComboBox>
+
+                                <ext:Button
+                                    ID="SubmitCustomizeStatisticsBtn"
+                                    runat="server"
+                                    Text="Apply"
+                                    Icon="ApplicationGo"
+                                    Height="25"
+                                    Margins="5 5 0 125">
+                                    <DirectEvents>
+                                        <Click OnEvent="SubmitCustomizeStatisticsBtn_Click">
+                                            <EventMask ShowMask="true" />
+                                        </Click>
+                                    </DirectEvents>
+                                </ext:Button>
+                            </Items>
+                        </ext:Toolbar>
+                    </TopBar>
+                </ext:Panel>
+
+
+                <div class="h25 clear"></div>
+
+
+                <ext:Panel
                     ID="DurationCostChartPanel"
                     runat="server"
                     Height="420"
                     Width="740"
                     Header="True"
-                    Title="Business/Personal Calls Report"
+                    Title="Business/Personal Calls"
                     Layout="FitLayout">
                     <Items>
                         <ext:Chart
@@ -317,7 +404,9 @@
             </div>
         </div>
 
-        <div class="clear h5"></div>
+
+        <div class="clear h15"></div>
+
 
         <div id='personal-calls-duration-pie-chart' class='block float-right w49p hauto'>
             <div class="block-body">
@@ -327,7 +416,7 @@
                     Height="320"
                     Layout="FitLayout"
                     Header="true"
-                    Title="Calls Duration Report">
+                    Title="Calls Duration">
                     <Items>
                         <ext:Chart
                             ID="PhoneCallsDuartionChart"
@@ -386,7 +475,7 @@
                     Height="320"
                     Layout="FitLayout"
                     Header="true"
-                    Title="Calls Costs Report">
+                    Title="Calls Costs">
                     <Items>
                         <ext:Chart
                             ID="PhoneCallsCostChart"

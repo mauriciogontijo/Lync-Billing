@@ -13,6 +13,69 @@ namespace Lync_Billing.ui.user {
     public partial class statistics {
         
         /// <summary>
+        /// CustomizeStatisticsPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel CustomizeStatisticsPanel;
+        
+        /// <summary>
+        /// CustomizeStatisticsToolbar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Toolbar CustomizeStatisticsToolbar;
+        
+        /// <summary>
+        /// CustomizeStats_Years control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox CustomizeStats_Years;
+        
+        /// <summary>
+        /// CustomizeStats_YearStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store CustomizeStats_YearStore;
+        
+        /// <summary>
+        /// CustomizeStats_YearStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model CustomizeStats_YearStoreModel;
+        
+        /// <summary>
+        /// CustomizeStats_Quarters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox CustomizeStats_Quarters;
+        
+        /// <summary>
+        /// SubmitCustomizeStatisticsBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button SubmitCustomizeStatisticsBtn;
+        
+        /// <summary>
         /// DurationCostChartPanel control.
         /// </summary>
         /// <remarks>
