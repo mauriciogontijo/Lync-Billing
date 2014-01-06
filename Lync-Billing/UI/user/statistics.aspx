@@ -238,6 +238,10 @@
                                         </ext:Store>
                                     </Store>
 
+                                    <SelectedItems>
+                                        <ext:ListItem Text="One Year Ago from Today" Value="One Year Ago from Today" />
+                                    </SelectedItems>
+
                                     <DirectEvents>
                                         <Select OnEvent="CustomizeStats_Years_Select" />
                                     </DirectEvents>
@@ -253,7 +257,8 @@
                                     Width="250"
                                     LabelWidth="45"
                                     LabelSeparator=":"
-                                    Margins="5 15 5 5">
+                                    Margins="5 15 5 5"
+                                    Disabled="true">
                                     <Items>
                                         <ext:ListItem Text="1st Quarter" Value="1" />
                                         <ext:ListItem Text="2nd Quarter" Value="2" />

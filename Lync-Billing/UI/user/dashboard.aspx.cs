@@ -232,17 +232,20 @@ namespace Lync_Billing.ui.user
 
         protected void CustomizeStats_YearStore_Load(object sender, EventArgs e)
         {
-            //Get years from the database
-            List<UserCallsSummaryYears> Years = UserCallsSummary.GetUserCallsSummaryYears(sipAccount);
+            if (!Ext.Net.X.IsAjaxRequest)
+            {
+                //Get years from the database
+                List<UserCallsSummaryYears> Years = UserCallsSummary.GetUserCallsSummaryYears(sipAccount);
 
-            //Add a custom year criteria
-            UserCallsSummaryYears CustomYear = new UserCallsSummaryYears() { YearName = STATISTICS_FILTER_CUSTOM_YEAR_NAME };
-            Years.Add(CustomYear);
+                //Add a custom year criteria
+                UserCallsSummaryYears CustomYear = new UserCallsSummaryYears() { YearName = STATISTICS_FILTER_CUSTOM_YEAR_NAME };
+                Years.Add(CustomYear);
+                Years.Reverse();
 
-            //Bind the data
-            CustomizeStats_Years.GetStore().DataSource = Years;
-            CustomizeStats_Years.GetStore().DataBind();
-            //CustomizeStats_Year.GetStore().LoadData(years);
+                //Bind the data
+                CustomizeStats_Years.GetStore().DataSource = Years;
+                CustomizeStats_Years.GetStore().DataBind();
+            }
         }
 
 
