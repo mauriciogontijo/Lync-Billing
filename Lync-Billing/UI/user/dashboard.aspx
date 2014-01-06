@@ -500,7 +500,9 @@
                         Icon="ApplicationGo"
                         Height="25">
                         <DirectEvents>
-                            <Click OnEvent="SubmitCustomizeStatisticsBtn_Click" />
+                            <Click OnEvent="SubmitCustomizeStatisticsBtn_Click">
+                                <EventMask ShowMask="true" />
+                            </Click>
                         </DirectEvents>
                     </ext:Button>
 
