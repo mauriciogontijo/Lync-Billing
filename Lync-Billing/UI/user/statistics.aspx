@@ -219,8 +219,8 @@
                                     ID="CustomizeStats_Years"
                                     runat="server"
                                     Editable="false"
-                                    DisplayField="YearName"
-                                    ValueField="YearName"
+                                    DisplayField="YearAsText"
+                                    ValueField="YearAsNumber"
                                     Width="250"
                                     LabelWidth="70"
                                     LabelSeparator=":"
@@ -231,7 +231,8 @@
                                             <Model>
                                                 <ext:Model ID="CustomizeStats_YearStoreModel" runat="server">
                                                     <Fields>
-                                                        <ext:ModelField Name="YearName" Type="String" />
+                                                        <ext:ModelField Name="YearAsText" Type="String" />
+                                                        <ext:ModelField Name="YearAsNumber" Type="Int" />
                                                     </Fields>
                                                 </ext:Model>
                                             </Model>
@@ -239,7 +240,7 @@
                                     </Store>
 
                                     <SelectedItems>
-                                        <ext:ListItem Text="One Year Ago from Today" Value="One Year Ago from Today" />
+                                        <ext:ListItem Index="0" />
                                     </SelectedItems>
 
                                     <DirectEvents>
@@ -250,8 +251,8 @@
                                 <ext:ComboBox
                                     ID="CustomizeStats_Quarters"
                                     runat="server"
-                                    DisplayField="TypeName"
-                                    ValueField="TypeValue"
+                                    DisplayField="QuarterAsText"
+                                    ValueField="QuarterAsNumber"
                                     Editable="false"
                                     FieldLabel="Quarter"
                                     Width="250"
@@ -259,15 +260,21 @@
                                     LabelSeparator=":"
                                     Margins="5 15 5 5"
                                     Disabled="true">
-                                    <Items>
-                                        <ext:ListItem Text="1st Quarter" Value="1" />
-                                        <ext:ListItem Text="2nd Quarter" Value="2" />
-                                        <ext:ListItem Text="3rd Quarter" Value="3" />
-                                        <ext:ListItem Text="4th Quarter" Value="4" />
-                                        <ext:ListItem Text="All Quarters" Value="5" />
-                                    </Items>
+                                    <Store>
+                                        <ext:Store ID="CustomizeStats_QuartersStore" runat="server" OnLoad="CustomizeStats_QuartersStore_Load">
+                                            <Model>
+                                                <ext:Model ID="Model1" runat="server">
+                                                    <Fields>
+                                                        <ext:ModelField Name="QuarterAsText" Type="String" />
+                                                        <ext:ModelField Name="QuarterAsNumber" Type="Int" />
+                                                    </Fields>
+                                                </ext:Model>
+                                            </Model>
+                                        </ext:Store>
+                                    </Store>
+
                                     <SelectedItems>
-                                        <ext:ListItem Text="All Quarters" Value="5" />
+                                        <ext:ListItem Index="4" />
                                     </SelectedItems>
                                 </ext:ComboBox>
 

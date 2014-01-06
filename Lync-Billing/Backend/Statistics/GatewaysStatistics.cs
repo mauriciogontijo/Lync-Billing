@@ -273,7 +273,7 @@ namespace Lync_Billing.Backend.Statistics
             return gatewaysUsageData;
         }
 
-        public static List<Years> GetYears()
+        public static List<SpecialDateTime> GetYears()
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_GatewaySummary_ForAll_Sites);
@@ -282,8 +282,8 @@ namespace Lync_Billing.Backend.Statistics
             List<string> columnsList;
             Dictionary<string, object> whereClause;
 
-            Years Year;
-            List<Years> YearsList = new List<Years>();
+            SpecialDateTime Year;
+            List<SpecialDateTime> YearsList = new List<SpecialDateTime>();
 
             //Ge the gateways summaries from the database.
             functionParameters = new List<object>();
@@ -294,21 +294,18 @@ namespace Lync_Billing.Backend.Statistics
 
             foreach (DataRow row in dt.Rows)
             {
-                Year = new Years();
+                Year = new SpecialDateTime();
 
                 if (row[Enums.GetDescription(Enums.GatewaysSummary.Year)] != DBNull.Value)
                 {
-                    Year.YearNumber = (int)row[Enums.GetDescription(Enums.GatewaysSummary.Year)];
+                    Year.YearAsNumber = Convert.ToInt32(row[Enums.GetDescription(Enums.GatewaysSummary.Year)]);
+                    Year.YearAsText = Year.YearAsText.ToString();
                     YearsList.Add(Year);
                 }
             }
             return YearsList;
         }
+
     }
 
-
-    public class Years
-    {
-        public int YearNumber { get; set; }
-    }
 }

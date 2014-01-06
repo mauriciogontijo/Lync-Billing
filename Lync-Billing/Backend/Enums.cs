@@ -12,6 +12,37 @@ namespace Lync_Billing.Backend
     /// </summary>
     public static class Enums
     {
+        public enum SpecialDateTime
+        {
+            [Description("1st Quarter")]
+            [DefaultValue(1)]
+            FirstQuarter,
+
+            [Description("2nd Quarter")]
+            [DefaultValue(2)]
+            SecondQuarter,
+
+            [Description("3rd Quarter")]
+            [DefaultValue(3)]
+            ThirdQuarter,
+
+            [Description("4th Quarter")]
+            [DefaultValue(4)]
+            FourthQuarter,
+
+            [Description("All Quarters")]
+            [DefaultValue(5)]
+            AllQuarters,
+
+            [Description("One Year Ago from Today")]
+            [DefaultValue(-1)]
+            OneYearAgoFromToday,
+
+            [Description("Two Years Ago from Today")]
+            [DefaultValue(-2)]
+            TwoYearsAgoFromToday
+        }
+
         /// <summary>
         /// DIDs datadbase table fields names
         /// </summary>
@@ -674,7 +705,7 @@ namespace Lync_Billing.Backend
 
 
         /// <summary>
-        /// Gets the Name of DB table Field
+        /// Gets the Description attribute of enum
         /// </summary>
         /// <param name="value">Enum Name</param>
         /// <returns>Field Description</returns>
@@ -689,6 +720,25 @@ namespace Lync_Billing.Backend
             else
                 return value.ToString();
         }
+
+
+        /// <summary>
+        /// Gets the DefaultValue attribute of the enum
+        /// </summary>
+        /// <param name="value">Enum Name</param>
+        /// <returns>Field Description</returns>
+        public static string GetValue(Enum value)
+        {
+            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
+
+            DefaultValueAttribute[] valueAttributes = (DefaultValueAttribute[])fieldInfo.GetCustomAttributes(typeof(DefaultValueAttribute), false);
+
+            if (valueAttributes != null && valueAttributes.Length > 0)
+                return valueAttributes[0].Value.ToString();
+            else
+                return value.ToString();
+        }
+
         
         public static IEnumerable<T> EnumToList<T>()
         {

@@ -424,7 +424,7 @@
         Resizable="false"
         Hidden="true"
         Title="Customize Statistics"
-        Width="360"
+        Width="330"
         Icon="Add"
         X="700"
         Y="150"
@@ -440,8 +440,8 @@
                 ID="CustomizeStats_Years"
                 runat="server"
                 Editable="false"
-                DisplayField="YearName"
-                ValueField="YearName"
+                DisplayField="YearAsText"
+                ValueField="YearAsNumber"
                 Width="300"
                 LabelWidth="100"
                 FieldLabel="Filter Period"
@@ -451,12 +451,17 @@
                         <Model>
                             <ext:Model ID="CustomizeStats_YearStoreModel" runat="server">
                                 <Fields>
-                                    <ext:ModelField Name="YearName" Type="String" />
+                                    <ext:ModelField Name="YearAsText" Type="String" />
+                                    <ext:ModelField Name="YearAsNumber" Type="Int" />
                                 </Fields>
                             </ext:Model>
                         </Model>
                     </ext:Store>
                 </Store>
+
+                <SelectedItems>
+                    <ext:ListItem Index="0" />
+                </SelectedItems>
 
                 <DirectEvents>
                     <Select OnEvent="CustomizeStats_Years_Select" />
@@ -466,22 +471,29 @@
             <ext:ComboBox
                 ID="CustomizeStats_Quarters"
                 runat="server"
-                DisplayField="TypeName"
-                ValueField="TypeValue"
+                DisplayField="QuarterAsText"
+                ValueField="QuarterAsNumber"
                 Editable="false"
                 FieldLabel="Quarter"
                 Width="300"
                 LabelWidth="100"
-                LabelSeparator=":">
-                <Items>
-                    <ext:ListItem Text="1st Quarter" Value="1" />
-                    <ext:ListItem Text="2nd Quarter" Value="2" />
-                    <ext:ListItem Text="3rd Quarter" Value="3" />
-                    <ext:ListItem Text="4th Quarter" Value="4" />
-                    <ext:ListItem Text="All Quarters" Value="5" />
-                </Items>
+                LabelSeparator=":"
+                Hidden="true">
+                <Store>
+                    <ext:Store ID="CustomizeStats_QuartersStore" runat="server" OnLoad="CustomizeStats_QuartersStore_Load">
+                        <Model>
+                            <ext:Model ID="CustomizeStats_QuartersStoreModel" runat="server">
+                                <Fields>
+                                    <ext:ModelField Name="QuarterAsText" Type="String" />
+                                    <ext:ModelField Name="QuarterAsNumber" Type="Int" />
+                                </Fields>
+                            </ext:Model>
+                        </Model>
+                    </ext:Store>
+                </Store>
+
                 <SelectedItems>
-                    <ext:ListItem Text="All Quarters" Value="5" />
+                    <ext:ListItem Index="4" />
                 </SelectedItems>
             </ext:ComboBox>
         </Items>

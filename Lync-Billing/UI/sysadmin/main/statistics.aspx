@@ -183,7 +183,7 @@
                                                 <Model>
                                                     <ext:Model ID="YearsOfGatewaysUsageModel" runat="server">
                                                         <Fields>
-                                                            <ext:ModelField Name="YearNumber" Type="int" />
+                                                            <ext:ModelField Name="YearAsNumber" Type="int" />
                                                         </Fields>
                                                     </ext:Model>
                                                 </Model>

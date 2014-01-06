@@ -211,6 +211,24 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.ComboBox CustomizeStats_Quarters;
         
         /// <summary>
+        /// CustomizeStats_QuartersStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store CustomizeStats_QuartersStore;
+        
+        /// <summary>
+        /// CustomizeStats_QuartersStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model CustomizeStats_QuartersStoreModel;
+        
+        /// <summary>
         /// CustomizeStatsWindowBottomBar control.
         /// </summary>
         /// <remarks>

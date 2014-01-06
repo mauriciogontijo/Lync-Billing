@@ -43,7 +43,7 @@ namespace Lync_Billing.Backend.Summaries
         public int Month { get; set; }
 
 
-        public static List<UserCallsSummaryYears> GetUserCallsSummaryYears(string sipAccount)
+        public static List<SpecialDateTime> GetUserCallsSummaryYears(string sipAccount)
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_CallsSummary_ForUser);
@@ -52,8 +52,8 @@ namespace Lync_Billing.Backend.Summaries
             Dictionary<string, object> whereClause = new Dictionary<string,object>();
             List<string> columnsList = new List<string>() { String.Format("DISTINCT {0}", Enums.GetDescription(Enums.PhoneCallSummary.Year)) };
 
-            UserCallsSummaryYears userCallsSummaryYear;
-            List<UserCallsSummaryYears> Years = new List<UserCallsSummaryYears>();
+            SpecialDateTime year;
+            List<SpecialDateTime> Years = new List<SpecialDateTime>();
 
             //Initialize the function parameters and query the database
             functionParams.Add(sipAccount);
@@ -63,11 +63,12 @@ namespace Lync_Billing.Backend.Summaries
             foreach (DataRow row in dt.Rows)
             {
                 //Start processing the summary
-                userCallsSummaryYear = new UserCallsSummaryYears();
-                userCallsSummaryYear.YearName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
+                year = new SpecialDateTime();
+                year.YearAsNumber = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[dt.Columns[Enums.GetDescription(Enums.PhoneCallSummary.Year)]]));
+                year.YearAsText = year.YearAsNumber.ToString();
                 
                 //Add it to the list.
-                Years.Add(userCallsSummaryYear);
+                Years.Add(year);
             }
 
             return Years;
@@ -503,12 +504,6 @@ namespace Lync_Billing.Backend.Summaries
             );
         }
 
-    }
-
-
-    public class UserCallsSummaryYears
-    {
-        public string YearName { get; set; }
     }
 
 }

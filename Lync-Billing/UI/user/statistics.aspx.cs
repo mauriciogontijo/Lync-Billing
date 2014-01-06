@@ -16,9 +16,6 @@ namespace Lync_Billing.ui.user
 {
     public partial class statistics : System.Web.UI.Page
     {
-        //This is used for the statistics filter
-        private const string STATISTICS_FILTER_CUSTOM_YEAR_NAME = "One Year Ago from Today";
-
         UserSession session;
         private string sipAccount = string.Empty;
         private string normalUserRoleName = Enums.GetDescription(Enums.ActiveRoleNames.NormalUser);
@@ -88,11 +85,14 @@ namespace Lync_Billing.ui.user
         protected void CustomizeStats_YearStore_Load(object sender, EventArgs e)
         {
             //Get years from the database
-            List<UserCallsSummaryYears> Years = UserCallsSummary.GetUserCallsSummaryYears(sipAccount);
+            List<SpecialDateTime> Years = UserCallsSummary.GetUserCallsSummaryYears(sipAccount);
 
             //Add a custom year criteria
-            UserCallsSummaryYears CustomYear = new UserCallsSummaryYears() { YearName = STATISTICS_FILTER_CUSTOM_YEAR_NAME };
-            Years.Add(CustomYear);
+            SpecialDateTime CustomYear = SpecialDateTime.Get_OneYearAgoFromToday();
+
+            Years.Reverse();        //i.e. 2015, 2014, 2013
+            Years.Add(CustomYear);  //2015, 2014, 2013, "ONEYEARAGO..."
+            Years.Reverse();        //"ONEYEARAGO...", 2013, 2014, 2015
 
             //Bind the data
             CustomizeStats_Years.GetStore().DataSource = Years;
@@ -100,13 +100,23 @@ namespace Lync_Billing.ui.user
         }
 
 
+        protected void CustomizeStats_QuartersStore_Load(object sender, EventArgs e)
+        {
+            if (!Ext.Net.X.IsAjaxRequest)
+            {
+                CustomizeStats_Quarters.GetStore().DataSource = SpecialDateTime.GetQuartersOfTheYear();
+                CustomizeStats_Quarters.GetStore().DataBind();
+            }
+        }
+
+
         protected void CustomizeStats_Years_Select(object sender, DirectEventArgs e)
         {
             if (CustomizeStats_Years.SelectedItem.Index > -1)
             {
-                string selectedValue = Convert.ToString(CustomizeStats_Years.SelectedItem.Value);
+                int selectedValue = Convert.ToInt32(CustomizeStats_Years.SelectedItem.Value);
 
-                if (selectedValue == STATISTICS_FILTER_CUSTOM_YEAR_NAME)
+                if (selectedValue == Convert.ToInt32(Enums.GetValue(Enums.SpecialDateTime.OneYearAgoFromToday)))
                 {
                     CustomizeStats_Quarters.Disabled = true;
                 }
@@ -121,100 +131,34 @@ namespace Lync_Billing.ui.user
         protected void SubmitCustomizeStatisticsBtn_Click(object sender, DirectEventArgs e)
         {
             //Submitted from the view
-            string filterYear = string.Empty;
-            int filterQuater;
+            int filterYear, filterQuater;
 
             //For DateTime handling
-            int fromMonth, toMonth;
             DateTime startingDate, endingDate;
+            string titleText = string.Empty;
 
-            string yearTitleString = string.Empty;
-            string quarterTitleString = string.Empty;
 
             if (CustomizeStats_Years.SelectedItem.Index > -1 && CustomizeStats_Quarters.SelectedItem.Index > -1)
             {
-                filterYear = Convert.ToString(CustomizeStats_Years.SelectedItem.Value);
+                filterYear = Convert.ToInt32(CustomizeStats_Years.SelectedItem.Value);
                 filterQuater = Convert.ToInt32(CustomizeStats_Quarters.SelectedItem.Value);
 
-                //Handle the year
-                if (filterYear == STATISTICS_FILTER_CUSTOM_YEAR_NAME)
-                {
-                    startingDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
-                    endingDate = DateTime.Now;
 
-                    yearTitleString = STATISTICS_FILTER_CUSTOM_YEAR_NAME;
-                }
-                //Double check the year format - i.e. 2012, 2013, 2014
-                else if (filterYear.Length == 4)
-                {
-                    //Handle the fromMonth and toMonth
-                    switch (filterQuater)
-                    {
-                        case 1:
-                            fromMonth = 1;
-                            toMonth = 3;
-                            quarterTitleString = "(1st Quarter)";
-                            break;
-
-                        case 2:
-                            fromMonth = 4;
-                            toMonth = 6;
-                            quarterTitleString = "(2nd Quarter)";
-                            break;
-
-                        case 3:
-                            fromMonth = 7;
-                            toMonth = 9;
-                            quarterTitleString = "(3rd Quarter)";
-                            break;
-
-                        case 4:
-                            fromMonth = 10;
-                            toMonth = 12;
-                            quarterTitleString = "(4th Quarter)";
-                            break;
-
-                        case 5:
-                            fromMonth = 1;
-                            toMonth = 12;
-                            quarterTitleString = "(All Quarters)";
-                            break;
-
-                        default:
-                            fromMonth = 1;
-                            toMonth = 12;
-                            quarterTitleString = "(All Quarters)";
-                            break;
-                    }
-
-                    startingDate = new DateTime(Convert.ToInt32(filterYear), fromMonth, 1);
-                    endingDate = new DateTime(Convert.ToInt32(filterYear), toMonth, 1);
-
-                    yearTitleString = filterYear.ToString();
-                }
-                //Fail safe - one year from now
-                else
-                {
-                    startingDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
-                    endingDate = DateTime.Now;
-
-                    yearTitleString = "One Year Ago from Today";
-                }
+                //Construct the Date Range
+                titleText = SpecialDateTime.ConstructDateRange(filterYear, filterQuater, out startingDate, out endingDate);
 
 
                 //Re-bind DurationCostChart to match the filter dates criteria
                 DurationCostChart.GetStore().LoadData(UserCallsSummary.GetUsersCallsSummary(sipAccount, startingDate, endingDate));
-                DurationCostChartPanel.Title = String.Format("Business/Personal Calls - {0} {1}", yearTitleString, quarterTitleString);
+                DurationCostChartPanel.Title = String.Format("Business/Personal Calls - {0}", titleText);
 
                 //Re-bind PhoneCallsDuartionChart to match the filter dates criteria
-                PhoneCallsDuartionChart.GetStore().LoadData(
-                    UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, startingDate, endingDate)
-                );
-                PhoneCallsDuartionChartPanel.Title = String.Format("Calls Duration - {0} {1}", yearTitleString, quarterTitleString); ;
+                PhoneCallsDuartionChart.GetStore().LoadData(UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, startingDate, endingDate));
+                PhoneCallsDuartionChartPanel.Title = String.Format("Calls Duration - {0}", titleText);
 
                 //Re-bind PhoneCallsCostChart to match the filter dates criteria
                 PhoneCallsCostChart.GetStore().LoadData(getChartData());
-                PhoneCallsCostChartPanel.Title = String.Format("Calls Costs - {0} {1}", yearTitleString, quarterTitleString);
+                PhoneCallsCostChartPanel.Title = String.Format("Calls Costs - {0}", titleText);
 
             }//End-if
 
