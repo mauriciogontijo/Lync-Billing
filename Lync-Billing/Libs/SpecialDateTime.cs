@@ -73,10 +73,15 @@ namespace Lync_Billing.Libs
         }
 
 
-        public static string ConvertDate(DateTime datetTime)
+        public static string ConvertDate(DateTime datetTime, bool excludeHoursAndMinutes = false)
         {
             if (datetTime != DateTime.MinValue || datetTime != null)
-                return datetTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            {
+                if(excludeHoursAndMinutes == true)
+                    return datetTime.ToString("yyyy-MM-dd");
+                else
+                    return datetTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            }
             else
                 return null;
         }
