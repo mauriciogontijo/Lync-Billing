@@ -79,7 +79,7 @@ namespace Lync_Billing.ui.user
             phoneBookEntries = PhoneBook.GetAddressBook(sipAccount);
 
             //Get this user's mail statistics
-            userMailStatistics = MailStatistics.GetMailStatistics(sipAccount, DateTime.Now);
+            userMailStatistics = MailStatistics.GetMailStatistics(sipAccount, DateTime.Now.AddMonths(-1));
 
             //Initialize the unmarked calls counter - this is being used in the frontend.
             //unmarkedCallsCount = getUnmarkedCallsCount();
