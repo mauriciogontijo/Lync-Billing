@@ -349,7 +349,7 @@
                                 <ext:CategoryAxis
                                     Position="Bottom"
                                     Fields="Date"
-                                    Title="Month(s)">
+                                    Title="Month">
                                     <Label>
                                         <Renderer Handler="return Ext.util.Format.date(value, 'M');" />
                                     </Label>
