@@ -501,11 +501,11 @@ namespace Lync_Billing.Backend
             //Handle which case to charge
             if (chargeBusinessPersonal == true && chargePending == false)
             {
-                whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), "!null");
+                //whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), "!null");
                 whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "NO");
                 whereClause.Add(
-                    Enums.GetDescription(Enums.PhoneCallSummary.Date), 
-                    String.Format("BETWEEN {0} AND {1}", 
+                    Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), 
+                    String.Format("BETWEEN '{0}' AND '{1}'", 
                         SpecialDateTime.ConvertDate(fromDate, true),
                         SpecialDateTime.ConvertDate(toDate, true))
                 );
@@ -515,8 +515,8 @@ namespace Lync_Billing.Backend
                 whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null);
                 whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "N/A");
                 whereClause.Add(
-                    Enums.GetDescription(Enums.PhoneCallSummary.Date),
-                    String.Format("BETWEEN {0} AND {1}",
+                    Enums.GetDescription(Enums.PhoneCalls.SessionIdTime),
+                    String.Format("BETWEEN '{0}' AND '{1}'",
                         SpecialDateTime.ConvertDate(fromDate, true),
                         SpecialDateTime.ConvertDate(toDate, true))
                 );
@@ -549,24 +549,21 @@ namespace Lync_Billing.Backend
                     var updateValues = new Dictionary<string, object>();
                     var updateWhere = new Dictionary<string, object>();
 
-                    if(chargeBusinessPersonal == true && !string.IsNullOrEmpty(phoneCall.UI_CallType) && phoneCall.AC_IsInvoiced == "NO")
+                    if(chargeBusinessPersonal == true)
                     {
-                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
+                        if (!string.IsNullOrEmpty(phoneCall.UI_CallType))
+                            updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
+                        else
+                            updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "N/A");
+
                         updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), InvoiceDate);
                     }
-                    else if (chargeBusinessPersonal == true && string.IsNullOrEmpty(phoneCall.UI_CallType) && phoneCall.AC_IsInvoiced == "NO")
-                    {
-                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "N/A");
-                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), InvoiceDate);
-                    }
-                    else if (chargePending == true && string.IsNullOrEmpty(phoneCall.UI_CallType) && phoneCall.AC_IsInvoiced == "N/A")
-                    {
-                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
-                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), InvoiceDate);
-                    }
+
+                    //else if (chargePending == true)
                     else
                     {
-                        continue;
+                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
+                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), InvoiceDate);
                     }
 
                     updateWhere.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), phoneCall.SessionIdTime);

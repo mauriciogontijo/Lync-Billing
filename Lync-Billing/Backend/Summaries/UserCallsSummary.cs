@@ -267,7 +267,12 @@ namespace Lync_Billing.Backend.Summaries
 
 
             //Add the siteName to the functionParams
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Date), String.Format("BETWEEN '{0}' AND '{1}'", startingDate, endingDate));
+            wherePart.Add(
+                Enums.GetDescription(Enums.PhoneCallSummary.Date), 
+                String.Format("BETWEEN '{0}' AND '{1}'", 
+                    SpecialDateTime.ConvertDate(startingDate, true), 
+                    SpecialDateTime.ConvertDate(endingDate, true))
+            );
             functionParams.Add(siteName);
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
