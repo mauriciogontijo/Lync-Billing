@@ -416,7 +416,8 @@
     </div>
     <!-- END OF RIGHT COLUMN -->
 
-     <!-- START THE CUSTOMIZE BUTTON SECTION -->
+
+    <!-- START THE CUSTOMIZE BUTTON SECTION -->
     <ext:Window
         ID="CustomizeStatisticsWindow"
         runat="server"
@@ -424,8 +425,8 @@
         Resizable="false"
         Hidden="true"
         Title="Customize Statistics"
-        Width="330"
-        Icon="Add"
+        Width="280"
+        Icon="Cog"
         X="700"
         Y="150"
         BodyStyle="background-color: #f9f9f9;"
@@ -442,8 +443,8 @@
                 Editable="false"
                 DisplayField="YearAsText"
                 ValueField="YearAsNumber"
-                Width="300"
-                LabelWidth="100"
+                Width="250"
+                LabelWidth="60"
                 FieldLabel="Filter Period"
                 LabelSeparator=":">
                 <Store>
@@ -475,8 +476,8 @@
                 ValueField="QuarterAsNumber"
                 Editable="false"
                 FieldLabel="Quarter"
-                Width="300"
-                LabelWidth="100"
+                Width="250"
+                LabelWidth="60"
                 LabelSeparator=":"
                 Hidden="true">
                 <Store>
