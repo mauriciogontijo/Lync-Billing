@@ -599,6 +599,8 @@ namespace Lync_Billing.Backend
             Department,
             [Description("AD_PhysicalDeliveryOfficeName")]
             SiteName,
+            [Description("ac_IsInvoiced")]
+            AC_IsInvoiced,
             [Description("Duration")]
             Duration,
             [Description("BusinessCallsDuration")]

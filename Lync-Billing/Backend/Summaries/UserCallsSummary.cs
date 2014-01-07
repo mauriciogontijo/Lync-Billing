@@ -19,6 +19,7 @@ namespace Lync_Billing.Backend.Summaries
         public string FullName { get; set; }
         public string SipAccount { get; set; }
         public string SiteName { get; set; }
+        public string AC_IsInvoiced { get; set; }
 
         public int BusinessCallsCount { get; set; }
         public decimal BusinessCallsCost { get; set; }
@@ -279,6 +280,8 @@ namespace Lync_Billing.Backend.Summaries
                                     FullName = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.DisplayName)])),
                                     SiteName = Users.GetUserSite(Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty)]))),
                                     
+                                    AC_IsInvoiced = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.AC_IsInvoiced)])),
+
                                     BusinessCallsDuration = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration)])),
                                     BusinessCallsCount = Convert.ToInt32(HelperFunctions.ReturnZeroIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount)])),
                                     BusinessCallsCost = Convert.ToDecimal(HelperFunctions.ReturnZeroIfNull(row[Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost)])),
@@ -312,13 +315,14 @@ namespace Lync_Billing.Backend.Summaries
             {
                 usersSummaryList = (
                     from summary in usersSummaryList.AsEnumerable<UserCallsSummary>()
-                    group summary by new { summary.SipAccount, summary.EmployeeID, summary.FullName, summary.SiteName } into result
+                    group summary by new { summary.SipAccount, summary.EmployeeID, summary.FullName, summary.SiteName, summary.AC_IsInvoiced } into result
                     select new UserCallsSummary
                     {
                         EmployeeID = result.Key.EmployeeID,
                         FullName = result.Key.FullName,
                         SipAccount = result.Key.SipAccount,
                         SiteName = result.Key.SiteName,
+                        AC_IsInvoiced = result.Key.AC_IsInvoiced,
 
                         BusinessCallsCost = result.Sum(x => x.BusinessCallsCost),
                         BusinessCallsDuration = result.Sum(x => x.BusinessCallsDuration),
@@ -373,7 +377,7 @@ namespace Lync_Billing.Backend.Summaries
         /// <param name="response">The response stream on which to write the file</param>
         /// <param name="document">The source pdf document object</param>
         /// <param name="headers">The pdf document headers</param>
-        public static void ExportUsersCallsSummaryToPDF(string siteName, DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        public static void ExportUsersCallsSummaryToPDF(string siteName, DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers, bool invoicedStatus = false)
         {
             //THE PDF REPORT PROPERTIES
             PDFReportsPropertiesSection section = ((PDFReportsPropertiesSection)ConfigurationManager.GetSection(PDFReportsPropertiesSection.ConfigurationSectionName));
@@ -446,7 +450,7 @@ namespace Lync_Billing.Backend.Summaries
         /// <param name="response">The response stream on which to write the document</param>
         /// <param name="document">The source pdf document object</param>
         /// <param name="headers">The pdf document header texts</param>
-        public static void ExportUsersCallsDetailedToPDF(string siteName, DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers)
+        public static void ExportUsersCallsDetailedToPDF(string siteName, DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers, bool invoicedStatus = false)
         {
             //THE PDF REPORT PROPERTIES
             PDFReportsPropertiesSection section = ((PDFReportsPropertiesSection)ConfigurationManager.GetSection(PDFReportsPropertiesSection.ConfigurationSectionName));
