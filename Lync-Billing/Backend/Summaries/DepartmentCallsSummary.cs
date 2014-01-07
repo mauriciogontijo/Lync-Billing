@@ -74,7 +74,7 @@ namespace Lync_Billing.Backend.Summaries
             functionParameters.Add(siteName);
             functionParameters.Add(departmentName);
 
-            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParameters, null);
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParameters, whereClause);
 
 
             foreach (DataRow row in dt.Rows)
@@ -136,7 +136,31 @@ namespace Lync_Billing.Backend.Summaries
                 if (dt.Columns.Contains(columnName))
                     departmentSummary.MonthDate = Convert.ToDateTime(row[dt.Columns[columnName]]);
 
+
+                //Find totals
+                //if (ListOfDepartmentCallsSummaries.Find(summary => summary.Month == departmentSummary.Month && summary.Year == departmentSummary.Year) != null)
+                //{
+                //    var existingSummary = ListOfDepartmentCallsSummaries.Find(summary => summary.Month == departmentSummary.Month && summary.Year == departmentSummary.Year);
+
+                //    existingSummary.BusinessCallsCount += departmentSummary.BusinessCallsCount;
+                //    existingSummary.BusinessCallsCost += departmentSummary.BusinessCallsCost;
+                //    existingSummary.BusinessCallsDuration += departmentSummary.BusinessCallsDuration;
+                //    existingSummary.PersonalCallsCount += departmentSummary.PersonalCallsCount;
+                //    existingSummary.PersonalCallsDuration += departmentSummary.PersonalCallsDuration;
+                //    existingSummary.PersonalCallsCost += departmentSummary.PersonalCallsCost;
+                //    existingSummary.UnmarkedCallsCount += departmentSummary.UnmarkedCallsCount;
+                //    existingSummary.UnmarkedCallsDuration += departmentSummary.UnmarkedCallsDuration;
+                //    existingSummary.UnmarkedCallsCost += departmentSummary.UnmarkedCallsCost;
+                //    existingSummary.NumberOfDisputedCalls += departmentSummary.NumberOfDisputedCalls;
+                //}
+                //else
+                //{
+                //    ListOfDepartmentCallsSummaries.Add(departmentSummary);
+                //}
+
+
                 ListOfDepartmentCallsSummaries.Add(departmentSummary);
+
             }
 
             //Return only the summaries for specified Year.
