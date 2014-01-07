@@ -27,22 +27,34 @@ namespace Lync_Billing.Backend.Statistics
             List<string> columnsList;
             Dictionary<string, object> whereClause;
 
-            DateTime startingDate, endingDate;
+            string startingDate, endingDate;
             MailStatistics userMailStats = new MailStatistics();
+
 
             if (date == null || date == DateTime.MinValue)
             {
                 //Both starting date and ending date respectively point to the beginning and ending of this current month.
-                startingDate = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
-                endingDate = startingDate.AddMonths(1).AddDays(-1);
+                var tempStartingDate = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
+
+                //example:
+                //starting date: 2013-12-01
+                //ending date: 2014-01-01
+                startingDate = SpecialDateTime.ConvertDate(tempStartingDate, excludeHoursAndMinutes: true);
+                endingDate = SpecialDateTime.ConvertDate(tempStartingDate.AddMonths(1), excludeHoursAndMinutes: true);
             }
             else
             {
                 //Assign the beginning of date.Month to the startingDate and the end of it to the endingDate 
                 DateTime specificDate = (DateTime)date;
-                startingDate = specificDate.AddDays(-(specificDate.Day - 1));
-                endingDate = startingDate.AddMonths(1).AddDays(-1);
+                var tempStartingDate = specificDate.AddDays(-(specificDate.Day - 1));
+
+                //example:
+                //starting date: 2013-12-01
+                //ending date: 2014-01-01
+                startingDate = SpecialDateTime.ConvertDate(tempStartingDate, excludeHoursAndMinutes: true);
+                endingDate = SpecialDateTime.ConvertDate(tempStartingDate.AddMonths(1), excludeHoursAndMinutes: true);
             }
+
 
             //Initialize the database query parameters
             columnsList = new List<string>();
@@ -84,21 +96,31 @@ namespace Lync_Billing.Backend.Statistics
             string columnName = string.Empty;
 
             MailStatistics departmentTotalMailStats = new MailStatistics();
-            DateTime startingDate, endingDate;
+            string startingDate, endingDate;
 
 
             if (date == null || date == DateTime.MinValue)
             {
                 //Both starting date and ending date respectively point to the beginning and ending of this current month.
-                startingDate = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
-                endingDate = startingDate.AddMonths(1).AddDays(-1);
+                var tempStartingDate = DateTime.Now.AddDays(-(DateTime.Today.Day - 1));
+
+                //example:
+                //starting date: 2013-12-01
+                //ending date: 2014-01-01
+                startingDate = SpecialDateTime.ConvertDate(tempStartingDate, excludeHoursAndMinutes: true);
+                endingDate = SpecialDateTime.ConvertDate(tempStartingDate.AddMonths(1), excludeHoursAndMinutes: true);
             }
             else
             {
                 //Assign the beginning of date.Month to the startingDate and the end of it to the endingDate 
                 DateTime specificDate = (DateTime)date;
-                startingDate = specificDate.AddDays(-(specificDate.Day - 1));
-                endingDate = startingDate.AddMonths(1).AddDays(-1);
+                var tempStartingDate = specificDate.AddDays(-(specificDate.Day - 1));
+
+                //example:
+                //starting date: 2013-12-01
+                //ending date: 2014-01-01
+                startingDate = SpecialDateTime.ConvertDate(tempStartingDate, excludeHoursAndMinutes: true);
+                endingDate = SpecialDateTime.ConvertDate(tempStartingDate.AddMonths(1), excludeHoursAndMinutes: true);
             }
 
 
