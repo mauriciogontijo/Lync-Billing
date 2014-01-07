@@ -94,6 +94,15 @@ namespace Lync_Billing.ui.dephead.main {
         protected global::Ext.Net.Model DepartmentHeadsStoreModel;
         
         /// <summary>
+        /// AdvancedFilterBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button AdvancedFilterBtn;
+        
+        /// <summary>
         /// TopDestinationCountriesPanel control.
         /// </summary>
         /// <remarks>
@@ -173,5 +182,104 @@ namespace Lync_Billing.ui.dephead.main {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Model DepartmentCallsPerMonthChartStoreModel;
+        
+        /// <summary>
+        /// CustomizeStatisticsWindow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window CustomizeStatisticsWindow;
+        
+        /// <summary>
+        /// CustomizeStats_Years control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox CustomizeStats_Years;
+        
+        /// <summary>
+        /// CustomizeStats_YearStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store CustomizeStats_YearStore;
+        
+        /// <summary>
+        /// CustomizeStats_YearStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model CustomizeStats_YearStoreModel;
+        
+        /// <summary>
+        /// CustomizeStats_Quarters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox CustomizeStats_Quarters;
+        
+        /// <summary>
+        /// CustomizeStats_QuartersStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store CustomizeStats_QuartersStore;
+        
+        /// <summary>
+        /// CustomizeStats_QuartersStoreModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Model CustomizeStats_QuartersStoreModel;
+        
+        /// <summary>
+        /// CustomizeStatsWindowBottomBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.StatusBar CustomizeStatsWindowBottomBar;
+        
+        /// <summary>
+        /// SubmitCustomizeStatisticsBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button SubmitCustomizeStatisticsBtn;
+        
+        /// <summary>
+        /// ToolbarSeparator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ToolbarSeparator ToolbarSeparator1;
+        
+        /// <summary>
+        /// CancelCustomizeStatsBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button CancelCustomizeStatsBtn;
     }
 }

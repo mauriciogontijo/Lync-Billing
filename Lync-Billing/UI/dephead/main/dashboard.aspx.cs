@@ -72,17 +72,20 @@ namespace Lync_Billing.ui.dephead.main
 
         protected void FilterSitesComboBoxStore_Load(object sender, EventArgs e)
         {
-            InitUserSitesAndDepartments();
+            if (! Ext.Net.X.IsAjaxRequest)
+            {
+                InitUserSitesAndDepartments();
 
-            FilterSitesComboBox.GetStore().DataSource = UserSites;
-            FilterSitesComboBox.GetStore().DataBind();
+                FilterSitesComboBox.GetStore().DataSource = UserSites;
+                FilterSitesComboBox.GetStore().DataBind();
+            }
         }
-
 
         protected void FilterDepartmentsBySite_Selected(object sender, DirectEventArgs e)
         {
             FilterDepartments.Clear();
             FilterDepartments.Disabled = true;
+            AdvancedFilterBtn.Disabled = true;
 
             if (FilterSitesComboBox.SelectedItem.Index > -1)
             {
@@ -98,6 +101,53 @@ namespace Lync_Billing.ui.dephead.main
             }
         }
 
+        protected void CustomizeStats_YearStore_Load(object sender, EventArgs e)
+        {
+            if (!Ext.Net.X.IsAjaxRequest)
+            {
+                //Get years from the database
+                List<SpecialDateTime> Years = UserCallsSummary.GetUserCallsSummaryYears(sipAccount);
+
+                //Add a custom year criteria
+                SpecialDateTime CustomYear = SpecialDateTime.Get_OneYearAgoFromToday();
+
+                Years.Reverse();        //i.e. 2015, 2014, 2013
+                Years.Add(CustomYear);  //2015, 2014, 2013, "ONEYEARAGO..."
+                Years.Reverse();        //"ONEYEARAGO...", 2013, 2014, 2015
+
+                //Bind the data
+                CustomizeStats_Years.GetStore().DataSource = Years;
+                CustomizeStats_Years.GetStore().DataBind();
+            }
+        }
+
+        protected void CustomizeStats_QuartersStore_Load(object sender, EventArgs e)
+        {
+            if (!Ext.Net.X.IsAjaxRequest)
+            {
+                var allQuarters = SpecialDateTime.GetQuartersOfTheYear();
+
+                CustomizeStats_Quarters.GetStore().DataSource = allQuarters;
+                CustomizeStats_Quarters.GetStore().DataBind();
+            }
+        }
+
+        protected void CustomizeStats_Years_Select(object sender, DirectEventArgs e)
+        {
+            if (CustomizeStats_Years.SelectedItem.Index > -1)
+            {
+                int selectedValue = Convert.ToInt32(CustomizeStats_Years.SelectedItem.Value);
+
+                if (selectedValue == Convert.ToInt32(Enums.GetValue(Enums.SpecialDateTime.OneYearAgoFromToday)))
+                {
+                    CustomizeStats_Quarters.Hide();
+                }
+                else
+                {
+                    CustomizeStats_Quarters.Show();
+                }
+            }
+        }
 
         protected void DrawStatisticsForDepartment(object sender, DirectEventArgs e)
         {
@@ -116,6 +166,9 @@ namespace Lync_Billing.ui.dephead.main
 
                 if (department != null && !string.IsNullOrEmpty(department.SiteName))
                 {
+                    //Enable the AdvancedFilter button
+                    AdvancedFilterBtn.Disabled = false;
+
                     // Get Top Country
                     TopDestinationCountriesStore.DataSource = TopDestinationCountries.GetTopDestinationCountriesForDepartment(department.SiteName, department.DepartmentName, 5);
                     TopDestinationCountriesStore.DataBind();
@@ -153,8 +206,73 @@ namespace Lync_Billing.ui.dephead.main
                     DepartmentMailStatistics.RemoveAll();
                     htmlContainer.AddTo(this.DepartmentMailStatistics);
                 }
+
             }
+
         }
+
+        protected void AdvancedFilterBtn_Click(object sender, DirectEventArgs e)
+        {
+            CustomizeStatisticsWindow.Show();
+        }
+
+
+        protected void CancelCustomizeStatsBtn_Click(object sender, DirectEventArgs e)
+        {
+            CustomizeStatisticsWindow.Hide();
+        }
+
+
+        protected void SubmitCustomizeStatisticsBtn_Click(object sender, DirectEventArgs e)
+        {
+            //Submitted from the view
+            int filterYear, filterQuater;
+            
+            //For DateTime handling
+            DateTime startingDate, endingDate;
+            string titleText = string.Empty;
+
+            //Site and Department
+            int siteID, departmentID;
+            SitesDepartments department;
+
+            if (FilterSitesComboBox.SelectedItem.Index > -1 && FilterDepartments.SelectedItem.Index > -1)
+            {
+                //Get site and department data
+                siteID = Convert.ToInt32(FilterSitesComboBox.SelectedItem.Value);
+                departmentID = Convert.ToInt32(FilterDepartments.SelectedItem.Value);
+                department = SitesDepartments.GetSiteDepartment(departmentID);
+
+
+                if (CustomizeStats_Years.SelectedItem.Index > -1 && CustomizeStats_Quarters.SelectedItem.Index > -1)
+                {
+                    filterYear = Convert.ToInt32(CustomizeStats_Years.SelectedItem.Value);
+                    filterQuater = Convert.ToInt32(CustomizeStats_Quarters.SelectedItem.Value);
+
+                    //Construct the Date Range
+                    titleText = SpecialDateTime.ConstructDateRange(filterYear, filterQuater, out startingDate, out endingDate);
+
+                    // Get Top Country
+                    var countriesData = TopDestinationCountries.GetTopDestinationCountriesForDepartment(department.SiteName, department.DepartmentName, 5, startingDate, endingDate);
+                    if (countriesData.Count > 0)
+                        TopDestinationCountriesChart.GetStore().LoadData(countriesData);
+                    else
+                        TopDestinationCountriesChart.GetStore().RemoveAll();
+                    TopDestinationCountriesPanel.Title = String.Format("Most Called Countries - {0}", titleText);
+
+                    // Get Department Phonecalls Summaries (for all year's month)
+                    DepartmentCallsPerMonthChart.GetStore().RemoveAll();
+                    DepartmentCallsPerMonthChart.GetStore().LoadData(DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(department.SiteName, department.DepartmentName, startingDate, endingDate));
+                    DepartmentCallsPerMonthChartPanel.Title = String.Format("Phonecalls Distribution - {0}", titleText);
+
+                    //Hide the window
+                    CustomizeStatisticsWindow.Hide();
+
+                }//End-inner-if
+
+            }//End-outer-if
+
+        }//End-Function
 
     }
 

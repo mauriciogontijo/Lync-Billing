@@ -169,7 +169,7 @@
                                     ValueField="SiteID"
                                     FieldLabel="Site:"
                                     LabelWidth="25"
-                                    Width="200"
+                                    Width="180"
                                     Margins="5 15 0 5">
                                     <Store>
                                         <ext:Store ID="FilterSitesComboBoxStore" runat="server" OnLoad="FilterSitesComboBoxStore_Load">
@@ -189,7 +189,7 @@
                                         <Select OnEvent="FilterDepartmentsBySite_Selected" />
                                     </DirectEvents>
 
-                                    <ListConfig>
+                                    <ListConfig MinWidth="200">
                                         <ItemTpl ID="SitesItemTpl" runat="server">
                                             <Html>
                                                 <div>{SiteName}&nbsp;({CountryCode})</div>
@@ -207,7 +207,7 @@
                                     ValueField="ID"
                                     FieldLabel="Department:"
                                     LabelWidth="60"
-                                    Width="300"
+                                    Width="200"
                                     Margins="5 15 5 5"
                                     Disabled="true">
                                     <Store>
@@ -231,7 +231,24 @@
                                             <EventMask ShowMask="true" />
                                         </Select>
                                     </DirectEvents>
+
+                                    <ListConfig MinWidth="220" />
                                 </ext:ComboBox>
+
+                                <ext:Button
+                                    ID="AdvancedFilterBtn"
+                                    runat="server"
+                                    Icon="Cog"
+                                    Text="Advanced Filter"
+                                    TextAlign="Center"
+                                    ShrinkWrap="Width"
+                                    Margins="0 0 0 200"
+                                    Width="105"
+                                    Disabled="true">
+                                    <DirectEvents>
+                                        <Click OnEvent="AdvancedFilterBtn_Click" />
+                                    </DirectEvents>
+                                </ext:Button>
                             </Items>
                         </ext:Toolbar>
                     </TopBar>
@@ -340,9 +357,7 @@
                             Shadow="true"
                             Animate="true">
                             <Store>
-                                <ext:Store ID="DepartmentCallsPerMonthChartStore" 
-                                    runat="server" 
-                                    AutoDataBind="true">                           
+                                <ext:Store ID="DepartmentCallsPerMonthChartStore" runat="server">
                                     <Model>
                                         <ext:Model ID="DepartmentCallsPerMonthChartStoreModel" runat="server">
                                             <Fields>
@@ -399,6 +414,125 @@
                         </ext:Chart>
                     </Items>
                 </ext:Panel>
+
+
+                <ext:Window
+                    ID="CustomizeStatisticsWindow"
+                    runat="server"
+                    Frame="true"
+                    Resizable="false"
+                    Hidden="true"
+                    Title="Customize Statistics"
+                    Width="280"
+                    Icon="Cog"
+                    X="700"
+                    Y="150"
+                    BodyStyle="background-color: #f9f9f9;"
+                    ComponentCls="fix-ui-vertical-align">
+
+                    <Defaults>
+                        <ext:Parameter Name="Padding" Value="10" Mode="Raw" />
+                    </Defaults>
+
+                    <Items>
+                        <ext:ComboBox
+                            ID="CustomizeStats_Years"
+                            runat="server"
+                            Editable="false"
+                            DisplayField="YearAsText"
+                            ValueField="YearAsNumber"
+                            Width="250"
+                            LabelWidth="60"
+                            FieldLabel="Year"
+                            LabelSeparator=":">
+                            <Store>
+                                <ext:Store ID="CustomizeStats_YearStore" runat="server" OnLoad="CustomizeStats_YearStore_Load">
+                                    <Model>
+                                        <ext:Model ID="CustomizeStats_YearStoreModel" runat="server">
+                                            <Fields>
+                                                <ext:ModelField Name="YearAsText" Type="String" />
+                                                <ext:ModelField Name="YearAsNumber" Type="Int" />
+                                            </Fields>
+                                        </ext:Model>
+                                    </Model>
+                                </ext:Store>
+                            </Store>
+
+                            <SelectedItems>
+                                <ext:ListItem Index="0" />
+                            </SelectedItems>
+
+                            <DirectEvents>
+                                <Select OnEvent="CustomizeStats_Years_Select" />
+                            </DirectEvents>
+                        </ext:ComboBox>
+
+                        <ext:ComboBox
+                            ID="CustomizeStats_Quarters"
+                            runat="server"
+                            DisplayField="QuarterAsText"
+                            ValueField="QuarterAsNumber"
+                            Editable="false"
+                            FieldLabel="Quarter"
+                            Width="250"
+                            LabelWidth="60"
+                            LabelSeparator=":"
+                            Hidden="true">
+                            <Store>
+                                <ext:Store ID="CustomizeStats_QuartersStore" runat="server" OnLoad="CustomizeStats_QuartersStore_Load">
+                                    <Model>
+                                        <ext:Model ID="CustomizeStats_QuartersStoreModel" runat="server">
+                                            <Fields>
+                                                <ext:ModelField Name="QuarterAsText" Type="String" />
+                                                <ext:ModelField Name="QuarterAsNumber" Type="Int" />
+                                            </Fields>
+                                        </ext:Model>
+                                    </Model>
+                                </ext:Store>
+                            </Store>
+
+                            <SelectedItems>
+                                <ext:ListItem Index="4" />
+                            </SelectedItems>
+                        </ext:ComboBox>
+                    </Items>
+
+                    <BottomBar>
+                        <ext:StatusBar
+                            ID="CustomizeStatsWindowBottomBar"
+                            runat="server"
+                            StatusAlign="Right"
+                            Height="30">
+                            <Items>
+                                <ext:Button
+                                    ID="SubmitCustomizeStatisticsBtn"
+                                    runat="server"
+                                    Text="Apply"
+                                    Icon="ApplicationGo"
+                                    Height="25">
+                                    <DirectEvents>
+                                        <Click OnEvent="SubmitCustomizeStatisticsBtn_Click">
+                                            <EventMask ShowMask="true" />
+                                        </Click>
+                                    </DirectEvents>
+                                </ext:Button>
+
+                                <ext:ToolbarSeparator ID="ToolbarSeparator1" runat="server" />
+
+                                <ext:Button
+                                    ID="CancelCustomizeStatsBtn"
+                                    runat="server"
+                                    Text="Cancel"
+                                    Icon="Cancel"
+                                    Height="25">
+                                    <DirectEvents>
+                                        <Click OnEvent="CancelCustomizeStatsBtn_Click" />
+                                    </DirectEvents>
+                                </ext:Button>
+                            </Items>
+                        </ext:StatusBar>
+                    </BottomBar>
+                </ext:Window>
             </div>
         </div>
         
