@@ -59,10 +59,8 @@ namespace Lync_Billing.ui.accounting.reports
             FilterReportsBySite.GetStore().DataBind();
         }
 
-        protected List<UserCallsSummary> MonthlyReports(string siteName, DateTime date)
+        private List<UserCallsSummary> MonthlyReports(string siteName, DateTime date)
         {
-            List<UserCallsSummary> listOfUsersCallsSummary;
-
             DateTime beginningOfTheMonth = new DateTime(date.Year, date.Month, 1);
             DateTime endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
 
@@ -70,6 +68,27 @@ namespace Lync_Billing.ui.accounting.reports
                                         .Where(e => e.PersonalCallsCost > 0 || e.BusinessCallsCost > 0 || e.UnmarkedCallsCost > 0).ToList();
             
             return listOfUsersCallsSummary;
+        }
+
+        private void BindDataToReportsGrid(bool siteHasChanged = false, bool dateHasChanged = false, bool callTypeHasChanged = false)
+        {
+            int callsType;
+            List<UserCallsSummary> gridData = new List<UserCallsSummary>();
+
+            if (listOfUsersCallsSummary.Count == 0 || (siteHasChanged == true || dateHasChanged == true))
+            {
+                listOfUsersCallsSummary = MonthlyReports(FilterReportsBySite.SelectedItem.Value, ReportDateField.SelectedDate);
+            }
+            
+            callsType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
+
+            if(callsType == 1)
+                gridData = listOfUsersCallsSummary.Where(summary => summary.AC_IsInvoiced == "NO").ToList();
+            else
+                gridData = listOfUsersCallsSummary.Where(summary => summary.AC_IsInvoiced == "YES").ToList();
+            
+            MonthlyReportsGrids.GetStore().DataSource = gridData;
+            MonthlyReportsGrids.GetStore().LoadData(gridData);
         }
 
         protected void FilterReportsBySite_Selecting(object sender, DirectEventArgs e)
@@ -80,9 +99,7 @@ namespace Lync_Billing.ui.accounting.reports
 
                 if (ReportDateField.SelectedValue != null)
                 {
-                    listOfUsersCallsSummary = MonthlyReports(FilterReportsBySite.SelectedItem.Value, ReportDateField.SelectedDate);
-                    MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
-                    MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
+                    BindDataToReportsGrid(siteHasChanged: true);
                 }
             }
             else
@@ -93,24 +110,40 @@ namespace Lync_Billing.ui.accounting.reports
 
         protected void ReportDateField_Selection(object sender, DirectEventArgs e)
         {
-            if (FilterReportsBySite.SelectedItem.Index != -1 && ReportDateField.SelectedValue != null)
+            if (FilterReportsBySite.SelectedItem.Index > -1)
             {
-                ExportExcelReport.Disabled = false;
-                ExportPDFReport.Disabled = false;
+                CallsTypesComboBox.Disabled = false;
+                AdvancedToolsMenu.Disabled = false;
 
-                listOfUsersCallsSummary = MonthlyReports(FilterReportsBySite.SelectedItem.Value, ReportDateField.SelectedDate);
-                MonthlyReportsGrids.GetStore().DataSource = listOfUsersCallsSummary;
-                MonthlyReportsGrids.GetStore().LoadData(listOfUsersCallsSummary);
+                BindDataToReportsGrid(siteHasChanged: true, dateHasChanged: true);
             }
             else
             {
-                ExportExcelReport.Disabled = true;
-                ExportPDFReport.Disabled = true;
+                CallsTypesComboBox.Disabled = true;
+                AdvancedToolsMenu.Disabled = true;
+            }
+        }
+
+        protected void FilterReportsByCallsTypes_Select(object sender, DirectEventArgs e)
+        {
+            int callsType;
+            InvoiceUsers.Disabled = true;
+
+            if (CallsTypesComboBox.SelectedItem.Index > -1)
+            {
+                callsType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
+
+                BindDataToReportsGrid(callTypeHasChanged: true);
+
+                if (callsType == 1)
+                    InvoiceUsers.Disabled = false;
             }
         }
 
         protected void MonthlyReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
+            int callsType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
+
             DateTime beginningOfTheMonth;
             DateTime endOfTheMonth;
             Document pdfDocument;
@@ -178,7 +211,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     pdfDocument = new Document();
-                    UserCallsSummary.ExportUsersCallsSummaryToPDF(siteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
+                    UserCallsSummary.ExportUsersCallsSummaryToPDF(siteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, invoicedStatus: true);
                     Response.Write(pdfDocument);
                     break;
 
@@ -219,7 +252,7 @@ namespace Lync_Billing.ui.accounting.reports
                     };
 
                     pdfDocument = new Document();
-                    UserCallsSummary.ExportUsersCallsDetailedToPDF(siteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
+                    UserCallsSummary.ExportUsersCallsDetailedToPDF(siteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, invoicedStatus: true);
                     Response.Write(pdfDocument);
                     break;
             }

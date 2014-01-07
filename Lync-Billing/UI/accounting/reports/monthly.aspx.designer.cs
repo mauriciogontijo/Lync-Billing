@@ -94,22 +94,76 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.DateField ReportDateField;
         
         /// <summary>
-        /// ExportPDFReport control.
+        /// CallsTypesComboBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button ExportPDFReport;
+        protected global::Ext.Net.ComboBox CallsTypesComboBox;
         
         /// <summary>
-        /// Menu1 control.
+        /// AdvancedToolsMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Menu Menu1;
+        protected global::Ext.Net.Button AdvancedToolsMenu;
+        
+        /// <summary>
+        /// ExportReportMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Menu ExportReportMenu;
+        
+        /// <summary>
+        /// ExportReportToExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem ExportReportToExcel;
+        
+        /// <summary>
+        /// ExportReportToExcelSubMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Menu ExportReportToExcelSubMenu;
+        
+        /// <summary>
+        /// ExportExcelSummaryReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem ExportExcelSummaryReport;
+        
+        /// <summary>
+        /// ExportReportToPDF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.MenuItem ExportReportToPDF;
+        
+        /// <summary>
+        /// ExportReportToPDFSubMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Menu ExportReportToPDFSubMenu;
         
         /// <summary>
         /// ExportPDFSummaryRreport control.
@@ -130,31 +184,31 @@ namespace Lync_Billing.ui.accounting.reports {
         protected global::Ext.Net.MenuItem ExportPDFDetailedRreport;
         
         /// <summary>
-        /// ExportExcelReport control.
+        /// InvoiceUsers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button ExportExcelReport;
+        protected global::Ext.Net.MenuItem InvoiceUsers;
         
         /// <summary>
-        /// ReportExportOptionsMenu control.
+        /// InvoiceUsersMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Menu ReportExportOptionsMenu;
+        protected global::Ext.Net.Menu InvoiceUsersMenu;
         
         /// <summary>
-        /// ExportExcelSummaryReport control.
+        /// InvoiceUsers_Confirm_Click control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.MenuItem ExportExcelSummaryReport;
+        protected global::Ext.Net.MenuItem InvoiceUsers_Confirm_Click;
         
         /// <summary>
         /// MonthlyReportsGrids control.
