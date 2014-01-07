@@ -657,6 +657,7 @@ namespace Lync_Backend.Helpers
                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] AS [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "], \r\n" +
                     "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Year], \r\n" +
                     "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Month], \r\n" +
+                    "\t\t (CAST(CAST(YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS varchar)" + @" + '/' + " + "CAST(MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS varchar)" + @" + '/' +" + "CAST(1 AS VARCHAR) AS DATETIME)) AS Date, \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN 1 END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost) + "], \r\n" +
@@ -738,6 +739,7 @@ namespace Lync_Backend.Helpers
                     "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Year], \r\n" +
                     "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Month], \r\n" +
                     "\t\t (CAST(CAST(YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS varchar)" +  @" + '/' + " +  "CAST(MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS varchar)" + @" + '/' +" + "CAST(1 AS VARCHAR) AS DATETIME)) AS Date, \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) + "] AS [" + Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN 1 END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost) + "], \r\n" +
@@ -756,6 +758,7 @@ namespace Lync_Backend.Helpers
                      "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
                      "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
                      "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "], \r\n" +
+                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) + "], \r\n" +
                      "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + "), \r\n" +
                      "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") \r\n" +
                      "\t ORDER BY YEAR( " + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC, MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC \r\n",subSelect.ToString()
@@ -820,6 +823,7 @@ namespace Lync_Backend.Helpers
 			        "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "] AS [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
 			        "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "] AS [" + Enums.GetDescription(Enums.Users.AD_Department) + "], \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] AS [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) + "] AS [" + Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Personal' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.PersonalCallsCost) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] IS NULL THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.UnmarkedCallsCost) + "] \r\n" + 
@@ -829,9 +833,10 @@ namespace Lync_Backend.Helpers
                     "\t) AS [" +  Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
                     "\t GROUP BY \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "], \r\n" +
-                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
-                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
-                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "] \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) + "] \r\n" +
                     "\t ORDER BY " +Enums.GetDescription(Enums.PhoneCalls.ChargingParty) +  " ASC \r\n",subSelect.ToString()
                 ));
 
