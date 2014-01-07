@@ -287,7 +287,7 @@
                     ID="UserMailStatisticsPanel" 
                     runat="server"
                     Header="true"
-                    Title="Mail Statistics for this Month"
+                    Title="Mail Statistics - Previous Month"
                     PaddingSummary="10px 10px 10px 10px"
                     Width="465"
                     Height="180"
