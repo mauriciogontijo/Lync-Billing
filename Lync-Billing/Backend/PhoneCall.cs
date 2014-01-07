@@ -571,12 +571,12 @@ namespace Lync_Billing.Backend
 
                     updateWhere.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), phoneCall.SessionIdTime);
                     updateWhere.Add(Enums.GetDescription(Enums.PhoneCalls.ChargingParty), phoneCall.ChargingParty);
-                    
+
                     status = DBRoutines.UPDATE(phoneCall.PhoneCallTableName, updateValues, updateWhere);
                 }
             }
 
-            return false;
+            return status;
         }
 
 
