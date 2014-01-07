@@ -535,16 +535,14 @@ namespace Lync_Billing.Backend
             if (dt.Rows.Count > 0)
             {
                 //Convert datatable into a list of phonecalls.
-                var phoneCalls = (from rw in dt.AsEnumerable()
-                                  select new PhoneCall()
-                                  {
-                                      SessionIdTime = SpecialDateTime.ConvertDate(Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)])),
-                                      ChargingParty = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.ChargingParty)])),
-                                      UI_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_CallType)])),
-                                      AC_IsInvoiced = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced)])),
-
-                                      PhoneCallTableName = Convert.ToString(rw[Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName)])
-                                  }).ToList<PhoneCall>();
+                var phoneCalls = (from rw in dt.AsEnumerable() select new PhoneCall()
+                                    {
+                                        SessionIdTime = SpecialDateTime.ConvertDate(Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)])),
+                                        ChargingParty = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.ChargingParty)])),
+                                        UI_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_CallType)])),
+                                        AC_IsInvoiced = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced)])),
+                                        PhoneCallTableName = Convert.ToString(rw[Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName)])
+                                    }).ToList<PhoneCall>();
 
                 foreach (var phoneCall in phoneCalls)
                 {
@@ -561,7 +559,7 @@ namespace Lync_Billing.Backend
                         updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "N/A");
                         updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), InvoiceDate);
                     }
-                    else if (chargePending == false && string.IsNullOrEmpty(phoneCall.UI_CallType) && phoneCall.AC_IsInvoiced == "N/A")
+                    else if (chargePending == true && string.IsNullOrEmpty(phoneCall.UI_CallType) && phoneCall.AC_IsInvoiced == "N/A")
                     {
                         updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
                         updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), InvoiceDate);
