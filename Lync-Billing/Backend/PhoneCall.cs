@@ -480,6 +480,108 @@ namespace Lync_Billing.Backend
         }
 
 
+        public static bool ChargePhoneCalls(int siteID, DateTime fromDate, DateTime toDate, bool chargeBusinessPersonal, bool chargePending)
+        {
+            DataTable dt = new DataTable();
+            string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_ChargeableCalls_ForSite);
+            List<object> functionaParams = new List<object>();
+            Dictionary<string, object> whereClause = new Dictionary<string,object>();
+
+            Site SelectedSite;
+            DateTime InvoiceDate = DateTime.Now;
+            bool status = false;
+            
+            
+            //Begin...
+
+            //Initialize function parameters and then query the database
+            SelectedSite = Backend.Site.GetSite(siteID);
+            functionaParams.Add(SelectedSite.SiteName);
+
+            //Handle which case to charge
+            if (chargeBusinessPersonal == true && chargePending == false)
+            {
+                whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), "!null");
+                whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "NO");
+                whereClause.Add(
+                    Enums.GetDescription(Enums.PhoneCallSummary.Date), 
+                    String.Format("BETWEEN {0} AND {1}", 
+                        SpecialDateTime.ConvertDate(fromDate, true),
+                        SpecialDateTime.ConvertDate(toDate, true))
+                );
+            }
+            else if (chargePending == true && chargeBusinessPersonal == false)
+            {
+                whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null);
+                whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "N/A");
+                whereClause.Add(
+                    Enums.GetDescription(Enums.PhoneCallSummary.Date),
+                    String.Format("BETWEEN {0} AND {1}",
+                        SpecialDateTime.ConvertDate(fromDate, true),
+                        SpecialDateTime.ConvertDate(toDate, true))
+                );
+            }
+            else
+            {
+                return false;
+            }
+
+            
+            //GET PHONECALLS FROM THE DATABASE
+            dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionaParams, whereClause);
+
+
+            //Invoice calls if there are any
+            if (dt.Rows.Count > 0)
+            {
+                //Convert datatable into a list of phonecalls.
+                var phoneCalls = (from rw in dt.AsEnumerable()
+                                  select new PhoneCall()
+                                  {
+                                      SessionIdTime = SpecialDateTime.ConvertDate(Convert.ToDateTime(rw[Enums.GetDescription(Enums.PhoneCalls.SessionIdTime)])),
+                                      ChargingParty = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.ChargingParty)])),
+                                      UI_CallType = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.UI_CallType)])),
+                                      AC_IsInvoiced = Convert.ToString(HelperFunctions.ReturnEmptyIfNull(rw[Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced)])),
+
+                                      PhoneCallTableName = Convert.ToString(rw[Enums.GetDescription(Enums.PhoneCalls.PhoneCallsTableName)])
+                                  }).ToList<PhoneCall>();
+
+                foreach (var phoneCall in phoneCalls)
+                {
+                    var updateValues = new Dictionary<string, object>();
+                    var updateWhere = new Dictionary<string, object>();
+
+                    if(chargeBusinessPersonal == true && !string.IsNullOrEmpty(phoneCall.UI_CallType) && phoneCall.AC_IsInvoiced == "NO")
+                    {
+                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
+                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), InvoiceDate);
+                    }
+                    else if (chargeBusinessPersonal == true && string.IsNullOrEmpty(phoneCall.UI_CallType) && phoneCall.AC_IsInvoiced == "NO")
+                    {
+                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "N/A");
+                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), InvoiceDate);
+                    }
+                    else if (chargePending == false && string.IsNullOrEmpty(phoneCall.UI_CallType) && phoneCall.AC_IsInvoiced == "N/A")
+                    {
+                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "YES");
+                        updateValues.Add(Enums.GetDescription(Enums.PhoneCalls.AC_InvoiceDate), InvoiceDate);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                    updateWhere.Add(Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), phoneCall.SessionIdTime);
+                    updateWhere.Add(Enums.GetDescription(Enums.PhoneCalls.ChargingParty), phoneCall.ChargingParty);
+                    
+                    status = DBRoutines.UPDATE(phoneCall.PhoneCallTableName, updateValues, updateWhere);
+                }
+            }
+
+            return false;
+        }
+
+
         //public static void ExportUserPhoneCalls(string sipAccount, HttpResponse response, out Document document, Dictionary<string, string> headers)
         //{
         //    //THE PDF REPORT PROPERTIES

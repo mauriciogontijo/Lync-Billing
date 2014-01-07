@@ -59,12 +59,14 @@ namespace Lync_Billing.ui.accounting.reports
             FilterReportsBySite.GetStore().DataBind();
         }
 
-        private List<UserCallsSummary> MonthlyReports(string siteName, DateTime date)
+        private List<UserCallsSummary> MonthlyReports(int siteID, DateTime date)
         {
+            Site site = Backend.Site.GetSite(siteID);
+
             DateTime beginningOfTheMonth = new DateTime(date.Year, date.Month, 1);
             DateTime endOfTheMonth = beginningOfTheMonth.AddMonths(1).AddDays(-1);
 
-            listOfUsersCallsSummary = UserCallsSummary.GetUsersCallsSummaryInSite(siteName, beginningOfTheMonth, endOfTheMonth, true)
+            listOfUsersCallsSummary = UserCallsSummary.GetUsersCallsSummaryInSite(site.SiteName, beginningOfTheMonth, endOfTheMonth, true)
                                         .Where(e => e.PersonalCallsCost > 0 || e.BusinessCallsCost > 0 || e.UnmarkedCallsCost > 0).ToList();
             
             return listOfUsersCallsSummary;
@@ -72,19 +74,22 @@ namespace Lync_Billing.ui.accounting.reports
 
         private void BindDataToReportsGrid(bool siteHasChanged = false, bool dateHasChanged = false, bool callTypeHasChanged = false)
         {
-            int callsType;
+            int callsType, siteID;
             List<UserCallsSummary> gridData = new List<UserCallsSummary>();
 
             if (listOfUsersCallsSummary.Count == 0 || (siteHasChanged == true || dateHasChanged == true))
             {
-                listOfUsersCallsSummary = MonthlyReports(FilterReportsBySite.SelectedItem.Value, ReportDateField.SelectedDate);
+                siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
+                listOfUsersCallsSummary = MonthlyReports(siteID, ReportDateField.SelectedDate);
             }
             
             callsType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
 
             if(callsType == 1)
                 gridData = listOfUsersCallsSummary.Where(summary => summary.AC_IsInvoiced == "NO").ToList();
-            else
+            else if (callsType == 2)
+                gridData = listOfUsersCallsSummary.Where(summary => summary.AC_IsInvoiced == "N/A").ToList();
+            else if (callsType == 3)
                 gridData = listOfUsersCallsSummary.Where(summary => summary.AC_IsInvoiced == "YES").ToList();
             
             MonthlyReportsGrids.GetStore().DataSource = gridData;
@@ -135,7 +140,7 @@ namespace Lync_Billing.ui.accounting.reports
 
                 BindDataToReportsGrid(callTypeHasChanged: true);
 
-                if (callsType == 1)
+                if (callsType == 1 || callsType == 2)
                     InvoiceUsers.Disabled = false;
             }
         }
@@ -260,5 +265,33 @@ namespace Lync_Billing.ui.accounting.reports
             this.Response.End();
         }
 
+        
+        protected void InvoiceUsers_Confirm_Click(object sender, DirectEventArgs e)
+        {
+            int siteID, callType;
+            DateTime startingDate, endingDate;
+
+            if (FilterReportsBySite.SelectedItem.Index > -1 && CallsTypesComboBox.SelectedItem.Index > -1 && ReportDateField.SelectedValue != null)
+            {
+                siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
+                callType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
+                
+                startingDate = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
+                endingDate = startingDate.AddMonths(1).AddDays(-1);
+
+                if (callType == 1)
+                {
+                    PhoneCall.ChargePhoneCalls(siteID, startingDate, endingDate, chargeBusinessPersonal: true, chargePending: false);
+                }
+                else if (callType == 2)
+                {
+                    PhoneCall.ChargePhoneCalls(siteID, startingDate, endingDate, chargeBusinessPersonal: false, chargePending: true);
+                }
+
+            }//End-if
+
+        }//End-function
+
     }
+
 }

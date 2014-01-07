@@ -91,7 +91,7 @@
                                 TriggerAction="All"
                                 QueryMode="Local"
                                 DisplayField="SiteName"
-                                ValueField="SiteName"
+                                ValueField="SiteID"
                                 FieldLabel="Site:"
                                 LabelWidth="25"
                                 Width="160"
@@ -159,12 +159,13 @@
                                 Disabled="true"
                                 Editable="false">
                                 <Items>
-                                    <ext:ListItem Text="Not Invoiced" Value="1" />
-                                    <ext:ListItem Text="Invoiced" Value="2" />
+                                    <ext:ListItem Text="Not Charged" Value="1" />
+                                    <ext:ListItem Text="Pending Charges" Value="2" />
+                                    <ext:ListItem Text="Charged" Value="3" />
                                 </Items>
 
                                 <SelectedItems>
-                                    <ext:ListItem Text="Not Invoiced" Value="1" />
+                                    <ext:ListItem Text="Not Charged" Value="1" />
                                 </SelectedItems>
 
                                 <DirectEvents>
@@ -218,14 +219,16 @@
                                                 </Menu>
                                             </ext:MenuItem>
 
-                                            <ext:MenuItem ID="InvoiceUsers" runat="server" Text="Invoice" Icon="Money" Disabled="true">
+                                            <ext:MenuItem ID="InvoiceUsers" runat="server" Text="Invoice" Icon="Money">
                                                 <Menu>
                                                     <ext:Menu ID="InvoiceUsersMenu" runat="server">
                                                         <Items>
-                                                            <ext:MenuItem ID="InvoiceUsers_Confirm_Click" runat="server" Text="Confirm Invoice" Icon="ApplicationOsxGo">
-                                                                <%--<Listeners>
-                                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'xls', true);" />
-                                                                </Listeners>--%>
+                                                            <ext:MenuItem ID="InvoiceUsers_Confirm" runat="server" Text="Confirm Invoice" Icon="ApplicationOsxGo">
+                                                                <DirectEvents>
+                                                                    <Click OnEvent="InvoiceUsers_Confirm_Click">
+                                                                        <EventMask ShowMask="true" />
+                                                                    </Click>
+                                                                </DirectEvents>
                                                             </ext:MenuItem>
                                                         </Items>
                                                     </ext:Menu>
