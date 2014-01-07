@@ -174,7 +174,7 @@ namespace Lync_Billing.ui.dephead.main
                     TopDestinationCountriesStore.DataBind();
 
                     // Get Department Phonecalls Summaries (for all year's month)
-                    DepartmentCallsPerMonthChart.GetStore().DataSource = DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(department.SiteName, department.DepartmentName);
+                    DepartmentCallsPerMonthChart.GetStore().DataSource = DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(department.SiteName, department.DepartmentName); ;
                     DepartmentCallsPerMonthChart.GetStore().DataBind();
 
                     // Get Department Mail Statistics
@@ -261,8 +261,8 @@ namespace Lync_Billing.ui.dephead.main
                     TopDestinationCountriesPanel.Title = String.Format("Most Called Countries - {0}", titleText);
 
                     // Get Department Phonecalls Summaries (for all year's month)
-                    DepartmentCallsPerMonthChart.GetStore().RemoveAll();
-                    DepartmentCallsPerMonthChart.GetStore().LoadData(DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(department.SiteName, department.DepartmentName, startingDate, endingDate));
+                    DepartmentCallsPerMonthChart.GetStore().DataSource = DepartmentCallsSummary.GetPhoneCallsStatisticsForDepartment(department.SiteName, department.DepartmentName, startingDate, endingDate);
+                    DepartmentCallsPerMonthChart.GetStore().DataBind();
                     DepartmentCallsPerMonthChartPanel.Title = String.Format("Phonecalls Distribution - {0}", titleText);
 
                     //Hide the window
