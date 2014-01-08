@@ -62,9 +62,11 @@ namespace Lync_Billing.ui.accounting.reports
         }
 
 
-        List<UserCallsSummary> PeriodicalReport(string siteName, DateTime startingDate, DateTime endingDate) 
+        List<UserCallsSummary> PeriodicalReport(int siteID, DateTime startingDate, DateTime endingDate) 
         {
-            List<UserCallsSummary> data = UserCallsSummary.GetUsersCallsSummaryInSite(siteName, startingDate, endingDate, asTotals: true)
+            Backend.Site site = Backend.Site.GetSite(siteID);
+
+            List<UserCallsSummary> data = UserCallsSummary.GetUsersCallsSummaryInSite(site.SiteName, startingDate, endingDate, asTotals: true)
                                         .Where(e=> e.PersonalCallsCost > 0 || e.BusinessCallsCost > 0 || e.UnmarkedCallsCost > 0).ToList();
 
             return data;
@@ -79,15 +81,21 @@ namespace Lync_Billing.ui.accounting.reports
             Dictionary<string, string> pdfDocumentHeaders;
             List<string> SipAccountsList;
             Dictionary<string, Dictionary<string, object>> UsersCollection;
+            int SiteID;
+            Backend.Site SelectedSite;
 
             //These are created to hold the data submitted through the grid as JSON
             List<Users> usersData;
             Dictionary<string, object> tempUserDataContainer;
 
             XmlNode xml = e.Xml;
-            string siteName = FilterReportsBySite.SelectedItem.Value;
             string format = this.FormatType.Value.ToString();
             string pdfReportFileName = string.Empty;
+
+
+            SiteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
+            SelectedSite = Backend.Site.GetSite(SiteID);
+
 
             this.Response.Clear();
 
@@ -119,8 +127,8 @@ namespace Lync_Billing.ui.accounting.reports
                     }
 
                     pdfReportFileName = string.Format(
-                        "{0}_Periodical_Summary_Report_{1}.pdf", 
-                        siteName.ToUpper(), StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + "--" + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year
+                        "{0}_Periodical_Summary_Report_{1}.pdf",
+                        SelectedSite.SiteName.ToUpper(), StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + "--" + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year
                     );
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=" + pdfReportFileName);
@@ -128,13 +136,13 @@ namespace Lync_Billing.ui.accounting.reports
 
                     Dictionary<string, string> headers = new Dictionary<string, string>()
                     {
-                        {"siteName", siteName},
+                        {"siteName", SelectedSite.SiteName},
                         {"title", "Accounting Perdiodical Report [Summary]"},
                         {"subTitle", "From " + StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + ", to " + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year}
                     };
 
                     Document doc = new Document();
-                    UserCallsSummary.ExportUsersCallsSummaryToPDF(siteName, StartingDate.SelectedDate, EndingDate.SelectedDate, UsersCollection, Response, out doc, headers);
+                    UserCallsSummary.ExportUsersCallsSummaryToPDF(SelectedSite.SiteName, StartingDate.SelectedDate, EndingDate.SelectedDate, UsersCollection, Response, out doc, headers);
                     Response.Write(doc);
                     break;
 
@@ -160,7 +168,7 @@ namespace Lync_Billing.ui.accounting.reports
                     //Initialize the response.
                     pdfReportFileName = string.Format(
                         "{0}_Periodical_Detailed_Report_{1}.pdf",
-                        siteName.ToUpper(), StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + "--" + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year
+                        SelectedSite.SiteName.ToUpper(), StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + "--" + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year
                     );
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=" + pdfReportFileName);
@@ -168,13 +176,13 @@ namespace Lync_Billing.ui.accounting.reports
 
                     pdfDocumentHeaders = new Dictionary<string, string>()
                     {
-                        {"siteName", siteName},
+                        {"siteName", SelectedSite.SiteName},
                         {"title", "Accounting Periodical Report [Detailed]"},
                         {"subTitle", "From: " + startDate.Month + "-" + startDate.Year + ", to: " + endDate.Month + "-" + endDate.Year + "."}
                     };
 
                     pdfDocument = new Document();
-                    UserCallsSummary.ExportUsersCallsDetailedToPDF(siteName, startDate, endDate, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
+                    UserCallsSummary.ExportUsersCallsDetailedToPDF(SelectedSite.SiteName, startDate, endDate, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
                     Response.Write(pdfDocument);
                     break;
             }
@@ -185,6 +193,8 @@ namespace Lync_Billing.ui.accounting.reports
 
         protected void FilterReportsBySite_Selecting(object sender, DirectEventArgs e)
         {
+            int siteID;
+
             if (FilterReportsBySite.SelectedItem.Index != -1)
             {
                 StartingDate.Disabled = false;
@@ -192,10 +202,12 @@ namespace Lync_Billing.ui.accounting.reports
                 //If the dates were previously chosen, jsut refresh the data!
                 if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
                 {
-                    ExportExcelReport.Disabled = false;
-                    ExportPDFReport.Disabled = false;
+                    siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
 
-                    listOfUsersCallsSummary = PeriodicalReport(FilterReportsBySite.SelectedItem.Value, StartingDate.SelectedDate, EndingDate.SelectedDate);
+                    CallsTypesComboBox.Disabled = false;
+                    AdvancedToolsMenu.Disabled = false;
+
+                    listOfUsersCallsSummary = PeriodicalReport(siteID, StartingDate.SelectedDate, EndingDate.SelectedDate);
                     PeriodicalReportsGrid.GetStore().DataSource = listOfUsersCallsSummary;
                     PeriodicalReportsGrid.GetStore().LoadData(listOfUsersCallsSummary);
                 }
@@ -204,8 +216,8 @@ namespace Lync_Billing.ui.accounting.reports
             {
                 StartingDate.Disabled = true;
                 EndingDate.Disabled = true;
-                ExportExcelReport.Disabled = true;
-                ExportPDFReport.Disabled = true;
+                CallsTypesComboBox.Disabled = true;
+                AdvancedToolsMenu.Disabled = true;
             }
         }
 
@@ -219,29 +231,34 @@ namespace Lync_Billing.ui.accounting.reports
             else
             {
                 EndingDate.Disabled = true;
-                ExportExcelReport.Disabled = true;
-                ExportPDFReport.Disabled = true;
+                CallsTypesComboBox.Disabled = true;
+                AdvancedToolsMenu.Disabled = true;
             }
         }
 
 
         protected void EndingDate_Selection(object sender, DirectEventArgs e)
         {
+            int siteID;
+
             if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
             {
-                ExportExcelReport.Disabled = false;
-                ExportPDFReport.Disabled = false;
+                siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
 
-                listOfUsersCallsSummary = PeriodicalReport(FilterReportsBySite.SelectedItem.Value, StartingDate.SelectedDate, EndingDate.SelectedDate);
+                CallsTypesComboBox.Disabled = false;
+                AdvancedToolsMenu.Disabled = false;
+
+                listOfUsersCallsSummary = PeriodicalReport(siteID, StartingDate.SelectedDate, EndingDate.SelectedDate);
                 PeriodicalReportsGrid.GetStore().DataSource = listOfUsersCallsSummary;
                 PeriodicalReportsGrid.GetStore().LoadData(listOfUsersCallsSummary);
             }
             else
             {
-                ExportExcelReport.Disabled = true;
-                ExportPDFReport.Disabled = true;
+                CallsTypesComboBox.Disabled = true;
+                AdvancedToolsMenu.Disabled = true;
             }
         }
 
     }
+
 }

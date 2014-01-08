@@ -92,10 +92,10 @@
                                 TriggerAction="All"
                                 QueryMode="Local"
                                 DisplayField="SiteName"
-                                ValueField="SiteName"
+                                ValueField="SiteID"
                                 FieldLabel="Site:"
                                 LabelWidth="25"
-                                Width="230"
+                                Width="150"
                                 Margins="5 15 0 5">
                                 <Store>
                                     <ext:Store
@@ -119,7 +119,7 @@
                                     </Select>
                                 </DirectEvents>
 
-                                <ListConfig>
+                                <ListConfig MinWidth="200">
                                     <ItemTpl ID="SitesItemTpl" runat="server">
                                         <Html>
                                             <div data-qtip="{SiteName}. {CountryCode}">
@@ -133,11 +133,11 @@
                             <ext:DateField 
                                 ID="StartingDate"
                                 runat="server" 
-                                FieldLabel="From:"
-                                LabelWidth="30"
-                                EmptyText="Empty Date"
-                                Width="130"
-                                Margins="5 10 5 5"
+                                FieldLabel="From/To:"
+                                LabelWidth="45"
+                                EmptyText="FROM DATE"
+                                Width="150"
+                                Margins="5 5 5 5"
                                 Disabled="true">
                                 <DirectEvents>
                                     <Select OnEvent="StartingDate_Selection">
@@ -148,12 +148,10 @@
 
                             <ext:DateField 
                                 ID="EndingDate"
-                                runat="server" 
-                                FieldLabel="To:"
-                                LabelWidth="20"
-                                EmptyText="Empty Date"
-                                Width="130"
-                                Margins="5 40 5 5"
+                                runat="server"
+                                EmptyText="TO DATE"
+                                Width="100"
+                                Margins="5 15 5 0"
                                 Disabled="true">
                                 <DirectEvents>
                                     <Select OnEvent="EndingDate_Selection">
@@ -162,49 +160,99 @@
                                 </DirectEvents>
                             </ext:DateField>
 
-                            <ext:Button
-                                ID="ExportPDFReport"
+                            <ext:ComboBox
+                                ID="CallsTypesComboBox"
                                 runat="server"
-                                Text="To PDF"
+                                Icon="Find"
+                                DisplayField="TypeName"
+                                ValueField="TypeValue"
+                                FieldLabel="Display"
+                                LabelSeparator=":"
+                                LabelWidth="40"
+                                Width="180"
+                                Margins="5 25 0 5"
                                 Disabled="true"
-                                Icon="PageSave">
+                                Editable="false">
+                                <Items>
+                                    <ext:ListItem Text="Not Charged" Value="1" />
+                                    <ext:ListItem Text="Pending Charges" Value="2" />
+                                    <ext:ListItem Text="Charged" Value="3" />
+                                </Items>
+
+                                <SelectedItems>
+                                    <ext:ListItem Text="Not Charged" Value="1" />
+                                </SelectedItems>
+
+                                <%--<DirectEvents>
+                                    <Select OnEvent="FilterReportsByCallsTypes_Select">
+                                        <EventMask ShowMask="true" />
+                                    </Select>
+                                </DirectEvents>--%>
+                            </ext:ComboBox>
+
+                            <ext:Button
+                                ID="AdvancedToolsMenu"
+                                runat="server"
+                                Text="Tools"
+                                Icon="ApplicationOsxGo"
+                                Disabled="true">
                                 <Menu>
-                                    <ext:Menu ID="Menu1" runat="server">
+                                    <ext:Menu ID="ExportReportMenu" runat="server">
                                         <Items>
-                                            <ext:MenuItem ID="ExportPDFSummaryRreport" runat="server" Text="Summary Report" Icon="PageSave">
-                                                <Listeners>
-                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'pdf', true);" />
-                                                </Listeners>
+                                            <ext:MenuItem ID="ExportReportToExcel" runat="server" Text="Export to Excel" Icon="PageExcel">
+                                                <Menu>
+                                                    <ext:Menu ID="ExportReportToExcelSubMenu" runat="server">
+                                                        <Items>
+                                                            <ext:MenuItem ID="ExportExcelSummaryReport" runat="server" Text="Summary Report">
+                                                                <Listeners>
+                                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'xls', true);" />
+                                                                </Listeners>
+                                                            </ext:MenuItem>
+                                                        </Items>
+                                                    </ext:Menu>
+                                                </Menu>
                                             </ext:MenuItem>
 
-                                            <ext:MenuItem ID="ExportPDFDetailedRreport" runat="server" Text="Detailed Report" Icon="PageSave">
-                                                <Listeners>
-                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'pdf-d', true);" />
-                                                </Listeners>
+                                            <ext:MenuItem ID="ExportReportToPDF" runat="server" Text="Export to PDF" Icon="PagePortrait">
+                                                <Menu>
+                                                    <ext:Menu ID="ExportReportToPDFSubMenu" runat="server">
+                                                        <Items>
+                                                            <ext:MenuItem ID="ExportPDFSummaryRreport" runat="server" Text="Summary Report">
+                                                                <Listeners>
+                                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'pdf', true);" />
+                                                                </Listeners>
+                                                            </ext:MenuItem>
+
+                                                            <ext:MenuItem ID="ExportPDFDetailedRreport" runat="server" Text="Detailed Report">
+                                                                <Listeners>
+                                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'pdf-d', true);" />
+                                                                </Listeners>
+                                                            </ext:MenuItem>
+                                                        </Items>
+                                                    </ext:Menu>
+                                                </Menu>
+                                            </ext:MenuItem>
+
+                                            <ext:MenuItem ID="InvoiceUsers" runat="server" Text="Invoice" Icon="Money">
+                                                <Menu>
+                                                    <ext:Menu ID="InvoiceUsersMenu" runat="server">
+                                                        <Items>
+                                                            <ext:MenuItem ID="InvoiceUsers_Confirm" runat="server" Text="Confirm Invoice" Icon="ApplicationOsxGo">
+                                                                <%--<DirectEvents>
+                                                                    <Click OnEvent="InvoiceUsers_Confirm_Click">
+                                                                        <EventMask ShowMask="true" />
+                                                                    </Click>
+                                                                </DirectEvents>--%>
+                                                            </ext:MenuItem>
+                                                        </Items>
+                                                    </ext:Menu>
+                                                </Menu>
                                             </ext:MenuItem>
                                         </Items>
                                     </ext:Menu>
                                 </Menu>
                             </ext:Button>
 
-                            <ext:Button
-                                ID="ExportExcelReport"
-                                runat="server"
-                                Text="To Excel"
-                                Disabled="true"
-                                Icon="PageExcel">
-                                <Menu>
-                                    <ext:Menu ID="ReportExportOptionsMenu" runat="server">
-                                        <Items>
-                                            <ext:MenuItem ID="ExportExcelSummaryReport" runat="server" Text="Summary Report" Icon="PageExcel">
-                                                <Listeners>
-                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'xls', true);" />
-                                                </Listeners>
-                                            </ext:MenuItem>
-                                        </Items>
-                                    </ext:Menu>
-                                </Menu>
-                            </ext:Button>
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
