@@ -12,7 +12,7 @@
     <div class="front-card">
         <div class="front-welcome float-left p10">
 			<div class="front-welcome-text">
-			    <h1 class="welcome">Welcome to Telephony Billing</h1>
+			    <h1 class="welcome">Welcome to iBill</h1>
 			    <p>Manage your phone calls, bills, your phone calls statistics and history from one place, now!</p>
 			</div>
 		</div>
