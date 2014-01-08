@@ -28,16 +28,6 @@
     text-rendering: optimizeLegibility;
 }
 
-.x-panel-header-default {
-    filter: none;
-    background-image: none;
-    background-color: #ACD1E3; 
-    background-size: auto;
-    background-origin: padding-box !important;
-    background-clip: border-box !important;
-    background-color: transparent !important; 
-}
-
 .x-accordion-item .x-accordion-hd {
     filter: none;
     background: #e5e5e5 !important;
@@ -46,15 +36,7 @@
     background-image: none !important;
 }
 
-.x-nlg .x-toolbar-default {
-    background-image: url("../../../extjs/resources/ext_theme_gray/images/toolbar/toolbar-default-bg-gif/ext.axd"); /* this fixes the bug of accessing the extjs resources directory from the website root */
-    background-repeat: repeat;
-    background-size: cover;
-    background-position-x: 0%;
-    background-position-y: 0%;
-}
-
-.x-nlg .x-grid-header-ct, .x-nlg .x-column-header {
+.x-nlg .x-column-header, .x-nlg .x-grid-header-ct {
     background-image: url("../../../extjs/resources/ext_theme_gray/images/grid/column-header-bg-gif/ext.axd"); /* this fixes the bug of accessing the extjs resources directory from the website root */
     background-attachment: scroll;
     background-repeat: repeat;
@@ -67,4 +49,21 @@
 .x-btn-group, .x-btn-group-default { 
     border: none !important;
     box-shadow: none !important;
+}
+
+.x-toolbar-default, .x-nlg .x-toolbar-default {
+    border-width: 1px;
+    background-image: none !important;
+    background-color: #EFEFEF !important;
+}
+
+.x-tab-bar-default-top, .x-nlg .x-tab-bar-default-top {
+    background-image: none;
+    background-color: #EFEFEF;
+}
+
+.x-nlg .x-panel-header-default, .x-nlg .x-panel-header-default-framed, .x-nlg .x-panel-header-default-framed-top {
+    filter: none;
+    background-image: none;
+    background-color: #ACD1E3 !important;
 }
