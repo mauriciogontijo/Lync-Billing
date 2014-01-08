@@ -30,8 +30,10 @@
 	    <![endif]-->
 
         <!-- [if IE]>
-            <link rel="icon" href="resources/images/favicon.ico" type="image/x-ico">
-            <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-ico">
+            <link rel="icon" href="resources/images/favicon.ico" type="image/x-icon">
+            <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
+            <link rel="icon" href="resources/images/favicon.ico" type="image/image/vnd.microsoft.icon">
+            <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/image/vnd.microsoft.icon">
         <![endif]-->
 
 
