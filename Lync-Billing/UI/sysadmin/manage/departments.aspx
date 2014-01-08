@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill Admin | Manage Departments" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="departments.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.manage.departments" %>
+﻿<%@ Page Title="iBill Admin | Manage Departments" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="departments.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.manage.departments" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill Depart. Head | Statistics" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.dephead.main.dashboard" %>
+﻿<%@ Page Title="iBill Depart. Head | Statistics" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.dephead.main.dashboard" %>
 
 <%-- DEPARTMENT-HEAD # MAIN # STATISTICS --%>
 

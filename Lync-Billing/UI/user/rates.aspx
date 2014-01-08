@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill User | View Telephony Rates" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="rates.aspx.cs" Inherits="Lync_Billing.ui.user.rates" %>
+﻿<%@ Page Title="iBill User | View Telephony Rates" Language="C#" MasterPageFile="~/ui/MasterPage.Master" AutoEventWireup="true" CodeBehind="rates.aspx.cs" Inherits="Lync_Billing.ui.user.rates" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <ext:XScript ID="XScript1" runat="server">

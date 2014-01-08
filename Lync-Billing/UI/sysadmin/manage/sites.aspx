@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill Admin | Manage Sites" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="sites.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.manage.sites" %>
+﻿<%@ Page Title="iBill Admin | Manage Sites" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="sites.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.manage.sites" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill Admin | Manage Department Heads"  Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="depheads.aspx.cs" Inherits="Lync_Billing.ui.admin.roles.depheads" %>
+﻿<%@ Page Title="iBill Admin | Manage Department Heads"  Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="depheads.aspx.cs" Inherits="Lync_Billing.ui.admin.roles.depheads" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <style>

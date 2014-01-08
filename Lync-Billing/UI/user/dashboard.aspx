@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill User | Dashboard" Language="C#" AutoEventWireup="true" MasterPageFile="~/ui/MasterPage.Master" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.user.dashboard" %>
+﻿<%@ Page Title="iBill User | Dashboard" Language="C#" AutoEventWireup="true" MasterPageFile="~/ui/MasterPage.Master" CodeBehind="dashboard.aspx.cs" Inherits="Lync_Billing.ui.user.dashboard" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -110,7 +110,7 @@
                 <p class='font-18'>ANNOUNCEMENTS!</p>
             </div>
             <div class="block-body">
-                <p class='font-14'>Welcome to the new tBill, it's now more customized and personal. Please take your time going through your personal analytics and have a look at our new personal management tools.</p>
+                <p class='font-14'>Welcome to the new iBill, it's now more customized and personal. Please take your time going through your personal analytics and have a look at our new personal management tools.</p>
             </div>
         </div>
                 

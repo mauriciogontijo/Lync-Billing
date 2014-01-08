@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill Accounting | Periodical Reports" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="periodical.aspx.cs" Inherits="Lync_Billing.ui.accounting.reports.periodical" %>
+﻿<%@ Page Title="iBill Accounting | Periodical Reports" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="periodical.aspx.cs" Inherits="Lync_Billing.ui.accounting.reports.periodical" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="head" runat="server">
     <ext:XScript ID="XScript1" runat="server">

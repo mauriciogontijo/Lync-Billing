@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill Admin | Manage DIDs" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="dids.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.manage.dids" %>
+﻿<%@ Page Title="iBill Admin | Manage DIDs" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="dids.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.manage.dids" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <ext:XScript ID="FiltersXScript" runat="server">

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill Admin | Sync with AD" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="sync.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.activedirectory.sync" %>
+﻿<%@ Page Title="iBill Admin | Sync with AD" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="sync.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.activedirectory.sync" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

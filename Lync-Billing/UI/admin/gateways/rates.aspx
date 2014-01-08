@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill Admin | Manage Rates" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="rates.aspx.cs" Inherits="Lync_Billing.ui.admin.gateways.rates" %>
+﻿<%@ Page Title="iBill Admin | Manage Rates" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="rates.aspx.cs" Inherits="Lync_Billing.ui.admin.gateways.rates" %>
 
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <ext:XScript ID="XScript1" runat="server">

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tBill Admin | Manage Application Translations" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="translations.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.configuration.translations" %>
+﻿<%@ Page Title="iBill Admin | Manage Application Translations" Language="C#" MasterPageFile="~/ui/SuperUserMasterPage.Master" AutoEventWireup="true" CodeBehind="translations.aspx.cs" Inherits="Lync_Billing.ui.sysadmin.configuration.translations" %>
 
 <asp:Content ID="HeaderContentPlaceHolder" ContentPlaceHolderID="head" runat="server">
     
