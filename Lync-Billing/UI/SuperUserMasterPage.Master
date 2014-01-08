@@ -65,7 +65,7 @@
                         </div>
                         <!--end toolbar right nav-->
                         <div class="col size1of3 lastcol">
-                            <a class="logo fl" href='../main/dashboard.aspx'>tBill</a>
+                            <a class="logo fl" href='../user/dashboard.aspx'><img src="../resources/images/ibill_48.png" /></a>
                         </div>
                     </div>
                     <!--end toolbar wrapper--> 
@@ -77,7 +77,7 @@
                         <div class="col size1of2 "></div>
                         <!--end toolbar right nav-->
                         <div class="col size1of2 lastcol">
-                            <a class="logo fl" href='../../session/login.aspx'>tBill</a>
+                            <a class="logo fl" href='../user/dashboard.aspx'><img src="../resources/images/ibill_48.png" /></a>
                         </div>
                     </div>
                     <!--end toolbar wrapper--> 

@@ -32,18 +32,19 @@ link of each child item
 /*#################################END VERTICAL DROPDOWN MENU STRATURE###########################*/
 
 /*#################################VERTICAL DROPDOWN MENU DEFAULT SKIN###########################*/
+.toolbar { height: 40px; overflow: visible; }
 .toolbar .vertical-navigation{ position:relative; z-index:3; }
-.tool-dark-bg{background:url(../images/tool-bg.png) repeat-x; }
-.toolbar  .vertical-navigation li { font-family:etisalat ,Arial, Helvetica, sans-serif; font-size:13px ;  border-right: 1px solid #535252;  line-height: 34px; }/*rtl margin*/
+.tool-dark-bg{background:url(../images/tool-bg_20x40.png) repeat-x; }
+.toolbar  .vertical-navigation li { font-family:etisalat ,Arial, Helvetica, sans-serif; font-size:13px ;  border-right: 1px solid #535252;  line-height: 40px; }/*rtl margin*/
 .toolbar  .vertical-navigation li:last-child { border-left: 1px solid #535252;  }/*rtl margin*/
 .toolbar  .vertical-navigation li a { color:#fff;text-shadow: 2px 2px 3px rgba(195, 195, 195, .30);padding:0 10px }
 .toolbar  .vertical-navigation li .drop { background:url(../images/drop-arrow.png) no-repeat; display:inline-block; vertical-align:middle; width:12px; height:8px; margin:0 5px 0 0 }
-.toolbar  .vertical-navigation li .settings { background:url(../images/settings.png) no-repeat; background-size:contain; display:inline-block; vertical-align:middle; width:30px; height:34px; margin:0 5px 0 0 }
+.toolbar  .vertical-navigation li .settings { background:url(../images/settings.png) no-repeat; background-size:contain; display:inline-block; vertical-align:middle; width:30px; height:40px; margin:0 5px 0 0 }
 .toolbar  .vertical-navigation li .shutdown { background:url(../images/shutdown.png) no-repeat; background-size:contain; display:inline-block; vertical-align:middle; width:26px; height:30px; margin:0 5px 0 0 }
 .toolbar  .vertical-navigation li ul {
     z-index: 1000;
     position: absolute;
-    top: 34px;
+    top: 40px;
     width: 180px;
     background: #fff !important; /*background:#252424;*/
     color: #0B486B !important;
@@ -88,7 +89,7 @@ link of each child item
 
 .toolbar  .left0{left:0%}
 /*#################################END VERTICAL DROPDOWN MENU DEFAULT SKIN ###########################*/
-.logo{color: #FFFFFF;font-size: 22px;font-weight: bold;line-height: 32px;text-decoration: none;text-shadow: 0 2px 4px #000000;}
+.logo{display:block; color: #FFFFFF;font-size: 22px;font-weight: bold;line-height: 32px;text-decoration: none;text-shadow: 0 2px 4px #000000; margin-top: 2px; }
 .logo:hover{text-decoration:none}
 
 /*from(#3B8686), to(#0B486B));*/
