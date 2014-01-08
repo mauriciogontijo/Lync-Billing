@@ -151,11 +151,11 @@
                                 Icon="Find"
                                 DisplayField="TypeName"
                                 ValueField="TypeValue"
-                                FieldLabel="Calls Type"
+                                FieldLabel="Display"
                                 LabelSeparator=":"
-                                LabelWidth="60"
+                                LabelWidth="40"
                                 Width="200"
-                                Margins="5 100 0 5"
+                                Margins="5 105 0 5"
                                 Disabled="true"
                                 Editable="false">
                                 <Items>
@@ -238,6 +238,7 @@
                                     </ext:Menu>
                                 </Menu>
                             </ext:Button>
+
                         </Items>
                     </ext:Toolbar>
                 </TopBar>
