@@ -78,7 +78,7 @@
                                         <li id="user-tab" class="">
                                             <a href="#"><%= DisplayName %><span class="drop"></span></a>
                                             <ul id="user-dropdown">
-                                                <li class="first-child"><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
+                                                <li class=""><a title="Manage My Phone Calls" href="../user/phonecalls.aspx">Phone Calls</a></li>
                                                 <li class="separator-bottom"><a title="Address Book" href="../user/addressbook.aspx">Address Book</a></li>
                                                 <li class=""><a title="Bills History" href="../user/bills.aspx">Bills History</a></li>
                                                 <li class=""><a title="Calls History" href="../user/history.aspx">Calls History</a></li>
@@ -87,7 +87,7 @@
                                                     <li class="separator-bottom"><a title="Telephony Rates" href="../user/rates.aspx">Telephony Rates</a></li>
                                                     <li class="last-child"><a title="Logout" href="../session/logout.aspx">Logout</a></li>
                                                 <% } else { %>
-                                                    <li class="last-child"><a title="Telephony Rates" href="../user/rates.aspx">Telephony Rates</a></li>
+                                                    <li class=""><a title="Telephony Rates" href="../user/rates.aspx">Telephony Rates</a></li>
                                                 <% } %>
                                             </ul>
                                         </li>
