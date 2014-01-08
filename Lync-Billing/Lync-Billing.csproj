@@ -163,8 +163,8 @@
     <Content Include="ui\resources\js\ext-js-specific.js" />
     <Content Include="ui\session\authenticate.aspx" />
     <Content Include="ui\session\login.aspx" />
-    <Content Include="ui\resources\css\green-layout-ie-hacks.css" />
-    <Content Include="ui\resources\css\green-layout.css" />
+    <Content Include="ui\resources\css\ie-hacks.css" />
+    <Content Include="ui\resources\css\coloring-and-positioning.css" />
     <Content Include="ui\resources\css\reset.css" />
     <Content Include="ui\resources\css\toolkit.css" />
     <Content Include="ui\session\logout.aspx" />
