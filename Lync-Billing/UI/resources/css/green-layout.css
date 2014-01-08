@@ -90,8 +90,7 @@ body {
 
 /* ****************************** */
 /* start asp & ext blocks styling */
-/*.x-panel-header-default { border-top-left-radius: 5px; border-top-right-radius: 5px; background-color: #79BD9A; background-image: linear-gradient(top, #A8DBA8, #79BD9A); }*/
-.x-panel-header-default, .x-panel-header-default-framed, .x-panel-header-default-framed-top { border-top-left-radius: 5px; border-top-right-radius: 5px; background-image: none; background-color: #79BD9A; background-image: -webkit-gradient(linear, left top, left bottom, from(#A8DBA8), to(#79BD9A)); background-image: -webkit-linear-gradient(top, #A8DBA8, #79BD9A); background-image: -moz-linear-gradient(top, #A8DBA8, #79BD9A); background-image: -o-linear-gradient(top, #A8DBA8, #79BD9A); background-image: linear-gradient(top, #A8DBA8, #79BD9A); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A8DBA8', endColorstr='#79BD9A'); }
+.x-panel-header-default, .x-panel-header-default-framed, .x-panel-header-default-framed-top { border-top-left-radius: 5px; border-top-right-radius: 5px; background-image: none; background-color: #ACD1E3; }
 .x-accordion-item .x-accordion-hd { background: #e5e5e5; filter: none; border-top-color: #ececec; padding: 4px 5px 5px 5px; }
 .x-panel-header-default-framed-top { -webkit-box-shadow: #ececec 0 1px 0 0 inset,#ececec -1px 0 0 0 inset,#ececec 1px 0 0 0 inset; -moz-box-shadow: #ececec 0 1px 0 0 inset,#ececec -1px 0 0 0 inset,#ececec 1px 0 0 0 inset; box-shadow: #ececec 0 1px 0 0 inset,#ececec -1px 0 0 0 inset,#ececec 1px 0 0 0 inset; }
 .x-panel-body-default-framed { background: #f9f9f9; border-color: #d0d0d0; color: black; font-size: 12px; border-width: 0; border-style: solid; }
@@ -118,6 +117,16 @@ body {
     border-style:solid;
     padding:0;
     background:#f9f9f9;
+}
+/* grids, tabs background */
+.x-tab-bar-default-top {
+    background-image: none;
+    background-color: #EFEFEF;
+}
+.x-toolbar-default {
+    border-width: 1px;
+    background-image: none;
+    background-color: #EFEFEF;
 }
 
 .popup-menu-field-label-background a:hover, .popup-menu-field-label-background span:hover { cursor: default; }

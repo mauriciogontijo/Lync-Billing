@@ -34,7 +34,8 @@ link of each child item
 /*#################################VERTICAL DROPDOWN MENU DEFAULT SKIN###########################*/
 .toolbar { height: 40px; overflow: visible; }
 .toolbar .vertical-navigation{ position:relative; z-index:3; }
-.tool-dark-bg{background:url(../images/tool-bg_20x40.png) repeat-x; }
+/*.tool-dark-bg { background:url(../images/tool-bg_20x40.png) repeat-x; }*/
+.tool-dark-bg { background: #3D81A1; }
 .toolbar  .vertical-navigation li { font-family:etisalat ,Arial, Helvetica, sans-serif; font-size:13px ;  border-right: 1px solid #535252;  line-height: 40px; }/*rtl margin*/
 .toolbar  .vertical-navigation li:last-child { border-left: 1px solid #535252;  }/*rtl margin*/
 .toolbar  .vertical-navigation li a { color:#fff;text-shadow: 2px 2px 3px rgba(195, 195, 195, .30);padding:0 10px }
@@ -52,7 +53,7 @@ link of each child item
     -moz-box-shadow: #3B8686 1px 2px 6px; /* #666 */
     box-shadow: #3B8686 1px 2px 6px; /* #666 */
     border: 1px #B6C0D2 solid;
-    border-top: 3px #3B8686 solid;
+    border-top: 3px #0A5A80 solid;
     -webkit-border-bottom-right-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
     -moz-border-radius-bottomright: 5px;
@@ -71,8 +72,8 @@ link of each child item
 .toolbar .vertical-navigation li a:hover {color: #fff; }
 
 .vertical-navigation li:hover a,
-.vertical-navigation li a:hover { background: #3B8686 /*#0B486B*/; color: #fff; }
-.vertical-navigation li.selected {background: #6DB14A; color: #fff;}
+.vertical-navigation li a:hover { background: #0A5A80 /*#0B486B*/; color: #fff; }
+.vertical-navigation li.selected {background: #224252; color: #000000 !important; }
 
 /* default value of links colors in the sub menu */
 .toolbar .vertical-navigation li:hover ul li { border-right: none;}
@@ -82,7 +83,7 @@ link of each child item
 .toolbar .vertical-navigation ul li a { height: 32px; line-height: 30px; float: left; text-align: left; display: inline; overflow: hidden; }
 .toolbar .vertical-navigation li:hover ul li a:hover, 
 .toolbar .vertical-navigation ul li a:hover,
-.toolbar .vertical-navigation ul li:hover a { background-color: #ececec; color: #000; font-weight: bold; /*border-top: 1px solid #B6C0D2; border-bottom: 1px solid #B6C0D2;*/}
+.toolbar .vertical-navigation ul li:hover a { background-color: #ffffff; color: #000; font-weight: bold; /*border-top: 1px solid #B6C0D2; border-bottom: 1px solid #B6C0D2;*/}
 
 .toolbar .vertical-navigation ul li.first-child{margin-top:3px !important; }
 .toolbar .vertical-navigation ul li.last-child{border:none; margin-bottom:3px !important; }
