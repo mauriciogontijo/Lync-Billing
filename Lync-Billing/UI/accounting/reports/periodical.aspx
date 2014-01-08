@@ -183,11 +183,11 @@
                                     <ext:ListItem Text="Not Charged" Value="1" />
                                 </SelectedItems>
 
-                                <%--<DirectEvents>
+                                <DirectEvents>
                                     <Select OnEvent="FilterReportsByCallsTypes_Select">
                                         <EventMask ShowMask="true" />
                                     </Select>
-                                </DirectEvents>--%>
+                                </DirectEvents>
                             </ext:ComboBox>
 
                             <ext:Button

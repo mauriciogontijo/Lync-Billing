@@ -259,6 +259,12 @@ namespace Lync_Billing.ui.accounting.reports
             }
         }
 
+
+        protected void FilterReportsByCallsTypes_Select(object sender, DirectEventArgs e)
+        {
+
+        }
+
     }
 
 }
