@@ -43,7 +43,6 @@ namespace Lync_Backend.Implementation
 
                         if (result != null)
                         {
-                            phoneCall.Marker_CallCost = Convert.ToDecimal(0);
                             return true;
                         }
                         
