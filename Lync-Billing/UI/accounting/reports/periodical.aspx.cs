@@ -62,7 +62,7 @@ namespace Lync_Billing.ui.accounting.reports
         }
 
 
-        List<UserCallsSummary> PeriodicalReport(int siteID, DateTime startingDate, DateTime endingDate) 
+        private List<UserCallsSummary> PeriodicalReport(int siteID, DateTime startingDate, DateTime endingDate) 
         {
             Backend.Site site = Backend.Site.GetSite(siteID);
 
@@ -70,6 +70,118 @@ namespace Lync_Billing.ui.accounting.reports
                                         .Where(e=> e.PersonalCallsCost > 0 || e.BusinessCallsCost > 0 || e.UnmarkedCallsCost > 0).ToList();
 
             return data;
+        }
+
+
+        private void BindDataToReportsGrid(bool siteHasChanged = false, bool dateHasChanged = false, bool callTypeHasChanged = false)
+        {
+            int callsType, siteID;
+            List<UserCallsSummary> gridData = new List<UserCallsSummary>();
+
+            if (listOfUsersCallsSummary.Count == 0 || (siteHasChanged == true || dateHasChanged == true))
+            {
+                siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
+                listOfUsersCallsSummary = PeriodicalReport(siteID, StartingDate.SelectedDate, EndingDate.SelectedDate);
+            }
+
+            callsType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
+
+            if (callsType == 1)
+                gridData = listOfUsersCallsSummary.Where(summary => summary.AC_IsInvoiced == "NO").ToList();
+            else if (callsType == 2)
+                gridData = listOfUsersCallsSummary.Where(summary => summary.AC_IsInvoiced == "N/A").ToList();
+            else if (callsType == 3)
+                gridData = listOfUsersCallsSummary.Where(summary => summary.AC_IsInvoiced == "YES").ToList();
+
+            PeriodicalReportsGrid.GetStore().DataSource = gridData;
+            PeriodicalReportsGrid.GetStore().LoadData(gridData);
+        }
+
+
+        protected void FilterReportsBySite_Selecting(object sender, DirectEventArgs e)
+        {
+            int siteID;
+
+            if (FilterReportsBySite.SelectedItem.Index != -1)
+            {
+                StartingDate.Disabled = false;
+
+                //If the dates were previously chosen, jsut refresh the data!
+                if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
+                {
+                    siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
+
+                    CallsTypesComboBox.Disabled = false;
+                    AdvancedToolsMenu.Disabled = false;
+
+                    BindDataToReportsGrid(siteHasChanged: true);
+                }
+            }
+            else
+            {
+                StartingDate.Disabled = true;
+                EndingDate.Disabled = true;
+                CallsTypesComboBox.Disabled = true;
+                AdvancedToolsMenu.Disabled = true;
+            }
+        }
+
+
+        protected void StartingDate_Selection(object sender, DirectEventArgs e)
+        {
+            if (StartingDate.SelectedValue != null)
+            {
+                EndingDate.Disabled = false;
+
+                if (EndingDate.SelectedValue != null)
+                {
+                    BindDataToReportsGrid(dateHasChanged: true);
+                }
+            }
+            else
+            {
+                EndingDate.Disabled = true;
+                CallsTypesComboBox.Disabled = true;
+                AdvancedToolsMenu.Disabled = true;
+            }
+        }
+
+
+        protected void EndingDate_Selection(object sender, DirectEventArgs e)
+        {
+            int siteID;
+
+            if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
+            {
+                siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
+
+                CallsTypesComboBox.Disabled = false;
+                AdvancedToolsMenu.Disabled = false;
+
+                BindDataToReportsGrid(dateHasChanged: true);
+            }
+            else
+            {
+                CallsTypesComboBox.Disabled = true;
+                AdvancedToolsMenu.Disabled = true;
+            }
+        }
+
+
+        protected void FilterReportsByCallsTypes_Select(object sender, DirectEventArgs e)
+        {
+            int callsType;
+            InvoiceUsers.Disabled = true;
+
+            if (CallsTypesComboBox.SelectedItem.Index > -1)
+            {
+                callsType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
+
+                if (callsType == 1 || callsType == 2)
+                    InvoiceUsers.Disabled = false;
+
+                BindDataToReportsGrid(callTypeHasChanged: true);
+            }
         }
 
 
@@ -188,82 +300,8 @@ namespace Lync_Billing.ui.accounting.reports
             }
 
             this.Response.End();
-        }
 
-
-        protected void FilterReportsBySite_Selecting(object sender, DirectEventArgs e)
-        {
-            int siteID;
-
-            if (FilterReportsBySite.SelectedItem.Index != -1)
-            {
-                StartingDate.Disabled = false;
-
-                //If the dates were previously chosen, jsut refresh the data!
-                if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
-                {
-                    siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
-
-                    CallsTypesComboBox.Disabled = false;
-                    AdvancedToolsMenu.Disabled = false;
-
-                    listOfUsersCallsSummary = PeriodicalReport(siteID, StartingDate.SelectedDate, EndingDate.SelectedDate);
-                    PeriodicalReportsGrid.GetStore().DataSource = listOfUsersCallsSummary;
-                    PeriodicalReportsGrid.GetStore().LoadData(listOfUsersCallsSummary);
-                }
-            }
-            else
-            {
-                StartingDate.Disabled = true;
-                EndingDate.Disabled = true;
-                CallsTypesComboBox.Disabled = true;
-                AdvancedToolsMenu.Disabled = true;
-            }
-        }
-
-
-        protected void StartingDate_Selection(object sender, DirectEventArgs e)
-        {
-            if (StartingDate.SelectedValue != null)
-            {
-                EndingDate.Disabled = false;
-            }
-            else
-            {
-                EndingDate.Disabled = true;
-                CallsTypesComboBox.Disabled = true;
-                AdvancedToolsMenu.Disabled = true;
-            }
-        }
-
-
-        protected void EndingDate_Selection(object sender, DirectEventArgs e)
-        {
-            int siteID;
-
-            if (FilterReportsBySite.SelectedItem.Index != -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
-            {
-                siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
-
-                CallsTypesComboBox.Disabled = false;
-                AdvancedToolsMenu.Disabled = false;
-
-                listOfUsersCallsSummary = PeriodicalReport(siteID, StartingDate.SelectedDate, EndingDate.SelectedDate);
-                PeriodicalReportsGrid.GetStore().DataSource = listOfUsersCallsSummary;
-                PeriodicalReportsGrid.GetStore().LoadData(listOfUsersCallsSummary);
-            }
-            else
-            {
-                CallsTypesComboBox.Disabled = true;
-                AdvancedToolsMenu.Disabled = true;
-            }
-        }
-
-
-        protected void FilterReportsByCallsTypes_Select(object sender, DirectEventArgs e)
-        {
-
-        }
+        }//End-Function
 
     }
 
