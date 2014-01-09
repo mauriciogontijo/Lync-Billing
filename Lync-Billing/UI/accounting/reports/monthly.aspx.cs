@@ -145,6 +145,31 @@ namespace Lync_Billing.ui.accounting.reports
             }
         }
 
+        protected void InvoiceUsers_Confirm_Click(object sender, DirectEventArgs e)
+        {
+            int siteID, callType;
+            DateTime startingDate, endingDate;
+
+            if (FilterReportsBySite.SelectedItem.Index > -1 && CallsTypesComboBox.SelectedItem.Index > -1 && ReportDateField.SelectedValue != null)
+            {
+                siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
+                callType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
+
+                startingDate = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
+                endingDate = startingDate.AddMonths(1).AddDays(-1);
+
+                if (callType == 1)
+                {
+                    PhoneCall.ChargePhoneCalls(siteID, startingDate, endingDate, chargeBusinessPersonal: true, chargePending: false);
+                }
+                else if (callType == 2)
+                {
+                    PhoneCall.ChargePhoneCalls(siteID, startingDate, endingDate, chargeBusinessPersonal: false, chargePending: true);
+                }
+
+            }//End-if
+        }
+
         protected void MonthlyReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
             int callsType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
@@ -263,33 +288,6 @@ namespace Lync_Billing.ui.accounting.reports
             }
 
             this.Response.End();
-        }
-
-        
-        protected void InvoiceUsers_Confirm_Click(object sender, DirectEventArgs e)
-        {
-            int siteID, callType;
-            DateTime startingDate, endingDate;
-
-            if (FilterReportsBySite.SelectedItem.Index > -1 && CallsTypesComboBox.SelectedItem.Index > -1 && ReportDateField.SelectedValue != null)
-            {
-                siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
-                callType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
-                
-                startingDate = new DateTime(ReportDateField.SelectedDate.Year, ReportDateField.SelectedDate.Month, 1);
-                endingDate = startingDate.AddMonths(1).AddDays(-1);
-
-                if (callType == 1)
-                {
-                    PhoneCall.ChargePhoneCalls(siteID, startingDate, endingDate, chargeBusinessPersonal: true, chargePending: false);
-                }
-                else if (callType == 2)
-                {
-                    PhoneCall.ChargePhoneCalls(siteID, startingDate, endingDate, chargeBusinessPersonal: false, chargePending: true);
-                }
-
-            }//End-if
-
         }//End-function
 
     }

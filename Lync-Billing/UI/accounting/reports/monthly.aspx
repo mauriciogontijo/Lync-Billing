@@ -219,7 +219,7 @@
                                                 </Menu>
                                             </ext:MenuItem>
 
-                                            <ext:MenuItem ID="InvoiceUsers" runat="server" Text="Invoice" Icon="Money" Hidden="true">
+                                            <ext:MenuItem ID="InvoiceUsers" runat="server" Text="Invoice" Icon="Money" Hidden="false">
                                                 <Menu>
                                                     <ext:Menu ID="InvoiceUsersMenu" runat="server">
                                                         <Items>
