@@ -427,7 +427,7 @@
         Title="Customize Statistics"
         Width="280"
         Icon="Cog"
-        X="700"
+        X="800"
         Y="150"
         BodyStyle="background-color: #f9f9f9;"
         ComponentCls="fix-ui-vertical-align">
@@ -445,7 +445,7 @@
                 ValueField="YearAsNumber"
                 Width="250"
                 LabelWidth="60"
-                FieldLabel="Filter Period"
+                FieldLabel="Year"
                 LabelSeparator=":">
                 <Store>
                     <ext:Store ID="CustomizeStats_YearStore" runat="server" OnLoad="CustomizeStats_YearStore_Load">
