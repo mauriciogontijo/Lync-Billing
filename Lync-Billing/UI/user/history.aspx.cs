@@ -94,20 +94,23 @@ namespace Lync_Billing.ui.user
         public List<PhoneCall> GetCallsHistoryFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
         {
             IQueryable<PhoneCall> filteredPhoneCalls;
-            List<PhoneCall> userSessionPhoneCallsHistory;
+            List<PhoneCall> userPhoneCallsHistory;
             int filteredPhoneCallsCount;
+
 
             //Get user session data
             session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
+            sipAccount = session.GetEffectiveSipAccount();
+
 
             //Get user session phonecalls history; handle normal user mode and delegee mode
-            userSessionPhoneCallsHistory = session.GetUserSessionPhoneCalls().Where(phoneCall => phoneCall.AC_InvoiceDate != DateTime.MinValue && (!string.IsNullOrEmpty(phoneCall.AC_IsInvoiced) && phoneCall.AC_IsInvoiced != "NO")).ToList();
+            userPhoneCallsHistory = PhoneCall.GetPhoneCalls(sipAccount).Where(phoneCall => phoneCall.AC_InvoiceDate != DateTime.MinValue && (!string.IsNullOrEmpty(phoneCall.AC_IsInvoiced) && phoneCall.AC_IsInvoiced == "YES")).ToList();
 
             //Start filtering process
             if (filter == null)
-                filteredPhoneCalls = userSessionPhoneCallsHistory.Where(phoneCall => !string.IsNullOrEmpty(phoneCall.UI_CallType)).AsQueryable();
+                filteredPhoneCalls = userPhoneCallsHistory.Where(phoneCall => !string.IsNullOrEmpty(phoneCall.UI_CallType)).AsQueryable();
             else
-                filteredPhoneCalls = userSessionPhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
+                filteredPhoneCalls = userPhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
 
             //Start sorting process
             if (sort != null)
