@@ -25,7 +25,7 @@
         <link rel="stylesheet" type="text/css" media="all" href="resources/css/layouts.css" />
         <link rel="stylesheet" type="text/css" media="all" href="resources/css/toolkit.css" />
         <link rel="stylesheet" type="text/css" media="all" href="resources/css/global.css" />
-        <link rel="stylesheet" type="text/css" media="all" href="resources/css/coloring-and-positioning.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="resources/css/main.css" />
         <link rel="stylesheet" type="text/css" media="all" href="resources/css/dropdown-menu-white.css" />
 
         <script type="text/javascript" src="../../resources/js/jquery-1.9.1.min.js"></script>
@@ -76,7 +76,7 @@
                         </div>
                         <!--end toolbar right nav-->
                         <div class="col size1of3 lastcol">
-                            <a class="logo fl" href='../user/dashboard.aspx'><img src="../../resources/images/ibill_48.png" /></a>
+                            <a class="logo fl" href='../main/dashboard.aspx'><img src="../../resources/images/ibill_48.png" /></a>
                         </div>
                     </div>
                     <!--end toolbar wrapper--> 
@@ -84,11 +84,11 @@
                 <!-- toolbar block-->
             <% } else { %>
                 <div  class="block tool-dark-bg liquid toolbar " >
-                    <div class="hwrapper rtl  ">
+                    <div class="hwrapper rtl">
                         <div class="col size1of2 "></div>
                         <!--end toolbar right nav-->
                         <div class="col size1of2 lastcol">
-                            <a class="logo fl" href='../user/dashboard.aspx'><img src="../../resources/images/ibill_48.png" /></a>
+                            <a class="logo fl" href='../main/dashboard.aspx'><img src="../../resources/images/ibill_48.png" /></a>
                         </div>
                     </div>
                     <!--end toolbar wrapper--> 
