@@ -181,15 +181,21 @@ namespace Lync_Billing.ui.accounting.reports
             List<string> SipAccountsList;
             Dictionary<string, Dictionary<string, object>> UsersCollection;
             JavaScriptSerializer jSerializer;
+            int SiteID;
+            Backend.Site SelectedSite;
             
             //These are created to hold the data submitted through the grid as JSON
             List<Users> usersData;
             Dictionary<string, object> tempUserDataContainer;
             
             XmlNode xml = e.Xml;
-            string siteName = FilterReportsBySite.SelectedItem.Value;
             string format = this.FormatType.Value.ToString();
             string pdfReportFileName = string.Empty;
+
+
+            SiteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
+            SelectedSite = Backend.Site.GetSite(SiteID);
+
 
             this.Response.Clear();
 
@@ -227,7 +233,7 @@ namespace Lync_Billing.ui.accounting.reports
                     //Initialize the response.
                     pdfReportFileName = string.Format(
                         "{0}_Monthly_Summary_Report_{1}.pdf",
-                        siteName.ToUpper(), beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year
+                        SelectedSite.SiteName.ToUpper(), beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year
                     );
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=" + pdfReportFileName);
@@ -235,13 +241,13 @@ namespace Lync_Billing.ui.accounting.reports
 
                     pdfDocumentHeaders = new Dictionary<string, string>()
                     {
-                        {"siteName", siteName},
+                        {"siteName", SelectedSite.SiteName},
                         {"title", "Accounting Monthly Report [Summary]"},
                         {"subTitle", "As Per: " + beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year}
                     };
 
                     pdfDocument = new Document();
-                    UserCallsSummary.ExportUsersCallsSummaryToPDF(siteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, invoicedStatus: true);
+                    UserCallsSummary.ExportUsersCallsSummaryToPDF(SelectedSite.SiteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, invoicedStatus: true);
                     Response.Write(pdfDocument);
                     break;
 
@@ -268,7 +274,7 @@ namespace Lync_Billing.ui.accounting.reports
                     //Initialize the response.
                     pdfReportFileName = string.Format(
                         "{0}_Monthly_Detailed_Report_{1}.pdf",
-                        siteName.ToUpper(), beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year
+                        SelectedSite.SiteName.ToUpper(), beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year
                     );
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=" + pdfReportFileName);
@@ -276,13 +282,13 @@ namespace Lync_Billing.ui.accounting.reports
 
                     pdfDocumentHeaders = new Dictionary<string, string>()
                     {
-                        {"siteName", siteName},
+                        {"siteName", SelectedSite.SiteName},
                         {"title", "Accounting Monthly Report [Detailed]"},
                         {"subTitle", "As Per: " + beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year}
                     };
 
                     pdfDocument = new Document();
-                    UserCallsSummary.ExportUsersCallsDetailedToPDF(siteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, invoicedStatus: true);
+                    UserCallsSummary.ExportUsersCallsDetailedToPDF(SelectedSite.SiteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, invoicedStatus: true);
                     Response.Write(pdfDocument);
                     break;
             }
