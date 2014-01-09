@@ -205,7 +205,7 @@
                                                         <Items>
                                                             <ext:MenuItem ID="ExportExcelSummaryReport" runat="server" Text="Summary Report">
                                                                 <Listeners>
-                                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'xls', true);" />
+                                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'xls', true);" />
                                                                 </Listeners>
                                                             </ext:MenuItem>
                                                         </Items>
@@ -219,13 +219,13 @@
                                                         <Items>
                                                             <ext:MenuItem ID="ExportPDFSummaryRreport" runat="server" Text="Summary Report">
                                                                 <Listeners>
-                                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'pdf', true);" />
+                                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'pdf', true);" />
                                                                 </Listeners>
                                                             </ext:MenuItem>
 
                                                             <ext:MenuItem ID="ExportPDFDetailedRreport" runat="server" Text="Detailed Report">
                                                                 <Listeners>
-                                                                    <Click Handler="submitValue(#{MonthlyReportsGrids}, #{FormatType}, 'pdf-d', true);" />
+                                                                    <Click Handler="submitValue(#{PeriodicalReportsGrid}, #{FormatType}, 'pdf-d', true);" />
                                                                 </Listeners>
                                                             </ext:MenuItem>
                                                         </Items>
@@ -233,7 +233,7 @@
                                                 </Menu>
                                             </ext:MenuItem>
 
-                                            <ext:MenuItem ID="InvoiceUsers" runat="server" Text="Invoice" Icon="Money" Hidden="false">
+                                            <ext:MenuItem ID="InvoiceUsers" runat="server" Text="Invoice" Icon="Money" Hidden="true">
                                                 <Menu>
                                                     <ext:Menu ID="InvoiceUsersMenu" runat="server">
                                                         <Items>
