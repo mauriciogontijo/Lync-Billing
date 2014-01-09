@@ -46,6 +46,7 @@ link of each child item
     z-index: 1000;
     position: absolute;
     top: 40px;
+    right: -1px;
     width: 180px;
     background: #fff !important; /*background:#252424;*/
     color: #0B486B !important;
