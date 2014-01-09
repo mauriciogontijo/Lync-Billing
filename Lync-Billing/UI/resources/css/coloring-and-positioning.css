@@ -1,8 +1,7 @@
 /* set the background image */
 html {
-    /*background: #f7f7f7 url(../images/main-bg.png) repeat center top;*/
-    background: #f7f7f7;
-    /*background: #FFFFFF;*/
+    /*background: #f7f7f7;*/
+    background: #f7f7f7 url(../images/main-bg.png) repeat center top;
 }
 
 /* normal font settings */
