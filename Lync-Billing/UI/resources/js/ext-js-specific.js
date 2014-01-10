@@ -110,6 +110,21 @@ var SpecialDateRenderer = function (value) {
 }
 
 
+//This function renders months names instead of numbers the Bills History page
+//This function does not return days. It only returns the month names!
+var MonthsNumbersRenderer = function (value) {
+    if (typeof value != undefined && value != 0) {
+        var month_number = parseInt(value);
+        var months_long_names = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        if (month_number > 0 && month_number <= 12)
+            return months_long_names[month_number]
+        else
+            return '';
+    }
+}
+
+
 //This is used in the PhoneCalls page, History page, and Delegees page
 function getCssColorForPhoneCallRow(value, meta, record, rowIndex, colIndex, store) {
     if (record.data != null) {
