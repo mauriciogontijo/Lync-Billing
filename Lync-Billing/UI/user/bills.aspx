@@ -30,11 +30,13 @@
                         runat="server" 
                         OnLoad="BillsStore_Load"
                         IsPagingStore="true"  
-                        PageSize="25">
+                        PageSize="25"
+                        GroupField="Year">
                         <Model>
                             <ext:Model ID="Model1" runat="server" IDProperty="BillsModel">
                                 <Fields>
-                                    <ext:ModelField Name="Date" Type="Date" />
+                                    <ext:ModelField Name="Year" Type="int" />
+                                    <ext:ModelField Name="Month" Type="int" />
                                     <ext:ModelField Name="PersonalCallsCost" Type="Float" />
                                     <ext:ModelField Name="PersonalCallsCount" Type="Int" />
                                     <ext:ModelField Name="PersonalCallsDuration" Type="Int" />
@@ -44,16 +46,23 @@
                     </ext:Store>
                 </Store>
 
+                <Features>
+                    <ext:Grouping ID="GroupingFeatures" 
+                        runat="server" 
+                        HideGroupedHeader="false"
+                        StartCollapsed="false" />
+                </Features>
+
                 <ColumnModel ID="BillsColumnModel" runat="server">
 		            <Columns>
-                        <ext:Column ID="BillDate" 
+                        <ext:Column ID="BillMonthColumn" 
                             runat="server" 
-                            Text="Accounting Date" 
+                            Text="Month" 
                             Width="180" 
-                            DataIndex="Date"
+                            DataIndex="Month"
                             Groupable="false"
                             Align="Left">
-                            <Renderer Fn="SpecialDateRenderer" />
+                            <Renderer Fn="MonthsNumbersRenderer" />
                         </ext:Column>
 
                         <ext:Column ID="TotalCalls"
