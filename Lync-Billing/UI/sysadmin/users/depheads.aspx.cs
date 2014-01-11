@@ -56,9 +56,7 @@ namespace Lync_Billing.ui.sysadmin.users
             List<Users> users = new List<Users>();
             List<string> usersList = new List<string>();
 
-            var siteObject = allSites.Find(site => site.SiteID == siteID);
-
-            users = Users.GetUsers(siteObject.SiteName);
+            users = Users.GetUsers(siteID);
 
             if (users.Count > 0)
             {

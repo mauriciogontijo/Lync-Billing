@@ -80,7 +80,7 @@ namespace Lync_Billing.ui.admin.roles
 
             var siteObject = sitesList.Find(site => site.SiteID == siteID);
 
-            users = Users.GetUsers(siteObject.SiteName);
+            users = Users.GetUsers(siteID);
 
             if (users.Count > 0)
             {

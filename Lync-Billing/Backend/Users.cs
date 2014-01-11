@@ -80,16 +80,33 @@ namespace Lync_Billing.Backend
 
         }
 
-        public static List<Users> GetUsers(string siteName) 
+        public static List<Users> GetUsers(int? siteID = null, string siteName = null) 
         {
             Users user = new Users();
             DataTable dt = new DataTable();
             List<Users> users = new List<Users>();
 
-            dt = DBRoutines.SELECT(
-                Enums.GetDescription(Enums.Users.TableName),
-                Enums.GetDescription(Enums.Users.SiteName),
-                siteName);
+            if (siteID != null)
+            {
+                string usersSiteName = Site.GetSiteName(Convert.ToInt32(siteID));
+
+                dt = DBRoutines.SELECT(
+                    Enums.GetDescription(Enums.Users.TableName),
+                    Enums.GetDescription(Enums.Users.SiteName),
+                    usersSiteName);
+            }
+            else if (!string.IsNullOrEmpty(siteName))
+            {
+                dt = DBRoutines.SELECT(
+                    Enums.GetDescription(Enums.Users.TableName),
+                    Enums.GetDescription(Enums.Users.SiteName),
+                    siteName);
+            }
+            else
+            {
+                return users;
+            }
+
 
             foreach (DataRow row in dt.Rows)
             {
@@ -436,4 +453,5 @@ namespace Lync_Billing.Backend
         }
 
     }
+
 }
