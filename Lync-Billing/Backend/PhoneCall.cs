@@ -480,28 +480,30 @@ namespace Lync_Billing.Backend
         }
 
 
-        public static bool ChargePhoneCalls(int siteID, DateTime fromDate, DateTime toDate, bool chargeBusinessPersonal, bool chargePending)
+        public static bool ChargePhoneCallsOfSite(int siteID, DateTime fromDate, DateTime toDate, bool chargeBusinessPersonal, bool chargePending)
         {
             DataTable dt = new DataTable();
             string databaseFunction = Enums.GetDescription(Enums.DatabaseFunctionsNames.Get_ChargeableCalls_ForSite);
             List<object> functionaParams = new List<object>();
             Dictionary<string, object> whereClause = new Dictionary<string,object>();
 
-            Site SelectedSite;
+            Site SelectedSite = Backend.Site.GetSite(siteID);;
             DateTime InvoiceDate = DateTime.Now;
             bool status = false;
-            
-            
+
             //Begin...
 
+            //Get list of users in this site
+            List<string> siteSipAccounts = Users.GetUsers(siteID).Select<Users, string>(user => user.SipAccount).ToList<string>();
+
             //Initialize function parameters and then query the database
-            SelectedSite = Backend.Site.GetSite(siteID);
             functionaParams.Add(SelectedSite.SiteName);
 
             //Handle which case to charge
             if (chargeBusinessPersonal == true && chargePending == false)
             {
                 //whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), "!null");
+                whereClause.Add(Enums.GetDescription(Enums.Users.SipAccount), siteSipAccounts);
                 whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "NO");
                 whereClause.Add(
                     Enums.GetDescription(Enums.PhoneCalls.SessionIdTime), 
@@ -513,6 +515,7 @@ namespace Lync_Billing.Backend
             else if (chargePending == true && chargeBusinessPersonal == false)
             {
                 whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType), null);
+                whereClause.Add(Enums.GetDescription(Enums.Users.SipAccount), siteSipAccounts);
                 whereClause.Add(Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced), "N/A");
                 whereClause.Add(
                     Enums.GetDescription(Enums.PhoneCalls.SessionIdTime),
