@@ -185,6 +185,34 @@ namespace Lync_Billing.ui.accounting.reports
         }
 
 
+        protected void InvoiceUsers_Confirm_Click(object sender, DirectEventArgs e)
+        {
+            int siteID, callType;
+            DateTime startingDate, endingDate;
+
+            if (FilterReportsBySite.SelectedItem.Index > -1 && CallsTypesComboBox.SelectedItem.Index > -1 && StartingDate.SelectedValue != null && EndingDate.SelectedValue != null)
+            {
+                siteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
+                callType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
+
+                startingDate = new DateTime(StartingDate.SelectedDate.Year, StartingDate.SelectedDate.Month, 1);
+                endingDate = new DateTime(EndingDate.SelectedDate.Year, EndingDate.SelectedDate.Month, 1).AddMonths(1).AddDays(-1);
+
+                if (callType == 1)
+                {
+                    PhoneCall.ChargePhoneCallsOfSite(siteID, startingDate, endingDate, chargeBusinessPersonal: true, chargePending: false);
+                }
+                else if (callType == 2)
+                {
+                    PhoneCall.ChargePhoneCallsOfSite(siteID, startingDate, endingDate, chargeBusinessPersonal: false, chargePending: true);
+                }
+
+                BindDataToReportsGrid(callTypeHasChanged: true);
+
+            }//End-if
+        }
+
+
         protected void PeriodicalReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
             DateTime startDate;

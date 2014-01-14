@@ -238,11 +238,11 @@
                                                     <ext:Menu ID="InvoiceUsersMenu" runat="server">
                                                         <Items>
                                                             <ext:MenuItem ID="InvoiceUsers_Confirm" runat="server" Text="Confirm Invoice" Icon="ApplicationOsxGo">
-                                                                <%--<DirectEvents>
-                                                                    <Click OnEvent="InvoiceUsers_Confirm_Click">
-                                                                        <EventMask ShowMask="true" />
+                                                                <DirectEvents>
+                                                                    <Click OnEvent="InvoiceUsers_Confirm_Click" Timeout="600000">
+                                                                        <EventMask ShowMask="true" Msg="Please wait, this might take few minutes." />
                                                                     </Click>
-                                                                </DirectEvents>--%>
+                                                                </DirectEvents>
                                                             </ext:MenuItem>
                                                         </Items>
                                                     </ext:Menu>

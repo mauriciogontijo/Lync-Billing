@@ -171,6 +171,8 @@ namespace Lync_Billing.ui.accounting.reports
                     PhoneCall.ChargePhoneCallsOfSite(siteID, startingDate, endingDate, chargeBusinessPersonal: false, chargePending: true);
                 }
 
+                BindDataToReportsGrid(callTypeHasChanged: true);
+
             }//End-if
         }
 
