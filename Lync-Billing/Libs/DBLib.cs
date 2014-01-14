@@ -545,6 +545,7 @@ namespace Lync_Billing.Libs
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(insertQuery, conn);
+            comm.CommandTimeout = 360;
 
             try
             {
@@ -631,6 +632,7 @@ namespace Lync_Billing.Libs
 
             OleDbConnection conn = DBInitializeConnection(ConnectionString_Lync);
             OleDbCommand comm = new OleDbCommand(insertQuery, conn);
+            comm.CommandTimeout = 360;
 
             try
             {
