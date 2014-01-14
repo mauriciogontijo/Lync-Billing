@@ -58,10 +58,15 @@ namespace Lync_Billing.Backend.Summaries
             UsersCallsSummaryChartData userSummary;
             List<UsersCallsSummaryChartData> chartList = new List<UsersCallsSummaryChartData>();
 
+            DateTime startDate = new DateTime(Year, FromMonth, 1);
+            DateTime endDate = new DateTime(Year, ToMonth, 1);
+
             //Specify the sipaccount for the database function
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), Year);
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", FromMonth, ToMonth));
+            //wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), Year);
+            //wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", FromMonth, ToMonth));
             functionParams.Add(sipAccount);
+            functionParams.Add(SpecialDateTime.ConvertDate(startDate, excludeHoursAndMinutes: true));
+            functionParams.Add(SpecialDateTime.ConvertDate(endDate, excludeHoursAndMinutes: true));
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
 
@@ -156,8 +161,10 @@ namespace Lync_Billing.Backend.Summaries
             List<UsersCallsSummaryChartData> chartList = new List<UsersCallsSummaryChartData>();
 
             //Specify the sipaccount for the database function
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Date), String.Format("BETWEEN '{0}' AND '{1}'", fromDate, toDate));
+            //wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Date), String.Format("BETWEEN '{0}' AND '{1}'", fromDate, toDate));
             functionParams.Add(sipAccount);
+            functionParams.Add(SpecialDateTime.ConvertDate(fromDate, excludeHoursAndMinutes: true));
+            functionParams.Add(SpecialDateTime.ConvertDate(toDate, excludeHoursAndMinutes: true));
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
 

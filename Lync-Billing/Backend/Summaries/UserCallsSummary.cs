@@ -56,8 +56,13 @@ namespace Lync_Billing.Backend.Summaries
             SpecialDateTime year;
             List<SpecialDateTime> Years = new List<SpecialDateTime>();
 
+            DateTime toDate = DateTime.Now;
+            DateTime fromDate = toDate.AddYears(-3).AddDays(- (toDate.Day - 1));
+
             //Initialize the function parameters and query the database
             functionParams.Add(sipAccount);
+            functionParams.Add(SpecialDateTime.ConvertDate(fromDate, excludeHoursAndMinutes: true));
+            functionParams.Add(SpecialDateTime.ConvertDate(toDate, excludeHoursAndMinutes: true));
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, null, columnsList);
 
@@ -99,8 +104,10 @@ namespace Lync_Billing.Backend.Summaries
             Users userInfo = Users.GetUser(sipAccount);
 
             //Initialize the function parameters and query the database
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Date), String.Format("BETWEEN '{0}' AND '{1}'", startDate, endDate));
+            //wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Date), String.Format("BETWEEN '{0}' AND '{1}'", startDate, endDate));
             functionParams.Add(sipAccount);
+            functionParams.Add(SpecialDateTime.ConvertDate(startDate, excludeHoursAndMinutes: true));
+            functionParams.Add(SpecialDateTime.ConvertDate(endDate, excludeHoursAndMinutes: true));
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
 
@@ -178,14 +185,17 @@ namespace Lync_Billing.Backend.Summaries
 
             UserCallsSummary userSummary;
             List<UserCallsSummary> chartList = new List<UserCallsSummary>();
+            
+            DateTime startDate = new DateTime(Year, fromMonth, 1);
+            DateTime endDate = new DateTime(Year, toMonth, 1).AddDays(-1);
 
             //Get this user's information
             Users userInfo = Users.GetUser(sipAccount);
 
             //Initialize the function parameters and query the database
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Year), Year);
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Month), String.Format("BETWEEN '{0}' AND '{1}'", fromMonth, toMonth));
             functionParams.Add(sipAccount);
+            functionParams.Add(SpecialDateTime.ConvertDate(startDate, excludeHoursAndMinutes: true));
+            functionParams.Add(SpecialDateTime.ConvertDate(endDate, excludeHoursAndMinutes: true));
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
 
@@ -267,15 +277,14 @@ namespace Lync_Billing.Backend.Summaries
 
 
             //Add the siteName to the functionParams
-            wherePart.Add(
-                Enums.GetDescription(Enums.PhoneCallSummary.Date), 
-                String.Format("BETWEEN '{0}' AND '{1}'", 
-                    SpecialDateTime.ConvertDate(startingDate, true), 
-                    SpecialDateTime.ConvertDate(endingDate, true))
-            );
+            //wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.Date), String.Format("BETWEEN '{0}' AND '{1}'", SpecialDateTime.ConvertDate(startingDate, true), SpecialDateTime.ConvertDate(endingDate, true)));
             functionParams.Add(siteName);
+            functionParams.Add(SpecialDateTime.ConvertDate(startingDate, excludeHoursAndMinutes: true));
+            functionParams.Add(SpecialDateTime.ConvertDate(endingDate, excludeHoursAndMinutes: true));
+
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
+
 
             usersSummaryList = (from row in dt.AsEnumerable()
                                 select new UserCallsSummary()
