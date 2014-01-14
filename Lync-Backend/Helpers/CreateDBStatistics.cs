@@ -70,6 +70,8 @@ namespace Lync_Backend.Helpers
         {
             string FunctionVariables = string.Empty;
             
+
+
             //Five Params
 
             if (SQLStatement.Contains(@"@OfficeName") && SQLStatement.Contains(@"@DepartmentName") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate") && SQLStatement.Contains(@"@Limits"))
@@ -100,7 +102,7 @@ namespace Lync_Backend.Helpers
             
           
             // Three Params 
-            if (SQLStatement.Contains(@"@sipAccount") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
+            if (SQLStatement.Contains(@"@SipAccount") && SQLStatement.Contains(@"@FromDate") && SQLStatement.Contains(@"@ToDate"))
             {
                 FunctionVariables = string.Format("\t @SipAccount  nvarchar(450), \r\n" + "\t @FromDate datetime, \r\n " + "\t @ToDate dateTime ");
                 return FunctionVariables;
@@ -631,9 +633,10 @@ namespace Lync_Backend.Helpers
             //Get WhereStatemnet and append it to every Select 
             string whereStatement =
                 string.Format(
-                    "\t\t WHERE " +
+                    "\t\t WHERE \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "]=@SipAccount AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
+                    "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN @FromDate AND @ToDate) AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
                     "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + "] IS NOT NULL AND \r\n" +
                     "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) \r\n" 
@@ -657,10 +660,10 @@ namespace Lync_Backend.Helpers
             sqlStatement.Append(
                 string.Format(
                     "\t SELECT TOP 100 PERCENT\r\n" +
-                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] AS [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "], \r\n" +
                     "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Year], \r\n" +
                     "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Month], \r\n" +
                     "\t\t (CAST(CAST(YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS varchar)" + @" + '/' + " + "CAST(MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS varchar)" + @" + '/' +" + "CAST(1 AS VARCHAR) AS DATETIME)) AS Date, \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] AS [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration) + "], \r\n" +
                     "\t\t COUNT(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN 1 END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCost) + "], \r\n" +
@@ -675,10 +678,10 @@ namespace Lync_Backend.Helpers
                     "{0} \r\n" +
                     "\t) AS [" +  Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
                     "\t GROUP BY \r\n" +
-                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "], \r\n" +
                     "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + "), \r\n" +
-                    "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") \r\n" +
-                    "\t ORDER BY [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] ASC ,YEAR( " + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC, MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC \r\n", subSelect.ToString()
+                    "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + "), \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] \r\n" +
+                    "\t ORDER BY [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] ASC \r\n", subSelect.ToString()
                 ));
 
           
@@ -702,19 +705,21 @@ namespace Lync_Backend.Helpers
             //Get WhereStatemnet and append it to every Select 
             string whereStatement =
                string.Format(
-                   "WHERE \r\n" +
-                   "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
-                   "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
-                   "\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
-                   "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + "] IS NOT NULL AND \r\n" +
-                   "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + "] IN \r\n" +
-                   "\t\t ( \r\n" +
-                   "\t\t\t SELECT [" + Enums.GetDescription(Enums.Gateways.GatewayName) + "] \r\n" +
-                   "\t\t\t FROM [" + Enums.GetDescription(Enums.GatewaysDetails.TableName) + "] \r\n" +
-                   "\t\t\t\t LEFT JOIN [" + Enums.GetDescription(Enums.Gateways.TableName) + "] ON [" + Enums.GetDescription(Enums.Gateways.TableName) + "].[" + Enums.GetDescription(Enums.Gateways.GatewayId) + "] = [" + Enums.GetDescription(Enums.GatewaysDetails.TableName) + "].[" + Enums.GetDescription(Enums.GatewaysDetails.GatewayID) + "] \r\n" +
-                   "\t\t\t\t LEFT JOIN [" + Enums.GetDescription(Enums.Sites.TableName) + "] ON [" + Enums.GetDescription(Enums.Sites.TableName) + "].[" + Enums.GetDescription(Enums.Sites.SiteID) + "] = [" + Enums.GetDescription(Enums.GatewaysDetails.TableName) + "].[" + Enums.GetDescription(Enums.GatewaysDetails.SiteID) + "] \r\n" +
-                   "\t\t\t WHERE [" + Enums.GetDescription(Enums.Sites.SiteName) + "]=@OfficeName \r\n" +
-                   "\t\t )"
+                   "\t\t WHERE \r\n" +
+                   "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Marker_CallTypeID) + "] in ({0}) AND \r\n" +
+                   "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.Exclude) + "]=0 AND \r\n" +
+                   "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.SessionIdTime) + "] BETWEEN @FromDate AND @ToDate) AND \r\n" +
+                   "\t\t\t ([" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "]='Rejected' OR [" + Enums.GetDescription(Enums.PhoneCalls.AC_DisputeStatus) + "] IS NULL ) AND \r\n" +
+                   "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + "] IS NOT NULL AND \r\n" +
+                   "\t\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ToGateway) + "] IN \r\n" +
+                   "\t\t\t ( \r\n" +
+                   "\t\t\t\t SELECT [" + Enums.GetDescription(Enums.Gateways.GatewayName) + "] \r\n" +
+                   "\t\t\t\t FROM [" + Enums.GetDescription(Enums.GatewaysDetails.TableName) + "] \r\n" +
+                   "\t\t\t\t\t LEFT JOIN [" + Enums.GetDescription(Enums.Gateways.TableName) + "] ON [" + Enums.GetDescription(Enums.Gateways.TableName) + "].[" + Enums.GetDescription(Enums.Gateways.GatewayId) + "] = [" + Enums.GetDescription(Enums.GatewaysDetails.TableName) + "].[" + Enums.GetDescription(Enums.GatewaysDetails.GatewayID) + "] \r\n" +
+                   "\t\t\t\t\t LEFT JOIN [" + Enums.GetDescription(Enums.Sites.TableName) + "] ON [" + Enums.GetDescription(Enums.Sites.TableName) + "].[" + Enums.GetDescription(Enums.Sites.SiteID) + "] = [" + Enums.GetDescription(Enums.GatewaysDetails.TableName) + "].[" + Enums.GetDescription(Enums.GatewaysDetails.SiteID) + "] \r\n" +
+                   "\t\t\t\t WHERE \r\n " +
+                   "\t\t\t\t\t [" + Enums.GetDescription(Enums.Sites.SiteName) + "]=@OfficeName \r\n" +
+                   "\t\t\t )"
                    , BillableCallTypesIdsList);
 
             //Sub Select Construction
@@ -723,7 +728,7 @@ namespace Lync_Backend.Helpers
                 subSelect.Append(
                    string.Format(
                        "\t\t SELECT * FROM [{0}] \r\n" +
-                       "\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
+                       "\t\t\t LEFT OUTER JOIN [" + Enums.GetDescription(Enums.Users.TableName) + "]  ON [{0}].[" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] =   [" + Enums.GetDescription(Enums.Users.TableName) + "].[" + Enums.GetDescription(Enums.Users.SipAccount) + "] \r\n" +
                        "{1} \r\n" +
                        "\t\t UNION ALL\r\n\r\n",
                        ((MonitoringServersInfo)keyValue.Value).PhoneCallsTable, whereStatement));
@@ -736,13 +741,12 @@ namespace Lync_Backend.Helpers
             sqlStatement.Append(
                 string.Format(
                     "\t SELECT TOP 100 PERCENT\r\n" +
+                    "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Year], \r\n" +
+                    "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Month], \r\n" +
+                    "\t\t (CAST(CAST(YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS varchar)" + @" + '/' + " + "CAST(MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS varchar)" + @" + '/' +" + "CAST(1 AS VARCHAR) AS DATETIME)) AS Date, \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "] AS [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
 			        "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "] AS [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
 			        "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "] AS [" + Enums.GetDescription(Enums.Users.AD_Department) + "], \r\n" +
-                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] AS [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "], \r\n" +
-                    "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Year], \r\n" +
-                    "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS [Month], \r\n" +
-                    "\t\t (CAST(CAST(YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS varchar)" +  @" + '/' + " +  "CAST(MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") AS varchar)" + @" + '/' +" + "CAST(1 AS VARCHAR) AS DATETIME)) AS Date, \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) + "] AS [" + Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) + "], \r\n" +
                     "\t\t SUM(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN [" + Enums.GetDescription(Enums.PhoneCalls.Duration) + "] END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsDuration) + "], \r\n" +
                     "\t\t COUNT(CASE WHEN [" + Enums.GetDescription(Enums.PhoneCalls.UI_CallType) + "] = 'Business' THEN 1 END) AS [" + Enums.GetDescription(Enums.PhoneCallSummary.BusinessCallsCount) + "], \r\n" +
@@ -758,14 +762,14 @@ namespace Lync_Backend.Helpers
                     "{0} \r\n" +
                     "\t) AS [" +  Enums.GetDescription(Enums.PhoneCallSummary.TableName) + "] \r\n" +
                     "\t GROUP BY \r\n" +
+                    "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + "), \r\n" +
+                    "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + "), \r\n" +
                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "], \r\n" +
-                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
-                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
-                     "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "], \r\n" +
-                     "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) + "], \r\n" +
-                     "\t\t YEAR(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + "), \r\n" +
-                     "\t\t MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") \r\n" +
-                     "\t ORDER BY YEAR( " + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC, MONTH(" + Enums.GetDescription(Enums.PhoneCalls.ResponseTime) + ") ASC \r\n",subSelect.ToString()
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_UserID) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_DisplayName) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.Users.AD_Department) + "], \r\n" +
+                    "\t\t [" + Enums.GetDescription(Enums.PhoneCalls.AC_IsInvoiced) + "] \r\n" +
+                    "\t ORDER BY [" + Enums.GetDescription(Enums.PhoneCalls.ChargingParty) + "] ASC \r\n", subSelect.ToString()
                 ));
 
           
