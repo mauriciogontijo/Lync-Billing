@@ -64,7 +64,7 @@ namespace Lync_Backend.Helpers
                 }
             }
 
-        }
+         }
 
         private static string GenerateParam(string SQLStatement) 
         {
