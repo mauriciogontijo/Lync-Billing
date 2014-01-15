@@ -139,14 +139,20 @@ function getCssColorForPhoneCallRow(value, meta, record, rowIndex, colIndex, sto
         else if (record.data.UI_CallType == 'Business') {
             meta.style = "color: rgb(46, 143, 42);";
         }
-        else if (record.data.UI_CallType == 'Unallocated') {
-            meta.style = "color: rgb(31, 115, 164);";
-        }
         else if (record.data.UI_CallType == 'Disputed') {
             meta.style = "color: rgb(31, 115, 164);";
         }
+        else if (record.data.UI_CallType == 'Unallocated') {
+            meta.style = "color: rgb(31, 115, 164);";
+        }
 
-        return value
+        if (value == "") {
+            meta.style = "color: rgb(31, 115, 164);";
+            return "Unallocated";
+        }
+        else {
+            return value
+        }
     }
 }
 
