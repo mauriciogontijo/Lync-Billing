@@ -133,6 +133,7 @@
     <Content Include="ui\resources\images\tool-bg-2.png" />
     <Content Include="ui\resources\images\tool-bg_20x40.png" />
     <Content Include="ui\resources\js\feedback.js" />
+    <Content Include="ui\resources\js\jquery-1.10.2.min.js" />
     <Content Include="ui\sysadmin\activedirectory\sync.aspx" />
     <Content Include="ui\sysadmin\configuration\announcements.aspx" />
     <Content Include="ui\sysadmin\configuration\exceptions.aspx" />
