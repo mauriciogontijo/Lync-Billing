@@ -152,13 +152,24 @@ namespace Lync_Billing.ui.user
                 DurationCostChart.GetStore().LoadData(UserCallsSummary.GetUsersCallsSummary(sipAccount, startingDate, endingDate));
                 DurationCostChartPanel.Title = String.Format("Business/Personal Calls - {0}", titleText);
 
-                //Re-bind PhoneCallsDuartionChart to match the filter dates criteria
-                PhoneCallsDuartionChart.GetStore().LoadData(UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, startingDate, endingDate));
-                PhoneCallsDuartionChartPanel.Title = String.Format("Calls Duration - {0}", titleText);
+                
+                var chartData = UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, startingDate, endingDate);
 
-                //Re-bind PhoneCallsCostChart to match the filter dates criteria
-                PhoneCallsCostChart.GetStore().LoadData(getChartData());
-                PhoneCallsCostChartPanel.Title = String.Format("Calls Costs - {0}", titleText);
+                if (chartData.Count > 0)
+                {
+                    //Re-bind PhoneCallsDuartionChart to match the filter dates criteria
+                    PhoneCallsDuartionChart.GetStore().LoadData(UsersCallsSummaryChartData.GetUsersCallsSummary(sipAccount, startingDate, endingDate));
+                    PhoneCallsDuartionChartPanel.Title = String.Format("Calls Duration - {0}", titleText);
+
+                    //Re-bind PhoneCallsCostChart to match the filter dates criteria
+                    PhoneCallsCostChart.GetStore().LoadData(chartData);
+                    PhoneCallsCostChartPanel.Title = String.Format("Calls Costs - {0}", titleText);
+                }
+                else
+                {
+                    PhoneCallsDuartionChart.GetStore().RemoveAll();
+                    PhoneCallsCostChart.GetStore().RemoveAll();
+                }
 
             }//End-if
 

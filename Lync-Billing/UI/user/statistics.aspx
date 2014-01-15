@@ -37,19 +37,27 @@
 	        });
 
 	        if (storeItem == "Business") {
-	            percentage = ((business_duration / total).toFixed(4) * 100.0).toFixed(2);
+	            if (total > 0)
+	                percentage = ((business_duration / total).toFixed(4) * 100.0).toFixed(2);
+
 	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Personal") {
-	            percentage = ((personal_duration / total).toFixed(4) * 100.0).toFixed(2);
+	            if (total > 0)
+	                percentage = ((personal_duration / total).toFixed(4) * 100.0).toFixed(2);
+
 	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Unmarked") {
-	            percentage = ((unmarked_duration / total).toFixed(4) * 100.0).toFixed(2);
+	            if (total > 0)
+	                percentage = ((unmarked_duration / total).toFixed(4) * 100.0).toFixed(2);
+	                
 	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Disputed") {
-	            percentage = ((dispute_duration / total).toFixed(4) * 100.0).toFixed(2);
+	            if (total > 0)
+	                percentage = ((dispute_duration / total).toFixed(4) * 100.0).toFixed(2);
+
 	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	    };
@@ -104,19 +112,27 @@
 	        });
 
 	        if (storeItem == "Business") {
-	            percentage = ((business_cost / total).toFixed(4) * 100.0).toFixed(2);
+	            if (total > 0)
+	                percentage = ((business_cost / total).toFixed(4) * 100.0).toFixed(2);
+
 	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Personal") {
-	            percentage = ((personal_cost / total).toFixed(4) * 100.0).toFixed(2);
+	            if (total > 0)
+	                percentage = ((personal_cost / total).toFixed(4) * 100.0).toFixed(2);
+
 	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Unmarked") {
-	            percentage = ((unmarked_cost / total).toFixed(4) * 100.0).toFixed(2);
+	            if (total > 0)
+	                percentage = ((unmarked_cost / total).toFixed(4) * 100.0).toFixed(2);
+
 	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	        else if (storeItem == "Disputed") {
-	            percentage = ((dispute_cost / total).toFixed(4) * 100.0).toFixed(2);
+	            if (total > 0)
+	                percentage = ((dispute_cost / total).toFixed(4) * 100.0).toFixed(2);
+
 	            return ((percentage < 3.0) ? '' : percentage + '%');
 	        }
 	    };
