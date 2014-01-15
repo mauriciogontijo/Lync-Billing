@@ -14,48 +14,24 @@
         <div class="block-body pt5">
             <ext:Hidden ID="FormatType" runat="server" />
 
-            <asp:ObjectDataSource 
-                ID="PhoneCallsDataSource" 
-                runat="server" 
-                OnSelecting="CallsHistoryDataSource_Selecting"
-                OnSelected="CallsHistoryDataSource_Selected"
-                SelectMethod="GetCallsHistoryFilter"
-                TypeName="Lync_Billing.ui.user.history">
-                <SelectParameters>
-                    <asp:Parameter Name="start" Type="Int32" />
-                    <asp:Parameter Name="limit" Type="Int32" />
-                    <asp:Parameter Name="sort" Type="Object" />                
-                    <asp:Parameter Name="count" Direction="Output" Type="Int32" />
-                </SelectParameters>
-            </asp:ObjectDataSource>
-
             <ext:GridPanel
                 ID="PhoneCallsHistoryGrid" 
-                runat="server" 
+                runat="server"
+                Header="true" 
                 Title="Phone Calls History"
                 Width="740"
                 Height="740"  
-                AutoScroll="true"
-                Header="true"
-                Scroll="Both" 
-                Layout="FitLayout"
+                Layout="TableLayout"
                 ComponentCls="fix-ui-vertical-align">
-
                 <Store>
                     <ext:Store
                         ID="PhoneCallStore" 
                         runat="server" 
-                        RemoteSort="true" 
-                        DataSourceID="PhoneCallsDataSource"
-                        OnReadData="PhoneCallStore_ReadData"
-                        PageSize="25">
-
-                        <Proxy>
-                            <ext:PageProxy CacheString=""/>
-                        </Proxy>
-
+                        PageSize="25"
+                        IsPagingStore="true"
+                        OnLoad="PhoneCallStore_Load">
                         <Model>
-                            <ext:Model ID="Model1" runat="server" IDProperty="PhoneCallModel">
+                            <ext:Model ID="PhoneCallStoreModel" runat="server" IDProperty="SessionIdTime">
                                 <Fields>
                                     <ext:ModelField Name="SessionIdTime" Type="String" />
                                     <ext:ModelField Name="Marker_CallToCountry" Type="String" />
@@ -68,14 +44,10 @@
                                 </Fields>
                             </ext:Model>
                         </Model>
-                        
-                        <Sorters>
-                            <ext:DataSorter Property="SessionIdTime" Direction="DESC" />
-                        </Sorters>
                     </ext:Store>
                 </Store>
 
-                <ColumnModel ID="PhoneCallsColumnModel" runat="server">
+                <ColumnModel ID="PhoneCallsColumnModel" runat="server" Flex="1">
 		            <Columns>
                         <ext:RowNumbererColumn
                             ID="RowNumbererColumn2"
@@ -120,7 +92,7 @@
                             Width="60"
                             DataIndex="Marker_CallCost"
                             Groupable="false">
-                            <Renderer Fn="RoundCost"/>
+                            <Renderer Fn="RoundCost" />
                         </ext:Column>
 
                         <ext:Column ID="UI_CallType"
@@ -143,18 +115,6 @@
 		            </Columns>
                 </ColumnModel>
 
-                <Features>               
-                    <ext:GroupingSummary 
-                        ID="GroupingPhoneCallsHistory" 
-                        runat="server" 
-                        GroupHeaderTplString="{name}" 
-                        HideGroupedHeader="true" 
-                        EnableGroupingMenu="true"
-                        EnableNoGroups="true"
-                        ShowSummaryRow="true">
-                    </ext:GroupingSummary>
-                </Features>
-
                 <TopBar>
                     <ext:Toolbar ID="FilterToolBar" runat="server">
                         <Items>
@@ -172,18 +132,19 @@
                                 Margins="5 390 0 5">
                                 
                                 <Items>
-                                    <ext:ListItem Text="Everything" Value="Everything"/>
-                                    <ext:ListItem Text="Business" Value="Business" />
-                                    <ext:ListItem Text="Personal" Value="Personal" />
-                                    <ext:ListItem Text="Disputed" Value="Disputed" />
+                                    <ext:ListItem Text="Everything" Value="1"/>
+                                    <ext:ListItem Text="Business" Value="2" />
+                                    <ext:ListItem Text="Personal" Value="3" />
                                 </Items>
 
                                  <DirectEvents>
-                                     <Select OnEvent="PhoneCallsHistoryFilter" />
+                                     <Select OnEvent="PhoneCallsHistoryFilter">
+                                         <EventMask ShowMask="true" />
+                                     </Select>
                                  </DirectEvents>
 
                                 <SelectedItems>
-                                    <ext:ListItem Text="Everything" Value="Everything" />
+                                    <ext:ListItem Text="Everything" Value="1" />
                                 </SelectedItems>
                             </ext:ComboBox>
 
@@ -220,10 +181,7 @@
                         DisplayMsg="Phone Calls {0} - {1} of {2}"
                          />
                 </BottomBar>
-                    
-                <SelectionModel>
-                    <ext:CheckboxSelectionModel ID="PhoneCallsCheckBoxColumn" runat="server" Mode="Multi"  Visible="false"/>
-                </SelectionModel>
+
             </ext:GridPanel>
         </div>
         <!-- *** END OF PHONE CALLS HISTORY GRID *** -->

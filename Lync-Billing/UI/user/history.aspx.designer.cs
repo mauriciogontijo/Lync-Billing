@@ -22,15 +22,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Hidden FormatType;
         
         /// <summary>
-        /// PhoneCallsDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource PhoneCallsDataSource;
-        
-        /// <summary>
         /// PhoneCallsHistoryGrid control.
         /// </summary>
         /// <remarks>
@@ -49,13 +40,13 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Store PhoneCallStore;
         
         /// <summary>
-        /// Model1 control.
+        /// PhoneCallStoreModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model Model1;
+        protected global::Ext.Net.Model PhoneCallStoreModel;
         
         /// <summary>
         /// RowNumbererColumn2 control.
@@ -130,15 +121,6 @@ namespace Lync_Billing.ui.user {
         protected global::Ext.Net.Column UI_MarkedOn;
         
         /// <summary>
-        /// GroupingPhoneCallsHistory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GroupingSummary GroupingPhoneCallsHistory;
-        
-        /// <summary>
         /// FilterToolBar control.
         /// </summary>
         /// <remarks>
@@ -164,14 +146,5 @@ namespace Lync_Billing.ui.user {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.PagingToolbar PhoneCallsPagingToolbar;
-        
-        /// <summary>
-        /// PhoneCallsCheckBoxColumn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.CheckboxSelectionModel PhoneCallsCheckBoxColumn;
     }
 }

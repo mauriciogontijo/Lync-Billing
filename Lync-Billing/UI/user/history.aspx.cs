@@ -56,94 +56,37 @@ namespace Lync_Billing.ui.user
             sipAccount = session.GetEffectiveSipAccount();
         }
 
-        protected void PhoneCallStore_ReadData(object sender, StoreReadDataEventArgs e)
+
+        protected void PhoneCallStore_Load(object sender, EventArgs e)
         {
-            this.e = e;
-            this.PhoneCallStore.DataBind();
+            var phoneCallsHistory = PhoneCall.GetPhoneCalls(sipAccount).Where(phoneCall => phoneCall.AC_InvoiceDate != DateTime.MinValue && (!string.IsNullOrEmpty(phoneCall.AC_IsInvoiced) && phoneCall.AC_IsInvoiced == "YES")).ToList();
+
+            PhoneCallsHistoryGrid.GetStore().DataSource = phoneCallsHistory;
+            PhoneCallsHistoryGrid.GetStore().DataBind();
         }
-
-        protected void CallsHistoryDataSource_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
-        {
-
-            if (this.e.Start != -1)
-                e.InputParameters["start"] = this.e.Start;
-            else
-                e.InputParameters["start"] = 0;
-
-            if (this.e.Limit != -1)
-                e.InputParameters["limit"] = this.e.Limit;
-            else
-                e.InputParameters["limit"] = 25;
-          
-            if (!string.IsNullOrEmpty(this.e.Parameters["sort"]))
-                e.InputParameters["sort"] = this.e.Sort[0];
-            else
-                e.InputParameters["sort"] = null;
-           
-            if (!string.IsNullOrEmpty(this.e.Parameters["filter"]))
-                e.InputParameters["filter"] = this.e.Filter[0];
-            else
-                e.InputParameters["filter"] = null;
-        }
-
-        protected void CallsHistoryDataSource_Selected(object sender, ObjectDataSourceStatusEventArgs e)
-        {
-            (this.PhoneCallStore.Proxy[0] as PageProxy).Total = (int)e.OutputParameters["count"];
-        }
-
-        public List<PhoneCall> GetCallsHistoryFilter(int start, int limit, DataSorter sort, out int count, DataFilter filter)
-        {
-            IQueryable<PhoneCall> filteredPhoneCalls;
-            List<PhoneCall> userPhoneCallsHistory;
-            int filteredPhoneCallsCount;
-
-
-            //Get user session data
-            session = ((UserSession)HttpContext.Current.Session.Contents["UserData"]);
-            sipAccount = session.GetEffectiveSipAccount();
-
-
-            //Get user session phonecalls history; handle normal user mode and delegee mode
-            userPhoneCallsHistory = PhoneCall.GetPhoneCalls(sipAccount).Where(phoneCall => phoneCall.AC_InvoiceDate != DateTime.MinValue && (!string.IsNullOrEmpty(phoneCall.AC_IsInvoiced) && phoneCall.AC_IsInvoiced == "YES")).ToList();
-
-            //Start filtering process
-            if (filter == null)
-                filteredPhoneCalls = userPhoneCallsHistory.Where(phoneCall => !string.IsNullOrEmpty(phoneCall.UI_CallType)).AsQueryable();
-            else
-                filteredPhoneCalls = userPhoneCallsHistory.Where(phoneCall => phoneCall.UI_CallType == filter.Value).AsQueryable();
-
-            //Start sorting process
-            if (sort != null)
-            {
-                ParameterExpression param = Expression.Parameter(typeof(PhoneCall), "e");
-
-                Expression<Func<PhoneCall, object>> sortExpression = Expression.Lambda<Func<PhoneCall, object>>(Expression.Property(param, sort.Property), param);
-                if (sort.Direction == Ext.Net.SortDirection.DESC)
-                    filteredPhoneCalls = filteredPhoneCalls.OrderByDescending(sortExpression);
-                else
-                    filteredPhoneCalls = filteredPhoneCalls.OrderBy(sortExpression);
-            }
-
-            filteredPhoneCallsCount = filteredPhoneCalls.Count(); 
-
-            if (start >= 0 && limit > 0)
-                filteredPhoneCalls = filteredPhoneCalls.Skip(start).Take(limit);
-
-            count = filteredPhoneCallsCount;
-
-            return filteredPhoneCalls.ToList();
-        }
-
-
+        
+        
         [DirectMethod]
         protected void PhoneCallsHistoryFilter(object sender, DirectEventArgs e) 
         {
-            PhoneCallStore.ClearFilter();
+            List<PhoneCall> phoneCallsHistory = new List<PhoneCall>();
 
-            if (FilterTypeComboBox.SelectedItem.Value != "Everything")
-                PhoneCallStore.Filter("UI_CallType", FilterTypeComboBox.SelectedItem.Value);
+            if (FilterTypeComboBox.SelectedItem.Index > -1)
+            {
+                int filterType = Convert.ToInt32(FilterTypeComboBox.SelectedItem.Value);
+                phoneCallsHistory = PhoneCall.GetPhoneCalls(sipAccount).Where(phoneCall => phoneCall.AC_InvoiceDate != DateTime.MinValue && (!string.IsNullOrEmpty(phoneCall.AC_IsInvoiced) && phoneCall.AC_IsInvoiced == "YES")).ToList();
+                
+                //Business filter
+                if (filterType == 2)
+                    phoneCallsHistory = phoneCallsHistory.Where(phonecall => phonecall.UI_CallType == "Business").ToList();
+                //Personal filter
+                else if(filterType == 3)
+                    phoneCallsHistory = phoneCallsHistory.Where(phonecall => phonecall.UI_CallType == "Personal").ToList();
+            }
 
-            PhoneCallStore.LoadPage(1);
+            PhoneCallsHistoryGrid.GetStore().LoadData(phoneCallsHistory);
         }
+
     }
+
 }

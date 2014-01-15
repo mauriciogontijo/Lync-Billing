@@ -16,12 +16,19 @@ BrowserDetect.init();
 //This function reads the cost value from stores and returns a percentage.
 //Handles the Bills grid, PhoneCalls grid, History page, and Delegees PhoneCalls grid
 function RoundCost(value, meta, record, rowIndex, colIndex, store) {
-    if (record.data.PersonalCallsCost != undefined) {
-        return Math.round(record.data.PersonalCallsCost * 100) / 100;
+    if (typeof value !== undefined) {
+        return Math.round(parseFloat(value) * 100) / 100;
     }
-    else if (record.data.Marker_CallCost != undefined) {
-        return Math.round(record.data.Marker_CallCost * 100) / 100;
+    else if (typeof record !== undefined && typeof record.data !== undefined) {
+        if (record.data.PersonalCallsCost != undefined) {
+            return Math.round(parseFloat(record.data.PersonalCallsCost) * 100) / 100;
+        }
+        else if (record.data.Marker_CallCost != undefined) {
+            return Math.round(parseFloat(record.data.Marker_CallCost) * 100) / 100;
+        }
     }
+
+    return "";
 }
 
 
@@ -32,6 +39,7 @@ function RoundCostsToTwoDecimalDigits(value) {
         costValue = parseFloat(value);
         return costValue.toFixed(2).toString();
     }
+
     return value;
 }
 
@@ -39,37 +47,34 @@ function RoundCostsToTwoDecimalDigits(value) {
 //This handles the PhoneCalls grid, History page, and Delegees PhoneCalls grid
 var DateRenderer = function (value) {
     if (typeof value != undefined && value != 0) {
-        if (BrowserDetect.browser != "Explorer") {
-            value = Ext.util.Format.date(value, "d M Y h:i A");
-            return value;
-        } else {
-            var my_date = {};
-            var value_array = value.split(' ');
-            var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-            my_date["date"] = value_array[0];
-            my_date["time"] = value_array[1];
+        var my_date = {};
+        var value_array = value.split(' ');
+        var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-            var date_parts = my_date["date"].split('-');
-            my_date["date"] = {
-                year: date_parts[0],
-                month: months[parseInt(date_parts[1])],
-                day: date_parts[2]
-            }
+        my_date["date"] = value_array[0];
+        my_date["time"] = value_array[1];
 
-            var time_parts = my_date["time"].split(':');
-            my_date["time"] = {
-                hours: time_parts[0],
-                minutes: time_parts[1],
-                period: (time_parts[0] < 12 ? 'AM' : 'PM')
-            }
+        var date_parts = my_date["date"].split('-');
+        my_date["date"] = {
+            year: date_parts[0],
+            month: months[parseInt(date_parts[1])],
+            day: date_parts[2]
+        }
 
-            //var date_format = Date(my_date["date"].year, my_date["date"].month, my_date["date"].day, my_date["time"].hours, my_date["time"].minutes);
-            return (
-                my_date.date.day + " " + my_date.date.month + " " + my_date.date.year + " " +
-                my_date.time.hours + ":" + my_date.time.minutes + " " + my_date.time.period
-            );
-        }//END ELSE
+        var time_parts = my_date["time"].split(':');
+        my_date["time"] = {
+            hours: time_parts[0],
+            minutes: time_parts[1],
+            period: (time_parts[0] < 12 ? 'AM' : 'PM')
+        }
+
+        //var date_format = Date(my_date["date"].year, my_date["date"].month, my_date["date"].day, my_date["time"].hours, my_date["time"].minutes);
+        return (
+            my_date.date.day + " " + my_date.date.month + " " + my_date.date.year + " " +
+            my_date.time.hours + ":" + my_date.time.minutes + " " + my_date.time.period
+        );
+
     }//END OUTER IF
 }
 

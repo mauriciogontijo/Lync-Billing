@@ -75,7 +75,7 @@
                                             <ext:ModelField Name="DestinationNumberUri" Type="String" />
                                             <ext:ModelField Name="Duration" Type="Float" />
                                             <ext:ModelField Name="Marker_CallCost" Type="Float" />
-                                             <ext:ModelField Name="UI_AssignedByUser" Type="String" />
+                                            <ext:ModelField Name="UI_AssignedByUser" Type="String" />
                                             <ext:ModelField Name="UI_AssignedToUser" Type="String" />
                                             <ext:ModelField Name="UI_AssignedOn" Type="Date" />
                                             <ext:ModelField Name="UI_CallType" Type="String" />
