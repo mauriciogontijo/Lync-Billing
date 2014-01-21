@@ -207,7 +207,7 @@
                                 runat="server"
                                 Height="430"
                                 Width="180"
-                                Title="User Tools"
+                                Title="Navigation"
                                 Collapsed="false"
                                 Collapsible="true">
                                 <Content>

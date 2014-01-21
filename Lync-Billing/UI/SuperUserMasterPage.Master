@@ -109,7 +109,7 @@
                                 runat="server"
                                 Height="530"
                                 Width="180"
-                                Title="Admin Tools"
+                                Title="Navigation"
                                 Collapsed="false"
                                 Collapsible="true">
                                 <Content>
@@ -181,7 +181,7 @@
                                 runat="server"
                                 Height="340"
                                 Width="180"
-                                Title="Site Admin Tools"
+                                Title="Navigation"
                                 Collapsed="false"
                                 Collapsible="true">
                                 <Content>
@@ -237,7 +237,7 @@
                                 runat="server"
                                 Height="230"
                                 Width="180"
-                                Title="Accounting Tools"
+                                Title="Navigation"
                                 Collapsed="false"
                                 Collapsible="true">
                                 <Content>
@@ -273,7 +273,7 @@
                                 runat="server"
                                 Height="150"
                                 Width="180"
-                                Title="Department Head Tools"
+                                Title="Navigation"
                                 Collapsed="false"
                                 Collapsible="true">
                                 <Content>
@@ -300,7 +300,7 @@
                                 runat="server"
                                 Height="150"
                                 Width="180"
-                                Title="Delegee Tools"
+                                Title="Navigation"
                                 Collapsed="false"
                                 Collapsible="true">
                                 <Content>
@@ -326,7 +326,7 @@
                                 runat="server"
                                 Height="150"
                                 Width="180"
-                                Title="Delegee Tools"
+                                Title="Navigation"
                                 Collapsed="false"
                                 Collapsible="true">
                                 <Content>
