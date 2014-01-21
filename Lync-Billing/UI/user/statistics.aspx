@@ -8,6 +8,24 @@
     </style>
 
 	<script type="text/javascript">
+	    $(document).ready(function () {
+	        $("#top-down-slider-button").click(function () {
+	            var block = $("#top-down-slider-block");
+
+	            if (block.css("display") == "none") {
+	                block.slideDown(500);
+	                $("#top-down-slider-component").css("border-top", "0px");
+	            }
+	            else {
+	                block.slideUp(500);
+	                $("#top-down-slider-component").css("border-top", "1px solid #CECFCE");
+	            }
+
+	            event.preventDefault();
+	        });
+        });
+
+
 	    //Pie Chart Data-Lable Renderer for Personal Calls
 	    var TotalDuration_LableRenderer = function (storeItem, item) {
 	        var total = 0,
@@ -217,103 +235,100 @@
     <div class="block float-right w80p h100p">
         <div id='personal-duration-cost-chart' class='block float-right w100p'>
             <div class="block-body pt5">
-                <ext:Panel
-                    ID="CustomizeStatisticsPanel"
-                    runat="server"
-                    Height="61"
-                    Width="740"
-                    Header="True"
-                    Title="Customize Statistics"
-                    Layout="FitLayout"
-                    ComponentCls="fix-ui-vertical-align">
-                    <TopBar>
-                        <ext:Toolbar
-                            ID="CustomizeStatisticsToolbar"
-                            runat="server">
-                            <Items>
-                                <ext:ComboBox
-                                    ID="CustomizeStats_Years"
-                                    runat="server"
-                                    Editable="false"
-                                    DisplayField="YearAsText"
-                                    ValueField="YearAsNumber"
-                                    Width="250"
-                                    LabelWidth="70"
-                                    LabelSeparator=":"
-                                    Margins="5 15 5 5"
-                                    FieldLabel="Filter Period">
-                                    <Store>
-                                        <ext:Store ID="CustomizeStats_YearStore" runat="server" OnLoad="CustomizeStats_YearStore_Load">
-                                            <Model>
-                                                <ext:Model ID="CustomizeStats_YearStoreModel" runat="server">
-                                                    <Fields>
-                                                        <ext:ModelField Name="YearAsText" Type="String" />
-                                                        <ext:ModelField Name="YearAsNumber" Type="Int" />
-                                                    </Fields>
-                                                </ext:Model>
-                                            </Model>
-                                        </ext:Store>
-                                    </Store>
+                
+                <!-- TOP DOWN SLIDER COMPONENT -->
+                <div id="top-down-slider-component" class="top-down-slider-container w100p">
+                    <div id="top-down-slider-block" class="top-down-slider-block float-right dis-block">
+                        <ext:ComboBox
+                            ID="CustomizeStats_Years"
+                            runat="server"
+                            Editable="false"
+                            DisplayField="YearAsText"
+                            ValueField="YearAsNumber"
+                            Width="250"
+                            LabelWidth="40"
+                            LabelSeparator=":"
+                            FieldLabel="Year"
+                            ComponentCls="fix-ui-vertical-align float-left mr20">
+                            <Store>
+                                <ext:Store ID="CustomizeStats_YearStore" runat="server" OnLoad="CustomizeStats_YearStore_Load">
+                                    <Model>
+                                        <ext:Model ID="CustomizeStats_YearStoreModel" runat="server">
+                                            <Fields>
+                                                <ext:ModelField Name="YearAsText" Type="String" />
+                                                <ext:ModelField Name="YearAsNumber" Type="Int" />
+                                            </Fields>
+                                        </ext:Model>
+                                    </Model>
+                                </ext:Store>
+                            </Store>
 
-                                    <SelectedItems>
-                                        <ext:ListItem Index="0" />
-                                    </SelectedItems>
+                            <SelectedItems>
+                                <ext:ListItem Index="0" />
+                            </SelectedItems>
 
-                                    <DirectEvents>
-                                        <Select OnEvent="CustomizeStats_Years_Select" />
-                                    </DirectEvents>
-                                </ext:ComboBox>
+                            <DirectEvents>
+                                <Select OnEvent="CustomizeStats_Years_Select" />
+                            </DirectEvents>
+                        </ext:ComboBox>
 
-                                <ext:ComboBox
-                                    ID="CustomizeStats_Quarters"
-                                    runat="server"
-                                    DisplayField="QuarterAsText"
-                                    ValueField="QuarterAsNumber"
-                                    Editable="false"
-                                    FieldLabel="Quarter"
-                                    Width="250"
-                                    LabelWidth="45"
-                                    LabelSeparator=":"
-                                    Margins="5 15 5 5"
-                                    Disabled="true">
-                                    <Store>
-                                        <ext:Store ID="CustomizeStats_QuartersStore" runat="server" OnLoad="CustomizeStats_QuartersStore_Load">
-                                            <Model>
-                                                <ext:Model ID="Model1" runat="server">
-                                                    <Fields>
-                                                        <ext:ModelField Name="QuarterAsText" Type="String" />
-                                                        <ext:ModelField Name="QuarterAsNumber" Type="Int" />
-                                                    </Fields>
-                                                </ext:Model>
-                                            </Model>
-                                        </ext:Store>
-                                    </Store>
+                        <ext:ComboBox
+                            ID="CustomizeStats_Quarters"
+                            runat="server"
+                            DisplayField="QuarterAsText"
+                            ValueField="QuarterAsNumber"
+                            Editable="false"
+                            FieldLabel="Quarter"
+                            Width="250"
+                            LabelWidth="50"
+                            LabelSeparator=":"
+                            Disabled="true"
+                            ComponentCls="fix-ui-vertical-align float-left">
+                            <Store>
+                                <ext:Store ID="CustomizeStats_QuartersStore" runat="server" OnLoad="CustomizeStats_QuartersStore_Load">
+                                    <Model>
+                                        <ext:Model ID="Model1" runat="server">
+                                            <Fields>
+                                                <ext:ModelField Name="QuarterAsText" Type="String" />
+                                                <ext:ModelField Name="QuarterAsNumber" Type="Int" />
+                                            </Fields>
+                                        </ext:Model>
+                                    </Model>
+                                </ext:Store>
+                            </Store>
 
-                                    <SelectedItems>
-                                        <ext:ListItem Index="4" />
-                                    </SelectedItems>
-                                </ext:ComboBox>
+                            <SelectedItems>
+                                <ext:ListItem Index="4" />
+                            </SelectedItems>
+                        </ext:ComboBox>
 
-                                <ext:Button
-                                    ID="SubmitCustomizeStatisticsBtn"
-                                    runat="server"
-                                    Text="Apply"
-                                    Icon="ApplicationGo"
-                                    Height="25"
-                                    Margins="5 5 0 130">
-                                    <DirectEvents>
-                                        <Click OnEvent="SubmitCustomizeStatisticsBtn_Click">
-                                            <EventMask ShowMask="true" />
-                                        </Click>
-                                    </DirectEvents>
-                                </ext:Button>
-                            </Items>
-                        </ext:Toolbar>
-                    </TopBar>
-                </ext:Panel>
+                        <ext:Button
+                            ID="SubmitCustomizeStatisticsBtn"
+                            runat="server"
+                            Text="Apply Filters"
+                            Icon="ApplicationGo"
+                            Height="25"
+                            Margins="5 5 0 130"
+                            ComponentCls="float-right">
+                            <DirectEvents>
+                                <Click OnEvent="SubmitCustomizeStatisticsBtn_Click">
+                                    <EventMask ShowMask="true" />
+                                </Click>
+                            </DirectEvents>
+                        </ext:Button>
+
+                    </div>
+
+                    <div class="top-down-slider-button float-right" style="">
+                        <a href="#" id="top-down-slider-button">Customize</a>
+                    </div>
+                </div>
+                <!-- TOP DOWN SLIDER COMPONENT -->
+
 
 
                 <div class="h25 clear"></div>
+
 
 
                 <ext:Panel
@@ -555,3 +570,103 @@
         </div><!-- END OF COST PIE CHART -->
     </div>
 </asp:Content>
+
+
+
+
+<%-- 
+    <ext:Panel
+        ID="CustomizeStatisticsPanel"
+        runat="server"
+        Height="61"
+        Width="740"
+        Header="True"
+        Title="Customize Statistics"
+        Layout="FitLayout"
+        ComponentCls="fix-ui-vertical-align">
+        <TopBar>
+            <ext:Toolbar
+                ID="CustomizeStatisticsToolbar"
+                runat="server">
+                <Items>
+                    <ext:ComboBox
+                        ID="CustomizeStats_Years"
+                        runat="server"
+                        Editable="false"
+                        DisplayField="YearAsText"
+                        ValueField="YearAsNumber"
+                        Width="250"
+                        LabelWidth="70"
+                        LabelSeparator=":"
+                        Margins="5 15 5 5"
+                        FieldLabel="Filter Period">
+                        <Store>
+                            <ext:Store ID="CustomizeStats_YearStore" runat="server" OnLoad="CustomizeStats_YearStore_Load">
+                                <Model>
+                                    <ext:Model ID="CustomizeStats_YearStoreModel" runat="server">
+                                        <Fields>
+                                            <ext:ModelField Name="YearAsText" Type="String" />
+                                            <ext:ModelField Name="YearAsNumber" Type="Int" />
+                                        </Fields>
+                                    </ext:Model>
+                                </Model>
+                            </ext:Store>
+                        </Store>
+
+                        <SelectedItems>
+                            <ext:ListItem Index="0" />
+                        </SelectedItems>
+
+                        <DirectEvents>
+                            <Select OnEvent="CustomizeStats_Years_Select" />
+                        </DirectEvents>
+                    </ext:ComboBox>
+
+                    <ext:ComboBox
+                        ID="CustomizeStats_Quarters"
+                        runat="server"
+                        DisplayField="QuarterAsText"
+                        ValueField="QuarterAsNumber"
+                        Editable="false"
+                        FieldLabel="Quarter"
+                        Width="250"
+                        LabelWidth="45"
+                        LabelSeparator=":"
+                        Margins="5 15 5 5"
+                        Disabled="true">
+                        <Store>
+                            <ext:Store ID="CustomizeStats_QuartersStore" runat="server" OnLoad="CustomizeStats_QuartersStore_Load">
+                                <Model>
+                                    <ext:Model ID="Model1" runat="server">
+                                        <Fields>
+                                            <ext:ModelField Name="QuarterAsText" Type="String" />
+                                            <ext:ModelField Name="QuarterAsNumber" Type="Int" />
+                                        </Fields>
+                                    </ext:Model>
+                                </Model>
+                            </ext:Store>
+                        </Store>
+
+                        <SelectedItems>
+                            <ext:ListItem Index="4" />
+                        </SelectedItems>
+                    </ext:ComboBox>
+
+                    <ext:Button
+                        ID="SubmitCustomizeStatisticsBtn"
+                        runat="server"
+                        Text="Apply"
+                        Icon="ApplicationGo"
+                        Height="25"
+                        Margins="5 5 0 130">
+                        <DirectEvents>
+                            <Click OnEvent="SubmitCustomizeStatisticsBtn_Click">
+                                <EventMask ShowMask="true" />
+                            </Click>
+                        </DirectEvents>
+                    </ext:Button>
+                </Items>
+            </ext:Toolbar>
+        </TopBar>
+    </ext:Panel>
+--%>

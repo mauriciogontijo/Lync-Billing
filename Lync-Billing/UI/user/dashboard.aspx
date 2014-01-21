@@ -222,7 +222,7 @@
         <ext:Button
             ID="SubmitCustomizeStatisticsBtn"
             runat="server"
-            Text="Apply"
+            Text="Apply Filters"
             Icon="ApplicationGo"
             Height="25"
             ComponentCls="float-right">
