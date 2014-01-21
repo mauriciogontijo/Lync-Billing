@@ -17,7 +17,7 @@
 	                block.slideDown(500);
 	            }
 	            else {
-	                $("#top-down-slider-component").css("border-top", "1px solid #CECFCE");
+	                $("#top-down-slider-component").css("border-top", "2px solid #CECFCE");
 	                block.slideUp(500);
 	            }
 
