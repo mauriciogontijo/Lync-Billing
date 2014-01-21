@@ -277,19 +277,6 @@ namespace Lync_Billing.ui.user
             }
         }
 
-
-        protected void ManageStatisticsBtn_Click(object sender, DirectEventArgs e)
-        {
-            CustomizeStatisticsWindow.Show();
-        }
-
-
-        protected void CancelCustomizeStatsBtn_Click(object sender, DirectEventArgs e)
-        {
-            CustomizeStatisticsWindow.Hide();
-        }
-
-
         protected void SubmitCustomizeStatisticsBtn_Click(object sender, DirectEventArgs e)
         {
             //Submitted from the view
@@ -329,7 +316,7 @@ namespace Lync_Billing.ui.user
                 CallsCostsChartPanel.Title = String.Format("Calls Cost Chart - {0}", titleText);
 
                 //Hide the window
-                CustomizeStatisticsWindow.Hide();
+                //CustomizeStatisticsWindow.Hide();
 
             }//End-if
 
