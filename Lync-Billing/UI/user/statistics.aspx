@@ -13,12 +13,12 @@
 	            var block = $("#top-down-slider-block");
 
 	            if (block.css("display") == "none") {
-	                block.slideDown(500);
 	                $("#top-down-slider-component").css("border-top", "0px");
+	                block.slideDown(500);
 	            }
 	            else {
-	                block.slideUp(500);
 	                $("#top-down-slider-component").css("border-top", "1px solid #CECFCE");
+	                block.slideUp(500);
 	            }
 
 	            event.preventDefault();
