@@ -58,6 +58,10 @@
                     var button_id = referrer.substr(starting_index, referrer.length);
                     $("#" + button_id).addClass("selected");
                 }
+
+                $('#toggle-button').click(function () {
+                    $("#toggle-block").slideToggle("slow");
+                });
             });
         </script>
 

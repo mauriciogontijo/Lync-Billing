@@ -182,6 +182,7 @@
     <Content Include="ui\resources\js\stacktrace.js" />
     <Content Include="ui\sysadmin\users\depheads.aspx" />
     <Content Include="ui\sysadmin\users\sysroles.aspx" />
+    <Content Include="ui\test\testing_toggles.aspx" />
     <Content Include="ui\user\bills.aspx" />
     <Content Include="ui\user\dashboard.aspx" />
     <Content Include="ui\user\addressbook.aspx" />
@@ -503,6 +504,13 @@
     <Compile Include="ui\sysadmin\users\sysroles.aspx.designer.cs">
       <DependentUpon>sysroles.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ui\test\testing_toggles.aspx.cs">
+      <DependentUpon>testing_toggles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ui\test\testing_toggles.aspx.designer.cs">
+      <DependentUpon>testing_toggles.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ui\user\bills.aspx.cs">
       <DependentUpon>bills.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -568,9 +576,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ui\test\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
