@@ -38,13 +38,26 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#toggle-button').click(function () {
-                    event.preventDefault();
                     $("#toggle-block").slideToggle("slow");
+
+                    event.preventDefault();
                 });
 
                 $('#toggle-button-2').click(function () {
-                    event.preventDefault();
                     $("#toggle-block").slideToggle("slow");
+
+                    event.preventDefault();
+                });
+
+                $("#top-down-slider-button").click(function () {
+                    var block = $("#top-down-slider-block");
+
+                    if(block.css("display") == "none")
+                        block.slideDown("slow");
+                    else
+                        block.slideUp("slow");
+
+                    event.preventDefault();
                 });
             });
         </script>
@@ -72,6 +85,18 @@
 
                 <div class="clear mb20">
                     <p class="black-font">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet enim et purus lobortis fringilla. Nullam tincidunt velit sed erat commodo, id pretium nibh posuere. Aenean sit amet neque sodales, accumsan tellus at, euismod leo. Vestibulum dapibus eleifend dui, sed hendrerit magna facilisis vitae. Aliquam mattis libero sit amet sem iaculis, vitae molestie tortor semper. Proin at pulvinar turpis, ac sollicitudin lorem. Morbi quis diam iaculis, molestie felis ac, cursus purus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam vitae dignissim purus. Donec massa magna, lobortis at imperdiet vel, tempus porta lacus. Aenean consectetur, tellus nec aliquet luctus, libero diam dapibus leo, in congue elit purus eget odio. Aliquam nisi est, ultrices sed hendrerit in, fringilla id mi. Praesent euismod quam metus, placerat iaculis tellus posuere quis. Donec in lacus justo. Proin non nulla eget sapien ornare rutrum.</p>
+                </div>
+
+                <div class="clear h20"></div>
+
+                <div id="special-slider-container" class="top-down-slider-container">
+                    <div id="top-down-slider-block" class="top-down-slider-block float-right">
+                        <p class="black-font">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet enim et purus lobortis fringilla. Nullam tincidunt velit sed erat commodo, id pretium nibh posuere. Aenean sit amet neque sodales, accumsan tellus at, euismod leo. Vestibulum dapibus eleifend dui, sed hendrerit magna facilisis vitae. Aliquam mattis libero sit amet sem iaculis, vitae molestie tortor semper. Proin at pulvinar turpis, ac sollicitudin lorem. Morbi quis diam iaculis, molestie felis ac, cursus purus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam vitae dignissim purus. Donec massa magna, lobortis at imperdiet vel, tempus porta lacus. Aenean consectetur, tellus nec aliquet luctus, libero diam dapibus leo, in congue elit purus eget odio. Aliquam nisi est, ultrices sed hendrerit in, fringilla id mi. Praesent euismod quam metus, placerat iaculis tellus posuere quis. Donec in lacus justo. Proin non nulla eget sapien ornare rutrum.</p>
+                    </div>
+
+                    <div class="top-down-slider-button float-right" style="">
+                        <a href="#" id="top-down-slider-button">special slide</a>
+                    </div>
                 </div>
             </div>
 
