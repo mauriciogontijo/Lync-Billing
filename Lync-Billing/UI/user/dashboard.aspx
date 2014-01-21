@@ -3,7 +3,7 @@
 <asp:Content ID="HeaderContentPlaceholder" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         function showCustomSettingsBlock() {
-            $("#custom-settings-block").slideToggle("slow");
+            $("#custom-settings-block").slideToggle(500);
         }
 
         //Pie Chart Data-Lable Renderer for Countries Destinations Calls
@@ -196,7 +196,7 @@
             Editable="false"
             FieldLabel="Quarter"
             Width="270"
-            LabelWidth="50"
+            LabelWidth="55"
             LabelSeparator=":"
             Hidden="true"
             Margins="0 20 0 0"
