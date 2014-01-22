@@ -256,11 +256,11 @@ namespace Lync_Billing.ui.user
 
                 if (selectedValue == Convert.ToInt32(Enums.GetValue(Enums.SpecialDateTime.OneYearAgoFromToday)))
                 {
-                    CustomizeStats_Quarters.Hide();
+                    CustomizeStats_Quarters.Disabled = true;
                 }
                 else
                 {
-                    CustomizeStats_Quarters.Show();
+                    CustomizeStats_Quarters.Disabled = false;
                 }
             }
         }

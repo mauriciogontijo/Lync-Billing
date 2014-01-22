@@ -198,7 +198,7 @@
             Width="270"
             LabelWidth="55"
             LabelSeparator=":"
-            Hidden="true"
+            Disabled="true"
             Margins="0 20 0 0"
             ComponentCls="fix-ui-vertical-align float-left">
             <Store>
