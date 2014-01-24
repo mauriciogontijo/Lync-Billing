@@ -517,8 +517,8 @@
                                         Editable="true"
                                         EmptyText="Please Select Site"
                                         FieldLabel="Site:"
-                                        LabelWidth="125"
-                                        Width="350"
+                                        LabelWidth="100"
+                                        Width="380"
                                         Hidden="true">
                                         <Store>
                                             <ext:Store ID="SitesListStore" runat="server" OnLoad="SitesListStore_Load">

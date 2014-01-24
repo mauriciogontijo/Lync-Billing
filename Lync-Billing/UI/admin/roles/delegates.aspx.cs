@@ -19,10 +19,10 @@ namespace Lync_Billing.ui.admin.roles
         private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
 
-        private List<Site> sitesList = new List<Site>();
-        private List<SitesDepartments> departmentsList = new List<SitesDepartments>();
-        private List<DelegateRole> delegeesList = new List<DelegateRole>();
-        private Dictionary<string, int> delegeeTypes = new Dictionary<string, int>();
+        private static List<Site> sitesList;
+        private static List<SitesDepartments> departmentsList;
+        private static List<DelegateRole> delegeesList;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -45,33 +45,22 @@ namespace Lync_Billing.ui.admin.roles
 
             sipAccount = session.NormalUserInfo.SipAccount;
 
-            //Getting sites, departments, and delegates
-            Dictionary<string, object> whereClause = new Dictionary<string, object>();
-
-            sitesList = Backend.Site.GetUserRoleSites(session.SystemRoles, allowedRoleName);
-
-            //whereClause.Add(Enums.GetDescription(Enums.SitesDepartmnets.SiteID), sitesList.Sele);
-            departmentsList = SitesDepartments.GetSitesDepartments();
-            delegeesList = DelegateRole.GetDelegees();
+            GetSitesDepartmentsAndDelegeesData();
         }
 
-        protected void GetDelegates(object sender, DirectEventArgs e)
+
+        private void GetSitesDepartmentsAndDelegeesData()
         {
-            List<DelegateRole> selectedSitesDelegees;
+            if(sitesList == null || sitesList.Count < 1)
+                sitesList = Backend.Site.GetUserRoleSites(session.SystemRoles, allowedRoleName);
 
-            if (FilterDelegatesBySite.SelectedItem.Index != -1)
-            {
-                int siteID = Convert.ToInt32(FilterDelegatesBySite.SelectedItem.Value);
-                
-                List<string> usersPersite = GetUsersPerSite(siteID);
+            if(departmentsList == null || departmentsList.Count < 1)
+                departmentsList = SitesDepartments.GetSitesDepartments();
 
-                selectedSitesDelegees = delegeesList.Where(item => siteID == item.SiteID || usersPersite.Contains(item.SipAccount) || usersPersite.Contains(item.DelegeeSipAccount)).ToList();
-
-                ManageDelegatesGrid.GetStore().ClearFilter();
-                ManageDelegatesGrid.GetStore().DataSource = selectedSitesDelegees;
-                ManageDelegatesGrid.GetStore().DataBind();
-            }
+            if(delegeesList == null || delegeesList.Count < 1)
+                delegeesList = DelegateRole.GetDelegees();
         }
+
 
         private List<string> GetUsersPerSite(int siteID)
         {
@@ -91,6 +80,25 @@ namespace Lync_Billing.ui.admin.roles
             }
 
             return usersList;
+        }
+        
+        
+        protected void GetDelegates(object sender, DirectEventArgs e)
+        {
+            List<DelegateRole> selectedSitesDelegees;
+
+            if (FilterDelegatesBySite.SelectedItem.Index != -1)
+            {
+                int siteID = Convert.ToInt32(FilterDelegatesBySite.SelectedItem.Value);
+                
+                List<string> usersPersite = GetUsersPerSite(siteID);
+
+                selectedSitesDelegees = delegeesList.Where(item => siteID == item.SiteID || usersPersite.Contains(item.SipAccount) || usersPersite.Contains(item.DelegeeSipAccount)).ToList();
+
+                ManageDelegatesGrid.GetStore().ClearFilter();
+                ManageDelegatesGrid.GetStore().DataSource = selectedSitesDelegees;
+                ManageDelegatesGrid.GetStore().DataBind();
+            }
         }
 
 

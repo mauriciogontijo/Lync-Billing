@@ -19,10 +19,10 @@ namespace Lync_Billing.ui.admin.roles
         private string sipAccount = string.Empty;
         private string allowedRoleName = Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin);
 
-        private List<Users> allUsers = new List<Users>();
-        private List<Site> allSites = new List<Site>();
-        private List<SitesDepartments> allDepartments = new List<SitesDepartments>();
-        private List<DepartmentHeadRole> allDepartmenHeads = new List<DepartmentHeadRole>();
+        private static List<Site> sitesList;
+        private static List<SitesDepartments> departmentsList;
+        private static List<DepartmentHeadRole> departmenHeadsList;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -45,9 +45,20 @@ namespace Lync_Billing.ui.admin.roles
 
             sipAccount = session.NormalUserInfo.SipAccount;
 
-            allSites = Backend.Site.GetAllSites();
-            allDepartments = SitesDepartments.GetSitesDepartments();
-            allDepartmenHeads = DepartmentHeadRole.GetDepartmentHeads();
+            GetSitesDepartmentsAndDelegeesData();
+        }
+
+
+        private void GetSitesDepartmentsAndDelegeesData()
+        {
+            if (sitesList == null || sitesList.Count < 1)
+                sitesList = Backend.Site.GetUserRoleSites(session.SystemRoles, allowedRoleName);
+
+            if (departmentsList == null || departmentsList.Count < 1)
+                departmentsList = SitesDepartments.GetSitesDepartments();
+
+            if (departmenHeadsList == null || departmenHeadsList.Count < 1)
+                departmenHeadsList = DepartmentHeadRole.GetDepartmentHeads();
         }
 
 
@@ -56,7 +67,7 @@ namespace Lync_Billing.ui.admin.roles
             List<Users> users = new List<Users>();
             List<string> usersList = new List<string>();
 
-            var siteObject = allSites.Find(site => site.SiteID == siteID);
+            var siteObject = sitesList.Find(site => site.SiteID == siteID);
 
             users = Users.GetUsers(siteID);
 
@@ -82,7 +93,7 @@ namespace Lync_Billing.ui.admin.roles
 
                 List<string> usersPersite = GetUsersPerSite(siteID);
 
-                selectedSiteDepartmentHeads = allDepartmenHeads.Where(item => usersPersite.Contains(item.SipAccount)).ToList();
+                selectedSiteDepartmentHeads = departmenHeadsList.Where(item => usersPersite.Contains(item.SipAccount)).ToList();
 
                 ManageDepartmentHeadsGrid.GetStore().ClearFilter();
                 ManageDepartmentHeadsGrid.GetStore().DataSource = selectedSiteDepartmentHeads;
@@ -92,8 +103,8 @@ namespace Lync_Billing.ui.admin.roles
 
         protected void DepartmentHeadsSitesStore_Load(object sender, EventArgs e)
         {
-            FilterDepartmentHeadsBySite.GetStore().DataSource = allSites;
-            FilterDepartmentHeadsBySite.GetStore().LoadData(allSites);
+            FilterDepartmentHeadsBySite.GetStore().DataSource = sitesList;
+            FilterDepartmentHeadsBySite.GetStore().LoadData(sitesList);
         }
 
 
@@ -133,14 +144,14 @@ namespace Lync_Billing.ui.admin.roles
 
         protected void NewDepartmentHead_SitesListStore_Load(object sender, EventArgs e)
         {
-            NewDepartmentHead_SitesList.GetStore().DataSource = allSites;
-            NewDepartmentHead_SitesList.GetStore().LoadData(allSites);
+            NewDepartmentHead_SitesList.GetStore().DataSource = sitesList;
+            NewDepartmentHead_SitesList.GetStore().LoadData(sitesList);
         }
 
         protected void NewDepartmentHead_SitesList_Selected(object sender, EventArgs e)
         {
             int siteID = Convert.ToInt32(NewDepartmentHead_SitesList.SelectedItem.Value);
-            var selectedSiteDepartments = allDepartments.Where(department => department.SiteID == siteID).ToList<SitesDepartments>();
+            var selectedSiteDepartments = departmentsList.Where(department => department.SiteID == siteID).ToList<SitesDepartments>();
 
             NewDepartmentHead_DepartmentsList.ClearValue();
             NewDepartmentHead_DepartmentsList.Clear();
@@ -211,7 +222,7 @@ namespace Lync_Billing.ui.admin.roles
                 var DepartmentHeadUserAccount = Users.GetUser(DepartmentHeadSipAccount);
                 
                 //Check for duplicates
-                if (allDepartmenHeads.Find(item => item.SipAccount == DepartmentHeadSipAccount) != null)
+                if (departmenHeadsList.Find(item => item.SipAccount == DepartmentHeadSipAccount) != null)
                 {
                     statusMessage = "Cannot add duplicate Department Heads!";
                 }
