@@ -214,14 +214,14 @@
                                         </div>
                                     </div>
                                     
-                                    <div class='sidebar-section'>
+                                    <%--<div class='sidebar-section'>
                                         <div class="sidebar-section-header">
                                             <p>Statistics</p>
                                         </div>
                                         <div class="sidebar-section-body">
                                             <p><a href='#' id="ui_admin_main_statistics">View Statistics</a></p>
                                         </div>
-                                    </div>
+                                    </div>--%>
                                 </Content>
                             </ext:Panel>
                         </div>
