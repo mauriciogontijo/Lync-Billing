@@ -46,9 +46,10 @@ namespace Lync_Billing.ui.admin.gateways
 
             sipAccount = session.NormalUserInfo.SipAccount;
 
-            SitesStore.DataSource = Backend.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin));
+            SitesStore.DataSource = Backend.Site.GetUserRoleSites(session.SystemRoles, allowedRoleName);
             SitesStore.DataBind();
         }
+
         
         protected void UpdateEdited_DirectEvent(object sender, DirectEventArgs e)
         {

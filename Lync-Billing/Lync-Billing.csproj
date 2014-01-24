@@ -114,7 +114,6 @@
     <Content Include="ui\accounting\main\disputed.aspx" />
     <Content Include="ui\accounting\reports\monthly.aspx" />
     <Content Include="ui\accounting\reports\periodical.aspx" />
-    <Content Include="ui\admin\gateways\manage.aspx" />
     <Content Include="ui\admin\gateways\rates.aspx" />
     <Content Include="ui\admin\main\configuration.aspx" />
     <Content Include="ui\admin\main\dashboard.aspx" />
@@ -258,13 +257,6 @@
     </Compile>
     <Compile Include="ui\accounting\main\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ui\admin\gateways\manage.aspx.cs">
-      <DependentUpon>manage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ui\admin\gateways\manage.aspx.designer.cs">
-      <DependentUpon>manage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ui\admin\gateways\rates.aspx.cs">
       <DependentUpon>rates.aspx</DependentUpon>

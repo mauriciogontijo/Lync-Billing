@@ -179,7 +179,7 @@
                         <div class="block-body">
                             <ext:Panel ID="SiteAdminSidebar"
                                 runat="server"
-                                Height="440"
+                                Height="420"
                                 Width="180"
                                 Title="Navigation"
                                 Collapsed="false"
@@ -200,7 +200,6 @@
                                             <p>Gateways</p>
                                         </div>
                                         <div class="sidebar-section-body">
-                                            <p><a href='../gateways/manage.aspx' id="ui_admin_gateways_manage">Manage Gateways</a></p>
                                             <p><a href='../gateways/rates.aspx' id="ui_admin_gateways_rates">Manage Rates</a></p>
                                         </div>
                                     </div>
