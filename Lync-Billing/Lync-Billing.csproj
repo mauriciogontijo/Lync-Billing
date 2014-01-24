@@ -105,7 +105,6 @@
     <Content Include="favicon.ico" />
     <Content Include="ui\resources\images\favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="ui\resources\images\favicon.png" />
     <Content Include="index.aspx" />
     <Content Include="Libs\BillingAPI.asmx" />
     <Content Include="Resources\Csv.xsl" />
@@ -125,10 +124,6 @@
     <Content Include="ui\delegee\site\phonecalls.aspx" />
     <Content Include="ui\dephead\main\dashboard.aspx" />
     <Content Include="ui\dephead\users\phonecalls.aspx" />
-    <Content Include="ui\resources\images\ibill_24.png" />
-    <Content Include="ui\resources\images\ibill_32.png" />
-    <Content Include="ui\resources\images\ibill_48.png" />
-    <Content Include="ui\resources\images\ibill_64.png" />
     <Content Include="ui\resources\images\tool-bg-2.png" />
     <Content Include="ui\resources\images\tool-bg_20x40.png" />
     <Content Include="ui\resources\js\feedback.js" />
@@ -171,9 +166,7 @@
     <Content Include="ui\resources\css\reset.css" />
     <Content Include="ui\resources\css\toolkit.css" />
     <Content Include="ui\session\logout.aspx" />
-    <Content Include="ui\resources\images\mybills.png" />
     <Content Include="ui\resources\images\navbar-bg.gif" />
-    <Content Include="ui\resources\images\phonecalls.png" />
     <Content Include="ui\resources\images\settings.png" />
     <Content Include="ui\resources\js\browserdetector.js" />
     <Content Include="ui\resources\js\ext-all.js" />
