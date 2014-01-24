@@ -391,7 +391,7 @@ namespace Lync_Billing.Backend.Summaries
         /// <param name="response">The response stream on which to write the file</param>
         /// <param name="document">The source pdf document object</param>
         /// <param name="headers">The pdf document headers</param>
-        public static void ExportUsersCallsSummaryToPDF(string siteName, DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers, bool invoicedStatus = false)
+        public static void ExportUsersCallsSummaryToPDF(string siteName, DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers, bool chargedCalls = false, bool pendingChargesCalls = false, bool notChargedCalls = false)
         {
             //THE PDF REPORT PROPERTIES
             PDFReportsPropertiesSection section = ((PDFReportsPropertiesSection)ConfigurationManager.GetSection(PDFReportsPropertiesSection.ConfigurationSectionName));
@@ -420,11 +420,25 @@ namespace Lync_Billing.Backend.Summaries
 
 
             //Get the report content from the database with the following function parameters, where statement and group by fields.
+            if (chargedCalls == true && (notChargedCalls == false && pendingChargesCalls == false))
+            {
+                wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.AC_IsInvoiced), "YES");
+            }
+            else if (notChargedCalls == true && (chargedCalls == false && pendingChargesCalls == false))
+            {
+                wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.AC_IsInvoiced), "NO");
+            }
+            else if (pendingChargesCalls == true && (notChargedCalls == false && chargedCalls == false))
+            {
+                wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.AC_IsInvoiced), "N/A");
+            }
+
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty), UsersCollection.Keys.ToList<string>());
+
             functionParams.Add(siteName);
             functionParams.Add(startingDate);
             functionParams.Add(endingDate);
 
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty), UsersCollection.Keys.ToList<string>());
 
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart);
 
@@ -464,7 +478,7 @@ namespace Lync_Billing.Backend.Summaries
         /// <param name="response">The response stream on which to write the document</param>
         /// <param name="document">The source pdf document object</param>
         /// <param name="headers">The pdf document header texts</param>
-        public static void ExportUsersCallsDetailedToPDF(string siteName, DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers, bool invoicedStatus = false)
+        public static void ExportUsersCallsDetailedToPDF(string siteName, DateTime startingDate, DateTime endingDate, Dictionary<string, Dictionary<string, object>> UsersCollection, HttpResponse response, out Document document, Dictionary<string, string> headers, bool chargedCalls = false, bool pendingChargesCalls = false, bool notChargedCalls = false)
         {
             //THE PDF REPORT PROPERTIES
             PDFReportsPropertiesSection section = ((PDFReportsPropertiesSection)ConfigurationManager.GetSection(PDFReportsPropertiesSection.ConfigurationSectionName));
@@ -491,7 +505,23 @@ namespace Lync_Billing.Backend.Summaries
 
             //Database query related
             functionParams.Add(siteName);
-            
+
+            if (chargedCalls == true && (notChargedCalls == false && pendingChargesCalls == false))
+            {
+                wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.AC_IsInvoiced), "YES");
+            }
+            else if (notChargedCalls == true && (chargedCalls == false && pendingChargesCalls == false))
+            {
+                wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.AC_IsInvoiced), "NO");
+            }
+            else if (pendingChargesCalls == true && (notChargedCalls == false && chargedCalls == false))
+            {
+                wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.AC_IsInvoiced), "N/A");
+            }
+
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty), UsersCollection.Keys.ToList<string>());
+            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime), String.Format("BETWEEN '{0}' AND '{1}'", startingDate, endingDate));
+
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.ChargingParty));
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime));
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallToCountry));
@@ -500,11 +530,10 @@ namespace Lync_Billing.Backend.Summaries
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.Marker_CallCost));
             columnsList.Add(Enums.GetDescription(Enums.PhoneCalls.UI_CallType));
 
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCallSummary.ChargingParty), UsersCollection.Keys.ToList<string>());
-            wherePart.Add(Enums.GetDescription(Enums.PhoneCalls.ResponseTime), String.Format("BETWEEN '{0}' AND '{1}'", startingDate, endingDate));
 
             //The PDF report body contents
             dt = DBRoutines.SELECT_FROM_FUNCTION(databaseFunction, functionParams, wherePart, selectColumnsList: columnsList);
+
 
             //Get the collection of users' summaries.
             Dictionary<string, UserCallsSummary> UsersSummaires = UserCallsSummary.GetUsersCallsSummaryInSite(siteName, UsersCollection.Keys.ToList(), startingDate, endingDate);

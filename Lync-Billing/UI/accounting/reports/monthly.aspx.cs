@@ -178,8 +178,6 @@ namespace Lync_Billing.ui.accounting.reports
 
         protected void MonthlyReportsStore_SubmitData(object sender, StoreSubmitDataEventArgs e)
         {
-            int callsType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
-
             DateTime beginningOfTheMonth;
             DateTime endOfTheMonth;
             Document pdfDocument;
@@ -202,8 +200,29 @@ namespace Lync_Billing.ui.accounting.reports
             SiteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
             SelectedSite = Backend.Site.GetSite(SiteID);
 
+            int callsType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
+            string callsTypeString = string.Empty;
 
+            
             this.Response.Clear();
+            
+            
+            switch(callsType)
+            {
+                case 1:
+                    callsTypeString = "Not Charged";
+                    break;
+                case 2:
+                    callsTypeString = "Pending Charges";
+                    break;
+                case 3:
+                    callsTypeString = "Charged";
+                    break;
+                default:
+                    callsTypeString = "Not Charged";
+                    break;
+            }
+            
 
             switch (format)
             {
@@ -238,8 +257,8 @@ namespace Lync_Billing.ui.accounting.reports
 
                     //Initialize the response.
                     pdfReportFileName = string.Format(
-                        "{0}_Monthly_Summary_Report_{1}.pdf",
-                        SelectedSite.SiteName.ToUpper(), beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year
+                        "{0}_Monthly_Summary_Report_{1}_{2}.pdf",
+                        SelectedSite.SiteName.ToUpper(), beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year, callsTypeString
                     );
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=" + pdfReportFileName);
@@ -249,11 +268,18 @@ namespace Lync_Billing.ui.accounting.reports
                     {
                         {"siteName", SelectedSite.SiteName},
                         {"title", "Accounting Monthly Report [Summary]"},
-                        {"subTitle", "As Per: " + beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year}
+                        {"subTitle", String.Format("As Per: {0}; {1}", beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year, callsTypeString)}
                     };
 
                     pdfDocument = new Document();
-                    UserCallsSummary.ExportUsersCallsSummaryToPDF(SelectedSite.SiteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, invoicedStatus: true);
+                    
+                    if(callsType == 1)
+                        UserCallsSummary.ExportUsersCallsSummaryToPDF(SelectedSite.SiteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, notChargedCalls: true);
+                    else if(callsType == 2)
+                        UserCallsSummary.ExportUsersCallsSummaryToPDF(SelectedSite.SiteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, pendingChargesCalls: true);
+                    else if (callsType == 3)
+                        UserCallsSummary.ExportUsersCallsSummaryToPDF(SelectedSite.SiteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, chargedCalls: true);
+
                     Response.Write(pdfDocument);
                     break;
 
@@ -279,8 +305,8 @@ namespace Lync_Billing.ui.accounting.reports
 
                     //Initialize the response.
                     pdfReportFileName = string.Format(
-                        "{0}_Monthly_Detailed_Report_{1}.pdf",
-                        SelectedSite.SiteName.ToUpper(), beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year
+                        "{0}_Monthly_Detailed_Report_{1}_{2}.pdf",
+                        SelectedSite.SiteName.ToUpper(), beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year, callsTypeString
                     );
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=" + pdfReportFileName);
@@ -290,11 +316,18 @@ namespace Lync_Billing.ui.accounting.reports
                     {
                         {"siteName", SelectedSite.SiteName},
                         {"title", "Accounting Monthly Report [Detailed]"},
-                        {"subTitle", "As Per: " + beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year}
+                        {"subTitle", String.Format("As Per: {0}; {1}", beginningOfTheMonth.Month + "-" + beginningOfTheMonth.Year, callsTypeString)}
                     };
 
                     pdfDocument = new Document();
-                    UserCallsSummary.ExportUsersCallsDetailedToPDF(SelectedSite.SiteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, invoicedStatus: true);
+
+                    if (callsType == 1)
+                        UserCallsSummary.ExportUsersCallsDetailedToPDF(SelectedSite.SiteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, notChargedCalls: true);
+                    else if (callsType == 2)
+                        UserCallsSummary.ExportUsersCallsDetailedToPDF(SelectedSite.SiteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, pendingChargesCalls: true);
+                    else if (callsType == 3)
+                        UserCallsSummary.ExportUsersCallsDetailedToPDF(SelectedSite.SiteName, beginningOfTheMonth, endOfTheMonth, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, chargedCalls: true);
+
                     Response.Write(pdfDocument);
                     break;
             }

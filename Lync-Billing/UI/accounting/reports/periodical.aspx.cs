@@ -236,8 +236,28 @@ namespace Lync_Billing.ui.accounting.reports
             SiteID = Convert.ToInt32(FilterReportsBySite.SelectedItem.Value);
             SelectedSite = Backend.Site.GetSite(SiteID);
 
+            int callsType = Convert.ToInt32(CallsTypesComboBox.SelectedItem.Value);
+            string callsTypeString = string.Empty;
+
 
             this.Response.Clear();
+
+
+            switch (callsType)
+            {
+                case 1:
+                    callsTypeString = "Not Charged";
+                    break;
+                case 2:
+                    callsTypeString = "Pending Charges";
+                    break;
+                case 3:
+                    callsTypeString = "Charged";
+                    break;
+                default:
+                    callsTypeString = "Not Charged";
+                    break;
+            }
 
             switch (format)
             {
@@ -267,8 +287,10 @@ namespace Lync_Billing.ui.accounting.reports
                     }
 
                     pdfReportFileName = string.Format(
-                        "{0}_Periodical_Summary_Report_{1}.pdf",
-                        SelectedSite.SiteName.ToUpper(), StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + "--" + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year
+                        "{0}_Periodical_Summary_Report_{1}_{2}.pdf",
+                        SelectedSite.SiteName.ToUpper(), 
+                        StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + "---" + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year, 
+                        callsTypeString
                     );
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=" + pdfReportFileName);
@@ -278,11 +300,22 @@ namespace Lync_Billing.ui.accounting.reports
                     {
                         {"siteName", SelectedSite.SiteName},
                         {"title", "Accounting Perdiodical Report [Summary]"},
-                        {"subTitle", "From " + StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + ", to " + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year}
+                        {"subTitle", String.Format("From {0}, To {1}; {2}", 
+                                        StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year, 
+                                        EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year, 
+                                        callsTypeString)
+                        }
                     };
 
                     Document doc = new Document();
-                    UserCallsSummary.ExportUsersCallsSummaryToPDF(SelectedSite.SiteName, StartingDate.SelectedDate, EndingDate.SelectedDate, UsersCollection, Response, out doc, headers);
+
+                    if (callsType == 1)
+                        UserCallsSummary.ExportUsersCallsSummaryToPDF(SelectedSite.SiteName, StartingDate.SelectedDate, EndingDate.SelectedDate, UsersCollection, Response, out doc, headers, notChargedCalls: true);
+                    else if(callsType == 2)
+                        UserCallsSummary.ExportUsersCallsSummaryToPDF(SelectedSite.SiteName, StartingDate.SelectedDate, EndingDate.SelectedDate, UsersCollection, Response, out doc, headers, pendingChargesCalls: true);
+                    else if (callsType == 3)
+                        UserCallsSummary.ExportUsersCallsSummaryToPDF(SelectedSite.SiteName, StartingDate.SelectedDate, EndingDate.SelectedDate, UsersCollection, Response, out doc, headers, chargedCalls: true);
+
                     Response.Write(doc);
                     break;
 
@@ -307,8 +340,10 @@ namespace Lync_Billing.ui.accounting.reports
 
                     //Initialize the response.
                     pdfReportFileName = string.Format(
-                        "{0}_Periodical_Detailed_Report_{1}.pdf",
-                        SelectedSite.SiteName.ToUpper(), StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + "--" + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year
+                        "{0}_Periodical_Detailed_Report_{1}_{2}.pdf",
+                        SelectedSite.SiteName.ToUpper(),
+                        StartingDate.SelectedDate.Month + "-" + StartingDate.SelectedDate.Year + "---" + EndingDate.SelectedDate.Month + "-" + EndingDate.SelectedDate.Year,
+                        callsTypeString
                     );
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("content-disposition", "attachment;filename=" + pdfReportFileName);
@@ -318,11 +353,22 @@ namespace Lync_Billing.ui.accounting.reports
                     {
                         {"siteName", SelectedSite.SiteName},
                         {"title", "Accounting Periodical Report [Detailed]"},
-                        {"subTitle", "From: " + startDate.Month + "-" + startDate.Year + ", to: " + endDate.Month + "-" + endDate.Year + "."}
+                        {"subTitle", String.Format("From {0}, To {1}; {2}", 
+                                        startDate.Month + "-" + startDate.Year,
+                                        endDate.Month + "-" + endDate.Year,
+                                        callsTypeString)
+                        }
                     };
 
                     pdfDocument = new Document();
-                    UserCallsSummary.ExportUsersCallsDetailedToPDF(SelectedSite.SiteName, startDate, endDate, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders);
+
+                    if(callsType == 1)
+                        UserCallsSummary.ExportUsersCallsDetailedToPDF(SelectedSite.SiteName, startDate, endDate, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, notChargedCalls: true);
+                    else if(callsType == 2)
+                        UserCallsSummary.ExportUsersCallsDetailedToPDF(SelectedSite.SiteName, startDate, endDate, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, pendingChargesCalls: true);
+                    else if (callsType == 3)
+                        UserCallsSummary.ExportUsersCallsDetailedToPDF(SelectedSite.SiteName, startDate, endDate, UsersCollection, Response, out pdfDocument, pdfDocumentHeaders, chargedCalls: true);
+
                     Response.Write(pdfDocument);
                     break;
             }
