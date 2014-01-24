@@ -174,7 +174,7 @@
                         </div>
                         <!--end toolbar right nav-->
                         <div class="col size1of3 lastcol">
-                            <a class="logo fl" href='../user/dashboard.aspx'><img src="../resources/images/ibill_48.png" /></a>
+                            <a class="logo fl bold" href='../user/dashboard.aspx'>iBill</a>
                         </div>
                     </div>
                     <!--end toolbar wrapper--> 
@@ -186,7 +186,7 @@
                         <div class="col size1of2 "></div>
                         <!--end toolbar right nav-->
                         <div class="col size1of2 lastcol">
-                            <a class="logo fl" href='../user/dashboard.aspx'><img src="../resources/images/ibill_48.png" /></a>
+                            <a class="logo fl bold" href='../user/dashboard.aspx'>iBill</a>
                         </div>
                     </div>
                     <!--end toolbar wrapper--> 
@@ -265,8 +265,7 @@
                 <div class='clear'></div>
                 
 		        <div id='footer' class='footer-container bottom-rounded top-rounded'>
-                    <p>CCC iBill, powered by MOA R&D.</p>
-                    <p>For any inquiries please contact the MOA HELPDESK (<a class="bold" href="mailto:helpdesk@ccc.gr">helpdesk@ccc.gr</a>).</p>
+                    <p>iBill - Lync Telephony Billing</p>
 		        </div>
 
                 <%--<div class="feedback">
