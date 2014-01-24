@@ -130,12 +130,17 @@ namespace Lync_Billing.ui.admin.roles
         {
             string searchTerm = string.Empty;
             List<Users> matchedUsers;
+            var sitesNames = sitesList.Select<Backend.Site, string>(site => site.SiteName).ToList<string>();
 
             if (NewDepartmentHead_UserSipAccount.Value != null && NewDepartmentHead_UserSipAccount.Value.ToString().Length > 3)
             {
                 searchTerm = NewDepartmentHead_UserSipAccount.Value.ToString();
 
                 matchedUsers = Users.SearchForUsers(searchTerm);
+
+                //Return only the users in this site who match the query
+                if (matchedUsers.Count > 0)
+                    matchedUsers = matchedUsers.Where(user => sitesNames.Contains(user.SiteName)).ToList();
 
                 NewDepartmentHead_UserSipAccount.GetStore().DataSource = matchedUsers;
                 NewDepartmentHead_UserSipAccount.GetStore().LoadData(matchedUsers);

@@ -157,11 +157,7 @@ namespace Lync_Billing.Backend
             DataTable dt = new DataTable();
             List<Users> users = new List<Users>();
 
-            List<string> columns = new List<string>()
-            {
-                Enums.GetDescription(Enums.Users.DisplayName),
-                Enums.GetDescription(Enums.Users.SipAccount)
-            };
+            List<string> columns = new List<string>();
 
             Dictionary<string, object> wherePart = new Dictionary<string, object>()
             {

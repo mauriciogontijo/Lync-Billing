@@ -154,12 +154,17 @@ namespace Lync_Billing.ui.admin.roles
         {
             string searchTerm = string.Empty;
             List<Users> matchedUsers;
+            var sitesNames = sitesList.Select<Backend.Site, string>(site => site.SiteName).ToList<string>();
 
             if (NewDelegee_UserSipAccount.Value != null && NewDelegee_UserSipAccount.Value.ToString().Length > 3)
             {
                 searchTerm = NewDelegee_UserSipAccount.Value.ToString();
                 
                 matchedUsers = Users.SearchForUsers(searchTerm);
+
+                //Return only the users in this site who match the query
+                if (matchedUsers.Count > 0)
+                    matchedUsers = matchedUsers.Where(user => sitesNames.Contains(user.SiteName)).ToList();
 
                 NewDelegee_UserSipAccount.GetStore().DataSource = matchedUsers;
                 NewDelegee_UserSipAccount.GetStore().LoadData(matchedUsers);
@@ -171,12 +176,17 @@ namespace Lync_Billing.ui.admin.roles
         {
             string searchTerm = string.Empty;
             List<Users> matchedUsers;
+            var sitesNames = sitesList.Select<Backend.Site, string>(site => site.SiteName).ToList<string>();
 
             if (NewDelegee_DelegeeSipAccount.Value != null && NewDelegee_DelegeeSipAccount.Value.ToString().Length > 3)
             {
                 searchTerm = NewDelegee_DelegeeSipAccount.Value.ToString();
 
                 matchedUsers = Users.SearchForUsers(searchTerm);
+
+                //Return only the users in this site who match the query
+                if (matchedUsers.Count > 0)
+                    matchedUsers = matchedUsers.Where(user => sitesNames.Contains(user.SiteName)).ToList();
 
                 NewDelegee_DelegeeSipAccount.GetStore().DataSource = matchedUsers;
                 NewDelegee_DelegeeSipAccount.GetStore().LoadData(matchedUsers);
