@@ -43,7 +43,7 @@ namespace Lync_Billing.Backend.Roles
             DepartmentHeadRole departmentHead;
             List<DepartmentHeadRole> ListOfDepartmentHeads = new List<DepartmentHeadRole>();
 
-            //Used to retrieve users full-names.
+            //Used to retrieve listOfUsers full-names.
             List<Users> allUsersInfo = Users.GetUsers(null, null, 0);
 
             //Get the data from the database
