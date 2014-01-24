@@ -80,19 +80,9 @@ namespace Lync_Billing.ui.session
             AuthenticationMessage = msg;
 
 
-            //email.Text = "aalhour@ccc.gr";
-            //status = true;
-
-
             if (status == true)
             {
                 userInfo = Users.GetUserInfo(email.Text);
-                
-                /** ----
-                 * To impersonate user identity 
-                 *  userInfo = Users.GetUserInfo("aalhour@ccc.gr");
-                 /* -------
-                 */
                 
                 // Users Information was found in active directory
                 if (!userInfo.Equals(null))

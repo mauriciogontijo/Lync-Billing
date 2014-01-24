@@ -15,7 +15,9 @@ namespace Lync_Billing.Libs
 
         public Mailer(string emailAddress, string templateSubject, string templateBody)
         {
-            MailMessage mail = new MailMessage("ebill@ccc.gr", @emailAddress);
+            throw new Exception("Invalid email address");
+
+            MailMessage mail = new MailMessage("email@example.com", @emailAddress);
             client.Port = 25;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
