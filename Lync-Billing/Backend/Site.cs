@@ -210,7 +210,7 @@ namespace Lync_Billing.Backend
                 return Backend.Site.GetAllSites();
             }
 
-            else if (Enums.GetDescription(Enums.ValidRoles.IsSystemAdmin) == enumValidRole)
+            else if (Enums.GetDescription(Enums.ActiveRoleNames.SystemAdmin) == enumValidRole)
             {
                 tmpUserSites = userRoles.Where(item => item.IsSystemAdmin()).Select(item => item.SiteID).ToList();
 
@@ -222,7 +222,7 @@ namespace Lync_Billing.Backend
                 return sites;
             }
 
-            else if (Enums.GetDescription(Enums.ValidRoles.IsSiteAdmin) == enumValidRole)
+            else if (Enums.GetDescription(Enums.ActiveRoleNames.SiteAdmin) == enumValidRole)
             {
                 tmpUserSites = userRoles.Where(item => item.IsSiteAdmin()).Select(item => item.SiteID).ToList();
 
@@ -234,7 +234,7 @@ namespace Lync_Billing.Backend
                 return sites;
             }
 
-            else if (Enums.GetDescription(Enums.ValidRoles.IsSiteAccountant) == enumValidRole)
+            else if (Enums.GetDescription(Enums.ActiveRoleNames.SiteAccountant) == enumValidRole)
             {
                 tmpUserSites = userRoles.Where(item => item.IsSiteAccountant()).Select(item => item.SiteID).ToList();
 
