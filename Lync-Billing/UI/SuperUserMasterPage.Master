@@ -179,7 +179,7 @@
                         <div class="block-body">
                             <ext:Panel ID="SiteAdminSidebar"
                                 runat="server"
-                                Height="420"
+                                Height="340"
                                 Width="180"
                                 Title="Navigation"
                                 Collapsed="false"
