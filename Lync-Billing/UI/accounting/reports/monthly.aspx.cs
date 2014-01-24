@@ -54,7 +54,7 @@ namespace Lync_Billing.ui.accounting.reports
 
             sipAccount = session.NormalUserInfo.SipAccount;
             
-            //Get the list of sites for this accountant
+            //Get the list of AllSites for this accountant
             FilterReportsBySite.GetStore().DataSource = Backend.Site.GetUserRoleSites(session.SystemRoles, Enums.GetDescription(Enums.ValidRoles.IsSiteAccountant));
             FilterReportsBySite.GetStore().DataBind();
         }
